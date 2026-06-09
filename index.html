@@ -438,9 +438,9 @@ footer .legal{margin-top:2rem;border-top:1.6px solid rgba(254,246,228,.4);paddin
               </span>
               <button class="btn ink" id="demo-toggle" type="button" aria-expanded="false" aria-controls="demo-gate">Enter passcode <span class="arr">&rarr;</span></button>
               <div class="gate" id="demo-gate">
-                <label class="label" for="demo-code" style="display:block;margin:.1rem 0 .45rem">Password <span class="scrawl" style="text-transform:none;letter-spacing:0;color:var(--sambas);opacity:.7">&middot; members have it</span></label>
+                <label class="label" for="demo-code" style="display:block;margin:.1rem 0 .45rem">Passcode <span class="scrawl" style="text-transform:none;letter-spacing:0;color:var(--sambas);opacity:.7">&middot; format <code style="font-family:var(--f-mono,monospace)">username:password</code></span></label>
                 <form id="demo-form" autocomplete="off">
-                  <input id="demo-code" type="password" inputmode="text" placeholder="&bull;&bull;&bull;&bull;" aria-label="Demo password" aria-describedby="demo-msg" />
+                  <input id="demo-code" type="password" inputmode="text" placeholder="username:password" aria-label="Demo passcode in the form username colon password" aria-describedby="demo-msg" />
                   <button class="btn" type="submit">Unlock</button>
                 </form>
                 <p class="msg" id="demo-msg" role="status" aria-live="polite"></p>
@@ -483,20 +483,25 @@ const CONFIG = {
   circleUrl: "https://circle.drex.style",
   instagram: "https://instagram.com/drex.style",    // dummy
   demoHost:  "demo.drex.style",                      // the Basic-Auth-protected demo (host only, no https://)
-  demoUser:  "drex",                                 // Basic Auth USERNAME — set to the demo's real username
 };
-/* The demo sits behind HTTP Basic Auth. The visitor types the PASSWORD into the styled box and we
-   hand it to the browser as Basic Auth credentials via the URL (user:pass@host), so they skip the
-   native browser dialog. The password is NEVER stored in this page — it's whatever they type, and
-   the demo server itself validates it (a wrong one just yields the demo's own 401 prompt). */
+/* The demo sits behind HTTP Basic Auth. The visitor types their full credential as
+   "username:password" into the styled box; we split on the first colon and hand both parts to the
+   browser as Basic Auth credentials via the URL (user:pass@host), so they skip the native browser
+   dialog. NOTHING is stored in this page — the whole credential is whatever they type, and the demo
+   server itself validates it (a wrong one just yields the demo's own 401 prompt). */
 (function(){
   const t=document.getElementById('demo-toggle'),g=document.getElementById('demo-gate'),
         f=document.getElementById('demo-form'),i=document.getElementById('demo-code'),m=document.getElementById('demo-msg');
   t.addEventListener('click',()=>{const o=g.classList.toggle('open');t.setAttribute('aria-expanded',String(o));if(o)setTimeout(()=>i.focus(),60);});
   f.addEventListener('submit',e=>{e.preventDefault();
-    const pass=(i.value||'').trim(); if(!pass){i.focus();return;}
+    const raw=(i.value||'').trim(); if(!raw){i.focus();return;}
+    const idx=raw.indexOf(':');
+    if(idx<1||idx===raw.length-1){
+      m.textContent="use the format username:password"; m.className="msg err"; i.focus(); return;
+    }
+    const user=raw.slice(0,idx), pass=raw.slice(idx+1);
     m.textContent="opening the demo…"; m.className="msg ok";
-    location.href="https://"+encodeURIComponent(CONFIG.demoUser)+":"+encodeURIComponent(pass)+"@"+CONFIG.demoHost;
+    location.href="https://"+encodeURIComponent(user)+":"+encodeURIComponent(pass)+"@"+CONFIG.demoHost;
   });
 })();
 </script>

@@ -15,16 +15,17 @@ team polaroids.
 - `instagram` — real Instagram URL (currently the dummy `instagram.com/drex.style`; also appears as visible link text in the Instagram card + footer).
 - `circleUrl` — `https://circle.drex.style` (set).
 - `demoHost` — the demo's host, **no protocol** (e.g. `demo.drex.style`).
-- `demoUser` — the demo's HTTP **Basic Auth username**.
 
 ### How the Demo gate works (HTTP Basic Auth)
-The demo sits behind Basic Auth. The styled passcode box collects the **password**; on submit we
-navigate to `https://<demoUser>:<password>@<demoHost>`, which hands the browser the Basic Auth
-credentials so the visitor skips the native browser dialog.
+The demo sits behind Basic Auth. The styled passcode box collects the **full credential** in
+`username:password` form; on submit we split on the first colon and navigate to
+`https://<username>:<password>@<demoHost>`, which hands the browser the Basic Auth credentials so
+the visitor skips the native browser dialog.
 
-- The password is **never** in the page source — it's whatever the visitor types; the demo server
-  validates it (a wrong one just falls back to the demo's own 401 prompt).
-- Set `demoUser` to the demo's real Basic Auth username.
+- **Nothing** is in the page source — the whole credential is whatever the visitor types; the demo
+  server validates it (a wrong one just falls back to the demo's own 401 prompt).
+- Input without a colon (or with nothing on either side of it) is rejected client-side with a
+  `use the format username:password` hint.
 - **Caveat:** URL-embedded credentials work for top-level navigation in current desktop
   Chrome/Firefox/Safari, but it's a legacy mechanism — some browsers show a one-time confirm, the
   creds appear briefly in the address bar/history, and mobile browsers can be inconsistent. If it
