@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>drex. — bring your gifts into the world</title>
+<meta name="description" content="Drex is a community where you make zines together. Style is a practice, not a purchase. Communion over elitism." />
+<meta property="og:title" content="drex." />
+<meta property="og:description" content="A community that helps you bring your gifts into the world. Communion over elitism." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://drex.style" />
+<meta name="theme-color" content="#FEF6E4" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7438 6955'%3E%3Cg fill='%231CAB5B'%3E%3Cpath d='M3940.792,1923.474c0,-237.327 876.575,-942.689 1916.579,-954.143c144.631,-1.593 160.411,78.319 137.9,189.4c-30.08,148.427 -98.327,433.131 -98.327,433.131c0,0 65.273,764.946 -24.815,794.112c-90.088,29.167 -290.952,-256.255 -825.803,-386.398c-752.956,-183.213 -1105.535,77.059 -1105.535,-76.102Z'/%3E%3Cpath d='M3904.129,2226.95c9.277,-48.947 42.212,-89.528 87.203,-107.447c243.766,-86.69 1260.521,-180.52 2114.804,662.836c42.289,41.921 54.919,106.632 31.665,162.246c-102.058,276.752 -340.779,1190.09 53.749,2858.265c38.355,162.175 -103.782,235.401 -233.086,138.553c-532.234,-398.637 -1304.501,-567.736 -1930.825,-724.558c-48.189,-11.629 -86.868,-48.709 -101.742,-97.538c-70.176,-252.215 -255.758,-1651.265 -21.766,-2892.358Z'/%3E%3Cpath d='M3496.708,1923.474c0,-237.327 -876.575,-942.689 -1916.579,-954.143c-144.631,-1.593 -160.411,78.319 -137.9,189.4c30.08,148.427 98.327,433.131 98.327,433.131c0,0 -65.273,764.946 24.815,794.112c90.088,29.167 290.952,-256.255 825.803,-386.398c752.956,-183.213 1105.535,77.059 1105.535,-76.102Z'/%3E%3Cpath d='M3533.371,2226.95c-9.277,-48.947 -42.212,-89.528 -87.203,-107.447c-243.766,-86.69 -1260.521,-180.52 -2114.804,662.836c-42.289,41.921 -54.919,106.632 -31.665,162.246c102.058,276.752 340.779,1190.09 -53.749,2858.265c38.355,162.175 -103.782,235.401 -233.086,138.553c-532.234,-398.637 -1304.501,-567.736 -1930.825,-724.558c-48.189,-11.629 -86.868,-48.709 -101.742,-97.538c-70.176,-252.215 -255.758,-1651.265 21.766,-2892.358Z'/%3E%3C/g%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
+
+<style>
+/* =================================================================
+   Drex — drex.style — handmade ZINE / SCRAPBOOK landing
+   Built on backend-gstack/DESIGN.md (the web-app neo-skeuomorphic
+   "whimsymaxx" system): cut-paper cards w/ torn edges + ink borders
+   + HARD SOLID OFFSET registration shadows (never blurred, never a
+   gradient), washi tape, .splay tilts (littered, not a grid),
+   highlighter h1, wobbly marker underlines, rubber-stamp press-down
+   buttons, .scrawl (Patrick Hand) annotations, notebook+dot+grain
+   ground. Palette §4 only. The LOGO stays clean: upright, one solid
+   colour, no filter / shadow / tilt (brand §3.3).
+   ================================================================= */
+:root{
+  --grass:#1CAB5B; --oats:#FEF6E4; --sambas:#414D57; --colorado:#F75458;
+  --lazuli:#2496C9; --schoolbus:#ECAF21; --happy:#F1DD01;
+  --ink:#414D57;
+  --paper:#FEF6E4;            /* Oats — palette-pure; cards lift off the textured ground via torn ink border + hard shadow */
+  --f-slab:"Courier Prime",ui-monospace,monospace;  /* Pitch (display) */
+  --f-mono:"DM Mono",ui-monospace,monospace;         /* Pitch Sans (labels) */
+  --f-body:"Bitter",Georgia,serif;
+  --f-hand:"Patrick Hand",cursive;                   /* Birdie (scrawl) */
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;color:var(--ink);font-family:var(--f-body);font-weight:300;line-height:1.6;
+  font-size:clamp(1rem,.97rem + .25vw,1.13rem);overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  /* the table: dot grid + faint notebook rules + paper grain over Oats */
+  background-color:var(--oats);
+  background-image:
+    radial-gradient(rgba(65,77,87,.10) 1.1px, transparent 1.2px),
+    repeating-linear-gradient(0deg, transparent 0 33px, rgba(36,150,201,.09) 33px 34px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.45'/%3E%3C/svg%3E");
+  background-size:23px 23px, auto, 220px 220px;
+  background-blend-mode:normal, normal, multiply;
+}
+a{color:inherit}
+.wrap{max-width:1150px;margin:0 auto;padding-inline:clamp(1rem,4.5vw,3.5rem)}
+
+/* ---------- the cut-paper sheet (base material) ---------- */
+.paper{position:relative;isolation:isolate}
+.paper>.sheet{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:var(--paper);
+  border:2.6px solid var(--ink);border-radius:6px;
+  filter:url(#torn);                                /* torn / hand-cut edge */
+  box-shadow:8px 8px 0 0 var(--ink);                /* hard SOLID registration shadow — one light, equal offset */
+}
+.paper>.sheet.ruled{
+  background:var(--paper) repeating-linear-gradient(0deg, transparent 0 27px, rgba(65,77,87,.07) 27px 28px);
+}
+.paper>.inner{position:relative;z-index:2;padding:clamp(1.5rem,4vw,3rem)}
+
+/* ---------- washi / scotch tape ---------- */
+.tape{position:absolute;z-index:3;width:118px;height:32px;
+  background:rgba(241,221,1,.42);                    /* translucent Happy washi */
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);
+  filter:url(#roughsm);
+  transform:rotate(-5deg);}
+.tape.b{background:rgba(36,150,201,.34)}            /* lazuli washi */
+.tape.c{background:rgba(247,84,88,.34)}             /* colorado washi */
+.tape::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 9px,rgba(255,255,255,.18) 9px 10px)}
+
+/* ---------- type ---------- */
+.scrawl{font-family:var(--f-hand);font-weight:400;line-height:1.15}
+.eyebrow{font-family:var(--f-hand);font-size:clamp(1.15rem,2.4vw,1.6rem);color:var(--colorado);transform:rotate(-1.2deg);display:inline-block}
+.label{font-family:var(--f-mono);font-weight:500;text-transform:uppercase;letter-spacing:.16em;font-size:.74rem}
+.dot{color:var(--grass);font-weight:700}
+.slab{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:.98;letter-spacing:-.02em}
+
+/* highlighter band behind the hero line — hand-swiped, tipped */
+.hl{position:relative;display:inline;z-index:0}
+.hl::before{content:"";position:absolute;left:-.19em;right:-.24em;top:.08em;bottom:-.04em;z-index:-1;
+  background:var(--happy);mix-blend-mode:multiply;opacity:.95;transform:rotate(-.9deg) skewX(-5deg);filter:url(#rough);border-radius:2px}
+.hl.g::before{background:var(--grass);opacity:.9}
+
+/* wobbly marker underline */
+.ul{position:relative;display:inline}
+.ul::after{content:"";position:absolute;left:-.04em;right:-.07em;bottom:-.05em;height:.16em;
+  background:var(--grass);filter:url(#rough);border-radius:3px}
+
+/* ---------- rubber-stamp press-down button ---------- */
+.btn{
+  --bg:var(--grass);--fg:var(--oats);
+  font-family:var(--f-mono);font-weight:500;font-size:.86rem;letter-spacing:.12em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;cursor:pointer;
+  background:var(--bg);color:var(--fg);border:2.6px solid var(--ink);border-radius:6px;
+  padding:.85em 1.35em;min-height:46px;
+  box-shadow:5px 5px 0 0 var(--ink);transform:rotate(-1.4deg);
+  transition:transform .09s ease, box-shadow .09s ease;}
+.btn:hover{transform:rotate(0)}
+.btn:active{transform:translate(5px,5px) rotate(0);box-shadow:0 0 0 0 var(--ink)}  /* press INTO the shadow */
+.btn:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
+.btn.ink{--bg:var(--paper);--fg:var(--ink)}
+.btn .arr{font-family:var(--f-mono)}
+
+/* ---------- masthead = printed broadsheet w/ torn bottom ---------- */
+.mast{position:relative;background:var(--oats);border-bottom:0}
+.mast::after{content:"";position:absolute;left:0;right:0;bottom:-15px;height:30px;background:var(--oats);filter:url(#tornbig);z-index:1}
+.mast .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:1rem;position:relative;z-index:2}
+.mast .brand{display:flex;align-items:center;gap:.6rem}
+.mast .lg-icon{width:30px;display:block}
+.mast .lg-word{width:78px;display:block}
+.mast .lg-icon svg,.mast .lg-word svg{display:block;width:100%;height:auto}
+.mast nav{display:flex;gap:clamp(.5rem,2vw,1.1rem);align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.mast nav a{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;
+  border:2px solid var(--ink);border-radius:5px;padding:.4em .7em;background:var(--paper);
+  box-shadow:2px 2px 0 0 var(--ink);transition:transform .08s, box-shadow .08s}
+.mast nav a:nth-child(2){transform:rotate(1.4deg)}
+.mast nav a:nth-child(3){transform:rotate(-1.2deg)}
+.mast nav a:hover{transform:rotate(0) translate(-1px,-1px);box-shadow:3px 3px 0 0 var(--grass)}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(2.4rem,7vw,5rem) 0 clamp(1.5rem,4vw,3rem)}
+.hero .inner{padding:clamp(1.8rem,5vw,3.6rem)}
+.hero .eyebrow{margin-bottom:1rem}
+.hero h1{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:1;letter-spacing:-.025em;word-spacing:-.12em;
+  text-wrap:balance;font-size:clamp(2.7rem,9vw,6.6rem);margin:0;color:var(--ink);max-width:15ch}
+.hero h1 .stop{color:var(--grass)}
+.hero .lede{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.2rem,2.3vw,1.7rem);
+  line-height:1.4;max-width:32ch;margin:clamp(1.4rem,3.5vw,2.2rem) 0 0;color:var(--ink)}
+.hero .lede .dropcap{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:1.4em;color:var(--grass)}
+.hero .cta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:clamp(1.6rem,4vw,2.4rem)}
+.hero .pin{position:absolute;right:clamp(1rem,5vw,3rem);top:clamp(-.5rem,2vw,1rem);z-index:4;
+  transform:rotate(4deg);text-align:center}
+.hero .pin .scrawl{font-size:1.25rem;color:var(--sambas);max-width:12ch}
+@media(max-width:680px){.hero .pin{display:none}}
+
+/* ---------- cutline divider ---------- */
+.cutline{display:flex;align-items:center;gap:.6rem;margin:clamp(2rem,5vw,3.2rem) 0;color:rgba(65,77,87,.5)}
+.cutline::before,.cutline::after{content:"";height:0;flex:1;border-top:2.4px dashed rgba(65,77,87,.4)}
+.cutline svg{width:22px;height:22px;display:block}
+
+/* ---------- about = dark cut-paper ---------- */
+.about{padding:clamp(1rem,3vw,2rem) 0}
+.about .paper>.sheet{background:var(--sambas);box-shadow:8px 8px 0 0 var(--grass)}  /* grass registration */
+.about .inner{padding:clamp(2rem,6vw,4rem)}
+.about .eyebrow{color:var(--schoolbus)}
+.about h2{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:1.04;letter-spacing:-.01em;
+  font-size:clamp(1.8rem,4.6vw,3.6rem);margin:.4rem 0 0;color:var(--oats);max-width:18ch}
+.about h2 em{color:var(--grass)}
+.about .body{margin-top:1.4rem;max-width:56ch;display:grid;gap:1rem}
+.about .body p{margin:0;color:rgba(254,246,228,.92)}
+.about .body p.lead{font-family:var(--f-body);font-style:italic;font-size:clamp(1.18rem,1.8vw,1.5rem);color:var(--oats)}
+.about .vals{margin-top:1.8rem;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.12em;
+  font-size:.8rem;color:rgba(254,246,228,.95);line-height:1.9}
+.about .vals span{white-space:nowrap}
+.about .vals span:not(:last-child)::after{content:"·";color:var(--grass);font-weight:700;margin:0 .6em}
+
+/* ---------- three doors = littered postcards (.splay, NOT a grid) ---------- */
+.doors{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
+.doors .head{margin-bottom:clamp(2rem,5vw,3rem)}
+.doors .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,4rem);
+  line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
+.splay{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(1.6rem,3vw,2.6rem);align-items:flex-start}
+.card{position:relative;width:min(330px,100%)}
+.card .inner{padding:clamp(1.6rem,2.6vw,2.1rem);display:flex;flex-direction:column;min-height:250px}
+.card.big{width:min(380px,100%)}
+.card.big .inner{min-height:312px}
+.card h3{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.7rem,2.7vw,2.3rem);
+  line-height:1;margin:.3rem 0 0;color:var(--ink)}
+.card.big h3{font-size:clamp(2.1rem,3.2vw,2.9rem)}
+.card .cap{font-family:var(--f-hand);font-size:1.15rem;color:var(--sambas);transform:rotate(-1deg);display:inline-block}
+.card p{margin:.9rem 0 1.4rem;font-size:1rem;line-height:1.5;color:rgba(65,77,87,.85)}
+.card .foot{margin-top:auto;display:flex;flex-direction:column;gap:.7rem}
+.card .url{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.04em;color:var(--sambas);text-transform:lowercase}
+/* resting tilts — littered on the table; straighten + lift on hover */
+.splay,.crew{overflow-x:clip}
+.splay .card:nth-child(1){transform:rotate(-3deg)}
+.splay .card:nth-child(2){transform:rotate(2.4deg)}
+.splay .card:nth-child(3){transform:rotate(-2.2deg)}
+@media(max-width:480px){.splay .card,.crew .polaroid{transform:rotate(0)} .tape{width:92px;height:26px}}
+.splay .card{transition:transform .18s ease}
+.splay .card:hover{transform:rotate(0) translateY(-7px);z-index:6}
+.splay .card:hover>.sheet{box-shadow:13px 14px 0 0 var(--ink)}
+.card>.sheet{transition:box-shadow .18s ease}
+
+/* ---------- team = taped polaroids ---------- */
+.team{padding:clamp(1.5rem,4vw,3rem) 0}
+.team .head{margin-bottom:clamp(1.9rem,4.5vw,2.8rem)}
+.team .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.9rem,5vw,3.4rem);line-height:1.02;margin:.35rem 0 0;color:var(--ink);max-width:20ch}
+.crew{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(1.7rem,4vw,3.2rem);align-items:flex-start}
+.polaroid{position:relative;width:min(244px,76%);background:var(--paper);border:2.6px solid var(--ink);border-radius:5px;
+  padding:11px 11px 0;box-shadow:8px 8px 0 0 var(--ink);transition:transform .18s ease, box-shadow .18s ease}
+.polaroid .ph{position:relative;width:100%;aspect-ratio:5/6;overflow:hidden;background:var(--sambas);border:1.5px solid rgba(65,77,87,.28)}
+.polaroid .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.94) contrast(1.03)}
+.polaroid .cap{font-family:var(--f-hand);text-align:center;padding:.6rem .2rem .75rem;line-height:1.1}
+.polaroid .cap b{display:block;font-weight:400;font-size:1.4rem;color:var(--ink)}
+.polaroid .cap span{font-family:var(--f-hand);font-size:1.02rem;color:rgba(65,77,87,.74)}
+.crew .polaroid:nth-child(1){transform:rotate(-4.5deg)}
+.crew .polaroid:nth-child(2){transform:rotate(3.3deg)}
+.crew .polaroid:nth-child(3){transform:rotate(-2.2deg)}
+.crew .polaroid:hover{transform:rotate(0) translateY(-7px);z-index:6;box-shadow:11px 12px 0 0 var(--ink)}
+
+/* ---------- founder's note (a handwritten letter, photo taped on) ---------- */
+.note{padding:clamp(1.5rem,4vw,3rem) 0}
+.note .inner{padding:clamp(1.9rem,5vw,3.6rem)}
+.note-grid{display:grid;gap:clamp(1.6rem,4vw,2.8rem);align-items:center}
+@media(min-width:760px){.note-grid{grid-template-columns:1fr auto}}
+.note .eyebrow{color:var(--colorado)}
+.note-body{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.2rem,2.1vw,1.6rem);line-height:1.5;color:var(--ink);max-width:36ch;margin:.9rem 0 0}
+.sign{font-family:var(--f-hand);font-size:clamp(2.2rem,4.5vw,3.2rem);color:var(--grass);margin:1.1rem 0 0;line-height:1}
+.sign-role{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--sambas);margin:.35rem 0 0}
+.snap{position:relative;width:min(260px,80vw);justify-self:center;background:var(--paper);border:2.6px solid var(--ink);border-radius:5px;padding:10px;box-shadow:8px 8px 0 0 var(--ink);transform:rotate(2.6deg)}
+.snap .ph{position:relative;width:100%;aspect-ratio:5/6;overflow:hidden;background:var(--sambas);border:1.5px solid rgba(65,77,87,.28)}
+.snap .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.94) contrast(1.03)}
+@media(max-width:480px){.snap{transform:rotate(0)}}
+
+/* demo gate */
+.locktag{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lazuli);display:inline-flex;align-items:center;gap:.4rem}
+.gate{display:none;margin-top:.2rem}
+.gate.open{display:block}
+.gate form{display:flex;gap:.5rem;flex-wrap:wrap}
+.gate input{font-family:var(--f-mono);font-size:.95rem;letter-spacing:.16em;padding:.6em .8em;min-height:46px;
+  background:var(--paper);border:2.4px dashed var(--lazuli);border-radius:5px;color:var(--ink);width:min(10ch,100%)}
+.gate input:focus{outline:none;border-style:solid}
+.gate .msg{font-family:var(--f-hand);font-size:1.05rem;margin:.5rem 0 0;min-height:1.2em}
+.gate .msg.err{color:var(--colorado)} .gate .msg.ok{color:var(--grass)}
+.shake{animation:shake .35s}
+@keyframes shake{10%,90%{transform:translateX(-2px)}30%,70%{transform:translateX(4px)}50%{transform:translateX(-4px)}}
+
+/* ---------- footer = torn band ---------- */
+footer{position:relative;background:var(--grass);margin-top:clamp(2.5rem,6vw,4.5rem);
+  padding:clamp(2.6rem,6vw,4.2rem) 0 clamp(1.8rem,4vw,2.6rem);color:var(--oats)}
+footer::before{content:"";position:absolute;left:0;right:0;top:-15px;height:30px;background:var(--grass);filter:url(#tornbig)}
+footer .top{display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap}
+footer .ft-word{width:clamp(150px,24vw,240px);display:block}
+footer .ft-word svg{display:block;width:100%;height:auto}
+footer .tagline{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.5rem,3.4vw,2.3rem);color:var(--oats);max-width:13ch;margin:.8rem 0 0;line-height:1.05}
+footer .links{display:flex;flex-direction:column;gap:.5rem}
+footer .links a{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--oats);opacity:.9}
+footer .links a:hover{text-decoration:underline;text-underline-offset:4px}
+footer .stamp{display:inline-block;margin-top:1.4rem;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.18em;
+  font-size:.72rem;color:rgba(254,246,228,.85);border:2.4px solid rgba(254,246,228,.7);border-radius:6px;
+  padding:.5em .8em;transform:rotate(-3deg);filter:url(#roughsm)}
+footer .legal{margin-top:2rem;border-top:1.6px solid rgba(254,246,228,.4);padding-top:1.1rem;display:flex;
+  justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.05em;color:rgba(254,246,228,.9)}
+
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .tape,.eyebrow,.btn,.card,.splay .card,.mast nav a,.about .cap,.card .cap,.hero .pin,footer .stamp,.polaroid,.crew .polaroid,.ul,.hl{transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- SVG filters: torn paper edges + rough marker wobble -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <filter id="torn"><feTurbulence type="fractalNoise" baseFrequency="0.014 0.026" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="tornbig"><feTurbulence type="fractalNoise" baseFrequency="0.01 0.045" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="28" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.04 0.09" numOctaves="2" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="roughsm"><feTurbulence type="fractalNoise" baseFrequency="0.03 0.05" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+  </defs>
+</svg>
+
+<!-- ============ MASTHEAD (broadsheet, torn bottom) ============ -->
+<header class="mast">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="drex home">
+      <span class="lg-icon"><svg viewBox="0 0 7438 6955" fill="#1CAB5B" role="img" aria-label="drex" style="display:block;width:100%;height:auto"><path d="M3940.792,1923.474c0,-237.327 876.575,-942.689 1916.579,-954.143c144.631,-1.593 160.411,78.319 137.9,189.4c-30.08,148.427 -98.327,433.131 -98.327,433.131c0,0 65.273,764.946 -24.815,794.112c-90.088,29.167 -290.952,-256.255 -825.803,-386.398c-752.956,-183.213 -1105.535,77.059 -1105.535,-76.102Z" style=""/><path d="M3904.129,2226.95c9.277,-48.947 42.212,-89.528 87.203,-107.447c243.766,-86.69 1260.521,-180.52 2114.804,662.836c42.289,41.921 54.919,106.632 31.665,162.246c-102.058,276.752 -340.779,1190.09 53.749,2858.265c38.355,162.175 -103.782,235.401 -233.086,138.553c-532.234,-398.637 -1304.501,-567.736 -1930.825,-724.558c-48.189,-11.629 -86.868,-48.709 -101.742,-97.538c-70.176,-252.215 -255.758,-1651.265 -21.766,-2892.358Z"/><path d="M3496.708,1923.474c0,-237.327 -876.575,-942.689 -1916.579,-954.143c-144.631,-1.593 -160.411,78.319 -137.9,189.4c30.08,148.427 98.327,433.131 98.327,433.131c0,0 -65.273,764.946 24.815,794.112c90.088,29.167 290.952,-256.255 825.803,-386.398c752.956,-183.213 1105.535,77.059 1105.535,-76.102Z" style=""/><path d="M3533.371,2226.95c-9.277,-48.947 -42.212,-89.528 -87.203,-107.447c-243.766,-86.69 -1260.521,-180.52 -2114.804,662.836c-42.289,41.921 -54.919,106.632 -31.665,162.246c102.058,276.752 340.779,1190.09 -53.749,2858.265c-38.355,162.175 103.782,235.401 233.086,138.553c532.234,-398.637 1304.501,-567.736 1930.825,-724.558c48.189,-11.629 86.868,-48.709 101.742,-97.538c70.176,-252.215 255.758,-1651.265 21.766,-2892.358Z"/></svg></span>
+      <span class="lg-word"><svg viewBox="0 0 14696 6730" fill="#1CAB5B" role="img" aria-label="drex" style="display:block;width:100%;height:auto"><path d="M5478.999,2905.779c0,0 421.063,-37.36 425.9,108.343l-343.709,1707.337c-61.242,136.313 -436.173,134.324 -442.946,-22.416l360.754,-1793.265Z"/><path d="M5041.89,2951.676c63.511,-60.841 526.771,-49.633 526.771,-49.633l-102.739,405.414c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M3924.681,1958.721c63.511,-60.841 530.662,-50.446 530.662,-50.446l-106.63,406.227c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M5726.866,3417.607c0,0 256.489,-511.828 914.019,-511.828l-313.821,549.187c0,0 -52.304,-37.36 -119.551,-37.36c-40.411,0 -354.324,251.272 -556.659,579.075l76.013,-579.075Z"/><ellipse cx="6634.347" cy="3332.931" rx="430.57" ry="427.151"/><path d="M4268.545,3833.937c-54.051,587.803 -422.164,984.658 -1012.447,984.658c-466.996,0 -803.233,-354.917 -803.233,-919.048c0,-545.451 486.888,-993.767 1032.339,-993.767c668.793,0 813.229,603.128 783.342,928.157Zm-643.455,-498.703c-234.497,-17.38 -499.751,191.996 -499.751,524.336c0,438.408 306.192,521.14 448.316,514.446c142.124,-6.694 404.43,-206.606 404.43,-554.612c0,-284.788 -150.331,-469.149 -352.995,-484.17Z"/><path d="M4388.096,1908.276c0,0 411.204,-11.208 424.724,108.343c0,19.142 -451.623,2260.261 -451.623,2260.261c15.69,59.775 224.905,-302.557 315.685,-313.821c110.397,-13.699 320.176,120.344 320.176,210.008c-0,122.494 -381.069,648.499 -765.873,648.499c-140.399,0 -328.765,-47.802 -392.277,-174.825l549.187,-2738.465Z"/><path d="M8385.582,2902.043c497.354,57.086 817.745,422.164 739.722,818.177c-90.045,457.032 -844.694,445.003 -1082.497,417.708c-230.119,-26.413 -368.235,-100.848 -422.572,-20.593c0,0 -107.744,106.625 251.184,223.032c419.614,136.089 691.752,-83.334 866.656,-96.072c140.311,-10.219 217.565,170.071 168.209,286.302c-66.995,157.772 -494.323,338.135 -1028.793,276.789c-285.793,-32.803 -922.08,-269.802 -773.345,-1004.975c130.759,-646.322 784.083,-957.454 1281.437,-900.368Zm-212.016,404.392c-264.608,50.886 -442.712,200.115 -438.042,342.082c4.67,141.967 311.61,175.439 541.715,149.439c165.317,-18.68 362.389,-47.848 366.125,-257.062c3.213,-179.919 -275.528,-271.818 -469.798,-234.459Z"/><path d="M9206.516,4052.426c-70.533,107.48 -90.728,764.251 662.245,766.169c771.79,1.966 1183.203,-1911.019 149.439,-1912.816c-257.116,-0.447 -637.291,99.928 -646.668,437.503c-3.838,138.152 129.653,198.923 237.929,188.041c127.279,-12.792 188.555,-176.528 452.832,-176.528c264.278,0 131.209,448.7 79.402,619.471c-101.286,333.868 -336.519,428.184 -390.245,405.158c-60.791,-26.053 81.561,-246.308 11.513,-333.868c-61.401,-76.751 -475.858,-115.932 -556.447,6.87Z"/><path d="M11593.807,3675.684c70.533,-107.48 91.02,-767.987 -661.952,-769.905c-771.79,-1.966 -1183.496,1911.019 -149.731,1912.816c257.116,0.447 637.291,-96.192 646.668,-433.767c3.838,-138.152 -129.653,-198.923 -237.929,-188.041c-127.279,12.792 -188.555,176.528 -452.832,176.528c-264.278,0 -131.209,-448.7 -79.402,-619.471c101.286,-333.868 336.519,-428.184 390.245,-405.158c60.791,26.053 -81.561,246.308 -11.513,333.868c61.401,76.751 475.858,115.932 556.447,-6.87Z"/><path d="M11830.971,4385.014c61.784,-59.74 306.841,-59.74 367.586,0c60.745,59.74 58.668,298.701 -3.115,358.441c-61.784,59.74 -306.841,59.74 -367.586,0c-60.745,-59.74 -58.668,-298.701 3.115,-358.441Z"/></svg></span>
+    </a>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#team">Team</a>
+      <a href="#circle">Circle</a>
+      <a href="#demo">Demo</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="paper">
+        <span class="sheet ruled"></span>
+        <span class="tape" style="left:8%;top:-14px"></span>
+        <div class="pin">
+          <p class="scrawl">"the room was already expecting you" &darr;</p>
+        </div>
+        <div class="inner">
+          <span class="eyebrow" style="color:var(--sambas)">a community for your gifts &mdash; est. 2026</span>
+          <h1>Be fully <span class="hl">yourself,</span> fully among others<span class="stop">.</span></h1>
+          <p class="lede"><span class="dropcap">D</span>rex is where people make zines together &mdash; you bring your gifts, and you don't do it alone. Style is a practice, not a purchase.</p>
+          <div class="cta">
+            <a class="btn" href="#circle">Join the circle <span class="arr">&rarr;</span></a>
+            <a class="btn ink" href="#about">What is Drex?</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cutline" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8 7.5 20 16M8 16.5 20 8"/></svg>
+        <span class="label">cut here</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT (dark cut-paper) ============ -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="paper">
+        <span class="sheet"></span>
+        <span class="tape b" style="right:12%;top:-14px;transform:rotate(4deg)"></span>
+        <div class="inner">
+          <span class="eyebrow">a little about us</span>
+          <h2>We exist to help people bring their <em>gifts</em> into the world.</h2>
+          <div class="body">
+            <p class="lead">At our core, we care most about human dignity &mdash; and awakening it in others.</p>
+            <p>Drex is a place to be fully yourself and fully among others at the same time. People gather in small circles around their craft, contribute photos and reflections, and an issue becomes a real zine. Giving and receiving at once &mdash; nobody performing, nobody glossed over.</p>
+            <p>You belong here because you showed up, and that's enough. Communion over elitism. Come as you are; leave more yourself.</p>
+          </div>
+          <div class="vals" aria-label="Our values">
+            <span>Communion</span> <span>Reverence</span> <span>Conviction</span>
+            <span>Self-awareness</span> <span>Cultivation</span> <span>Generativity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TEAM (taped polaroids) ============ -->
+  <section class="team" id="team">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" style="color:var(--grass)">who's behind it</span>
+        <h2 class="slab">An experienced team, led by <span class="ul">creatives</span>.</h2>
+      </div>
+      <div class="crew">
+        <figure class="polaroid">
+          <span class="tape" style="left:50%;margin-left:-59px;top:-15px"></span>
+          <div class="ph"><img src="assets/team/uko.jpg" alt="Uko, designer at Drex" loading="lazy" width="600" height="720" /></div>
+          <figcaption class="cap"><b>Uko</b><span>Designer</span></figcaption>
+        </figure>
+        <figure class="polaroid">
+          <span class="tape c" style="left:22px;top:-14px;transform:rotate(-7deg)"></span>
+          <div class="ph"><img src="assets/team/lucero.jpg" alt="Lucero, designer at Drex" loading="lazy" width="600" height="720" /></div>
+          <figcaption class="cap"><b>Lucero</b><span>Designer</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOUNDER'S NOTE (handwritten letter + taped photo) ============ -->
+  <section class="note" id="founder">
+    <div class="wrap">
+      <div class="paper">
+        <span class="sheet ruled"></span>
+        <span class="tape" style="left:44%;top:-14px"></span>
+        <div class="inner note-grid">
+          <div>
+            <span class="eyebrow">a note from our founder</span>
+            <p class="note-body">I started Drex because I believe your gifts matter &mdash; and that they're meant to come into the world together, not alone. You showed up, and that's enough. I can't wait to see what you make.</p>
+            <p class="sign">Chielo</p>
+            <p class="sign-role">Chielo Mbaezue &middot; CEO &amp; Co-founder</p>
+          </div>
+          <figure class="snap">
+            <span class="tape c" style="left:28%;top:-12px;transform:rotate(5deg)"></span>
+            <div class="ph"><img src="assets/team/chielo.jpg" alt="Chielo Mbaezue, CEO and co-founder of Drex" loading="lazy" width="600" height="720" /></div>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THREE DOORS (littered postcards) ============ -->
+  <section class="doors">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" style="color:var(--lazuli)">find us &mdash; three ways in</span>
+        <h2 class="slab">Pick a door<span class="stop" style="color:var(--grass)">.</span></h2>
+      </div>
+
+      <div class="splay">
+
+        <!-- Circle (primary) -->
+        <article class="paper card big" id="circle">
+          <span class="sheet ruled"></span>
+          <span class="tape" style="left:50%;margin-left:-59px;top:-15px"></span>
+          <div class="inner">
+            <span class="cap" style="color:var(--grass)">the community &middot; start here</span>
+            <h3><span class="ul">The Circle</span></h3>
+            <p>Small circular tables across a floor &mdash; many circles, communion happening in parallel. This is where the gathering lives, and where you begin.</p>
+            <div class="foot">
+              <a class="btn" href="https://circle.drex.style">Enter the circle <span class="arr">&rarr;</span></a>
+              <span class="url">circle<span class="dot">.</span>drex<span class="dot">.</span>style</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Instagram -->
+        <article class="paper card" id="instagram">
+          <span class="sheet"></span>
+          <span class="tape c" style="left:14px;top:-14px;transform:rotate(-7deg)"></span>
+          <div class="inner">
+            <span class="cap">day to day</span>
+            <h3>Instagram</h3>
+            <p>The everyday &mdash; out loud. Faces, fits, and people becoming what they started becoming.</p>
+            <div class="foot">
+              <a class="btn ink" href="https://instagram.com/drex.style">Follow along <span class="arr">&rarr;</span></a>
+              <span class="url">@drex<span class="dot">.</span>style</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Demo -->
+        <article class="paper card" id="demo">
+          <span class="sheet"></span>
+          <span class="tape b" style="right:14px;top:-14px;transform:rotate(6deg)"></span>
+          <div class="inner">
+            <span class="cap">members-only</span>
+            <h3>The Demo</h3>
+            <p>A look at Drex in motion. Members share a passcode &mdash; ask your host, then step inside.</p>
+            <div class="foot">
+              <span class="locktag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="10.5" width="16" height="9.5" rx="2.4"/><path d="M7.5 10.5V7.5a4.5 4.5 0 0 1 9 0v3"/></svg>
+                Passcode required
+              </span>
+              <button class="btn ink" id="demo-toggle" type="button" aria-expanded="false" aria-controls="demo-gate">Enter passcode <span class="arr">&rarr;</span></button>
+              <div class="gate" id="demo-gate">
+                <label class="label" for="demo-code" style="display:block;margin:.1rem 0 .45rem">Password <span class="scrawl" style="text-transform:none;letter-spacing:0;color:var(--sambas);opacity:.7">&middot; members have it</span></label>
+                <form id="demo-form" autocomplete="off">
+                  <input id="demo-code" type="password" inputmode="text" placeholder="&bull;&bull;&bull;&bull;" aria-label="Demo password" aria-describedby="demo-msg" />
+                  <button class="btn" type="submit">Unlock</button>
+                </form>
+                <p class="msg" id="demo-msg" role="status" aria-live="polite"></p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER (torn band) ============ -->
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <span class="ft-word"><svg viewBox="0 0 14696 6730" fill="#FEF6E4" role="img" aria-label="drex" style="display:block;width:100%;height:auto"><path d="M5478.999,2905.779c0,0 421.063,-37.36 425.9,108.343l-343.709,1707.337c-61.242,136.313 -436.173,134.324 -442.946,-22.416l360.754,-1793.265Z"/><path d="M5041.89,2951.676c63.511,-60.841 526.771,-49.633 526.771,-49.633l-102.739,405.414c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M3924.681,1958.721c63.511,-60.841 530.662,-50.446 530.662,-50.446l-106.63,406.227c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M5726.866,3417.607c0,0 256.489,-511.828 914.019,-511.828l-313.821,549.187c0,0 -52.304,-37.36 -119.551,-37.36c-40.411,0 -354.324,251.272 -556.659,579.075l76.013,-579.075Z"/><ellipse cx="6634.347" cy="3332.931" rx="430.57" ry="427.151"/><path d="M4268.545,3833.937c-54.051,587.803 -422.164,984.658 -1012.447,984.658c-466.996,0 -803.233,-354.917 -803.233,-919.048c0,-545.451 486.888,-993.767 1032.339,-993.767c668.793,0 813.229,603.128 783.342,928.157Zm-643.455,-498.703c-234.497,-17.38 -499.751,191.996 -499.751,524.336c0,438.408 306.192,521.14 448.316,514.446c142.124,-6.694 404.43,-206.606 404.43,-554.612c0,-284.788 -150.331,-469.149 -352.995,-484.17Z"/><path d="M4388.096,1908.276c0,0 411.204,-11.208 424.724,108.343c0,19.142 -451.623,2260.261 -451.623,2260.261c15.69,59.775 224.905,-302.557 315.685,-313.821c110.397,-13.699 320.176,120.344 320.176,210.008c-0,122.494 -381.069,648.499 -765.873,648.499c-140.399,0 -328.765,-47.802 -392.277,-174.825l549.187,-2738.465Z"/><path d="M8385.582,2902.043c497.354,57.086 817.745,422.164 739.722,818.177c-90.045,457.032 -844.694,445.003 -1082.497,417.708c-230.119,-26.413 -368.235,-100.848 -422.572,-20.593c0,0 -107.744,106.625 251.184,223.032c419.614,136.089 691.752,-83.334 866.656,-96.072c140.311,-10.219 217.565,170.071 168.209,286.302c-66.995,157.772 -494.323,338.135 -1028.793,276.789c-285.793,-32.803 -922.08,-269.802 -773.345,-1004.975c130.759,-646.322 784.083,-957.454 1281.437,-900.368Zm-212.016,404.392c-264.608,50.886 -442.712,200.115 -438.042,342.082c4.67,141.967 311.61,175.439 541.715,149.439c165.317,-18.68 362.389,-47.848 366.125,-257.062c3.213,-179.919 -275.528,-271.818 -469.798,-234.459Z"/><path d="M9206.516,4052.426c-70.533,107.48 -90.728,764.251 662.245,766.169c771.79,1.966 1183.203,-1911.019 149.439,-1912.816c-257.116,-0.447 -637.291,99.928 -646.668,437.503c-3.838,138.152 129.653,198.923 237.929,188.041c127.279,-12.792 188.555,-176.528 452.832,-176.528c264.278,0 131.209,448.7 79.402,619.471c-101.286,333.868 -336.519,428.184 -390.245,405.158c-60.791,-26.053 81.561,-246.308 11.513,-333.868c-61.401,-76.751 -475.858,-115.932 -556.447,6.87Z"/><path d="M11593.807,3675.684c70.533,-107.48 91.02,-767.987 -661.952,-769.905c-771.79,-1.966 -1183.496,1911.019 -149.731,1912.816c257.116,0.447 637.291,-96.192 646.668,-433.767c3.838,-138.152 -129.653,-198.923 -237.929,-188.041c-127.279,12.792 -188.555,176.528 -452.832,176.528c-264.278,0 -131.209,-448.7 -79.402,-619.471c101.286,-333.868 336.519,-428.184 390.245,-405.158c60.791,26.053 -81.561,246.308 -11.513,333.868c61.401,76.751 475.858,115.932 556.447,-6.87Z"/><path d="M11830.971,4385.014c61.784,-59.74 306.841,-59.74 367.586,0c60.745,59.74 58.668,298.701 -3.115,358.441c-61.784,59.74 -306.841,59.74 -367.586,0c-60.745,-59.74 -58.668,-298.701 3.115,-358.441Z"/></svg></span>
+        <p class="tagline">Communion over&nbsp;elitism.</p>
+        <span class="stamp">Made with reverence &middot; 2026</span>
+      </div>
+      <div class="links">
+        <a href="#circle">The Circle</a>
+        <a href="https://instagram.com/drex.style">Instagram</a>
+        <a href="#demo">Demo</a>
+        <a href="mailto:hi@drex.style">hi@drex.style</a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>&copy; 2026 Drex Inc.</span>
+      <span>drex.style</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const CONFIG = {
+  circleUrl: "https://circle.drex.style",
+  instagram: "https://instagram.com/drex.style",    // dummy
+  demoHost:  "demo.drex.style",                      // the Basic-Auth-protected demo (host only, no https://)
+  demoUser:  "drex",                                 // Basic Auth USERNAME — set to the demo's real username
+};
+/* The demo sits behind HTTP Basic Auth. The visitor types the PASSWORD into the styled box and we
+   hand it to the browser as Basic Auth credentials via the URL (user:pass@host), so they skip the
+   native browser dialog. The password is NEVER stored in this page — it's whatever they type, and
+   the demo server itself validates it (a wrong one just yields the demo's own 401 prompt). */
+(function(){
+  const t=document.getElementById('demo-toggle'),g=document.getElementById('demo-gate'),
+        f=document.getElementById('demo-form'),i=document.getElementById('demo-code'),m=document.getElementById('demo-msg');
+  t.addEventListener('click',()=>{const o=g.classList.toggle('open');t.setAttribute('aria-expanded',String(o));if(o)setTimeout(()=>i.focus(),60);});
+  f.addEventListener('submit',e=>{e.preventDefault();
+    const pass=(i.value||'').trim(); if(!pass){i.focus();return;}
+    m.textContent="opening the demo…"; m.className="msg ok";
+    location.href="https://"+encodeURIComponent(CONFIG.demoUser)+":"+encodeURIComponent(pass)+"@"+CONFIG.demoHost;
+  });
+})();
+</script>
+</body>
+</html>
