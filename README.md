@@ -17,15 +17,16 @@ team polaroids.
 - `demoHost` — the demo's host, **no protocol** (e.g. `demo.drex.style`).
 
 ### How the Demo gate works (HTTP Basic Auth)
-The demo sits behind Basic Auth. The styled passcode box collects the **full credential** in
-`username:password` form; on submit we split on the first colon and navigate to
-`https://<username>:<password>@<demoHost>`, which hands the browser the Basic Auth credentials so
-the visitor skips the native browser dialog.
+The demo sits behind Basic Auth. The UI just asks for a **passcode** — the format is never shown.
+That passcode *is* the full Basic Auth credential (`user:pass`); you hand the whole string to
+members yourself. On submit we split it on the first colon and navigate to
+`https://<user>:<pass>@<demoHost>`, which hands the browser the credentials so the visitor skips
+the native browser dialog.
 
 - **Nothing** is in the page source — the whole credential is whatever the visitor types; the demo
   server validates it (a wrong one just falls back to the demo's own 401 prompt).
-- Input without a colon (or with nothing on either side of it) is rejected client-side with a
-  `use the format username:password` hint.
+- No client-side format gating: a passcode with no colon is sent as username-only and simply 401s,
+  so the `user:pass` shape is never leaked to visitors.
 - **Caveat:** URL-embedded credentials work for top-level navigation in current desktop
   Chrome/Firefox/Safari, but it's a legacy mechanism — some browsers show a one-time confirm, the
   creds appear briefly in the address bar/history, and mobile browsers can be inconsistent. If it
