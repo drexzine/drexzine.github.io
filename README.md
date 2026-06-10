@@ -13,7 +13,7 @@ team polaroids.
 
 ## Before it goes live — `CONFIG` (top of the `<script>` in `index.html`)
 - `instagram` — Instagram URL (`instagram.com/drexcircles`). Note: this CONFIG value is **not** wired into the DOM — the real links live hardcoded in the Instagram card (button + `@drexcircles` text) and the footer, so update those if the handle changes.
-- `circleUrl` — `https://circle.drex.style` (set).
+- `circleUrl` — `https://circles.drex.style/` (set; like `instagram`, not wired into the DOM — the Circle card button + `circles.drex.style` text are hardcoded in the markup).
 - `demoHost` — the demo's host, **no protocol** (e.g. `demo.drex.style`).
 
 ### How the Demo gate works (HTTP Basic Auth)
