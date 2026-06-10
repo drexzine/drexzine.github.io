@@ -12,7 +12,7 @@ team polaroids.
 - `.nojekyll` — skip Jekyll.
 
 ## Before it goes live — `CONFIG` (top of the `<script>` in `index.html`)
-- `instagram` — real Instagram URL (currently the dummy `instagram.com/drex.style`; also appears as visible link text in the Instagram card + footer).
+- `instagram` — Instagram URL (`instagram.com/drexcircles`). Note: this CONFIG value is **not** wired into the DOM — the real links live hardcoded in the Instagram card (button + `@drexcircles` text) and the footer, so update those if the handle changes.
 - `circleUrl` — `https://circle.drex.style` (set).
 - `demoHost` — the demo's host, **no protocol** (e.g. `demo.drex.style`).
 
