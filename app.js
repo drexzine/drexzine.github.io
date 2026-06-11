@@ -61,8 +61,10 @@ const Stage = (() => {
   function play(key, opts) { try { engine?.play?.(key, opts); } catch (_) {} }
   window.addEventListener('drexfx:play', (e) => play(e.detail?.key, e.detail));
 
+  function armSound() { try { engine?.armForCut?.(); } catch (_) {} }
+
   return {
-    applyMotion, addDriver, observe, registerAudio, play,
+    applyMotion, addDriver, observe, registerAudio, play, armSound,
     get calm() { return document.body.dataset.motion === 'calm'; },
     get reduce() { return reduceMQ.matches; },
   };
@@ -80,6 +82,7 @@ function boot() {
   initEnvelope(audio);              // M3: hero drag-to-cut envelope
   initInteractionSounds();          // M1: stamp / toggle on interaction
   initSoundToggle(audio);           // M1: footer opt-in toggle
+  initFounderCrumple();             // M4: founder's note = click-to-unfold 3D paper crumple
   // wake the FPS governor for the first couple seconds so html[data-tier=lite]
   // can latch under load — the CSS/IO features never register a rAF driver,
   // so without this the governor is dead code and the lite fallback unreachable.
@@ -160,6 +163,7 @@ function initAudio() {
   const engine = {
     play(key, opts = {}) {
       if (!enabled || !ctx || ctx.state !== 'running') return;
+      if (key === 'crinkle') return synthCrinkle(ctx, opts);   // synthesized paper crinkle (no sample)
       const buf = buffers.get(key);
       if (!buf) { load(); return; }
       const src = ctx.createBufferSource();
@@ -374,3 +378,222 @@ window.__drexCrit = window.__drexCrit || {
   disableMotion() { document.body.dataset.motion = 'calm'; },
   seek() {}, simulateKeyboardCut() {},
 };
+
+/* ===================================================================
+   M4 — Founder's note: click-to-unfold 3D paper crumple.
+   The note sits as a crumpled paper ball; clicking it unfurls the sheet —
+   its own captured pixels, lit and hard-creased — at 24fps with a paper
+   crinkle, then hands back to the live DOM note (selectable, accessible).
+   Three.js + the DOM-capture lib load LAZILY, only when the note nears view.
+   Skipped under reduced-motion / calm / lite / no-WebGL; ANY failure leaves
+   the plain flat note untouched. Sound routes through the opt-in audio engine
+   (the click arms sound for the session, like the envelope cut — unless muted).
+   =================================================================== */
+
+// Synthesized paper crinkle (no audio asset). Played via Stage.play('crinkle').
+function synthCrinkle(ctx, opts = {}) {
+  const now = ctx.currentTime;
+  const dur = 0.07 + Math.random() * 0.10;
+  const n = Math.max(1, Math.floor(ctx.sampleRate * dur));
+  const buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0);
+  const atk = Math.max(1, Math.floor(n * 0.12));            // soft attack -> no click-y digital onset
+  for (let i = 0; i < n; i++) {
+    const decay = Math.pow(1 - i / n, 1.5);
+    const attack = i < atk ? i / atk : 1;
+    const pop = Math.random() < 0.03 ? (Math.random() * 2 - 1) * 0.7 : (Math.random() * 2 - 1) * 0.13;
+    d[i] = pop * decay * attack;
+  }
+  const src = ctx.createBufferSource(); src.buffer = buf;
+  const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 240 + Math.random() * 180;
+  const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2300 + Math.random() * 1200; lp.Q.value = 0.4;
+  const g = ctx.createGain(); g.gain.value = (opts.gain ?? 0.20) * (0.75 + Math.random() * 0.5);
+  src.connect(hp); hp.connect(lp); lp.connect(g); g.connect(ctx.destination);
+  src.start(now); src.stop(now + dur);
+}
+
+// Lock vw/clamp metrics to computed px so the SVG-foreignObject capture reflows
+// pixel-identically to the live note (pinning px = computed is layout-neutral live).
+const CRUMPLE_FREEZE = ['fontSize', 'lineHeight', 'letterSpacing', 'paddingTop', 'paddingRight', 'paddingBottom',
+  'paddingLeft', 'marginTop', 'marginRight', 'marginBottom', 'marginLeft', 'rowGap', 'columnGap',
+  'borderTopWidth', 'borderRightWidth', 'borderBottomWidth', 'borderLeftWidth'];
+function crumpleFreeze(root) {
+  const undo = [];
+  [root, ...root.querySelectorAll('*')].forEach((el) => {
+    const cs = getComputedStyle(el), r = el.getBoundingClientRect();
+    undo.push([el, el.getAttribute('style')]);
+    el.style.boxSizing = 'border-box';
+    CRUMPLE_FREEZE.forEach((p) => { el.style[p] = cs[p]; });
+    if (cs.display !== 'inline') { el.style.width = r.width + 'px'; el.style.height = r.height + 'px'; }
+  });
+  return () => undo.forEach(([el, s]) => s === null ? el.removeAttribute('style') : el.setAttribute('style', s));
+}
+
+const CRUMPLE_NOISE = `
+vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}
+vec2 mod289(vec2 x){return x-floor(x*(1.0/289.0))*289.0;}
+vec3 permute(vec3 x){return mod289(((x*34.0)+1.0)*x);}
+float snoise(vec2 v){
+  const vec4 C=vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);
+  vec2 i=floor(v+dot(v,C.yy)); vec2 x0=v-i+dot(i,C.xx);
+  vec2 i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);
+  vec4 x12=x0.xyxy+C.xxzz; x12.xy-=i1; i=mod289(i);
+  vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));
+  vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0); m=m*m; m=m*m;
+  vec3 x=2.0*fract(p*C.www)-1.0; vec3 h=abs(x)-0.5; vec3 ox=floor(x+0.5); vec3 a0=x-ox;
+  m*=1.79284291400159-0.85373472095314*(a0*a0+h*h);
+  vec3 g; g.x=a0.x*x0.x+h.x*x0.y; g.yz=a0.yz*x12.xz+h.yz*x12.yw; return 130.0*dot(m,g);
+}`;
+const CRUMPLE_VERT = CRUMPLE_NOISE + `
+uniform float uT; varying vec2 vUv; varying vec3 vViewPos; varying float vT;
+float fold(vec2 p){
+  float v=0.0, amp=1.0, tot=0.0, f=1.0;
+  for(int i=0;i<3;i++){ float n=snoise(p*f+float(i)*17.3); v+=amp*(abs(n)*2.0-1.0); tot+=amp; amp*=0.5; f*=2.0; }
+  return v/tot;
+}
+vec3 crumple(vec2 p, float t){
+  vec2 xy=p*(1.0-0.45*t);
+  xy+=vec2(fold(p*1.2+5.0), fold(p*1.2-5.0))*0.10*t;
+  float r=length(p); float env=(0.16-r*r*0.24);
+  float z=(env+fold(p*1.5+9.0)*0.55)*t;
+  return vec3(xy,z);
+}
+void main(){ vUv=uv; vT=uT; vec3 P=crumple(position.xy,uT); vec4 mv=modelViewMatrix*vec4(P,1.0); vViewPos=mv.xyz; gl_Position=projectionMatrix*mv; }`;
+const CRUMPLE_FRAG = `
+precision highp float;
+uniform sampler2D uTex; varying vec2 vUv; varying vec3 vViewPos; varying float vT;
+void main(){
+  vec3 albedo=texture2D(uTex,vUv).rgb;
+  vec3 N=normalize(cross(dFdx(vViewPos),dFdy(vViewPos)));   // flat shading -> hard facets
+  if(N.z<0.0) N=-N;
+  if(!gl_FrontFacing) albedo=mix(albedo,vec3(0.95,0.92,0.84),0.7);   // blank paper underside
+  vec3 L=normalize(vec3(0.35,0.55,0.75));
+  float lam=clamp(dot(N,L),0.0,1.0);
+  float light=0.5+0.74*lam;
+  vec3 H=normalize(L+vec3(0.0,0.0,1.0));
+  float spec=pow(max(dot(N,H),0.0),20.0)*0.07;
+  float shade=light+spec;
+  shade=mix(1.0,shade,smoothstep(0.0,0.10,vT));            // at rest -> flat albedo == DOM note
+  gl_FragColor=vec4(albedo*shade,1.0);
+}`;
+
+function initFounderCrumple() {
+  if (Stage.reduce || !('IntersectionObserver' in window)) return;   // calm/reduced -> flat note
+  const paper = document.querySelector('#founder .paper');
+  if (!paper) return;
+  let started = false;
+  // Dedicated wide-margin observer: load + build well BEFORE the note is on screen,
+  // so it's already crumpled when it scrolls in (no flat->crumple flash).
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting || started) continue;
+      if (document.documentElement.dataset.tier === 'lite') { io.disconnect(); return; }  // weak device -> flat note
+      started = true; io.disconnect();
+      bootFounderCrumple(paper).catch(() => {});      // any failure: leave the plain note
+    }
+  }, { rootMargin: '800px 0px' });
+  io.observe(paper);
+}
+
+async function bootFounderCrumple(paper) {
+  const img = paper.querySelector('img');
+  if (img && !img.complete) { img.loading = 'eager'; await new Promise((r) => { img.onload = r; img.onerror = r; }); }
+  await document.fonts.ready;
+  const [THREE, ms] = await Promise.all([
+    import('https://esm.sh/three@0.160.0'),
+    import('https://esm.sh/modern-screenshot@4'),
+  ]);
+  const domToCanvas = ms.domToCanvas;
+
+  // capture the note (vw-frozen) -> WebGL texture
+  const unfreeze = crumpleFreeze(paper);
+  const texCanvas = await domToCanvas(paper, { scale: 2, backgroundColor: null });
+  unfreeze();
+
+  const rect = paper.getBoundingClientRect();
+  const W = rect.width, H = rect.height, aspect = W / H;
+
+  let box = null, host = null, R = null;
+  try {
+    // tight box so the overlay matches the note's border-box 1:1 (no swap snap)
+    box = document.createElement('div');
+    box.style.cssText = 'position:relative;display:block';
+    paper.parentElement.insertBefore(box, paper);
+    box.appendChild(paper);
+    host = document.createElement('div');
+    host.className = 'crumple-host';
+    box.appendChild(host);
+
+    R = new THREE.WebGLRenderer({ alpha: true, antialias: true });   // throws if WebGL unavailable -> caught
+    R.outputColorSpace = THREE.SRGBColorSpace;
+    R.setPixelRatio(Math.min(devicePixelRatio, 2));
+    R.setSize(W, H);
+    const glCanvas = R.domElement;
+    glCanvas.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%';
+    host.appendChild(glCanvas);
+
+    const scene = new THREE.Scene();
+    const fov = 35;
+    const cam = new THREE.PerspectiveCamera(fov, aspect, 0.01, 100);
+    cam.position.set(0, 0, 0.5 / Math.tan(THREE.MathUtils.degToRad(fov) / 2));
+
+    const tex = new THREE.CanvasTexture(texCanvas);
+    tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+    const uniforms = { uT: { value: 1 }, uTex: { value: tex } };
+    const mesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(aspect, 1, 80, 80),
+      new THREE.ShaderMaterial({ vertexShader: CRUMPLE_VERT, fragmentShader: CRUMPLE_FRAG, uniforms,
+        side: THREE.DoubleSide, extensions: { derivatives: true } })
+    );
+    scene.add(mesh);
+
+    let raf = 0;
+    const setT = (t) => { uniforms.uT.value = t; R.render(scene, cam); };
+    setT(1);
+    paper.style.visibility = 'hidden';        // only NOW hide the DOM note (everything above succeeded)
+
+    function swapToDom() {
+      paper.style.visibility = '';
+      glCanvas.style.transition = 'opacity .38s ease';
+      glCanvas.style.opacity = '0';
+      setTimeout(() => host.remove(), 440);
+    }
+    const STEP = 1000 / 24;                    // 24fps cinema
+    const ease = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    function animate(from, to, dur) {
+      cancelAnimationFrame(raf);
+      const t0 = performance.now(); let lastQ = -1, lastSnd = -1e9;
+      (function fr(now) {
+        let p = (now - t0) / dur; if (p > 1) p = 1;
+        const q = Math.floor((now - t0) / STEP);
+        if (q !== lastQ) { lastQ = q; const pq = Math.min(q * STEP / dur, 1); setT(from + (to - from) * ease(pq)); }
+        if (now - lastSnd > 70) { lastSnd = now; Stage.play('crinkle'); if (Math.random() < 0.5) Stage.play('crinkle'); }
+        if (p < 1) raf = requestAnimationFrame(fr);
+        else { setT(to); if (to <= 0.001) swapToDom(); }
+      })(performance.now());
+    }
+
+    // "click to unfold" affordance (focusable button = keyboard accessible)
+    let activated = false;
+    const hint = document.createElement('button');
+    hint.type = 'button';
+    hint.className = 'crumple-hint';
+    hint.textContent = 'click to unfold';
+    hint.setAttribute('aria-label', 'Unfold the founder’s note');
+    host.appendChild(hint);
+    function activate() {
+      if (activated) return; activated = true;
+      hint.remove(); host.style.cursor = 'default';
+      Stage.armSound();                        // deliberate gesture -> sound on for the session (unless muted)
+      animate(1, 0, 1500);
+    }
+    host.addEventListener('click', activate);
+    hint.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); } });
+  } catch (err) {
+    // restore the plain note on any failure (incl. no-WebGL)
+    paper.style.visibility = '';
+    if (host) host.remove();
+    if (box && box.parentElement) { box.parentElement.insertBefore(paper, box); box.remove(); }
+    try { R?.dispose?.(); } catch (_) {}
+    throw err;
+  }
+}

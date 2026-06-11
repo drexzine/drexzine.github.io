@@ -483,3 +483,17 @@ footer .legal .snd:focus-visible{outline:2px solid var(--oats);outline-offset:2p
 
 /* footer rubber stamp — alive ink badge */
 footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
+
+/* ===================================================================
+   M4 — Founder's note: click-to-unfold 3D paper crumple overlay.
+   Visual-only chrome; the WebGL canvas is injected by app.js. JS skips the
+   whole feature under reduced-motion / calm / lite, so nothing to hide here.
+   =================================================================== */
+.crumple-host{position:absolute;inset:0;z-index:6;cursor:pointer}
+.crumple-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:8;
+  font-family:var(--f-hand);font-size:1.1rem;color:var(--ink);background:rgba(254,246,228,.92);
+  border:2.4px solid var(--ink);border-radius:7px;padding:.25em .8em;cursor:pointer;
+  box-shadow:3px 3px 0 0 var(--ink);animation:crumpleBob 1.7s ease-in-out infinite}
+.crumple-hint:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
+@keyframes crumpleBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){.crumple-hint{animation:none}}
