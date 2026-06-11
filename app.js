@@ -233,24 +233,40 @@ function initReveals() {
     document.querySelectorAll('.team .head, .doors .head'),
   ];
   const marked = [];
+
+  // The shared observer pre-fires 200px BEFORE an item enters the viewport —
+  // perfect for a fade you want primed, wrong for a slam you have to actually
+  // watch (it'd play out below the fold and be at rest by the time you got
+  // there). Slams get a dedicated observer with a NEGATIVE bottom margin, so a
+  // piece only drops once it's genuinely on screen.
+  const slamCfg = new Map();
+  const slamIO = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      const el = e.target; slamIO.unobserve(el);
+      const cfg = slamCfg.get(el) || { i: 0, hard: false };
+      el.style.animationDelay = (cfg.hard ? cfg.i * 120 : cfg.i * 60) + 'ms';   // silent, purely visual; door cards cascade L->R
+      el.classList.add('in');
+    }
+  }, { rootMargin: '0px 0px -18% 0px', threshold: 0.01 });
+
   groups.forEach((nodes, gi) => nodes.forEach((el, i) => {
     const slam = gi < 2;                         // polaroids + door cards SLAM in; heads just settle
     el.classList.add('reveal');
-    if (slam) el.classList.add('slam');
     marked.push(el);
-    Stage.observe(el, (e, release) => {
-      if (!e.isIntersecting) return;             // gate on visibility only, not ratio
-      if (slam) {
-        const hard = gi === 1;                       // door cards hit harder + cascade slower (L->R)
-        const d = hard ? i * 120 : i * 60;
-        el.style.animationDelay = d + 'ms';   // slam is silent — purely visual
-      } else {
+    if (slam) {
+      el.classList.add('slam');
+      slamCfg.set(el, { i, hard: gi === 1 });   // door cards (gi 1) hit harder + cascade slower
+      slamIO.observe(el);
+    } else {
+      Stage.observe(el, (e, release) => {
+        if (!e.isIntersecting) return;           // gate on visibility only, not ratio
         el.style.transitionDelay = (i * 70) + 'ms';
         el.addEventListener('transitionend', () => { el.style.transitionDelay = ''; }, { once: true });
-      }
-      el.classList.add('in');
-      release();
-    });
+        el.classList.add('in');
+        release();
+      });
+    }
   }));
   // belt-and-suspenders: reveal any straggler the observer missed — but ONLY if
   // it's already on screen. Force-revealing an OFF-screen slam would burn its
