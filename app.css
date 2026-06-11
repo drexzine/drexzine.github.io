@@ -739,81 +739,73 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
 }
 
 /* ===================================================================
-   M5 — THE HAMBURGER THAT LIES. Tap the burger: it flops onto a string and
-   sways; a torn slit opens where it sat; you DRAG your nav strip out of the
-   slit (--pull 0→1). Yank past the danger point and the string TEARS — the
-   links fall away (then the burger respawns). Click the fallen burger to reel
-   it back. Pointer + motion only; keyboard / reduced-motion get a plain menu.
-   The burger is shown on ALL viewports here (it IS the nav).
+   M5 — THE HAMBURGER THAT LIES. Tap the burger: it flops onto a string and a
+   torn slit opens where it sat. The whole nav strand — links + the dangling
+   burger, all on ONE string — feeds out of the cut as you DRAG THE BURGER down
+   (--pull 0→1). Yank past DANGER and the string TEARS (strand falls, burger
+   respawns); click the fallen burger to reel it home. Keyboard / reduced-motion
+   get a plain menu. Shown on all viewports (the burger IS the nav).
    =================================================================== */
 .mast .wrap{position:relative}
-.mast > .wrap > nav{display:none}                 /* the old inline desktop nav is replaced by the joy */
+.mast > .wrap > nav{display:none}
 .hb{position:relative;--pull:0;z-index:40;display:inline-flex}
 
 .burger{display:inline-flex!important;align-items:center;justify-content:center;width:48px;height:44px;
   background:var(--paper);border:2.6px solid var(--ink);border-radius:7px;box-shadow:3px 3px 0 0 var(--ink);
-  cursor:pointer;transition:opacity .25s ease, transform .1s, box-shadow .1s;transform:rotate(-1.5deg)}
+  cursor:pointer;transition:opacity .2s ease, transform .1s, box-shadow .1s;transform:rotate(-1.5deg)}
 .burger:hover{transform:rotate(0)}
 .burger:active{transform:translate(3px,3px) rotate(0);box-shadow:0 0 0 0 var(--ink)}
 .burger:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
 .bars{display:flex;flex-direction:column;gap:4.5px;width:22px}
 .bars i{height:2.8px;background:var(--ink);border-radius:2px;display:block}
-.hb[data-state="fallen"] .burger,.hb[data-state="torn"] .burger{opacity:0;pointer-events:none}
+.hb[data-state="fallen"] .burger,.hb[data-state="open"] .burger,.hb[data-state="torn"] .burger{opacity:0;pointer-events:none}
 
-/* dangling rig — hidden at rest, shown once the burger has flopped */
-.hb-slit,.hb-string,.hb-fallen,.hb-clip{position:absolute;opacity:0;pointer-events:none;transition:opacity .25s ease}
-.hb[data-state="fallen"] .hb-slit,.hb[data-state="fallen"] .hb-string,
-.hb[data-state="fallen"] .hb-fallen,.hb[data-state="fallen"] .hb-clip,
-.hb[data-state="open"] .hb-slit,.hb[data-state="open"] .hb-string,
-.hb[data-state="open"] .hb-fallen,.hb[data-state="open"] .hb-clip,
-.hb[data-state="torn"] .hb-slit{opacity:1}
+/* hanging rig — interactive parts only (mouth area stays click-through) */
+.hb-rig{position:absolute;top:40px;right:0;width:320px;opacity:0;pointer-events:none;transition:opacity .2s ease}
+.hb[data-state="fallen"] .hb-rig,.hb[data-state="open"] .hb-rig,.hb[data-state="torn"] .hb-rig,.hb[data-state="plain"] .hb-rig{opacity:1}
+.hb-mouth{position:absolute;top:0;right:0;width:320px;height:480px;overflow:clip;pointer-events:none}
+.hb-sway{transform-origin:top right;will-change:transform}
+.hb[data-state="fallen"]:not(.is-dragging) .hb-sway{animation:hbsway 2.8s ease-in-out infinite}
+@keyframes hbsway{0%,100%{transform:rotate(3.5deg)}50%{transform:rotate(-3.5deg)}}
 
-/* the torn slit where the burger was */
-.hb-slit{top:44px;right:2px;width:54px;height:0;border-top:3px solid var(--ink);filter:url(#roughsm)}
-
-/* string + fallen burger, swinging from the slit as one pendulum */
-.hb-pend{position:absolute;top:44px;right:25px;width:2px;transform-origin:top center}
-.hb[data-state="fallen"] .hb-pend{animation:hbsway 2.6s ease-in-out infinite}
-.hb-string{top:44px;right:25px;width:2px;height:58px;background:var(--ink);border-radius:2px;transform-origin:top center}
-.hb[data-state="fallen"] .hb-string,.hb[data-state="open"] .hb-string{animation:hbsway 2.6s ease-in-out infinite}
-.hb-fallen{top:96px;right:2px;width:48px;height:44px;display:inline-flex;align-items:center;justify-content:center;
-  background:var(--paper);border:2.6px solid var(--ink);border-radius:7px;box-shadow:3px 3px 0 0 var(--ink);
-  transform-origin:50% -54px;cursor:pointer;pointer-events:auto}
-.hb[data-state="fallen"] .hb-fallen,.hb[data-state="open"] .hb-fallen{animation:hbsway 2.6s ease-in-out infinite;pointer-events:auto}
-@keyframes hbsway{0%,100%{transform:rotate(7deg)}50%{transform:rotate(-6deg)}}
-
-/* the nav strip, tucked up in the slit; --pull drags it down out of the cut */
-.hb-clip{top:46px;right:-8px;width:172px;height:270px;overflow:clip;z-index:41}
-.hb[data-state="rest"] .hb-clip{opacity:0}
-.hb-tray{list-style:none;margin:0;padding:10px 4px 0 0;display:flex;flex-direction:column;gap:8px;align-items:flex-end;
-  transform:translateY(calc((var(--pull) - 1) * 100%))}
-.hb[data-state="fallen"] .hb-tray,.hb[data-state="open"] .hb-tray{transition:transform .12s ease-out}
+/* ONE strand: links + string + dangling burger move together with --pull */
+.hb-strand{display:flex;flex-direction:column;align-items:flex-end;gap:8px;padding-right:3px;
+  transform:translateY(calc((var(--pull) - 1) * 168px))}
+.hb[data-state="fallen"] .hb-strand,.hb[data-state="open"] .hb-strand{transition:transform .08s linear}
+.hb-tray{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:none}
 .hb-tray li{display:block}
 .hb-tray a{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
   color:var(--ink);background:var(--paper);border:2.4px solid var(--ink);border-radius:6px;box-shadow:3px 3px 0 0 var(--ink);
-  padding:.5em .85em;display:inline-block;white-space:nowrap;cursor:grab}
-.hb-tray li:nth-child(odd) a{transform:rotate(-1.8deg)}
-.hb-tray li:nth-child(even) a{transform:rotate(1.6deg)}
-.hb[data-state="open"] .hb-tray a{cursor:pointer}
-.hb-tray .hb-cta .btn{font-size:.76rem;box-shadow:3px 3px 0 0 var(--ink)}
-.hb-clip,.hb-tray{touch-action:none}
+  padding:.5em .85em;display:inline-block;white-space:nowrap;pointer-events:none}
+.hb[data-state="open"] .hb-tray,.hb[data-state="open"] .hb-tray a,.hb[data-state="plain"] .hb-tray a{pointer-events:auto}
+.hb-tray li:nth-child(odd) a{transform:rotate(-1.6deg)}
+.hb-tray li:nth-child(even) a{transform:rotate(1.4deg)}
+.hb-tray a:hover{transform:rotate(0) translate(-1px,-1px);box-shadow:4px 4px 0 0 var(--grass)}
+.hb-tray .hb-cta .btn{font-size:.72rem;pointer-events:none}
+.hb[data-state="open"] .hb-tray .hb-cta .btn,.hb[data-state="plain"] .hb-tray .hb-cta .btn{pointer-events:auto}
+.hb-string{width:2px;height:34px;background:var(--ink);border-radius:2px;margin-right:21px}
+.hb-fallen{width:48px;height:44px;display:inline-flex;align-items:center;justify-content:center;
+  background:var(--paper);border:2.6px solid var(--ink);border-radius:7px;box-shadow:3px 3px 0 0 var(--ink);
+  cursor:grab;touch-action:none;pointer-events:auto}
+.hb.is-dragging .hb-fallen{cursor:grabbing}
 
-/* danger: as the pull stretches past safe, the string + strip strain red */
-.hb[data-state="fallen"].is-straining .hb-string,.hb[data-state="open"].is-straining .hb-string{background:var(--colorado);height:74px}
+/* the cut, drawn ON TOP so the strand reads as emerging from the paper */
+.hb-pocket{position:absolute;top:-3px;right:-6px;width:150px;height:30px;pointer-events:none;z-index:2;
+  background:linear-gradient(to bottom, rgba(34,36,41,.36), rgba(34,36,41,0))}
+.hb[data-state="rest"] .hb-pocket,.hb[data-state="plain"] .hb-pocket{opacity:0}
+.hb-slit{position:absolute;top:-1px;right:0;width:132px;height:0;border-top:3px solid var(--ink);filter:url(#roughsm);z-index:3;pointer-events:none}
+.hb[data-state="rest"] .hb-slit,.hb[data-state="plain"] .hb-slit{opacity:0}
+
+/* danger: string reddens + stretches as you over-pull */
+.hb.is-straining .hb-string{background:var(--colorado);height:50px}
 .hb.is-straining .hb-tray a{border-color:var(--colorado)}
 
-/* TORN: string snaps, the strip + burger fall away */
-.hb[data-state="torn"] .hb-string{background:var(--colorado);height:18px;transition:height .12s}
-.hb[data-state="torn"] .hb-fallen{animation:hbdrop .8s cubic-bezier(.4,0,.7,1) forwards}
-.hb[data-state="torn"] .hb-clip{animation:hbdrop .8s cubic-bezier(.4,0,.7,1) forwards}
-@keyframes hbdrop{to{transform:translateY(420px) rotate(40deg);opacity:0}}
+/* TORN: the strand drops away */
+.hb[data-state="torn"] .hb-strand{animation:hbdrop .85s cubic-bezier(.4,0,.7,1) forwards}
+@keyframes hbdrop{to{transform:translateY(470px) rotate(26deg);opacity:0}}
 
-/* keyboard / reduced-motion / no-JS: a plain dropdown, no game */
-.hb[data-state="plain"] .hb-clip{opacity:1;height:auto;position:absolute;top:50px;right:0}
-.hb[data-state="plain"] .hb-tray{transform:none;transition:none}
-.hb[data-state="plain"] .hb-slit,.hb[data-state="plain"] .hb-string,.hb[data-state="plain"] .hb-fallen{display:none}
-@media(prefers-reduced-motion:reduce){
-  .hb-fallen,.hb-string,.hb-pend{animation:none!important}
-}
-/* the clip is the drag surface only while the burger has flopped */
-.hb[data-state="fallen"] .hb-clip,.hb[data-state="open"] .hb-clip{pointer-events:auto}
+/* keyboard / reduced-motion / no-JS: an honest dropdown */
+.hb[data-state="plain"] .hb-mouth{position:static;overflow:visible;height:auto;pointer-events:auto}
+.hb[data-state="plain"] .hb-sway,.hb[data-state="plain"] .hb-strand{transform:none;animation:none!important}
+.hb[data-state="plain"] .hb-string,.hb[data-state="plain"] .hb-fallen{display:none}
+@media(prefers-reduced-motion:reduce){ .hb-sway{animation:none!important} }
