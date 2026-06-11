@@ -317,6 +317,8 @@ function initEnvelope(audio) {
       env.classList.add('done', 'lit-shadow');       // unclip + the hard shadow pops in
       setTimeout(() => { env.classList.add('lit-tape'); Stage.play('taperip', { gain: 0.3 }); }, 250);
       setTimeout(() => { env.classList.add('lit-hl');  Stage.play('marker',  { gain: 0.32 }); }, 600);
+      // ~2s after the cut, the rest of the zine unfurls below + a "there's more" cue appears
+      setTimeout(() => { root.classList.add('revealed'); Stage.play('rustle', { gain: 0.16, rate: 0.95 }); }, 1050);
     }, 820);
   }
 
@@ -356,6 +358,9 @@ function initEnvelope(audio) {
       if (p >= 1 || done) stop();
     });
   });
+
+  // hide the "there's more" cue once the visitor takes the hint and scrolls
+  addEventListener('scroll', () => root.classList.add('scrolled'), { once: true, passive: true });
 
   /* ---- QA hooks ---- */
   window.__drexCrit = window.__drexCrit || {};

@@ -217,6 +217,29 @@ html.sealed .envelope.opened .cut-prompt{opacity:0;pointer-events:none;animation
 .cut-prompt-arrow{width:92px;height:22px;color:var(--colorado);filter:url(#rough)}
 @keyframes cutbob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
+/* ---- the cut opens the whole site ---- */
+/* before the cut: only the hero envelope exists — everything below is hidden,
+   so the page is one clean screen. JS adds html.revealed ~2s after the card lands. */
+html.sealed:not(.revealed) main > section:not(.hero),
+html.sealed:not(.revealed) footer{display:none}
+/* the masthead, too, only appears WITH the rest of the site post-cut. visibility
+   (not display) reserves its space so it fades in without shoving the hero down. */
+html.sealed .mast{opacity:0;visibility:hidden;transition:opacity .6s ease}
+html.sealed.revealed .mast{opacity:1;visibility:visible}
+/* once the card is out, the seam (its job done) fades — so its torn line stops
+   colliding with the card's shadow at the base. */
+html.sealed .envelope.done .seam{opacity:0;pointer-events:none;transition:opacity .6s ease .4s}
+
+/* ---- hand-drawn "there's more" scroll cue: appears after the reveal, fades on scroll ---- */
+.scroll-cue{position:fixed;left:50%;bottom:clamp(.7rem,2.4vh,1.5rem);transform:translateX(-50%);z-index:40;
+  display:flex;flex-direction:column;align-items:center;gap:.05rem;
+  opacity:0;pointer-events:none;transition:opacity .5s ease}
+html.revealed .scroll-cue{opacity:1;animation:scrollbob 1.6s ease-in-out infinite}
+html.revealed.scrolled .scroll-cue{opacity:0;animation:none}
+.scroll-cue .scrawl{font-size:1.5rem;color:var(--sambas);transform:rotate(-1.5deg)}
+.scroll-cue svg{width:60px;height:40px;color:var(--colorado);filter:url(#rough)}
+@keyframes scrollbob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+
 /* ---------- about = dark cut-paper ---------- */
 .about{padding:clamp(1rem,3vw,2rem) 0}
 .about .paper>.sheet{background:var(--sambas);box-shadow:none}
