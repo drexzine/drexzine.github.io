@@ -135,24 +135,87 @@ a{color:inherit}
 .hero .pin .scrawl{font-size:1.25rem;color:var(--sambas);max-width:12ch}
 @media(max-width:680px){.hero .pin{display:none}}
 
-/* ---------- cut-gate (the "cut here" perforation; --cut 0→1 = progress) ---------- */
-.cutline{--cut:0;position:relative;display:flex;align-items:center;justify-content:center;
-  height:26px;margin:clamp(2rem,5vw,3.2rem) 0;color:rgba(65,77,87,.55);
-  cursor:pointer;-webkit-tap-highlight-color:transparent}
-.cutline:focus-visible{outline:3px solid var(--lazuli);outline-offset:6px;border-radius:4px}
-.cutline .cut-rule{position:absolute;left:0;right:0;top:50%;height:0;border-top:2.4px dashed rgba(65,77,87,.4)}
-.cutline .cut-torn{position:absolute;left:0;top:50%;height:0;width:calc(var(--cut) * 100%);
-  border-top:2.6px solid var(--ink);filter:url(#roughsm)}                      /* torn trail behind the blades */
-.cutline .cut-scissors{position:absolute;top:50%;left:calc(var(--cut) * 100%);transform:translate(-50%,-50%);
-  width:22px;height:22px;color:var(--sambas);z-index:2;transition:opacity .3s ease}
-.cutline .cut-scissors svg{display:block;width:100%;height:100%}
-.cutline .label{position:relative;z-index:1;background:var(--oats);padding:0 .55rem;opacity:calc(1 - var(--cut))}
-.cutline.done .cut-scissors{opacity:0}                                         /* blades gone once cut */
-/* the freed hero sheet releases: drops a touch, registration shadow deepens */
-.hero .paper{transition:translate .55s cubic-bezier(.2,.7,.2,1)}
-.hero .paper>.sheet{transition:box-shadow .55s ease}
-.hero.cut .paper{translate:0 8px}
-.hero.cut .paper>.sheet{box-shadow:11px 14px 0 0 var(--ink)}
+/* ===================================================================
+   HERO ENVELOPE — drag-to-cut. The card hides in a clipped pocket; sealed,
+   it is pushed down out of sight so the page opens as blank paper with a
+   "cut here" seam + a hand-drawn "drag to cut" prompt. A pointer drag tears
+   the seam (--cut 0→1); on completion the card rises out of the pocket and,
+   in sequence, gains its shadow → its tape → the highlighter draws on.
+   ALL sealed visuals are gated on html.sealed (set in <head> only when motion
+   is allowed). reduced-motion / no-JS / the 6s failsafe show the hero normally.
+   =================================================================== */
+.envelope{position:relative}
+.hero{padding-block:clamp(.7rem,1.8vw,1.4rem) clamp(1.5rem,4vw,3rem)}   /* tighten so the seam stays in view */
+/* the pocket: a BOUNDED blank area with the card sitting at its base (the seam),
+   so a tall card can't shove the "cut here" line below the fold. */
+.card-clip{position:relative;overflow:visible}
+html.sealed .card-clip{display:flex;align-items:flex-end;min-height:clamp(220px,32vh,330px)}  /* the pocket, only when sealed */
+html.sealed .envelope:not(.done) .card-clip{overflow:clip}        /* clip while sealed + rising */
+
+/* the card: sealed = pushed down into the pocket (clipped away → blank above) */
+.hero-card{width:100%;transition:transform .8s cubic-bezier(.16,.84,.3,1)}
+html.sealed .hero-card{transform:translateY(122%)}
+html.sealed .envelope.opened .hero-card{transform:translateY(0)}
+/* compact hero so the whole card + seam live in one view (the envelope is a single screen) */
+.hero-card .inner{padding:clamp(1.1rem,2.4vw,1.7rem)}
+.hero-card h1{font-size:clamp(1.9rem,4vw,2.9rem);max-width:14ch;line-height:1.02}
+.hero-card .lede{font-size:clamp(.95rem,1.5vw,1.15rem);max-width:32ch;margin-top:clamp(.7rem,1.6vw,1.05rem)}
+.hero-card .cta{margin-top:clamp(.9rem,2vw,1.4rem)}
+
+/* inner shadow at the pocket mouth — the depth the card slides out of */
+.pocket-shadow{display:none}
+html.sealed .pocket-shadow{display:block;position:absolute;left:-4%;right:-4%;bottom:0;height:64px;z-index:6;
+  pointer-events:none;background:linear-gradient(to top,rgba(34,36,41,.38),rgba(34,36,41,0));
+  opacity:0;transition:opacity .35s ease}
+html.sealed .envelope.cutting .pocket-shadow,
+html.sealed .envelope.opened:not(.done) .pocket-shadow{opacity:1}
+
+/* staged reveal: hard shadow, then washi tape, then the highlight draws */
+.hero-card>.sheet{transition:box-shadow .5s ease}
+html.sealed .hero-card>.sheet{box-shadow:none}
+html.sealed .envelope.lit-shadow .hero-card>.sheet{box-shadow:8px 8px 0 0 var(--ink)}
+html.sealed .hero-card .tape{opacity:0;transform:rotate(-5deg) translateY(-12px) scale(.6);
+  transition:opacity .4s ease, transform .45s cubic-bezier(.2,.8,.3,1.25)}
+html.sealed .envelope.lit-tape .hero-card .tape{opacity:1;transform:rotate(-5deg) translateY(0) scale(1)}
+html.sealed .hero-card .hl::before{transform-origin:left center;scale:0 1;transition:scale .6s cubic-bezier(.2,.7,.2,1)}
+html.sealed .envelope.lit-hl .hero-card .hl::before{scale:1 1}
+
+/* ---- the seam (the "cut here" seal — now a drag handle) ---- */
+.seam{--cut:0;--cut-x:0;position:relative;display:flex;align-items:center;justify-content:center;
+  height:30px;margin:.2rem 0 0;color:rgba(65,77,87,.6);cursor:grab;touch-action:none;
+  -webkit-tap-highlight-color:transparent}
+.seam:active{cursor:grabbing}
+.seam:focus-visible{outline:3px solid var(--lazuli);outline-offset:6px;border-radius:4px}
+.seam .cut-rule{position:absolute;left:0;right:0;top:50%;height:0;border-top:2.6px dashed rgba(65,77,87,.5)}
+.seam .cut-torn{position:absolute;left:0;top:50%;height:0;width:calc(var(--cut)*100%);
+  border-top:2.8px solid var(--ink);filter:url(#roughsm)}
+.seam .cut-scissors{position:absolute;top:50%;left:calc(var(--cut-x)*100%);transform:translate(-50%,-50%);
+  width:26px;height:26px;color:var(--sambas);z-index:2;transition:opacity .3s ease;will-change:left}
+.seam .cut-scissors svg{display:block;width:100%;height:100%}
+.seam .label{position:relative;z-index:1;background:var(--oats);padding:0 .55rem;
+  font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;color:rgba(65,77,87,.6);
+  opacity:calc(1 - var(--cut))}
+.envelope.opened .seam .cut-scissors{opacity:0}
+.seam.armed .cut-scissors{animation:scisnudge 1.6s ease-in-out infinite}
+.envelope.cutting .seam.armed .cut-scissors,.envelope.opened .seam .cut-scissors{animation:none}
+@keyframes scisnudge{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,-50%) rotate(-13deg)}}
+
+/* not sealed (reduced-motion / no-JS / failsafe): show the hero, mute the game */
+html:not(.sealed) .cut-prompt{display:none}
+html:not(.sealed) .seam{cursor:default;pointer-events:none}
+html:not(.sealed) .seam .cut-scissors{display:none}
+
+/* ---- hand-drawn "drag to cut" indicator ---- */
+.cut-prompt{display:none}
+html.sealed .cut-prompt{display:flex;align-items:center;gap:.55rem;justify-content:center;margin:.9rem 0 0;
+  color:var(--colorado);transition:opacity .35s ease;animation:cutbob 1.7s ease-in-out infinite}
+html.sealed .envelope.cutting .cut-prompt,
+html.sealed .envelope.opened .cut-prompt{opacity:0;pointer-events:none;animation:none}
+.cut-prompt-star{width:28px;height:28px;flex:none;fill:var(--schoolbus);stroke:var(--ink);stroke-width:.8;
+  filter:url(#rough);transform:rotate(-9deg)}
+.cut-prompt-text{font-size:1.55rem;transform:rotate(-2deg)}
+.cut-prompt-arrow{width:92px;height:22px;color:var(--colorado);filter:url(#rough)}
+@keyframes cutbob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
 /* ---------- about = dark cut-paper ---------- */
 .about{padding:clamp(1rem,3vw,2rem) 0}

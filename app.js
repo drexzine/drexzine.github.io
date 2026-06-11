@@ -77,7 +77,7 @@ function boot() {
   initDemoGate();
   initReveals();                    // M1: settle-in on scroll
   initHighlighter();                // M1: highlighter + marker draw-on
-  initCutGate();                    // M2: the "cut here" perforation gate
+  initEnvelope(audio);              // M3: hero drag-to-cut envelope
   initInteractionSounds();          // M1: stamp / toggle on interaction
   initSoundToggle(audio);           // M1: footer opt-in toggle
   // wake the FPS governor for the first couple seconds so html[data-tier=lite]
@@ -155,6 +155,8 @@ function initAudio() {
   ['pointerdown', 'keydown', 'touchstart'].forEach((ev) =>
     window.addEventListener(ev, unlock, { once: true, passive: true }));
 
+  function emitChange() { try { window.dispatchEvent(new Event('drexfx:soundchange')); } catch (_) {} }
+
   const engine = {
     play(key, opts = {}) {
       if (!enabled || !ctx || ctx.state !== 'running') return;
@@ -168,10 +170,18 @@ function initAudio() {
       src.connect(g).connect(ctx.destination);
       src.start();
     },
+    // The envelope cut is a deliberate gesture, so it turns sound ON for the
+    // session (unless the visitor has explicitly muted via the footer toggle).
+    armForCut() {
+      try { if (localStorage.getItem('drex-sound') === 'off') return; } catch (_) {}
+      ensureCtx(); if (ctx && ctx.state === 'suspended') ctx.resume(); load();
+      if (!enabled) { enabled = true; emitChange(); }
+    },
     setEnabled(on) {
       enabled = on;
       try { localStorage.setItem('drex-sound', on ? 'on' : 'off'); } catch (_) {}
       if (on) { ensureCtx(); ctx?.resume?.(); load()?.then(() => engine.play('toggle', { gain: 0.3 })); }
+      emitChange();
     },
     get enabled() { return enabled; },
   };
@@ -224,6 +234,7 @@ function initReveals() {
 function initHighlighter() {
   if (!('IntersectionObserver' in window)) return;  // leave marks fully drawn
   document.querySelectorAll('.hl, .ul').forEach((el) => {
+    if (el.closest('.hero-card')) return;           // the envelope sequence draws the hero highlight
     el.classList.add('draw');
     Stage.observe(el, (e, release) => {
       if (!e.isIntersecting) return;
@@ -250,69 +261,107 @@ function initSoundToggle(audio) {
     b.textContent = audio.enabled ? 'sound on' : 'sound off';
   };
   sync();
+  window.addEventListener('drexfx:soundchange', sync);   // stay in sync when the cut turns sound on
   b.addEventListener('click', () => { audio.setEnabled(!audio.enabled); sync(); });
 }
 
 /* ===================================================================
-   M2 — Cut-gate. The "cut here" cutline between the hero and #about keeps
-   its literal promise: a scissors travels left→right along the rule, a torn
-   deckle follows it, the label is consumed by the cut, and on completion the
-   hero sheet releases (drops a touch, shadow deepens). It is PURELY ADDITIVE
-   decoration — #about is in normal flow and fully visible at all times; the
-   cut never gates, hides, or scroll-jacks anything. Runs once, latched.
-   Drives off the shared Stage rAF loop; sound only through the opt-in engine.
-   calm / tier=lite / no-JS render the end state (torn seam) with no travel.
+   M3 — Hero ENVELOPE (drag-to-cut). The page opens as blank paper with a
+   "cut here" seam. The visitor DRAGS the scissors across it (mouse or finger;
+   on desktop the scissors also follows the cursor on hover) and the seam
+   tears under it (--cut, monotonic) with snip sounds. A full cut makes the
+   hero card RISE out of the pocket (paper-shuffle), then in sequence it gains
+   its hard shadow → washi tape → the highlighter draws on (marker sound).
+   Keyboard: Enter/Space on the focusable seam runs an auto-cut.
+   Armed ONLY under html.sealed (motion ok). Content is never gated: the card
+   is in the DOM for screen readers, and the <head> failsafe reveals it if JS
+   never arms; reduced-motion / no-JS show the hero normally.
    =================================================================== */
-function initCutGate() {
-  const gate = document.getElementById('cutgate');
-  if (!gate) return;
-  const hero = document.querySelector('.hero');
-  let done = false, animating = false;
+function initEnvelope(audio) {
+  const root = document.documentElement;
+  const env = document.getElementById('envelope');
+  const seam = document.getElementById('cutgate');
+  if (!env || !seam) return;
+  if (!root.classList.contains('sealed')) return;   // hero already shown — nothing to arm
 
-  function endState() {              // snap to torn seam, no animation
-    gate.style.setProperty('--cut', '1');
-    gate.classList.add('done');
-    hero && hero.classList.add('cut');
-    done = true;
-  }
-  function run() {
-    if (done || animating) return;
-    if (Stage.calm || document.documentElement.dataset.tier === 'lite') { endState(); return; }
-    animating = true;
-    const DUR = 900;
-    let start = null, lastDash = 0;
-    const stop = Stage.addDriver((t) => {
-      if (start == null) start = t;
-      const p = Math.min((t - start) / DUR, 1);
-      const e = 1 - Math.pow(1 - p, 3);                 // easeOutCubic
-      gate.style.setProperty('--cut', e.toFixed(4));
-      const dash = Math.floor(e * 12);                  // a snip bite per dash crossed
-      if (dash > lastDash) { lastDash = dash; Stage.play('snip', { gain: 0.16 }); }
-      if (p >= 1) {
-        stop();
-        gate.classList.add('done');
-        hero && hero.classList.add('cut');
-        Stage.play('cut', { gain: 0.4 });               // the heavier release tear
-        done = true; animating = false;
-      }
-    });
+  root.classList.add('armed');                       // tell the <head> failsafe we're alive
+  seam.classList.add('armed');                       // scissors nudge + prompt bob
+
+  let cutMax = 0, cutting = false, done = false, lastDash = -1;
+
+  const fracAt = (clientX) => {
+    const r = seam.getBoundingClientRect();
+    return r.width ? Math.max(0, Math.min(1, (clientX - r.left) / r.width)) : 0;
+  };
+  const setX = (f) => seam.style.setProperty('--cut-x', f.toFixed(4));   // scissors position
+  const setCut = (f) => seam.style.setProperty('--cut', f.toFixed(4));   // torn progress
+
+  function advance(f) {                              // extend the cut; never backwards
+    if (f <= cutMax) return;
+    cutMax = f; setCut(cutMax);
+    const dash = Math.floor(cutMax * 14);
+    if (dash !== lastDash) { lastDash = dash; Stage.play('snip', { gain: 0.17 }); }
+    if (cutMax >= 0.97) complete();
   }
 
-  // primary trigger: scroll the cutline well into view (ratio 0.9 threshold exists on the shared IO)
-  Stage.observe(gate, (e, release) => {
-    if (!e.isIntersecting || (e.intersectionRatio < 0.9 && !done)) return;
-    release();
-    run();
+  function complete() {
+    if (done) return;
+    done = true; cutting = false;
+    env.classList.remove('cutting');
+    setCut(1); setX(1);
+    Stage.play('cut', { gain: 0.42 });               // the heavier release tear
+    env.classList.add('opened');                     // the card rises out of the pocket
+    Stage.play('rustle', { gain: 0.34 });            // paper shuffle as it comes up
+    setTimeout(() => Stage.play('rustle', { gain: 0.18, rate: 1.12 }), 190);
+    setTimeout(() => {                               // AFTER the ~0.8s rise:
+      env.classList.add('done', 'lit-shadow');       // unclip + the hard shadow pops in
+      setTimeout(() => { env.classList.add('lit-tape'); Stage.play('taperip', { gain: 0.3 }); }, 250);
+      setTimeout(() => { env.classList.add('lit-hl');  Stage.play('marker',  { gain: 0.32 }); }, 600);
+    }, 820);
+  }
+
+  /* ---- pointer drag (mouse + touch unified) ---- */
+  seam.addEventListener('pointermove', (e) => {
+    if (done) return;
+    const f = fracAt(e.clientX);
+    setX(f);                                          // scissors follows cursor / finger
+    if (cutting) advance(f);
   });
-  // secondary: pointer click for mouse delight. The gate is aria-hidden decoration
-  // (a SR/keyboard "button" that only animates would be a WCAG 4.1.2 honesty failure),
-  // so it is NOT a focusable control — #about is always reachable without it.
-  gate.addEventListener('click', run);
+  seam.addEventListener('pointerdown', (e) => {
+    if (done) return;
+    e.preventDefault();
+    cutting = true; env.classList.add('cutting');
+    try { seam.setPointerCapture(e.pointerId); } catch (_) {}
+    audio && audio.armForCut();                       // the cut gesture turns sound on (unless muted)
+    const f = fracAt(e.clientX); setX(f); advance(f);
+  });
+  const endDrag = () => {
+    if (done || !cutting) return;
+    cutting = false; env.classList.remove('cutting');
+    if (cutMax >= 0.8) complete();                    // forgiving: most of the way across = done
+    else setX(cutMax);                                // rest the blades at the cut front; grab again
+  };
+  seam.addEventListener('pointerup', endDrag);
+  seam.addEventListener('pointercancel', endDrag);
 
-  // QA hooks: deterministic scrub + keyboard path
+  /* ---- keyboard (a11y): Enter / Space runs an auto-cut ---- */
+  seam.addEventListener('keydown', (e) => {
+    if (done || (e.key !== 'Enter' && e.key !== ' ')) return;
+    e.preventDefault();
+    env.classList.add('cutting');
+    audio && audio.armForCut();
+    let p = 0;
+    const stop = Stage.addDriver(() => {
+      p = Math.min(p + 0.022, 1); setX(p); advance(p);
+      if (p >= 1 || done) stop();
+    });
+  });
+
+  /* ---- QA hooks ---- */
   window.__drexCrit = window.__drexCrit || {};
-  window.__drexCrit.seek = (pos) => gate.style.setProperty('--cut', String(Math.max(0, Math.min(1, +pos || 0))));
-  window.__drexCrit.simulateKeyboardCut = run;
+  window.__drexCrit.seek = (pos) => { const f = Math.max(0, Math.min(1, +pos || 0)); setX(f); advance(f); };
+  window.__drexCrit.simulateKeyboardCut = complete;
+  window.__drexCrit.openEnvelope = complete;
 }
 
 /* ---- test-only crit hook (defaults; initCutGate overrides seek/cut) */

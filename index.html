@@ -23,8 +23,23 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=7" />
-<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="app.css?v=8" />
+<script>
+  // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
+  // when motion is allowed. reduced-motion shows the hero normally. A failsafe
+  // un-seals after 6s if app.js never arms the envelope (e.g. a load error), so
+  // the hero can never be trapped behind the cut.
+  (function () {
+    var d = document.documentElement;
+    d.classList.add('js');
+    try {
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        d.classList.add('sealed');
+        setTimeout(function () { if (!d.classList.contains('armed')) d.classList.remove('sealed'); }, 6000);
+      }
+    } catch (e) {}
+  })();
+</script>
 </head>
 <body>
 
@@ -57,31 +72,50 @@
 
 <main id="top">
 
-  <!-- ============ HERO ============ -->
-  <section class="hero">
+  <!-- ============ HERO — drag-to-cut envelope ============ -->
+  <section class="hero" id="hero">
     <div class="wrap">
-      <div class="paper">
-        <span class="sheet ruled"></span>
-        <span class="tape" style="left:8%;top:-14px"></span>
-        <div class="pin">
-          <p class="scrawl">"the room was already expecting you" &darr;</p>
-        </div>
-        <div class="inner">
-          <span class="eyebrow" style="color:var(--sambas)">a community for your gifts &mdash; est. 2026</span>
-          <h1>Be fully <span class="hl">yourself,</span> fully among others<span class="stop">.</span></h1>
-          <p class="lede"><span class="dropcap">D</span>rex is where people make zines together &mdash; you bring your gifts, and you don't do it alone. Style is a practice, not a purchase.</p>
-          <div class="cta">
-            <a class="btn" href="#circle">Join the Circle <span class="arr">&rarr;</span></a>
-            <a class="btn ink" href="#about">What is Drex?</a>
+      <div class="envelope" id="envelope">
+
+        <!-- the card lives in a clipped pocket; sealed it is pushed down out of sight -->
+        <div class="card-clip">
+          <span class="pocket-shadow" aria-hidden="true"></span>
+          <div class="paper hero-card">
+            <span class="sheet ruled"></span>
+            <span class="tape" style="left:8%;top:-14px"></span>
+            <div class="pin">
+              <p class="scrawl">"the room was already expecting you" &darr;</p>
+            </div>
+            <div class="inner">
+              <span class="eyebrow" style="color:var(--sambas)">a community for your gifts &mdash; est. 2026</span>
+              <h1>Be fully <span class="hl">yourself,</span> fully among others<span class="stop">.</span></h1>
+              <p class="lede"><span class="dropcap">D</span>rex is where people make zines together &mdash; you bring your gifts, and you don't do it alone. Style is a practice, not a purchase.</p>
+              <div class="cta">
+                <a class="btn" href="#circle">Join the Circle <span class="arr">&rarr;</span></a>
+                <a class="btn ink" href="#about">What is Drex?</a>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="cutline" id="cutgate" aria-hidden="true">
-        <span class="cut-rule" aria-hidden="true"></span>
-        <span class="cut-torn" aria-hidden="true"></span>
-        <span class="cut-scissors" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8 7.5 20 16M8 16.5 20 8"/></svg></span>
-        <span class="label">cut here</span>
+        <!-- the seal you cut: keeps the "cut here" look; now a drag handle -->
+        <div class="seam" id="cutgate" role="button" tabindex="0"
+             aria-label="Drag the scissors across the line, or press Enter, to cut the paper open">
+          <span class="cut-rule" aria-hidden="true"></span>
+          <span class="cut-torn" aria-hidden="true"></span>
+          <span class="cut-scissors" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8 7.5 20 16M8 16.5 20 8"/></svg></span>
+          <span class="label">cut here</span>
+        </div>
+
+        <!-- hand-drawn indicator; fades out the moment you start cutting -->
+        <div class="cut-prompt" aria-hidden="true">
+          <svg class="cut-prompt-star" viewBox="0 0 24 24"><path d="M12 2.4 L14.7 9.1 L21.6 9.4 L16.1 13.8 L18.1 20.6 L12 16.4 L5.9 20.6 L7.9 13.8 L2.4 9.4 L9.3 9.1 Z"/></svg>
+          <span class="cut-prompt-text scrawl">drag to cut</span>
+          <svg class="cut-prompt-arrow" viewBox="0 0 120 30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 15 H103"/><path d="M90 5 L107 15 L90 25"/>
+          </svg>
+        </div>
+
       </div>
     </div>
   </section>
@@ -249,6 +283,6 @@
   </div>
 </footer>
 
-<script type="module" src="app.js?v=7"></script>
+<script type="module" src="app.js?v=8"></script>
 </body>
 </html>
