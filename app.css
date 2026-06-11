@@ -145,11 +145,15 @@ a{color:inherit}
    is allowed). reduced-motion / no-JS / the 6s failsafe show the hero normally.
    =================================================================== */
 .envelope{position:relative}
-.hero{padding-block:clamp(.7rem,1.8vw,1.4rem) clamp(1.5rem,4vw,3rem)}   /* tighten so the seam stays in view */
+/* tight top while sealed so the seam stays in view; on settle it grows so the
+   risen card clears the mast (transitioned, so the card visibly drops into place). */
+.hero{padding-block:clamp(2.4rem,5.5vw,4.2rem) clamp(1.5rem,4vw,3rem);transition:padding .7s ease}
+html.sealed:not(.revealed) .hero{padding-top:clamp(.7rem,1.8vw,1.4rem)}   /* tight ONLY during the blank/emerge phase; reverts on settle */
 /* the pocket: a BOUNDED blank area with the card sitting at its base (the seam),
    so a tall card can't shove the "cut here" line below the fold. */
 .card-clip{position:relative;overflow:visible}
-html.sealed .card-clip{display:flex;align-items:flex-end;min-height:clamp(220px,32vh,330px)}  /* the pocket, only when sealed */
+html.sealed .card-clip{display:flex;align-items:flex-end;min-height:clamp(220px,32vh,330px);transition:min-height .7s ease}
+html.sealed.revealed .card-clip{min-height:0}                     /* pocket blank collapses on settle */
 html.sealed .envelope:not(.done) .card-clip{overflow:clip}        /* clip while sealed + rising */
 
 /* the card: sealed = pushed down into the pocket (clipped away → blank above) */
@@ -226,9 +230,12 @@ html.sealed:not(.revealed) footer{display:none}
    (not display) reserves its space so it fades in without shoving the hero down. */
 html.sealed .mast{opacity:0;visibility:hidden;transition:opacity .6s ease}
 html.sealed.revealed .mast{opacity:1;visibility:visible}
-/* once the card is out, the seam (its job done) fades — so its torn line stops
-   colliding with the card's shadow at the base. */
-html.sealed .envelope.done .seam{opacity:0;pointer-events:none;transition:opacity .6s ease .4s}
+/* once the card is out, the seam fades (so its torn line stops colliding with the
+   card's shadow), then on settle it + the prompt COLLAPSE their space so the gap
+   below the card closes as everything drops into place. */
+html.sealed .seam,html.sealed .cut-prompt{transition:opacity .55s ease, height .6s ease, margin .6s ease}
+html.sealed .envelope.done .seam{opacity:0;pointer-events:none}
+html.sealed.revealed .seam,html.sealed.revealed .cut-prompt{height:0;margin:0;overflow:hidden;pointer-events:none}
 
 /* ---- hand-drawn "there's more" scroll cue: appears after the reveal, fades on scroll ---- */
 .scroll-cue{position:fixed;left:50%;bottom:clamp(.7rem,2.4vh,1.5rem);transform:translateX(-50%);z-index:40;
