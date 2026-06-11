@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=3" />
+<link rel="stylesheet" href="app.css?v=4" />
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -62,14 +62,16 @@
           <h1>Be fully <span class="hl">yourself,</span> fully among others<span class="stop">.</span></h1>
           <p class="lede"><span class="dropcap">D</span>rex is where people make zines together &mdash; you bring your gifts, and you don't do it alone. Style is a practice, not a purchase.</p>
           <div class="cta">
-            <a class="btn" href="#circle">Join the circle <span class="arr">&rarr;</span></a>
+            <a class="btn" href="#circle">Join the Circle <span class="arr">&rarr;</span></a>
             <a class="btn ink" href="#about">What is Drex?</a>
           </div>
         </div>
       </div>
 
-      <div class="cutline" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8 7.5 20 16M8 16.5 20 8"/></svg>
+      <div class="cutline" id="cutgate" role="button" tabindex="0" aria-label="cut here">
+        <span class="cut-rule" aria-hidden="true"></span>
+        <span class="cut-torn" aria-hidden="true"></span>
+        <span class="cut-scissors" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8 7.5 20 16M8 16.5 20 8"/></svg></span>
         <span class="label">cut here</span>
       </div>
     </div>
@@ -187,9 +189,9 @@
           <span class="sheet"></span>
           <span class="tape b" style="right:14px;top:-14px;transform:rotate(6deg)"></span>
           <div class="inner">
-            <span class="cap">members-only</span>
+            <span class="cap">by invite</span>
             <h3>The Demo</h3>
-            <p>A look at Drex in motion. Members share a passcode &mdash; ask your host, then step inside.</p>
+            <p>A look at Drex in motion. The Circle shares a passcode &mdash; ask your host, then step inside.</p>
             <div class="foot">
               <span class="locktag">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="10.5" width="16" height="9.5" rx="2.4"/><path d="M7.5 10.5V7.5a4.5 4.5 0 0 1 9 0v3"/></svg>
@@ -197,7 +199,7 @@
               </span>
               <button class="btn ink" id="demo-toggle" type="button" aria-expanded="false" aria-controls="demo-gate">Enter passcode <span class="arr">&rarr;</span></button>
               <div class="gate" id="demo-gate">
-                <label class="label" for="demo-code" style="display:block;margin:.1rem 0 .45rem">Passcode <span class="scrawl" style="text-transform:none;letter-spacing:0;color:var(--sambas);opacity:.7">&middot; members have it</span></label>
+                <label class="label" for="demo-code" style="display:block;margin:.1rem 0 .45rem">Passcode <span class="scrawl" style="text-transform:none;letter-spacing:0;color:var(--sambas);opacity:.7">&middot; the Circle has it</span></label>
                 <form id="demo-form" autocomplete="off">
                   <input id="demo-code" type="password" inputmode="text" placeholder="&bull;&bull;&bull;&bull;" aria-label="Demo passcode" aria-describedby="demo-msg" />
                   <button class="btn" type="submit">Unlock</button>
@@ -238,6 +240,6 @@
   </div>
 </footer>
 
-<script type="module" src="app.js?v=3"></script>
+<script type="module" src="app.js?v=4"></script>
 </body>
 </html>

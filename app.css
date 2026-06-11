@@ -17,6 +17,7 @@
 :root{
   --grass:#1CAB5B; --oats:#FEF6E4; --sambas:#414D57; --colorado:#F75458;
   --lazuli:#2496C9; --schoolbus:#ECAF21; --happy:#F1DD01;
+  --grass-deep:#0C6E39;      /* AA-safe grass: oats text clears 4.5:1 — for the primary button fill + footer band */
   --ink:#414D57;
   --paper:#FEF6E4;            /* Oats — palette-pure; cards lift off the textured ground via torn ink border + hard shadow */
   --f-slab:"Courier Prime",ui-monospace,monospace;  /* Pitch (display) */
@@ -85,7 +86,7 @@ a{color:inherit}
 
 /* ---------- rubber-stamp press-down button ---------- */
 .btn{
-  --bg:var(--grass);--fg:var(--oats);
+  --bg:var(--grass-deep);--fg:var(--oats);   /* deep grass clears AA (oats label 5.9:1); bright grass was 2.78:1 */
   font-family:var(--f-mono);font-weight:500;font-size:.86rem;letter-spacing:.12em;text-transform:uppercase;
   display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;cursor:pointer;
   background:var(--bg);color:var(--fg);border:2.6px solid var(--ink);border-radius:6px;
@@ -108,8 +109,10 @@ a{color:inherit}
 .mast .lg-icon svg,.mast .lg-word svg{display:block;width:100%;height:auto}
 .mast nav{display:flex;gap:clamp(.5rem,2vw,1.1rem);align-items:center;flex-wrap:wrap;justify-content:flex-end}
 .mast nav a{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;
+  display:inline-flex;align-items:center;min-height:44px;
   border:2px solid var(--ink);border-radius:5px;padding:.4em .7em;background:var(--paper);
   box-shadow:2px 2px 0 0 var(--ink);transition:transform .08s, box-shadow .08s}
+.mast nav a:focus-visible{outline:3px solid var(--lazuli);outline-offset:2px}
 .mast nav a:nth-child(2){transform:rotate(1.4deg)}
 .mast nav a:nth-child(3){transform:rotate(-1.2deg)}
 .mast nav a:hover{transform:rotate(0) translate(-1px,-1px);box-shadow:3px 3px 0 0 var(--grass)}
@@ -118,7 +121,7 @@ a{color:inherit}
 .hero{padding:clamp(2.4rem,7vw,5rem) 0 clamp(1.5rem,4vw,3rem)}
 .hero .inner{padding:clamp(1.8rem,5vw,3.6rem)}
 .hero .eyebrow{margin-bottom:1rem}
-.hero h1{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:1;letter-spacing:-.025em;word-spacing:-.12em;
+.hero h1{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:1;letter-spacing:-.012em;
   text-wrap:balance;font-size:clamp(2.7rem,9vw,6.6rem);margin:0;color:var(--ink);max-width:15ch}
 .hero h1 .stop{color:var(--grass)}
 .hero .lede{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.2rem,2.3vw,1.7rem);
@@ -130,10 +133,24 @@ a{color:inherit}
 .hero .pin .scrawl{font-size:1.25rem;color:var(--sambas);max-width:12ch}
 @media(max-width:680px){.hero .pin{display:none}}
 
-/* ---------- cutline divider ---------- */
-.cutline{display:flex;align-items:center;gap:.6rem;margin:clamp(2rem,5vw,3.2rem) 0;color:rgba(65,77,87,.5)}
-.cutline::before,.cutline::after{content:"";height:0;flex:1;border-top:2.4px dashed rgba(65,77,87,.4)}
-.cutline svg{width:22px;height:22px;display:block}
+/* ---------- cut-gate (the "cut here" perforation; --cut 0→1 = progress) ---------- */
+.cutline{--cut:0;position:relative;display:flex;align-items:center;justify-content:center;
+  height:26px;margin:clamp(2rem,5vw,3.2rem) 0;color:rgba(65,77,87,.55);
+  cursor:pointer;-webkit-tap-highlight-color:transparent}
+.cutline:focus-visible{outline:3px solid var(--lazuli);outline-offset:6px;border-radius:4px}
+.cutline .cut-rule{position:absolute;left:0;right:0;top:50%;height:0;border-top:2.4px dashed rgba(65,77,87,.4)}
+.cutline .cut-torn{position:absolute;left:0;top:50%;height:0;width:calc(var(--cut) * 100%);
+  border-top:2.6px solid var(--ink);filter:url(#roughsm)}                      /* torn trail behind the blades */
+.cutline .cut-scissors{position:absolute;top:50%;left:calc(var(--cut) * 100%);transform:translate(-50%,-50%);
+  width:22px;height:22px;color:var(--sambas);z-index:2;transition:opacity .3s ease}
+.cutline .cut-scissors svg{display:block;width:100%;height:100%}
+.cutline .label{position:relative;z-index:1;background:var(--oats);padding:0 .55rem;opacity:calc(1 - var(--cut))}
+.cutline.done .cut-scissors{opacity:0}                                         /* blades gone once cut */
+/* the freed hero sheet releases: drops a touch, registration shadow deepens */
+.hero .paper{transition:translate .55s cubic-bezier(.2,.7,.2,1)}
+.hero .paper>.sheet{transition:box-shadow .55s ease}
+.hero.cut .paper{translate:0 8px}
+.hero.cut .paper>.sheet{box-shadow:11px 14px 0 0 var(--ink)}
 
 /* ---------- about = dark cut-paper ---------- */
 .about{padding:clamp(1rem,3vw,2rem) 0}
@@ -141,7 +158,7 @@ a{color:inherit}
 .about .inner{padding:clamp(2rem,6vw,4rem)}
 .about .eyebrow{color:var(--schoolbus)}
 .about h2{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:1.04;letter-spacing:-.01em;
-  font-size:clamp(1.8rem,4.6vw,3.6rem);margin:.4rem 0 0;color:var(--oats);max-width:18ch}
+  font-size:clamp(1.8rem,4.6vw,2.9rem);margin:.4rem 0 0;color:var(--oats);max-width:18ch}
 .about h2 em{color:var(--grass)}
 .about .body{margin-top:1.4rem;max-width:56ch;display:grid;gap:1rem}
 .about .body p{margin:0;color:rgba(254,246,228,.92)}
@@ -154,12 +171,12 @@ a{color:inherit}
 /* ---------- three doors = littered postcards (.splay, NOT a grid) ---------- */
 .doors{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
 .doors .head{margin-bottom:clamp(2rem,5vw,3rem)}
-.doors .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,4rem);
+.doors .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);
   line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
 .splay{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(1.6rem,3vw,2.6rem);align-items:flex-start}
-.card{position:relative;width:min(330px,100%)}
+.card{position:relative;width:min(318px,100%)}
 .card .inner{padding:clamp(1.6rem,2.6vw,2.1rem);display:flex;flex-direction:column;min-height:250px}
-.card.big{width:min(380px,100%)}
+.card.big{width:min(410px,100%)}  /* the Circle is the primary door — unmistakably dominant */
 .card.big .inner{min-height:312px}
 .card h3{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.7rem,2.7vw,2.3rem);
   line-height:1;margin:.3rem 0 0;color:var(--ink)}
@@ -182,7 +199,7 @@ a{color:inherit}
 /* ---------- team = taped polaroids ---------- */
 .team{padding:clamp(1.5rem,4vw,3rem) 0}
 .team .head{margin-bottom:clamp(1.9rem,4.5vw,2.8rem)}
-.team .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.9rem,5vw,3.4rem);line-height:1.02;margin:.35rem 0 0;color:var(--ink);max-width:20ch}
+.team .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.9rem,5vw,2.8rem);line-height:1.02;margin:.35rem 0 0;color:var(--ink);max-width:20ch}
 .crew{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(1.7rem,4vw,3.2rem);align-items:flex-start}
 .polaroid{position:relative;width:min(244px,76%);background:var(--paper);border:2.6px solid var(--ink);border-radius:5px;
   padding:11px 11px 0;box-shadow:8px 8px 0 0 var(--ink);transition:transform .18s ease, box-shadow .18s ease}
@@ -224,16 +241,19 @@ a{color:inherit}
 @keyframes shake{10%,90%{transform:translateX(-2px)}30%,70%{transform:translateX(4px)}50%{transform:translateX(-4px)}}
 
 /* ---------- footer = torn band ---------- */
-footer{position:relative;background:var(--grass);margin-top:clamp(2.5rem,6vw,4.5rem);
-  padding:clamp(2.6rem,6vw,4.2rem) 0 clamp(1.8rem,4vw,2.6rem);color:var(--oats)}
-footer::before{content:"";position:absolute;left:0;right:0;top:-15px;height:30px;background:var(--grass);filter:url(#tornbig)}
+footer{position:relative;background:var(--grass-deep);margin-top:clamp(2.5rem,6vw,4.5rem);
+  padding:clamp(2.6rem,6vw,4.2rem) 0 clamp(1.8rem,4vw,2.6rem);color:var(--oats)}  /* deep grass: oats text clears AA on the band */
+footer::before{content:"";position:absolute;left:0;right:0;top:-15px;height:30px;background:var(--grass-deep);filter:url(#tornbig)}
 footer .top{display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap}
 footer .ft-word{width:clamp(150px,24vw,240px);display:block}
 footer .ft-word svg{display:block;width:100%;height:auto}
 footer .tagline{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.5rem,3.4vw,2.3rem);color:var(--oats);max-width:13ch;margin:.8rem 0 0;line-height:1.05}
-footer .links{display:flex;flex-direction:column;gap:.5rem}
-footer .links a{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--oats);opacity:.9}
-footer .links a:hover{text-decoration:underline;text-underline-offset:4px}
+footer .links{display:flex;flex-direction:column;gap:.35rem}
+footer .links a{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--oats);
+  display:inline-flex;align-items:center;min-height:44px;                       /* >=44px tap target */
+  text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px;text-decoration-color:rgba(254,246,228,.55)}
+footer .links a:hover,footer .links a:focus-visible{text-decoration-color:var(--oats)}
+footer .links a:focus-visible{outline:2px solid var(--oats);outline-offset:2px}
 footer .stamp{display:inline-block;margin-top:1.4rem;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.18em;
   font-size:.72rem;color:rgba(254,246,228,.85);border:2.4px solid rgba(254,246,228,.7);border-radius:6px;
   padding:.5em .8em;transform:rotate(-3deg);filter:url(#roughsm)}
@@ -249,9 +269,10 @@ footer .legal{margin-top:2rem;border-top:1.6px solid rgba(254,246,228,.4);paddin
    motion composes with each element's resting tilt/skew.
    =================================================================== */
 
-/* ---- reveals: settle in from a touch below, keeping resting tilt ---- */
-body[data-motion="full"] .reveal{opacity:0;translate:0 18px;
-  transition:opacity .6s ease, translate .6s cubic-bezier(.2,.7,.2,1)}
+/* ---- reveals: paper LANDS — quick fade, settle with a hair of overshoot,
+       keeping each element's resting tilt (translate composes with transform) -- */
+body[data-motion="full"] .reveal{opacity:0;translate:0 16px;
+  transition:opacity .24s ease, translate .52s cubic-bezier(.2,.85,.3,1.12)}
 body[data-motion="full"] .reveal.in{opacity:1;translate:0 0}
 
 /* ---- highlighter band: swipe left→right (composes with its skew) ---- */
@@ -271,8 +292,9 @@ html[data-tier="lite"] .ul.draw::after{scale:1 1!important;transition:none!impor
 
 /* ---- footer opt-in sound toggle (sits in the legal row) ------------ */
 footer .legal .snd{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.05em;text-transform:lowercase;
-  color:rgba(254,246,228,.9);background:none;border:1.6px solid rgba(254,246,228,.45);border-radius:5px;
-  padding:.28em .7em;cursor:pointer;transition:border-color .12s, color .12s}
+  color:var(--oats);background:none;border:1.6px solid rgba(254,246,228,.5);border-radius:5px;
+  display:inline-flex;align-items:center;min-height:44px;padding:.28em .8em;cursor:pointer;
+  transition:border-color .12s, color .12s}
 footer .legal .snd:hover,
 footer .legal .snd[aria-pressed="true"]{border-color:var(--oats);color:var(--oats)}
 footer .legal .snd:focus-visible{outline:2px solid var(--oats);outline-offset:2px}

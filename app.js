@@ -77,9 +77,13 @@ function boot() {
   initDemoGate();
   initReveals();                    // M1: settle-in on scroll
   initHighlighter();                // M1: highlighter + marker draw-on
+  initCutGate();                    // M2: the "cut here" perforation gate
   initInteractionSounds();          // M1: stamp / toggle on interaction
   initSoundToggle(audio);           // M1: footer opt-in toggle
-  // M2 register here: initCutGate(); …
+  // wake the FPS governor for the first couple seconds so html[data-tier=lite]
+  // can latch under load — the CSS/IO features never register a rAF driver,
+  // so without this the governor is dead code and the lite fallback unreachable.
+  if (!Stage.reduce) { const stopFps = Stage.addDriver(() => {}); setTimeout(stopFps, 2200); }
 }
 if (document.readyState !== 'loading') boot();
 else document.addEventListener('DOMContentLoaded', boot);
@@ -183,19 +187,33 @@ function initAudio() {
    reduced-motion, or tier=lite everything is shown instantly.
    =================================================================== */
 function initReveals() {
-  const targets = document.querySelectorAll(
-    '.about .paper, .team .head, .team .polaroid, .note .paper, .doors .head, .doors .card'
-  );
-  let order = 0;
-  targets.forEach((el) => {
+  // No IntersectionObserver → never add `.reveal`, so the CSS hidden state never
+  // applies and all content is shown. The reveal can NEVER hide real content.
+  if (!('IntersectionObserver' in window)) return;
+  // Only the littered SMALL objects animate (polaroids, door cards, section
+  // heads). The big anchor sheets (.about / .note) stay put — animating them
+  // read as a slide-deck, and a tall sheet that can't cross the IO threshold
+  // would vanish. Per-group index gives a real cascade instead of a global %3.
+  const groups = [
+    document.querySelectorAll('.team .polaroid'),
+    document.querySelectorAll('.doors .card'),
+    document.querySelectorAll('.team .head, .doors .head'),
+  ];
+  const marked = [];
+  groups.forEach((nodes) => nodes.forEach((el, i) => {
     el.classList.add('reveal');
+    marked.push(el);
     Stage.observe(el, (e, release) => {
-      if (!e.isIntersecting || e.intersectionRatio < 0.18) return;
-      el.style.transitionDelay = Math.min((order++ % 3) * 80, 160) + 'ms';
+      if (!e.isIntersecting) return;             // gate on visibility only, not ratio
+      el.style.transitionDelay = (i * 70) + 'ms';
       el.classList.add('in');
+      // clear the delay once it has played so it can't leak onto a hover transform
+      el.addEventListener('transitionend', () => { el.style.transitionDelay = ''; }, { once: true });
       release();
     });
-  });
+  }));
+  // belt-and-suspenders: anything still hidden after 4s gets shown regardless.
+  setTimeout(() => marked.forEach((el) => el.classList.add('in')), 4000);
 }
 
 /* ===================================================================
@@ -204,10 +222,11 @@ function initReveals() {
    by an `.in` class; the same data-motion / tier gating applies.
    =================================================================== */
 function initHighlighter() {
+  if (!('IntersectionObserver' in window)) return;  // leave marks fully drawn
   document.querySelectorAll('.hl, .ul').forEach((el) => {
     el.classList.add('draw');
     Stage.observe(el, (e, release) => {
-      if (!e.isIntersecting || e.intersectionRatio < 0.18) return;
+      if (!e.isIntersecting) return;
       el.classList.add('in');
       release();
     });
@@ -234,7 +253,70 @@ function initSoundToggle(audio) {
   b.addEventListener('click', () => { audio.setEnabled(!audio.enabled); sync(); });
 }
 
-/* ---- test-only crit hook (inert in production; M2 wires real seeks) */
+/* ===================================================================
+   M2 — Cut-gate. The "cut here" cutline between the hero and #about keeps
+   its literal promise: a scissors travels left→right along the rule, a torn
+   deckle follows it, the label is consumed by the cut, and on completion the
+   hero sheet releases (drops a touch, shadow deepens). It is PURELY ADDITIVE
+   decoration — #about is in normal flow and fully visible at all times; the
+   cut never gates, hides, or scroll-jacks anything. Runs once, latched.
+   Drives off the shared Stage rAF loop; sound only through the opt-in engine.
+   calm / tier=lite / no-JS render the end state (torn seam) with no travel.
+   =================================================================== */
+function initCutGate() {
+  const gate = document.getElementById('cutgate');
+  if (!gate) return;
+  const hero = document.querySelector('.hero');
+  let done = false, animating = false;
+
+  function endState() {              // snap to torn seam, no animation
+    gate.style.setProperty('--cut', '1');
+    gate.classList.add('done');
+    hero && hero.classList.add('cut');
+    done = true;
+  }
+  function run() {
+    if (done || animating) return;
+    if (Stage.calm || document.documentElement.dataset.tier === 'lite') { endState(); return; }
+    animating = true;
+    const DUR = 900;
+    let start = null, lastDash = 0;
+    const stop = Stage.addDriver((t) => {
+      if (start == null) start = t;
+      const p = Math.min((t - start) / DUR, 1);
+      const e = 1 - Math.pow(1 - p, 3);                 // easeOutCubic
+      gate.style.setProperty('--cut', e.toFixed(4));
+      const dash = Math.floor(e * 12);                  // a snip bite per dash crossed
+      if (dash > lastDash) { lastDash = dash; Stage.play('snip', { gain: 0.16 }); }
+      if (p >= 1) {
+        stop();
+        gate.classList.add('done');
+        hero && hero.classList.add('cut');
+        Stage.play('cut', { gain: 0.4 });               // the heavier release tear
+        done = true; animating = false;
+      }
+    });
+  }
+
+  // primary trigger: scroll the cutline well into view (ratio 0.9 threshold exists on the shared IO)
+  Stage.observe(gate, (e, release) => {
+    if (!e.isIntersecting || (e.intersectionRatio < 0.9 && !done)) return;
+    release();
+    run();
+  });
+  // secondary: click / keyboard on the focusable control — same code path
+  gate.addEventListener('click', run);
+  gate.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); run(); }
+  });
+
+  // QA hooks: deterministic scrub + keyboard path
+  window.__drexCrit = window.__drexCrit || {};
+  window.__drexCrit.seek = (pos) => gate.style.setProperty('--cut', String(Math.max(0, Math.min(1, +pos || 0))));
+  window.__drexCrit.simulateKeyboardCut = run;
+}
+
+/* ---- test-only crit hook (defaults; initCutGate overrides seek/cut) */
 window.__drexCrit = window.__drexCrit || {
   disableMotion() { document.body.dataset.motion = 'calm'; },
   seek() {}, simulateKeyboardCut() {},
