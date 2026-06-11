@@ -760,6 +760,8 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
   to{opacity:1;transform:translate(-50%,-50%) rotate(var(--vr,0)) scale(var(--vs,1))}}
 @media(prefers-reduced-motion:reduce){.sharpie,.sharpie [pathLength]{animation:none;stroke-dashoffset:0;opacity:1}}
 
+/* ============================================================
+
 /* ===================================================================
    M5 — THE FINALE. Reward reveal + zine-stamp confetti + the crumple host.
    The reward sits full-bleed with its own paper ground so it cleanly covers
@@ -814,3 +816,76 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 @media(prefers-reduced-motion:reduce){
   .finale-card,.finale-star,.zine-confetti{animation:none}
   .finale-card{transform:none}.finale-star{transform:none}}
+=======
+   M5 — THE HAMBURGER THAT LIES. Tap the burger: it flops onto a string and a
+   torn slit opens where it sat. The whole nav strand — links + the dangling
+   burger, all on ONE string — feeds out of the cut as you DRAG THE BURGER down
+   (--pull 0→1). Yank past DANGER and the string TEARS (strand falls, burger
+   respawns); click the fallen burger to reel it home. Keyboard / reduced-motion
+   get a plain menu. Shown on all viewports (the burger IS the nav).
+   =================================================================== */
+.mast .wrap{position:relative}
+.mast > .wrap > nav{display:none}
+.hb{position:relative;--pull:0;z-index:40;display:inline-flex}
+
+.burger{display:inline-flex!important;align-items:center;justify-content:center;width:48px;height:44px;
+  background:var(--paper);border:2.6px solid var(--ink);border-radius:7px;box-shadow:3px 3px 0 0 var(--ink);
+  cursor:pointer;transition:opacity .2s ease, transform .1s, box-shadow .1s;transform:rotate(-1.5deg)}
+.burger:hover{transform:rotate(0)}
+.burger:active{transform:translate(3px,3px) rotate(0);box-shadow:0 0 0 0 var(--ink)}
+.burger:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
+.bars{display:flex;flex-direction:column;gap:4.5px;width:22px}
+.bars i{height:2.8px;background:var(--ink);border-radius:2px;display:block}
+.hb[data-state="fallen"] .burger,.hb[data-state="open"] .burger,.hb[data-state="torn"] .burger{opacity:0;pointer-events:none}
+
+/* hanging rig — interactive parts only (mouth area stays click-through) */
+.hb-rig{position:absolute;top:40px;right:0;width:320px;opacity:0;pointer-events:none;transition:opacity .2s ease}
+.hb[data-state="fallen"] .hb-rig,.hb[data-state="open"] .hb-rig,.hb[data-state="torn"] .hb-rig,.hb[data-state="plain"] .hb-rig{opacity:1}
+.hb-mouth{position:absolute;top:0;right:0;width:320px;height:480px;overflow:clip;pointer-events:none}
+.hb-sway{transform-origin:top right;will-change:transform}
+.hb[data-state="fallen"]:not(.is-dragging) .hb-sway{animation:hbsway 2.8s ease-in-out infinite}
+@keyframes hbsway{0%,100%{transform:rotate(3.5deg)}50%{transform:rotate(-3.5deg)}}
+
+/* ONE strand: links + string + dangling burger move together with --pull */
+.hb-strand{position:relative;display:flex;flex-direction:column;align-items:flex-end;gap:15px;padding-right:3px;
+  transform:translateY(calc((var(--pull) - 1) * 212px))}
+.hb[data-state="fallen"] .hb-strand,.hb[data-state="open"] .hb-strand{transition:transform .08s linear}
+.hb-tray{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:flex-end;gap:15px;position:relative;z-index:1;pointer-events:none}
+.hb-tray li{display:block}
+.hb-tray a{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
+  color:var(--ink);background:var(--paper);border:2.4px solid var(--ink);border-radius:6px;box-shadow:3px 3px 0 0 var(--ink);
+  padding:.5em .85em;display:inline-block;white-space:nowrap;pointer-events:none}
+.hb[data-state="open"] .hb-tray,.hb[data-state="open"] .hb-tray a,.hb[data-state="plain"] .hb-tray a{pointer-events:auto}
+.hb-tray li:nth-child(odd) a{transform:rotate(-1.6deg)}
+.hb-tray li:nth-child(even) a{transform:rotate(1.4deg)}
+.hb-tray a:hover{transform:rotate(0) translate(-1px,-1px);box-shadow:4px 4px 0 0 var(--grass)}
+.hb-tray .hb-cta .btn{font-size:.72rem;pointer-events:none}
+.hb[data-state="open"] .hb-tray .hb-cta .btn,.hb[data-state="plain"] .hb-tray .hb-cta .btn{pointer-events:auto}
+.hb-thread{position:absolute;top:0;bottom:0;right:26px;width:2px;background:var(--ink);border-radius:2px;z-index:0}
+.hb-fallen{position:relative;z-index:1;margin-top:22px;width:48px;height:44px;display:inline-flex;align-items:center;justify-content:center;
+  background:var(--paper);border:2.6px solid var(--ink);border-radius:7px;box-shadow:3px 3px 0 0 var(--ink);
+  cursor:grab;touch-action:none;pointer-events:auto}
+.hb.is-dragging .hb-fallen{cursor:grabbing}
+
+/* the cut, drawn ON TOP so the strand reads as emerging from the paper */
+.hb-pocket{display:none;position:absolute;top:-3px;right:-6px;width:150px;height:24px;pointer-events:none;z-index:2;
+  background:linear-gradient(to bottom, rgba(34,36,41,.16), rgba(34,36,41,0))}
+.hb[data-state="rest"] .hb-pocket,.hb[data-state="plain"] .hb-pocket{opacity:0}
+.hb-slit{position:absolute;top:-1px;right:0;width:132px;height:0;border-top:3px solid var(--ink);filter:url(#roughsm);z-index:3;pointer-events:none}
+.hb[data-state="rest"] .hb-slit,.hb[data-state="plain"] .hb-slit{opacity:0}
+
+/* danger: string reddens + stretches as you over-pull */
+.hb.is-straining .hb-thread{background:var(--colorado)}
+.hb.is-straining .hb-fallen{margin-top:52px}
+.hb.is-straining .hb-tray a{border-color:var(--colorado)}
+
+/* TORN: the strand drops away */
+.hb[data-state="torn"] .hb-strand{animation:hbdrop .85s cubic-bezier(.4,0,.7,1) forwards}
+@keyframes hbdrop{to{transform:translateY(470px) rotate(26deg);opacity:0}}
+
+/* keyboard / reduced-motion / no-JS: an honest dropdown */
+.hb[data-state="plain"] .hb-mouth{position:static;overflow:visible;height:auto;pointer-events:auto}
+.hb[data-state="plain"] .hb-sway,.hb[data-state="plain"] .hb-strand{transform:none;animation:none!important}
+.hb[data-state="plain"] .hb-string,.hb[data-state="plain"] .hb-fallen{display:none}
+@media(prefers-reduced-motion:reduce){ .hb-sway{animation:none!important} }
+

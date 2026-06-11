@@ -86,7 +86,7 @@ function boot() {
   initSoundToggle(audio);           // M1: footer opt-in toggle
   initFounderCrumple();             // M4: founder's note = click-to-unfold 3D paper crumple
   initCollage();                    // ported: littered collage scraps + scroll entrance + parallax
-  initBurger();                     // ported: accessible mobile burger menu
+  initHamburgerJoy(audio);          // M5: the hamburger that lies — flop, slit, pull-out nav
   initAttentionCta();               // ported: hero CTA idle "look at me" loop
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
   // wake the FPS governor for the first couple seconds so html[data-tier=lite]
@@ -281,7 +281,8 @@ function initInteractionSounds() {
   }
   document.addEventListener('click', (e) => {
     const t = e.target;
-    if (t.closest('.btn')) Stage.play('stamp', { gain: 0.32 });
+    if (t.closest('.hb-tray a')) Stage.play(pick('card'), { gain: 0.34 });  // hamburger nav links -> 90s blip
+    else if (t.closest('.btn')) Stage.play('stamp', { gain: 0.32 });
     else if (t.closest('.mast nav a') || t.closest('footer .links a')) Stage.play('toggle', { gain: 0.24 });
     else if (t.closest('.polaroid .ph, .snap .ph')) {            // a photo got vandalised
       Stage.play('squeak', { gain: 0.17 }); Stage.play(pick('pola'), { gain: 0.22 });
@@ -1398,4 +1399,90 @@ async function runFinale() {
   });
   Stage.play('rustle', { gain: 0.3, rate: 0.82 });
   setTimeout(() => { host.remove(); try { R.dispose && R.dispose(); } catch (_) {} }, 1350);
+}
+
+/* ===================================================================
+   M5 — The hamburger that LIES (grafted in the main merge). Drag the dangling
+   burger; the whole nav strand feeds out of the cut; over-pull tears it; tap to
+   reel home. Links click-through once open. Keyboard / reduced-motion → plain.
+   =================================================================== */
+function initHamburgerJoy(audio) {
+  const hb = document.getElementById('hb');
+  const burger = document.getElementById('m-burger');
+  const fallen = document.getElementById('hb-fallen');
+  const tray = document.getElementById('hb-tray');
+  if (!hb || !burger || !fallen || !tray) return;
+
+  const OPEN = 1, STRAIN = 1.08, DANGER = 1.3, TRAVEL = 230;
+  let pull = 0, dragging = false, startPull = 0, startY = 0, moved = false, torn = false, lastVibe = 0;
+
+  const setPull = (p) => {
+    pull = p; hb.style.setProperty('--pull', p.toFixed(3));
+    hb.classList.toggle('is-straining', p >= STRAIN && p < DANGER);
+  };
+  const setState = (s) => { hb.dataset.state = s; };
+  const buzz = (p) => { try { navigator.vibrate && navigator.vibrate(p); } catch (_) {} };
+  const arm = () => { try { Stage.armSound && Stage.armSound(); } catch (_) {} };
+
+  function flop() {
+    setState('fallen'); setPull(0);
+    burger.setAttribute('aria-expanded', 'true');
+    arm(); Stage.play('rustle', { gain: 0.3 }); buzz(12);
+  }
+  function plainOpen() {
+    const open = hb.dataset.state !== 'plain';
+    setState(open ? 'plain' : 'rest');
+    burger.setAttribute('aria-expanded', String(open));
+  }
+  function reset() {
+    if (torn) return;
+    setState('rest'); setPull(0);
+    burger.setAttribute('aria-expanded', 'false');
+    Stage.play('rustle', { gain: 0.2, rate: 1.12 });
+  }
+  function tear() {
+    torn = true; setState('torn'); hb.classList.remove('is-straining', 'is-dragging');
+    Stage.play('taperip', { gain: 0.45 }); setTimeout(() => Stage.play('cut', { gain: 0.3 }), 90);
+    buzz([35, 30, 90]);
+    setTimeout(() => { torn = false; setState('rest'); setPull(0); burger.setAttribute('aria-expanded', 'false'); }, 1050);
+  }
+
+  burger.addEventListener('click', (e) => {
+    if (Stage.calm || e.detail === 0) { plainOpen(); return; }      // reduced-motion / keyboard → plain menu
+    if (hb.dataset.state === 'rest') flop(); else reset();
+  });
+
+  // the dangling burger is the drag handle (so the links stay click-through)
+  fallen.addEventListener('pointerdown', (e) => {
+    if (torn || (hb.dataset.state !== 'fallen' && hb.dataset.state !== 'open')) return;
+    e.preventDefault();
+    dragging = true; moved = false; startPull = pull; startY = e.clientY; lastVibe = 0;
+    hb.classList.add('is-dragging');
+    try { fallen.setPointerCapture(e.pointerId); } catch (_) {}
+    arm();
+  });
+  fallen.addEventListener('pointermove', (e) => {
+    if (!dragging || torn) return;
+    const dy = e.clientY - startY;
+    if (Math.abs(dy) > 5) moved = true;
+    const p = Math.max(0, Math.min(DANGER + 0.05, startPull + dy / TRAVEL));
+    setPull(p);
+    if (p >= STRAIN) {                                               // escalating warning before the tear
+      const lvl = Math.floor((p - STRAIN) / 0.045);
+      if (lvl > lastVibe) { lastVibe = lvl; buzz(6 + lvl * 7); Stage.play('snip', { gain: 0.08 + lvl * 0.02, rate: 1 + lvl * 0.05 }); }
+    } else lastVibe = 0;
+    if (p >= DANGER) { dragging = false; hb.classList.remove('is-dragging'); tear(); }
+  });
+  const up = () => {
+    if (!dragging || torn) return;
+    dragging = false; hb.classList.remove('is-dragging');
+    if (!moved) { reset(); return; }                                // a tap (no drag) on the burger reels it home
+    if (pull >= 0.8) { setState('open'); setPull(OPEN); Stage.play('snip', { gain: 0.2 }); buzz(10); }
+    else { setState('fallen'); setPull(0); }
+  };
+  fallen.addEventListener('pointerup', up);
+  fallen.addEventListener('pointercancel', up);
+
+  window.__drexHb = { flop, reset, tear, open: () => { setState('open'); setPull(OPEN); },
+    setPull, get pull(){return pull;}, get state(){return hb.dataset.state;} };
 }
