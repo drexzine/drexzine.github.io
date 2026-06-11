@@ -6,15 +6,28 @@ hard offset "registration" shadows, highlighter + marker craft, rubber-stamp but
 team polaroids.
 
 ## Files
-- `index.html` — the whole page (HTML + CSS + JS inline).
+- `index.html` — markup only (links `app.css` + `app.js`, both cache-busted `?v=N`).
+- `app.css` — all styles. The handmade-zine system + a small feature layer (reveals,
+  highlighter draw-on, cut-gate) gated on `body[data-motion]` / `html[data-tier]`.
+- `app.js` — ES module, zero deps. A `Stage` orchestrator (one rAF loop, one shared
+  IntersectionObserver, an FPS governor that latches `html[data-tier=lite]`, and the
+  `body[data-motion]` reduced-motion switch) plus the features: opt-in audio, scroll
+  reveals, highlighter/marker draw-on, the demo gate, and the `cut here` cut-gate.
 - `assets/team/` — team polaroids (`uko.jpg`, `lucero.jpg`, `chielo.jpg`), web-optimized.
+- `assets/audio/` — craft SFX (`cut`/`snip` for the cut-gate, `stamp`/`toggle` for
+  interaction; others staged). mp3+ogg. Off by default; the footer "sound" toggle opts in.
+- `assets/og.png` — 1200×630 social card (wired via `og:image` + `twitter:` meta).
 - `CNAME` — custom domain (`drex.style`).
 - `.nojekyll` — skip Jekyll.
 
-## Before it goes live — `CONFIG` (top of the `<script>` in `index.html`)
-- `instagram` — Instagram URL (`instagram.com/drexcircles`). Note: this CONFIG value is **not** wired into the DOM — the real links live hardcoded in the Instagram card (button + `@drexcircles` text) and the footer, so update those if the handle changes.
-- `circleUrl` — `https://circles.drex.style/` (set; like `instagram`, not wired into the DOM — the Circle card button + `circles.drex.style` text are hardcoded in the markup).
-- `demoHost` — the demo's host, **no protocol** (e.g. `demo.drex.style`).
+## Before it goes live — links + demo host (hardcoded in the markup / `app.js`)
+There is no `CONFIG` object; everything is hardcoded where it is used.
+- **Instagram** — `instagram.com/drexcircles`: the card button + `@drexcircles` text and
+  the footer link are hardcoded in `index.html`. Update those if the handle changes.
+- **Circle** — `https://circles.drex.style/`: the Circle card button + `circles.drex.style`
+  text are hardcoded in `index.html`.
+- **Demo host** — `demoHost` const at the top of `initDemoGate()` in `app.js`, **no
+  protocol** (e.g. `demo.drex.style`).
 
 ### How the Demo gate works (HTTP Basic Auth)
 The demo sits behind Basic Auth. The UI just asks for a **passcode** — the format is never shown.
