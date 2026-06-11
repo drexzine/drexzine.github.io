@@ -304,11 +304,10 @@ function initCutGate() {
     release();
     run();
   });
-  // secondary: click / keyboard on the focusable control — same code path
+  // secondary: pointer click for mouse delight. The gate is aria-hidden decoration
+  // (a SR/keyboard "button" that only animates would be a WCAG 4.1.2 honesty failure),
+  // so it is NOT a focusable control — #about is always reachable without it.
   gate.addEventListener('click', run);
-  gate.addEventListener('keydown', (ev) => {
-    if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); run(); }
-  });
 
   // QA hooks: deterministic scrub + keyboard path
   window.__drexCrit = window.__drexCrit || {};

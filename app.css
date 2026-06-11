@@ -71,7 +71,7 @@ a{color:inherit}
 /* ---------- type ---------- */
 .scrawl{font-family:var(--f-hand);font-weight:400;line-height:1.15}
 .eyebrow{font-family:var(--f-hand);font-size:clamp(1.15rem,2.4vw,1.6rem);color:var(--colorado);transform:rotate(-1.2deg);display:inline-block}
-.label{font-family:var(--f-mono);font-weight:500;text-transform:uppercase;letter-spacing:.16em;font-size:.74rem}
+.label{font-family:var(--f-mono);font-weight:500;text-transform:uppercase;letter-spacing:.14em;font-size:.74rem}
 .dot{color:var(--grass);font-weight:700}
 .slab{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:.98;letter-spacing:-.02em}
 
@@ -158,19 +158,19 @@ a{color:inherit}
 .about{padding:clamp(1rem,3vw,2rem) 0}
 .about .paper>.sheet{background:var(--sambas);box-shadow:none}
 /* clean (untorn) grass print-pull behind the torn sheet — reads as a real riso misregistration */
-.about .paper::before{content:"";position:absolute;inset:0;z-index:0;background:var(--grass);border-radius:6px;translate:8px 8px}
+.about .paper::before{content:"";position:absolute;inset:0;z-index:0;background:var(--grass);border-radius:6px;filter:url(#torn);translate:8px 8px}  /* torn, not a machined rect — matches the hand-cut page */
 .about .inner{padding:clamp(2rem,6vw,4rem)}
-.about .eyebrow{color:var(--schoolbus)}
+.about .eyebrow{color:var(--happy)}   /* warm accent on the dark sheet; Happy clears AA, School Bus is dark-ink-only per §4 */
 .about h2{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:1.04;letter-spacing:-.01em;
   font-size:clamp(1.8rem,4.6vw,2.9rem);margin:.4rem 0 0;color:var(--oats);max-width:18ch}
-.about h2 em{color:var(--schoolbus)}   /* legible warm accent on the dark sheet; grass failed contrast here */
+.about h2 em{color:var(--happy)}   /* Happy ties to the hero highlighter and clears AA on dark; grass/schoolbus failed here */
 .about .body{margin-top:1.4rem;max-width:56ch;display:grid;gap:1rem}
 .about .body p{margin:0;color:rgba(254,246,228,.92)}
 .about .body p.lead{font-family:var(--f-body);font-style:italic;font-size:clamp(1.18rem,1.8vw,1.5rem);color:var(--oats)}
 .about .vals{margin-top:1.8rem;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.12em;
   font-size:.8rem;color:rgba(254,246,228,.95);line-height:1.9}
 .about .vals span{white-space:nowrap}
-.about .vals span:not(:last-child)::after{content:"·";color:var(--grass);font-weight:700;margin:0 .6em}
+.about .vals span:not(:last-child)::after{content:"·";color:rgba(254,246,228,.5);font-weight:700;margin:0 .6em}
 
 /* ---------- three doors = littered postcards (.splay, NOT a grid) ---------- */
 .doors{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
@@ -188,7 +188,7 @@ a{color:inherit}
 .card .cap{font-family:var(--f-hand);font-size:1.15rem;color:var(--sambas);transform:rotate(-1deg);display:inline-block}
 .card p{margin:.9rem 0 1.4rem;font-size:1rem;line-height:1.5;color:rgba(65,77,87,.85)}
 .card .foot{margin-top:auto;display:flex;flex-direction:column;gap:.7rem}
-.card .url{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.04em;color:var(--sambas);text-transform:lowercase}
+.card .url{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.06em;color:var(--sambas);text-transform:lowercase}
 /* resting tilts — littered on the table; straighten + lift on hover */
 .splay,.crew{overflow-x:clip}
 .splay .card:nth-child(1){transform:rotate(-3deg)}
@@ -211,7 +211,7 @@ a{color:inherit}
 .polaroid .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.94) contrast(1.03)}
 .polaroid .cap{font-family:var(--f-hand);text-align:center;padding:.6rem .2rem .75rem;line-height:1.1}
 .polaroid .cap b{display:block;font-weight:400;font-size:1.4rem;color:var(--ink)}
-.polaroid .cap span{font-family:var(--f-hand);font-size:1.02rem;color:rgba(65,77,87,.74)}
+.polaroid .cap span{font-family:var(--f-hand);font-size:1.02rem;color:rgba(65,77,87,.92)}
 .crew .polaroid:nth-child(1){transform:rotate(-4.5deg)}
 .crew .polaroid:nth-child(2){transform:rotate(3.3deg)}
 .crew .polaroid:nth-child(3){transform:rotate(-2.2deg)}
@@ -220,11 +220,11 @@ a{color:inherit}
 /* ---------- founder's note (a handwritten letter, photo taped on) ---------- */
 .note{padding:clamp(1.5rem,4vw,3rem) 0}
 .note .inner{padding:clamp(1.9rem,5vw,3.6rem)}
-.note-grid{display:grid;gap:clamp(1.6rem,4vw,2.8rem);align-items:center}
+.note-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(1.6rem,4vw,2.8rem);align-items:center}  /* minmax(0,…) stops the single mobile column blowing out to text max-content */
 @media(min-width:760px){.note-grid{grid-template-columns:1fr auto}}
 .note .eyebrow{color:var(--colorado)}
-.note-body{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.2rem,2.1vw,1.6rem);line-height:1.5;color:var(--ink);max-width:36ch;margin:.9rem 0 0}
-.sign{font-family:var(--f-hand);font-size:clamp(2.2rem,4.5vw,3.2rem);color:var(--grass);margin:1.1rem 0 0;line-height:1}
+.note-body{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.2rem,2.1vw,1.6rem);line-height:1.5;color:var(--ink);max-width:min(36ch,100%);margin:.9rem 0 0}
+.sign{font-family:var(--f-hand);font-size:clamp(2.2rem,4.5vw,3.2rem);color:var(--grass-deep);margin:1.1rem 0 0;line-height:1}
 .sign-role{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--sambas);margin:.35rem 0 0}
 .snap{position:relative;width:min(260px,80vw);justify-self:center;background:var(--paper);border:2.6px solid var(--ink);border-radius:5px;padding:10px;box-shadow:8px 8px 0 0 var(--ink);transform:rotate(2.6deg)}
 .snap .ph{position:relative;width:100%;aspect-ratio:5/6;overflow:hidden;background:var(--sambas);border:1.5px solid rgba(65,77,87,.28)}
@@ -236,7 +236,7 @@ a{color:inherit}
 .gate{display:none;margin-top:.2rem}
 .gate.open{display:block}
 .gate form{display:flex;gap:.5rem;flex-wrap:wrap}
-.gate input{font-family:var(--f-mono);font-size:.95rem;letter-spacing:.16em;padding:.6em .8em;min-height:46px;
+.gate input{font-family:var(--f-mono);font-size:.95rem;letter-spacing:.14em;padding:.6em .8em;min-height:46px;
   background:var(--paper);border:2.4px dashed var(--lazuli);border-radius:5px;color:var(--ink);width:min(10ch,100%)}
 .gate input:focus{outline:none;border-style:solid}
 .gate .msg{font-family:var(--f-hand);font-size:1.05rem;margin:.5rem 0 0;min-height:1.2em}
@@ -258,7 +258,7 @@ footer .links a{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;
   text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px;text-decoration-color:rgba(254,246,228,.55)}
 footer .links a:hover,footer .links a:focus-visible{text-decoration-color:var(--oats)}
 footer .links a:focus-visible{outline:2px solid var(--oats);outline-offset:2px}
-footer .stamp{display:inline-block;margin-top:1.4rem;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.18em;
+footer .stamp{display:inline-block;margin-top:1.4rem;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.14em;
   font-size:.72rem;color:rgba(254,246,228,.85);border:2.4px solid rgba(254,246,228,.7);border-radius:6px;
   padding:.5em .8em;transform:rotate(-3deg);filter:url(#roughsm)}
 footer .legal{margin-top:2rem;border-top:1.6px solid rgba(254,246,228,.4);padding-top:1.1rem;display:flex;
@@ -271,14 +271,14 @@ footer .legal{margin-top:2rem;border-top:1.6px solid rgba(254,246,228,.4);paddin
    Desktop only; mobile stays upright + full-width for legibility.
    =================================================================== */
 @media(min-width:760px){
-  .hero .paper{width:97%;rotate:-.45deg}
-  .about .paper{width:99.5%;margin-left:auto;rotate:.4deg}
-  .note .paper{width:95%;margin-right:auto;rotate:-.7deg}
+  .hero .paper{width:97%;rotate:-.6deg}
+  .about .paper{width:99.5%;margin-left:auto;rotate:.55deg}
+  .note .paper{width:95%;margin-right:auto;rotate:-.9deg}
   .note .snap{translate:26px 14px;rotate:3.4deg;z-index:5}        /* bleeds over the letter's right edge */
-  /* people photos: cluster, don't line up — different sizes, tight asymmetric overlap */
+  /* people photos: cluster, don't line up — different sizes, the smaller one tucks under */
   .crew{gap:0}
-  .crew .polaroid:nth-child(1){width:248px;z-index:2}
-  .crew .polaroid:nth-child(2){width:206px;transform:rotate(3.3deg) translate(-24px,28px);z-index:1}
+  .crew .polaroid:nth-child(1){width:250px;z-index:2}
+  .crew .polaroid:nth-child(2){width:204px;transform:rotate(3.3deg) translate(-46px,30px);z-index:1}
 }
 
 /* ===================================================================
@@ -310,6 +310,17 @@ body[data-motion="full"] .ul.draw.in::after{scale:1 1}
 html[data-tier="lite"] .reveal{opacity:1!important;translate:none!important;transition:none!important}
 html[data-tier="lite"] .hl.draw::before,
 html[data-tier="lite"] .ul.draw::after{scale:1 1!important;transition:none!important}
+/* and drop the live feTurbulence/feDisplacement filters — the real paint cost.
+   Torn edges fall back to clean edges; the page stays whole, just lighter. */
+html[data-tier="lite"] .paper>.sheet,
+html[data-tier="lite"] .about .paper::before,
+html[data-tier="lite"] .mast::after,
+html[data-tier="lite"] footer::before,
+html[data-tier="lite"] .tape,
+html[data-tier="lite"] footer .stamp,
+html[data-tier="lite"] .hl::before,
+html[data-tier="lite"] .ul::after,
+html[data-tier="lite"] .cutline .cut-torn{filter:none!important}
 
 /* ---- footer opt-in sound toggle (sits in the legal row) ------------ */
 footer .legal .snd{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.05em;text-transform:lowercase;
