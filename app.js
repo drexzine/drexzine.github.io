@@ -234,7 +234,13 @@ function initAudio() {
     loading.then(() => DBG('load() done; cut=' + buffers.has('cut') + ' rustle=' + buffers.has('rustle') + ' (' + buffers.size + '/' + KEYS.length + ')'));
     return loading;
   }
-  const UNLOCK_EVENTS = ['pointerdown', 'keydown', 'touchstart', 'click'];
+  // Include the END of a gesture (pointerup / touchend / click), not just the
+  // start. On some mobile browsers resume() called in pointerdown/touchstart
+  // hangs forever (context stuck suspended), but the same call on the finger-
+  // LIFT takes — which is exactly why "tap first" (which fires click) unlocked
+  // it. The scissors is a drag with preventDefault, so its pointerdown never
+  // produced a click; catching pointerup/touchend wakes the context on release.
+  const UNLOCK_EVENTS = ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'keydown', 'click'];
   function stopUnlock() { UNLOCK_EVENTS.forEach((ev) => window.removeEventListener(ev, unlock, true)); }
   function unlock() {
     wake();                                             // resume + prime (absorbs mobile first-sound swallow)
