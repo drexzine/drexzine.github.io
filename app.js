@@ -81,12 +81,14 @@ function boot() {
   initHighlighter();                // M1: highlighter + marker draw-on
   initEnvelope(audio);              // M3: hero drag-to-cut envelope
   initTearAway();                   // M4: pull a taped piece free — it falls, the washi flutters
+  initPhotoVandal();                // M5: tap a photo → a random sharpie doodle scrawls on (persists)
   initInteractionSounds();          // M1: stamp / toggle on interaction
   initSoundToggle(audio);           // M1: footer opt-in toggle
   initFounderCrumple();             // M4: founder's note = click-to-unfold 3D paper crumple
   initCollage();                    // ported: littered collage scraps + scroll entrance + parallax
   initBurger();                     // ported: accessible mobile burger menu
   initAttentionCta();               // ported: hero CTA idle "look at me" loop
+  initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
   // wake the FPS governor for the first couple seconds so html[data-tier=lite]
   // can latch under load — the CSS/IO features never register a rAF driver,
   // so without this the governor is dead code and the lite fallback unreachable.
@@ -169,6 +171,8 @@ function initAudio() {
     play(key, opts = {}) {
       if (!enabled || !ctx || ctx.state !== 'running') return;
       if (key === 'crinkle') return synthCrinkle(ctx, opts);   // synthesized paper crinkle (no sample)
+      if (key === 'squeak')  return synthSqueak(ctx, opts);    // synthesized felt-tip marker squeak
+      if (key === 'fanfare') return synthFanfare(ctx, opts);   // synthesized triumphant arpeggio
       const buf = buffers.get(key);
       if (!buf) { load(); return; }
       const src = ctx.createBufferSource();
@@ -258,7 +262,10 @@ function initHighlighter() {
    and team polaroids — which had no click sound — get a retro 90s/edutainment
    blip layer: a random clip from a small per-type family, never repeating the
    previous one, so each click is designed-but-surprising. CC0 (Kenney), see
-   assets/audio/CREDITS-retro.txt. */
+   assets/audio/CREDITS-retro.txt.
+   ONE ordered chain → exactly one sound per tap, and NOTHING tappable is silent:
+   photos squeak (a felt-tip skid, paired with the vandal doodle), every torn-paper
+   sheet and footer link that used to be mute now blips too. */
 function initInteractionSounds() {
   const FAMILIES = {
     card: ['retrocard1', 'retrocard2', 'retrocard3'],
@@ -273,10 +280,107 @@ function initInteractionSounds() {
     return list[i];
   }
   document.addEventListener('click', (e) => {
-    if (e.target.closest('.btn')) Stage.play('stamp', { gain: 0.32 });
-    else if (e.target.closest('.mast nav a')) Stage.play('toggle', { gain: 0.24 });
-    else if (e.target.closest('.doors .card')) Stage.play(pick('card'), { gain: 0.3 });
-    else if (e.target.closest('.team .polaroid')) Stage.play(pick('pola'), { gain: 0.26 });
+    const t = e.target;
+    if (t.closest('.btn')) Stage.play('stamp', { gain: 0.32 });
+    else if (t.closest('.mast nav a') || t.closest('footer .links a')) Stage.play('toggle', { gain: 0.24 });
+    else if (t.closest('.polaroid .ph, .snap .ph')) {            // a photo got vandalised
+      Stage.play('squeak', { gain: 0.17 }); Stage.play(pick('pola'), { gain: 0.22 });
+    }
+    else if (t.closest('.doors .card')) Stage.play(pick('card'), { gain: 0.3 });
+    else if (t.closest('.team .polaroid') || t.closest('.note .snap')) Stage.play(pick('pola'), { gain: 0.26 });
+    else if (t.closest('.about .paper, .note .paper, .hero-card')) Stage.play(pick('card'), { gain: 0.22 });
+  });
+}
+
+/* ===================================================================
+   M5 — Photo VANDALISM: tap a photo and a random sharpie doodle scrawls
+   straight onto it — moustache, googly eyes, "this one!", a big cross-out,
+   a crown. Each mark draws on (stroke wipe), lands in a random marker colour
+   at a random spot/tilt/size, and STAYS until reload, so the more you tap the
+   more gloriously defaced the photo gets. Marks live in a no-pointer overlay
+   that overflows the photo box so a stroke can spill past the edge. Hand-drawn
+   irregular paths (no live boil filter — keeps 20+ marks cheap). Sound is
+   handled centrally in initInteractionSounds (squeak + a 90s blip per tap).
+   Full-motion only; tearing a photo carries its doodles away with it.
+   =================================================================== */
+function initPhotoVandal() {
+  if (Stage.reduce) return;                          // calm/reduced → leave the photos clean
+  const PALETTE = ['var(--colorado)', 'var(--ink)', 'var(--grass-deep)', 'var(--lazuli)', 'var(--schoolbus)'];
+  const CAP = 24;                                    // per-photo ceiling; oldest recycles out
+  const R = (a, b) => a + Math.random() * (b - a);
+  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+  // Each mark: a viewBox + inner SVG. Strokes carry pathLength="1" so the CSS
+  // draw-on wipes them on regardless of true length. `currentColor` = the chosen marker.
+  const MARKS = [
+    // scribble scratch-out
+    () => ['0 0 100 70', `<path pathLength="1" d="M6 40 Q18 8 30 38 Q42 66 54 36 Q66 8 78 40 Q90 64 96 34"/><path pathLength="1" d="M8 52 Q22 26 36 52 Q50 76 64 50 Q78 26 92 50"/>`, 3.2],
+    // big X cross-out
+    () => ['0 0 100 100', `<path pathLength="1" d="M14 16 L86 86"/><path pathLength="1" d="M86 18 L16 84"/>`, 4.2],
+    // circle + "this one!" arrow
+    () => ['0 0 120 90', `<path pathLength="1" d="M60 18 C24 14 14 60 44 70 C82 82 96 36 64 22 C52 17 40 22 40 22"/><path pathLength="1" d="M70 70 q22 6 34 -8"/><path pathLength="1" d="M96 56 l10 8 -12 8"/>`, 3],
+    // moustache
+    () => ['0 0 120 50', `<path pathLength="1" d="M60 14 C58 26 50 30 44 28 C30 24 20 30 14 40 C26 36 36 40 44 36 C54 31 58 22 60 14 C62 22 66 31 76 36 C84 40 94 36 106 40 C100 30 90 24 76 28 C70 30 62 26 60 14Z"/>`, 2.6],
+    // nerd glasses
+    () => ['0 0 130 60', `<circle pathLength="1" cx="36" cy="34" r="20"/><circle pathLength="1" cx="94" cy="34" r="20"/><path pathLength="1" d="M56 30 q9 -8 18 0"/><path pathLength="1" d="M16 28 l-12 -8"/><path pathLength="1" d="M114 28 l12 -8"/>`, 3.4],
+    // devil horns
+    () => ['0 0 120 60', `<path pathLength="1" d="M20 56 C8 36 10 14 26 6 C24 24 30 40 44 50"/><path pathLength="1" d="M100 56 C112 36 110 14 94 6 C96 24 90 40 76 50"/>`, 3.6],
+    // halo
+    () => ['0 0 120 50', `<ellipse pathLength="1" cx="60" cy="26" rx="42" ry="14"/>`, 3.4],
+    // crown
+    () => ['0 0 120 60', `<path pathLength="1" d="M14 52 L24 14 L44 38 L60 10 L76 38 L96 14 L106 52 Z"/>`, 3.6],
+    // googly eyes (filled sclera + pupil — pop in, no wipe)
+    () => ['0 0 120 60', `<g class="googly"><circle cx="40" cy="30" r="22" fill="#fff" stroke="var(--ink)" stroke-width="2.5"/><circle cx="${~~R(32,48)}" cy="${~~R(24,38)}" r="9" fill="var(--ink)"/><circle cx="84" cy="30" r="22" fill="#fff" stroke="var(--ink)" stroke-width="2.5"/><circle cx="${~~R(76,92)}" cy="${~~R(24,38)}" r="9" fill="var(--ink)"/></g>`, 0],
+    // sparkle burst
+    () => ['0 0 110 90', `<path pathLength="1" d="M30 46 L34 28 L38 46 L56 50 L38 54 L34 72 L30 54 L12 50 Z"/><path pathLength="1" d="M78 26 L81 14 L84 26 L96 29 L84 32 L81 44 L78 32 L66 29 Z"/><path pathLength="1" d="M82 64 L84 56 L86 64 L94 66 L86 68 L84 76 L82 68 L74 66 Z"/>`, 2.6],
+    // word stamp
+    () => { const word = pick(['ICON!', 'YES', 'COOL', 'A STAR', 'THE ONE', 'LEGEND']);
+      return ['0 0 160 60', `<text x="80" y="44" text-anchor="middle" font-family="var(--f-hand)" font-size="46" fill="currentColor" stroke="none" transform="rotate(-4 80 30)">${word}</text>`, 0]; },
+    // exclamations
+    () => ['0 0 70 80', `<path pathLength="1" d="M22 8 L18 50"/><circle cx="17" cy="66" r="3.5" fill="currentColor" stroke="none"/><path pathLength="1" d="M52 8 L48 50"/><circle cx="47" cy="66" r="3.5" fill="currentColor" stroke="none"/>`, 5],
+    // heart
+    () => ['0 0 100 90', `<path pathLength="1" d="M50 78 C12 50 8 24 28 16 C42 10 50 26 50 30 C50 26 58 10 72 16 C92 24 88 50 50 78 Z"/>`, 3.4],
+  ];
+
+  function layerFor(fig) {
+    let layer = fig.querySelector(':scope > .vandal-layer');
+    if (layer) return layer;
+    const ph = fig.querySelector(':scope > .ph');
+    if (!ph) return null;
+    layer = document.createElement('div');
+    layer.className = 'vandal-layer';
+    // pin to the photo box within the figure (ph.offsetParent === fig; both position:relative)
+    layer.style.left = ph.offsetLeft + 'px';
+    layer.style.top = ph.offsetTop + 'px';
+    layer.style.width = ph.offsetWidth + 'px';
+    layer.style.height = ph.offsetHeight + 'px';
+    fig.appendChild(layer);
+    return layer;
+  }
+
+  function scrawl(fig) {
+    if (fig.dataset.torn != null) return;            // a torn photo is on its way out — don't draw
+    const layer = layerFor(fig);
+    if (!layer) return;
+    const [vb, inner, sw] = pick(MARKS)();
+    const wrap = document.createElement('div');
+    wrap.className = 'sharpie';
+    wrap.style.setProperty('--vc', pick(PALETTE));
+    wrap.style.setProperty('--vr', R(-26, 26).toFixed(1) + 'deg');
+    wrap.style.setProperty('--vs', R(0.7, 1.25).toFixed(2));
+    wrap.style.left = R(18, 82).toFixed(1) + '%';
+    wrap.style.top = R(20, 80).toFixed(1) + '%';
+    wrap.innerHTML = `<svg viewBox="${vb}" fill="none" stroke="currentColor" stroke-width="${sw}" ` +
+      `stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${inner}</svg>`;
+    layer.appendChild(wrap);
+    while (layer.children.length > CAP) layer.firstChild.remove();   // recycle the oldest
+  }
+
+  document.querySelectorAll('.polaroid, .snap').forEach((fig) => {
+    fig.addEventListener('click', (e) => {
+      if (e.target.closest('a,button,input,textarea,select,label')) return;   // let real controls work
+      scrawl(fig);
+    });
   });
 }
 
@@ -435,6 +539,55 @@ function synthCrinkle(ctx, opts = {}) {
   src.start(now); src.stop(now + dur);
 }
 
+// Synthesized felt-tip marker squeak (no audio asset). Played via Stage.play('squeak')
+// when a photo gets vandalised. A short band-passed noise scrubbing up/down in pitch —
+// the rubbery skid of a sharpie dragged across glossy paper. Randomised so no two land alike.
+function synthSqueak(ctx, opts = {}) {
+  const now = ctx.currentTime;
+  const dur = 0.10 + Math.random() * 0.09;
+  const n = Math.max(1, Math.floor(ctx.sampleRate * dur));
+  const buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0);
+  const atk = Math.max(1, Math.floor(n * 0.10));
+  for (let i = 0; i < n; i++) {
+    const attack = i < atk ? i / atk : 1;
+    const decay = Math.pow(1 - i / n, 1.2);
+    d[i] = (Math.random() * 2 - 1) * decay * attack;
+  }
+  const src = ctx.createBufferSource(); src.buffer = buf;
+  const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 7 + Math.random() * 6;
+  const f0 = 900 + Math.random() * 700, f1 = f0 * (1.7 + Math.random() * 1.1);   // scrub upward
+  bp.frequency.setValueAtTime(f0, now);
+  bp.frequency.linearRampToValueAtTime(f1, now + dur * 0.6);
+  bp.frequency.linearRampToValueAtTime(f0 * 1.2, now + dur);
+  const g = ctx.createGain(); g.gain.value = (opts.gain ?? 0.16) * (0.8 + Math.random() * 0.4);
+  src.connect(bp); bp.connect(g); g.connect(ctx.destination);
+  src.start(now); src.stop(now + dur);
+}
+
+// Synthesized triumphant fanfare (no audio asset). Played via Stage.play('fanfare')
+// the moment the finale reveal lands. A bright ascending major arpeggio (root-3-5-octave)
+// on a soft saw, each note plucked with a quick decay — celebratory but still hand-made.
+function synthFanfare(ctx, opts = {}) {
+  const now = ctx.currentTime;
+  const base = (opts.gain ?? 0.30);
+  const root = 392;                                  // G4 — warm, not shrill
+  const steps = [1, 5 / 4, 3 / 2, 2, 5 / 2];          // root · maj3 · 5 · octave · maj3-up
+  steps.forEach((mult, i) => {
+    const t = now + i * 0.085;
+    const f = root * mult;
+    const o1 = ctx.createOscillator(); o1.type = 'sawtooth'; o1.frequency.value = f;
+    const o2 = ctx.createOscillator(); o2.type = 'triangle'; o2.frequency.value = f * 2;
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2600;
+    const g = ctx.createGain();
+    const peak = base * (i === steps.length - 1 ? 1.15 : 0.9);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(peak, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.42);
+    o1.connect(lp); o2.connect(lp); lp.connect(g); g.connect(ctx.destination);
+    o1.start(t); o2.start(t); o1.stop(t + 0.45); o2.stop(t + 0.45);
+  });
+}
+
 // Lock vw/clamp metrics to computed px so the SVG-foreignObject capture reflows
 // pixel-identically to the live note (pinning px = computed is layout-neutral live).
 const CRUMPLE_FREEZE = ['fontSize', 'lineHeight', 'letterSpacing', 'paddingTop', 'paddingRight', 'paddingBottom',
@@ -518,14 +671,21 @@ function initFounderCrumple() {
   io.observe(paper);
 }
 
+// Lazy-load three + modern-screenshot ONCE (esm.sh caches; the finale reuses this).
+let _crumpleLibs = null;
+function loadCrumpleLibs() {
+  if (!_crumpleLibs) _crumpleLibs = Promise.all([
+    import('https://esm.sh/three@0.160.0'),
+    import('https://esm.sh/modern-screenshot@4'),
+  ]);
+  return _crumpleLibs;
+}
+
 async function bootFounderCrumple(paper) {
   const img = paper.querySelector('img');
   if (img && !img.complete) { img.loading = 'eager'; await new Promise((r) => { img.onload = r; img.onerror = r; }); }
   await document.fonts.ready;
-  const [THREE, ms] = await Promise.all([
-    import('https://esm.sh/three@0.160.0'),
-    import('https://esm.sh/modern-screenshot@4'),
-  ]);
+  const [THREE, ms] = await loadCrumpleLibs();
   const domToCanvas = ms.domToCanvas;
 
   // capture the note (vw-frozen) -> WebGL texture
@@ -648,6 +808,46 @@ function initTearAway() {
   const GRAVITY = 0.0024;   // px/ms² — the fallen page accelerates down
   const CONTROL = 'a,button,input,textarea,select,label,[contenteditable],.gate';
 
+  // ---- "tore off EVERYTHING" tracking → the finale ----
+  // A piece counts as gone when it's torn (data-torn) OR it left the DOM riding a
+  // torn parent (e.g. .snap inside .note .paper). When every armed piece is gone —
+  // and at least one was actually torn — we fire drexfx:cleared once.
+  const armed = [];
+  let tornAny = false, finaleFired = false;
+
+  // Stash a snapshot of the INTACT collage the instant tearing begins, so the
+  // finale can crumple the whole recognizable site (by the time every piece is
+  // gone, the live DOM is an empty husk). Deferred to idle so the grab never janks.
+  let shotStarted = false;
+  function captureSite() {
+    if (shotStarted) return; shotStarted = true;
+    const go = () => {
+      if (finaleShot) return;
+      loadCrumpleLibs().then(([, ms]) => {
+        const bg = getComputedStyle(document.body).backgroundColor || '#FEF6E4';
+        const docH = document.documentElement.scrollHeight || innerHeight;
+        const scale = Math.min(1, 1800 / Math.max(1, docH));   // cap texture height
+        const skip = (n) => {
+          if (!n || !n.classList) return true;                 // text nodes etc → keep
+          if (n.id && /^finale-/.test(n.id)) return false;
+          if (n.classList.contains('tape-fall')) return false;
+          if (n.dataset && n.dataset.torn != null) return false;   // already-torn piece
+          return true;
+        };
+        return ms.domToCanvas(document.body, { scale, backgroundColor: bg, filter: skip });
+      }).then((cv) => { if (cv) finaleShot = cv; }).catch(() => {});
+    };
+    (window.requestIdleCallback || ((f) => setTimeout(f, 1)))(go, { timeout: 1000 });
+  }
+
+  function checkCleared() {
+    if (finaleFired || !tornAny || !armed.length) return;
+    if (armed.every((el) => el.dataset.torn != null || !el.isConnected)) {
+      finaleFired = true;
+      try { window.dispatchEvent(new Event('drexfx:cleared')); } catch (_) {}
+    }
+  }
+
   function arm(el) {
     if (!el || el.dataset.tearable != null) return;    // skip if missing / already armed
     if (!el.querySelector(':scope > .tape')) return;   // only pieces actually held by tape
@@ -656,6 +856,7 @@ function initTearAway() {
     // starts the browser's native image drag (the ghost) and steals the tear gesture.
     el.querySelectorAll('img').forEach((img) => { img.draggable = false; });
     el.addEventListener('dragstart', (e) => e.preventDefault());
+    armed.push(el);
     armPiece(el);
   }
 
@@ -704,6 +905,7 @@ function initTearAway() {
 
     function commit() {
       pulling = true;
+      captureSite();                          // first real pull → stash the intact site for the finale
       try { el.setPointerCapture(pid); } catch (_) {}
       el.classList.add('tearing');
       el.style.transition = 'none';
@@ -767,13 +969,16 @@ function initTearAway() {
     function detach(dx, dy, vx0, vy0, rot0) {
       if (done) return;
       done = true;
+      captureSite();                          // safety net for programmatic tears (__tear/tearAll)
       teardown(true);
       try { navigator.vibrate && navigator.vibrate([7, 22, 13]); } catch (_) {}   // haptic rip
       Stage.play('taperip', { gain: 0.42 });
       setTimeout(() => Stage.play('rustle', { gain: 0.22, rate: 0.9 }), 90);
       el.dataset.torn = '';
+      tornAny = true;
       flyTape();
       fallPaper(dx, dy, vx0, vy0, rot0);
+      checkCleared();                    // last piece torn? (resolves again once it's removed)
     }
 
     // the page: drops under gravity, keeps its flick momentum, spins, fades.
@@ -826,6 +1031,7 @@ function initTearAway() {
         if (op <= 0 || py > innerHeight + L.height + 80) {
           stop();
           el.remove();                       // gone till reload; the spacer keeps the slot
+          checkCleared();                    // removal may take a child .snap with it
         }
       });
     }
@@ -856,6 +1062,19 @@ function initTearAway() {
   window.__drexTear = {
     list: () => [...document.querySelectorAll('[data-tearable]')].map((e) => e.className.trim()),
     tear: (sel) => { const el = document.querySelector(sel); if (el && el.__tear) el.__tear(); },
+    // stash the intact-site snapshot FIRST, then tear once it's ready (so the
+    // finale ball is the whole site, not the empty husk a synchronous loop leaves)
+    tearAll: () => {
+      captureSite();
+      let waited = 0;
+      const t = setInterval(() => {
+        waited += 120;
+        if (finaleShot || waited > 2600) {
+          clearInterval(t);
+          armed.forEach((el) => { if (el.dataset.torn == null && el.isConnected) el.__tear?.(); });
+        }
+      }, 120);
+    },
   };
 }
 
@@ -1003,4 +1222,180 @@ function initAttentionCta(){
   bind();
   scrollHandlerBound = true;
   window.addEventListener('scroll', onScroll, {passive:true});
+}
+
+/* ===================================================================
+   M5 — THE FINALE. Tear off EVERY piece of the collage and the leftover
+   page crumples into a paper ball (the founder crumple shader, run FORWARD:
+   flat → wad) that falls, shrinks, spins, and fades — revealing the reward
+   behind it: a hand-drawn star, "we love people like you", a triumphant
+   fanfare, and a burst of zine-stamp confetti. The shader is the flourish;
+   the reward + confetti + fanfare ALWAYS land (a plain CSS fade replaces the
+   crumple under lite / no-WebGL / capture failure). One-shot per page load.
+   =================================================================== */
+let finaleStarted = false, finaleRewardShown = false;
+let finaleShot = null;     // canvas of the INTACT site, stashed by initTearAway the moment tearing begins
+
+function initFinale() {
+  window.addEventListener('drexfx:cleared', () => {
+    if (finaleStarted) return; finaleStarted = true;
+    runFinale().catch(() => revealReward());     // any crumple failure → still reward
+  });
+  // QA hook: trigger the finale without tearing all 8 pieces by hand
+  window.__drexFinale = () => { try { window.dispatchEvent(new Event('drexfx:cleared')); } catch (_) {} };
+}
+
+const FINALE_VALUES = ['Communion', 'Reverence', 'Conviction', 'Self-awareness',
+  'Cultivation', 'Generativity', 'zine', 'Drex', 'made with reverence'];
+
+function buildReward() {
+  let root = document.getElementById('finale-reward');
+  if (root) return root;
+  root = document.createElement('div');
+  root.id = 'finale-reward';
+  root.setAttribute('role', 'status');
+  root.setAttribute('aria-live', 'polite');
+  root.innerHTML =
+    '<div class="finale-card" tabindex="-1">' +
+      '<svg class="finale-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.4 L14.7 9.1 L21.6 9.4 L16.1 13.8 L18.1 20.6 L12 16.4 L5.9 20.6 L7.9 13.8 L2.4 9.4 L9.3 9.1 Z"/></svg>' +
+      '<p class="finale-head scrawl">we love people like you</p>' +
+      '<p class="finale-sub">you took the whole thing apart &mdash; that’s exactly the spirit.</p>' +
+      '<button class="btn" type="button" id="finale-again">start over &rarr;</button>' +
+    '</div>';
+  document.body.appendChild(root);
+  root.querySelector('#finale-again').addEventListener('click', () => location.reload());
+  return root;
+}
+
+function revealReward() {
+  if (finaleRewardShown) return;
+  finaleRewardShown = true;
+  const reward = buildReward();
+  document.documentElement.classList.add('finale-on', 'finale-reveal');   // scroll-lock + show
+  reward.classList.add('show');
+  const card = reward.querySelector('.finale-card');
+  try { card && card.focus({ preventScroll: true }); } catch (_) {}
+  Stage.armSound && Stage.armSound();           // the climax earns sound (unless muted)
+  Stage.play('fanfare', { gain: 0.32 });
+  burstConfetti();
+}
+
+function burstConfetti() {
+  const layer = document.createElement('div');
+  layer.id = 'finale-confetti';
+  layer.setAttribute('aria-hidden', 'true');
+  const COLORS = ['var(--colorado)', 'var(--grass)', 'var(--lazuli)', 'var(--schoolbus)', 'var(--happy)', 'var(--sambas)'];
+  const N = 54;
+  for (let i = 0; i < N; i++) {
+    const b = document.createElement('span');
+    b.className = 'zine-confetti';
+    const c = COLORS[i % COLORS.length];
+    const kind = Math.random();
+    if (kind < 0.32) { b.classList.add('zc-word'); b.textContent = FINALE_VALUES[Math.floor(Math.random() * FINALE_VALUES.length)]; b.style.color = c; }
+    else if (kind < 0.58) { b.classList.add('zc-star'); b.textContent = '★'; b.style.color = c; }
+    else { b.style.background = c; if (Math.random() < 0.5) b.classList.add('zc-round'); }
+    b.style.left = (50 + (Math.random() * 2 - 1) * 10).toFixed(1) + '%';
+    b.style.setProperty('--dx', (Math.random() * 2 - 1).toFixed(2));           // outward spread
+    b.style.setProperty('--kick', (-0.6 - Math.random() * 0.7).toFixed(2));    // initial upward kick (× vh)
+    b.style.setProperty('--rot', (Math.random() * 720 - 360).toFixed(0) + 'deg');
+    b.style.setProperty('--delay', (Math.random() * 0.22).toFixed(2) + 's');
+    b.style.setProperty('--dur', (1.9 + Math.random() * 1.6).toFixed(2) + 's');
+    b.style.setProperty('--scale', (0.7 + Math.random() * 0.8).toFixed(2));
+    b.addEventListener('animationend', () => b.remove());
+    layer.appendChild(b);
+  }
+  document.body.appendChild(layer);
+  setTimeout(() => layer.remove(), 4600);
+}
+
+// crumple ramp: drive uT from→to over dur with the 24fps step + crinkle patter.
+// Raw rAF (not Stage.addDriver) so it runs to completion regardless of motion state.
+function crumpleRamp(uniforms, from, to, dur, render) {
+  return new Promise((resolve) => {
+    const t0 = performance.now(), STEP = 1000 / 24;
+    let lastQ = -1, lastSnd = -1e9;
+    const ease = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    (function fr(now) {
+      let p = (now - t0) / dur; if (p > 1) p = 1;
+      const q = Math.floor((now - t0) / STEP);
+      if (q !== lastQ) { lastQ = q; const pq = Math.min(q * STEP / dur, 1); uniforms.uT.value = from + (to - from) * ease(pq); render(); }
+      if (now - lastSnd > 70) { lastSnd = now; Stage.play('crinkle'); if (Math.random() < 0.5) Stage.play('crinkle'); }
+      if (p < 1) requestAnimationFrame(fr);
+      else { uniforms.uT.value = to; render(); resolve(); }
+    })(performance.now());
+  });
+}
+
+async function runFinale() {
+  const root = document.documentElement;
+  root.classList.add('finale-on');                 // lock scroll immediately
+  buildReward();                                    // exists behind, hidden until revealReward()
+
+  const [THREE, ms] = await loadCrumpleLibs();      // throws offline → caught → revealReward()
+  await document.fonts.ready;
+
+  // The texture is the WHOLE intact site, stashed when tearing began — by now the
+  // live DOM is an empty husk, so crumpling it would ball up blank paper. Fall back
+  // to a live viewport grab only if the stash never happened (e.g. programmatic).
+  let texCanvas, texW, texH;
+  if (finaleShot && finaleShot.width) {
+    texCanvas = finaleShot; texW = finaleShot.width; texH = finaleShot.height;
+  } else {
+    const bg = getComputedStyle(document.body).backgroundColor || '#FEF6E4';
+    const skip = (n) => !(n && n.id && /^finale-/.test(n.id)) && !(n && n.classList && n.classList.contains('tape-fall'));
+    const snap = await ms.domToCanvas(document.body, { scale: 1, backgroundColor: bg, filter: skip });
+    const W0 = Math.max(1, innerWidth), H0 = Math.max(1, innerHeight);
+    texCanvas = document.createElement('canvas'); texCanvas.width = W0; texCanvas.height = H0;
+    const g2 = texCanvas.getContext('2d'); g2.fillStyle = bg; g2.fillRect(0, 0, W0, H0);
+    g2.drawImage(snap, -scrollX, -scrollY);
+    texW = W0; texH = H0;
+  }
+
+  const W = Math.max(1, innerWidth), H = Math.max(1, innerHeight);
+  const host = document.createElement('div'); host.id = 'finale-host';
+  document.body.appendChild(host);
+  const R = new THREE.WebGLRenderer({ alpha: true, antialias: true });   // throws if no WebGL → caught upstream
+  R.outputColorSpace = THREE.SRGBColorSpace;
+  R.setPixelRatio(Math.min(devicePixelRatio, 2));
+  R.setSize(W, H);
+  host.appendChild(R.domElement);
+
+  const scene = new THREE.Scene();
+  const fov = 35;
+  const cam = new THREE.PerspectiveCamera(fov, W / H, 0.01, 100);
+  cam.position.set(0, 0, 0.5 / Math.tan(THREE.MathUtils.degToRad(fov) / 2));
+
+  // size the sheet to the texture's aspect, CONTAINed in the viewport (height == 1),
+  // so the whole recognizable site is on screen before it crumples
+  const texAspect = texW / texH, viewAspect = W / H;
+  let planeW, planeH;
+  if (texAspect >= viewAspect) { planeW = viewAspect; planeH = viewAspect / texAspect; }
+  else { planeH = 1; planeW = texAspect; }
+
+  const tex = new THREE.CanvasTexture(texCanvas); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+  const uniforms = { uT: { value: 0 }, uTex: { value: tex } };
+  const mesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(planeW, planeH, 80, 80),
+    new THREE.ShaderMaterial({ vertexShader: CRUMPLE_VERT, fragmentShader: CRUMPLE_FRAG, uniforms,
+      side: THREE.DoubleSide, extensions: { derivatives: true } })
+  );
+  scene.add(mesh);
+  const render = () => R.render(scene, cam);
+  render();
+  root.classList.add('finale-hide');               // hide the empty husk — the intact snapshot stands in
+
+  // 0) hold the restored site on screen for a beat ("wait — it's back?")
+  await new Promise((r) => setTimeout(r, 320));
+  // 1) the whole site crumples: flat sheet → tight wad
+  await crumpleRamp(uniforms, 0, 1, 1000, render);
+  // 2) the wad falls away, revealing the reward behind it
+  revealReward();
+  host.style.transition = 'transform 1.2s cubic-bezier(.5,0,.85,.5), opacity 1.1s ease-in';
+  host.style.transformOrigin = '50% 42%';
+  requestAnimationFrame(() => {
+    host.style.transform = 'translateY(64vh) scale(.06) rotate(214deg)';
+    host.style.opacity = '0';
+  });
+  Stage.play('rustle', { gain: 0.3, rate: 0.82 });
+  setTimeout(() => { host.remove(); try { R.dispose && R.dispose(); } catch (_) {} }, 1350);
 }

@@ -737,3 +737,80 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
   }
   .cta-attn.cta-quiet .cta-scrawl{opacity:0!important}
 }
+
+/* ===================================================================
+   M5 — Photo VANDALISM: sharpie doodles scrawled onto a tapped photo.
+   The layer pins to the photo box but overflows it (a stroke can spill past
+   the edge). Marks are hand-drawn irregular SVG — no live boil filter, so 20+
+   of them stay cheap. Each draws on via a stroke wipe + a quick pop. JS skips
+   the whole feature under reduced-motion, so there's nothing to gate here.
+   =================================================================== */
+.vandal-layer{position:absolute;z-index:4;overflow:visible;pointer-events:none}
+.sharpie{position:absolute;left:50%;top:50%;width:62%;
+  transform:translate(-50%,-50%) rotate(var(--vr,0)) scale(var(--vs,1));
+  color:var(--vc,var(--ink));will-change:transform;
+  animation:sharpie-pop .19s cubic-bezier(.3,1.5,.5,1) both}
+.sharpie svg{display:block;width:100%;height:auto;overflow:visible;
+  filter:drop-shadow(.5px .8px 0 rgba(65,77,87,.18))}
+/* every stroke carries pathLength="1" → one wipe length fits all */
+.sharpie [pathLength]{stroke-dasharray:1;stroke-dashoffset:1;animation:sharpie-draw .3s ease-out forwards}
+.sharpie .googly{animation:none}
+@keyframes sharpie-draw{to{stroke-dashoffset:0}}
+@keyframes sharpie-pop{from{opacity:0;transform:translate(-50%,-50%) rotate(var(--vr,0)) scale(calc(var(--vs,1)*.55))}
+  to{opacity:1;transform:translate(-50%,-50%) rotate(var(--vr,0)) scale(var(--vs,1))}}
+@media(prefers-reduced-motion:reduce){.sharpie,.sharpie [pathLength]{animation:none;stroke-dashoffset:0;opacity:1}}
+
+/* ===================================================================
+   M5 — THE FINALE. Reward reveal + zine-stamp confetti + the crumple host.
+   The reward sits full-bleed with its own paper ground so it cleanly covers
+   the husk in every path (shader success, lite fade, or capture failure).
+   z: reward 80 < confetti 85 < crumple host 95 (the ball falls in front).
+   =================================================================== */
+html.finale-on, html.finale-on body{overflow:hidden!important;touch-action:none}
+html.finale-hide body>header, html.finale-hide body>main, html.finale-hide body>footer{visibility:hidden}
+html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-hide-soft body>footer{
+  transition:opacity .42s ease, transform .5s cubic-bezier(.5,0,.8,.4);
+  opacity:0;transform:scale(.86) rotate(-2deg);pointer-events:none}
+
+#finale-host{position:fixed;inset:0;z-index:95;pointer-events:none;will-change:transform,opacity}
+#finale-host canvas{position:absolute;left:0;top:0;width:100%;height:100%}
+
+#finale-reward{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;
+  padding:24px;opacity:0;visibility:hidden;pointer-events:none;
+  background:radial-gradient(circle at 50% 38%, #fffdf6 0%, var(--oats) 58%, #f6ead0 100%)}
+#finale-reward.show{opacity:1;visibility:visible;pointer-events:auto}
+.finale-card{text-align:center;max-width:min(560px,90vw);transform:scale(.8);
+  animation:finale-pop .6s cubic-bezier(.2,1.5,.45,1) .05s both}
+.finale-card:focus{outline:none}
+.finale-star{width:clamp(74px,14vw,108px);height:auto;display:block;margin:0 auto .55rem;
+  fill:var(--happy);stroke:var(--ink);stroke-width:1.1;
+  filter:drop-shadow(4px 5px 0 var(--ink));
+  transform-origin:50% 55%;animation:finale-star-in .7s cubic-bezier(.2,1.6,.4,1) .12s both, finale-star-idle 3.4s ease-in-out 1s infinite}
+.finale-head{font-family:var(--f-hand);font-weight:400;line-height:1.05;
+  font-size:clamp(2.4rem,8vw,4.6rem);color:var(--ink);margin:.1rem 0 .2rem;transform:rotate(-1.6deg)}
+.finale-sub{font-family:var(--f-hand);font-size:clamp(1.05rem,3.2vw,1.45rem);color:var(--sambas);
+  margin:.1rem auto .9rem;max-width:30ch;opacity:.92}
+.finale-card .btn{transform:rotate(-1.4deg)}
+@keyframes finale-pop{from{opacity:0;transform:scale(.8) rotate(1.5deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes finale-star-in{from{transform:scale(0) rotate(-90deg)}to{transform:scale(1) rotate(0)}}
+@keyframes finale-star-idle{0%,100%{transform:rotate(-5deg) scale(1)}50%{transform:rotate(5deg) scale(1.05)}}
+
+/* zine-stamp confetti: bursts up/out from centre, then rains down */
+#finale-confetti{position:fixed;inset:0;z-index:85;pointer-events:none;overflow:hidden}
+.zine-confetti{position:fixed;top:46%;width:11px;height:15px;border-radius:2px;
+  display:flex;align-items:center;justify-content:center;line-height:1;white-space:nowrap;
+  transform:translate(-50%,-50%);will-change:transform,opacity;
+  animation:confetti-fall var(--dur,2.4s) cubic-bezier(.3,.5,.5,1) var(--delay,0s) forwards}
+.zine-confetti.zc-round{border-radius:50%}
+.zine-confetti.zc-star{width:auto;height:auto;background:none!important;font-size:1.5rem}
+.zine-confetti.zc-word{width:auto;height:auto;font-family:var(--f-hand);font-size:.9rem;font-weight:400;
+  background:var(--oats);border:1.5px solid currentColor;border-radius:3px;padding:1px 6px}
+@keyframes confetti-fall{
+  0%  {opacity:0;transform:translate(-50%,-50%) translate(0,0) scale(var(--scale,1)) rotate(0)}
+  8%  {opacity:1}
+  24% {transform:translate(-50%,-50%) translate(calc(var(--dx,0)*18vw), calc(var(--kick,-.6)*16vh)) scale(var(--scale,1)) rotate(calc(var(--rot,180deg)*.4))}
+  86% {opacity:1}
+  100%{opacity:0;transform:translate(-50%,-50%) translate(calc(var(--dx,0)*32vw), 80vh) scale(var(--scale,1)) rotate(var(--rot,180deg))}}
+@media(prefers-reduced-motion:reduce){
+  .finale-card,.finale-star,.zine-confetti{animation:none}
+  .finale-card{transform:none}.finale-star{transform:none}}
