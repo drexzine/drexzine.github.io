@@ -769,10 +769,10 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
 @keyframes hbsway{0%,100%{transform:rotate(3.5deg)}50%{transform:rotate(-3.5deg)}}
 
 /* ONE strand: links + string + dangling burger move together with --pull */
-.hb-strand{display:flex;flex-direction:column;align-items:flex-end;gap:8px;padding-right:3px;
+.hb-strand{position:relative;display:flex;flex-direction:column;align-items:flex-end;gap:8px;padding-right:3px;
   transform:translateY(calc((var(--pull) - 1) * 168px))}
 .hb[data-state="fallen"] .hb-strand,.hb[data-state="open"] .hb-strand{transition:transform .08s linear}
-.hb-tray{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:none}
+.hb-tray{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:flex-end;gap:8px;position:relative;z-index:1;pointer-events:none}
 .hb-tray li{display:block}
 .hb-tray a{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
   color:var(--ink);background:var(--paper);border:2.4px solid var(--ink);border-radius:6px;box-shadow:3px 3px 0 0 var(--ink);
@@ -783,8 +783,8 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
 .hb-tray a:hover{transform:rotate(0) translate(-1px,-1px);box-shadow:4px 4px 0 0 var(--grass)}
 .hb-tray .hb-cta .btn{font-size:.72rem;pointer-events:none}
 .hb[data-state="open"] .hb-tray .hb-cta .btn,.hb[data-state="plain"] .hb-tray .hb-cta .btn{pointer-events:auto}
-.hb-string{width:2px;height:34px;background:var(--ink);border-radius:2px;margin-right:21px}
-.hb-fallen{width:48px;height:44px;display:inline-flex;align-items:center;justify-content:center;
+.hb-thread{position:absolute;top:0;bottom:0;right:26px;width:2px;background:var(--ink);border-radius:2px;z-index:0}
+.hb-fallen{position:relative;z-index:1;margin-top:32px;width:48px;height:44px;display:inline-flex;align-items:center;justify-content:center;
   background:var(--paper);border:2.6px solid var(--ink);border-radius:7px;box-shadow:3px 3px 0 0 var(--ink);
   cursor:grab;touch-action:none;pointer-events:auto}
 .hb.is-dragging .hb-fallen{cursor:grabbing}
@@ -797,7 +797,8 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
 .hb[data-state="rest"] .hb-slit,.hb[data-state="plain"] .hb-slit{opacity:0}
 
 /* danger: string reddens + stretches as you over-pull */
-.hb.is-straining .hb-string{background:var(--colorado);height:50px}
+.hb.is-straining .hb-thread{background:var(--colorado)}
+.hb.is-straining .hb-fallen{margin-top:52px}
 .hb.is-straining .hb-tray a{border-color:var(--colorado)}
 
 /* TORN: the strand drops away */

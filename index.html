@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=22" />
+<link rel="stylesheet" href="app.css?v=23" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -85,6 +85,7 @@
           <div class="hb-sway">
             <!-- ONE strand on ONE string: items + the dangling burger all move together -->
             <div class="hb-strand" id="hb-strand">
+              <span class="hb-thread"></span>                 <!-- ONE continuous string: slit → through every tab → burger -->
               <ul class="hb-tray" id="hb-tray">
                 <li><a href="#about">About</a></li>
                 <li><a href="#team">Team</a></li>
@@ -92,7 +93,6 @@
                 <li><a href="#demo">Demo</a></li>
                 <li class="hb-cta"><a class="btn" href="#circle">Join the Circle <span class="arr">&rarr;</span></a></li>
               </ul>
-              <span class="hb-string"></span>
               <button class="hb-fallen" id="hb-fallen" type="button" tabindex="-1" aria-hidden="true"><span class="bars"><i></i><i></i><i></i></span></button>
             </div>
           </div>
@@ -329,6 +329,6 @@
   </div>
 </footer>
 
-<script type="module" src="app.js?v=22"></script>
+<script type="module" src="app.js?v=23"></script>
 </body>
 </html>
