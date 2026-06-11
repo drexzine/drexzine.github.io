@@ -240,7 +240,46 @@ footer .stamp{display:inline-block;margin-top:1.4rem;font-family:var(--f-mono);t
 footer .legal{margin-top:2rem;border-top:1.6px solid rgba(254,246,228,.4);padding-top:1.1rem;display:flex;
   justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.05em;color:rgba(254,246,228,.9)}
 
+/* ===================================================================
+   M1 feature layer — reveals, highlighter/marker draw-on, sound toggle.
+   All entrance states are gated on body[data-motion="full"], so under
+   calm / reduced-motion (data-motion="calm") nothing is ever hidden.
+   The FPS governor's html[data-tier="lite"] forces everything instant.
+   The `translate` / `scale` properties (not `transform`) are used so the
+   motion composes with each element's resting tilt/skew.
+   =================================================================== */
+
+/* ---- reveals: settle in from a touch below, keeping resting tilt ---- */
+body[data-motion="full"] .reveal{opacity:0;translate:0 18px;
+  transition:opacity .6s ease, translate .6s cubic-bezier(.2,.7,.2,1)}
+body[data-motion="full"] .reveal.in{opacity:1;translate:0 0}
+
+/* ---- highlighter band: swipe left→right (composes with its skew) ---- */
+body[data-motion="full"] .hl.draw::before{scale:0 1;transform-origin:left center;
+  transition:scale .55s cubic-bezier(.2,.7,.2,1)}
+body[data-motion="full"] .hl.draw.in::before{scale:1 1}
+
+/* ---- marker underline: draw left→right just after ------------------ */
+body[data-motion="full"] .ul.draw::after{scale:0 1;transform-origin:left center;
+  transition:scale .5s cubic-bezier(.2,.7,.2,1) .12s}
+body[data-motion="full"] .ul.draw.in::after{scale:1 1}
+
+/* ---- FPS governor demoted the page: kill all entrance motion ------- */
+html[data-tier="lite"] .reveal{opacity:1!important;translate:none!important;transition:none!important}
+html[data-tier="lite"] .hl.draw::before,
+html[data-tier="lite"] .ul.draw::after{scale:1 1!important;transition:none!important}
+
+/* ---- footer opt-in sound toggle (sits in the legal row) ------------ */
+footer .legal .snd{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.05em;text-transform:lowercase;
+  color:rgba(254,246,228,.9);background:none;border:1.6px solid rgba(254,246,228,.45);border-radius:5px;
+  padding:.28em .7em;cursor:pointer;transition:border-color .12s, color .12s}
+footer .legal .snd:hover,
+footer .legal .snd[aria-pressed="true"]{border-color:var(--oats);color:var(--oats)}
+footer .legal .snd:focus-visible{outline:2px solid var(--oats);outline-offset:2px}
+
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
   .tape,.eyebrow,.btn,.card,.splay .card,.mast nav a,.about .cap,.card .cap,.hero .pin,footer .stamp,.polaroid,.crew .polaroid,.ul,.hl{transform:none!important}
+  .reveal{opacity:1!important;translate:none!important}
+  .hl.draw::before,.ul.draw::after{scale:1 1!important}
 }
