@@ -148,6 +148,7 @@ function initAudio() {
   const KEYS = ['cut', 'marker', 'rustle', 'snip', 'stamp', 'taperip', 'toggle', 'underline',
     'retrocard1', 'retrocard2', 'retrocard3', 'retropola1', 'retropola2', 'retropola3'];
   const buffers = new Map();
+  const pending = new Set();   // keys requested before audio was ready (first-gesture race)
   let ctx = null, loading = null, enabled = false;
   try { enabled = localStorage.getItem('drex-sound') === 'on'; } catch (_) {}
 
@@ -186,21 +187,42 @@ function initAudio() {
 
   function emitChange() { try { window.dispatchEvent(new Event('drexfx:soundchange')); } catch (_) {} }
 
+  // Actually emit the sound. Assumes ctx is running and (for samples) the buffer
+  // is decoded — callers gate on that or defer via play().
+  function fire(key, opts) {
+    if (key === 'crinkle') return synthCrinkle(ctx, opts);   // synthesized paper crinkle (no sample)
+    if (key === 'squeak')  return synthSqueak(ctx, opts);    // synthesized felt-tip marker squeak
+    if (key === 'fanfare') return synthFanfare(ctx, opts);   // synthesized triumphant arpeggio
+    const buf = buffers.get(key);
+    if (!buf) return;
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    src.playbackRate.value = opts.rate ?? (0.94 + Math.random() * 0.12);
+    const g = ctx.createGain();
+    g.gain.value = opts.gain ?? 0.32;
+    src.connect(g).connect(ctx.destination);
+    src.start();
+  }
+
   const engine = {
     play(key, opts = {}) {
-      if (!enabled || !ctx || ctx.state !== 'running') return;
-      if (key === 'crinkle') return synthCrinkle(ctx, opts);   // synthesized paper crinkle (no sample)
-      if (key === 'squeak')  return synthSqueak(ctx, opts);    // synthesized felt-tip marker squeak
-      if (key === 'fanfare') return synthFanfare(ctx, opts);   // synthesized triumphant arpeggio
-      const buf = buffers.get(key);
-      if (!buf) { load(); return; }
-      const src = ctx.createBufferSource();
-      src.buffer = buf;
-      src.playbackRate.value = opts.rate ?? (0.94 + Math.random() * 0.12);
-      const g = ctx.createGain();
-      g.gain.value = opts.gain ?? 0.32;
-      src.connect(g).connect(ctx.destination);
-      src.start();
+      if (!enabled || !ctx) return;
+      const synth = key === 'crinkle' || key === 'squeak' || key === 'fanfare';
+      // Ready right now → fire immediately (the common, warm path).
+      if (ctx.state === 'running' && (synth || buffers.has(key))) return fire(key, opts);
+      // Not ready: the context is still resuming or the buffer is still decoding.
+      // This is the norm on the FIRST gesture — which is the envelope CUT — so its
+      // snip/cut/rustle used to be silently dropped while later SFX (warm ctx +
+      // loaded buffers) played fine. Defer one shot per key and fire once ready;
+      // collapsing repeats keeps the rapid drag-snips from bursting all at once.
+      if (pending.has(key)) return;
+      pending.add(key);
+      const resumed = ctx.state === 'suspended' ? ctx.resume() : Promise.resolve();
+      const loaded  = synth ? Promise.resolve() : load();
+      Promise.all([resumed, loaded]).then(() => {
+        pending.delete(key);
+        if (enabled && ctx && ctx.state === 'running') fire(key, opts);
+      }).catch(() => pending.delete(key));
     },
     // The envelope cut is a deliberate gesture, so it turns sound ON for the
     // session (unless the visitor has explicitly muted via the footer toggle).
