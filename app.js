@@ -78,6 +78,7 @@ function boot() {
   initReveals();                    // M1: settle-in on scroll
   initHighlighter();                // M1: highlighter + marker draw-on
   initEnvelope(audio);              // M3: hero drag-to-cut envelope
+  initTearAway();                   // M4: pull a taped piece free — it falls, the washi flutters
   initInteractionSounds();          // M1: stamp / toggle on interaction
   initSoundToggle(audio);           // M1: footer opt-in toggle
   // wake the FPS governor for the first couple seconds so html[data-tier=lite]
@@ -374,3 +375,240 @@ window.__drexCrit = window.__drexCrit || {
   disableMotion() { document.body.dataset.motion = 'calm'; },
   seek() {}, simulateKeyboardCut() {},
 };
+
+/* ===================================================================
+   M4 — TEAR-AWAY: any taped piece can be pulled free.
+   Grab a sheet / polaroid / postcard by its body (not a link or button)
+   and drag. It peels up against the washi tape — the harder you pull, the
+   higher it lifts (its registration shadow deepens). Pull past the tape's
+   hold (or flick it fast) and it RIPS free: a haptic tick fires, the page
+   drops under gravity and fades, and the washi tape — no longer holding
+   anything — flutters down on its own like a feather and fades out.
+   Let go before it gives and the tape snaps it back into place.
+
+   Pointer-only delight, gated to full motion. Torn pieces keep their slot
+   (visibility:hidden) so siblings never jump, and everything is back on
+   reload. Touch only hijacks a clearly-intentional pull (sideways / upward)
+   so a downward scroll that starts on a card still scrolls the page.
+   =================================================================== */
+function initTearAway() {
+  if (Stage.reduce) return;                 // reduced motion: leave the collage whole
+  if (!('PointerEvent' in window)) return;
+
+  const SLOP    = 7;        // px of travel before a grab becomes a pull
+  const THRESH  = 116;      // px of pull the tape holds before it lets go
+  const FLICK   = 1.3;      // px/ms — a fast, deliberate flick rips it free early
+  const FLICK_MIN = 46;     // ...but only past this travel, so a twitch never counts
+  const GRAVITY = 0.0024;   // px/ms² — the fallen page accelerates down
+  const CONTROL = 'a,button,input,textarea,select,label,[contenteditable],.gate';
+
+  function arm(el) {
+    if (!el || el.dataset.tearable != null) return;    // skip if missing / already armed
+    if (!el.querySelector(':scope > .tape')) return;   // only pieces actually held by tape
+    el.dataset.tearable = '';
+    // images are draggable by default — without this, grabbing a polaroid/snap photo
+    // starts the browser's native image drag (the ghost) and steals the tear gesture.
+    el.querySelectorAll('img').forEach((img) => { img.draggable = false; });
+    el.addEventListener('dragstart', (e) => e.preventDefault());
+    armPiece(el);
+  }
+
+  document.querySelectorAll(
+    '.about .paper, .note .paper, .note .snap, .team .polaroid, .doors .card'
+  ).forEach(arm);
+
+  // The hero card hides behind the envelope cut. Arm it only once the cut sequence
+  // has fully settled (envelope.done) so tearing can never disrupt the reveal — and
+  // by then the pocket is overflow:visible, so the fall isn't clipped.
+  const hero = document.querySelector('.hero-card');
+  const env = document.getElementById('envelope');
+  if (hero && env) {
+    if (!document.documentElement.classList.contains('sealed')) {
+      arm(hero);                                       // hero already shown (no seal)
+    } else {
+      const mo = new MutationObserver(() => {
+        if (env.classList.contains('done')) { mo.disconnect(); arm(hero); }
+      });
+      mo.observe(env, { attributes: true, attributeFilter: ['class'] });
+    }
+  }
+
+  function armPiece(el) {
+    let grabbing = false, pulling = false, done = false, pid = null;
+    let sx = 0, sy = 0, base = '';
+    let lastX = 0, lastY = 0, lt = 0, vx = 0, vy = 0;
+
+    el.addEventListener('pointerdown', onDown);
+    el.__tear = () => { if (!done) detach(0, 44, 0, 0.45, 7); };   // QA hook
+
+    function onDown(e) {
+      if (done || grabbing) return;
+      if (e.button != null && e.button !== 0) return;   // primary button / touch only
+      if (e.target.closest(CONTROL)) return;            // let real controls work
+      e.stopPropagation();                              // inner piece wins over its parent sheet
+      grabbing = true; pulling = false;
+      pid = e.pointerId;
+      sx = lastX = e.clientX; sy = lastY = e.clientY; lt = e.timeStamp; vx = vy = 0;
+      base = getComputedStyle(el).transform;
+      if (base === 'none') base = '';
+      window.addEventListener('pointermove', onMove, { passive: false });
+      window.addEventListener('pointerup', onUp);
+      window.addEventListener('pointercancel', onUp);
+    }
+
+    function commit() {
+      pulling = true;
+      try { el.setPointerCapture(pid); } catch (_) {}
+      el.classList.add('tearing');
+      el.style.transition = 'none';
+    }
+
+    function onMove(e) {
+      if (done || !grabbing || e.pointerId !== pid) return;
+      const dx = e.clientX - sx, dy = e.clientY - sy;
+      if (!pulling) {
+        if (Math.hypot(dx, dy) < SLOP) return;
+        // touch: a downward, mostly-vertical drag is a page scroll, not a pull — bow out.
+        if (e.pointerType === 'touch' && dy > 0 && Math.abs(dy) > Math.abs(dx)) { teardown(); return; }
+        commit();
+      }
+      e.preventDefault();
+      const dt = Math.max(1, e.timeStamp - lt);
+      vx = (e.clientX - lastX) / dt; vy = (e.clientY - lastY) / dt;
+      lastX = e.clientX; lastY = e.clientY; lt = e.timeStamp;
+
+      const dist = Math.hypot(dx, dy);
+      const p = Math.min(1, dist / THRESH);
+      el.style.setProperty('--pull', p.toFixed(3));
+      const rot = Math.max(-22, Math.min(22, dx * 0.05)) * (0.4 + 0.6 * p);
+      el.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg) ${base}`;
+
+      if (dist >= THRESH || (dist >= FLICK_MIN && Math.hypot(vx, vy) >= FLICK)) detach(dx, dy, vx, vy, rot);
+    }
+
+    function onUp() {
+      if (done || !grabbing) return;
+      if (pulling) snapBack(); else teardown();
+    }
+
+    // remove the live drag listeners; optionally keep the .tearing class (mid-animation)
+    function teardown(keepClass) {
+      grabbing = false; pulling = false;
+      try { el.releasePointerCapture(pid); } catch (_) {}
+      window.removeEventListener('pointermove', onMove, { passive: false });
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+      if (!keepClass) { el.classList.remove('tearing'); el.style.transition = ''; el.style.transform = ''; el.style.removeProperty('--pull'); }
+    }
+
+    // not enough force — the tape wins and pulls it home
+    function snapBack() {
+      teardown(true);
+      el.style.transition = 'transform .5s cubic-bezier(.34,1.42,.5,1), box-shadow .4s ease';
+      el.style.transform = '';
+      el.style.setProperty('--pull', '0');
+      Stage.play('rustle', { gain: 0.12, rate: 1.12 });
+      const end = () => {
+        el.classList.remove('tearing');
+        el.style.transition = ''; el.style.transform = ''; el.style.removeProperty('--pull');
+        el.removeEventListener('transitionend', end);
+      };
+      el.addEventListener('transitionend', end);
+      setTimeout(end, 650);
+    }
+
+    // enough force — it rips free
+    function detach(dx, dy, vx0, vy0, rot0) {
+      if (done) return;
+      done = true;
+      teardown(true);
+      try { navigator.vibrate && navigator.vibrate([7, 22, 13]); } catch (_) {}   // haptic rip
+      Stage.play('taperip', { gain: 0.42 });
+      setTimeout(() => Stage.play('rustle', { gain: 0.22, rate: 0.9 }), 90);
+      el.dataset.torn = '';
+      flyTape();
+      fallPaper(dx, dy, vx0, vy0, rot0);
+    }
+
+    // the page: drops under gravity, keeps its flick momentum, spins, fades.
+    // Pinned position:fixed so the long fall is OUT of document flow — a fixed
+    // element never extends the scrollable height, which is what made the page
+    // grow far past the footer. A same-size spacer takes its slot so the pieces
+    // around it never jump. The element keeps every style (it stays in the DOM
+    // tree where its descendant selectors still match) — we only change its box.
+    function fallPaper(dx, dy, vx0, vy0, rot0) {
+      const cs = getComputedStyle(el);
+      const margin = cs.margin;
+      // measure the true untransformed layout box in viewport coords
+      const t = el.style.transform, ro = el.style.rotate, tr = el.style.translate, sc = el.style.scale;
+      el.style.transform = 'none'; el.style.rotate = 'none'; el.style.translate = 'none'; el.style.scale = 'none';
+      const L = el.getBoundingClientRect();
+      el.style.transform = t; el.style.rotate = ro; el.style.translate = tr; el.style.scale = sc;
+
+      const spacer = document.createElement('div');
+      spacer.dataset.tearSpacer = '';
+      spacer.style.cssText = 'flex:0 0 auto;visibility:hidden;pointer-events:none;width:' +
+        L.width + 'px;height:' + L.height + 'px;margin:' + margin;
+      el.parentNode.insertBefore(spacer, el);
+
+      el.classList.remove('tearing');
+      el.style.transition = 'none';
+      el.style.willChange = 'transform, opacity';
+      el.style.position = 'fixed';
+      el.style.left = L.left + 'px';
+      el.style.top = L.top + 'px';
+      el.style.width = L.width + 'px';
+      el.style.height = L.height + 'px';
+      el.style.margin = '0';
+      el.style.zIndex = '70';
+      el.style.pointerEvents = 'none';
+      el.style.removeProperty('--pull');
+
+      let px = dx, py = dy, rot = rot0;
+      let velX = vx0, velY = Math.max(vy0, 0.05);
+      let vrot = vx0 * 6; if (Math.abs(vrot) < 0.02) vrot = rot0 >= 0 ? 0.05 : -0.05;
+      let life = 0, last = 0;
+      const stop = Stage.addDriver((tNow) => {
+        if (!last) { last = tNow; return; }
+        const dt = Math.min(tNow - last, 50); last = tNow;
+        life += dt;
+        velY += GRAVITY * dt;
+        px += velX * dt; py += velY * dt; rot += vrot * dt;
+        el.style.transform = `translate(${px.toFixed(1)}px, ${py.toFixed(1)}px) rotate(${rot.toFixed(1)}deg) ${base}`;
+        const op = life < 140 ? 1 : Math.max(0, 1 - (life - 140) / 760);
+        el.style.opacity = op.toFixed(3);
+        if (op <= 0 || py > innerHeight + L.height + 80) {
+          stop();
+          el.remove();                       // gone till reload; the spacer keeps the slot
+        }
+      });
+    }
+
+    // the washi: let go of the page, it flutters down on its own like a feather
+    function flyTape() {
+      el.querySelectorAll(':scope > .tape').forEach((tp, i) => {
+        const r = tp.getBoundingClientRect();
+        const w = tp.offsetWidth, h = tp.offsetHeight;
+        const wrap = document.createElement('div');
+        wrap.className = 'tape-fall';
+        wrap.style.left = (r.left + r.width / 2 - w / 2) + 'px';
+        wrap.style.top  = (r.top + r.height / 2 - h / 2) + 'px';
+        wrap.style.width = w + 'px';
+        wrap.style.height = h + 'px';
+        wrap.style.animationDelay = (i * 90) + 'ms';
+        tp.style.position = 'absolute';
+        tp.style.left = '0'; tp.style.top = '0';
+        tp.style.right = 'auto'; tp.style.bottom = 'auto'; tp.style.margin = '0';
+        wrap.appendChild(tp);                                  // keeps its own washi tilt
+        document.body.appendChild(wrap);
+        wrap.addEventListener('animationend', () => wrap.remove());
+      });
+    }
+  }
+
+  /* ---- QA hook: list / tear pieces programmatically ---- */
+  window.__drexTear = {
+    list: () => [...document.querySelectorAll('[data-tearable]')].map((e) => e.className.trim()),
+    tear: (sel) => { const el = document.querySelector(sel); if (el && el.__tear) el.__tear(); },
+  };
+}

@@ -424,6 +424,38 @@ footer .legal .snd:hover,
 footer .legal .snd[aria-pressed="true"]{border-color:var(--oats);color:var(--oats)}
 footer .legal .snd:focus-visible{outline:2px solid var(--oats);outline-offset:2px}
 
+/* ===================================================================
+   M4 — tear-away: pull a taped piece free; the washi flutters down.
+   The grab affordance + the "peeling up" lift while you pull (the hard
+   registration shadow deepens with --pull), then the detached washi tape's
+   feather fall. The fall of the page itself is driven inline by app.js.
+   =================================================================== */
+[data-tearable]{cursor:grab;touch-action:pan-y}
+[data-tearable].tearing{cursor:grabbing;position:relative;z-index:60;user-select:none}
+/* the photos inside polaroids/snaps are draggable by default; stop the native
+   image drag so the whole piece tears instead of the picture peeling off it */
+[data-tearable] img{-webkit-user-drag:none;user-select:none;-webkit-touch-callout:none}
+/* peel-up: the deeper you pull, the higher it lifts off the page */
+.paper.tearing>.sheet,
+.polaroid.tearing,
+.snap.tearing{
+  box-shadow:calc(8px + var(--pull,0)*16px) calc(8px + var(--pull,0)*20px) 0 0 var(--ink);
+}
+
+/* the washi, no longer holding anything, drifts down on its own and fades */
+.tape-fall{position:fixed;z-index:90;pointer-events:none;will-change:transform,opacity;
+  animation:drex-feather 2.7s cubic-bezier(.37,.13,.5,.92) forwards}
+.tape-fall>.tape{position:absolute;inset:auto}
+@keyframes drex-feather{
+  0%  {transform:translate(0,0)        rotate(0deg)   scale(1);   opacity:1}
+  12% {transform:translate(-13px,7vh)  rotate(-15deg)}
+  30% {transform:translate(15px,21vh)  rotate(13deg)}
+  48% {transform:translate(-13px,37vh) rotate(-12deg)}
+  66% {transform:translate(12px,55vh)  rotate(11deg);  opacity:.92}
+  84% {transform:translate(-9px,74vh)  rotate(-8deg);  opacity:.5}
+  100%{transform:translate(6px,96vh)   rotate(5deg)    scale(.96); opacity:0}
+}
+
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
   .tape,.eyebrow,.btn,.card,.splay .card,.mast nav a,.about .cap,.card .cap,.hero .pin,footer .stamp,.polaroid,.crew .polaroid,.ul,.hl{transform:none!important}
