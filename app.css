@@ -298,8 +298,12 @@ html.revealed.scrolled .scroll-cue{opacity:0;animation:none}
 .team .head{margin-bottom:clamp(1.9rem,4.5vw,2.8rem)}
 .team .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.9rem,5vw,2.8rem);line-height:1.02;margin:.35rem 0 0;color:var(--ink);max-width:20ch}
 .crew{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(1.7rem,4vw,3.2rem);align-items:flex-start}
-.polaroid{position:relative;width:min(244px,76%);background:var(--paper);border:2.6px solid var(--ink);border-radius:5px;
-  padding:11px 11px 0;box-shadow:8px 8px 0 0 var(--ink);transition:transform .18s ease, box-shadow .18s ease}
+.polaroid{position:relative;width:min(244px,76%);padding:11px 11px 0;transition:transform .18s ease}
+/* border + hard shadow live on a backing layer so they can boil without warping the photo */
+.polaroid::before{content:"";position:absolute;inset:0;z-index:0;background:var(--paper);
+  border:2.6px solid var(--ink);border-radius:5px;box-shadow:8px 8px 0 0 var(--ink);
+  filter:url(#soft);animation:boil-soft var(--boil-paper) step-end infinite;transition:box-shadow .18s ease}
+.polaroid>.ph,.polaroid>.cap{position:relative;z-index:1}
 .polaroid .ph{position:relative;width:100%;aspect-ratio:5/6;overflow:hidden;background:var(--sambas);border:1.5px solid rgba(65,77,87,.28)}
 .polaroid .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.94) contrast(1.03)}
 .polaroid .cap{font-family:var(--f-hand);text-align:center;padding:.6rem .2rem .75rem;line-height:1.1}
@@ -308,7 +312,11 @@ html.revealed.scrolled .scroll-cue{opacity:0;animation:none}
 .crew .polaroid:nth-child(1){transform:rotate(-4.5deg)}
 .crew .polaroid:nth-child(2){transform:rotate(3.3deg)}
 .crew .polaroid:nth-child(3){transform:rotate(-2.2deg)}
-.crew .polaroid:hover{transform:rotate(0) translateY(-7px);z-index:6;box-shadow:11px 12px 0 0 var(--ink)}
+.crew .polaroid:nth-child(1)::before{animation-delay:-.6s}
+.crew .polaroid:nth-child(2)::before{animation-delay:-1.15s}
+.crew .polaroid:nth-child(3)::before{animation-delay:-.25s}
+.crew .polaroid:hover{transform:rotate(0) translateY(-7px);z-index:6}
+.crew .polaroid:hover::before{box-shadow:11px 12px 0 0 var(--ink)}
 
 /* ---------- founder's note (a handwritten letter, photo taped on) ---------- */
 .note{padding:clamp(1.5rem,4vw,3rem) 0}
@@ -319,7 +327,10 @@ html.revealed.scrolled .scroll-cue{opacity:0;animation:none}
 .note-body{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.2rem,2.1vw,1.6rem);line-height:1.5;color:var(--ink);max-width:min(36ch,100%);margin:.9rem 0 0}
 .sign{font-family:var(--f-hand);font-size:clamp(2.2rem,4.5vw,3.2rem);color:var(--grass-deep);margin:1.1rem 0 0;line-height:1}
 .sign-role{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--sambas);margin:.35rem 0 0}
-.snap{position:relative;width:min(260px,80vw);justify-self:center;background:var(--paper);border:2.6px solid var(--ink);border-radius:5px;padding:10px;box-shadow:8px 8px 0 0 var(--ink);transform:rotate(2.6deg)}
+.snap{position:relative;width:min(260px,80vw);justify-self:center;padding:10px;transform:rotate(2.6deg)}
+.snap::before{content:"";position:absolute;inset:0;z-index:0;background:var(--paper);border:2.6px solid var(--ink);border-radius:5px;
+  box-shadow:8px 8px 0 0 var(--ink);filter:url(#soft);animation:boil-soft var(--boil-paper) step-end infinite;animation-delay:-.9s}
+.snap>.ph{position:relative;z-index:1}
 .snap .ph{position:relative;width:100%;aspect-ratio:5/6;overflow:hidden;background:var(--sambas);border:1.5px solid rgba(65,77,87,.28)}
 .snap .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.94) contrast(1.03)}
 @media(max-width:480px){.snap{transform:rotate(0)}}
@@ -413,6 +424,8 @@ html[data-tier="lite"] .tape,
 html[data-tier="lite"] footer .stamp,
 html[data-tier="lite"] .hl::before,
 html[data-tier="lite"] .ul::after,
+html[data-tier="lite"] .polaroid::before,
+html[data-tier="lite"] .snap::before,
 html[data-tier="lite"] .cutline .cut-torn{filter:none!important}
 
 /* ---- footer opt-in sound toggle (sits in the legal row) ------------ */
@@ -430,3 +443,43 @@ footer .legal .snd:focus-visible{outline:2px solid var(--oats);outline-offset:2p
   .reveal{opacity:1!important;translate:none!important}
   .hl.draw::before,.ul.draw::after{scale:1 1!important}
 }
+
+/* ================================================================
+   SQUIGGLE VISION — the hand-drawn wobble, now ALIVE (brand §2 "Alive")
+   The site already wobbles via feTurbulence/feDisplacementMap; every wobble
+   was frozen. Here those exact filters boil: 3 seed-frames cycled with
+   step-end = stop-motion redraw a few times a second. Intensity is tiered by
+   element SIZE so big paper doesn't induce motion sickness. One dial below.
+   Composes with envelope's reveal (those animate `scale`; this animates
+   `filter`) and its lite tier (filter:none!important there beats animation,
+   so the boil + its paint cost go dormant). prefers-reduced-motion freezes
+   everything to the static frame via the *{animation:none} guard above.
+   The masthead/footer torn bands and the LOGO are deliberately NOT boiled.
+   ================================================================ */
+:root{
+  --boil-ink:.5s;     /* underlines + highlighter — smallest, pure marker, liveliest */
+  --boil-paper:1.5s;  /* section sheet edges + photo borders/shadows — calm breathing */
+  --boil-stamp:1.1s;  /* footer rubber stamp */
+}
+@keyframes boil-rough  {0%{filter:url(#rough)}  33%{filter:url(#rough2)}  66%{filter:url(#rough3)}}
+@keyframes boil-torn   {0%{filter:url(#torn)}   33%{filter:url(#torn2)}   66%{filter:url(#torn3)}}
+@keyframes boil-roughsm{0%{filter:url(#roughsm)}33%{filter:url(#roughsm2)}66%{filter:url(#roughsm3)}}
+@keyframes boil-soft   {0%{filter:url(#soft)}   33%{filter:url(#soft2)}   66%{filter:url(#soft3)}}
+
+/* UNDERLINES — the heart of squigglevision (marker redrawn every ~1/6s) */
+.ul::after  {animation:boil-rough var(--boil-ink) step-end infinite}
+/* highlighter is a big translucent fill → boil it ~2x slower to avoid shimmer */
+.hl::before {animation:boil-rough calc(var(--boil-ink) * 2.1) step-end infinite}
+
+/* SECTION BORDERS — cut-paper sheets; border + hard shadow ride the same
+   filter so they boil together. Per-section phase offsets break lockstep. */
+.paper>.sheet{animation:boil-torn var(--boil-paper) step-end infinite}
+.hero .sheet{animation-delay:-.3s}
+.about .paper>.sheet{animation-delay:-.95s}
+.note .sheet{animation-delay:-1.4s}
+.splay .card:nth-child(1)>.sheet{animation-delay:-.5s}
+.splay .card:nth-child(2)>.sheet{animation-delay:-1.05s}
+.splay .card:nth-child(3)>.sheet{animation-delay:-.2s}
+
+/* footer rubber stamp — alive ink badge */
+footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}

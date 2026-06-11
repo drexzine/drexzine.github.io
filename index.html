@@ -51,6 +51,18 @@
     <filter id="tornbig2"><feTurbulence type="fractalNoise" baseFrequency="0.013 0.03" numOctaves="3" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="22" xChannelSelector="R" yChannelSelector="G"/></filter>
     <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.04 0.09" numOctaves="2" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
     <filter id="roughsm"><feTurbulence type="fractalNoise" baseFrequency="0.03 0.05" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <!-- SQUIGGLE VISION boil frames: same baseFrequency+scale per family, only seed
+         varies → constant wobble amount, redrawn by a different hand each frame.
+         No tornbig variants: the masthead/footer torn bands stay static on purpose. -->
+    <filter id="rough2"><feTurbulence type="fractalNoise" baseFrequency="0.04 0.09" numOctaves="2" seed="12" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="rough3"><feTurbulence type="fractalNoise" baseFrequency="0.04 0.09" numOctaves="2" seed="26" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="torn2"><feTurbulence type="fractalNoise" baseFrequency="0.014 0.026" numOctaves="3" seed="17" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="torn3"><feTurbulence type="fractalNoise" baseFrequency="0.014 0.026" numOctaves="3" seed="31" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="roughsm2"><feTurbulence type="fractalNoise" baseFrequency="0.03 0.05" numOctaves="2" seed="19" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="roughsm3"><feTurbulence type="fractalNoise" baseFrequency="0.03 0.05" numOctaves="2" seed="29" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="soft"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="soft2"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="13" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="soft3"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="23" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
   </defs>
 </svg>
 
