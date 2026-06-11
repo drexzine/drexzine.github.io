@@ -149,110 +149,64 @@ function initAudio() {
     'retrocard1', 'retrocard2', 'retrocard3', 'retropola1', 'retropola2', 'retropola3'];
   const buffers = new Map();
   const pending = new Set();   // keys requested before audio was ready (first-gesture race)
-  let ctx = null, loading = null, enabled = false, primed = false;
-  try { enabled = localStorage.getItem('drex-sound') === 'on'; } catch (_) {}
+  let ctx = null, loading = null, enabled = false;
 
-  /* ===== TEMP DEBUG OVERLAY — remove once mobile cut audio is confirmed ===== */
-  const T0 = (window.performance && performance.now) ? performance.now() : 0;
-  const WATCH = new Set(['cut', 'snip', 'rustle']);
-  const DBG = (() => {
-    let el, lines = [];
-    return (msg) => {
-      try {
-        const ms = Math.round(((window.performance && performance.now) ? performance.now() : 0) - T0);
-        lines.push('+' + ms + ' ' + msg);
-        if (lines.length > 18) lines = lines.slice(-18);
-        if (!el) {
-          el = document.createElement('div');
-          el.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:2147483647;'
-            + 'background:rgba(0,0,0,.86);color:#5f5;font:11px/1.35 ui-monospace,monospace;'
-            + 'padding:6px 8px;white-space:pre-wrap;pointer-events:none;max-height:46vh;overflow:hidden';
-          (document.body || document.documentElement).appendChild(el);
-        }
-        el.textContent = lines.join('\n');
-      } catch (_) {}
-    };
-  })();
-  window.__audbg = DBG;
-  DBG('audio init; enabled=' + enabled);
-  /* ========================================================================= */
+  try { enabled = localStorage.getItem('drex-sound') === 'on'; } catch (_) {}
 
   function ensureCtx() {
     if (ctx) return ctx;
     const AC = window.AudioContext || window.webkitAudioContext;
-    if (AC) { ctx = new AC(); DBG('ctx created, state=' + ctx.state); }
-    else DBG('NO AudioContext support');
+    if (AC) ctx = new AC();
     return ctx;
   }
-  // Mobile browsers swallow the FIRST sound emitted as the context wakes up.
-  // The envelope cut is the first gesture, so its snip/cut became that
-  // sacrificial first sound (tapping anywhere first "fixed" it by waking the
-  // context early). Play one silent 1-frame buffer to absorb the swallow — but
-  // it only works once the context is actually RUNNING, so callers prime inside
-  // the resume() callback, not synchronously while it's still suspended.
-  function primeOutput() {
-    if (primed || !ctx || ctx.state !== 'running') return;
-    try {
-      const b = ctx.createBuffer(1, 1, 22050);
-      const s = ctx.createBufferSource();
-      s.buffer = b; s.connect(ctx.destination); s.start(0);
-      primed = true;
-      DBG('primed silent buffer (state=' + ctx.state + ')');
-    } catch (e) { DBG('prime FAILED: ' + e); }
-  }
-  // Resume the context, then prime once it's truly running. Idempotent.
-  function wake() {
+
+  // The mobile unlock. The phone debug overlay proved the context stayed
+  // 'suspended' for the entire cut and resume()'s promise NEVER settled — every
+  // SFX deferred forever. A plain tap (a clean click) unlocked it; the scissors
+  // (a captured drag with preventDefault) never did. The cross-browser cure is
+  // to synchronously START a silent 1-frame source from inside the gesture —
+  // even while suspended. On stubborn WebKit/Chromium the context won't flip to
+  // 'running' until a source has actually been start()ed from a user gesture;
+  // doing so also absorbs the first-sound swallow. Cheap, so fire it on every
+  // gesture until the context is confirmed running.
+  function unlockNow() {
     if (!ensureCtx()) return;
-    DBG('wake; state=' + ctx.state);
-    if (ctx.state === 'suspended') {
-      const p = ctx.resume();
-      if (p && p.then) p.then(() => { DBG('resume() resolved, state=' + ctx.state); primeOutput(); },
-                              (e) => DBG('resume() rejected: ' + e));
-    }
-    primeOutput();   // already running → prime now
+    try {
+      const s = ctx.createBufferSource();
+      s.buffer = ctx.createBuffer(1, 1, 22050);
+      s.connect(ctx.destination);
+      s.start(0);
+    } catch (_) {}
+    if (ctx.state === 'suspended') { const p = ctx.resume(); if (p && p.catch) p.catch(() => {}); }
+    if (ctx.state === 'running') stopUnlock();
   }
   function load() {
     if (loading || !ctx) return loading;
-    // mp3 first (small, universal), then fall back to ogg if the fetch OR —
-    // crucially — decodeAudioData fails. Some mobile decoders reject a short mp3
-    // that desktop accepts (cut.mp3 decoded fine on laptop but was silent on
-    // phone), so without this a per-key decode failure leaves that sound dead.
-    // Vorbis is software-decoded and consistent across browsers.
-    DBG('load() start');
+    // mp3 first (small, universal), then fall back to ogg if the fetch OR
+    // decodeAudioData fails — we ship ogg for every key. Vorbis is software-
+    // decoded and consistent across browsers.
     loading = Promise.all(KEYS.map(async (k) => {
       for (const ext of ['mp3', 'ogg']) {
         try {
           const res = await fetch(`assets/audio/${k}.${ext}`);
-          if (!res.ok) { if (WATCH.has(k)) DBG(k + '.' + ext + ' HTTP ' + res.status); continue; }
+          if (!res.ok) continue;
           buffers.set(k, await ctx.decodeAudioData(await res.arrayBuffer()));
-          if (WATCH.has(k)) DBG(k + ' decoded from ' + ext);
           return;                                  // decoded — done with this key
-        } catch (e) { if (WATCH.has(k)) DBG(k + '.' + ext + ' decode FAIL: ' + e); }
+        } catch (_) { /* try the next format */ }
       }
-      if (WATCH.has(k)) DBG(k + ' — ALL formats failed');
     }));
-    loading.then(() => DBG('load() done; cut=' + buffers.has('cut') + ' rustle=' + buffers.has('rustle') + ' (' + buffers.size + '/' + KEYS.length + ')'));
     return loading;
   }
-  // Include the END of a gesture (pointerup / touchend / click), not just the
-  // start. On some mobile browsers resume() called in pointerdown/touchstart
-  // hangs forever (context stuck suspended), but the same call on the finger-
-  // LIFT takes — which is exactly why "tap first" (which fires click) unlocked
-  // it. The scissors is a drag with preventDefault, so its pointerdown never
-  // produced a click; catching pointerup/touchend wakes the context on release.
+  // Unlock on the END of a gesture (pointerup / touchend / click), not just the
+  // start — resume() in pointerdown/touchstart hung on the phone, but the clean
+  // click of a tap worked. CAPTURE phase so feature handlers' stopPropagation
+  // can't swallow it; keep listening until the context is actually running.
   const UNLOCK_EVENTS = ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'keydown', 'click'];
   function stopUnlock() { UNLOCK_EVENTS.forEach((ev) => window.removeEventListener(ev, unlock, true)); }
   function unlock() {
-    wake();                                             // resume + prime (absorbs mobile first-sound swallow)
+    unlockNow();
     if (enabled) load();
-    if (ctx && ctx.state === 'running') stopUnlock();   // unlocked — stop listening
   }
-  // CAPTURE phase, and keep listening until the context is actually running.
-  // Feature handlers (envelope cut, tear, hamburger) call stopPropagation, which
-  // swallows a bubble-phase listener — that's why the context used to stay
-  // suspended until a stray click (the founder note) finally reached window.
-  // Capture fires before any handler can stop it; retrying covers a resume that
-  // doesn't take on the first try.
   UNLOCK_EVENTS.forEach((ev) =>
     window.addEventListener(ev, unlock, { passive: true, capture: true }));
 
@@ -265,7 +219,7 @@ function initAudio() {
     if (key === 'squeak')  return synthSqueak(ctx, opts);    // synthesized felt-tip marker squeak
     if (key === 'fanfare') return synthFanfare(ctx, opts);   // synthesized triumphant arpeggio
     const buf = buffers.get(key);
-    if (!buf) { if (WATCH.has(key)) DBG('fire ' + key + ' — NO BUFFER'); return; }
+    if (!buf) return;
     const src = ctx.createBufferSource();
     src.buffer = buf;
     src.playbackRate.value = opts.rate ?? (0.94 + Math.random() * 0.12);
@@ -273,43 +227,39 @@ function initAudio() {
     g.gain.value = opts.gain ?? 0.32;
     src.connect(g).connect(ctx.destination);
     src.start();
-    if (WATCH.has(key)) DBG('FIRE ' + key + ' start() state=' + ctx.state + ' gain=' + g.gain.value);
   }
 
   const engine = {
     play(key, opts = {}) {
-      if (WATCH.has(key)) DBG('play ' + key + ' en=' + enabled + ' state=' + (ctx && ctx.state) + ' buf=' + buffers.has(key));
       if (!enabled || !ctx) return;
       const synth = key === 'crinkle' || key === 'squeak' || key === 'fanfare';
       // Ready right now → fire immediately (the common, warm path).
       if (ctx.state === 'running' && (synth || buffers.has(key))) return fire(key, opts);
       // Not ready: the context is still resuming or the buffer is still decoding.
-      // This is the norm on the FIRST gesture — which is the envelope CUT — so its
-      // snip/cut/rustle used to be silently dropped while later SFX (warm ctx +
-      // loaded buffers) played fine. Defer one shot per key and fire once ready;
-      // collapsing repeats keeps the rapid drag-snips from bursting all at once.
+      // Defer one shot per key and fire once ready; collapsing repeats keeps the
+      // rapid drag-snips from bursting all at once. When the context finally hits
+      // 'running' (via unlockNow on the gesture release), ALL pending resume()
+      // promises settle together, so every deferred SFX fires then.
       if (pending.has(key)) return;
       pending.add(key);
       const resumed = ctx.state === 'suspended' ? ctx.resume() : Promise.resolve();
       const loaded  = synth ? Promise.resolve() : load();
-      if (WATCH.has(key)) DBG('defer ' + key);
       Promise.all([resumed, loaded]).then(() => {
         pending.delete(key);
-        if (WATCH.has(key)) DBG('defer ' + key + ' resolved; state=' + (ctx && ctx.state) + ' buf=' + buffers.has(key));
         if (enabled && ctx && ctx.state === 'running') fire(key, opts);
-      }).catch((e) => { pending.delete(key); if (WATCH.has(key)) DBG('defer ' + key + ' rejected: ' + e); });
+      }).catch(() => pending.delete(key));
     },
     // The envelope cut is a deliberate gesture, so it turns sound ON for the
     // session (unless the visitor has explicitly muted via the footer toggle).
     armForCut() {
       try { if (localStorage.getItem('drex-sound') === 'off') return; } catch (_) {}
-      wake(); load();
+      unlockNow(); load();
       if (!enabled) { enabled = true; emitChange(); }
     },
     setEnabled(on) {
       enabled = on;
       try { localStorage.setItem('drex-sound', on ? 'on' : 'off'); } catch (_) {}
-      if (on) { ensureCtx(); ctx?.resume?.(); load()?.then(() => engine.play('toggle', { gain: 0.3 })); }
+      if (on) { unlockNow(); load()?.then(() => engine.play('toggle', { gain: 0.3 })); }
       emitChange();
     },
     get enabled() { return enabled; },
@@ -586,7 +536,6 @@ function initEnvelope(audio) {
 
   function complete() {
     if (done) return;
-    window.__audbg && window.__audbg('cut-gate complete()');
     done = true; cutting = false;
     env.classList.remove('cutting');
     setCut(1); setX(1);
@@ -619,6 +568,10 @@ function initEnvelope(audio) {
     const f = fracAt(e.clientX); setX(f); advance(f);
   });
   const endDrag = () => {
+    audio && audio.armForCut();                       // unlock on the RELEASE too — the global
+                                                      // listener can miss a captured pointer's
+                                                      // pointerup, and the clean release is what
+                                                      // actually wakes audio on stubborn mobile.
     if (done || !cutting) return;
     cutting = false; env.classList.remove('cutting');
     if (cutMax >= 0.8) complete();                    // forgiving: most of the way across = done
