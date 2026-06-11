@@ -161,16 +161,26 @@ function initAudio() {
   // Mobile browsers swallow the FIRST sound emitted as the context wakes up.
   // The envelope cut is the first gesture, so its snip/cut became that
   // sacrificial first sound (tapping anywhere first "fixed" it by waking the
-  // context early). Play one silent 1-frame buffer synchronously inside the
-  // gesture to absorb the swallow, so the real SFX always sound.
+  // context early). Play one silent 1-frame buffer to absorb the swallow — but
+  // it only works once the context is actually RUNNING, so callers prime inside
+  // the resume() callback, not synchronously while it's still suspended.
   function primeOutput() {
-    if (primed || !ctx) return;
+    if (primed || !ctx || ctx.state !== 'running') return;
     try {
       const b = ctx.createBuffer(1, 1, 22050);
       const s = ctx.createBufferSource();
       s.buffer = b; s.connect(ctx.destination); s.start(0);
       primed = true;
     } catch (_) {}
+  }
+  // Resume the context, then prime once it's truly running. Idempotent.
+  function wake() {
+    if (!ensureCtx()) return;
+    if (ctx.state === 'suspended') {
+      const p = ctx.resume();
+      if (p && p.then) p.then(primeOutput, () => {});
+    }
+    primeOutput();   // already running → prime now
   }
   function load() {
     if (loading || !ctx) return loading;
@@ -194,9 +204,7 @@ function initAudio() {
   const UNLOCK_EVENTS = ['pointerdown', 'keydown', 'touchstart', 'click'];
   function stopUnlock() { UNLOCK_EVENTS.forEach((ev) => window.removeEventListener(ev, unlock, true)); }
   function unlock() {
-    ensureCtx();
-    if (ctx && ctx.state === 'suspended') ctx.resume();
-    primeOutput();                                      // absorb the mobile first-sound swallow
+    wake();                                             // resume + prime (absorbs mobile first-sound swallow)
     if (enabled) load();
     if (ctx && ctx.state === 'running') stopUnlock();   // unlocked — stop listening
   }
@@ -252,7 +260,7 @@ function initAudio() {
     // session (unless the visitor has explicitly muted via the footer toggle).
     armForCut() {
       try { if (localStorage.getItem('drex-sound') === 'off') return; } catch (_) {}
-      ensureCtx(); if (ctx && ctx.state === 'suspended') ctx.resume(); primeOutput(); load();
+      wake(); load();
       if (!enabled) { enabled = true; emitChange(); }
     },
     setEnabled(on) {
