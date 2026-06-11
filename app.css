@@ -58,13 +58,15 @@ a{color:inherit}
 
 /* ---------- washi / scotch tape ---------- */
 .tape{position:absolute;z-index:3;width:118px;height:32px;
-  background:rgba(241,221,1,.42);                    /* translucent Happy washi */
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);
+  background:linear-gradient(94deg,rgba(241,221,1,.52),rgba(241,221,1,.32) 55%,rgba(241,221,1,.48)); /* Happy washi, opacity varies along the strip */
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.22);
   filter:url(#roughsm);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8px,#000 calc(100% - 8px),transparent 100%); /* feathered adhesive ends */
+  mask-image:linear-gradient(90deg,transparent 0,#000 8px,#000 calc(100% - 8px),transparent 100%);
   transform:rotate(-5deg);}
-.tape.b{background:rgba(36,150,201,.34)}            /* lazuli washi */
-.tape.c{background:rgba(247,84,88,.34)}             /* colorado washi */
-.tape::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 9px,rgba(255,255,255,.18) 9px 10px)}
+.tape.b{background:linear-gradient(94deg,rgba(36,150,201,.44),rgba(36,150,201,.26) 55%,rgba(36,150,201,.4))}   /* lazuli washi */
+.tape.c{background:linear-gradient(94deg,rgba(247,84,88,.44),rgba(247,84,88,.26) 55%,rgba(247,84,88,.4))}      /* colorado washi */
+.tape::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 11px,rgba(255,255,255,.10) 11px 12px)}
 
 /* ---------- type ---------- */
 .scrawl{font-family:var(--f-hand);font-weight:400;line-height:1.15}
@@ -79,10 +81,10 @@ a{color:inherit}
   background:var(--happy);mix-blend-mode:multiply;opacity:.95;transform:rotate(-.9deg) skewX(-5deg);filter:url(#rough);border-radius:2px}
 .hl.g::before{background:var(--grass);opacity:.9}
 
-/* wobbly marker underline */
+/* wobbly marker underline — INK (grass is reserved as the "people are here" signal) */
 .ul{position:relative;display:inline}
 .ul::after{content:"";position:absolute;left:-.04em;right:-.07em;bottom:-.05em;height:.16em;
-  background:var(--grass);filter:url(#rough);border-radius:3px}
+  background:var(--ink);filter:url(#rough);border-radius:3px}
 
 /* ---------- rubber-stamp press-down button ---------- */
 .btn{
@@ -154,12 +156,14 @@ a{color:inherit}
 
 /* ---------- about = dark cut-paper ---------- */
 .about{padding:clamp(1rem,3vw,2rem) 0}
-.about .paper>.sheet{background:var(--sambas);box-shadow:8px 8px 0 0 var(--grass)}  /* grass registration */
+.about .paper>.sheet{background:var(--sambas);box-shadow:none}
+/* clean (untorn) grass print-pull behind the torn sheet — reads as a real riso misregistration */
+.about .paper::before{content:"";position:absolute;inset:0;z-index:0;background:var(--grass);border-radius:6px;translate:8px 8px}
 .about .inner{padding:clamp(2rem,6vw,4rem)}
 .about .eyebrow{color:var(--schoolbus)}
 .about h2{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:1.04;letter-spacing:-.01em;
   font-size:clamp(1.8rem,4.6vw,2.9rem);margin:.4rem 0 0;color:var(--oats);max-width:18ch}
-.about h2 em{color:var(--grass)}
+.about h2 em{color:var(--schoolbus)}   /* legible warm accent on the dark sheet; grass failed contrast here */
 .about .body{margin-top:1.4rem;max-width:56ch;display:grid;gap:1rem}
 .about .body p{margin:0;color:rgba(254,246,228,.92)}
 .about .body p.lead{font-family:var(--f-body);font-style:italic;font-size:clamp(1.18rem,1.8vw,1.5rem);color:var(--oats)}
@@ -228,7 +232,7 @@ a{color:inherit}
 @media(max-width:480px){.snap{transform:rotate(0)}}
 
 /* demo gate */
-.locktag{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lazuli);display:inline-flex;align-items:center;gap:.4rem}
+.locktag{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sambas);display:inline-flex;align-items:center;gap:.4rem}
 .gate{display:none;margin-top:.2rem}
 .gate.open{display:block}
 .gate form{display:flex;gap:.5rem;flex-wrap:wrap}
@@ -243,7 +247,7 @@ a{color:inherit}
 /* ---------- footer = torn band ---------- */
 footer{position:relative;background:var(--grass-deep);margin-top:clamp(2.5rem,6vw,4.5rem);
   padding:clamp(2.6rem,6vw,4.2rem) 0 clamp(1.8rem,4vw,2.6rem);color:var(--oats)}  /* deep grass: oats text clears AA on the band */
-footer::before{content:"";position:absolute;left:0;right:0;top:-15px;height:30px;background:var(--grass-deep);filter:url(#tornbig)}
+footer::before{content:"";position:absolute;left:0;right:0;top:-15px;height:30px;background:var(--grass-deep);filter:url(#tornbig2)}
 footer .top{display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap}
 footer .ft-word{width:clamp(150px,24vw,240px);display:block}
 footer .ft-word svg{display:block;width:100%;height:auto}
@@ -259,6 +263,23 @@ footer .stamp{display:inline-block;margin-top:1.4rem;font-family:var(--f-mono);t
   padding:.5em .8em;transform:rotate(-3deg);filter:url(#roughsm)}
 footer .legal{margin-top:2rem;border-top:1.6px solid rgba(254,246,228,.4);padding-top:1.1rem;display:flex;
   justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.05em;color:rgba(254,246,228,.9)}
+
+/* ===================================================================
+   R5 composition — break the centered, same-width stack into laid leaves:
+   tiny resting tilts + differing widths + alternating offset, and the
+   founder photo bleeds past the letter's edge across the section boundary.
+   Desktop only; mobile stays upright + full-width for legibility.
+   =================================================================== */
+@media(min-width:760px){
+  .hero .paper{width:97%;rotate:-.45deg}
+  .about .paper{width:99.5%;margin-left:auto;rotate:.4deg}
+  .note .paper{width:95%;margin-right:auto;rotate:-.7deg}
+  .note .snap{translate:26px 14px;rotate:3.4deg;z-index:5}        /* bleeds over the letter's right edge */
+  /* people photos: cluster, don't line up — different sizes, tight asymmetric overlap */
+  .crew{gap:0}
+  .crew .polaroid:nth-child(1){width:248px;z-index:2}
+  .crew .polaroid:nth-child(2){width:206px;transform:rotate(3.3deg) translate(-24px,28px);z-index:1}
+}
 
 /* ===================================================================
    M1 feature layer — reveals, highlighter/marker draw-on, sound toggle.
