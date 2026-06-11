@@ -42,14 +42,24 @@ const Stage = (() => {
   function observe(el, fn) { if (!el) return; ioCbs.set(el, fn); io.observe(el); }
 
   /* ---- FPS governor: latch html[data-tier=lite] under load -------- */
-  let frames = [], lastT = 0, demoted = false;
+  let frames = [], lastT = 0, demoted = false, fpsPausedUntil = 0;
+  function pauseFps(ms) { fpsPausedUntil = Math.max(fpsPausedUntil, lastT + ms); }  // skip sampling across a known stall
   function fpsSample(t) {
+    if (t < fpsPausedUntil) { lastT = t; frames = []; return; }   // inside a deliberate pause (e.g. domToCanvas)
     if (lastT) {
-      frames.push(t - lastT);
-      if (frames.length > 8) frames.shift();
-      if (!demoted && frames.length === 8) {
-        const avg = frames.reduce((a, b) => a + b, 0) / frames.length;
-        if (avg > 34) { demoted = true; document.documentElement.dataset.tier = 'lite'; } // ~<29fps
+      const d = t - lastT;
+      // A single long frame is a one-off STALL (the finale's domToCanvas capture,
+      // GC, a background tab), not sustained low FPS — ignore it and reset the
+      // window so the capture jank can't permanently demote us to lite (which
+      // would kill squigglevision on the whole page). Only sustained load latches.
+      if (d >= 100) { frames = []; }
+      else {
+        frames.push(d);
+        if (frames.length > 8) frames.shift();
+        if (!demoted && frames.length === 8) {
+          const avg = frames.reduce((a, b) => a + b, 0) / frames.length;
+          if (avg > 34) { demoted = true; document.documentElement.dataset.tier = 'lite'; } // ~<29fps
+        }
       }
     }
     lastT = t;
@@ -64,7 +74,7 @@ const Stage = (() => {
   function armSound() { try { engine?.armForCut?.(); } catch (_) {} }
 
   return {
-    applyMotion, addDriver, observe, registerAudio, play, armSound,
+    applyMotion, addDriver, observe, registerAudio, play, armSound, pauseFps,
     get calm() { return document.body.dataset.motion === 'calm'; },
     get reduce() { return reduceMQ.matches; },
   };
@@ -231,8 +241,9 @@ function initReveals() {
     Stage.observe(el, (e, release) => {
       if (!e.isIntersecting) return;             // gate on visibility only, not ratio
       if (slam) {
-        el.style.animationDelay = (i * 60) + 'ms';
-        setTimeout(() => Stage.play('taperip', { gain: 0.16, rate: 0.95 + Math.random() * 0.1 }), i * 60 + 430);
+        const hard = gi === 1;                       // door cards hit harder + cascade slower (L->R)
+        const d = hard ? i * 120 : i * 60;
+        el.style.animationDelay = d + 'ms';   // slam is silent — purely visual
       } else {
         el.style.transitionDelay = (i * 70) + 'ms';
         el.addEventListener('transitionend', () => { el.style.transitionDelay = ''; }, { once: true });
@@ -825,14 +836,19 @@ function initTearAway() {
   // Stash a snapshot of the INTACT collage the instant tearing begins, so the
   // finale can crumple the whole recognizable site (by the time every piece is
   // gone, the live DOM is an empty husk). Deferred to idle so the grab never janks.
-  let shotStarted = false;
+  // Re-grab on EVERY pull (not just the first) so finaleShot tracks the viewport
+  // you're actually looking at as you tear your way down the page — otherwise the
+  // finale crumples wherever you happened to start. `capturing` coalesces overlaps;
+  // the last successful grab before the finale fires wins.
+  let capturing = false;
   function captureSite() {
-    if (shotStarted) return; shotStarted = true;
+    if (finaleFired || capturing) return;
+    capturing = true;
     const go = () => {
-      if (finaleShot) return;
+      Stage.pauseFps(2500);                                  // domToCanvas stalls a frame — don't let it demote us to lite
       loadCrumpleLibs().then(([, ms]) => {
         const bg = getComputedStyle(document.body).backgroundColor || '#FEF6E4';
-        const sx = scrollX, sy = scrollY;                      // the ACTIVE VIEWPORT, captured intact
+        const sx = scrollX, sy = scrollY;                      // the viewport you're looking at RIGHT NOW
         const skip = (n) => {
           if (!n || !n.classList) return true;                 // text nodes etc → keep
           if (n.id && /^finale-/.test(n.id)) return false;
@@ -849,7 +865,7 @@ function initTearAway() {
           g.drawImage(full, -sx, -sy);
           return cv;
         });
-      }).then((cv) => { if (cv) finaleShot = cv; }).catch(() => {});
+      }).then((cv) => { if (cv) finaleShot = cv; }).catch(() => {}).finally(() => { capturing = false; });
     };
     (window.requestIdleCallback || ((f) => setTimeout(f, 1)))(go, { timeout: 1000 });
   }
@@ -1200,27 +1216,26 @@ function initBurger(){
 }
 
 function initAttentionCta(){
-  var KEY = 'drex-cta-seen';
+  // The idle "look at me" loop greets on EVERY page load — no sessionStorage
+  // persistence. It still backs off the moment you show intent (hover/click/
+  // focus/touch the button, or scroll well past it), but only for this view.
   var wraps = Array.prototype.slice.call(document.querySelectorAll('.cta-attn'));
   if(!wraps.length) return;
-  var seen = false;
-  try{ seen = sessionStorage.getItem(KEY) === '1'; }catch(e){}
 
   var intentEvents = ['pointerenter','focusin','click','touchstart'];
   var btns = [];
   wraps.forEach(function(w){ var b = w.querySelector('.btn'); if(b) btns.push(b); });
 
   var scrollHandlerBound = false;
-  function onIntent(){ quiet(true); }
+  function onIntent(){ quiet(); }
   function cleanup(){
     btns.forEach(function(b){
       intentEvents.forEach(function(ev){ b.removeEventListener(ev, onIntent, {passive:true}); });
     });
     if(scrollHandlerBound){ window.removeEventListener('scroll', onScroll); scrollHandlerBound = false; }
   }
-  function quiet(persist){
+  function quiet(){
     wraps.forEach(function(w){ w.classList.add('cta-quiet'); });
-    if(persist){ try{ sessionStorage.setItem(KEY,'1'); }catch(e){} }
     cleanup();
   }
   function bind(){
@@ -1230,9 +1245,8 @@ function initAttentionCta(){
   }
   function onScroll(){
     var ref = wraps[0].getBoundingClientRect();
-    if(ref.bottom < -window.innerHeight * 0.5){ quiet(false); }
+    if(ref.bottom < -window.innerHeight * 0.5){ quiet(); }
   }
-  if(seen){ quiet(false); return; }
   bind();
   scrollHandlerBound = true;
   window.addEventListener('scroll', onScroll, {passive:true});
@@ -1426,7 +1440,7 @@ function initHamburgerJoy(audio) {
   const tray = document.getElementById('hb-tray');
   if (!hb || !burger || !fallen || !tray) return;
 
-  const OPEN = 1, STRAIN = 1.05, DANGER = 1.17, TRAVEL = 230;
+  const OPEN = 1, STRAIN = 1.04, DANGER = 1.13, TRAVEL = 230;   // string is anchored at the slit + stretches; tear when taut (~34px of stretch)
   let pull = 0, dragging = false, startPull = 0, startY = 0, moved = false, torn = false, lastVibe = 0;
 
   const setPull = (p) => {
@@ -1482,7 +1496,7 @@ function initHamburgerJoy(audio) {
     if (!dragging || torn) return;
     const dy = e.clientY - startY;
     if (Math.abs(dy) > 5) moved = true;
-    const p = Math.max(0, Math.min(DANGER + 0.05, startPull + dy / TRAVEL));
+    const p = Math.max(0, Math.min(DANGER, startPull + dy / TRAVEL));   // clamp AT the clear point — no overshoot-stop
     setPull(p);
     if (p >= STRAIN) {                                               // escalating warning before the tear
       const lvl = Math.floor((p - STRAIN) / 0.045);

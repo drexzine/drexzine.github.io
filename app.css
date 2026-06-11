@@ -241,11 +241,15 @@ html.sealed.revealed .seam,html.sealed.revealed .cut-prompt{height:0;margin:0;ov
 
 /* ---- hand-drawn "there's more" scroll cue: appears after the reveal, fades on scroll ---- */
 .scroll-cue{position:fixed;left:50%;bottom:clamp(.7rem,2.4vh,1.5rem);transform:translateX(-50%);z-index:40;
-  display:flex;flex-direction:column;align-items:center;gap:.05rem;
+  display:flex;flex-direction:column;align-items:center;gap:.3rem;
   opacity:0;pointer-events:none;transition:opacity .5s ease}
 html.revealed .scroll-cue{opacity:1;animation:scrollbob 1.6s ease-in-out infinite}
 html.revealed.scrolled .scroll-cue{opacity:0;animation:none}
-.scroll-cue .scrawl{font-size:1.5rem;color:var(--sambas);transform:rotate(-1.5deg)}
+/* paper chip: gives the scrawl its own surface so it stops colliding with the
+   hero text behind the fixed cue — flat cream, torn ink border, hard offset shadow */
+.scroll-cue .scrawl{font-size:1.5rem;line-height:1;color:var(--colorado);transform:rotate(-1.5deg);
+  background:var(--paper);padding:.15rem .55rem .25rem;border:2.2px solid var(--ink);
+  border-radius:6px;box-shadow:3px 3px 0 0 var(--ink)}
 .scroll-cue svg{width:60px;height:40px;color:var(--colorado);filter:url(#rough)}
 @keyframes scrollbob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
 
@@ -405,13 +409,28 @@ body[data-motion="full"] .reveal.in{opacity:1;translate:0 0}
 /* SLAM-IN: polaroids + door cards drop from above and SMACK onto the page, then
    the washi tape sticks — gives scrolling weight + visual hierarchy. translate /
    scale are individual props so they compose with each piece's resting tilt. */
-body[data-motion="full"] .slam{opacity:0;translate:0 -66px}
-body[data-motion="full"] .slam.in{animation:slamin .52s cubic-bezier(.3,1.04,.5,1) both}
-@keyframes slamin{0%{opacity:0;translate:0 -66px}52%{opacity:1;translate:0 7px}74%{translate:0 -3px}100%{opacity:1;translate:0 0}}
-body[data-motion="full"] .slam .tape{opacity:0;scale:.4}
-body[data-motion="full"] .slam.in .tape{animation:tapestick .26s ease .42s both}
-@keyframes tapestick{from{opacity:0;scale:.4}to{opacity:1;scale:1}}
-html[data-tier="lite"] .slam,html[data-tier="lite"] .slam .tape{animation:none!important;opacity:1!important;translate:none!important;scale:none!important}
+body[data-motion="full"] .slam{opacity:0;translate:0 -96px;scale:1.04}
+body[data-motion="full"] .slam.in{animation:slamin .44s cubic-bezier(.5,0,.8,.45) both}     /* ease-IN = it accelerates down (gravity) */
+@keyframes slamin{
+  0%  {opacity:0; translate:0 -96px; scale:1.04}
+  58% {opacity:1; translate:0 0;     scale:1.04}        /* it reaches the page... */
+  70% {translate:0 1px; scale:1.09 .86}                 /* ...and SMACKS flat (squash) */
+  84% {translate:0 0;   scale:.98 1.05}                 /* rebound */
+  100%{translate:0 0;   scale:1}}
+/* the washi tape then SWINGS down and slaps on to stick it */
+body[data-motion="full"] .slam .tape{opacity:0;translate:0 -18px;rotate:16deg}
+body[data-motion="full"] .slam.in .tape{animation:tapeslap .32s cubic-bezier(.34,1.4,.5,1) .4s both}
+@keyframes tapeslap{0%{opacity:0;translate:0 -18px;rotate:16deg}55%{opacity:1}100%{opacity:1;translate:0 0;rotate:0}}
+/* the "pick a door" cards hit HARDER: drop from higher, heavier impact (L->R cascade in JS) */
+body[data-motion="full"] .doors .card.slam{translate:0 -140px;scale:1.07}
+body[data-motion="full"] .doors .card.slam.in{animation:slamhard .5s cubic-bezier(.5,0,.82,.42) both}
+@keyframes slamhard{
+  0%  {opacity:0; translate:0 -140px; scale:1.07}
+  56% {opacity:1; translate:0 0;      scale:1.07}
+  68% {translate:0 2px; scale:1.13 .82}
+  82% {translate:0 0;   scale:.97 1.06}
+  100%{translate:0 0;   scale:1}}
+html[data-tier="lite"] .slam,html[data-tier="lite"] .slam .tape{animation:none!important;opacity:1!important;translate:none!important;scale:none!important;rotate:none!important}
 
 /* ---- highlighter band: swipe left→right (composes with its skew) ---- */
 body[data-motion="full"] .hl.draw::before{scale:0 1;transform-origin:left center;
@@ -486,7 +505,7 @@ footer .legal .snd:focus-visible{outline:2px solid var(--oats);outline-offset:2p
   *{transition:none!important;animation:none!important}
   .tape,.eyebrow,.btn,.card,.splay .card,.mast nav a,.about .cap,.card .cap,.hero .pin,footer .stamp,.polaroid,.crew .polaroid,.ul,.hl{transform:none!important}
   .reveal{opacity:1!important;translate:none!important}
-  .slam .tape{opacity:1!important;scale:none!important}
+  .slam .tape{opacity:1!important;scale:none!important;translate:none!important;rotate:none!important}
   .hl.draw::before,.ul.draw::after{scale:1 1!important}
 }
 
@@ -874,7 +893,9 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .hb-tray a:hover{transform:rotate(0) translate(-1px,-1px);box-shadow:4px 4px 0 0 var(--grass)}
 .hb-tray .hb-cta .btn{font-size:.72rem;pointer-events:none}
 .hb[data-state="open"] .hb-tray .hb-cta .btn,.hb[data-state="plain"] .hb-tray .hb-cta .btn{pointer-events:auto}
-.hb-thread{position:absolute;top:0;bottom:0;right:25px;width:4px;border-radius:3px;z-index:0;
+/* string is ROOTED at the slit and STRETCHES as you over-pull (top counters the
+   strand's translate so it never slides out of the cut) — taut, then it snaps */
+.hb-thread{position:absolute;top:calc((1 - var(--pull)) * 260px);bottom:0;right:25px;width:4px;border-radius:3px;z-index:0;
   background:repeating-linear-gradient(48deg, var(--lazuli) 0 4px, #1b6f97 4px 8px);filter:url(#roughsm)}
 .hb-fallen{position:relative;z-index:1;margin-top:22px;width:48px;height:44px;display:inline-flex;align-items:center;justify-content:center;
   background:var(--paper);border:2.6px solid var(--ink);border-radius:7px;box-shadow:3px 3px 0 0 var(--ink);
@@ -891,6 +912,7 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 
 /* danger: string reddens + stretches as you over-pull */
 .hb.is-straining .hb-thread{background:repeating-linear-gradient(48deg, var(--colorado) 0 4px, #c4393d 4px 8px)}
+.hb.is-straining .hb-strand{transition:none}
 .hb.is-straining .hb-fallen{margin-top:52px}
 .hb.is-straining .hb-tray a{border-color:var(--colorado)}
 
