@@ -826,8 +826,7 @@ function initTearAway() {
       if (finaleShot) return;
       loadCrumpleLibs().then(([, ms]) => {
         const bg = getComputedStyle(document.body).backgroundColor || '#FEF6E4';
-        const docH = document.documentElement.scrollHeight || innerHeight;
-        const scale = Math.min(1, 1800 / Math.max(1, docH));   // cap texture height
+        const sx = scrollX, sy = scrollY;                      // the ACTIVE VIEWPORT, captured intact
         const skip = (n) => {
           if (!n || !n.classList) return true;                 // text nodes etc → keep
           if (n.id && /^finale-/.test(n.id)) return false;
@@ -835,7 +834,15 @@ function initTearAway() {
           if (n.dataset && n.dataset.torn != null) return false;   // already-torn piece
           return true;
         };
-        return ms.domToCanvas(document.body, { scale, backgroundColor: bg, filter: skip });
+        // photograph the whole page, then CROP to just the screen you're looking at,
+        // so the finale crumples the active viewport (not the whole long document).
+        return ms.domToCanvas(document.body, { scale: 1, backgroundColor: bg, filter: skip }).then((full) => {
+          const W0 = Math.max(1, innerWidth), H0 = Math.max(1, innerHeight);
+          const cv = document.createElement('canvas'); cv.width = W0; cv.height = H0;
+          const g = cv.getContext('2d'); g.fillStyle = bg; g.fillRect(0, 0, W0, H0);
+          g.drawImage(full, -sx, -sy);
+          return cv;
+        });
       }).then((cv) => { if (cv) finaleShot = cv; }).catch(() => {});
     };
     (window.requestIdleCallback || ((f) => setTimeout(f, 1)))(go, { timeout: 1000 });
