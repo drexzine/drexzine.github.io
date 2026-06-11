@@ -167,13 +167,22 @@ function initAudio() {
     }));
     return loading;
   }
+  const UNLOCK_EVENTS = ['pointerdown', 'keydown', 'touchstart', 'click'];
+  function stopUnlock() { UNLOCK_EVENTS.forEach((ev) => window.removeEventListener(ev, unlock, true)); }
   function unlock() {
     ensureCtx();
     if (ctx && ctx.state === 'suspended') ctx.resume();
     if (enabled) load();
+    if (ctx && ctx.state === 'running') stopUnlock();   // unlocked — stop listening
   }
-  ['pointerdown', 'keydown', 'touchstart'].forEach((ev) =>
-    window.addEventListener(ev, unlock, { once: true, passive: true }));
+  // CAPTURE phase, and keep listening until the context is actually running.
+  // Feature handlers (envelope cut, tear, hamburger) call stopPropagation, which
+  // swallows a bubble-phase listener — that's why the context used to stay
+  // suspended until a stray click (the founder note) finally reached window.
+  // Capture fires before any handler can stop it; retrying covers a resume that
+  // doesn't take on the first try.
+  UNLOCK_EVENTS.forEach((ev) =>
+    window.addEventListener(ev, unlock, { passive: true, capture: true }));
 
   function emitChange() { try { window.dispatchEvent(new Event('drexfx:soundchange')); } catch (_) {} }
 
@@ -970,8 +979,10 @@ function initTearAway() {
       const dx = e.clientX - sx, dy = e.clientY - sy;
       if (!pulling) {
         if (Math.hypot(dx, dy) < SLOP) return;
-        // touch: a downward, mostly-vertical drag is a page scroll, not a pull — bow out.
-        if (e.pointerType === 'touch' && dy > 0 && Math.abs(dy) > Math.abs(dx)) { teardown(); return; }
+        // touch: a mostly-vertical drag (EITHER direction) is a page scroll, not a
+        // pull — bow out before committing so scrolling never tears a piece or
+        // fires a sound. Tearing on touch wants a sideways/diagonal pull.
+        if (e.pointerType === 'touch' && Math.abs(dy) > Math.abs(dx)) { teardown(); return; }
         commit();
       }
       e.preventDefault();
