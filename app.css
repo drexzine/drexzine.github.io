@@ -790,8 +790,8 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
 .hb.is-dragging .hb-fallen{cursor:grabbing}
 
 /* the cut, drawn ON TOP so the strand reads as emerging from the paper */
-.hb-pocket{position:absolute;top:-3px;right:-6px;width:150px;height:30px;pointer-events:none;z-index:2;
-  background:linear-gradient(to bottom, rgba(34,36,41,.36), rgba(34,36,41,0))}
+.hb-pocket{position:absolute;top:-3px;right:-6px;width:150px;height:24px;pointer-events:none;z-index:2;
+  background:linear-gradient(to bottom, rgba(34,36,41,.16), rgba(34,36,41,0))}
 .hb[data-state="rest"] .hb-pocket,.hb[data-state="plain"] .hb-pocket{opacity:0}
 .hb-slit{position:absolute;top:-1px;right:0;width:132px;height:0;border-top:3px solid var(--ink);filter:url(#roughsm);z-index:3;pointer-events:none}
 .hb[data-state="rest"] .hb-slit,.hb[data-state="plain"] .hb-slit{opacity:0}

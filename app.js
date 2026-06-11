@@ -273,7 +273,8 @@ function initInteractionSounds() {
     return list[i];
   }
   document.addEventListener('click', (e) => {
-    if (e.target.closest('.btn')) Stage.play('stamp', { gain: 0.32 });
+    if (e.target.closest('.hb-tray a')) Stage.play(pick('card'), { gain: 0.34 });  // pulled-out nav links → 90s blip
+    else if (e.target.closest('.btn')) Stage.play('stamp', { gain: 0.32 });
     else if (e.target.closest('.mast nav a')) Stage.play('toggle', { gain: 0.24 });
     else if (e.target.closest('.doors .card')) Stage.play(pick('card'), { gain: 0.3 });
     else if (e.target.closest('.team .polaroid')) Stage.play(pick('pola'), { gain: 0.26 });
