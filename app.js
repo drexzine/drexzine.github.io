@@ -84,6 +84,9 @@ function boot() {
   initInteractionSounds();          // M1: stamp / toggle on interaction
   initSoundToggle(audio);           // M1: footer opt-in toggle
   initFounderCrumple();             // M4: founder's note = click-to-unfold 3D paper crumple
+  initCollage();                    // ported: littered collage scraps + scroll entrance + parallax
+  initBurger();                     // ported: accessible mobile burger menu
+  initAttentionCta();               // ported: hero CTA idle "look at me" loop
   // wake the FPS governor for the first couple seconds so html[data-tier=lite]
   // can latch under load — the CSS/IO features never register a rAF driver,
   // so without this the governor is dead code and the lite fallback unreachable.
@@ -854,4 +857,150 @@ function initTearAway() {
     list: () => [...document.querySelectorAll('[data-tearable]')].map((e) => e.className.trim()),
     tear: (sel) => { const el = document.querySelector(sel); if (el && el.__tear) el.__tear(); },
   };
+}
+
+/* ===================================================================
+   PORTED FEATURES — collage / mobile burger / attention CTA
+   Re-ported from feat/collage-sound. Each was a standalone IIFE; here
+   they are named inits wired into boot(). Sound module omitted (app.js
+   already implements marker/highlighter draw-on + footer sound toggle).
+   =================================================================== */
+function initCollage(){
+  var scraps = Array.prototype.slice.call(document.querySelectorAll('.cg-scrap'));
+  if (!scraps.length) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduce) {
+    scraps.forEach(function (s) { s.classList.add('cg-in'); });
+  } else if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('cg-in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+    scraps.forEach(function (s) { io.observe(s); });
+  } else {
+    scraps.forEach(function (s) { s.classList.add('cg-in'); });
+  }
+
+  if (!reduce) {
+    var px = scraps.filter(function (s) { return s.hasAttribute('data-cg-parallax'); });
+    if (px.length) {
+      var ticking = false;
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      function apply() {
+        ticking = false;
+        var mid = vh / 2;
+        for (var i = 0; i < px.length; i++) {
+          var s = px[i];
+          var r = s.getBoundingClientRect();
+          var center = r.top + r.height / 2;
+          var rel = (center - mid) / mid;
+          if (rel < -1.4 || rel > 1.4) continue;
+          var depth = parseFloat(s.getAttribute('data-cg-parallax')) || 6;
+          var offset = (-rel * depth).toFixed(2);
+          s.style.setProperty('--cg-py', offset + 'px');
+        }
+      }
+      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(apply); } }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', function () {
+        vh = window.innerHeight || document.documentElement.clientHeight; onScroll();
+      }, { passive: true });
+      apply();
+    }
+  }
+}
+
+function initBurger(){
+  var burger = document.getElementById('m-burger');
+  var panel  = document.getElementById('m-panel');
+  if (!burger || !panel) return;
+  var links = panel.querySelectorAll('a');
+  var firstLink = links[0] || null;
+  var isOpen = false;
+
+  function setHidden(hidden){
+    panel.setAttribute('aria-hidden', String(hidden));
+    if (hidden) { panel.setAttribute('inert', ''); } else { panel.removeAttribute('inert'); }
+  }
+  function openMenu(){
+    if (isOpen) return;
+    isOpen = true;
+    panel.setAttribute('data-open', 'true');
+    burger.setAttribute('aria-expanded', 'true');
+    setHidden(false);
+    document.body.style.overflow = 'hidden';
+    if (firstLink) { setTimeout(function(){ firstLink.focus(); }, 50); }
+  }
+  function closeMenu(restoreFocus){
+    if (!isOpen) return;
+    isOpen = false;
+    panel.removeAttribute('data-open');
+    burger.setAttribute('aria-expanded', 'false');
+    setHidden(true);
+    document.body.style.overflow = '';
+    if (restoreFocus) { burger.focus(); }
+  }
+  setHidden(true);
+  burger.addEventListener('click', function(e){
+    e.stopPropagation();
+    if (isOpen) { closeMenu(true); } else { openMenu(); }
+  });
+  for (var i = 0; i < links.length; i++) {
+    links[i].addEventListener('click', function(){ closeMenu(false); });
+  }
+  document.addEventListener('keydown', function(e){
+    if (isOpen && (e.key === 'Escape' || e.key === 'Esc')) { closeMenu(true); }
+  });
+  document.addEventListener('click', function(e){
+    if (!isOpen) return;
+    if (panel.contains(e.target) || burger.contains(e.target)) return;
+    closeMenu(false);
+  });
+  if (window.matchMedia) {
+    var mq = window.matchMedia('(min-width:721px)');
+    var onChange = function(ev){ if (ev.matches) { closeMenu(false); } };
+    if (mq.addEventListener) { mq.addEventListener('change', onChange); }
+    else if (mq.addListener) { mq.addListener(onChange); }
+  }
+}
+
+function initAttentionCta(){
+  var KEY = 'drex-cta-seen';
+  var wraps = Array.prototype.slice.call(document.querySelectorAll('.cta-attn'));
+  if(!wraps.length) return;
+  var seen = false;
+  try{ seen = sessionStorage.getItem(KEY) === '1'; }catch(e){}
+
+  var intentEvents = ['pointerenter','focusin','click','touchstart'];
+  var btns = [];
+  wraps.forEach(function(w){ var b = w.querySelector('.btn'); if(b) btns.push(b); });
+
+  var scrollHandlerBound = false;
+  function onIntent(){ quiet(true); }
+  function cleanup(){
+    btns.forEach(function(b){
+      intentEvents.forEach(function(ev){ b.removeEventListener(ev, onIntent, {passive:true}); });
+    });
+    if(scrollHandlerBound){ window.removeEventListener('scroll', onScroll); scrollHandlerBound = false; }
+  }
+  function quiet(persist){
+    wraps.forEach(function(w){ w.classList.add('cta-quiet'); });
+    if(persist){ try{ sessionStorage.setItem(KEY,'1'); }catch(e){} }
+    cleanup();
+  }
+  function bind(){
+    btns.forEach(function(b){
+      intentEvents.forEach(function(ev){ b.addEventListener(ev, onIntent, {once:true, passive:true}); });
+    });
+  }
+  function onScroll(){
+    var ref = wraps[0].getBoundingClientRect();
+    if(ref.bottom < -window.innerHeight * 0.5){ quiet(false); }
+  }
+  if(seen){ quiet(false); return; }
+  bind();
+  scrollHandlerBound = true;
+  window.addEventListener('scroll', onScroll, {passive:true});
 }

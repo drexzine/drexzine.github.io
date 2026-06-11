@@ -109,15 +109,17 @@ a{color:inherit}
 .mast .lg-icon{width:30px;display:block}
 .mast .lg-word{width:78px;display:block}
 .mast .lg-icon svg,.mast .lg-word svg{display:block;width:100%;height:auto}
-.mast nav{display:flex;gap:clamp(.5rem,2vw,1.1rem);align-items:center;flex-wrap:wrap;justify-content:flex-end}
-.mast nav a{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;
+/* desktop masthead nav — scoped to the DIRECT nav so these rules never bleed
+   into the ported mobile burger panel's own <nav> (which also lives in .mast) */
+.mast>.wrap>nav{display:flex;gap:clamp(.5rem,2vw,1.1rem);align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.mast>.wrap>nav a{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;
   display:inline-flex;align-items:center;min-height:44px;
   border:2px solid var(--ink);border-radius:5px;padding:.4em .7em;background:var(--paper);
   box-shadow:2px 2px 0 0 var(--ink);transition:transform .08s, box-shadow .08s}
-.mast nav a:focus-visible{outline:3px solid var(--lazuli);outline-offset:2px}
-.mast nav a:nth-child(2){transform:rotate(1.4deg)}
-.mast nav a:nth-child(3){transform:rotate(-1.2deg)}
-.mast nav a:hover{transform:rotate(0) translate(-1px,-1px);box-shadow:3px 3px 0 0 var(--grass)}
+.mast>.wrap>nav a:focus-visible{outline:3px solid var(--lazuli);outline-offset:2px}
+.mast>.wrap>nav a:nth-child(2){transform:rotate(1.4deg)}
+.mast>.wrap>nav a:nth-child(3){transform:rotate(-1.2deg)}
+.mast>.wrap>nav a:hover{transform:rotate(0) translate(-1px,-1px);box-shadow:3px 3px 0 0 var(--grass)}
 
 /* ---------- hero ---------- */
 .hero{padding:clamp(2.4rem,7vw,5rem) 0 clamp(1.5rem,4vw,3rem)}
@@ -529,3 +531,209 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
 .crumple-hint:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
 @keyframes crumpleBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-4px)}}
 @media(prefers-reduced-motion:reduce){.crumple-hint{animation:none}}
+
+/* ====================================================================
+   PORTED FEATURES (collage / mobile burger / attention CTA)
+   Re-ported from feat/collage-sound onto the app.css/app.js split.
+   Sound module intentionally omitted — app.js already has marker draw-on.
+   ==================================================================== */
+/* =================================================================
+   MODULE: COLLAGE SCRAPS — littered scrapbook ephemera in the gutters
+   (cg- namespace). Flat color only, hard offset shadows only.
+   Decorative: aria-hidden + pointer-events:none, low z, never over text.
+   ================================================================= */
+.about .wrap, .team .wrap, .note .wrap, .doors .wrap, footer .wrap{
+  position:relative;  /* anchor the absolutely-positioned .cg-collage layers (hero omitted — envelope owns it) */
+}
+.cg-collage{
+  position:absolute; inset:0; z-index:0;
+  pointer-events:none;
+  overflow:visible;
+}
+.cg-scrap{
+  position:absolute;
+  display:block;
+  pointer-events:none;
+  opacity:0;
+  transform:translate(var(--cg-dx,0), var(--cg-ty,14px)) rotate(0deg) scale(.96);
+  transition:opacity .6s ease, transform .62s cubic-bezier(.2,.8,.25,1);
+  will-change:transform,opacity;
+}
+.cg-scrap svg{display:block; overflow:visible}
+.cg-scrap.cg-in{
+  opacity:1;
+  transform:translate(var(--cg-dx,0), var(--cg-py,0px)) rotate(var(--cg-rot,0deg)) scale(1);
+}
+.cg-scrap.cg-s1{transition-delay:.04s}
+.cg-scrap.cg-s2{transition-delay:.13s}
+.cg-scrap.cg-s3{transition-delay:.22s}
+.cg-scrap .cg-wob{filter:url(#roughsm)}
+.cg-scrap .cg-torn{filter:url(#torn)}
+@media(max-width:560px){
+  .cg-scrap.cg-drop-sm{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .cg-scrap{
+    opacity:1 !important;
+    transition:none !important;
+    transform:translate(var(--cg-dx,0),0) rotate(var(--cg-rot,0deg)) scale(1) !important;
+  }
+}
+
+/* =================================================================
+   MODULE: MOBILE BURGER MENU
+   Hidden on desktop; the inline .mast nav stays as-is above 720px.
+   ================================================================= */
+.burger{display:none}
+.m-panel{display:none}
+@media(max-width:720px){
+  .mast>.wrap>nav{display:none}  /* hide ONLY the desktop masthead nav, not the panel's inner <nav> */
+  .burger{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:48px;height:48px;min-width:48px;min-height:48px;padding:0;cursor:pointer;
+    background:var(--paper);border:2.6px solid var(--ink);border-radius:6px;
+    box-shadow:3px 3px 0 0 var(--ink);transform:rotate(-2deg);
+    transition:transform .09s ease, box-shadow .09s ease;
+    position:relative;z-index:42;
+  }
+  .burger:hover{transform:rotate(0)}
+  .burger:active{transform:translate(3px,3px) rotate(0);box-shadow:0 0 0 0 var(--ink)}
+  .burger:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
+  .burger svg{display:block;width:26px;height:26px}
+  .burger .bl{
+    stroke:var(--ink);stroke-width:3;stroke-linecap:round;fill:none;
+    filter:url(#roughsm);
+    transition:transform .22s ease, opacity .16s ease;
+    transform-box:fill-box;transform-origin:center;
+  }
+  .burger[aria-expanded="true"] .b1{transform:translateY(7px) rotate(45deg)}
+  .burger[aria-expanded="true"] .b2{opacity:0}
+  .burger[aria-expanded="true"] .b3{transform:translateY(-7px) rotate(-45deg)}
+  .m-panel{
+    display:block;position:absolute;top:calc(100% - 6px);right:14px;z-index:40;
+    width:min(300px,calc(100vw - 28px));
+    background:var(--paper);border:2.6px solid var(--ink);border-radius:8px;
+    box-shadow:7px 8px 0 0 var(--ink);
+    padding:1.5rem 1.1rem 1.2rem;
+    transform:translateY(-10px) rotate(-1deg);opacity:0;visibility:hidden;
+    pointer-events:none;
+    transition:transform .2s ease, opacity .18s ease, visibility 0s linear .18s;
+  }
+  .m-panel[data-open="true"]{
+    opacity:1;visibility:visible;pointer-events:auto;
+    transform:translateY(0) rotate(-1deg);
+    transition:transform .2s ease, opacity .18s ease, visibility 0s;
+  }
+  .m-panel .tape{top:-15px;left:50%;margin-left:-59px;transform:rotate(-2.5deg)}
+  .m-panel ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.55rem}
+  .m-panel li{display:block}
+  .m-panel .m-link{
+    display:flex;align-items:center;min-height:48px;
+    font-family:var(--f-mono);font-size:.92rem;letter-spacing:.1em;text-transform:uppercase;
+    text-decoration:none;color:var(--ink);
+    border:2px solid var(--ink);border-radius:6px;padding:.55em .9em;background:var(--paper);
+    box-shadow:3px 3px 0 0 var(--ink);
+    transition:transform .08s ease, box-shadow .08s ease;
+  }
+  .m-panel li:nth-child(odd) .m-link{transform:rotate(-1.6deg)}
+  .m-panel li:nth-child(even) .m-link{transform:rotate(1.6deg)}
+  .m-panel .m-link:hover{transform:rotate(0) translate(-1px,-1px);box-shadow:4px 4px 0 0 var(--grass)}
+  .m-panel .m-link:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
+  .m-panel .m-cta{margin-top:1.05rem;display:flex;justify-content:center}
+  .m-panel .m-cta .btn{width:100%;justify-content:center;transform:rotate(-1.2deg)}
+  .m-panel .m-cta .btn:hover{transform:rotate(0)}
+}
+@media(min-width:721px){
+  .burger{display:none!important}
+  .m-panel{display:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .burger,.m-panel,.m-panel .m-link,.m-panel .m-cta .btn{transform:none!important}
+  .m-panel{transition:opacity 0s, visibility 0s!important}
+  .m-panel[data-open="true"]{transform:none!important}
+  .burger .bl{transition:opacity .12s ease!important}
+  .burger[aria-expanded="true"] .b1{transform:translateY(7px) rotate(45deg)!important}
+  .burger[aria-expanded="true"] .b3{transform:translateY(-7px) rotate(-45deg)!important}
+  .m-panel .tape{transform:none!important}
+}
+
+/* =================================================================
+   MODULE: ATTENTION-GRABBING PRIMARY CTA — idle "look at me" loop
+   Flat color only, solid offset shadows, zero blur. Stops on intent
+   (.cta-quiet) or reduced-motion.
+   ================================================================= */
+.cta-attn{position:relative;display:inline-flex;isolation:isolate}
+.cta-attn .btn{position:relative;z-index:1}
+.cta-attn .cta-ring{
+  position:absolute;z-index:0;pointer-events:none;
+  inset:-9px -11px;
+  border:2.6px solid var(--colorado);
+  border-radius:10px;
+  filter:url(#roughsm);
+  opacity:0;
+}
+.cta-scrawl{
+  position:absolute;z-index:2;pointer-events:none;
+  left:50%;bottom:calc(100% + 8px);
+  transform:translateX(-50%) rotate(-3deg);
+  display:flex;flex-direction:column;align-items:center;gap:1px;
+  white-space:nowrap;
+}
+.cta-scrawl .cta-words{
+  font-family:var(--f-hand);font-weight:400;line-height:1;
+  font-size:1.35rem;color:var(--colorado);
+}
+.cta-scrawl .cta-arrow{
+  display:block;width:26px;height:30px;color:var(--colorado);
+}
+.cta-scrawl .cta-arrow svg{display:block;width:100%;height:100%}
+@keyframes ctaShimmy{
+  0%   {transform:rotate(0) scale(1)}
+  3%   {transform:rotate(-2deg) scale(1.03)}
+  6%   {transform:rotate(2deg) scale(1.03)}
+  9%   {transform:rotate(-1.6deg) scale(1.02)}
+  12%  {transform:rotate(1.4deg) scale(1.02)}
+  15%  {transform:rotate(0) scale(1)}
+  100% {transform:rotate(0) scale(1)}
+}
+@keyframes ctaRing{
+  0%   {opacity:0;transform:scale(.94)}
+  4%   {opacity:.9;transform:scale(1)}
+  14%  {opacity:.55;transform:scale(1.06)}
+  22%  {opacity:0;transform:scale(1.12)}
+  100% {opacity:0;transform:scale(1.12)}
+}
+@keyframes ctaBob{
+  0%   {transform:translateX(-50%) rotate(-3deg) translateY(0)}
+  6%   {transform:translateX(-50%) rotate(-3deg) translateY(-5px)}
+  14%  {transform:translateX(-50%) rotate(-3deg) translateY(0)}
+  100% {transform:translateX(-50%) rotate(-3deg) translateY(0)}
+}
+.cta-attn:not(.cta-quiet){animation:ctaShimmy 5.2s ease-in-out infinite}
+.cta-attn:not(.cta-quiet) .cta-ring{animation:ctaRing 5.2s ease-in-out infinite}
+.cta-attn:not(.cta-quiet) .cta-scrawl{animation:ctaBob 5.2s ease-in-out infinite}
+.cta-attn.cta-quiet{animation:none}
+.cta-attn.cta-quiet .cta-ring{animation:none;opacity:0}
+.cta-attn.cta-quiet .cta-scrawl{
+  animation:none;
+  opacity:0;
+  transition:opacity .4s ease;
+  transform:translateX(-50%) rotate(-3deg);
+}
+.card .cta-scrawl{font-size:1.2rem;bottom:calc(100% + 6px)}
+/* hero CTA: gap above the button is tight (lede sits close) — lay the cue out
+   horizontally ("tap me! ↓") so it tucks into the gap without crowding the lede */
+.hero .cta-scrawl{flex-direction:row;align-items:flex-end;gap:5px;bottom:calc(100% + 3px)}
+.hero .cta-scrawl .cta-words{font-size:1.08rem}
+.hero .cta-scrawl .cta-arrow{width:16px;height:19px}
+@media(prefers-reduced-motion:reduce){
+  .cta-attn,
+  .cta-attn .cta-ring,
+  .cta-attn .cta-scrawl{animation:none!important}
+  .cta-attn .cta-ring{opacity:0!important}
+  .cta-attn:not(.cta-quiet) .cta-scrawl{
+    opacity:1!important;
+    transform:translateX(-50%) rotate(-3deg)!important;
+  }
+  .cta-attn.cta-quiet .cta-scrawl{opacity:0!important}
+}
