@@ -85,7 +85,7 @@ function boot() {
   initSoundToggle(audio);           // M1: footer opt-in toggle
   initFounderCrumple();             // M4: founder's note = click-to-unfold 3D paper crumple
   initCollage();                    // ported: littered collage scraps + scroll entrance + parallax
-  initBurger();                     // ported: accessible mobile burger menu
+  initHamburgerJoy(audio);          // M5: the hamburger that lies — flop, slit, pull-out nav
   initAttentionCta();               // ported: hero CTA idle "look at me" loop
   // wake the FPS governor for the first couple seconds so html[data-tier=lite]
   // can latch under load — the CSS/IO features never register a rAF driver,
@@ -1003,4 +1003,91 @@ function initAttentionCta(){
   bind();
   scrollHandlerBound = true;
   window.addEventListener('scroll', onScroll, {passive:true});
+}
+
+/* ===================================================================
+   M5 — The hamburger that LIES (pull-your-nav-out-of-a-slit joy).
+   rest → tap → fallen (burger flops onto a swaying string, slit opens, strip
+   peeks) → drag the strip down (--pull) → open (links clickable). Yank past
+   DANGER and the string TEARS (links fall, then the burger respawns). Click
+   the fallen burger to reel it home. Keyboard / reduced-motion → plain menu.
+   =================================================================== */
+function initHamburgerJoy(audio) {
+  const hb = document.getElementById('hb');
+  const burger = document.getElementById('m-burger');
+  const fallen = document.getElementById('hb-fallen');
+  const tray = document.getElementById('hb-tray');
+  const clip = hb && hb.querySelector('.hb-clip');
+  if (!hb || !burger || !fallen || !tray || !clip) return;
+
+  const PEEK = 0.2, OPEN = 1, STRAIN = 1.05, DANGER = 1.22, TRAVEL = 250;
+  let pull = 0, dragging = false, startPull = 0, startY = 0, moved = false, torn = false;
+
+  const setPull = (p) => {
+    pull = p; hb.style.setProperty('--pull', p.toFixed(3));
+    hb.classList.toggle('is-straining', p >= STRAIN && p < DANGER);
+  };
+  const setState = (s) => { hb.dataset.state = s; };
+  const arm = () => { audio && audio.armForCut && audio.armForCut(); };
+
+  function flop() {                                   // the lie: it flops instead of opening
+    setState('fallen'); setPull(PEEK);
+    burger.setAttribute('aria-expanded', 'true');
+    arm(); Stage.play('rustle', { gain: 0.3 });
+  }
+  function plainOpen() {                              // keyboard / reduced-motion: honest menu
+    const open = hb.dataset.state !== 'plain';
+    setState(open ? 'plain' : 'rest');
+    burger.setAttribute('aria-expanded', String(open));
+  }
+  function reset() {                                  // reel it home
+    if (torn) return;
+    setState('rest'); setPull(0);
+    burger.setAttribute('aria-expanded', 'false');
+    Stage.play('rustle', { gain: 0.2, rate: 1.1 });
+  }
+  function tear() {                                   // yanked too hard
+    torn = true; setState('torn'); hb.classList.remove('is-straining');
+    Stage.play('taperip', { gain: 0.42 });
+    setTimeout(() => Stage.play('cut', { gain: 0.3 }), 90);
+    setTimeout(() => {                                // the burger respawns so you can retry
+      torn = false; setState('rest'); setPull(0);
+      burger.setAttribute('aria-expanded', 'false');
+    }, 1000);
+  }
+
+  burger.addEventListener('click', (e) => {
+    if (Stage.calm || e.detail === 0) { plainOpen(); return; }   // reduced-motion / keyboard
+    if (hb.dataset.state === 'rest') flop(); else reset();
+  });
+  fallen.addEventListener('click', reset);
+
+  clip.addEventListener('pointerdown', (e) => {
+    if (torn || (hb.dataset.state !== 'fallen' && hb.dataset.state !== 'open')) return;
+    dragging = true; moved = false; startPull = pull; startY = e.clientY;
+    try { clip.setPointerCapture(e.pointerId); } catch (_) {}
+    arm();
+  });
+  clip.addEventListener('pointermove', (e) => {
+    if (!dragging || torn) return;
+    const dy = e.clientY - startY;
+    if (Math.abs(dy) > 4) moved = true;
+    const p = Math.max(PEEK * 0.5, Math.min(DANGER + 0.06, startPull + dy / TRAVEL));
+    setPull(p);
+    if (p >= DANGER) { dragging = false; tear(); }
+  });
+  const up = () => {
+    if (!dragging || torn) return;
+    dragging = false;
+    if (pull >= 0.78) { setState('open'); setPull(OPEN); Stage.play('snip', { gain: 0.2 }); }
+    else { setState('fallen'); setPull(PEEK); }
+  };
+  clip.addEventListener('pointerup', up);
+  clip.addEventListener('pointercancel', up);
+  // a drag must not also fire a link navigation; links work only when fully open and not dragged
+  tray.addEventListener('click', (e) => {
+    if (e.target.closest('a') && (moved || hb.dataset.state !== 'open')) e.preventDefault();
+  }, true);
+
+  window.__drexHb = { flop, reset, tear, open: () => { setState('open'); setPull(OPEN); }, setPull, get pull(){return pull;}, get state(){return hb.dataset.state;} };
 }
