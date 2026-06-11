@@ -72,7 +72,7 @@ a{color:inherit}
 .scrawl{font-family:var(--f-hand);font-weight:400;line-height:1.15}
 .eyebrow{font-family:var(--f-hand);font-size:clamp(1.15rem,2.4vw,1.6rem);color:var(--colorado);transform:rotate(-1.2deg);display:inline-block}
 .label{font-family:var(--f-mono);font-weight:500;text-transform:uppercase;letter-spacing:.14em;font-size:.74rem}
-.dot{color:var(--grass);font-weight:700}
+.dot{color:var(--grass-deep);font-weight:700}
 .slab{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:.98;letter-spacing:-.02em}
 
 /* highlighter band behind the hero line — hand-swiped, tipped */
@@ -125,10 +125,10 @@ a{color:inherit}
 .hero .eyebrow{margin-bottom:1rem}
 .hero h1{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:1;letter-spacing:-.012em;
   text-wrap:balance;font-size:clamp(2.7rem,9vw,6.6rem);margin:0;color:var(--ink);max-width:15ch}
-.hero h1 .stop{color:var(--grass)}
+.hero h1 .stop{color:var(--grass-deep)}
 .hero .lede{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.2rem,2.3vw,1.7rem);
   line-height:1.4;max-width:32ch;margin:clamp(1.4rem,3.5vw,2.2rem) 0 0;color:var(--ink)}
-.hero .lede .dropcap{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:1.4em;color:var(--grass)}
+.hero .lede .dropcap{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:1.4em;color:var(--grass-deep)}
 .hero .cta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:clamp(1.6rem,4vw,2.4rem)}
 .hero .pin{position:absolute;right:clamp(1rem,5vw,3rem);top:clamp(-.5rem,2vw,1rem);z-index:4;
   transform:rotate(4deg);text-align:center}
