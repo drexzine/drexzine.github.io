@@ -129,7 +129,8 @@ function initDemoGate() {
    Every feature plays through Stage.play(key) → this engine.
    =================================================================== */
 function initAudio() {
-  const KEYS = ['cut', 'marker', 'rustle', 'snip', 'stamp', 'taperip', 'toggle', 'underline'];
+  const KEYS = ['cut', 'marker', 'rustle', 'snip', 'stamp', 'taperip', 'toggle', 'underline',
+    'retrocard1', 'retrocard2', 'retrocard3', 'retropola1', 'retropola2', 'retropola3'];
   const buffers = new Map();
   let ctx = null, loading = null, enabled = false;
   try { enabled = localStorage.getItem('drex-sound') === 'on'; } catch (_) {}
@@ -248,11 +249,30 @@ function initHighlighter() {
   });
 }
 
-/* ---- M1 — interaction SFX (no-op until sound is switched on) -------- */
+/* ---- M1 — interaction SFX (no-op until sound is switched on) --------
+   Buttons + nav keep the tactile craft foley (stamp / toggle). Door cards
+   and team polaroids — which had no click sound — get a retro 90s/edutainment
+   blip layer: a random clip from a small per-type family, never repeating the
+   previous one, so each click is designed-but-surprising. CC0 (Kenney), see
+   assets/audio/CREDITS-retro.txt. */
 function initInteractionSounds() {
+  const FAMILIES = {
+    card: ['retrocard1', 'retrocard2', 'retrocard3'],
+    pola: ['retropola1', 'retropola2', 'retropola3'],
+  };
+  const last = {};
+  function pick(fam) {
+    const list = FAMILIES[fam], n = list.length;
+    let i = Math.floor(Math.random() * n);
+    if (n > 1 && i === last[fam]) i = (i + 1) % n;
+    last[fam] = i;
+    return list[i];
+  }
   document.addEventListener('click', (e) => {
     if (e.target.closest('.btn')) Stage.play('stamp', { gain: 0.32 });
     else if (e.target.closest('.mast nav a')) Stage.play('toggle', { gain: 0.24 });
+    else if (e.target.closest('.doors .card')) Stage.play(pick('card'), { gain: 0.3 });
+    else if (e.target.closest('.team .polaroid')) Stage.play(pick('pola'), { gain: 0.26 });
   });
 }
 

@@ -1,0 +1,22 @@
+Retro click-sound layer (retrocard*, retropola*)
+================================================
+
+The retrocard1-3 and retropola1-3 clips add a 90s / Windows-95 / edutainment
+"blip" layer on top of the craft-foley system — they fire on door-card and
+team-polaroid clicks (which previously had no click sound).
+
+Source: Kenney (https://kenney.nl) — CC0 1.0 (public domain).
+  - "Interface Sounds" pack (https://kenney.nl/assets/interface-sounds)
+License: http://creativecommons.org/publicdomain/zero/1.0/
+CC0 requires no attribution and permits commercial use; this file is a
+provenance trail only. These are legal sound-alikes — no actual Windows 95
+system sounds or ripped game audio.
+
+  retrocard1.{mp3,ogg}  <- Interface Sounds open_002      (door card open)
+  retrocard2.{mp3,ogg}  <- Interface Sounds maximize_006  (door card open)
+  retrocard3.{mp3,ogg}  <- Interface Sounds glass_001      (door card sparkle)
+  retropola1.{mp3,ogg}  <- Interface Sounds pluck_001      (polaroid snap)
+  retropola2.{mp3,ogg}  <- Interface Sounds select_005     (polaroid snap)
+  retropola3.{mp3,ogg}  <- Interface Sounds bong_001        (polaroid snap)
+
+Converted from CC0 .wav originals to mp3+ogg to match the existing audio bus.
