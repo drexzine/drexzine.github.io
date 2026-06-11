@@ -1426,7 +1426,7 @@ function initHamburgerJoy(audio) {
   const tray = document.getElementById('hb-tray');
   if (!hb || !burger || !fallen || !tray) return;
 
-  const OPEN = 1, STRAIN = 1.08, DANGER = 1.3, TRAVEL = 230;
+  const OPEN = 1, STRAIN = 1.05, DANGER = 1.17, TRAVEL = 230;
   let pull = 0, dragging = false, startPull = 0, startY = 0, moved = false, torn = false, lastVibe = 0;
 
   const setPull = (p) => {

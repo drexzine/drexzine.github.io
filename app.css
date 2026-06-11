@@ -860,8 +860,8 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 @keyframes hbdropin{from{translate:0 -52px}60%{translate:0 7px}to{translate:0 0}}
 
 /* ONE strand: links + string + dangling burger move together with --pull */
-.hb-strand{position:relative;display:flex;flex-direction:column;align-items:flex-end;gap:15px;padding:17px 3px 0 0;
-  transform:translateY(calc((var(--pull) - 1) * 212px))}
+.hb-strand{position:relative;display:flex;flex-direction:column;align-items:flex-end;gap:15px;padding:44px 3px 0 0;
+  transform:translateY(calc((var(--pull) - 1) * 260px))}
 .hb[data-state="fallen"] .hb-strand,.hb[data-state="open"] .hb-strand{transition:transform .08s linear}
 .hb-tray{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:flex-end;gap:15px;position:relative;z-index:1;pointer-events:none}
 .hb-tray li{display:block}
@@ -874,7 +874,8 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .hb-tray a:hover{transform:rotate(0) translate(-1px,-1px);box-shadow:4px 4px 0 0 var(--grass)}
 .hb-tray .hb-cta .btn{font-size:.72rem;pointer-events:none}
 .hb[data-state="open"] .hb-tray .hb-cta .btn,.hb[data-state="plain"] .hb-tray .hb-cta .btn{pointer-events:auto}
-.hb-thread{position:absolute;top:0;bottom:0;right:26px;width:2px;background:var(--ink);border-radius:2px;z-index:0}
+.hb-thread{position:absolute;top:0;bottom:0;right:25px;width:4px;border-radius:3px;z-index:0;
+  background:repeating-linear-gradient(48deg, var(--lazuli) 0 4px, #1b6f97 4px 8px);filter:url(#roughsm)}
 .hb-fallen{position:relative;z-index:1;margin-top:22px;width:48px;height:44px;display:inline-flex;align-items:center;justify-content:center;
   background:var(--paper);border:2.6px solid var(--ink);border-radius:7px;box-shadow:3px 3px 0 0 var(--ink);
   cursor:grab;touch-action:none;pointer-events:auto}
@@ -889,7 +890,7 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .hb[data-state="rest"] .hb-slit,.hb[data-state="plain"] .hb-slit{opacity:0}
 
 /* danger: string reddens + stretches as you over-pull */
-.hb.is-straining .hb-thread{background:var(--colorado)}
+.hb.is-straining .hb-thread{background:repeating-linear-gradient(48deg, var(--colorado) 0 4px, #c4393d 4px 8px)}
 .hb.is-straining .hb-fallen{margin-top:52px}
 .hb.is-straining .hb-tray a{border-color:var(--colorado)}
 
