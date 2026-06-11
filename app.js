@@ -149,7 +149,7 @@ function initAudio() {
     'retrocard1', 'retrocard2', 'retrocard3', 'retropola1', 'retropola2', 'retropola3'];
   const buffers = new Map();
   const pending = new Set();   // keys requested before audio was ready (first-gesture race)
-  let ctx = null, loading = null, enabled = false;
+  let ctx = null, loading = null, enabled = false, primed = false;
   try { enabled = localStorage.getItem('drex-sound') === 'on'; } catch (_) {}
 
   function ensureCtx() {
@@ -158,13 +158,36 @@ function initAudio() {
     if (AC) ctx = new AC();
     return ctx;
   }
+  // Mobile browsers swallow the FIRST sound emitted as the context wakes up.
+  // The envelope cut is the first gesture, so its snip/cut became that
+  // sacrificial first sound (tapping anywhere first "fixed" it by waking the
+  // context early). Play one silent 1-frame buffer synchronously inside the
+  // gesture to absorb the swallow, so the real SFX always sound.
+  function primeOutput() {
+    if (primed || !ctx) return;
+    try {
+      const b = ctx.createBuffer(1, 1, 22050);
+      const s = ctx.createBufferSource();
+      s.buffer = b; s.connect(ctx.destination); s.start(0);
+      primed = true;
+    } catch (_) {}
+  }
   function load() {
     if (loading || !ctx) return loading;
+    // mp3 first (small, universal), then fall back to ogg if the fetch OR —
+    // crucially — decodeAudioData fails. Some mobile decoders reject a short mp3
+    // that desktop accepts (cut.mp3 decoded fine on laptop but was silent on
+    // phone), so without this a per-key decode failure leaves that sound dead.
+    // Vorbis is software-decoded and consistent across browsers.
     loading = Promise.all(KEYS.map(async (k) => {
-      try {
-        const buf = await fetch(`assets/audio/${k}.mp3`).then((r) => r.arrayBuffer());
-        buffers.set(k, await ctx.decodeAudioData(buf));
-      } catch (_) {}
+      for (const ext of ['mp3', 'ogg']) {
+        try {
+          const res = await fetch(`assets/audio/${k}.${ext}`);
+          if (!res.ok) continue;
+          buffers.set(k, await ctx.decodeAudioData(await res.arrayBuffer()));
+          return;                                  // decoded — done with this key
+        } catch (_) { /* try the next format */ }
+      }
     }));
     return loading;
   }
@@ -173,6 +196,7 @@ function initAudio() {
   function unlock() {
     ensureCtx();
     if (ctx && ctx.state === 'suspended') ctx.resume();
+    primeOutput();                                      // absorb the mobile first-sound swallow
     if (enabled) load();
     if (ctx && ctx.state === 'running') stopUnlock();   // unlocked — stop listening
   }
@@ -228,7 +252,7 @@ function initAudio() {
     // session (unless the visitor has explicitly muted via the footer toggle).
     armForCut() {
       try { if (localStorage.getItem('drex-sound') === 'off') return; } catch (_) {}
-      ensureCtx(); if (ctx && ctx.state === 'suspended') ctx.resume(); load();
+      ensureCtx(); if (ctx && ctx.state === 'suspended') ctx.resume(); primeOutput(); load();
       if (!enabled) { enabled = true; emitChange(); }
     },
     setEnabled(on) {
