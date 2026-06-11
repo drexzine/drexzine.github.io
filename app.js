@@ -223,15 +223,21 @@ function initReveals() {
     document.querySelectorAll('.team .head, .doors .head'),
   ];
   const marked = [];
-  groups.forEach((nodes) => nodes.forEach((el, i) => {
+  groups.forEach((nodes, gi) => nodes.forEach((el, i) => {
+    const slam = gi < 2;                         // polaroids + door cards SLAM in; heads just settle
     el.classList.add('reveal');
+    if (slam) el.classList.add('slam');
     marked.push(el);
     Stage.observe(el, (e, release) => {
       if (!e.isIntersecting) return;             // gate on visibility only, not ratio
-      el.style.transitionDelay = (i * 70) + 'ms';
+      if (slam) {
+        el.style.animationDelay = (i * 60) + 'ms';
+        setTimeout(() => Stage.play('taperip', { gain: 0.16, rate: 0.95 + Math.random() * 0.1 }), i * 60 + 430);
+      } else {
+        el.style.transitionDelay = (i * 70) + 'ms';
+        el.addEventListener('transitionend', () => { el.style.transitionDelay = ''; }, { once: true });
+      }
       el.classList.add('in');
-      // clear the delay once it has played so it can't leak onto a hover transform
-      el.addEventListener('transitionend', () => { el.style.transitionDelay = ''; }, { once: true });
       release();
     });
   }));
@@ -1451,7 +1457,11 @@ function initHamburgerJoy(audio) {
     torn = true; setState('torn'); hb.classList.remove('is-straining', 'is-dragging');
     Stage.play('taperip', { gain: 0.45 }); setTimeout(() => Stage.play('cut', { gain: 0.3 }), 90);
     buzz([35, 30, 90]);
-    setTimeout(() => { torn = false; setState('rest'); setPull(0); burger.setAttribute('aria-expanded', 'false'); }, 1050);
+    setTimeout(() => {
+      torn = false; hb.classList.add('respawning'); setState('rest'); setPull(0);
+      burger.setAttribute('aria-expanded', 'false');
+      requestAnimationFrame(() => requestAnimationFrame(() => hb.classList.remove('respawning')));
+    }, 1050);
   }
 
   burger.addEventListener('click', (e) => {
@@ -1484,7 +1494,7 @@ function initHamburgerJoy(audio) {
     if (!dragging || torn) return;
     dragging = false; hb.classList.remove('is-dragging');
     if (!moved) { reset(); return; }                                // a tap (no drag) on the burger reels it home
-    if (pull >= 0.8) { setState('open'); setPull(OPEN); Stage.play('snip', { gain: 0.2 }); buzz(10); }
+    if (pull >= 0.8) { setState('open'); setPull(OPEN); hb.classList.add('pulled'); Stage.play('snip', { gain: 0.2 }); buzz(10); }
     else { setState('fallen'); setPull(0); }
   };
   fallen.addEventListener('pointerup', up);

@@ -402,6 +402,17 @@ body[data-motion="full"] .reveal{opacity:0;translate:0 16px;
   transition:opacity .24s ease, translate .52s cubic-bezier(.2,.85,.3,1.12)}
 body[data-motion="full"] .reveal.in{opacity:1;translate:0 0}
 
+/* SLAM-IN: polaroids + door cards drop from above and SMACK onto the page, then
+   the washi tape sticks — gives scrolling weight + visual hierarchy. translate /
+   scale are individual props so they compose with each piece's resting tilt. */
+body[data-motion="full"] .slam{opacity:0;translate:0 -66px}
+body[data-motion="full"] .slam.in{animation:slamin .52s cubic-bezier(.3,1.04,.5,1) both}
+@keyframes slamin{0%{opacity:0;translate:0 -66px}52%{opacity:1;translate:0 7px}74%{translate:0 -3px}100%{opacity:1;translate:0 0}}
+body[data-motion="full"] .slam .tape{opacity:0;scale:.4}
+body[data-motion="full"] .slam.in .tape{animation:tapestick .26s ease .42s both}
+@keyframes tapestick{from{opacity:0;scale:.4}to{opacity:1;scale:1}}
+html[data-tier="lite"] .slam,html[data-tier="lite"] .slam .tape{animation:none!important;opacity:1!important;translate:none!important;scale:none!important}
+
 /* ---- highlighter band: swipe left→right (composes with its skew) ---- */
 body[data-motion="full"] .hl.draw::before{scale:0 1;transform-origin:left center;
   transition:scale .55s cubic-bezier(.2,.7,.2,1)}
@@ -475,6 +486,7 @@ footer .legal .snd:focus-visible{outline:2px solid var(--oats);outline-offset:2p
   *{transition:none!important;animation:none!important}
   .tape,.eyebrow,.btn,.card,.splay .card,.mast nav a,.about .cap,.card .cap,.hero .pin,footer .stamp,.polaroid,.crew .polaroid,.ul,.hl{transform:none!important}
   .reveal{opacity:1!important;translate:none!important}
+  .slam .tape{opacity:1!important;scale:none!important}
   .hl.draw::before,.ul.draw::after{scale:1 1!important}
 }
 
@@ -843,11 +855,12 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .hb[data-state="fallen"] .hb-rig,.hb[data-state="open"] .hb-rig,.hb[data-state="torn"] .hb-rig,.hb[data-state="plain"] .hb-rig{opacity:1}
 .hb-mouth{position:absolute;top:0;right:0;width:320px;height:480px;overflow:clip;pointer-events:none}
 .hb-sway{transform-origin:top right;will-change:transform}
-.hb[data-state="fallen"]:not(.is-dragging) .hb-sway{animation:hbsway 2.8s ease-in-out infinite}
+.hb[data-state="fallen"]:not(.is-dragging) .hb-sway{animation:hbdropin .5s cubic-bezier(.34,1.4,.5,1), hbsway 2.8s ease-in-out infinite}
 @keyframes hbsway{0%,100%{transform:rotate(3.5deg)}50%{transform:rotate(-3.5deg)}}
+@keyframes hbdropin{from{translate:0 -52px}60%{translate:0 7px}to{translate:0 0}}
 
 /* ONE strand: links + string + dangling burger move together with --pull */
-.hb-strand{position:relative;display:flex;flex-direction:column;align-items:flex-end;gap:15px;padding-right:3px;
+.hb-strand{position:relative;display:flex;flex-direction:column;align-items:flex-end;gap:15px;padding:17px 3px 0 0;
   transform:translateY(calc((var(--pull) - 1) * 212px))}
 .hb[data-state="fallen"] .hb-strand,.hb[data-state="open"] .hb-strand{transition:transform .08s linear}
 .hb-tray{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:flex-end;gap:15px;position:relative;z-index:1;pointer-events:none}
@@ -866,6 +879,7 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
   background:var(--paper);border:2.6px solid var(--ink);border-radius:7px;box-shadow:3px 3px 0 0 var(--ink);
   cursor:grab;touch-action:none;pointer-events:auto}
 .hb.is-dragging .hb-fallen{cursor:grabbing}
+.hb.pulled .hb-fallen{margin-top:44px}
 
 /* the cut, drawn ON TOP so the strand reads as emerging from the paper */
 .hb-pocket{display:none;position:absolute;top:-3px;right:-6px;width:150px;height:24px;pointer-events:none;z-index:2;
@@ -887,5 +901,6 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .hb[data-state="plain"] .hb-mouth{position:static;overflow:visible;height:auto;pointer-events:auto}
 .hb[data-state="plain"] .hb-sway,.hb[data-state="plain"] .hb-strand{transform:none;animation:none!important}
 .hb[data-state="plain"] .hb-string,.hb[data-state="plain"] .hb-fallen{display:none}
-@media(prefers-reduced-motion:reduce){ .hb-sway{animation:none!important} }
+.hb.respawning .hb-rig{opacity:0!important;transition:none!important}
+@media(prefers-reduced-motion:reduce){ .hb-sway,.hb-fall{animation:none!important} }
 
