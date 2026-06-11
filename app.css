@@ -430,7 +430,8 @@ body[data-motion="full"] .doors .card.slam.in{animation:slamhard .5s cubic-bezie
   68% {translate:0 2px; scale:1.13 .82}
   82% {translate:0 0;   scale:.97 1.06}
   100%{translate:0 0;   scale:1}}
-html[data-tier="lite"] .slam,html[data-tier="lite"] .slam .tape{animation:none!important;opacity:1!important;translate:none!important;scale:none!important;rotate:none!important}
+/* the slam is a compositor-only transform animation — cheap even on weak devices,
+   so it survives the lite tier (only the expensive SVG-filter effects get cut). */
 
 /* ---- highlighter band: swipe left→right (composes with its skew) ---- */
 body[data-motion="full"] .hl.draw::before{scale:0 1;transform-origin:left center;

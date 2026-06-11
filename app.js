@@ -252,8 +252,16 @@ function initReveals() {
       release();
     });
   }));
-  // belt-and-suspenders: anything still hidden after 4s gets shown regardless.
-  setTimeout(() => marked.forEach((el) => el.classList.add('in')), 4000);
+  // belt-and-suspenders: reveal any straggler the observer missed — but ONLY if
+  // it's already on screen. Force-revealing an OFF-screen slam would burn its
+  // one-shot drop before you ever scroll down to it (you'd arrive to find it
+  // already at rest). Off-screen items stay observed; the observer fires their
+  // slam when they actually enter the viewport.
+  setTimeout(() => marked.forEach((el) => {
+    if (el.classList.contains('in')) return;
+    const r = el.getBoundingClientRect();
+    if (r.bottom > 0 && r.top < innerHeight) el.classList.add('in');
+  }), 4000);
 }
 
 /* ===================================================================
