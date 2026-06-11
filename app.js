@@ -152,10 +152,36 @@ function initAudio() {
   let ctx = null, loading = null, enabled = false, primed = false;
   try { enabled = localStorage.getItem('drex-sound') === 'on'; } catch (_) {}
 
+  /* ===== TEMP DEBUG OVERLAY — remove once mobile cut audio is confirmed ===== */
+  const T0 = (window.performance && performance.now) ? performance.now() : 0;
+  const WATCH = new Set(['cut', 'snip', 'rustle']);
+  const DBG = (() => {
+    let el, lines = [];
+    return (msg) => {
+      try {
+        const ms = Math.round(((window.performance && performance.now) ? performance.now() : 0) - T0);
+        lines.push('+' + ms + ' ' + msg);
+        if (lines.length > 18) lines = lines.slice(-18);
+        if (!el) {
+          el = document.createElement('div');
+          el.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:2147483647;'
+            + 'background:rgba(0,0,0,.86);color:#5f5;font:11px/1.35 ui-monospace,monospace;'
+            + 'padding:6px 8px;white-space:pre-wrap;pointer-events:none;max-height:46vh;overflow:hidden';
+          (document.body || document.documentElement).appendChild(el);
+        }
+        el.textContent = lines.join('\n');
+      } catch (_) {}
+    };
+  })();
+  window.__audbg = DBG;
+  DBG('audio init; enabled=' + enabled);
+  /* ========================================================================= */
+
   function ensureCtx() {
     if (ctx) return ctx;
     const AC = window.AudioContext || window.webkitAudioContext;
-    if (AC) ctx = new AC();
+    if (AC) { ctx = new AC(); DBG('ctx created, state=' + ctx.state); }
+    else DBG('NO AudioContext support');
     return ctx;
   }
   // Mobile browsers swallow the FIRST sound emitted as the context wakes up.
@@ -171,14 +197,17 @@ function initAudio() {
       const s = ctx.createBufferSource();
       s.buffer = b; s.connect(ctx.destination); s.start(0);
       primed = true;
-    } catch (_) {}
+      DBG('primed silent buffer (state=' + ctx.state + ')');
+    } catch (e) { DBG('prime FAILED: ' + e); }
   }
   // Resume the context, then prime once it's truly running. Idempotent.
   function wake() {
     if (!ensureCtx()) return;
+    DBG('wake; state=' + ctx.state);
     if (ctx.state === 'suspended') {
       const p = ctx.resume();
-      if (p && p.then) p.then(primeOutput, () => {});
+      if (p && p.then) p.then(() => { DBG('resume() resolved, state=' + ctx.state); primeOutput(); },
+                              (e) => DBG('resume() rejected: ' + e));
     }
     primeOutput();   // already running → prime now
   }
@@ -189,16 +218,20 @@ function initAudio() {
     // that desktop accepts (cut.mp3 decoded fine on laptop but was silent on
     // phone), so without this a per-key decode failure leaves that sound dead.
     // Vorbis is software-decoded and consistent across browsers.
+    DBG('load() start');
     loading = Promise.all(KEYS.map(async (k) => {
       for (const ext of ['mp3', 'ogg']) {
         try {
           const res = await fetch(`assets/audio/${k}.${ext}`);
-          if (!res.ok) continue;
+          if (!res.ok) { if (WATCH.has(k)) DBG(k + '.' + ext + ' HTTP ' + res.status); continue; }
           buffers.set(k, await ctx.decodeAudioData(await res.arrayBuffer()));
+          if (WATCH.has(k)) DBG(k + ' decoded from ' + ext);
           return;                                  // decoded — done with this key
-        } catch (_) { /* try the next format */ }
+        } catch (e) { if (WATCH.has(k)) DBG(k + '.' + ext + ' decode FAIL: ' + e); }
       }
+      if (WATCH.has(k)) DBG(k + ' — ALL formats failed');
     }));
+    loading.then(() => DBG('load() done; cut=' + buffers.has('cut') + ' rustle=' + buffers.has('rustle') + ' (' + buffers.size + '/' + KEYS.length + ')'));
     return loading;
   }
   const UNLOCK_EVENTS = ['pointerdown', 'keydown', 'touchstart', 'click'];
@@ -226,7 +259,7 @@ function initAudio() {
     if (key === 'squeak')  return synthSqueak(ctx, opts);    // synthesized felt-tip marker squeak
     if (key === 'fanfare') return synthFanfare(ctx, opts);   // synthesized triumphant arpeggio
     const buf = buffers.get(key);
-    if (!buf) return;
+    if (!buf) { if (WATCH.has(key)) DBG('fire ' + key + ' — NO BUFFER'); return; }
     const src = ctx.createBufferSource();
     src.buffer = buf;
     src.playbackRate.value = opts.rate ?? (0.94 + Math.random() * 0.12);
@@ -234,10 +267,12 @@ function initAudio() {
     g.gain.value = opts.gain ?? 0.32;
     src.connect(g).connect(ctx.destination);
     src.start();
+    if (WATCH.has(key)) DBG('FIRE ' + key + ' start() state=' + ctx.state + ' gain=' + g.gain.value);
   }
 
   const engine = {
     play(key, opts = {}) {
+      if (WATCH.has(key)) DBG('play ' + key + ' en=' + enabled + ' state=' + (ctx && ctx.state) + ' buf=' + buffers.has(key));
       if (!enabled || !ctx) return;
       const synth = key === 'crinkle' || key === 'squeak' || key === 'fanfare';
       // Ready right now → fire immediately (the common, warm path).
@@ -251,10 +286,12 @@ function initAudio() {
       pending.add(key);
       const resumed = ctx.state === 'suspended' ? ctx.resume() : Promise.resolve();
       const loaded  = synth ? Promise.resolve() : load();
+      if (WATCH.has(key)) DBG('defer ' + key);
       Promise.all([resumed, loaded]).then(() => {
         pending.delete(key);
+        if (WATCH.has(key)) DBG('defer ' + key + ' resolved; state=' + (ctx && ctx.state) + ' buf=' + buffers.has(key));
         if (enabled && ctx && ctx.state === 'running') fire(key, opts);
-      }).catch(() => pending.delete(key));
+      }).catch((e) => { pending.delete(key); if (WATCH.has(key)) DBG('defer ' + key + ' rejected: ' + e); });
     },
     // The envelope cut is a deliberate gesture, so it turns sound ON for the
     // session (unless the visitor has explicitly muted via the footer toggle).
@@ -543,6 +580,7 @@ function initEnvelope(audio) {
 
   function complete() {
     if (done) return;
+    window.__audbg && window.__audbg('cut-gate complete()');
     done = true; cutting = false;
     env.classList.remove('cutting');
     setCut(1); setX(1);
