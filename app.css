@@ -612,6 +612,11 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
 .cg-scrap.cg-s1{transition-delay:.04s}
 .cg-scrap.cg-s2{transition-delay:.13s}
 .cg-scrap.cg-s3{transition-delay:.22s}
+/* hold every doodle until the envelope is cut — they fade in with the page
+   reveal (html.revealed lands ~2s after the cut; the existing opacity
+   transition + s1/s2/s3 stagger then plays). Sealed is never set under
+   reduced-motion, so the instant-show override below is unaffected. */
+html.sealed:not(.revealed) .cg-scrap{opacity:0!important}
 .cg-scrap .cg-wob{filter:url(#roughsm)}
 .cg-scrap .cg-torn{filter:url(#torn)}
 @media(max-width:560px){
