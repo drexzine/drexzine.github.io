@@ -873,14 +873,18 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 /* hanging rig — interactive parts only (mouth area stays click-through) */
 .hb-rig{position:absolute;top:40px;right:0;width:320px;opacity:0;pointer-events:none;transition:opacity .2s ease}
 .hb[data-state="fallen"] .hb-rig,.hb[data-state="open"] .hb-rig,.hb[data-state="torn"] .hb-rig,.hb[data-state="plain"] .hb-rig{opacity:1}
-.hb-mouth{position:absolute;top:0;right:0;width:320px;height:480px;overflow:clip;pointer-events:none}
-.hb-sway{transform-origin:top right;will-change:transform}
+/* mouth overhangs the rig by 32px so the sway arc (480 * sin 3.5° ≈ 29px max,
+   plus 3px hard shadows) never crosses the clip edge; strand padding + thread
+   right + sway origin all carry the same 32px so the rest pose is unchanged */
+.hb-mouth{position:absolute;top:0;right:-32px;width:352px;height:480px;overflow:clip;pointer-events:none}
+.hb-sway{transform-origin:calc(100% - 32px) top;will-change:transform}
 .hb[data-state="fallen"]:not(.is-dragging) .hb-sway{animation:hbdropin .5s cubic-bezier(.34,1.4,.5,1), hbsway 2.8s ease-in-out infinite}
-@keyframes hbsway{0%,100%{transform:rotate(3.5deg)}50%{transform:rotate(-3.5deg)}}
+@keyframes hbsway{0%,100%{transform:rotate(var(--hb-amp,3.5deg))}50%{transform:rotate(calc(-1 * var(--hb-amp,3.5deg)))}}
+@media(max-width:520px){.hb{--hb-amp:2.2deg}}  /* mast gutter bottoms out at 1rem; keep the swing inside it */
 @keyframes hbdropin{from{translate:0 -52px}60%{translate:0 7px}to{translate:0 0}}
 
 /* ONE strand: links + string + dangling burger move together with --pull */
-.hb-strand{position:relative;display:flex;flex-direction:column;align-items:flex-end;gap:15px;padding:44px 3px 0 0;
+.hb-strand{position:relative;display:flex;flex-direction:column;align-items:flex-end;gap:15px;padding:44px 35px 0 0;
   transform:translateY(calc((var(--pull) - 1) * 260px))}
 .hb[data-state="fallen"] .hb-strand,.hb[data-state="open"] .hb-strand{transition:transform .08s linear}
 .hb-tray{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:flex-end;gap:15px;position:relative;z-index:1;pointer-events:none}
@@ -896,7 +900,7 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .hb[data-state="open"] .hb-tray .hb-cta .btn,.hb[data-state="plain"] .hb-tray .hb-cta .btn{pointer-events:auto}
 /* string is ROOTED at the slit and STRETCHES as you over-pull (top counters the
    strand's translate so it never slides out of the cut) — taut, then it snaps */
-.hb-thread{position:absolute;top:calc((1 - var(--pull)) * 260px);bottom:0;right:25px;width:4px;border-radius:3px;z-index:0;
+.hb-thread{position:absolute;top:calc((1 - var(--pull)) * 260px);bottom:0;right:57px;width:4px;border-radius:3px;z-index:0;
   background:repeating-linear-gradient(48deg, var(--lazuli) 0 4px, #1b6f97 4px 8px);filter:url(#roughsm)}
 .hb-fallen{position:relative;z-index:1;margin-top:22px;width:48px;height:44px;display:inline-flex;align-items:center;justify-content:center;
   background:var(--paper);border:2.6px solid var(--ink);border-radius:7px;box-shadow:3px 3px 0 0 var(--ink);
@@ -922,7 +926,7 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 @keyframes hbdrop{to{transform:translateY(470px) rotate(26deg);opacity:0}}
 
 /* keyboard / reduced-motion / no-JS: an honest dropdown */
-.hb[data-state="plain"] .hb-mouth{position:static;overflow:visible;height:auto;pointer-events:auto}
+.hb[data-state="plain"] .hb-mouth{position:static;overflow:visible;width:auto;height:auto;pointer-events:auto}
 .hb[data-state="plain"] .hb-sway,.hb[data-state="plain"] .hb-strand{transform:none;animation:none!important}
 .hb[data-state="plain"] .hb-string,.hb[data-state="plain"] .hb-fallen{display:none}
 .hb.respawning .hb-rig{opacity:0!important;transition:none!important}
