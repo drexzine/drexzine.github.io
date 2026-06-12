@@ -99,6 +99,14 @@ function boot() {
   initHamburgerJoy(audio);          // M5: the hamburger that lies — flop, slit, pull-out nav
   initAttentionCta();               // ported: hero CTA idle "look at me" loop
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
+  // Hovering a card/polaroid grows its hard shadow under a live SVG filter —
+  // a burst of quick re-rasters of a big sheet. That's a known, brief,
+  // self-inflicted stall (same idea as the crumple capture at pauseFps(2500)):
+  // if the governor happens to be sampling, don't let the hover latch
+  // tier=lite and kill squigglevision for the rest of the session.
+  document.querySelectorAll('.splay .card, .crew .polaroid').forEach((el) => {
+    el.addEventListener('pointerenter', () => Stage.pauseFps(450), { passive: true });
+  });
   // wake the FPS governor for the first couple seconds so html[data-tier=lite]
   // can latch under load — the CSS/IO features never register a rAF driver,
   // so without this the governor is dead code and the lite fallback unreachable.

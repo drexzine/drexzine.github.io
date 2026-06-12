@@ -66,7 +66,6 @@ a{color:inherit}
   transform:rotate(-5deg);}
 .tape.b{background:linear-gradient(94deg,rgba(36,150,201,.44),rgba(36,150,201,.26) 55%,rgba(36,150,201,.4))}   /* lazuli washi */
 .tape.c{background:linear-gradient(94deg,rgba(247,84,88,.44),rgba(247,84,88,.26) 55%,rgba(247,84,88,.4))}      /* colorado washi */
-.tape.mini{width:56px;height:16px}   /* scrap-pinning size, used inside .cg-scrap */
 .tape::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 11px,rgba(255,255,255,.10) 11px 12px)}
 
 /* ---------- type ---------- */
@@ -575,10 +574,10 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
    (cg- namespace). Flat color only, hard offset shadows only.
    Decorative: aria-hidden + pointer-events:none, low z, never over text.
    ================================================================= */
-.about, .team, .note, .doors{
+.hero, .about, .team, .note, .doors{
   position:relative;  /* anchor the absolutely-positioned .cg-collage layers at the FULL-BLEED
                          section so scrap offsets are viewport-relative, never cut by the body's
-                         overflow-x at the wrap edge (footer is already relative; hero — envelope owns it) */
+                         overflow-x at the wrap edge (footer is already relative) */
 }
 .cg-collage{
   position:absolute; inset:0; z-index:0;
@@ -617,6 +616,9 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
 .cg-scrap .cg-torn{filter:url(#torn)}
 @media(max-width:560px){
   .cg-scrap.cg-drop-sm{display:none}
+}
+@media(max-width:1199px){
+  .cg-scrap.cg-drop-lg{display:none}  /* hero gutter pieces: the envelope fills the column below ~1200px */
 }
 @media(prefers-reduced-motion:reduce){
   .cg-scrap{
