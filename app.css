@@ -66,6 +66,7 @@ a{color:inherit}
   transform:rotate(-5deg);}
 .tape.b{background:linear-gradient(94deg,rgba(36,150,201,.44),rgba(36,150,201,.26) 55%,rgba(36,150,201,.4))}   /* lazuli washi */
 .tape.c{background:linear-gradient(94deg,rgba(247,84,88,.44),rgba(247,84,88,.26) 55%,rgba(247,84,88,.4))}      /* colorado washi */
+.tape.mini{width:56px;height:16px}   /* scrap-pinning size, used inside .cg-scrap */
 .tape::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 11px,rgba(255,255,255,.10) 11px 12px)}
 
 /* ---------- type ---------- */
@@ -574,14 +575,24 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
    (cg- namespace). Flat color only, hard offset shadows only.
    Decorative: aria-hidden + pointer-events:none, low z, never over text.
    ================================================================= */
-.about .wrap, .team .wrap, .note .wrap, .doors .wrap, footer .wrap{
-  position:relative;  /* anchor the absolutely-positioned .cg-collage layers (hero omitted — envelope owns it) */
+.about, .team, .note, .doors{
+  position:relative;  /* anchor the absolutely-positioned .cg-collage layers at the FULL-BLEED
+                         section so scrap offsets are viewport-relative, never cut by the body's
+                         overflow-x at the wrap edge (footer is already relative; hero — envelope owns it) */
 }
 .cg-collage{
   position:absolute; inset:0; z-index:0;
   pointer-events:none;
   overflow:visible;
 }
+.cg-collage.cg-fore{z-index:3}  /* foreground layer: scraps taped OVER a paper corner (never near text) */
+/* gutter rails: hug the 1150px content column on wide screens, never closer than
+   10px (6px inboard rail) to the viewport edge on small ones */
+.cg-gl{left:max(10px, calc(50vw - 601px))}
+.cg-gr{right:max(10px, calc(50vw - 601px))}
+.cg-gl2{left:max(6px, calc(50vw - 561px))}   /* inboard rail — lands under the paper edge for tucked scraps */
+.cg-gr2{right:max(6px, calc(50vw - 561px))}
+.cg-scrap.cg-shadow svg{filter:drop-shadow(3px 3px 0 var(--ink))}  /* zero-blur = solid offset shadow; light grounds only */
 .cg-scrap{
   position:absolute;
   display:block;
@@ -591,7 +602,10 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
   transition:opacity .6s ease, transform .62s cubic-bezier(.2,.8,.25,1);
   will-change:transform,opacity;
 }
-.cg-scrap svg{display:block; overflow:visible}
+.cg-scrap svg{display:block; overflow:visible; width:var(--cg-w,auto); height:auto}
+@media(max-width:720px){
+  .cg-scrap svg{width:calc(var(--cg-w) * .8)}  /* uniform downscale so bigger scraps don't crowd small layouts */
+}
 .cg-scrap.cg-in{
   opacity:1;
   transform:translate(var(--cg-dx,0), var(--cg-py,0px)) rotate(var(--cg-rot,0deg)) scale(1);
