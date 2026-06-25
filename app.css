@@ -130,7 +130,7 @@ a{color:inherit}
 .hero h1 .stop{color:var(--grass-deep)}
 .hero .lede{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.2rem,2.3vw,1.7rem);
   line-height:1.4;max-width:32ch;margin:clamp(1.4rem,3.5vw,2.2rem) 0 0;color:var(--ink)}
-.hero .lede .dropcap{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:1.4em;color:var(--grass-deep)}
+.hero .lede .dropcap{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:1.4em;line-height:1;color:var(--grass-deep)}
 .hero .cta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:clamp(1.6rem,4vw,2.4rem)}
 .hero .pin{position:absolute;right:clamp(1rem,5vw,3rem);top:clamp(-.5rem,2vw,1rem);z-index:4;
   transform:rotate(4deg);text-align:center}
@@ -293,7 +293,7 @@ html.revealed.scrolled .scroll-cue{opacity:0;animation:none}
 .splay .card:nth-child(1){transform:rotate(-3deg)}
 .splay .card:nth-child(2){transform:rotate(2.4deg)}
 .splay .card:nth-child(3){transform:rotate(-2.2deg)}
-@media(max-width:480px){.splay .card,.crew .polaroid{transform:rotate(0)} .tape{width:92px;height:26px}}
+@media(max-width:480px){.splay{padding-inline:16px} .splay .card,.crew .polaroid{transform:rotate(0)} .tape{width:92px;height:26px}}
 .splay .card{transition:transform .18s ease}
 .splay .card:hover{transform:rotate(0) translateY(-7px);z-index:6}
 .splay .card:hover>.sheet{box-shadow:13px 14px 0 0 var(--ink)}
