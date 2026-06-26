@@ -29,7 +29,7 @@
 html{-webkit-text-size-adjust:100%;overflow-x:clip}
 body{
   margin:0;color:var(--ink);font-family:var(--f-body);font-weight:300;line-height:1.6;
-  font-size:clamp(1rem,.97rem + .25vw,1.13rem);overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  font-size:clamp(1rem,.97rem + .25vw,1.13rem);overflow-x:clip;-webkit-font-smoothing:antialiased;
   /* the table: dot grid + faint notebook rules + paper grain over Oats */
   background-color:var(--oats);
   background-image:
