@@ -26,7 +26,7 @@
   --f-hand:"Patrick Hand",cursive;                   /* Birdie (scrawl) */
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
 body{
   margin:0;color:var(--ink);font-family:var(--f-body);font-weight:300;line-height:1.6;
   font-size:clamp(1rem,.97rem + .25vw,1.13rem);overflow-x:hidden;-webkit-font-smoothing:antialiased;
@@ -129,7 +129,7 @@ a{color:inherit}
   text-wrap:balance;font-size:clamp(2.7rem,9vw,6.6rem);margin:0;color:var(--ink);max-width:15ch}
 .hero h1 .stop{color:var(--grass-deep)}
 .hero .lede{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.2rem,2.3vw,1.7rem);
-  line-height:1.4;max-width:32ch;margin:clamp(1.4rem,3.5vw,2.2rem) 0 0;color:var(--ink)}
+  line-height:1.55;max-width:32ch;margin:clamp(1.4rem,3.5vw,2.2rem) 0 0;color:var(--ink)}
 .hero .lede .dropcap{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:1.4em;line-height:1;color:var(--grass-deep)}
 .hero .cta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:clamp(1.6rem,4vw,2.4rem)}
 .hero .pin{position:absolute;right:clamp(1rem,5vw,3rem);top:clamp(-.5rem,2vw,1rem);z-index:4;
@@ -166,7 +166,7 @@ html.sealed .envelope.opened .hero-card{transform:translateY(0)}
 .hero-card .inner{padding:clamp(1.1rem,2.4vw,1.7rem)}
 .hero-card h1{font-size:clamp(1.9rem,4vw,2.9rem);max-width:14ch;line-height:1.02}
 .hero-card .lede{font-size:clamp(.95rem,1.5vw,1.15rem);max-width:32ch;margin-top:clamp(.7rem,1.6vw,1.05rem)}
-.hero-card .cta{margin-top:clamp(.9rem,2vw,1.4rem)}
+.hero-card .cta{margin-top:clamp(1.3rem,3.2vw,1.9rem)}
 
 /* inner shadow at the pocket mouth — the depth the card slides out of */
 .pocket-shadow{display:none}
@@ -776,7 +776,7 @@ html.sealed:not(.revealed) .cg-scrap{opacity:0!important}
 .card .cta-scrawl{font-size:1.2rem;bottom:calc(100% + 6px)}
 /* hero CTA: gap above the button is tight (lede sits close) — lay the cue out
    horizontally ("tap me! ↓") so it tucks into the gap without crowding the lede */
-.hero .cta-scrawl{flex-direction:row;align-items:flex-end;gap:5px;bottom:calc(100% + 3px)}
+.hero .cta-scrawl{flex-direction:row;align-items:flex-end;gap:5px;bottom:calc(100% + 9px)}
 .hero .cta-scrawl .cta-words{font-size:1.08rem}
 .hero .cta-scrawl .cta-arrow{width:16px;height:19px}
 @media(prefers-reduced-motion:reduce){
