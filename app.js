@@ -294,7 +294,8 @@ function initReveals() {
   const groups = [
     document.querySelectorAll('.team .polaroid'),
     document.querySelectorAll('.doors .card'),
-    document.querySelectorAll('.team .head, .doors .head'),
+    document.querySelectorAll('.team .head, .doors .head, .film .head'),
+    document.querySelectorAll('.film .reel'),    // film placeholder settles in like the heads
   ];
   const marked = [];
 

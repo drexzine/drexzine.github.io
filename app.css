@@ -18,6 +18,8 @@
   --grass:#1CAB5B; --oats:#FEF6E4; --sambas:#414D57; --colorado:#F75458;
   --lazuli:#2496C9; --schoolbus:#ECAF21; --happy:#F1DD01;
   --grass-deep:#0C6E39;      /* AA-safe grass: oats text clears 4.5:1 — for the primary button fill + footer band */
+  --coral-ink:#C9343A;       /* sanctioned deepened Colorado (matches letters) */
+  --lazuli-deep:#1C6F94;     /* sanctioned deepened Lazuli (matches letters) */
   --ink:#414D57;
   --paper:#FEF6E4;            /* Oats — palette-pure; cards lift off the textured ground via torn ink border + hard shadow */
   --f-slab:"Courier Prime",ui-monospace,monospace;  /* Pitch (display) */
@@ -171,7 +173,7 @@ html.sealed .envelope.opened .hero-card{transform:translateY(0)}
 /* inner shadow at the pocket mouth — the depth the card slides out of */
 .pocket-shadow{display:none}
 html.sealed .pocket-shadow{display:block;position:absolute;left:-4%;right:-4%;bottom:0;height:64px;z-index:6;
-  pointer-events:none;background:linear-gradient(to top,rgba(34,36,41,.38),rgba(34,36,41,0));
+  pointer-events:none;background:linear-gradient(to top,rgba(65,77,87,.38),rgba(65,77,87,0));
   opacity:0;transition:opacity .35s ease}
 html.sealed .envelope.cutting .pocket-shadow,
 html.sealed .envelope.opened:not(.done) .pocket-shadow{opacity:1}
@@ -223,6 +225,23 @@ html.sealed .envelope.opened .cut-prompt{opacity:0;pointer-events:none;animation
 .cut-prompt-arrow{width:92px;height:22px;color:var(--colorado);filter:url(#rough)}
 @keyframes cutbob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
+/* ---- pre-cut comprehension anchor: the green squigglevision hook + the steady
+   craft tagline, sitting ABOVE the seam. While sealed it's the only readable
+   copy; on the open (html.revealed) it fades and collapses, the same way the
+   seam + .cut-prompt do. Hidden entirely when the hero shows un-sealed (no cut
+   to make). CSS-only — html.revealed is already set by the cut JS. ---- */
+.cut-hook{display:none}
+html.sealed .cut-hook{display:block;text-align:center;margin:.7rem 0 .2rem;
+  transition:opacity .5s ease, visibility .5s ease, height .6s ease, margin .6s ease}
+html:not(.sealed) .cut-hook{display:none}
+.cut-hook-line{margin:0;color:var(--grass-deep);font-size:clamp(1.35rem,3.4vw,1.9rem);line-height:1.1;
+  transform:rotate(-1.4deg);filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite}
+.cut-hook-heart{font-style:normal}
+.cut-hook-tag{margin:.4rem 0 0;font-family:var(--f-mono);font-weight:500;font-size:clamp(.82rem,1.6vw,.95rem);
+  letter-spacing:.04em;color:var(--ink)}                         /* STEADY: no wobble, high-contrast ink on cream */
+html.sealed.revealed .cut-hook{opacity:0;visibility:hidden;height:0;margin:0;overflow:hidden;pointer-events:none}
+html[data-tier="lite"] .cut-hook-line{filter:none!important;animation:none!important}
+
 /* ---- the cut opens the whole site ---- */
 /* before the cut: only the hero envelope exists — everything below is hidden,
    so the page is one clean screen. JS adds html.revealed ~2s after the card lands. */
@@ -251,7 +270,40 @@ html.revealed.scrolled .scroll-cue{opacity:0;animation:none}
   background:var(--paper);padding:.15rem .55rem .25rem;border:2.2px solid var(--ink);
   border-radius:6px;box-shadow:3px 3px 0 0 var(--ink)}
 .scroll-cue svg{width:60px;height:40px;color:var(--colorado);filter:url(#rough)}
+.sc-down{font-family:var(--f-hand);font-size:1.35rem;line-height:1;color:var(--colorado);transform:rotate(-2.5deg);filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite}
+html[data-tier="lite"] .sc-down{filter:none!important;animation:none!important}
+/* Circle glyph (the .cmark ring from the reader's ringMark) — decorative amber motif at Circle anchor points */
+.cmark{display:inline-grid;place-items:center;width:.92em;height:.92em;vertical-align:-.08em;color:var(--schoolbus)}
+.cmark svg{width:100%;height:100%;display:block;overflow:visible}
+.cmark circle{fill:none;stroke:currentColor;stroke-width:2.7;stroke-linecap:round;stroke-dasharray:55 9;filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite}
+html[data-tier="lite"] .cmark circle{animation:none!important}
 @keyframes scrollbob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+
+/* ---------- film = a peek inside a Circle (placeholder reel) ----------
+   A taped zine frame around a 16/9 poster box. The .reel-poster placeholder
+   drops out for a real <video class="reel-media"> later (same box). The frame
+   settles in on scroll via initReveals (.film .reel in the settle group). */
+.film{padding:clamp(1.5rem,4vw,3rem) 0}
+.film .head{margin-bottom:clamp(1.6rem,4vw,2.4rem)}
+.film .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;
+  font-size:clamp(1.8rem,5vw,2.8rem);line-height:1;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
+.reel{position:relative;width:min(760px,100%);margin-inline:auto}
+@media(min-width:760px){.reel{rotate:-.5deg}}
+.reel>.inner{padding:clamp(1rem,2.4vw,1.6rem)}
+.reel-frame{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--sambas);
+  border:2.4px solid var(--ink);border-radius:5px}
+.reel-frame .reel-media,
+.reel-frame .reel-poster{position:absolute;inset:0;width:100%;height:100%}
+.reel-media{object-fit:cover;display:block}
+/* placeholder fill: faint vertical film-frame strokes over the dark sheet */
+.reel-poster{display:grid;place-items:center;
+  background-image:repeating-linear-gradient(90deg,rgba(254,246,228,.10) 0 5px,transparent 5px 38px)}
+.reel-play{display:grid;place-items:center;width:clamp(54px,9vw,76px);height:clamp(54px,9vw,76px);
+  border-radius:50%;background:var(--paper);border:2.6px solid var(--ink);box-shadow:5px 5px 0 0 var(--ink);
+  transform:rotate(-2deg)}
+.reel-play svg{width:42%;height:42%;color:var(--grass-deep);margin-left:8%}  /* nudge the triangle to optical centre */
+.reel-cap{display:block;text-align:center;margin:.75rem 0 0;font-size:1.2rem;color:var(--sambas);transform:rotate(-1deg)}
+html[data-tier="lite"] .reel-frame{filter:none}
 
 /* ---------- about = dark cut-paper ---------- */
 .about{padding:clamp(1rem,3vw,2rem) 0}
@@ -791,6 +843,19 @@ html.sealed:not(.revealed) .cg-scrap{opacity:0!important}
   .cta-attn.cta-quiet .cta-scrawl{opacity:0!important}
 }
 
+/* subordinate secondary CTA — "or start one →" rides to the same /join-online/
+   flow but stays visually quiet next to the primary stamp button: a small
+   grass underline-link, never a second button. */
+.cta-alt{font-family:var(--f-mono);font-weight:500;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--grass-deep);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px;
+  text-decoration-color:rgba(12,110,57,.45);
+  display:inline-flex;align-items:center;gap:.3rem;min-height:44px;align-self:flex-start;
+  transition:text-decoration-color .12s ease, transform .12s ease}
+.cta-alt .arr{font-family:var(--f-mono)}
+.cta-alt:hover,.cta-alt:focus-visible{text-decoration-color:var(--grass-deep);transform:translateY(-1px)}
+.cta-alt:focus-visible{outline:2px solid var(--lazuli);outline-offset:3px;border-radius:3px}
+.hero .cta{align-items:center}          /* keep the quiet link baseline-aligned with the stamp button */
+
 /* ===================================================================
    M5 — Photo VANDALISM: sharpie doodles scrawled onto a tapped photo.
    The layer pins to the photo box but overflows it (a stroke can spill past
@@ -832,7 +897,7 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 
 #finale-reward{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;
   padding:24px;opacity:0;visibility:hidden;pointer-events:none;
-  background:radial-gradient(circle at 50% 38%, #fffdf6 0%, var(--oats) 58%, #f6ead0 100%)}
+  background:radial-gradient(circle at 50% 38%, var(--oats) 0%, var(--oats) 58%, rgba(65,77,87,.10) 100%)}
 #finale-reward.show{opacity:1;visibility:visible;pointer-events:auto}
 .finale-card{text-align:center;max-width:min(560px,90vw);transform:scale(.8);
   animation:finale-pop .6s cubic-bezier(.2,1.5,.45,1) .05s both}
@@ -922,7 +987,7 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 /* string is ROOTED at the slit and STRETCHES as you over-pull (top counters the
    strand's translate so it never slides out of the cut) — taut, then it snaps */
 .hb-thread{position:absolute;top:calc((1 - var(--pull)) * 260px);bottom:0;right:57px;width:4px;border-radius:3px;z-index:0;
-  background:repeating-linear-gradient(48deg, var(--lazuli) 0 4px, #1b6f97 4px 8px);filter:url(#roughsm)}
+  background:repeating-linear-gradient(48deg, var(--lazuli) 0 4px, var(--lazuli-deep) 4px 8px);filter:url(#roughsm)}
 .hb-fallen{position:relative;z-index:1;margin-top:22px;width:48px;height:44px;display:inline-flex;align-items:center;justify-content:center;
   background:var(--paper);border:2.6px solid var(--ink);border-radius:7px;box-shadow:3px 3px 0 0 var(--ink);
   cursor:grab;touch-action:none;pointer-events:auto}
@@ -931,13 +996,13 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 
 /* the cut, drawn ON TOP so the strand reads as emerging from the paper */
 .hb-pocket{display:none;position:absolute;top:-3px;right:-6px;width:150px;height:24px;pointer-events:none;z-index:2;
-  background:linear-gradient(to bottom, rgba(34,36,41,.16), rgba(34,36,41,0))}
+  background:linear-gradient(to bottom, rgba(65,77,87,.16), rgba(65,77,87,0))}
 .hb[data-state="rest"] .hb-pocket,.hb[data-state="plain"] .hb-pocket{opacity:0}
 .hb-slit{position:absolute;top:-1px;right:0;width:132px;height:0;border-top:3px solid var(--ink);filter:url(#roughsm);z-index:3;pointer-events:none}
 .hb[data-state="rest"] .hb-slit,.hb[data-state="plain"] .hb-slit{opacity:0}
 
 /* danger: string reddens + stretches as you over-pull */
-.hb.is-straining .hb-thread{background:repeating-linear-gradient(48deg, var(--colorado) 0 4px, #c4393d 4px 8px)}
+.hb.is-straining .hb-thread{background:repeating-linear-gradient(48deg, var(--colorado) 0 4px, var(--coral-ink) 4px 8px)}
 .hb.is-straining .hb-strand{transition:none}
 .hb.is-straining .hb-fallen{margin-top:52px}
 .hb.is-straining .hb-tray a{border-color:var(--colorado)}
