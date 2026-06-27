@@ -162,13 +162,13 @@ a{color:inherit}
 /* the pocket: a BOUNDED blank area with the card sitting at its base (the seam),
    so a tall card can't shove the "cut here" line below the fold. */
 .card-clip{position:relative;overflow:visible}
-html.sealed .card-clip{display:flex;align-items:flex-end;min-height:clamp(220px,32vh,330px);transition:min-height .5s ease,margin-top .5s ease}
+html.sealed .card-clip{display:flex;align-items:flex-end;min-height:clamp(220px,32vh,330px);transition:min-height .46s cubic-bezier(.33,1,.4,1),margin-top .46s cubic-bezier(.34,1,.45,1)}
 html.sealed:not(.revealed) .card-clip{margin-top:calc(clamp(.7rem,1.8vw,1.4rem) - clamp(2.4rem,5.5vw,4.2rem))}  /* tight while sealed; reverts to 0 on settle = the card's downward drop, now CARD-ONLY */
 html.sealed.revealed .card-clip{min-height:0}                     /* pocket blank collapses on settle */
 html.sealed .envelope:not(.done) .card-clip{overflow:clip}        /* clip while sealed + rising */
 
 /* the card: sealed = pushed down into the pocket (clipped away → blank above) */
-.hero-card{width:100%;transition:transform .42s cubic-bezier(.16,.84,.3,1)}  /* quick card rise so the reel can trail with a clean gap */
+.hero-card{width:100%;transition:transform .58s cubic-bezier(.22,.7,.25,1)}  /* decel rise THROUGH the stationary slit (not a front-loaded slam) */
 html.sealed .hero-card{transform:translateY(122%)}
 html.sealed .envelope.opened .hero-card{transform:translateY(0)}
 /* compact hero so the whole card + seam live in one view (the envelope is a single screen) */
@@ -287,6 +287,8 @@ html[data-tier="lite"] .sc-down{filter:none!important;animation:none!important}
 .cmark svg{width:100%;height:100%;display:block;overflow:visible}
 .cmark circle{fill:none;stroke:currentColor;stroke-width:2.7;stroke-linecap:round;stroke-dasharray:55 9;filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite}
 html[data-tier="lite"] .cmark circle{animation:none!important}
+/* Circle glyph stamped on the hero notecard, upper-right */
+.hero-cmark{position:absolute;top:clamp(10px,1.5vw,18px);right:clamp(12px,1.8vw,26px);width:clamp(40px,4.8vw,62px);height:auto;color:var(--schoolbus);z-index:3;opacity:.92}
 @keyframes scrollbob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
 
 /* ---------- the reel polaroid (Instagram reel cropped to an instax) ----------
@@ -318,7 +320,8 @@ html[data-tier="lite"] .cmark circle{animation:none!important}
    push the bars outside the window (clipped) and fill edge-to-edge. */
 .reel-ig{position:absolute;top:calc(-1 * var(--ig-top,56px));left:50%;
   transform:translateX(-50%) scale(var(--ig-zoom,1));transform-origin:50% 20%;
-  width:100%;height:var(--ig-h,780px);border:0;display:block;background:var(--sambas)}
+  width:100%;height:var(--ig-h,780px);border:0;display:block;background:var(--sambas);pointer-events:none}   /* inert by default → the whole polaroid (incl. the embed) is tear/drag-able */
+.reel-window.reel-playing .reel-ig{pointer-events:auto}   /* tap the reel ("play me") → IG player becomes interactive */
 
 /* decorative play cue — the iframe underneath takes the click (IG's inline player);
    the cue fades once you engage so it never sits over the playing video */
@@ -328,8 +331,7 @@ html[data-tier="lite"] .cmark circle{animation:none!important}
   font-family:var(--f-mono);font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:.66rem;line-height:1;
   color:#fff;background:#212c30;padding:.34em .62em .3em;border-radius:4px;transform:rotate(-3deg);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.22), inset 0 -1px 0 rgba(0,0,0,.32), 2px 2px 0 rgba(0,0,0,.3);
-  pointer-events:none;transition:opacity .25s ease, transform .25s ease}
-.reel-window:hover .reel-play,.reel-window:focus-within .reel-play,
+  pointer-events:auto;cursor:pointer;transition:opacity .25s ease, transform .25s ease}
 .reel-window.reel-playing .reel-play{opacity:0;transform:rotate(-3deg) scale(.85);pointer-events:none}
 
 /* the bottom lip caption */
@@ -348,10 +350,10 @@ html.sealed .envelope:not(.done) .reel-stage{overflow:visible;clip-path:inset(-1
 html.sealed .envelope.done .reel-stage{overflow:visible;clip-path:none}
 .hero-reel{position:absolute;z-index:4;margin:0;pointer-events:auto;
   left:calc(clamp(420px,54%,620px) - clamp(20px,2.5vw,56px));   /* card right edge minus stick-out, re-anchored to the wider stage */
-  top:calc(50% + 60px);translate:0 -50%;   /* rest a bit lower (closer to the card's centre) */
+  top:calc(50% + 120px);translate:0 -50%;   /* base sits ON-SCREEN so the emerge lands here (was too high → parked off-screen before settle) */
   width:clamp(300px,34vw,440px);rotate:6.5deg;
-  --reel-settle:calc(clamp(2.4rem,5.5vw,4.2rem) - clamp(.7rem,1.8vw,1.4rem));
-  transition:transform .5s cubic-bezier(.2,.86,.3,1.06) .56s}   /* emerge: starts 140ms AFTER the card lands (no overlap) */
+  --reel-settle:clamp(16px,2.4vh,26px);   /* small settle pop so the emerge never parks off-screen */
+  transition:transform .6s cubic-bezier(.2,.78,.28,1) .16s}   /* emerge: trails the card by ~160ms, shares the slit; NO 1.06 spring (can't fly off-screen) */
 .hero-reel:hover{transform:none}               /* neutralise .reel-instax:hover lift; centring is the translate property */
 .hero-reel:hover::before{box-shadow:10px 11px 0 0 var(--ink)}
 /* the reel comes out of the slit SEPARATELY from the card: while sealed it sits
@@ -361,7 +363,7 @@ html.sealed .envelope.done .reel-stage{overflow:visible;clip-path:none}
 html.sealed .hero-reel{transform:translateY(var(--reel-hide,150%)) rotate(-11deg)}  /* hidden fully below the slit; --reel-hide is JS-measured per scale (150% fallback) */
 html.sealed .envelope.opened .hero-reel{transform:none}
 /* photo SETTLE — its OWN delayed beat (~t=2770), 200ms AFTER the card settle ends. Specificity (0,5,1) beats the emerge rule (0,4,1) so it wins once revealed. */
-html.sealed.revealed .envelope.opened .hero-reel{transform:translateY(var(--reel-settle));transition:transform .5s cubic-bezier(.2,.8,.3,1) .7s}   /* settle: 200ms gap after the card's drop, clears the seam collapse too */
+html.sealed.revealed .envelope.opened .hero-reel{transform:translateY(var(--reel-settle));transition:transform .42s cubic-bezier(.33,1,.5,1) .12s}   /* settle: nudges down right after the card settle (revealed now fires ~800ms) */
 .hero-reel .reel-cap{font-size:clamp(1rem,1.5vw,1.3rem);padding:.55rem .25rem .7rem}
 @media(min-width:881px){
   .hero .paper.hero-card{width:clamp(420px,54%,620px)}   /* the card sits on the left, narrower (beats .hero .paper 97%) */

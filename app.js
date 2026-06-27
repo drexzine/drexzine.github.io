@@ -693,19 +693,30 @@ function initEnvelope(audio) {
     setCut(1); setX(1);
     Stage.play('cut', { gain: 0.42 });               // the heavier release tear
     env.classList.add('opened');                     // the card rises out of the pocket
-    { const _cc = document.querySelector('.card-clip'); _cc.style.height = ''; _cc.style.minHeight = ''; }   // release the slit-centering clamp → reveal reflows naturally
+    { const _cc = document.querySelector('.card-clip'); _cc.style.height = ''; _cc.style.minHeight = ''; }   // release the centering clamp: the card rises to its NATURAL rest (clamp is shorter than the card, so keeping it overflows the card off-screen)
     { const _stage = document.querySelector('.reel-stage');   // keep the reel's emerge clip glued to the card's mask line through the post-cut reflow
-      if (_stage) { const _t0 = performance.now(); (function track(now){ if (env.classList.contains('done')) return; const cc = document.querySelector('.card-clip'); if (cc) _stage.style.setProperty('--reel-clip', (cc.getBoundingClientRect().bottom - _stage.getBoundingClientRect().top) + 'px'); if (now - _t0 < 650) requestAnimationFrame(track); })(performance.now()); } }
+      if (_stage) { const _t0 = performance.now(); (function track(now){ if (env.classList.contains('done')) return; const cc = document.querySelector('.card-clip'); if (cc) _stage.style.setProperty('--reel-clip', (cc.getBoundingClientRect().bottom - _stage.getBoundingClientRect().top) + 'px'); if (now - _t0 < 800) requestAnimationFrame(track); })(performance.now()); } }
     spawnVolcano(seam);                               // marginalia ERUPTS upward out of the slit
     Stage.play('rustle', { gain: 0.34 });            // paper shuffle as it comes up
     setTimeout(() => Stage.play('rustle', { gain: 0.18, rate: 1.12 }), 190);
-    setTimeout(() => {                               // AFTER the ~0.8s rise:
-      env.classList.add('done', 'lit-shadow');       // unclip + the hard shadow pops in
-      setTimeout(() => { env.classList.add('lit-tape'); Stage.play('taperip', { gain: 0.3 }); }, 250);
-      setTimeout(() => { env.classList.add('lit-hl');  Stage.play('marker',  { gain: 0.32 }); }, 600);
-      // ~2s after the cut, the rest of the zine unfurls below + a "there's more" cue appears
-      setTimeout(() => { root.classList.add('revealed'); Stage.play('rustle', { gain: 0.16, rate: 0.95 }); }, 1050);
-    }, 820);
+    setTimeout(() => { env.classList.add('done', 'lit-shadow'); }, 780);   // unclip ONLY after both papers cleared the slit; hard shadow pops
+    setTimeout(() => {                               // BEAT 3+4: card-settle + reel-settle, tight on the emerge's heels
+      root.classList.add('revealed');               // margin-top reverts (card drop) + reel-settle fires
+      Stage.play('rustle', { gain: 0.16, rate: 0.95 });
+      const cc = document.querySelector('.card-clip');   // smoothly animate the pocket collapse (CSS can't transition the JS-set px height)
+      if (cc) {
+        const from = cc.getBoundingClientRect().height;
+        cc.style.height = ''; cc.style.minHeight = '';
+        const to = cc.getBoundingClientRect().height;
+        cc.style.height = from + 'px'; void cc.offsetHeight;          // lock 'from', force reflow
+        cc.style.transition = 'height .46s cubic-bezier(.33,1,.4,1)';
+        cc.style.height = to + 'px';
+        const clr = () => { cc.style.height = ''; cc.style.minHeight = ''; cc.style.transition = ''; cc.removeEventListener('transitionend', clr); };
+        cc.addEventListener('transitionend', clr); setTimeout(clr, 560);   // fallback clear
+      }
+    }, 800);
+    setTimeout(() => { env.classList.add('lit-tape'); Stage.play('taperip', { gain: 0.3 }); }, 880);
+    setTimeout(() => { env.classList.add('lit-hl');  Stage.play('marker',  { gain: 0.32 }); }, 1000);
   }
 
   /* ---- pointer drag (mouse + touch unified) ---- */
@@ -1429,6 +1440,10 @@ function initCollage(){
     window.addEventListener('blur', function () {
       if (reelWin && document.activeElement === reel) reelWin.classList.add('reel-playing');
     }, { passive: true });
+    // the embed is pointer-events:none by default (so the whole polaroid is tear/drag-able);
+    // a TAP on the reel opts into playback by making IG's iframe interactive. A real tear is
+    // a drag, which suppresses the click, so this only fires on a genuine tap (not a tear).
+    if (reelWin) reelWin.addEventListener('click', function () { reelWin.classList.add('reel-playing'); });
   }
 
   // Measure every burst container (desktop gutter burst + the mobile foreground
