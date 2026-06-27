@@ -344,8 +344,8 @@ html[data-tier="lite"] .reel-instax::before{filter:none;animation:none}
 /* the reel lives in .reel-stage, anchored to .envelope (NOT the card) so it never rides the
    card's rise or settle — fully decoupled in both phases. */
 .reel-stage{position:absolute;left:0;right:0;z-index:4;pointer-events:none;top:calc(clamp(.7rem,1.8vw,1.4rem) - clamp(2.4rem,5.5vw,4.2rem));height:clamp(220px,32vh,330px)}
-html.sealed .envelope:not(.done) .reel-stage{overflow:clip}    /* clip at the slit while emerging */
-html.sealed .envelope.done .reel-stage{overflow:visible}
+html.sealed .envelope:not(.done) .reel-stage{overflow:visible;clip-path:inset(-100vh 0 calc(100% - var(--reel-clip, clamp(220px,32vh,330px))) 0)}    /* clip at the CARD's mask line (JS-measured --reel-clip) so reel + card share ONE slit at every scale */
+html.sealed .envelope.done .reel-stage{overflow:visible;clip-path:none}
 .hero-reel{position:absolute;z-index:4;margin:0;pointer-events:auto;
   left:calc(clamp(420px,54%,620px) - clamp(20px,2.5vw,56px));   /* card right edge minus stick-out, re-anchored to the wider stage */
   top:calc(50% + 60px);translate:0 -50%;   /* rest a bit lower (closer to the card's centre) */
@@ -358,7 +358,7 @@ html.sealed .envelope.done .reel-stage{overflow:visible}
    DEEPER in the pocket and at a STEEPER angle; on the cut it releases ~0.22s after
    the card (which rises straight) and twists into place on its own beat. transform
    composes with the resting translate(centre) + rotate(tilt) longhands. */
-html.sealed .hero-reel{transform:translateY(150%) rotate(-11deg)}  /* sits fully below the slit while sealed (no longer borrows the card's lift) */
+html.sealed .hero-reel{transform:translateY(var(--reel-hide,150%)) rotate(-11deg)}  /* hidden fully below the slit; --reel-hide is JS-measured per scale (150% fallback) */
 html.sealed .envelope.opened .hero-reel{transform:none}
 /* photo SETTLE — its OWN delayed beat (~t=2770), 200ms AFTER the card settle ends. Specificity (0,5,1) beats the emerge rule (0,4,1) so it wins once revealed. */
 html.sealed.revealed .envelope.opened .hero-reel{transform:translateY(var(--reel-settle));transition:transform .5s cubic-bezier(.2,.8,.3,1) .7s}   /* settle: 200ms gap after the card's drop, clears the seam collapse too */
@@ -387,7 +387,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
    child, so it still rides the rise); paperclip back to top-centre */
 @keyframes reel-mob-in{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 @media(max-width:880px){
-  .reel-stage{display:contents}   /* stage box dissolves on mobile → figure flows in the column stack */
+  .reel-stage{display:contents;clip-path:none}   /* stage box dissolves on mobile; desktop slit mechanism inert even if a var leaks */
   html.sealed:not(.revealed) .hero-reel{display:none}   /* HIDDEN pre-cut on mobile: out of flow, invisible even on scroll */
   .hero-reel{position:static;left:auto;top:auto;translate:none;width:min(330px,86vw);margin:1.2rem auto 0;rotate:-1.2deg;transition:none}
   .hero-reel:hover{transform:none}

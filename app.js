@@ -94,10 +94,12 @@ function initSlitCenter() {
   const seam = document.getElementById('cutgate');
   const env  = document.getElementById('envelope');
   if (!clip || !seam || !env) return;
+  const stage = env.querySelector('.reel-stage');
+  const reel  = stage && stage.querySelector('.hero-reel');
   function center() {
     const sealedNow = root.classList.contains('sealed') && !root.classList.contains('revealed') &&
                       !env.classList.contains('opened') && !env.classList.contains('cutting');
-    if (!sealedNow || window.innerWidth <= 880) { clip.style.height = ''; clip.style.minHeight = ''; return; }
+    if (!sealedNow || window.innerWidth <= 880) { clip.style.height = ''; clip.style.minHeight = ''; if (stage) { stage.style.removeProperty('--reel-clip'); stage.style.removeProperty('--reel-hide'); } return; }
     clip.style.minHeight = '0';   // let the pocket shrink past the clamp so the seam can reach centre
     clip.style.height = '';
     for (let i = 0; i < 4; i++) {
@@ -105,6 +107,17 @@ function initSlitCenter() {
       const delta = window.innerHeight / 2 - (r.top + r.bottom) / 2;
       if (Math.abs(delta) < 1) break;
       clip.style.height = Math.max(0, clip.offsetHeight + delta) + 'px';
+    }
+    if (stage) {                                  // publish the card's mask line so the reel clips at the SAME slit
+      const slitY    = clip.getBoundingClientRect().bottom;
+      const stageTop = stage.getBoundingClientRect().top;
+      stage.style.setProperty('--reel-clip', (slitY - stageTop) + 'px');
+      if (reel) {
+        const h = reel.offsetHeight, w = reel.offsetWidth;
+        const restTopY = stageTop + reel.offsetTop - h / 2;          // visual REST top (undoes translate:0 -50%)
+        const safety = (w / 2) * Math.sin(11 * Math.PI / 180) + 16;  // clear the rotate(-11deg) corners
+        stage.style.setProperty('--reel-hide', (Math.max(0, slitY - restTopY) + safety) + 'px');
+      }
     }
   }
   center();
@@ -681,6 +694,8 @@ function initEnvelope(audio) {
     Stage.play('cut', { gain: 0.42 });               // the heavier release tear
     env.classList.add('opened');                     // the card rises out of the pocket
     { const _cc = document.querySelector('.card-clip'); _cc.style.height = ''; _cc.style.minHeight = ''; }   // release the slit-centering clamp → reveal reflows naturally
+    { const _stage = document.querySelector('.reel-stage');   // keep the reel's emerge clip glued to the card's mask line through the post-cut reflow
+      if (_stage) { const _t0 = performance.now(); (function track(now){ if (env.classList.contains('done')) return; const cc = document.querySelector('.card-clip'); if (cc) _stage.style.setProperty('--reel-clip', (cc.getBoundingClientRect().bottom - _stage.getBoundingClientRect().top) + 'px'); if (now - _t0 < 650) requestAnimationFrame(track); })(performance.now()); } }
     spawnVolcano(seam);                               // marginalia ERUPTS upward out of the slit
     Stage.play('rustle', { gain: 0.34 });            // paper shuffle as it comes up
     setTimeout(() => Stage.play('rustle', { gain: 0.18, rate: 1.12 }), 190);
