@@ -107,10 +107,15 @@ a{color:inherit}
 .mast{position:relative;background:var(--oats);border-bottom:0}
 .mast::after{content:"";position:absolute;left:0;right:0;bottom:-15px;height:30px;background:var(--oats);filter:url(#tornbig);z-index:1}
 .mast .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:1rem;position:relative;z-index:2}
-.mast .brand{display:flex;align-items:center;gap:.6rem}
-.mast .lg-icon{width:30px;display:block}
-.mast .lg-word{width:78px;display:block}
+.mast .brand{display:flex;align-items:center;gap:0}   /* brand rule: exactly one 'x' of space between mark + word.
+   The SVG art carries ~18px of internal whitespace (mark's right + word's left) at this size, which equals
+   the wordmark's 'x' (~17px), so gap:0 lands the visible space at one 'x'. */
+.mast .lg-icon{width:46px;display:block}   /* mark = dominant element, per brand lockups */
+.mast .lg-word{width:84px;display:block}
 .mast .lg-icon svg,.mast .lg-word svg{display:block;width:100%;height:auto}
+/* brand mark + logotype in brand green (overrides the SVGs' inline ink fill) */
+.mast .lg-icon svg,.mast .lg-icon svg path,
+.mast .lg-word svg,.mast .lg-word svg path{fill:var(--grass)}
 /* desktop masthead nav — scoped to the DIRECT nav so these rules never bleed
    into the ported mobile burger panel's own <nav> (which also lives in .mast) */
 .mast>.wrap>nav{display:flex;gap:clamp(.5rem,2vw,1.1rem);align-items:center;flex-wrap:wrap;justify-content:flex-end}
@@ -152,16 +157,18 @@ a{color:inherit}
 /* tight top while sealed so the seam stays in view; on settle it grows so the
    risen card clears the mast (transitioned, so the card visibly drops into place). */
 .hero{padding-block:clamp(2.4rem,5.5vw,4.2rem) clamp(1.5rem,4vw,3rem);transition:padding .7s ease}
-html.sealed:not(.revealed) .hero{padding-top:clamp(.7rem,1.8vw,1.4rem)}   /* tight ONLY during the blank/emerge phase; reverts on settle */
+/* card settle-drop RELOCATED from .hero padding onto .card-clip margin-top (below) so it
+   no longer wraps the envelope-anchored photo — .hero padding stays constant (loose). */
 /* the pocket: a BOUNDED blank area with the card sitting at its base (the seam),
    so a tall card can't shove the "cut here" line below the fold. */
 .card-clip{position:relative;overflow:visible}
-html.sealed .card-clip{display:flex;align-items:flex-end;min-height:clamp(220px,32vh,330px);transition:min-height .7s ease}
+html.sealed .card-clip{display:flex;align-items:flex-end;min-height:clamp(220px,32vh,330px);transition:min-height .5s ease,margin-top .5s ease}
+html.sealed:not(.revealed) .card-clip{margin-top:calc(clamp(.7rem,1.8vw,1.4rem) - clamp(2.4rem,5.5vw,4.2rem))}  /* tight while sealed; reverts to 0 on settle = the card's downward drop, now CARD-ONLY */
 html.sealed.revealed .card-clip{min-height:0}                     /* pocket blank collapses on settle */
 html.sealed .envelope:not(.done) .card-clip{overflow:clip}        /* clip while sealed + rising */
 
 /* the card: sealed = pushed down into the pocket (clipped away → blank above) */
-.hero-card{width:100%;transition:transform .8s cubic-bezier(.16,.84,.3,1)}
+.hero-card{width:100%;transition:transform .42s cubic-bezier(.16,.84,.3,1)}  /* quick card rise so the reel can trail with a clean gap */
 html.sealed .hero-card{transform:translateY(122%)}
 html.sealed .envelope.opened .hero-card{transform:translateY(0)}
 /* compact hero so the whole card + seam live in one view (the envelope is a single screen) */
@@ -172,7 +179,7 @@ html.sealed .envelope.opened .hero-card{transform:translateY(0)}
 
 /* inner shadow at the pocket mouth — the depth the card slides out of */
 .pocket-shadow{display:none}
-html.sealed .pocket-shadow{display:block;position:absolute;left:-4%;right:-4%;bottom:0;height:64px;z-index:6;
+html.sealed .pocket-shadow{display:block;position:absolute;left:-6%;right:-6%;bottom:50%;height:clamp(56px,9vh,84px);z-index:6;
   pointer-events:none;background:linear-gradient(to top,rgba(65,77,87,.38),rgba(65,77,87,0));
   opacity:0;transition:opacity .35s ease}
 html.sealed .envelope.cutting .pocket-shadow,
@@ -239,6 +246,9 @@ html:not(.sealed) .cut-hook{display:none}
 .cut-hook-heart{font-style:normal}
 .cut-hook-tag{margin:.4rem 0 0;font-family:var(--f-mono);font-weight:500;font-size:clamp(.82rem,1.6vw,.95rem);
   letter-spacing:.04em;color:var(--ink)}                         /* STEADY: no wobble, high-contrast ink on cream */
+/* fade out the moment cutting starts — in lockstep with the "drag to cut" prompt (same triggers) */
+html.sealed .envelope.cutting .cut-hook,
+html.sealed .envelope.opened .cut-hook{opacity:0;visibility:hidden;pointer-events:none}
 html.sealed.revealed .cut-hook{opacity:0;visibility:hidden;height:0;margin:0;overflow:hidden;pointer-events:none}
 html[data-tier="lite"] .cut-hook-line{filter:none!important;animation:none!important}
 
@@ -279,31 +289,113 @@ html[data-tier="lite"] .sc-down{filter:none!important;animation:none!important}
 html[data-tier="lite"] .cmark circle{animation:none!important}
 @keyframes scrollbob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
 
-/* ---------- film = a peek inside a Circle (placeholder reel) ----------
-   A taped zine frame around a 16/9 poster box. The .reel-poster placeholder
-   drops out for a real <video class="reel-media"> later (same box). The frame
-   settles in on scroll via initReveals (.film .reel in the settle group). */
-.film{padding:clamp(1.5rem,4vw,3rem) 0}
-.film .head{margin-bottom:clamp(1.6rem,4vw,2.4rem)}
-.film .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;
-  font-size:clamp(1.8rem,5vw,2.8rem);line-height:1;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
-.reel{position:relative;width:min(760px,100%);margin-inline:auto}
-@media(min-width:760px){.reel{rotate:-.5deg}}
-.reel>.inner{padding:clamp(1rem,2.4vw,1.6rem)}
-.reel-frame{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--sambas);
-  border:2.4px solid var(--ink);border-radius:5px}
-.reel-frame .reel-media,
-.reel-frame .reel-poster{position:absolute;inset:0;width:100%;height:100%}
-.reel-media{object-fit:cover;display:block}
-/* placeholder fill: faint vertical film-frame strokes over the dark sheet */
-.reel-poster{display:grid;place-items:center;
-  background-image:repeating-linear-gradient(90deg,rgba(254,246,228,.10) 0 5px,transparent 5px 38px)}
-.reel-play{display:grid;place-items:center;width:clamp(54px,9vw,76px);height:clamp(54px,9vw,76px);
-  border-radius:50%;background:var(--paper);border:2.6px solid var(--ink);box-shadow:5px 5px 0 0 var(--ink);
-  transform:rotate(-2deg)}
-.reel-play svg{width:42%;height:42%;color:var(--grass-deep);margin-left:8%}  /* nudge the triangle to optical centre */
-.reel-cap{display:block;text-align:center;margin:.75rem 0 0;font-size:1.2rem;color:var(--sambas);transform:rotate(-1deg)}
-html[data-tier="lite"] .reel-frame{filter:none}
+/* ---------- the reel polaroid (Instagram reel cropped to an instax) ----------
+   Lives PAPERCLIPPED inside .hero-card (.hero-reel) and rides the card out of the
+   envelope pocket on the cut. .reel-window is a squarish photo box that CLIPS the
+   IG /embed/ iframe: IG renders a header above the video + a like/comment footer
+   below; --ig-top shifts the iframe up to drop the header, --ig-ratio sizes the
+   window to the video so the footer falls below the bottom edge. All three knobs
+   (--ig-top / --ig-h / --ig-ratio) are set inline on the figure to re-tune in one
+   place if IG changes the embed. The iframe is INTERACTIVE (IG's inline player);
+   .reel-play is a decorative cue that fades on hover/focus. */
+
+/* the instax card (base; .hero-reel overrides size + position) */
+.reel-instax{position:relative;width:min(330px,86vw);margin-inline:auto;
+  padding:13px 13px 0;transition:transform .18s ease}
+@media(min-width:760px){.reel-instax{rotate:-1.2deg}}
+/* white backing (border + hard shadow) on its own layer so it can boil without warping the video */
+.reel-instax::before{content:"";position:absolute;inset:0;z-index:0;background:var(--paper);
+  border:2.6px solid var(--ink);border-radius:5px;box-shadow:8px 8px 0 0 var(--ink);
+  filter:url(#soft);animation:boil-soft var(--boil-paper) step-end infinite;transition:box-shadow .18s ease}
+.reel-instax:hover{transform:rotate(0) translateY(-6px)}
+.reel-instax:hover::before{box-shadow:11px 12px 0 0 var(--ink)}
+
+/* the photo window — clips IG's chrome */
+.reel-window{position:relative;z-index:1;width:100%;aspect-ratio:var(--ig-ratio,100/108);overflow:hidden;
+  background:var(--sambas);border:1.5px solid rgba(65,77,87,.28)}
+/* --ig-zoom cover-fills the video: IG bakes pillarbox bars into the reel embed
+   (content is only ~67% of the media width), so we scale the iframe up ~1.5x to
+   push the bars outside the window (clipped) and fill edge-to-edge. */
+.reel-ig{position:absolute;top:calc(-1 * var(--ig-top,56px));left:50%;
+  transform:translateX(-50%) scale(var(--ig-zoom,1));transform-origin:50% 20%;
+  width:100%;height:var(--ig-h,780px);border:0;display:block;background:var(--sambas)}
+
+/* decorative play cue — the iframe underneath takes the click (IG's inline player);
+   the cue fades once you engage so it never sits over the playing video */
+/* DYMO label-tape "play me" cue, tucked in the bottom-left corner so it never
+   covers the playing video (fixes the double-up over IG's own controls) */
+.reel-play{position:absolute;left:9px;bottom:9px;z-index:2;
+  font-family:var(--f-mono);font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:.66rem;line-height:1;
+  color:#fff;background:#212c30;padding:.34em .62em .3em;border-radius:4px;transform:rotate(-3deg);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22), inset 0 -1px 0 rgba(0,0,0,.32), 2px 2px 0 rgba(0,0,0,.3);
+  pointer-events:none;transition:opacity .25s ease, transform .25s ease}
+.reel-window:hover .reel-play,.reel-window:focus-within .reel-play,
+.reel-window.reel-playing .reel-play{opacity:0;transform:rotate(-3deg) scale(.85);pointer-events:none}
+
+/* the bottom lip caption */
+.reel-cap{position:relative;z-index:1;display:block;font-family:var(--f-hand);text-align:center;
+  padding:.7rem .3rem .85rem;margin:0;font-size:1.25rem;line-height:1.1;color:var(--ink);transform:rotate(-1deg)}
+html[data-tier="lite"] .reel-instax::before{filter:none;animation:none}
+
+/* ---- the reel paperclipped into the hero card (rides the card out of the pocket) ----
+   DESKTOP (>=881px): the card narrows to the LEFT and the polaroid is LARGE on the
+   RIGHT, vertically centred and OVERLAPPING the card's right edge (overlap is the look).
+   It stays a child of .hero-card so it still rises out of the pocket with the card. */
+/* the reel lives in .reel-stage, anchored to .envelope (NOT the card) so it never rides the
+   card's rise or settle — fully decoupled in both phases. */
+.reel-stage{position:absolute;left:0;right:0;z-index:4;pointer-events:none;top:calc(clamp(.7rem,1.8vw,1.4rem) - clamp(2.4rem,5.5vw,4.2rem));height:clamp(220px,32vh,330px)}
+html.sealed .envelope:not(.done) .reel-stage{overflow:clip}    /* clip at the slit while emerging */
+html.sealed .envelope.done .reel-stage{overflow:visible}
+.hero-reel{position:absolute;z-index:4;margin:0;pointer-events:auto;
+  left:calc(clamp(420px,54%,620px) - clamp(20px,2.5vw,56px));   /* card right edge minus stick-out, re-anchored to the wider stage */
+  top:calc(50% + 60px);translate:0 -50%;   /* rest a bit lower (closer to the card's centre) */
+  width:clamp(300px,34vw,440px);rotate:6.5deg;
+  --reel-settle:calc(clamp(2.4rem,5.5vw,4.2rem) - clamp(.7rem,1.8vw,1.4rem));
+  transition:transform .5s cubic-bezier(.2,.86,.3,1.06) .56s}   /* emerge: starts 140ms AFTER the card lands (no overlap) */
+.hero-reel:hover{transform:none}               /* neutralise .reel-instax:hover lift; centring is the translate property */
+.hero-reel:hover::before{box-shadow:10px 11px 0 0 var(--ink)}
+/* the reel comes out of the slit SEPARATELY from the card: while sealed it sits
+   DEEPER in the pocket and at a STEEPER angle; on the cut it releases ~0.22s after
+   the card (which rises straight) and twists into place on its own beat. transform
+   composes with the resting translate(centre) + rotate(tilt) longhands. */
+html.sealed .hero-reel{transform:translateY(150%) rotate(-11deg)}  /* sits fully below the slit while sealed (no longer borrows the card's lift) */
+html.sealed .envelope.opened .hero-reel{transform:none}
+/* photo SETTLE — its OWN delayed beat (~t=2770), 200ms AFTER the card settle ends. Specificity (0,5,1) beats the emerge rule (0,4,1) so it wins once revealed. */
+html.sealed.revealed .envelope.opened .hero-reel{transform:translateY(var(--reel-settle));transition:transform .5s cubic-bezier(.2,.8,.3,1) .7s}   /* settle: 200ms gap after the card's drop, clears the seam collapse too */
+.hero-reel .reel-cap{font-size:clamp(1rem,1.5vw,1.3rem);padding:.55rem .25rem .7rem}
+@media(min-width:881px){
+  .hero .paper.hero-card{width:clamp(420px,54%,620px)}   /* the card sits on the left, narrower (beats .hero .paper 97%) */
+  .hero .pin{display:none}                       /* the big polaroid owns the right side now */
+}
+/* metal paperclip straddling the polaroid's TOP-LEFT corner onto the card (the overlap seam) */
+/* washi tape (on-brand) holding the reel to the card — replaces the off-brand paperclip */
+.hero-clip{position:absolute;left:50%;top:-14px;z-index:5;width:116px;height:34px;
+  transform:translateX(-50%) rotate(-4deg);pointer-events:none;
+  background:linear-gradient(94deg,rgba(36,150,201,.5),rgba(36,150,201,.3) 55%,rgba(36,150,201,.46)); /* lazuli washi */
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.22);filter:url(#roughsm);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8px,#000 calc(100% - 8px),transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8px,#000 calc(100% - 8px),transparent)}
+.hero-clip svg{display:none}
+.hero-clip::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 11px,rgba(255,255,255,.1) 11px 12px)}
+.reel-credit{color:var(--grass-deep);text-decoration:underline;text-underline-offset:2px}
+/* paperclip settles in on the EXISTING lit-tape beat (reuses the cut state machine) */
+html.sealed .hero-reel .hero-clip{opacity:0;transform:translateX(-50%) translateY(-8px) rotate(-9deg) scale(.85)}
+html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:translateX(-50%) rotate(-4deg);
+  transition:opacity .4s ease, transform .45s cubic-bezier(.2,.8,.3,1.1)}
+
+/* mobile (<=880px): card is full-bleed → stack the reel below the copy (still a card
+   child, so it still rides the rise); paperclip back to top-centre */
+@keyframes reel-mob-in{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@media(max-width:880px){
+  .reel-stage{display:contents}   /* stage box dissolves on mobile → figure flows in the column stack */
+  html.sealed:not(.revealed) .hero-reel{display:none}   /* HIDDEN pre-cut on mobile: out of flow, invisible even on scroll */
+  .hero-reel{position:static;left:auto;top:auto;translate:none;width:min(330px,86vw);margin:1.2rem auto 0;rotate:-1.2deg;transition:none}
+  .hero-reel:hover{transform:none}
+  html.sealed.revealed .envelope.opened .hero-reel{transform:none;animation:reel-mob-in .5s cubic-bezier(.2,.85,.3,1.08) .25s both}   /* revealed AFTER the cut: fade + slide-up, no slit choreography */
+  .hero-clip{left:50%;top:-14px;transform:translateX(-50%) rotate(3deg)}
+  html.sealed .hero-reel .hero-clip{transform:translateX(-50%) translateY(-10px) rotate(-4deg) scale(.7)}
+  html.sealed .envelope.lit-tape .hero-reel .hero-clip{transform:translateX(-50%) rotate(3deg)}
+}
 
 /* ---------- about = dark cut-paper ---------- */
 .about{padding:clamp(1rem,3vw,2rem) 0}
@@ -356,7 +448,7 @@ html[data-tier="lite"] .reel-frame{filter:none}
 .team .head{margin-bottom:clamp(1.9rem,4.5vw,2.8rem)}
 .team .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.9rem,5vw,2.8rem);line-height:1.02;margin:.35rem 0 0;color:var(--ink);max-width:20ch}
 .crew{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(1.7rem,4vw,3.2rem);align-items:flex-start}
-.polaroid{position:relative;width:min(244px,76%);padding:11px 11px 0;transition:transform .18s ease}
+.polaroid{position:relative;width:min(300px,84%);padding:13px 13px 0;transition:transform .18s ease}
 /* border + hard shadow live on a backing layer so they can boil without warping the photo */
 .polaroid::before{content:"";position:absolute;inset:0;z-index:0;background:var(--paper);
   border:2.6px solid var(--ink);border-radius:5px;box-shadow:8px 8px 0 0 var(--ink);
@@ -385,7 +477,7 @@ html[data-tier="lite"] .reel-frame{filter:none}
 .note-body{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.2rem,2.1vw,1.6rem);line-height:1.5;color:var(--ink);max-width:min(36ch,100%);margin:.9rem 0 0}
 .sign{font-family:var(--f-hand);font-size:clamp(2.2rem,4.5vw,3.2rem);color:var(--grass-deep);margin:1.1rem 0 0;line-height:1}
 .sign-role{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--sambas);margin:.35rem 0 0}
-.snap{position:relative;width:min(260px,80vw);justify-self:center;padding:10px;transform:rotate(2.6deg)}
+.snap{position:relative;width:min(312px,84vw);justify-self:center;padding:12px;transform:rotate(2.6deg)}
 .snap::before{content:"";position:absolute;inset:0;z-index:0;background:var(--paper);border:2.6px solid var(--ink);border-radius:5px;
   box-shadow:8px 8px 0 0 var(--ink);filter:url(#soft);animation:boil-soft var(--boil-paper) step-end infinite;animation-delay:-.9s}
 .snap>.ph{position:relative;z-index:1}
@@ -664,6 +756,40 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
 .cg-scrap.cg-s1{transition-delay:.04s}
 .cg-scrap.cg-s2{transition-delay:.13s}
 .cg-scrap.cg-s3{transition-delay:.22s}
+.cg-scrap.cg-s4{transition-delay:.31s}
+.cg-scrap.cg-s5{transition-delay:.40s}
+.cg-scrap.cg-s6{transition-delay:.50s}
+
+/* ---- SEAM BURST: hero marginalia erupts UPWARD out of the slit on the cut ----
+   The hero collage carries .cg-burst (eruption easing + targeting). app.js
+   initCollage measures each scrap's resting centre vs the slit centre once at
+   env.done and writes the additive origin (--bx/--by), then arms .cg-burst-armed to
+   collapse every scrap to a zero-size dot ON the slit — all while opacity:0, so the
+   collapse is invisible. At html.revealed the collapse rule stops matching and the
+   existing .cg-in rest rule + this transition interpolate slit->gutter. --bx/--by and
+   --cg-py are ADDITIVE terms in ONE translate(), so the parallax loop (writes --cg-py)
+   and the burst never fight over `transform`. No @keyframes, no fill-mode. */
+.cg-burst .cg-scrap{transition:opacity .45s ease, transform .82s cubic-bezier(.26,1.36,.44,1)}  /* back-out overshoot = a POP, scraps fly slightly past then settle (overshoot goes outward off the gutter edges, swallowed by body overflow-x:clip) */
+/* burst-specific stagger: near-simultaneous (a single explosion) with a little jitter,
+   tighter than the per-section settle delays it overrides */
+.cg-burst .cg-scrap.cg-s1{transition-delay:0s}
+.cg-burst .cg-scrap.cg-s2{transition-delay:.04s}
+.cg-burst .cg-scrap.cg-s3{transition-delay:.07s}
+.cg-burst .cg-scrap.cg-s4{transition-delay:.03s}
+.cg-burst .cg-scrap.cg-s5{transition-delay:.09s}
+.cg-burst .cg-scrap.cg-s6{transition-delay:.12s}
+/* armed = every scrap is a dot on the slit (additive origin). Specificity (0,4,1)+!important
+   beats .cg-scrap.cg-in (0,2,0); the opacity gate below still owns opacity. */
+html.sealed:not(.revealed) .cg-burst-armed .cg-scrap{
+  transform:translate(calc(var(--cg-dx,0) + var(--bx,0px)), calc(var(--cg-py,0px) + var(--by,0px)))
+    rotate(var(--cg-r0,0deg)) scale(0)!important;
+  transform-origin:50% 50%;
+}
+/* used only during the synchronous measure/arm snap so it never animates (invisible at opacity:0) */
+.cg-burst.cg-nofade .cg-scrap{transition:none!important}
+/* no-JS safety: without html.js, .cg-in is never added and scraps would be stuck
+   opacity:0 (the .cg-scrap base) — show them at rest instead. No effect on the JS path. */
+html:not(.js) .cg-scrap{opacity:1;transform:translate(var(--cg-dx,0),0) rotate(var(--cg-rot,0deg)) scale(1)}
 /* hold every doodle until the envelope is cut — they fade in with the page
    reveal (html.revealed lands ~2s after the cut; the existing opacity
    transition + s1/s2/s3 stagger then plays). Sealed is never set under
@@ -676,6 +802,9 @@ html.sealed:not(.revealed) .cg-scrap{opacity:0!important}
 }
 @media(max-width:1199px){
   .cg-scrap.cg-drop-lg{display:none}  /* hero gutter pieces: the envelope fills the column below ~1200px */
+}
+@media(min-width:1200px){
+  .cg-mob{display:none}  /* the mobile confetti burst only exists where the gutter scraps are dropped */
 }
 @media(prefers-reduced-motion:reduce){
   .cg-scrap{
@@ -1018,3 +1147,25 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .hb.respawning .hb-rig{opacity:0!important;transition:none!important}
 @media(prefers-reduced-motion:reduce){ .hb-sway,.hb-fall{animation:none!important} }
 
+
+/* ===== VOLCANO eruption overlay - paste into app.css ===== */
+/* fixed, contained, pointer-inert layer that holds the eruption */
+.vol-layer{
+  position:fixed; inset:0;
+  z-index:70;                 /* over hero + envelope card; under .tape-fall(90) and #finale-*(80-95) */
+  pointer-events:none;
+  overflow:hidden;            /* arcs off the edges are clipped, never produce scrollbars */
+  contain:layout paint size;  /* isolate: 170 particles never reflow/repaint the page */
+}
+.vol-p{
+  position:absolute; top:0; left:0;
+  will-change:transform, opacity;
+  transform-origin:50% 50%;
+  backface-visibility:hidden; /* nudge each onto its own GPU layer */
+}
+.vol-p svg{ display:block; overflow:visible; }      /* keep native width/height; JS scales per particle */
+/* drop the hand-drawn boil filters on clones - flat shape + brand colour is the confetti
+   (JS already strips filter attrs on the pool; this is belt-and-braces for any CSS-applied ones) */
+.vol-p svg *{ filter:none !important; }
+/* reduced motion: spawnVolcano already early-returns and never builds the layer; final belt */
+@media (prefers-reduced-motion: reduce){ .vol-layer{ display:none !important; } }

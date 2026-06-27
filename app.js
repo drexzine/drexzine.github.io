@@ -83,6 +83,36 @@ const Stage = (() => {
 window.Stage = Stage;
 
 /* ---- boot ---------------------------------------------------------- */
+/* Keep the cut line at the vertical CENTRE of the viewport while sealed. The hidden
+   card's full-height layout box would otherwise pin the seam low, so we set the
+   pocket's HEIGHT (it's overflow:clip while sealed, so the taller card is clipped)
+   to land the seam centre on 50vh. Recomputed on load + resize; desktop only;
+   released the moment the cut starts so the reveal reflows naturally. */
+function initSlitCenter() {
+  const root = document.documentElement;
+  const clip = document.querySelector('.card-clip');
+  const seam = document.getElementById('cutgate');
+  const env  = document.getElementById('envelope');
+  if (!clip || !seam || !env) return;
+  function center() {
+    const sealedNow = root.classList.contains('sealed') && !root.classList.contains('revealed') &&
+                      !env.classList.contains('opened') && !env.classList.contains('cutting');
+    if (!sealedNow || window.innerWidth <= 880) { clip.style.height = ''; clip.style.minHeight = ''; return; }
+    clip.style.minHeight = '0';   // let the pocket shrink past the clamp so the seam can reach centre
+    clip.style.height = '';
+    for (let i = 0; i < 4; i++) {
+      const r = seam.getBoundingClientRect();
+      const delta = window.innerHeight / 2 - (r.top + r.bottom) / 2;
+      if (Math.abs(delta) < 1) break;
+      clip.style.height = Math.max(0, clip.offsetHeight + delta) + 'px';
+    }
+  }
+  center();
+  window.addEventListener('load', center);
+  window.addEventListener('resize', center, { passive: true });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(center);
+}
+
 function boot() {
   Stage.applyMotion();
   const audio = initAudio();        // M1: audio engine (opt-in, gesture-unlocked)
@@ -90,6 +120,7 @@ function boot() {
   initReveals();                    // M1: settle-in on scroll
   initHighlighter();                // M1: highlighter + marker draw-on
   initEnvelope(audio);              // M3: hero drag-to-cut envelope
+  initSlitCenter();                 // keep the cut line at viewport vertical centre while sealed
   initTearAway();                   // M4: pull a taped piece free — it falls, the washi flutters
   initPhotoVandal();                // M5: tap a photo → a random sharpie doodle scrawls on (persists)
   initInteractionSounds();          // M1: stamp / toggle on interaction
@@ -294,8 +325,7 @@ function initReveals() {
   const groups = [
     document.querySelectorAll('.team .polaroid'),
     document.querySelectorAll('.doors .card'),
-    document.querySelectorAll('.team .head, .doors .head, .film .head'),
-    document.querySelectorAll('.film .reel'),    // film placeholder settles in like the heads
+    document.querySelectorAll('.team .head, .doors .head'),
   ];
   const marked = [];
 
@@ -516,6 +546,106 @@ function initSoundToggle(audio) {
    is in the DOM for screen readers, and the <head> failsafe reveals it if JS
    never arms; reduced-motion / no-JS show the hero normally.
    =================================================================== */
+
+/* ============================================================
+   VOLCANO - on cut, the page's own marginalia ERUPTS upward out
+   of the slit: dense ballistic doodle particles, depth-layered,
+   one rAF physics loop, transform-only, self-cleaning overlay.
+   ============================================================ */
+function spawnVolcano(seam){
+  if (!seam) return;
+  if (Stage.reduce) return;                          // site's reduced-motion contract (primary gate)
+  if (window.__volcanoFired) return;                 // one eruption per page load
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // belt
+
+  var src = document.querySelectorAll('.cg-collage .cg-scrap svg');
+  if (!src.length) return;
+  window.__volcanoFired = true;
+  var pool = [];
+  for (var s = 0; s < src.length; s++){
+    var c = src[s].cloneNode(true);
+    c.removeAttribute('aria-hidden');
+    var fil = c.querySelectorAll('[filter]');
+    for (var f = 0; f < fil.length; f++) fil[f].removeAttribute('filter');
+    pool.push(c);
+  }
+
+  var r  = seam.getBoundingClientRect();
+  var x0 = r.left, w = Math.max(1, r.width), cx = r.left + w / 2;
+  var y0 = r.top + r.height / 2;
+
+  var layer = document.createElement('div');
+  layer.className = 'vol-layer';
+  layer.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(layer);
+
+  var small = innerWidth < 760 || matchMedia('(pointer:coarse)').matches;
+  var N       = small ? 90 : 170;
+  var EMIT_MS = 620;
+
+  var parts = [], spawned = 0, t0 = performance.now(), last = t0, raf = 0;
+
+  function birth(){
+    var bit = document.createElement('span');
+    bit.className = 'vol-p';
+    bit.appendChild(pool[(Math.random() * pool.length) | 0].cloneNode(true));
+    var sx    = x0 + Math.random() * w;
+    var edge  = (sx - cx) / (w / 2);
+    var depth = Math.random();
+    layer.appendChild(bit);
+    parts.push({
+      el: bit,
+      x:  sx,
+      y:  y0 + (Math.random() * 10 - 5),
+      vx: edge * (150 + Math.random() * 240) + (Math.random() - 0.5) * 300,
+      vy: -(900 + depth * 650 + Math.random() * 350),
+      g:  2400 + Math.random() * 420,
+      drag: 0.992,
+      rot: Math.random() * 360,
+      vr:(Math.random() - 0.5) * 920,
+      sc: 0.5 + depth * 0.9,
+      op: 0.6 + depth * 0.4,
+      born: performance.now(),
+      life: 1.8 + Math.random() * 1.0
+    });
+  }
+
+  function tick(now){
+    var dt = Math.min((now - last) / 1000, 0.05); last = now;
+    var elapsed = now - t0;
+
+    if (spawned < N){
+      var want = Math.ceil(N * Math.min(1, Math.pow(elapsed / EMIT_MS, 0.55)));
+      if (want > N) want = N;
+      while (spawned < want){ birth(); spawned++; }
+    }
+
+    var alive = 0;
+    for (var i = 0; i < parts.length; i++){
+      var p = parts[i]; if (!p.el) continue;
+      var age = (now - p.born) / 1000;
+      p.vy += p.g * dt; p.vx *= p.drag;
+      p.x  += p.vx * dt; p.y += p.vy * dt; p.rot += p.vr * dt;
+      if (age >= p.life || p.y > innerHeight + 90){ p.el.remove(); p.el = null; continue; }
+      var rem = p.life - age;
+      var o = (age < 0.06 ? age / 0.06 : (rem < 0.6 ? rem / 0.6 : 1)) * p.op;
+      p.el.style.opacity = o.toFixed(2);
+      p.el.style.transform =
+        'translate(-50%,-50%) translate3d(' + p.x.toFixed(1) + 'px,' + p.y.toFixed(1) + 'px,0) rotate(' +
+        p.rot.toFixed(1) + 'deg) scale(' + p.sc.toFixed(2) + ')';
+      alive++;
+    }
+
+    if ((alive > 0 || spawned < N) && elapsed < 4200){ raf = requestAnimationFrame(tick); }
+    else layer.remove();
+  }
+  raf = requestAnimationFrame(tick);
+
+  setTimeout(function(){
+    if (layer.isConnected){ cancelAnimationFrame(raf); layer.remove(); }
+  }, 4500);
+}
+
 function initEnvelope(audio) {
   const root = document.documentElement;
   const env = document.getElementById('envelope');
@@ -550,6 +680,8 @@ function initEnvelope(audio) {
     setCut(1); setX(1);
     Stage.play('cut', { gain: 0.42 });               // the heavier release tear
     env.classList.add('opened');                     // the card rises out of the pocket
+    { const _cc = document.querySelector('.card-clip'); _cc.style.height = ''; _cc.style.minHeight = ''; }   // release the slit-centering clamp → reveal reflows naturally
+    spawnVolcano(seam);                               // marginalia ERUPTS upward out of the slit
     Stage.play('rustle', { gain: 0.34 });            // paper shuffle as it comes up
     setTimeout(() => Stage.play('rustle', { gain: 0.18, rate: 1.12 }), 190);
     setTimeout(() => {                               // AFTER the ~0.8s rise:
@@ -973,7 +1105,7 @@ function initTearAway() {
 
   function arm(el) {
     if (!el || el.dataset.tearable != null) return;    // skip if missing / already armed
-    if (!el.querySelector(':scope > .tape')) return;   // only pieces actually held by tape
+    if (!el.querySelector(':scope > .tape, :scope > .hero-clip')) return;   // only pieces held by tape (.hero-clip is the reel's washi tape)
     el.dataset.tearable = '';
     // images are draggable by default — without this, grabbing a polaroid/snap photo
     // starts the browser's native image drag (the ghost) and steals the tear gesture.
@@ -991,13 +1123,15 @@ function initTearAway() {
   // has fully settled (envelope.done) so tearing can never disrupt the reveal — and
   // by then the pocket is overflow:visible, so the fall isn't clipped.
   const hero = document.querySelector('.hero-card');
+  const reel = document.querySelector('.hero-reel');
   const env = document.getElementById('envelope');
-  if (hero && env) {
+  if (env) {
+    const armPostCut = () => { arm(hero); arm(reel); };   // both emerge from the slit → arm after the cut settles, count in the finale
     if (!document.documentElement.classList.contains('sealed')) {
-      arm(hero);                                       // hero already shown (no seal)
+      armPostCut();                                    // already shown (no seal)
     } else {
       const mo = new MutationObserver(() => {
-        if (env.classList.contains('done')) { mo.disconnect(); arm(hero); }
+        if (env.classList.contains('done')) { mo.disconnect(); armPostCut(); }
       });
       mo.observe(env, { attributes: true, attributeFilter: ['class'] });
     }
@@ -1253,6 +1387,67 @@ function initCollage(){
       }, { passive: true });
       apply();
     }
+  }
+
+  // ---- seam-burst origins + deferred reel load ----
+  // The hero collage (.cg-burst) erupts out of the slit on the cut. We measure each
+  // scrap's RESTING centre vs the slit centre once at env.done and write the additive
+  // origin (--bx/--by); then arm .cg-burst-armed to collapse every scrap to a zero-size
+  // dot ON the slit. All of this happens while the scraps are still opacity:0 (sealed,
+  // pre-reveal), so the collapse snap is invisible. At html.revealed the collapse rule
+  // stops matching and the existing .cg-in rest rule + transition interpolate slit->gutter.
+  // This code writes ONLY custom props + the iframe src — never the `transform` property —
+  // so it can never fight the parallax loop above (both feed additive terms into one translate()).
+  var burstCs = Array.prototype.slice.call(document.querySelectorAll('.cg-collage.cg-burst'));
+  var env    = document.getElementById('envelope');
+  var seam   = document.getElementById('cutgate');
+  var reel   = document.querySelector('.hero-reel .reel-ig');
+
+  function liftReel(){ if (reel && reel.dataset.src && reel.src !== reel.dataset.src) reel.src = reel.dataset.src; }
+
+  // Hide the decorative play cue once the visitor engages IG's inline player.
+  // :hover (desktop) + :focus-within (CSS) cover most cases; this catches the rest:
+  // clicking INTO the cross-origin iframe blurs the parent window and makes the iframe
+  // the activeElement — a reliable signal to drop the cue so it never sits over playback.
+  if (reel) {
+    var reelWin = reel.closest('.reel-window');
+    window.addEventListener('blur', function () {
+      if (reelWin && document.activeElement === reel) reelWin.classList.add('reel-playing');
+    }, { passive: true });
+  }
+
+  // Measure every burst container (desktop gutter burst + the mobile foreground
+  // confetti burst) in one batched pass — set each scrap to rest, one reflow,
+  // measure all, arm all to slit dots, then re-enable the transition next frame.
+  function armBurst(){
+    if (!burstCs.length || !seam) return;
+    burstCs.forEach(function (c){
+      c.querySelectorAll('.cg-scrap').forEach(function (el){ el.classList.add('cg-in'); });
+      c.classList.add('cg-nofade');            // snaps are instant (invisible at opacity:0)
+      c.classList.remove('cg-burst-armed');    // -> rest, so rects are true resting boxes
+    });
+    void document.body.offsetWidth;
+    var s = seam.getBoundingClientRect(), sx = s.left + s.width / 2, sy = s.top + s.height / 2;
+    burstCs.forEach(function (c){
+      c.querySelectorAll('.cg-scrap').forEach(function (el){
+        var r = el.getBoundingClientRect();
+        if (!r.width && !r.height) return;     // skip display:none (dropped) scraps
+        el.style.setProperty('--bx', (sx - (r.left + r.width / 2)).toFixed(1) + 'px');
+        el.style.setProperty('--by', (sy - (r.top  + r.height / 2)).toFixed(1) + 'px');
+      });
+    });
+    burstCs.forEach(function (c){ c.classList.add('cg-burst-armed'); });   // -> dots on the slit (instant)
+    void document.body.offsetWidth;
+    requestAnimationFrame(function (){ burstCs.forEach(function (c){ c.classList.remove('cg-nofade'); }); });
+  }
+
+  if (env && burstCs.length && !reduce && document.documentElement.classList.contains('sealed')){
+    var moEnv = new MutationObserver(function (){
+      if (env.classList.contains('done')){ armBurst(); liftReel(); moEnv.disconnect(); }
+    });
+    moEnv.observe(env, { attributes: true, attributeFilter: ['class'] });
+  } else {
+    liftReel();   // reduced-motion / no-seal: scraps already at rest, just load the reel
   }
 }
 
