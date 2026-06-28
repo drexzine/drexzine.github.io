@@ -129,7 +129,6 @@ function initSlitCenter() {
 function boot() {
   Stage.applyMotion();
   const audio = initAudio();        // M1: audio engine (opt-in, gesture-unlocked)
-  initDemoGate();
   initReveals();                    // M1: settle-in on scroll
   initHighlighter();                // M1: highlighter + marker draw-on
   initEnvelope(audio);              // M3: hero drag-to-cut envelope
@@ -158,36 +157,6 @@ function boot() {
 }
 if (document.readyState !== 'loading') boot();
 else document.addEventListener('DOMContentLoaded', boot);
-
-/* ===================================================================
-   Demo gate (HTTP Basic Auth) — moved verbatim from the old inline IIFE.
-   The visitor types the full "username:password" passcode; we split on the
-   first colon and hand both parts to the browser as Basic Auth credentials
-   via the URL, so they skip the native dialog. Nothing is stored here.
-   =================================================================== */
-function initDemoGate() {
-  const demoHost = 'demo.drex.style';
-  const t = document.getElementById('demo-toggle'),
-        g = document.getElementById('demo-gate'),
-        f = document.getElementById('demo-form'),
-        i = document.getElementById('demo-code'),
-        m = document.getElementById('demo-msg');
-  if (!t || !f) return;
-  t.addEventListener('click', () => {
-    const o = g.classList.toggle('open');
-    t.setAttribute('aria-expanded', String(o));
-    if (o) setTimeout(() => i.focus(), 60);
-  });
-  f.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const raw = (i.value || '').trim(); if (!raw) { i.focus(); return; }
-    const idx = raw.indexOf(':');
-    const user = idx >= 0 ? raw.slice(0, idx) : raw,
-          pass = idx >= 0 ? raw.slice(idx + 1) : '';
-    m.textContent = 'opening the demo…'; m.className = 'msg ok';
-    location.href = 'https://' + encodeURIComponent(user) + ':' + encodeURIComponent(pass) + '@' + demoHost;
-  });
-}
 
 /* ===================================================================
    M1 — Audio engine (Web Audio; gesture-unlocked; OFF by default)
