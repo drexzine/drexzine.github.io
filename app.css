@@ -974,6 +974,63 @@ html.sealed:not(.revealed) .cg-scrap{opacity:0!important}
   .cta-attn.cta-quiet .cta-scrawl{opacity:0!important}
 }
 
+/* ============ THE SHOWPIECE — firecracker "Join a Circle" CTA (initFirecrackerCta
+   in app.js, ported from the wall's WallCta). On click the button casing SPLITS in
+   half (the halves fly apart and tumble away), its guts spray out across the viewport,
+   debris rushes the screen, then the branded CircleMark zooms in on its own stroke
+   until the whole screen is grass green → navigate. ~3s. ============ */
+.cta-attn.is-firing{animation:none}
+.cta-attn.is-firing .btn,
+.btn.is-firing{visibility:hidden}
+.cta-attn.is-firing .cta-ring,
+.cta-attn.is-firing .cta-scrawl{opacity:0!important;animation:none!important}
+
+.detonation{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden}
+.deto-origin{position:absolute;left:var(--ox);top:var(--oy);width:0;height:0}
+
+/* the two casing halves — matched to the real .btn (grass-deep fill, ink border, r6) */
+.cta-half{position:absolute;left:0;top:0;width:var(--half-w);height:var(--half-h);
+  background:var(--grass-deep);border:2.6px solid var(--ink);will-change:transform,opacity}
+.cta-half.l{margin-left:calc(var(--half-w) * -1);margin-top:calc(var(--half-h) * -0.5);
+  border-radius:6px 0 0 6px;border-right:none;animation:fc-split-l 760ms cubic-bezier(.2,.7,.3,1) both}
+.cta-half.r{margin-top:calc(var(--half-h) * -0.5);
+  border-radius:0 6px 6px 0;border-left:none;animation:fc-split-r 760ms cubic-bezier(.2,.7,.3,1) both}
+@keyframes fc-split-l{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(-46vw,38vh) rotate(-210deg);opacity:0}}
+@keyframes fc-split-r{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(46vw,40vh) rotate(220deg);opacity:0}}
+
+/* outward-spraying guts */
+.deto-origin .p{position:absolute;left:0;top:0;color:var(--p-color);will-change:transform,opacity;
+  animation:fc-fly var(--dur) cubic-bezier(.2,.7,.3,1) var(--delay) both}
+.deto-origin .p svg{display:block;width:100%;height:100%}
+.deto-origin .p-word{font-family:var(--f-hand);font-size:1.35rem;white-space:nowrap;transform-origin:50% 50%}
+@keyframes fc-fly{
+  0%{transform:translate(0,0) rotate(0) scale(.1);opacity:0}
+  8%{opacity:1}
+  55%{transform:translate(calc(var(--tx) * .72),calc(var(--ty) * .72 - 40px)) rotate(calc(var(--rot) * .6)) scale(var(--sc));opacity:1}
+  100%{transform:translate(var(--tx),var(--ty)) rotate(var(--rot)) scale(calc(var(--sc) * .9));opacity:0}}
+
+/* debris that RUSHES the screen (scales up toward the viewer) */
+.deto-origin .p-rush{position:absolute;left:0;top:0;color:var(--p-color);will-change:transform,opacity;
+  animation:fc-rush var(--dur) cubic-bezier(.55,.06,.68,.19) var(--delay) both}
+.deto-origin .p-rush svg{display:block;width:100%;height:100%}
+@keyframes fc-rush{
+  0%{transform:translate(0,0) scale(.12);opacity:0}
+  14%{opacity:1}
+  100%{transform:translate(calc(var(--tx) * .5),calc(var(--ty) * .5)) scale(var(--rush-sc)) rotate(var(--rot));opacity:0}}
+
+/* the hero CircleMark: zooms straight at the screen; a grass core guarantees full coverage */
+.fill-ring{position:absolute;left:0;top:0;width:120px;height:120px;margin:-60px 0 0 -60px;transform-origin:50% 50%;color:var(--fill-color)}
+.fill-mark{position:absolute;inset:0;animation:fc-mark 3000ms cubic-bezier(.5,0,.85,.4) both;will-change:transform}
+.fill-mark svg{width:100%;height:100%;display:block}
+.fill-mark svg circle{stroke:var(--fill-color)}
+.fill-core{position:absolute;left:50%;top:50%;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;
+  background:var(--fill-color);animation:fc-core 3000ms cubic-bezier(.7,0,.9,.45) both;will-change:transform}
+@keyframes fc-mark{0%,8%{transform:scale(0);opacity:0}16%{opacity:1}60%{transform:scale(3.4) rotate(28deg);opacity:1}100%{transform:scale(42) rotate(70deg);opacity:1}}
+@keyframes fc-core{0%,45%{transform:scale(0);opacity:0}55%{opacity:1}88%,100%{transform:scale(var(--fill-scale));opacity:1}}
+
+/* SACRED a11y: the JS already bails to instant nav under reduced-motion; hide the overlay as a belt */
+@media(prefers-reduced-motion:reduce){.detonation{display:none}}
+
 /* subordinate secondary CTA — "or start one →" rides to the same /join-online/
    flow but stays visually quiet next to the primary stamp button: a small
    grass underline-link, never a second button. */

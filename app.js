@@ -86,8 +86,11 @@ window.Stage = Stage;
 /* Keep the cut line at the vertical CENTRE of the viewport while sealed. The hidden
    card's full-height layout box would otherwise pin the seam low, so we set the
    pocket's HEIGHT (it's overflow:clip while sealed, so the taller card is clipped)
-   to land the seam centre on 50vh. Recomputed on load + resize; desktop only;
-   released the moment the cut starts so the reveal reflows naturally. */
+   to land the seam centre on 50vh. Runs at EVERY width (mobile too — there the reel
+   is display:none while sealed, so only the pocket drives the seam). Recomputed on
+   load + resize; released the moment the cut starts so the reveal reflows naturally.
+   The reel-clip mask math stays desktop-only (>880px) — the slit choreography is
+   inert under the mobile breakpoint. */
 function initSlitCenter() {
   const root = document.documentElement;
   const clip = document.querySelector('.card-clip');
@@ -99,7 +102,7 @@ function initSlitCenter() {
   function center() {
     const sealedNow = root.classList.contains('sealed') && !root.classList.contains('revealed') &&
                       !env.classList.contains('opened') && !env.classList.contains('cutting');
-    if (!sealedNow || window.innerWidth <= 880) { clip.style.height = ''; clip.style.minHeight = ''; if (stage) { stage.style.removeProperty('--reel-clip'); stage.style.removeProperty('--reel-hide'); } return; }
+    if (!sealedNow) { clip.style.height = ''; clip.style.minHeight = ''; if (stage) { stage.style.removeProperty('--reel-clip'); stage.style.removeProperty('--reel-hide'); } return; }
     clip.style.minHeight = '0';   // let the pocket shrink past the clamp so the seam can reach centre
     clip.style.height = '';
     for (let i = 0; i < 4; i++) {
@@ -108,7 +111,7 @@ function initSlitCenter() {
       if (Math.abs(delta) < 1) break;
       clip.style.height = Math.max(0, clip.offsetHeight + delta) + 'px';
     }
-    if (stage) {                                  // publish the card's mask line so the reel clips at the SAME slit
+    if (stage && window.innerWidth > 880) {       // desktop: publish the card's mask line so the reel clips at the SAME slit
       const slitY    = clip.getBoundingClientRect().bottom;
       const stageTop = stage.getBoundingClientRect().top;
       stage.style.setProperty('--reel-clip', (slitY - stageTop) + 'px');
@@ -141,6 +144,7 @@ function boot() {
   initCollage();                    // ported: littered collage scraps + scroll entrance + parallax
   initHamburgerJoy(audio);          // M5: the hamburger that lies — flop, slit, pull-out nav
   initAttentionCta();               // ported: hero CTA idle "look at me" loop
+  initFirecrackerCta(audio);        // ported from the wall: "Join a Circle" click → firecracker → green door
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
   // Hovering a card/polaroid grows its hard shadow under a live SVG filter —
   // a burst of quick re-rasters of a big sheet. That's a known, brief,
@@ -1539,6 +1543,194 @@ function initAttentionCta(){
   bind();
   scrollHandlerBound = true;
   window.addEventListener('scroll', onScroll, {passive:true});
+}
+
+/* ===================================================================
+   THE SHOWPIECE — firecracker "Join a Circle" CTA. Ported from the wall's
+   WallCta (backend-gstack /welcome): on click the green button casing SPLITS
+   in half (the halves tumble off-screen), its guts spray across the viewport
+   (CircleMarks, stars, dots, butterflies, scrawled words), some debris RUSHES
+   the screen, then the branded CircleMark zooms in on its own stroke until the
+   whole viewport is solid grass green — "through the door into Drex" — before
+   navigating. ~3s. Progressive enhancement: the link works with zero JS; this
+   only decorates it. reduced-motion / tier=lite → instant native nav. Sound is
+   gated on the site's opt-in audio (the same `enabled` the envelope cut arms).
+   =================================================================== */
+const FC_TOTAL_MS = 3000, FC_COVER_MS = 2660;
+const FC_COLORS = ['var(--sambas)', 'var(--grass)', 'var(--colorado)', 'var(--lazuli)'];
+const FC_WORDS = ['yes!', 'come in', 'at last', 'you’re in', 'hello', 'oh!'];
+const FC_SIZE = { mark: 30, star: 26, dot: 14, butterfly: 32, word: 0 };
+// outward spray (44) + a few that rush the screen (10)
+const FC_SPRAY = [].concat(
+  Array(13).fill('mark'), Array(8).fill('star'), Array(11).fill('dot'),
+  Array(6).fill('butterfly'), Array(6).fill('word'));
+const FC_RUSH = [].concat(Array(5).fill('mark'), Array(3).fill('dot'), Array(2).fill('star'));
+
+/** distance from (cx,cy) to the viewport edge along angle a — so particles reach the edges */
+function fcEdgeDist(a, cx, cy, vw, vh) {
+  const c = Math.cos(a), s = Math.sin(a);
+  const tx = c > 0 ? (vw - cx) / c : c < 0 ? -cx / c : Infinity;
+  const ty = s > 0 ? (vh - cy) / s : s < 0 ? -cy / s : Infinity;
+  return Math.min(tx, ty);
+}
+
+/** the official CircleMark + the spray glyphs, as SVG strings (reuse the page's #rough filters) */
+function fcGlyph(kind) {
+  if (kind === 'dot') return '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="currentColor" filter="url(#roughsm)"/></svg>';
+  if (kind === 'star') return '<svg viewBox="0 0 24 24"><path d="M12 1 L14 10 L23 12 L14 14 L12 23 L10 14 L1 12 L10 10 Z" fill="currentColor" filter="url(#roughsm)"/></svg>';
+  if (kind === 'butterfly') return '<svg viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#roughsm)"><path d="M20 9 Q 8 3 6 14 Q 6 23 20 20"/><path d="M20 9 Q 32 3 34 14 Q 34 23 20 20"/><path d="M20 20 Q 9 22 9 31 Q 16 30 20 22"/><path d="M20 20 Q 31 22 31 31 Q 24 30 20 22"/></g></svg>';
+  return '<svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-dasharray="55 9" transform="rotate(-42 14 14)" filter="url(#rough)"/></svg>';
+}
+
+/** best-effort haptics */
+function fcBuzz(p) { try { navigator.vibrate && navigator.vibrate(p); } catch (_) {} }
+
+/** WebAudio firecracker, synthesized inside the click gesture so it isn't autoplay-blocked.
+ *  Only fires when the site's audio is ON (audio.enabled — the envelope cut arms it). A crack
+ *  (the split) + a paper-scatter + a swelling rush + an impact thump as the screen fills. */
+function fcPlayBurst(audio) {
+  if (!audio || !audio.enabled) return;       // honour the site's opt-in sound contract
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return;
+    const ac = new Ctx();
+    const t0 = ac.currentTime;
+    // crack (the casing splitting) — short sharp noise @0
+    const clen = Math.floor(ac.sampleRate * 0.08);
+    const cbuf = ac.createBuffer(1, clen, ac.sampleRate);
+    const cd = cbuf.getChannelData(0);
+    for (let i = 0; i < clen; i++) cd[i] = (Math.random() * 2 - 1) * (1 - i / clen) ** 1.5;
+    const crack = ac.createBufferSource(); crack.buffer = cbuf;
+    const chp = ac.createBiquadFilter(); chp.type = 'highpass'; chp.frequency.value = 900;
+    const cg = ac.createGain();
+    cg.gain.setValueAtTime(0.5, t0); cg.gain.exponentialRampToValueAtTime(0.001, t0 + 0.09);
+    crack.connect(chp).connect(cg).connect(ac.destination);
+    crack.start(t0); crack.stop(t0 + 0.1);
+    // paper-scatter noise @0.03
+    const len = Math.floor(ac.sampleRate * 0.25);
+    const buf = ac.createBuffer(1, len, ac.sampleRate);
+    const chd = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) chd[i] = (Math.random() * 2 - 1) * (1 - i / len);
+    const noise = ac.createBufferSource(); noise.buffer = buf;
+    const lp = ac.createBiquadFilter(); lp.type = 'lowpass';
+    lp.frequency.setValueAtTime(5200, t0 + 0.03); lp.frequency.exponentialRampToValueAtTime(700, t0 + 0.27);
+    const ng = ac.createGain();
+    ng.gain.setValueAtTime(0.2, t0 + 0.03); ng.gain.exponentialRampToValueAtTime(0.001, t0 + 0.28);
+    noise.connect(lp).connect(ng).connect(ac.destination);
+    noise.start(t0 + 0.03); noise.stop(t0 + 0.29);
+    // triangle swell @1.9s (the rush)
+    const o = ac.createOscillator(); o.type = 'triangle';
+    o.frequency.setValueAtTime(170, t0 + 1.9); o.frequency.exponentialRampToValueAtTime(720, t0 + 2.66);
+    const og = ac.createGain();
+    og.gain.setValueAtTime(0.0001, t0 + 1.9); og.gain.linearRampToValueAtTime(0.16, t0 + 2.5);
+    og.gain.exponentialRampToValueAtTime(0.0001, t0 + 2.8);
+    o.connect(og).connect(ac.destination); o.start(t0 + 1.9); o.stop(t0 + 2.85);
+    // sine impact thump @2.66s (fills green)
+    const th = ac.createOscillator(); th.type = 'sine';
+    th.frequency.setValueAtTime(220, t0 + 2.62); th.frequency.exponentialRampToValueAtTime(60, t0 + 2.86);
+    const tg = ac.createGain();
+    tg.gain.setValueAtTime(0.0001, t0 + 2.62); tg.gain.linearRampToValueAtTime(0.3, t0 + 2.7);
+    tg.gain.exponentialRampToValueAtTime(0.0001, t0 + 3.0);
+    th.connect(tg).connect(ac.destination); th.start(t0 + 2.62); th.stop(t0 + 3.05);
+    setTimeout(() => { try { ac.close(); } catch (_) {} }, 3300);
+  } catch (_) { /* no audio is fine */ }
+}
+
+function fcDetonate(anchor, audio) {
+  const r = anchor.getBoundingClientRect();
+  const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+  const vw = window.innerWidth, vh = window.innerHeight;
+
+  let wi = 0;
+  const spray = FC_SPRAY.map((kind, i) => {
+    const ang = i * 2.39996 + (Math.random() - 0.5) * 0.5;            // golden angle + jitter
+    const reach = fcEdgeDist(ang, cx, cy, vw, vh) * (0.5 + Math.random() * 0.7);
+    return {
+      kind, tx: Math.cos(ang) * reach, ty: Math.sin(ang) * reach,
+      rot: (Math.random() - 0.5) * 1040, sc: 0.6 + Math.random() * 0.85,
+      delay: 60 + i * 5 + Math.random() * 60, dur: 820 + Math.random() * 560,
+      color: FC_COLORS[i % FC_COLORS.length], size: FC_SIZE[kind],
+      word: kind === 'word' ? FC_WORDS[wi++ % FC_WORDS.length] : null,
+    };
+  });
+  const rush = FC_RUSH.map((kind, i) => {
+    const ang = Math.random() * Math.PI * 2, reach = 80 + Math.random() * 220;
+    return {
+      kind, tx: Math.cos(ang) * reach, ty: Math.sin(ang) * reach,
+      rot: (Math.random() - 0.5) * 320, rushSc: 5 + Math.random() * 6,
+      delay: 220 + Math.random() * 900, dur: 720 + Math.random() * 700,
+      color: FC_COLORS[i % FC_COLORS.length], size: kind === 'dot' ? 18 : 30,
+    };
+  });
+  const far = Math.hypot(Math.max(cx, vw - cx), Math.max(cy, vh - cy));
+
+  const overlay = document.createElement('div');
+  overlay.className = 'detonation';
+  const origin = document.createElement('div');
+  origin.className = 'deto-origin';
+  origin.style.setProperty('--ox', cx + 'px');
+  origin.style.setProperty('--oy', cy + 'px');
+  origin.style.setProperty('--half-w', Math.max(40, r.width / 2) + 'px');
+  origin.style.setProperty('--half-h', Math.max(30, r.height) + 'px');
+
+  const hl = document.createElement('span'); hl.className = 'cta-half l'; hl.setAttribute('aria-hidden', 'true');
+  const hr = document.createElement('span'); hr.className = 'cta-half r'; hr.setAttribute('aria-hidden', 'true');
+  origin.appendChild(hl); origin.appendChild(hr);
+
+  spray.forEach((p) => {
+    const el = document.createElement('span');
+    el.className = 'p p-' + p.kind;
+    el.style.cssText = `--tx:${p.tx}px;--ty:${p.ty}px;--rot:${p.rot}deg;--sc:${p.sc};--dur:${p.dur}ms;--delay:${p.delay}ms;--p-color:${p.color};`;
+    if (p.size) { el.style.width = p.size + 'px'; el.style.height = p.size + 'px'; }
+    if (p.kind === 'word') el.textContent = p.word; else el.innerHTML = fcGlyph(p.kind);
+    origin.appendChild(el);
+  });
+  rush.forEach((p) => {
+    const el = document.createElement('span');
+    el.className = 'p-rush p-' + p.kind;
+    el.style.cssText = `--tx:${p.tx}px;--ty:${p.ty}px;--rot:${p.rot}deg;--rush-sc:${p.rushSc};--dur:${p.dur}ms;--delay:${p.delay}ms;--p-color:${p.color};`;
+    el.style.width = p.size + 'px'; el.style.height = p.size + 'px';
+    el.innerHTML = fcGlyph(p.kind);
+    origin.appendChild(el);
+  });
+
+  const ring = document.createElement('span');
+  ring.className = 'fill-ring';
+  ring.style.setProperty('--fill-color', 'var(--grass)');
+  ring.style.setProperty('--fill-scale', (far + 60) / 60);
+  ring.innerHTML = '<span class="fill-mark">' + fcGlyph('mark') + '</span><span class="fill-core"></span>';
+  origin.appendChild(ring);
+
+  overlay.appendChild(origin);
+  document.body.appendChild(overlay);
+
+  // hide the real button + silence the idle "tap me!" attention loop on its wrapper
+  anchor.style.visibility = 'hidden';
+  anchor.classList.add('is-firing');
+  const wrap = anchor.closest('.cta-attn');
+  if (wrap) wrap.classList.add('is-firing');
+
+  try { document.documentElement.style.overflow = 'hidden'; } catch (_) {}
+  fcPlayBurst(audio);
+  fcBuzz([22, 26, 8, 26, 10, 30, 18]);
+  setTimeout(() => fcBuzz(80), FC_COVER_MS);
+  setTimeout(() => { window.location.href = anchor.href; }, FC_TOTAL_MS);
+}
+
+function initFirecrackerCta(audio) {
+  const btns = document.querySelectorAll('a.btn[href*="join-online"]');
+  btns.forEach((a) => {
+    let fired = false;
+    a.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;  // let new-tab / native nav happen
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const lite = document.documentElement.dataset.tier === 'lite';
+      if (reduce || lite || fired) return;                                  // → instant native nav
+      fired = true;
+      e.preventDefault();
+      fcDetonate(a, audio);
+    });
+  });
 }
 
 /* ===================================================================
