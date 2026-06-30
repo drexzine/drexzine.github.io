@@ -324,8 +324,8 @@ html[data-tier="lite"] .cmark circle{animation:none!important}
    push the bars outside the window (clipped) and fill edge-to-edge. */
 .reel-ig{position:absolute;top:calc(-1 * var(--ig-top,56px));left:50%;
   transform:translateX(-50%) scale(var(--ig-zoom,1));transform-origin:50% 20%;
-  width:100%;height:var(--ig-h,780px);border:0;display:block;background:var(--sambas);pointer-events:none}   /* inert by default → the whole polaroid (incl. the embed) is tear/drag-able */
-.reel-window.reel-playing .reel-ig{pointer-events:auto}   /* tap the reel ("play me") → IG player becomes interactive */
+  width:100%;height:var(--ig-h,780px);border:0;display:block;background:var(--sambas);pointer-events:auto}   /* interactive → ONE tap reaches IG's play button (no wasted "arm" tap). Tear still works via the caption/frame. */
+.reel-window.reel-playing .reel-ig{pointer-events:auto}
 
 /* decorative play cue — the iframe underneath takes the click (IG's inline player);
    the cue fades once you engage so it never sits over the playing video */
@@ -335,7 +335,7 @@ html[data-tier="lite"] .cmark circle{animation:none!important}
   font-family:var(--f-mono);font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:.66rem;line-height:1;
   color:#fff;background:#212c30;padding:.34em .62em .3em;border-radius:4px;transform:rotate(-3deg);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.22), inset 0 -1px 0 rgba(0,0,0,.32), 2px 2px 0 rgba(0,0,0,.3);
-  pointer-events:auto;cursor:pointer;transition:opacity .25s ease, transform .25s ease}
+  pointer-events:none;transition:opacity .25s ease, transform .25s ease}   /* decorative — never intercepts; the click goes straight to IG's player underneath */
 .reel-window.reel-playing .reel-play{opacity:0;transform:rotate(-3deg) scale(.85);pointer-events:none}
 
 /* the bottom lip caption */
@@ -526,14 +526,38 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .bot-line{font-size:1.05rem;color:rgba(65,77,87,.7);line-height:1.3}
 .zines .cap{font-family:var(--f-hand);font-size:1.1rem;color:var(--sambas);text-align:center;display:block;margin:.7rem auto 0;transform:rotate(-1deg)}
 @media(max-width:560px){.zine-card.hand,.zine-card.bot,.zine-or{transform:rotate(0)}}
-/* bridge: zine-as-discovery → "find your people" (coming soon) */
-.zines-bridge{margin-top:clamp(2rem,5vw,3rem);text-align:center;display:flex;flex-direction:column;align-items:center;gap:.85rem}
-.zines-bridge-line{font-family:var(--f-hand);font-size:clamp(1.15rem,2.2vw,1.5rem);color:var(--sambas);transform:rotate(-1deg)}
-.bridge-cta{display:inline-flex;align-items:center;gap:.7rem;flex-wrap:wrap;justify-content:center}
-.bridge-btn{font-family:var(--f-mono);font-weight:500;font-size:.86rem;letter-spacing:.12em;text-transform:uppercase;
-  display:inline-flex;align-items:center;gap:.5rem;background:var(--paper);color:rgba(65,77,87,.55);
-  border:2.6px dashed rgba(65,77,87,.4);border-radius:6px;padding:.85em 1.35em;min-height:46px;transform:rotate(-1deg);cursor:default}
-.bridge-btn .arr{font-family:var(--f-mono)}
+/* ---------- peek = browse Circles by their zines + the zinemaker (all placeholders) ---------- */
+.peek{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
+.peek .head{margin-bottom:clamp(1.8rem,4.5vw,2.6rem);text-align:center}
+.peek .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
+.peek .head h2 .stop{color:var(--grass-deep)}
+.peek-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.05rem,1.8vw,1.35rem);line-height:1.5;color:rgba(65,77,87,.85);max-width:48ch;margin:.9rem auto 0}
+.peek-sub em{color:var(--colorado)}
+.peek-row{display:grid;grid-template-columns:repeat(3,1fr);align-items:stretch;gap:clamp(1.2rem,2.6vw,2rem);max-width:1000px;margin-inline:auto}
+.peek-card{position:relative;display:flex;flex-direction:column;transition:transform .18s ease}
+.peek-card:nth-child(1){transform:rotate(-1.6deg)}
+.peek-card:nth-child(3){transform:rotate(1.6deg)}
+.peek-card:hover{transform:rotate(0) translateY(-5px);z-index:4}
+.peek-tab{position:absolute;z-index:4;top:-13px;left:50%;transform:translateX(-50%) rotate(-2deg);
+  font-family:var(--f-mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--ink);color:var(--oats);border-radius:4px;padding:.3em .7em;white-space:nowrap}
+.peek-tab.tool{background:var(--grass-deep)}
+.peek-frame{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55rem;text-align:center;
+  min-height:clamp(228px,30vw,272px);padding:1.6rem 1.2rem;border:2.6px dashed rgba(65,77,87,.4);border-radius:6px;
+  background:repeating-linear-gradient(0deg,transparent 0 26px,rgba(65,77,87,.05) 26px 27px),var(--paper);
+  box-shadow:6px 6px 0 0 rgba(65,77,87,.22)}
+.peek-card:hover .peek-frame{box-shadow:9px 10px 0 0 rgba(65,77,87,.28)}
+.peek-ico{width:clamp(50px,8vw,66px);height:clamp(50px,8vw,66px)}
+.peek-ico svg{width:100%;height:100%;display:block;overflow:visible}
+.peek-ico svg>*{filter:url(#roughsm)}
+.peek-frame h3{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.15rem,1.8vw,1.4rem);line-height:1.05;margin:.1rem 0 0;color:var(--ink)}
+.peek-hint{font-family:var(--f-hand);font-size:1.05rem;color:var(--sambas)}
+/* center card = the product (zinemaker), emphasised */
+.peek-card.is-tool .peek-frame{border-color:var(--grass-deep);background:repeating-linear-gradient(0deg,transparent 0 26px,rgba(28,171,91,.07) 26px 27px),var(--paper)}
+.peek-card.is-tool .soon-stamp{color:var(--grass-deep);border-color:var(--grass-deep)}
+@media(min-width:840px){.peek-card.is-tool{transform:scale(1.06)}.peek-card.is-tool:hover{transform:scale(1.06) translateY(-5px)}}
+@media(max-width:760px){.peek-row{grid-template-columns:1fr;max-width:22rem}}
+@media(max-width:560px){.peek-card,.peek-card:nth-child(1),.peek-card:nth-child(3){transform:none}}
 
 /* ---------- team = taped polaroids ---------- */
 .team{padding:clamp(1.5rem,4vw,3rem) 0}
