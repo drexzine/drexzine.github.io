@@ -462,16 +462,17 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .how-ring{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible}
 .how-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-5deg);z-index:1;
   font-family:var(--f-hand);font-size:clamp(1.3rem,3vw,1.95rem);line-height:1.02;text-align:center;color:var(--colorado);opacity:.85}
+.how-loopback{display:none}   /* desktop: the ring shows the loop; this is the mobile-only loop-back cue */
 .how .flow{list-style:none;margin:0;padding:0;position:absolute;inset:0;z-index:2}
 .how .step{position:absolute;width:clamp(116px,17vw,150px);transform:translate(-50%,-50%);text-align:center}
-.how .step:nth-child(1){top:11%;left:50%}    /* Gather — top (in the ring's gap) */
-.how .step:nth-child(2){top:38%;left:85%}    /* Make — right */
-.how .step:nth-child(3){top:80%;left:71%}    /* Reflect — lower right */
-.how .step:nth-child(4){top:80%;left:29%}    /* Zine — lower left */
-.how .step:nth-child(5){top:38%;left:15%}    /* Share — left */
+.how .step:nth-child(1){top:12%;left:50%}      /* Gather — top (in the ring's gap) */
+.how .step:nth-child(2){top:38.3%;left:86.1%}  /* Make — right (exact R=38 on the ring) */
+.how .step:nth-child(3){top:80.7%;left:72.3%}  /* Reflect — lower right */
+.how .step:nth-child(4){top:80.7%;left:27.7%}  /* Zine — lower left */
+.how .step:nth-child(5){top:38.3%;left:13.9%}  /* Share — left */
 .how .step .n{font-family:var(--f-mono);font-weight:500;font-size:.72rem;letter-spacing:.14em;
   text-transform:uppercase;color:var(--sambas);display:block;margin-bottom:.35rem}
-.how .step .ico{width:clamp(46px,6vw,62px);height:clamp(46px,6vw,62px);margin:0 auto .45rem;display:block}
+.how .step .ico{width:clamp(42px,5.4vw,56px);height:clamp(42px,5.4vw,56px);margin:0 auto .45rem;display:block}
 .how .step .ico svg{width:100%;height:100%;display:block;overflow:visible}
 .how .step .ico svg>*{filter:url(#roughsm)}              /* same hand-drawn boil as the collage scraps */
 .how .step:nth-child(odd) .ico{transform:rotate(-4deg)}
@@ -480,17 +481,24 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   line-height:1;margin:0;color:var(--ink)}
 .how .step p{font-family:var(--f-hand);font-size:clamp(1rem,1.5vw,1.15rem);line-height:1.15;margin:.28rem 0 0;color:var(--sambas)}
 /* mobile: unwind the circle back into a vertical stack with down-arrows */
-@media(max-width:720px){
-  .how-loop{width:auto;aspect-ratio:auto;margin-top:.4rem}
+@media(max-width:520px){
+  .how-loop{width:auto;aspect-ratio:auto;margin-top:.4rem;padding-left:clamp(46px,14vw,66px)}  /* left gutter for the loop-back arrow */
   .how-ring,.how-center{display:none}
-  .how .flow{position:static;display:grid;grid-template-columns:1fr;gap:clamp(1.9rem,7vw,2.4rem);max-width:17rem;margin:0 auto}
+  .how .flow{position:static;display:grid;grid-template-columns:1fr;gap:clamp(1.7rem,6.5vw,2.3rem);max-width:13.5rem;margin:0 auto}
   .how .step{position:relative;transform:none;width:auto}
   .how .flow .step:nth-child(1),.how .flow .step:nth-child(2),.how .flow .step:nth-child(3),.how .flow .step:nth-child(4),.how .flow .step:nth-child(5){top:auto;left:auto}  /* unset the circular coords so the stack centers */
-  .how .step .ico{width:54px;height:54px}
+  .how .step .ico{width:52px;height:52px}
   .how .step p{font-size:1.05rem}
-  .how .step:not(:last-child)::after{content:"";position:absolute;left:50%;bottom:calc(-0.5 * clamp(1.9rem,7vw,2.4rem) - 8px);
-    transform:translateX(-50%) rotate(90deg);width:26px;height:16px;background:no-repeat center/contain
+  .how .step:not(:last-child)::after{content:"";position:absolute;left:50%;bottom:calc(-0.5 * clamp(1.7rem,6.5vw,2.3rem) - 7px);
+    transform:translateX(-50%) rotate(90deg);width:24px;height:15px;background:no-repeat center/contain
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='20' viewBox='0 0 30 20' fill='none' stroke='%23414D57' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10 H24'/%3E%3Cpath d='M17 4 L26 10 L17 16'/%3E%3C/svg%3E");opacity:.5}
+  /* loop-back: one bracket arrow from Share (bottom) up to Gather (top), label centered along it */
+  .how-loopback{display:block;position:absolute;left:0;top:7%;bottom:7%;width:clamp(30px,9vw,46px);
+    border:3px solid var(--ink);border-right:0;border-radius:22px 0 0 22px;filter:url(#roughsm)}
+  .how-loopback::after{content:"";position:absolute;top:-4px;right:-7px;width:14px;height:14px;
+    border-top:3px solid var(--ink);border-right:3px solid var(--ink)}   /* NE arrowhead → up toward Gather */
+  .how-loopback span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-90deg);
+    transform-origin:center;white-space:nowrap;font-family:var(--f-hand);color:var(--colorado);font-size:1.02rem}
 }
 
 /* ---------- the zine = the tangible keepsake (hand-made vs bot-made) ---------- */
