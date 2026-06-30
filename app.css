@@ -104,7 +104,11 @@ a{color:inherit}
 .btn .arr{font-family:var(--f-mono)}
 
 /* ---------- masthead = printed broadsheet w/ torn bottom ---------- */
-.mast{position:relative;background:var(--oats);border-bottom:0}
+/* z-index:60 lifts the whole masthead (incl. the burger pull-down tray) above the
+   hero/reel (root z 3–5) so the dragged nav never hides behind the reel polaroid.
+   Stays UNDER the full-screen takeover overlays by design: .vol-layer(70),
+   .tape-fall(90), #finale-*(80–95) still cover the menu during the eruption/finale. */
+.mast{position:relative;z-index:60;background:var(--oats);border-bottom:0}
 .mast::after{content:"";position:absolute;left:0;right:0;bottom:-15px;height:30px;background:var(--oats);filter:url(#tornbig);z-index:1}
 .mast .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:1rem;position:relative;z-index:2}
 .mast .brand{display:flex;align-items:center;gap:0}   /* brand rule: exactly one 'x' of space between mark + word.
