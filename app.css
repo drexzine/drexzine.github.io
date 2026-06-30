@@ -445,6 +445,92 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .splay .card:hover>.sheet{box-shadow:13px 14px 0 0 var(--ink)}
 .card>.sheet{transition:box-shadow .18s ease}
 
+/* ---------- how a Circle works = the 5-beat loop, named + sequenced ---------- */
+.how{padding:clamp(2rem,5vw,3.5rem) 0 clamp(1.5rem,4vw,3rem)}
+.how .head{margin-bottom:clamp(1.8rem,4.5vw,2.8rem);text-align:center}
+.how .head .eyebrow{color:var(--lazuli)}
+.how .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);
+  line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
+.how .head h2 .stop{color:var(--grass-deep)}
+.how .flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);
+  gap:clamp(1rem,2.4vw,2rem);align-items:start}
+.how .step{position:relative;text-align:center;padding:0 .15rem}
+.how .step .n{font-family:var(--f-mono);font-weight:500;font-size:.74rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--sambas);display:block;margin-bottom:.45rem}
+.how .step .ico{width:clamp(52px,7vw,70px);height:clamp(52px,7vw,70px);margin:0 auto .7rem;display:block}
+.how .step .ico svg{width:100%;height:100%;display:block;overflow:visible}
+.how .step .ico svg>*{filter:url(#roughsm)}              /* same hand-drawn boil as the collage scraps */
+.how .step:nth-child(odd) .ico{transform:rotate(-4deg)}
+.how .step:nth-child(even) .ico{transform:rotate(4deg)}
+.how .step h3{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.2rem,2vw,1.55rem);
+  line-height:1;margin:0;color:var(--ink)}
+.how .step p{font-family:var(--f-body);font-size:clamp(.9rem,1.4vw,1rem);line-height:1.4;margin:.5rem 0 0;
+  color:rgba(65,77,87,.85)}
+/* hand-drawn connector arrow, centered in the gap to the right of each step */
+.how .step:not(:last-child)::after{content:"";position:absolute;
+  top:clamp(38px,5vw,52px);right:calc(-0.5 * clamp(1rem,2.4vw,2rem) - 13px);
+  width:26px;height:16px;background:no-repeat center/contain
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='20' viewBox='0 0 30 20' fill='none' stroke='%23414D57' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10 H24'/%3E%3Cpath d='M17 4 L26 10 L17 16'/%3E%3C/svg%3E");
+  opacity:.5}
+@media(max-width:720px){
+  .how .flow{grid-template-columns:1fr;gap:clamp(2rem,7vw,2.6rem);max-width:21rem;margin-inline:auto}
+  .how .step:not(:last-child)::after{top:auto;bottom:calc(-0.5 * clamp(2rem,7vw,2.6rem) - 8px);
+    right:auto;left:50%;transform:translateX(-50%) rotate(90deg)}
+}
+
+/* ---------- the zine = the tangible keepsake (hand-made vs bot-made) ---------- */
+.zines{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
+.zines .head{margin-bottom:clamp(1.8rem,4.5vw,2.6rem);text-align:center}
+.zines .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);
+  line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
+.zines .head h2 .stop{color:var(--grass-deep)}
+.zines-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.05rem,1.8vw,1.35rem);line-height:1.5;
+  color:rgba(65,77,87,.85);max-width:46ch;margin:.9rem auto 0}
+.zine-pair{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:clamp(1.2rem,3vw,2.4rem)}
+.zine-card{position:relative;width:min(320px,100%);transition:transform .18s ease}
+.zine-card.hand{transform:rotate(-2deg)}
+.zine-card.bot{transform:rotate(2deg)}
+.zine-card:hover{transform:rotate(0) translateY(-6px);z-index:5}
+.zine-tab{position:absolute;z-index:4;top:-13px;left:50%;transform:translateX(-50%) rotate(-2deg);
+  font-family:var(--f-mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--ink);color:var(--oats);border-radius:4px;padding:.32em .7em;white-space:nowrap}
+.zine-card.bot .zine-tab{background:var(--lazuli)}
+/* the framed window — fixed height so the cover shows and the rest is implied (there's more inside) */
+.zine-frame{position:relative;display:block;height:clamp(300px,52vw,380px);overflow:hidden;
+  border:2.6px solid var(--ink);border-radius:6px;background:var(--paper);
+  box-shadow:8px 8px 0 0 var(--ink);text-decoration:none;transition:box-shadow .18s ease}
+.zine-card:hover .zine-frame{box-shadow:12px 13px 0 0 var(--ink)}
+.zine-frame img{width:100%;display:block}
+/* "flip through it" CTA fading up from the bottom of the window */
+.zine-more{position:absolute;left:0;right:0;bottom:0;padding:1.9rem .9rem .75rem;
+  font-family:var(--f-mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);
+  display:flex;align-items:center;justify-content:center;gap:.45rem;
+  background:linear-gradient(to top,var(--paper) 24%,rgba(254,246,228,.82) 56%,transparent)}
+.zine-card:hover .zine-more{color:var(--grass-deep)}
+/* the hand-scrawled "or" between the two paths */
+.zine-or{font-family:var(--f-hand);font-size:clamp(1.6rem,3vw,2.3rem);color:var(--sambas);transform:rotate(-4deg)}
+/* bot placeholder = ghosted, dashed, "coming soon" */
+.zine-frame.ghost{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;
+  text-align:center;padding:1.4rem;border-style:dashed;box-shadow:6px 6px 0 0 rgba(65,77,87,.25);
+  background:repeating-linear-gradient(0deg,transparent 0 26px,rgba(65,77,87,.05) 26px 27px),var(--paper)}
+.zine-card.bot:hover .zine-frame.ghost{box-shadow:9px 10px 0 0 rgba(65,77,87,.3)}
+.bot-ico{width:clamp(54px,9vw,72px);height:clamp(54px,9vw,72px)}
+.bot-ico svg{width:100%;height:100%;display:block;overflow:visible}
+.bot-ico svg>*{filter:url(#roughsm)}
+.soon-stamp{font-family:var(--f-mono);font-weight:500;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--colorado);border:2.4px solid var(--colorado);border-radius:5px;padding:.3em .7em;transform:rotate(-5deg);opacity:.9}
+.bot-line{font-size:1.05rem;color:rgba(65,77,87,.7);line-height:1.3}
+.zines .cap{font-family:var(--f-hand);font-size:1.1rem;color:var(--sambas);text-align:center;display:block;margin:.7rem auto 0;transform:rotate(-1deg)}
+@media(max-width:560px){.zine-card.hand,.zine-card.bot,.zine-or{transform:rotate(0)}}
+/* bridge: zine-as-discovery → "find your people" (coming soon) */
+.zines-bridge{margin-top:clamp(2rem,5vw,3rem);text-align:center;display:flex;flex-direction:column;align-items:center;gap:.85rem}
+.zines-bridge-line{font-family:var(--f-hand);font-size:clamp(1.15rem,2.2vw,1.5rem);color:var(--sambas);transform:rotate(-1deg)}
+.bridge-cta{display:inline-flex;align-items:center;gap:.7rem;flex-wrap:wrap;justify-content:center}
+.bridge-btn{font-family:var(--f-mono);font-weight:500;font-size:.86rem;letter-spacing:.12em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:.5rem;background:var(--paper);color:rgba(65,77,87,.55);
+  border:2.6px dashed rgba(65,77,87,.4);border-radius:6px;padding:.85em 1.35em;min-height:46px;transform:rotate(-1deg);cursor:default}
+.bridge-btn .arr{font-family:var(--f-mono)}
+
 /* ---------- team = taped polaroids ---------- */
 .team{padding:clamp(1.5rem,4vw,3rem) 0}
 .team .head{margin-bottom:clamp(1.9rem,4.5vw,2.8rem)}
