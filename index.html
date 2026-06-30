@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=74" />
+<link rel="stylesheet" href="app.css?v=77" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -198,39 +198,51 @@
       <div class="head">
         <span class="eyebrow">how it works</span>
         <h2 class="slab">How a Circle <span class="ul">works</span><span class="stop">.</span></h2>
+        <p class="how-sub">It's a loop, not a finish line &mdash; every Circle keeps going.</p>
       </div>
-      <ol class="flow">
-        <li class="step">
-          <span class="n">01</span>
-          <span class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="var(--colorado)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="16" r="6"/><circle cx="33" cy="18" r="5"/><path d="M7 41 C7 30 27 30 27 41"/><path d="M28 41 C28 33 43 33 41 41"/></svg></span>
-          <h3>Gather</h3>
-          <p>Pull a few people into a Circle &mdash; online or in person.</p>
-        </li>
-        <li class="step">
-          <span class="n">02</span>
-          <span class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="var(--grass-deep)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M31 7 L41 17 L19 39 L9 41 L11 31 Z"/><path d="M29 9 L39 19"/><path d="M9 41 L15 35"/><path d="M40 5 l1.2 3.2 3.2 1.2 -3.2 1.2 -1.2 3.2 -1.2 -3.2 -3.2 -1.2 3.2 -1.2 Z" fill="var(--schoolbus)" stroke="none"/></svg></span>
-          <h3>Make</h3>
-          <p>Take on a creative prompt, together.</p>
-        </li>
-        <li class="step">
-          <span class="n">03</span>
-          <span class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="var(--lazuli)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9 H39 V31 H23 L15 39 V31 H9 Z"/><path d="M20 17 C20 13 28 13 28 18 C28 22 24 21 24 25"/><path d="M24 29 v.4"/></svg></span>
-          <h3>Reflect</h3>
-          <p>Answer a few questions about what you made.</p>
-        </li>
-        <li class="step">
-          <span class="n">04</span>
-          <span class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="var(--grass-deep)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 13 C18 9 11 9 6 11 V37 C11 35 18 35 24 39 C30 35 37 35 42 37 V11 C37 9 30 9 24 13 Z"/><path d="M24 13 V39"/></svg></span>
-          <h3>Zine</h3>
-          <p>It becomes a scrappy zine &mdash; by hand, or auto-made for you.</p>
-        </li>
-        <li class="step">
-          <span class="n">05</span>
-          <span class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="var(--colorado)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M43 6 L5 21 L19 26 L24 41 Z"/><path d="M43 6 L19 26"/></svg></span>
-          <h3>Share</h3>
-          <p>Send it out into the world.</p>
-        </li>
-      </ol>
+      <div class="how-loop">
+        <svg class="how-ring" viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <marker id="howarrow" viewBox="0 0 10 10" refX="7" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M1.5 1.5 L9 5 L1.5 8.5" fill="none" stroke="var(--colorado)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </marker>
+          </defs>
+          <path d="M66 15.6 A38 38 0 1 1 34 15.6" fill="none" stroke="var(--colorado)" stroke-width="2.2" stroke-linecap="round" marker-end="url(#howarrow)" filter="url(#roughsm)"/>
+        </svg>
+        <span class="how-center scrawl" aria-hidden="true">round<br>&amp; round</span>
+        <ol class="flow">
+          <li class="step">
+            <span class="n">01</span>
+            <span class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="var(--colorado)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="16" r="6"/><circle cx="33" cy="18" r="5"/><path d="M7 41 C7 30 27 30 27 41"/><path d="M28 41 C28 33 43 33 41 41"/></svg></span>
+            <h3>Gather</h3>
+            <p>a few people</p>
+          </li>
+          <li class="step">
+            <span class="n">02</span>
+            <span class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="var(--grass-deep)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M31 7 L41 17 L19 39 L9 41 L11 31 Z"/><path d="M29 9 L39 19"/><path d="M9 41 L15 35"/><path d="M40 5 l1.2 3.2 3.2 1.2 -3.2 1.2 -1.2 3.2 -1.2 -3.2 -3.2 -1.2 3.2 -1.2 Z" fill="var(--schoolbus)" stroke="none"/></svg></span>
+            <h3>Make</h3>
+            <p>take on a prompt</p>
+          </li>
+          <li class="step">
+            <span class="n">03</span>
+            <span class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="var(--lazuli)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9 H39 V31 H23 L15 39 V31 H9 Z"/><path d="M20 17 C20 13 28 13 28 18 C28 22 24 21 24 25"/><path d="M24 29 v.4"/></svg></span>
+            <h3>Reflect</h3>
+            <p>on what you made</p>
+          </li>
+          <li class="step">
+            <span class="n">04</span>
+            <span class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="var(--grass-deep)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 13 C18 9 11 9 6 11 V37 C11 35 18 35 24 39 C30 35 37 35 42 37 V11 C37 9 30 9 24 13 Z"/><path d="M24 13 V39"/></svg></span>
+            <h3>Zine</h3>
+            <p>by hand or bot</p>
+          </li>
+          <li class="step">
+            <span class="n">05</span>
+            <span class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="var(--colorado)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M43 6 L5 21 L19 26 L24 41 Z"/><path d="M43 6 L19 26"/></svg></span>
+            <h3>Share</h3>
+            <p>out to the world</p>
+          </li>
+        </ol>
+      </div>
     </div>
   </section>
 
@@ -246,23 +258,34 @@
 
         <figure class="zine-card hand">
           <span class="zine-tab">made by hand</span>
-          <a class="zine-frame" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener" aria-label="Flip through a real Circle zine, &ldquo;Drawing at the Cafe&rdquo;">
-            <img src="assets/zine-handmade.jpg" alt="A real Drex Circle zine, &ldquo;Drawing at the Cafe&rdquo; &mdash; a taped photo of a maker holding her sketch, with the creative prompt highlighted below." loading="lazy" width="700" height="955" />
-            <span class="zine-more">flip through it <span class="arr">&rarr;</span></span>
-          </a>
-          <figcaption class="cap">&ldquo;Drawing at the Cafe&rdquo; &middot; a real Circle zine</figcaption>
+          <div class="zine-duo">
+            <a class="zpola is-zine" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener" aria-label="Flip through a real Circle zine, &ldquo;Drawing at the Cafe&rdquo;">
+              <span class="ph"><img src="assets/zine-handmade.jpg" alt="A real Drex Circle zine, &ldquo;Drawing at the Cafe&rdquo; &mdash; a taped photo of a maker holding her sketch, with the creative prompt highlighted." loading="lazy" width="700" height="955" /></span>
+              <span class="zpola-cap">the zine <span class="arr">&rarr;</span></span>
+            </a>
+            <div class="zpola is-vid" role="img" aria-label="The hand editor &mdash; video demo coming soon">
+              <span class="ph"><span class="play-badge" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"/><path d="M20 16 L33 24 L20 32 Z"/></svg></span><span class="soon-stamp">coming soon</span></span>
+              <span class="zpola-cap">the editor</span>
+            </div>
+          </div>
+          <figcaption class="cap">make it yourself, page by page</figcaption>
         </figure>
 
         <span class="zine-or scrawl" aria-hidden="true">or</span>
 
         <figure class="zine-card bot">
           <span class="zine-tab">made by a bot</span>
-          <div class="zine-frame ghost" role="img" aria-label="Bot-made zine layout, coming soon">
-            <span class="bot-ico"><svg viewBox="0 0 64 64" fill="none" stroke="var(--lazuli)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M32 9 V15"/><circle cx="32" cy="6" r="2.8"/><rect x="13" y="15" width="38" height="30" rx="6"/><circle cx="24" cy="29" r="3.2"/><circle cx="40" cy="29" r="3.2"/><path d="M23 38 H41"/><path d="M9 25 V35 M55 25 V35"/></svg></span>
-            <span class="soon-stamp">coming soon</span>
-            <p class="bot-line scrawl">drop your photos &amp; reflections &mdash;<br>get a finished zine back</p>
+          <div class="zine-duo">
+            <div class="zpola is-zine is-ghost" role="img" aria-label="Bot-made zine &mdash; coming soon">
+              <span class="ph"><span class="bot-ico" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="var(--grass-deep)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M32 20 C26 16 18 16 12 18 V46 C18 44 26 44 32 48 C38 44 46 44 52 46 V18 C46 16 38 16 32 20 Z"/><path d="M32 20 V48"/></svg></span><span class="soon-stamp">coming soon</span></span>
+              <span class="zpola-cap">the zine</span>
+            </div>
+            <div class="zpola is-vid is-ghost" role="img" aria-label="The bot editor &mdash; video demo coming soon">
+              <span class="ph"><span class="bot-ico" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="var(--lazuli)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M32 9 V15"/><circle cx="32" cy="6" r="2.8"/><rect x="13" y="15" width="38" height="30" rx="6"/><circle cx="24" cy="29" r="3.2"/><circle cx="40" cy="29" r="3.2"/><path d="M23 38 H41"/><path d="M9 25 V35 M55 25 V35"/></svg></span><span class="soon-stamp">coming soon</span></span>
+              <span class="zpola-cap">the bot</span>
+            </div>
           </div>
-          <figcaption class="cap">auto-made layout &middot; in the lab</figcaption>
+          <figcaption class="cap">drop your photos &amp; reflections &mdash; get a zine back</figcaption>
         </figure>
 
       </div>
@@ -291,11 +314,13 @@
 
         <figure class="peek-card is-tool">
           <span class="peek-tab tool">the tool</span>
-          <div class="peek-frame ghost" role="img" aria-label="The Zinemaker — coming soon">
-            <span class="peek-ico"><svg viewBox="0 0 64 64" fill="none" stroke="var(--grass-deep)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M32 20 C26 16 18 16 12 18 V46 C18 44 26 44 32 48 C38 44 46 44 52 46 V18 C46 16 38 16 32 20 Z"/><path d="M32 20 V48"/><path d="M50 10 l1.4 3.6 3.6 1.4 -3.6 1.4 -1.4 3.6 -1.4 -3.6 -3.6 -1.4 3.6 -1.4 Z" fill="var(--schoolbus)" stroke="none"/></svg></span>
+          <div class="peek-frame is-reel" role="img" aria-label="The Zinemaker — a reel of the zine viewer, coming soon">
+            <span class="peek-vid">
+              <span class="play-badge" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"/><path d="M20 16 L33 24 L20 32 Z"/></svg></span>
+              <span class="soon-stamp">coming soon</span>
+            </span>
             <h3>The Zinemaker</h3>
-            <span class="soon-stamp">coming soon</span>
-            <p class="peek-hint scrawl">make &amp; view zines</p>
+            <p class="peek-hint scrawl">a reel of the zine viewer</p>
           </div>
         </figure>
 

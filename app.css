@@ -456,30 +456,41 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .how .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);
   line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
 .how .head h2 .stop{color:var(--grass-deep)}
-.how .flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);
-  gap:clamp(1rem,2.4vw,2rem);align-items:start}
-.how .step{position:relative;text-align:center;padding:0 .15rem}
-.how .step .n{font-family:var(--f-mono);font-weight:500;font-size:.74rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--sambas);display:block;margin-bottom:.45rem}
-.how .step .ico{width:clamp(52px,7vw,70px);height:clamp(52px,7vw,70px);margin:0 auto .7rem;display:block}
+.how-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.05rem,1.8vw,1.3rem);color:rgba(65,77,87,.85);max-width:42ch;margin:.85rem auto 0}
+/* the loop = a Circle: 5 stations around a hand-drawn ring, arrow looping back to Gather */
+.how-loop{position:relative;width:min(560px,94vw);aspect-ratio:1;margin:clamp(1rem,3vw,2rem) auto 0}
+.how-ring{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible}
+.how-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-5deg);z-index:1;
+  font-family:var(--f-hand);font-size:clamp(1.3rem,3vw,1.95rem);line-height:1.02;text-align:center;color:var(--colorado);opacity:.85}
+.how .flow{list-style:none;margin:0;padding:0;position:absolute;inset:0;z-index:2}
+.how .step{position:absolute;width:clamp(116px,17vw,150px);transform:translate(-50%,-50%);text-align:center}
+.how .step:nth-child(1){top:11%;left:50%}    /* Gather — top (in the ring's gap) */
+.how .step:nth-child(2){top:38%;left:85%}    /* Make — right */
+.how .step:nth-child(3){top:80%;left:71%}    /* Reflect — lower right */
+.how .step:nth-child(4){top:80%;left:29%}    /* Zine — lower left */
+.how .step:nth-child(5){top:38%;left:15%}    /* Share — left */
+.how .step .n{font-family:var(--f-mono);font-weight:500;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--sambas);display:block;margin-bottom:.35rem}
+.how .step .ico{width:clamp(46px,6vw,62px);height:clamp(46px,6vw,62px);margin:0 auto .45rem;display:block}
 .how .step .ico svg{width:100%;height:100%;display:block;overflow:visible}
 .how .step .ico svg>*{filter:url(#roughsm)}              /* same hand-drawn boil as the collage scraps */
 .how .step:nth-child(odd) .ico{transform:rotate(-4deg)}
 .how .step:nth-child(even) .ico{transform:rotate(4deg)}
-.how .step h3{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.2rem,2vw,1.55rem);
+.how .step h3{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.15rem,1.9vw,1.5rem);
   line-height:1;margin:0;color:var(--ink)}
-.how .step p{font-family:var(--f-body);font-size:clamp(.9rem,1.4vw,1rem);line-height:1.4;margin:.5rem 0 0;
-  color:rgba(65,77,87,.85)}
-/* hand-drawn connector arrow, centered in the gap to the right of each step */
-.how .step:not(:last-child)::after{content:"";position:absolute;
-  top:clamp(38px,5vw,52px);right:calc(-0.5 * clamp(1rem,2.4vw,2rem) - 13px);
-  width:26px;height:16px;background:no-repeat center/contain
-  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='20' viewBox='0 0 30 20' fill='none' stroke='%23414D57' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10 H24'/%3E%3Cpath d='M17 4 L26 10 L17 16'/%3E%3C/svg%3E");
-  opacity:.5}
+.how .step p{font-family:var(--f-hand);font-size:clamp(1rem,1.5vw,1.15rem);line-height:1.15;margin:.28rem 0 0;color:var(--sambas)}
+/* mobile: unwind the circle back into a vertical stack with down-arrows */
 @media(max-width:720px){
-  .how .flow{grid-template-columns:1fr;gap:clamp(2rem,7vw,2.6rem);max-width:21rem;margin-inline:auto}
-  .how .step:not(:last-child)::after{top:auto;bottom:calc(-0.5 * clamp(2rem,7vw,2.6rem) - 8px);
-    right:auto;left:50%;transform:translateX(-50%) rotate(90deg)}
+  .how-loop{width:auto;aspect-ratio:auto;margin-top:.4rem}
+  .how-ring,.how-center{display:none}
+  .how .flow{position:static;display:grid;grid-template-columns:1fr;gap:clamp(1.9rem,7vw,2.4rem);max-width:17rem;margin:0 auto}
+  .how .step{position:relative;transform:none;width:auto}
+  .how .flow .step:nth-child(1),.how .flow .step:nth-child(2),.how .flow .step:nth-child(3),.how .flow .step:nth-child(4),.how .flow .step:nth-child(5){top:auto;left:auto}  /* unset the circular coords so the stack centers */
+  .how .step .ico{width:54px;height:54px}
+  .how .step p{font-size:1.05rem}
+  .how .step:not(:last-child)::after{content:"";position:absolute;left:50%;bottom:calc(-0.5 * clamp(1.9rem,7vw,2.4rem) - 8px);
+    transform:translateX(-50%) rotate(90deg);width:26px;height:16px;background:no-repeat center/contain
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='20' viewBox='0 0 30 20' fill='none' stroke='%23414D57' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10 H24'/%3E%3Cpath d='M17 4 L26 10 L17 16'/%3E%3C/svg%3E");opacity:.5}
 }
 
 /* ---------- the zine = the tangible keepsake (hand-made vs bot-made) ---------- */
@@ -558,6 +569,38 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 @media(min-width:840px){.peek-card.is-tool{transform:scale(1.06)}.peek-card.is-tool:hover{transform:scale(1.06) translateY(-5px)}}
 @media(max-width:760px){.peek-row{grid-template-columns:1fr;max-width:22rem}}
 @media(max-width:560px){.peek-card,.peek-card:nth-child(1),.peek-card:nth-child(3){transform:none}}
+
+/* shared play badge for video placeholders */
+.play-badge{display:inline-flex;width:clamp(38px,6vw,50px);height:clamp(38px,6vw,50px)}
+.play-badge svg{width:100%;height:100%;display:block;overflow:visible}
+.play-badge svg circle{fill:rgba(254,246,228,.16);stroke:var(--oats);stroke-width:2.2}
+.play-badge svg path{fill:var(--oats);stroke:none}
+
+/* zine-duo — paired polaroids: the finished product + the editor video */
+.zine-card.hand,.zine-card.bot,.zine-card.hand:hover,.zine-card.bot:hover{transform:none}  /* tilt lives on the polaroids now */
+.zine-duo{display:flex;justify-content:center;align-items:flex-start;padding-top:8px}
+.zpola{position:relative;width:clamp(122px,15vw,156px);background:var(--paper);border:2.4px solid var(--ink);
+  border-radius:5px;box-shadow:6px 6px 0 0 var(--ink);padding:8px 8px 0;text-decoration:none;
+  transition:transform .18s ease, box-shadow .18s ease}
+.zine-duo .zpola:nth-child(1){transform:rotate(-4deg);z-index:2}
+.zine-duo .zpola:nth-child(2){transform:rotate(4deg);margin-left:-20px;margin-top:22px;z-index:1}
+.zine-duo .zpola:hover{transform:rotate(0) translateY(-5px);z-index:5;box-shadow:10px 11px 0 0 var(--ink)}
+.zpola .ph{position:relative;width:100%;aspect-ratio:5/6;overflow:hidden;background:var(--sambas);
+  border:1.5px solid rgba(65,77,87,.28);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.45rem}
+.zpola .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.zpola-cap{display:block;font-family:var(--f-hand);text-align:center;font-size:1rem;color:var(--ink);padding:.42rem .2rem .55rem;line-height:1}
+.zpola.is-zine .zpola-cap{color:var(--grass-deep)}
+.zpola .ph .bot-ico{width:clamp(38px,6vw,50px);height:clamp(38px,6vw,50px)}
+.zpola .ph .bot-ico svg{width:100%;height:100%;display:block;overflow:visible}
+.zpola .ph .soon-stamp{font-size:.58rem;padding:.2em .45em}
+.zpola.is-vid .ph{background:#212c30}
+.zpola.is-vid .soon-stamp{color:var(--oats);border-color:var(--oats)}
+
+/* the Zinemaker peek card → a reel of the zine viewer */
+.peek-frame.is-reel{justify-content:flex-start;gap:.65rem;padding-top:1.4rem}
+.peek-vid{position:relative;width:100%;aspect-ratio:4/3;border-radius:5px;overflow:hidden;background:#212c30;
+  border:1.5px solid rgba(65,77,87,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55rem}
+.peek-vid .soon-stamp{color:var(--oats);border-color:var(--oats)}
 
 /* ---------- team = taped polaroids ---------- */
 .team{padding:clamp(1.5rem,4vw,3rem) 0}
