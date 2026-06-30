@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=79" />
+<link rel="stylesheet" href="app.css?v=80" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -242,7 +242,13 @@
             <p>out to the world</p>
           </li>
         </ol>
-        <div class="how-loopback" aria-hidden="true"><span>back to the start</span></div>
+        <div class="how-loopback" aria-hidden="true">
+          <svg class="lb-arrow" viewBox="0 0 40 680" preserveAspectRatio="xMidYMid meet" fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M31 662 C8 644 8 40 31 20" filter="url(#roughsm)"/>
+            <path d="M21 30 L31 17 L40 30" filter="url(#roughsm)"/>
+          </svg>
+          <span>back to the start</span>
+        </div>
       </div>
     </div>
   </section>
