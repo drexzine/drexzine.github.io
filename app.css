@@ -468,6 +468,10 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .how-loopback{display:none}   /* desktop: the ring shows the loop; this is the mobile-only loop-back cue */
 .how .flow{list-style:none;margin:0;padding:0;position:absolute;inset:0;z-index:2}
 .how .step{position:absolute;width:clamp(102px,16vw,148px);transform:translate(-50%,-50%);text-align:center}
+/* each station sits on a torn-paper note → the loop threads BEHIND it (contrast + no ring-through-icon) */
+.how .step::before{content:"";position:absolute;inset:-13px -11px;z-index:-1;background:var(--paper);
+  border:2.2px solid var(--ink);border-radius:7px;box-shadow:4px 4px 0 0 var(--ink);filter:url(#roughsm)}
+.how .step:nth-child(even)::before{filter:url(#roughsm2)}   /* vary the torn edge per note */
 .how .step:nth-child(1){top:12%;left:50%}      /* Gather — top (in the ring's gap) */
 .how .step:nth-child(2){top:38.3%;left:86.1%}  /* Make — right (exact R=38 on the ring) */
 .how .step:nth-child(3){top:80.7%;left:72.3%}  /* Reflect — lower right */
@@ -489,6 +493,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   .how-ring,.how-center{display:none}
   .how .flow{position:static;display:grid;grid-template-columns:1fr;gap:clamp(1.6rem,6vw,2.2rem);width:12.5rem;max-width:66vw;margin:0}
   .how .step{position:relative;transform:none;width:auto}
+  .how .step::before{display:none}   /* notes are a circle-only treatment; the stack stays clean */
   .how .flow .step:nth-child(1),.how .flow .step:nth-child(2),.how .flow .step:nth-child(3),.how .flow .step:nth-child(4),.how .flow .step:nth-child(5){top:auto;left:auto}  /* unset the circular coords so the stack centers */
   .how .step .ico{width:50px;height:50px}
   .how .step p{font-size:1.02rem}
