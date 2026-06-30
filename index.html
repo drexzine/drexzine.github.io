@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=81" />
+<link rel="stylesheet" href="app.css?v=82" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -63,6 +63,8 @@
     <filter id="soft"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
     <filter id="soft2"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="13" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
     <filter id="soft3"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="23" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <!-- pronounced hand-drawn squiggle for the How-loop ring -->
+    <filter id="squig"><feTurbulence type="fractalNoise" baseFrequency="0.024 0.024" numOctaves="2" seed="8" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/></filter>
   </defs>
 </svg>
 
@@ -204,10 +206,10 @@
         <svg class="how-ring" viewBox="0 0 100 100" aria-hidden="true">
           <defs>
             <marker id="howarrow" viewBox="0 0 10 10" refX="6.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="6.5" markerHeight="6.5" orient="auto">
-              <path d="M1.5 1.5 L9 5 L1.5 8.5" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M1.5 1.5 L9 5 L1.5 8.5" fill="none" stroke="var(--colorado)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
             </marker>
           </defs>
-          <path d="M67.3 12.8 A41 41 0 1 1 32.7 12.8" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round" marker-end="url(#howarrow)" filter="url(#roughsm)" opacity="0.62"/>
+          <path d="M67.3 12.8 A41 41 0 1 1 32.7 12.8" fill="none" stroke="var(--colorado)" stroke-width="1.9" stroke-linecap="round" marker-end="url(#howarrow)" filter="url(#squig)" opacity="0.95"/>
         </svg>
         <span class="how-center scrawl" aria-hidden="true">round<br>&amp; round</span>
         <ol class="flow">
@@ -243,7 +245,7 @@
           </li>
         </ol>
         <div class="how-loopback" aria-hidden="true">
-          <svg class="lb-arrow" viewBox="0 0 40 680" preserveAspectRatio="xMidYMid meet" fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="lb-arrow" viewBox="0 0 40 680" preserveAspectRatio="xMidYMid meet" fill="none" stroke="var(--colorado)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
             <path d="M31 662 C8 644 8 40 31 20" filter="url(#roughsm)"/>
             <path d="M21 30 L31 17 L40 30" filter="url(#roughsm)"/>
           </svg>
