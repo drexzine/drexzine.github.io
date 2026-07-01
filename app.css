@@ -458,37 +458,41 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .how .head h2 .stop{color:var(--grass-deep)}
 .how-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.05rem,1.8vw,1.3rem);color:rgba(65,77,87,.85);max-width:42ch;margin:.85rem auto 0}
 /* the loop = a Circle: 5 stations around a hand-drawn ring, arrow looping back to Gather */
-.how-loop{position:relative;width:min(560px,94vw);aspect-ratio:1;margin:clamp(1rem,3vw,2rem) auto 0}
+/* container-query units keep the WHOLE diagram one scalable unit → the circle holds its
+   proportions at every width (never overlaps), instead of collapsing to a linear stack */
+.how-loop{position:relative;width:min(560px,94vw);aspect-ratio:1;margin:clamp(1rem,3vw,2rem) auto 0;container-type:inline-size}
 .how-ring{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible}
 .how-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-5deg);z-index:1;
-  font-family:var(--f-hand);font-size:clamp(1.3rem,3vw,1.95rem);line-height:1.02;text-align:center;color:var(--colorado);opacity:.85;
+  font-family:var(--f-hand);font-size:5.6cqw;line-height:1.02;text-align:center;color:var(--colorado);opacity:.85;
   animation:how-spin 18s linear infinite}
 @keyframes how-spin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.how-center{animation:none;transform:translate(-50%,-50%) rotate(-5deg)}}
 .how-loopback{display:none}   /* desktop: the ring shows the loop; this is the mobile-only loop-back cue */
 .how .flow{list-style:none;margin:0;padding:0;position:absolute;inset:0;z-index:2}
-.how .step{position:absolute;width:clamp(102px,16vw,148px);transform:translate(-50%,-50%);text-align:center}
+/* width tuned so a side station (centre at 86%/14% on the ring) + its note stays inside the 100cqw box at every size */
+.how .step{position:absolute;width:24cqw;transform:translate(-50%,-50%);text-align:center}
 /* each station sits on a torn-paper note → the loop threads BEHIND it (contrast + no ring-through-icon) */
-.how .step::before{content:"";position:absolute;inset:-13px -11px;z-index:-1;background:var(--paper);
-  border:2.2px solid var(--ink);border-radius:7px;box-shadow:4px 4px 0 0 var(--ink);filter:url(#roughsm)}
+.how .step::before{content:"";position:absolute;inset:-2.3cqw -1.7cqw;z-index:-1;background:var(--paper);
+  border:.4cqw solid var(--ink);border-radius:1.25cqw;box-shadow:.72cqw .72cqw 0 0 var(--ink);filter:url(#roughsm)}
 .how .step:nth-child(even)::before{filter:url(#roughsm2)}   /* vary the torn edge per note */
 .how .step:nth-child(1){top:12%;left:50%}      /* Gather — top (in the ring's gap) */
 .how .step:nth-child(2){top:38.3%;left:86.1%}  /* Make — right (exact R=38 on the ring) */
 .how .step:nth-child(3){top:80.7%;left:72.3%}  /* Reflect — lower right */
 .how .step:nth-child(4){top:80.7%;left:27.7%}  /* Zine — lower left */
 .how .step:nth-child(5){top:38.3%;left:13.9%}  /* Share — left */
-.how .step .n{font-family:var(--f-mono);font-weight:500;font-size:.72rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--sambas);display:block;margin-bottom:.35rem}
-.how .step .ico{width:clamp(42px,5.4vw,56px);height:clamp(42px,5.4vw,56px);margin:0 auto .45rem;display:block}
+.how .step .n{font-family:var(--f-mono);font-weight:500;font-size:2.05cqw;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--sambas);display:block;margin-bottom:1cqw}
+.how .step .ico{width:10cqw;height:10cqw;margin:0 auto 1.3cqw;display:block}
 .how .step .ico svg{width:100%;height:100%;display:block;overflow:visible}
 .how .step .ico svg>*{filter:url(#roughsm)}              /* same hand-drawn boil as the collage scraps */
 .how .step:nth-child(odd) .ico{transform:rotate(-4deg)}
 .how .step:nth-child(even) .ico{transform:rotate(4deg)}
-.how .step h3{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.15rem,1.9vw,1.5rem);
+.how .step h3{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:4.3cqw;
   line-height:1;margin:0;color:var(--ink)}
-.how .step p{font-family:var(--f-hand);font-size:clamp(1rem,1.5vw,1.15rem);line-height:1.15;margin:.28rem 0 0;color:var(--sambas)}
-/* mobile: unwind the circle back into a vertical stack with down-arrows */
-@media(max-width:440px){
+.how .step p{font-family:var(--f-hand);font-size:3.3cqw;line-height:1.15;margin:.8cqw 0 0;color:var(--sambas)}
+/* very small screens only: a legible circle can't hold 5 text stations below ~340px,
+   so fall back to the unwound vertical stack with down-arrows */
+@media(max-width:340px){
   .how-loop{display:flex;align-items:stretch;justify-content:center;gap:6px;width:auto;aspect-ratio:auto;margin-top:.4rem}
   .how-ring,.how-center{display:none}
   .how .flow{position:static;display:grid;grid-template-columns:1fr;gap:clamp(1.6rem,6vw,2.2rem);width:12.5rem;max-width:66vw;margin:0}
