@@ -146,6 +146,8 @@ function boot() {
   initAttentionCta();               // ported: hero CTA idle "look at me" loop
   initFirecrackerCta(audio);        // ported from the wall: "Join a Circle" click → firecracker → green door
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
+  initHowGag();                     // tap "every week" → the words stop, the ring spins instead
+  initHeroRotate();                 // hero "week" gets retyped: month, 2nd Friday, other week…
   // Hovering a card/polaroid grows its hard shadow under a live SVG filter —
   // a burst of quick re-rasters of a big sheet. That's a known, brief,
   // self-inflicted stall (same idea as the crumple capture at pauseFps(2500)):
@@ -159,6 +161,65 @@ function boot() {
   // so without this the governor is dead code and the lite fallback unreachable.
   if (!Stage.reduce) { const stopFps = Stage.addDriver(() => {}); setTimeout(stopFps, 2200); }
 }
+/* hero rhythm rotator: the highlighted "week" is deleted and retyped as the other
+   cadences Circle Time supports — the hero demonstrates flexibility instead of
+   claiming weekly-only. Height is reserved for the longest variant so the CTAs
+   never jump; lines reflow during typing (that's the typewriter charm). */
+function initHeroRotate() {
+  if (Stage.reduce) return;
+  const w = document.getElementById('rot-word');
+  if (!w) return;
+  const WORDS = ['week', 'other week', '2nd Friday', 'month'];
+  // the word lives in a FIXED slot so the headline never rewraps: the slot is
+  // week-wide (up to 1.75x); anything longer gets typewriter-SQUISHED into it.
+  const inner = document.createElement('span');
+  inner.className = 'rw';
+  inner.textContent = w.textContent;
+  w.textContent = '';
+  w.appendChild(inner);
+  const baseW = inner.offsetWidth;             // width of 'week'
+  const maxW = baseW * 1.75;
+  w.style.display = 'inline-block';
+  w.style.width = baseW + 'px';
+  const fit = () => {
+    const nat = inner.offsetWidth;
+    const slot = Math.max(baseW, Math.min(nat, maxW));
+    w.style.width = slot + 'px';
+    inner.style.transform = nat > slot ? 'scaleX(' + (slot / nat) + ')' : 'none';
+  };
+  const set = (s) => { inner.textContent = s; fit(); };
+  let i = 0, t;
+  const rest = (word) => (word === 'week' ? 4600 : 2700);
+  const del = () => {
+    const s = inner.textContent;
+    if (s.length) { set(s.slice(0, -1)); t = setTimeout(del, 36 + Math.random() * 28); }
+    else { i = (i + 1) % WORDS.length; type(WORDS[i], 0); }
+  };
+  const type = (word, n) => {
+    if (n < word.length) { set(word.slice(0, n + 1)); t = setTimeout(() => type(word, n + 1), 58 + Math.random() * 46); }
+    else { w.classList.remove('typing'); t = setTimeout(() => { w.classList.add('typing'); del(); }, rest(word)); }
+  };
+  const start = () => { t = setTimeout(() => { w.classList.add('typing'); del(); }, rest('week')); };
+  // begin only once the envelope is open (or immediately if it never sealed)
+  const root = document.documentElement;
+  if (!root.classList.contains('sealed') || root.classList.contains('revealed')) start();
+  else {
+    const mo = new MutationObserver(() => {
+      if (root.classList.contains('revealed')) { mo.disconnect(); start(); }
+    });
+    mo.observe(root, { attributes: true, attributeFilter: ['class'] });
+  }
+}
+
+/* tap the loop's center: "every week" freezes and the ring itself starts to turn.
+   Pure toggle — a class swap; CSS owns both animations. Inert under reduced-motion. */
+function initHowGag() {
+  const loop = document.querySelector('.how-loop');
+  const c = loop && loop.querySelector('.how-center');
+  if (!c) return;
+  c.addEventListener('click', () => loop.classList.toggle('spin-swap'));
+}
+
 if (document.readyState !== 'loading') boot();
 else document.addEventListener('DOMContentLoaded', boot);
 
@@ -310,8 +371,8 @@ function initReveals() {
   // would vanish. Per-group index gives a real cascade instead of a global %3.
   const groups = [
     document.querySelectorAll('.team .polaroid'),
-    document.querySelectorAll('.doors .card'),
-    document.querySelectorAll('.team .head, .doors .head'),
+    document.querySelectorAll('.showup .card, .doors .card'),
+    document.querySelectorAll('.team .head, .doors .head, .showup .head, .showup .pegwall'),
   ];
   const marked = [];
 
