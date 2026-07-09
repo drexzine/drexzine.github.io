@@ -1479,6 +1479,8 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .bin span{font-family:var(--f-hand);font-size:1.04rem;line-height:1.15;color:var(--ink)}
 @media(max-width:720px){.bin-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:460px){.bin-grid{grid-template-columns:1fr;max-width:22rem}}
+.tray-letters{margin:1.1rem auto 0;max-width:52ch;font-size:1.08rem;line-height:1.35;color:var(--sambas);transform:rotate(-.7deg)}
+.tray-letters a{color:var(--grass-deep);text-underline-offset:3px}
 
 /* ============ nothing straight: filtered frame layers for the newer components ============ */
 /* polaroids (people + video slots): frame moves to a wobbled layer; content stays crisp */
