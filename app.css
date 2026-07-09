@@ -471,10 +471,24 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .how .flow{list-style:none;margin:0;padding:0;position:absolute;inset:0;z-index:2}
 /* width tuned so a side station (centre at 86%/14% on the ring) + its note stays inside the 100cqw box at every size */
 .how .step{position:absolute;width:24cqw;transform:translate(-50%,-50%);text-align:center}
-/* each station sits on a torn-paper note → the loop threads BEHIND it (contrast + no ring-through-icon) */
-.how .step::before{content:"";position:absolute;inset:-2.3cqw -1.7cqw;z-index:-1;background:var(--paper);
-  border:.4cqw solid var(--ink);border-radius:1.25cqw;box-shadow:.72cqw .72cqw 0 0 var(--ink);filter:url(#roughsm)}
-.how .step:nth-child(even)::before{filter:url(#roughsm2)}   /* vary the torn edge per note */
+/* each station sits on a STICKY NOTE → the loop threads BEHIND it (contrast + no ring-through-icon) */
+.how .step::before{content:"";position:absolute;inset:-2.3cqw -1.7cqw;z-index:-1;background:var(--happy);
+  border:.35cqw solid var(--ink);border-radius:.7cqw;box-shadow:.72cqw .72cqw 0 0 var(--ink);filter:url(#roughsm)}
+.how .step:nth-child(even)::before{filter:url(#roughsm2)}   /* vary the hand-cut edge per note */
+/* the folded-up sticky corner */
+@media(min-width:341px){
+  .how .step::after{content:"";position:absolute;z-index:-1;right:-1.7cqw;bottom:-2.3cqw;width:0;height:0;
+    border-left:3.6cqw solid transparent;border-bottom:3.6cqw solid var(--schoolbus);filter:url(#roughsm)}
+}
+/* tap "every week": the words stop — and the ring takes over the spinning.
+   .flow sits above the center (z2 vs z1) — let clicks fall through it except on the notes. */
+.how .flow{pointer-events:none}
+.how .step{pointer-events:auto}
+.how-center{cursor:pointer;pointer-events:auto;padding:1.2cqw}
+.how-loop.spin-swap .how-center{animation:none}
+.how-loop.spin-swap .how-ring{transform-origin:50% 50%;animation:how-spin-ring 16s linear infinite}
+@keyframes how-spin-ring{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.how-loop.spin-swap .how-ring{animation:none}}
 .how .step:nth-child(1){top:12%;left:50%}      /* Gather — top (in the ring's gap) */
 .how .step:nth-child(2){top:38.3%;left:86.1%}  /* Make — right (exact R=38 on the ring) */
 .how .step:nth-child(3){top:80.7%;left:72.3%}  /* Reflect — lower right */
@@ -1403,3 +1417,147 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .vol-p svg *{ filter:none !important; }
 /* reduced motion: spawnVolcano already early-returns and never builds the layer; final belt */
 @media (prefers-reduced-motion: reduce){ .vol-layer{ display:none !important; } }
+
+/* ============ ZBOOK — zine links read as a cute little booklet, never a polaroid ============ */
+.zpola.zbook{background:transparent;border:none;box-shadow:none;width:clamp(158px,20vw,210px)}
+.zpola.zbook .ph{aspect-ratio:4/5;border:2.6px solid var(--ink);border-radius:3px 9px 9px 3px;
+  box-shadow:3.4px 3.4px 0 0 var(--oats),4.8px 4.8px 0 0 var(--ink),8px 8px 0 0 var(--oats),9.6px 9.6px 0 0 var(--ink)}
+.zpola.zbook .zpola-cap{padding-top:.75rem}
+.zine-duo .zpola.zbook:hover{box-shadow:none}
+
+/* bigger objects — the evidence is the point: polaroids ~1.6x, booklets ~2x */
+.zpola{width:clamp(180px,23vw,250px)}
+.zpola.zbook{width:clamp(230px,30vw,330px)}
+.zine-card{width:min(560px,100%)}
+.zine-duo .zpola:nth-child(2){margin-left:-30px;margin-top:30px}
+@media(max-width:480px){.zpola{width:42vw}.zpola.zbook{width:54vw}}
+
+/* ============ PEGBOARD — the showing-up kit, six tools hung on a workshop wall ============ */
+.pegwall{position:relative;max-width:960px;margin:0 auto;padding:clamp(1.6rem,4vw,3rem) clamp(1rem,3vw,2.4rem) clamp(2rem,4.5vw,3.4rem)}
+/* the board itself lives on a filtered layer so its edges wobble like everything else */
+.pegwall::before{content:"";position:absolute;inset:0;z-index:0;
+  background:var(--oats);border:3px solid var(--ink);border-radius:12px;
+  box-shadow:10px 11px 0 0 var(--ink);
+  background-image:radial-gradient(circle, rgba(65,77,87,.22) 2.4px, transparent 3px);
+  background-size:36px 36px;background-position:14px 18px;filter:url(#rough)}
+.pegwall>*{position:relative;z-index:1}
+.peg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.4rem,3.4vw,2.6rem) clamp(.8rem,2vw,1.6rem)}
+.peg-tool{position:relative;display:flex;flex-direction:column;align-items:center;margin:0;
+  transform:rotate(var(--rot,0deg));transition:transform .18s ease}
+.peg-tool:hover{transform:rotate(0deg) translateY(-5px)}
+.peg-hook{width:26px;height:18px;margin-bottom:-6px}
+.peg-obj{width:clamp(96px,12vw,132px);height:auto;filter:drop-shadow(4px 5px 0 rgba(65,77,87,.9))}
+.peg-string{width:2.5px;height:16px;background:var(--ink);margin:2px 0 0;filter:url(#roughsm)}
+.peg-tag{position:relative;margin-top:2px;padding:.5rem .7rem .55rem;max-width:22ch;text-align:center;
+  transform:rotate(var(--tagrot,0deg))}
+.peg-tag::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+  border:2.4px solid var(--ink);box-shadow:4px 5px 0 0 var(--ink);filter:url(#roughsm)}
+.peg-tag b{display:block;font-family:var(--f-mono);font-weight:700;font-size:.98rem;letter-spacing:.02em;color:var(--ink)}
+.peg-tag span{display:block;font-family:var(--f-hand);font-size:.95rem;line-height:1.15;margin-top:.15rem;color:var(--sambas)}
+.peg-tag .capline{display:block;font-family:var(--f-hand);font-size:.8rem;line-height:1;margin-bottom:.2rem}
+@media (max-width:720px){.peg-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:430px){.peg-grid{gap:1.2rem .6rem}.peg-tag{max-width:18ch}}
+/* the parts tray under the pegboard: the orb, then the small stuff */
+.peg-tray{margin-top:clamp(1.8rem,3.6vw,2.6rem);text-align:center;position:relative}
+.tray-rule{display:block;width:96%;height:12px;margin:0 auto 1.1rem}
+/* two instruments in labeled compartments, then six parts bins (wabi-sabi tilts) */
+.tray-duo2{display:flex;justify-content:center;gap:clamp(.9rem,2.4vw,1.5rem);flex-wrap:wrap;margin-bottom:1.25rem}
+.tray-inst{position:relative;display:flex;align-items:center;gap:.75rem;padding:.6rem .95rem;max-width:34ch;
+  text-align:left;transform:rotate(var(--irot,0deg))}
+.tray-inst::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+  border:2.4px solid var(--ink);box-shadow:4px 5px 0 0 var(--ink);filter:url(#roughsm)}
+.tray-inst>svg{width:54px;height:54px;flex:none;overflow:visible}
+.tray-inst b{display:block;font-family:var(--f-mono);font-weight:700;font-size:.98rem;color:var(--ink)}
+.tray-inst i{display:block;font-style:normal;font-family:var(--f-hand);font-size:1rem;line-height:1.2;color:var(--sambas);margin-top:.1rem}
+.tray-label{display:inline-block;font-family:var(--f-hand);color:var(--colorado);font-size:1.18rem;transform:rotate(-1.5deg);margin-bottom:.6rem}
+.bin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;max-width:850px;margin:0 auto}
+.bin{position:relative;display:flex;align-items:center;gap:.6rem;padding:.55rem .7rem;text-align:left;
+  transform:rotate(var(--brot,0deg))}
+.bin::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--oats);
+  border:2.2px solid var(--ink);box-shadow:3px 4px 0 0 var(--ink);filter:url(#roughsm)}
+.bin .bi{width:30px;height:30px;flex:none;overflow:visible}
+.bin span{font-family:var(--f-hand);font-size:1.04rem;line-height:1.15;color:var(--ink)}
+@media(max-width:720px){.bin-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:460px){.bin-grid{grid-template-columns:1fr;max-width:22rem}}
+
+/* ============ nothing straight: filtered frame layers for the newer components ============ */
+/* polaroids (people + video slots): frame moves to a wobbled layer; content stays crisp */
+.zpola{background:transparent;border:none;box-shadow:none}
+.zpola::before{content:"";position:absolute;inset:0;z-index:0;background:var(--paper);
+  border:2.4px solid var(--ink);border-radius:5px;box-shadow:6px 6px 0 0 var(--ink);
+  filter:url(#roughsm);transition:box-shadow .18s ease}
+.zpola>*{position:relative;z-index:1}
+.zine-duo .zpola:hover{box-shadow:none}
+.zine-duo .zpola:hover::before{box-shadow:10px 11px 0 0 var(--ink)}
+/* zbooks: no polaroid frame; the booklet edge + a HARD page-stack shadow, wobbled */
+.zpola.zbook::before{display:none}
+.zpola.zbook .ph{border:none;box-shadow:none;overflow:visible}
+.zpola.zbook .ph img{border-radius:2px 7px 7px 2px}
+.zpola.zbook .ph::after{content:"";position:absolute;inset:0;pointer-events:none;
+  border:2.6px solid var(--ink);border-radius:3px 9px 9px 3px;
+  box-shadow:4px 4px 0 0 var(--oats),5.5px 5.5px 0 0 var(--ink),9px 9px 0 0 var(--paper),11px 11px 0 0 var(--ink);
+  filter:url(#roughsm)}
+/* tabs + stamps wobble too (tiny text survives the small-scale boil) */
+.zine-tab{background:transparent}
+.zine-tab::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--tabbg,var(--ink));
+  border-radius:4px;filter:url(#roughsm)}
+.zine-card.bot .zine-tab{background:transparent;--tabbg:var(--lazuli)}
+.soon-stamp{filter:url(#roughsm)}
+
+/* ============ scrawled section closers: the zines knock line + the showup pulse line ============ */
+.zines-knock,.showup-pulse{ margin:clamp(1.6rem,3.4vw,2.4rem) auto 0; max-width:36ch; text-align:center;
+  font-size:clamp(1.05rem,2vw,1.3rem); line-height:1.3; color:var(--colorado); transform:rotate(-1.4deg); }
+
+/* ============ hero rhythm rotator — "week" gets retyped: month, 2nd Friday, other week… ============ */
+.hl-rot{white-space:nowrap;vertical-align:bottom}
+.hl-rot .rw{display:inline-block;transform-origin:left center;white-space:nowrap}
+.hl-rot::after{content:"";display:inline-block;width:.09em;height:.82em;background:var(--ink);
+  margin-left:.07em;vertical-align:-.06em;opacity:0}
+.hl-rot.typing::after{opacity:1;animation:rot-caret .75s steps(1) infinite}
+@keyframes rot-caret{50%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.hl-rot::after{display:none}}
+
+/* ============ the READER section — zines flip THROUGH the phone, one at a time ============ */
+.flip2-stage{display:flex;justify-content:center;margin:clamp(1rem,2.6vw,1.8rem) auto 0}
+.flip2{width:min(640px,92vw);margin:0}
+.flip2 figcaption{text-align:center;font-family:var(--f-hand);color:var(--grass-deep);
+  font-size:clamp(1rem,1.9vw,1.2rem);margin-top:.6rem;transform:rotate(-1.2deg)}
+.belt{position:relative;overflow:hidden}
+.belt-phone{position:relative;z-index:2;display:block;width:100%;height:auto;pointer-events:none}
+.belt-rail{position:absolute;inset:0;display:flex;align-items:center;z-index:0}
+.belt-track{display:flex;gap:26px;will-change:transform;margin-left:calc(50% - 312px);
+  animation:belt-step 13s cubic-bezier(.65,-0.15,.25,1.12) infinite}
+.bz{width:104px;flex:none;height:auto;overflow:visible}
+/* six holds, six snaps — one zine slot (130px) per flip, looping seamlessly */
+@keyframes belt-step{
+  0%,12.5%{transform:translateX(0)}
+  16.66%,29.16%{transform:translateX(-130px)}
+  33.33%,45.83%{transform:translateX(-260px)}
+  50%,62.5%{transform:translateX(-390px)}
+  66.66%,79.16%{transform:translateX(-520px)}
+  83.33%,95.83%{transform:translateX(-650px)}
+  100%{transform:translateX(-780px)}
+}
+.belt-ui{position:absolute;left:50%;bottom:14%;transform:translateX(-50%) rotate(-2deg);z-index:3}
+/* the open-and-read overlay: the landed cover grows to fill the screen, then scrolls.
+   Six panels, one per belt window, phased on the same 13s clock. */
+.belt-open{position:absolute;left:32.03%;top:22.5%;width:35.94%;height:55%;overflow:hidden;z-index:1}
+.bo{position:absolute;inset:0;opacity:0;transform:scale(.5);transform-origin:50% 50%;
+  animation:bo-pop 13s infinite;animation-delay:calc(var(--d) * 13s / 6)}
+.bo-scroll{position:absolute;inset:0;animation:bo-scroll 13s infinite;animation-delay:inherit}
+.bo-scroll svg{display:block;width:100%;height:auto}
+@keyframes bo-pop{
+  0%,1.4%{opacity:0;transform:scale(.5)}
+  1.5%{opacity:1;transform:scale(.5)}
+  3.4%{transform:scale(1)}
+  10.4%{opacity:1;transform:scale(1)}
+  12.3%,100%{opacity:0;transform:scale(.6)}
+}
+@keyframes bo-scroll{
+  0%,4.2%{transform:translateY(0)}
+  10.6%{transform:translateY(-46%)}
+  12.4%{transform:translateY(-46%)}
+  12.6%,100%{transform:translateY(0)}
+}
+@media(prefers-reduced-motion:reduce){.belt-track,.bo,.bo-scroll{animation:none}.bo{opacity:0}}
+.showup-pulse{ color:var(--grass-deep); transform:rotate(1.2deg); max-width:40ch; }
