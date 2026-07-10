@@ -163,15 +163,16 @@ function boot() {
 }
 /* hero rhythm rotator: the highlighted "week" is deleted and retyped as the other
    cadences Circle Time supports — the hero demonstrates flexibility instead of
-   claiming weekly-only. Height is reserved for the longest variant so the CTAs
-   never jump; lines reflow during typing (that's the typewriter charm). */
+   claiming weekly-only. Line 1 is nowrap (.l1) and ends at a hard <br>, so the
+   slot grows into its own line-end: the lines below never move and the comma
+   rides the word's tip like a carriage. */
 function initHeroRotate() {
   if (Stage.reduce) return;
   const w = document.getElementById('rot-word');
   if (!w) return;
   const WORDS = ['week', 'other week', '2nd Friday', 'month'];
-  // the word lives in a FIXED slot so the headline never rewraps: the slot is
-  // week-wide (up to 1.75x); anything longer gets typewriter-SQUISHED into it.
+  // the slot breathes between week-wide and 1.75x; anything longer gets
+  // typewriter-SQUISHED into 1.75x so line 1 can't overflow the card on phones.
   const inner = document.createElement('span');
   inner.className = 'rw';
   inner.textContent = w.textContent;

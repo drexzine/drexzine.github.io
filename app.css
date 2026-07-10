@@ -1511,6 +1511,7 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
   font-size:clamp(1.05rem,2vw,1.3rem); line-height:1.3; color:var(--colorado); transform:rotate(-1.4deg); }
 
 /* ============ hero rhythm rotator — "week" gets retyped: month, 2nd Friday, other week… ============ */
+.l1{white-space:nowrap}  /* line 1 ends at the <br>: the slot breathes into its own line-end, so the lines below never move and the comma can't be orphaned off the slot */
 .hl-rot{white-space:nowrap;vertical-align:bottom}
 .hl-rot .rw{display:inline-block;transform-origin:left center;white-space:nowrap}
 .hl-rot::after{content:"";display:inline-block;width:.09em;height:.82em;background:var(--ink);
