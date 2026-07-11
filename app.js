@@ -129,6 +129,228 @@ function initSlitCenter() {
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(center);
 }
 
+/* THE CRAFT UNIVERSE — a sortable, searchable browse of the crafts scoring ≥ 20.
+   Data adapted from the internal craft scorecard; the six scores are used ONLY to
+   (a) gate the list at ≥ THRESHOLD and (b) set the default "featured" order. The
+   page shows only Craft · Where it lives · What it is — no scores, no ranking.
+   Featured order: Photography + Personal styling pinned to the top; AI image
+   generation pushed to the bottom; everyone else by hidden score, descending. */
+function initCraftTable() {
+  const root = document.getElementById('craft-tbl');
+  if (!root) return;
+  const THRESHOLD = 20;
+  const PIN = ['Photography', 'Personal styling'];
+  const DEMOTE = ['AI image generation'];
+  const DATA = [
+    ["Personal styling","Fashion & Style","Composing outfits and a wardrobe as self-expression",5,5,5,4,4,5],
+    ["Sewing & garment-making","Fashion & Style","Constructing clothing from patterns and fabric",5,5,5,3,5,3],
+    ["Thrifting & upcycling","Fashion & Style","Sourcing and remaking secondhand clothing",4,5,5,4,4,5],
+    ["Sneaker customization","Fashion & Style","Painting and modifying sneakers",5,5,5,3,5,3],
+    ["Knitting","Fashion & Style","Making fabric and garments with needles and yarn",4,5,5,3,4,4],
+    ["Crochet","Fashion & Style","Making fabric with a single hooked needle",4,5,5,3,4,5],
+    ["Embroidery","Fashion & Style","Decorative needlework on fabric",5,5,5,3,4,5],
+    ["Visible mending","Fashion & Style","Decorative repair of worn textiles",4,5,4,4,3,4],
+    ["Millinery","Fashion & Style","Designing and making hats",5,5,2,2,4,2],
+    ["Nail art","Fashion & Style","Painting and decorating nails",5,5,5,5,4,5],
+    ["Makeup artistry","Fashion & Style","Cosmetic application as an art form",5,5,5,5,4,4],
+    ["Hair styling & braiding","Fashion & Style","Cutting, styling and braiding hair",5,5,5,4,5,4],
+    ["Tattoo art","Fashion & Style","Permanent ink design on skin",5,5,5,3,5,2],
+    ["Cosplay & prop-making","Fashion & Style","Recreating costumes and props from media",5,5,5,2,3,3],
+    ["Pottery & ceramics","Ceramics & 3D","Shaping clay into vessels and objects",5,5,5,3,4,3],
+    ["Polymer clay craft","Ceramics & 3D","Sculpting bakeable clay into jewelry and objects",5,5,4,4,4,5],
+    ["Air-dry clay craft","Ceramics & 3D","Hand-building objects without a kiln",4,4,4,4,3,5],
+    ["Sculpture","Ceramics & 3D","Carving or modeling three-dimensional form",5,5,3,2,3,2],
+    ["Resin art","Ceramics & 3D","Casting and coating with epoxy resin",5,5,4,4,4,4],
+    ["Candle making","Ceramics & 3D","Pouring scented wax candles",3,4,4,4,5,5],
+    ["Soap making","Ceramics & 3D","Crafting handmade soaps",3,4,3,3,4,4],
+    ["Woodworking & joinery","Ceramics & 3D","Building objects and furniture from wood",4,4,4,2,4,2],
+    ["Wood carving / whittling","Ceramics & 3D","Shaping wood by hand tools",4,4,3,3,3,3],
+    ["Jewelry & metalsmithing","Ceramics & 3D","Fabricating adornments from metal and stone",5,5,4,3,5,2],
+    ["Stained glass","Ceramics & 3D","Assembling colored glass into panels",5,5,2,2,4,2],
+    ["Leatherworking","Ceramics & 3D","Crafting goods from leather",4,4,3,2,4,3],
+    ["Bookbinding","Ceramics & 3D","Constructing and repairing books by hand",4,5,3,3,3,3],
+    ["Weaving (loom)","Fiber & Textile","Interlacing yarn on a loom into cloth or hangings",4,5,4,2,4,3],
+    ["Punch needle","Fiber & Textile","Looping yarn through fabric for textured art",4,5,4,5,3,5],
+    ["Tufting (rug making)","Fiber & Textile","Punching yarn into a backing with a tufting gun",5,5,4,3,4,3],
+    ["Macramé","Fiber & Textile","Knotting cord into decorative objects",4,5,4,4,4,5],
+    ["Quilting","Fiber & Textile","Stitching layered fabric into blankets",4,5,4,2,3,3],
+    ["Felting","Fiber & Textile","Matting wool into shapes and pictures",4,4,3,4,3,4],
+    ["Natural dyeing / shibori","Fiber & Textile","Coloring textiles with dyes and resist techniques",4,5,3,3,3,4],
+    ["Diamond painting","Fiber & Textile","Placing resin gems onto a coded canvas",3,4,4,4,2,5],
+    ["Cross-stitch / needlepoint","Fiber & Textile","Counted-thread embroidery on canvas",4,4,4,3,3,5],
+    ["Painting","Visual Art","Applying pigment to a surface in oil, acrylic or watercolor",5,5,5,4,4,4],
+    ["Drawing / sketching","Visual Art","Rendering images with pencil, pen or charcoal",5,5,5,5,3,5],
+    ["Paint by numbers","Visual Art","Filling coded regions with matched paint",3,4,4,4,1,5],
+    ["Printmaking","Visual Art","Transferring inked images from a matrix (lino, screen, etch)",5,5,4,3,4,3],
+    ["Collage","Visual Art","Assembling images from found materials",4,5,4,4,2,5],
+    ["Calligraphy / hand-lettering","Visual Art","Decorative writing as an art form",5,5,5,4,4,5],
+    ["Sign painting","Visual Art","Hand-painting lettered signage",5,5,3,3,4,2],
+    ["Comics / manga","Visual Art","Sequential visual storytelling",5,5,5,2,4,4],
+    ["Zine making","Visual Art","Self-published small-run booklets",5,5,4,4,3,5],
+    ["Sumi-e / ink painting","Visual Art","East Asian brush-and-ink painting",5,5,3,3,3,4],
+    ["Botanical illustration","Visual Art","Precise scientific rendering of nature",5,5,3,3,3,3],
+    ["Photography","Photo/Film/Digital","Capturing images with a camera",5,5,5,5,5,5],
+    ["Film photography","Photo/Film/Digital","Shooting on analog film",5,5,5,4,4,3],
+    ["Videography / filmmaking","Photo/Film/Digital","Producing moving-image works",5,5,5,3,5,3],
+    ["Cinematography","Photo/Film/Digital","Crafting camera and lighting for film",5,5,4,3,5,2],
+    ["Graphic design","Photo/Film/Digital","Composing visual communication",5,5,5,4,5,4],
+    ["Digital illustration","Photo/Film/Digital","Drawing and painting in digital media",5,5,5,4,5,4],
+    ["Animation","Photo/Film/Digital","Creating moving image frame by frame",5,5,4,2,5,3],
+    ["Motion graphics","Photo/Film/Digital","Animated graphic design",5,5,4,3,5,3],
+    ["3D modeling","Photo/Film/Digital","Building digital three-dimensional objects and scenes",5,5,4,3,5,3],
+    ["Typography / type design","Photo/Film/Digital","Designing letterforms and typefaces",5,5,3,3,4,3],
+    ["Pixel art","Photo/Film/Digital","Image-making with visible pixels",5,5,4,4,3,5],
+    ["Data visualization","Photo/Film/Digital","Turning data into visual form",4,5,3,3,4,3],
+    ["Concept art","Photo/Film/Digital","Painting worlds and characters for media",5,5,4,3,5,3],
+    ["AI image generation","Tech & Emerging","Directing generative models to make images",5,5,5,5,4,5],
+    ["AI music generation","Tech & Emerging","Composing with generative audio models",4,5,4,5,3,5],
+    ["AI filmmaking / video","Tech & Emerging","Generating film with AI video tools",5,5,4,3,4,4],
+    ["Vibe coding","Tech & Emerging","Building functional apps via natural-language prompts",4,4,5,4,5,4],
+    ["Generative / creative coding","Tech & Emerging","Producing art with code and shaders",5,5,4,3,3,3],
+    ["Game development (indie)","Tech & Emerging","Designing and building original games",5,5,5,2,5,2],
+    ["Game modding / level design","Tech & Emerging","Modifying or building content inside games",4,4,5,3,3,3],
+    ["UGC game creation","Tech & Emerging","Building experiences in Roblox, Fortnite, Minecraft",4,4,5,3,4,4],
+    ["VR world building","Tech & Emerging","Creating spaces in VRChat and Horizon",4,4,4,3,3,3],
+    ["3D printing / fabrication","Tech & Emerging","Designing and printing physical objects",5,5,4,3,4,3],
+    ["Laser cutting / CNC craft","Tech & Emerging","Fabricating with computer-controlled tools",4,4,3,3,4,2],
+    ["Mechanical keyboard building","Tech & Emerging","Assembling and customizing bespoke keyboards",5,5,5,3,3,3],
+    ["Modular synthesis","Tech & Emerging","Patching modular synthesizers for sound",4,4,4,3,3,2],
+    ["Drone / FPV flying & building","Tech & Emerging","Piloting and building racing and camera drones",4,4,4,3,3,2],
+    ["Playing an instrument","Music & Sound","Learning guitar, piano, violin and beyond",4,4,5,5,4,4],
+    ["Singing / vocal craft","Music & Sound","Training and performing the voice",4,4,5,5,4,4],
+    ["Music production / beatmaking","Music & Sound","Producing tracks in a DAW",4,5,5,4,5,4],
+    ["Songwriting / composition","Music & Sound","Writing songs and instrumental music",4,4,5,4,4,4],
+    ["DJing / turntablism","Music & Sound","Mixing and blending recorded music",4,4,5,4,4,3],
+    ["Beatboxing","Music & Sound","Vocal percussion and sound imitation",4,4,3,4,2,4],
+    ["Choir / ensemble singing","Music & Sound","Group vocal performance",3,3,4,5,2,4],
+    ["Dance","Movement & Performance","Expressive movement to music",5,4,5,5,4,4],
+    ["Breaking / street dance","Movement & Performance","Improvised, often competitive dance",5,4,4,4,3,4],
+    ["Acting / theater","Movement & Performance","Performing dramatic roles",4,3,5,3,4,3],
+    ["Improv comedy","Movement & Performance","Unscripted comedic performance",4,2,4,5,2,4],
+    ["Stand-up comedy","Movement & Performance","Solo comedic performance",4,3,4,4,3,4],
+    ["Magic / illusion","Movement & Performance","Performing sleight-of-hand and illusion",4,3,3,4,3,3],
+    ["Circus arts","Movement & Performance","Juggling, aerial and acrobatic skill",4,4,3,4,2,3],
+    ["Martial arts","Movement & Performance","Disciplined combat and movement practice",4,3,5,5,3,4],
+    ["Yoga","Movement & Performance","Postural and breath movement practice",3,3,5,5,3,5],
+    ["Bouldering / climbing","Movement & Performance","Ascending walls and rock as practice",4,4,5,4,2,3],
+    ["Skateboarding","Movement & Performance","Trick riding on a skateboard",4,4,5,4,3,4],
+    ["Parkour","Movement & Performance","Traversing environment through movement",4,4,4,4,2,3],
+    ["Cooking a cuisine","Culinary","Preparing meals within a culinary tradition",4,5,5,5,4,5],
+    ["Baking","Culinary","Making breads, cakes and pastries",4,5,5,4,4,5],
+    ["Sourdough & bread","Culinary","Cultivating starter and baking naturally-leavened bread",4,5,5,4,3,4],
+    ["Pastry / cake decorating","Culinary","Ornamenting cakes and desserts",5,5,5,3,5,3],
+    ["BBQ / grilling","Culinary","Live-fire meat cookery",4,4,5,3,4,4],
+    ["Coffee craft","Culinary","Brewing, roasting and presenting coffee",4,4,5,5,4,4],
+    ["Mixology / cocktails","Culinary","Composing and presenting mixed drinks",4,4,4,4,4,4],
+    ["Fermentation","Culinary","Culturing foods like kimchi, kombucha and miso",3,3,4,3,3,4],
+    ["Charcuterie / curing","Culinary","Preparing cured meats and boards",3,5,3,3,3,3],
+    ["Chocolate making","Culinary","Crafting confections from cacao",4,5,3,3,4,3],
+    ["Floristry","Nature & Home","Composing floral arrangements and designs",5,5,4,4,4,4],
+    ["Ikebana","Nature & Home","Japanese minimalist flower arrangement",5,5,3,3,3,3],
+    ["Houseplant cultivation","Nature & Home","Growing and arranging indoor plants",3,4,5,3,3,5],
+    ["Terrariums / kokedama","Nature & Home","Building enclosed and moss-ball plant worlds",4,5,3,3,4,4],
+    ["Aquascaping / reef keeping","Nature & Home","Designing planted aquariums and reefs",5,5,4,2,3,2],
+    ["Gardening / horticulture","Nature & Home","Cultivating plants and gardens",3,4,5,3,3,4],
+    ["Interior styling","Nature & Home","Composing living spaces aesthetically",4,5,5,3,4,4],
+    ["Creative writing / fiction","Writing & Word","Writing stories and novels",3,4,5,3,4,5],
+    ["Poetry / spoken word","Writing & Word","Composing and performing verse",3,4,5,4,2,5],
+    ["Newsletter / online essaying","Writing & Word","Publishing written work to an audience",3,4,5,4,5,5],
+    ["Journaling / bullet journaling","Writing & Word","Reflective and organizational writing practice",3,5,5,5,2,5],
+    ["Screenwriting","Writing & Word","Writing scripts for screen",3,3,4,2,4,4],
+    ["Worldbuilding / TTRPG design","Writing & Word","Building fictional worlds and game systems",4,4,5,3,3,4],
+    ["Origami","Paper & Object","Folding paper into forms without cuts",4,4,4,4,2,5],
+    ["Kirigami / papercutting","Paper & Object","Cutting paper into intricate designs",4,5,3,4,2,4],
+    ["Scrapbooking / junk journaling","Paper & Object","Assembling memory and collage books",4,5,4,4,3,5],
+    ["Sticker & small-batch merch","Paper & Object","Designing and producing stickers and goods",4,5,4,4,5,5],
+    ["Charm & beaded jewelry","Paper & Object","Assembling charms and beads into accessories",4,5,5,5,4,5],
+    ["Miniatures / dioramas","Paper & Object","Building small-scale models and scenes",5,5,4,2,3,3],
+    ["Model kit building","Paper & Object","Assembling and painting scale and Gundam kits",5,5,4,3,3,4],
+    ["Miniature painting (Warhammer)","Paper & Object","Painting tabletop wargame miniatures",5,5,5,3,3,3],
+    ["Brick building (Lego / AFOL)","Paper & Object","Building with construction bricks",4,4,4,3,2,5],
+    ["Kintsugi","Paper & Object","Repairing pottery with gold-joined lacquer",5,5,3,3,3,3],
+    ["Kente / Aso-oke weaving","African Traditions","West African strip-woven ceremonial cloth",5,5,3,2,4,2],
+    ["Adire / Adinkra","African Traditions","Yoruba and Akan resist-dyed and stamped textiles",5,5,3,3,3,3],
+    ["Bogolan (mud cloth)","African Traditions","Malian fermented-mud painted cloth",5,5,3,3,3,3],
+    ["Beadwork (Maasai/Zulu/Ndebele)","African Traditions","Symbolic geometric beadwork",5,5,4,4,4,4],
+    ["Imigongo","African Traditions","Rwandan geometric relief art in earth pigments",5,5,2,3,3,3],
+    ["Coiled / Bolga basketry","African Traditions","West and Southern African woven baskets",4,4,3,2,4,3],
+    ["Ndebele mural painting","African Traditions","Bold geometric house-wall painting",5,5,2,3,3,3],
+    ["Hair braiding artistry","African Traditions","Sculptural cornrow and braided hairstyling",5,5,5,4,5,4],
+    ["Shodo (calligraphy)","Japanese Traditions","Japanese brush calligraphy",5,5,3,4,3,4],
+    ["Kumihimo","Japanese Traditions","Japanese braided cord-making",4,4,3,4,3,4],
+    ["Boro / sashiko","Japanese Traditions","Indigo patch-mending and running-stitch",4,5,4,4,3,4],
+    ["Temari","Japanese Traditions","Embroidered decorative thread balls",5,5,2,3,3,3],
+    ["Furoshiki","Japanese Traditions","Artful cloth-wrapping of objects and gifts",3,4,2,4,2,5],
+    ["Streaming / content creation","Modern & Media","Building a live audience around a craft",3,4,5,5,5,4],
+    ["Podcasting","Modern & Media","Producing episodic audio",2,3,5,4,4,4],
+    ["Meme / internet-culture craft","Modern & Media","Making shareable cultural artifacts",3,5,5,5,3,5],
+    ["Van / #vanlife conversion","Modern & Media","Converting vans into living spaces",4,5,4,1,4,2],
+    ["Car restoration / detailing","Modern & Media","Restoring and detailing vehicles",4,4,5,2,4,2],
+    ["Bicycle building / restoration","Modern & Media","Building and restoring bikes",4,4,4,2,3,3],
+    ["Watch modding / horology","Modern & Media","Building and modifying watches",4,4,4,2,4,2],
+    ["EDC curation","Modern & Media","Curating everyday-carry gear aesthetically",3,4,4,3,2,4],
+    ["Herbalism / apothecary","Modern & Media","Making plant-based remedies and tinctures",3,4,4,3,3,3],
+    ["Fly tying","Modern & Media","Crafting fishing flies by hand",4,4,3,4,2,3]
+  ];
+  const rows = DATA.map(r => {
+    const [name, cat, def, vp, sa, tr, pc, ep, ac] = r;
+    return { name, cat, def, total: vp + sa + tr + pc + ep + ac };
+  }).filter(r => r.total >= THRESHOLD);
+
+  const featured = (r) => {
+    const p = PIN.indexOf(r.name); if (p >= 0) return -1e6 + p;
+    if (DEMOTE.includes(r.name)) return 1e6;
+    return -r.total;
+  };
+  const cats = [...new Set(rows.map(r => r.cat))].sort((a, b) => a.localeCompare(b));
+  let activeCat = 'All', sortK = 'featured', sortDir = 1, query = '';
+
+  const chipsEl = document.getElementById('craft-chips');
+  const setChip = (c) => chipsEl.querySelectorAll('.craft-chip').forEach(x => {
+    const on = x.dataset.c === c; x.classList.toggle('active', on); x.setAttribute('aria-pressed', String(on));
+  });
+  ['All', ...cats].forEach(c => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'craft-chip' + (c === 'All' ? ' active' : '');
+    b.textContent = c; b.dataset.c = c; b.setAttribute('aria-pressed', String(c === 'All'));
+    b.addEventListener('click', () => { activeCat = c; setChip(c); render(); });
+    chipsEl.appendChild(b);
+  });
+
+  const search = document.getElementById('craft-search');
+  search.addEventListener('input', (e) => { query = e.target.value.toLowerCase().trim(); render(); });
+
+  root.querySelectorAll('thead th[data-k]').forEach(th => {
+    th.addEventListener('click', () => {
+      const k = th.dataset.k;
+      if (sortK === k) sortDir *= -1; else { sortK = k; sortDir = 1; }
+      root.querySelectorAll('thead th[data-k]').forEach(x => {
+        const on = x.dataset.k === sortK;
+        x.setAttribute('aria-sort', on ? (sortDir === 1 ? 'ascending' : 'descending') : 'none');
+        const ar = x.querySelector('.ar'); if (ar) ar.textContent = on ? (sortDir === 1 ? '▲' : '▼') : '';
+      });
+      render();
+    });
+  });
+
+  const body = document.getElementById('craft-body');
+  const count = document.getElementById('craft-count');
+  function render() {
+    const list = rows.filter(r => (activeCat === 'All' || r.cat === activeCat) &&
+      (!query || r.name.toLowerCase().includes(query) || r.def.toLowerCase().includes(query) || r.cat.toLowerCase().includes(query)));
+    list.sort((a, b) => {
+      if (sortK === 'name') return sortDir * a.name.localeCompare(b.name);
+      if (sortK === 'cat') { const c = a.cat.localeCompare(b.cat); return c !== 0 ? sortDir * c : featured(a) - featured(b); }
+      return featured(a) - featured(b);
+    });
+    body.innerHTML = list.length
+      ? list.map(r => `<tr><td class="c-name">${r.name}</td><td class="c-cat">${r.cat}</td><td class="c-def">${r.def}</td></tr>`).join('')
+      : `<tr><td colspan="3" class="craft-empty">no craft by that name here &mdash; but if you practice it with your whole self, it counts.</td></tr>`;
+    count.textContent = `${list.length} of ${rows.length}`;
+  }
+  render();
+}
+
 function boot() {
   Stage.applyMotion();
   const audio = initAudio();        // M1: audio engine (opt-in, gesture-unlocked)
@@ -147,7 +369,8 @@ function boot() {
   initFirecrackerCta(audio);        // ported from the wall: "Join a Circle" click → firecracker → green door
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
   initHowGag();                     // tap "every week" → the words stop, the ring spins instead
-  initHeroRotate();                 // hero "week" gets retyped: month, 2nd Friday, other week…
+  initHeroRotate();                 // hero highlighted word cycles crafts
+  initCraftTable();                 // the craft universe — sortable/searchable browse (≥20)
   // Hovering a card/polaroid grows its hard shadow under a live SVG filter —
   // a burst of quick re-rasters of a big sheet. That's a known, brief,
   // self-inflicted stall (same idea as the crumple capture at pauseFps(2500)):
