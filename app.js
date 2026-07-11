@@ -170,7 +170,7 @@ function initHeroRotate() {
   if (Stage.reduce) return;
   const w = document.getElementById('rot-word');
   if (!w) return;
-  const WORDS = ['week', 'other week', '2nd Friday', 'month'];
+  const WORDS = ['craft', 'photography', 'styling', 'cooking', 'drawing'];
   // the slot breathes between week-wide and 1.75x; anything longer gets
   // typewriter-SQUISHED into 1.75x so line 1 can't overflow the card on phones.
   const inner = document.createElement('span');
@@ -190,7 +190,7 @@ function initHeroRotate() {
   };
   const set = (s) => { inner.textContent = s; fit(); };
   let i = 0, t;
-  const rest = (word) => (word === 'week' ? 4600 : 2700);
+  const rest = (word) => (word === 'craft' ? 4600 : 2700);
   const del = () => {
     const s = inner.textContent;
     if (s.length) { set(s.slice(0, -1)); t = setTimeout(del, 36 + Math.random() * 28); }
@@ -200,7 +200,7 @@ function initHeroRotate() {
     if (n < word.length) { set(word.slice(0, n + 1)); t = setTimeout(() => type(word, n + 1), 58 + Math.random() * 46); }
     else { w.classList.remove('typing'); t = setTimeout(() => { w.classList.add('typing'); del(); }, rest(word)); }
   };
-  const start = () => { t = setTimeout(() => { w.classList.add('typing'); del(); }, rest('week')); };
+  const start = () => { t = setTimeout(() => { w.classList.add('typing'); del(); }, rest('craft')); };
   // begin only once the envelope is open (or immediately if it never sealed)
   const root = document.documentElement;
   if (!root.classList.contains('sealed') || root.classList.contains('revealed')) start();

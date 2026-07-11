@@ -526,6 +526,73 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 }
 
 /* ---------- the zine = the tangible keepsake (hand-made vs bot-made) ---------- */
+/* ===== THE MAP — what a Circle puts within reach (the value prop, drawn) ===== */
+.map{padding:clamp(2rem,5vw,3.5rem) 0 clamp(1.5rem,4vw,3rem)}
+.map .head{margin-bottom:clamp(1rem,2.6vw,1.6rem);text-align:center}
+.map .head .eyebrow{color:var(--grass-deep)}
+.map .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);letter-spacing:-.02em;line-height:.98;color:var(--sambas)}
+.map .head h2 .stop{color:var(--grass-deep)}
+.map-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.05rem,1.8vw,1.28rem);line-height:1.5;color:rgba(65,77,87,.85);max-width:54ch;margin:.85rem auto 0}
+
+.map-stage{position:relative;width:min(700px,96vw);aspect-ratio:1;margin:clamp(.5rem,2.5vw,1.6rem) auto 0;container-type:inline-size}
+.map-ring{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible}
+
+/* the hub — you, at the center */
+.map-hub{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;text-align:center;width:30cqw}
+.map-hub .ico{width:13cqw;height:13cqw;margin:0 auto .4cqw;display:block}
+.map-hub .ico svg{width:100%;height:100%;display:block;overflow:visible}
+.map-hub .ico svg>*{filter:url(#roughsm)}
+.map-hub-lbl{font-family:var(--f-hand);font-size:3.7cqw;color:var(--sambas);display:block;line-height:1.05;transform:rotate(-2deg)}
+.map-hub-tag{font-family:var(--f-mono);font-size:1.8cqw;letter-spacing:.1em;text-transform:uppercase;color:var(--grass-deep);display:block;margin-top:.5cqw}
+
+/* the resources around you */
+.map-node{position:absolute;width:26cqw;transform:translate(-50%,-50%);text-align:center;z-index:2}
+.map-node::before{content:"";position:absolute;inset:-.9cqw -1cqw;z-index:-1;border-radius:4px;filter:url(#rough)}
+.map-node .ico{width:11cqw;height:11cqw;margin:0 auto .7cqw;display:block}
+.map-node .ico svg{width:100%;height:100%;display:block;overflow:visible}
+.map-node .ico svg>*{filter:url(#roughsm)}
+.map-node h3{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:3.5cqw;line-height:1;color:var(--sambas);margin:0}
+.map-node p{font-family:var(--f-body);font-size:2.4cqw;line-height:1.28;margin:.7cqw 0 0;color:rgba(65,77,87,.92)}
+.map-node .tag{font-family:var(--f-mono);font-size:1.7cqw;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:.6cqw}
+
+.map-people{width:30cqw;top:13%;left:50%}
+.map-people::before{background:rgba(247,84,88,.09)}
+.map-people .tag{color:var(--coral-ink)}
+.map-people h3{font-size:4cqw}
+
+.map-zines{top:74%;left:75%}
+.map-zines::before{background:rgba(36,150,201,.09)}
+
+.map-kit{top:74%;left:25%}
+.map-kit.is-ghost::before{background:transparent;border:.4cqw dashed var(--grass-deep);filter:none;border-radius:9px;opacity:.65}
+.map-kit h3{color:var(--grass-deep)}
+.map-kit p{color:rgba(65,77,87,.8)}
+
+/* the standing hour — one modest access badge on the ring, not the center */
+.map-hour{position:absolute;top:44%;left:93.5%;transform:translate(-50%,-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.3cqw;width:16cqw}
+.map-hour-ico{width:6.5cqw;height:6.5cqw}
+.map-hour-ico svg{width:100%;height:100%;display:block;overflow:visible}
+.map-hour-ico svg>*{filter:url(#roughsm)}
+.map-hour-lbl{font-family:var(--f-hand);font-size:2.5cqw;line-height:1.05;color:var(--schoolbus);text-align:center}
+
+.map-foot{font-family:var(--f-hand);font-size:clamp(1.05rem,1.9vw,1.32rem);color:var(--sambas);text-align:center;max-width:44ch;margin:clamp(1rem,2.6vw,1.8rem) auto 0;transform:rotate(-.6deg);line-height:1.3}
+
+@media (max-width:720px){
+  .map-stage{aspect-ratio:auto;width:auto;display:flex;flex-direction:column;align-items:center;gap:.9rem;container-type:normal;margin-top:1rem}
+  .map-ring,.map-hour{display:none}
+  .map-hub{position:relative;transform:none;left:auto;top:auto;width:min(360px,92vw)}
+  .map-node{position:relative;transform:none;left:auto;top:auto;width:min(360px,92vw)}
+  .map-hub .ico,.map-node .ico{width:46px;height:46px;margin-bottom:.3rem}
+  .map-hub-lbl{font-size:1.35rem}
+  .map-hub-tag{font-size:.72rem}
+  .map-node{padding:.9rem 1rem}
+  .map-node::before{inset:0;border-radius:8px}
+  .map-node h3,.map-people h3{font-size:1.3rem}
+  .map-node p{font-size:1rem}
+  .map-node .tag{font-size:.68rem}
+  .map-kit.is-ghost::before{border-width:2px}
+}
+
 .zines{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
 .zines .head{margin-bottom:clamp(1.8rem,4.5vw,2.6rem);text-align:center}
 .zines .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);
