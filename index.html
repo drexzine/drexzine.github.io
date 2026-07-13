@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=106" />
+<link rel="stylesheet" href="app.css?v=109" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -354,8 +354,65 @@
           <span class="pc-kicker pc-kicker-q">then tell us</span>
           <p class="pc-q">Is drawing at the cafe different than&nbsp;at&nbsp;home?</p>
         </div>
-        <figcaption class="pc-cap scrawl">&uarr; a real challenge, from a real issue. that's the whole ask.</figcaption>
+        <!-- the reflection question is not decoration: answering it out loud is how a circle
+             learns to run itself. That is the editor's real feedback loop. -->
+        <figcaption class="pc-cap scrawl">&uarr; a real challenge, from a real issue.<br>
+          <span class="pc-cap2">the question does double duty &mdash; it fills the zine, <em>and</em> it shows the circle what's working.</span></figcaption>
       </figure>
+
+      <!-- The magic moment: name the thing the reader has just understood. They've watched the loop,
+           they've seen a real challenge — now tell them it isn't a gimmick, it's a forty-year-old
+           finding, and we didn't invent it. Deliberately an aside, in the margin voice; the second
+           it becomes a lecture it stops landing. -->
+      <aside class="reveal-name">
+        <span class="rn-arrow scrawl" aria-hidden="true">btw &mdash;</span>
+        <p>That loop has a name. It's called <b>situated&nbsp;learning</b> &mdash; Lave &amp; Wenger, 1991 &mdash; and our founder spent his years at <b>Stanford</b> researching it. Midwives, tailors, butchers, quartermasters: they studied how people <em>actually</em> get good at things, and it was never a classroom. <b>We didn't invent it. We just built it.</b></p>
+        <a class="rn-link" href="https://letters.drex.style/">read Chielo's field notes <span class="arr">&rarr;</span></a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ THE LONG GAME — the thing the page never said. A Circle is not a drop-in
+       class and these are not randos cycling through: it is the same small group across issues,
+       who watch each other get good. This is Lave & Wenger's legitimate peripheral participation
+       made concrete — you arrive as the newest person in the room and, issue by issue, become the
+       one who gets asked. Drawn as a shelf of that circle's own issues, growing. ============ -->
+  <section class="longgame" id="long-game">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" style="color:var(--grass-deep)">the long game</span>
+        <h2 class="slab">The same people<span class="stop">.</span> <span class="ul">Issue after issue</span><span class="stop">.</span></h2>
+        <p class="lg-sub">Not a drop-in class. Not strangers cycling through. The same few faces for a year &mdash; who notice when you don't show, and who watch you get good.</p>
+      </div>
+
+      <figure class="shelf">
+        <ul class="spines" role="img" aria-label="A shelf of one circle's issues, 001 through 012, each one a little taller than the last.">
+          <li class="spine s1" style="--w:26px;--h:46%;--c:var(--lazuli)"><span class="sp-n">001</span></li>
+          <li class="spine s2" style="--w:31px;--h:52%;--c:var(--schoolbus)"><span class="sp-n">002</span></li>
+          <li class="spine s3" style="--w:24px;--h:49%;--c:var(--colorado)"><span class="sp-n">003</span></li>
+          <li class="spine s4" style="--w:34px;--h:58%;--c:var(--grass)"><span class="sp-n">004</span></li>
+          <li class="spine s5" style="--w:29px;--h:55%;--c:var(--happy)"><span class="sp-n">005</span></li>
+          <li class="spine s6" style="--w:37px;--h:64%;--c:var(--lazuli)"><span class="sp-n">006</span></li>
+          <li class="spine s7" style="--w:27px;--h:61%;--c:var(--colorado)"><span class="sp-n">007</span></li>
+          <li class="spine s8" style="--w:33px;--h:70%;--c:var(--schoolbus)"><span class="sp-n">008</span></li>
+          <li class="spine s9" style="--w:40px;--h:68%;--c:var(--grass)"><span class="sp-n">009</span></li>
+          <li class="spine s10" style="--w:30px;--h:78%;--c:var(--lazuli)"><span class="sp-n">010</span></li>
+          <li class="spine s11" style="--w:36px;--h:74%;--c:var(--happy)"><span class="sp-n">011</span></li>
+          <li class="spine s12" style="--w:44px;--h:88%;--c:var(--colorado)"><span class="sp-n">012</span></li>
+        </ul>
+        <div class="shelf-rule" aria-hidden="true"></div>
+        <div class="shelf-ends">
+          <span class="se-a scrawl">issue 001<br><b>you're the newest one here</b></span>
+          <span class="se-b scrawl">issue 012<br><b>somebody's asking&nbsp;you</b></span>
+        </div>
+      </figure>
+
+      <!-- The widening. Most circles are NOT here to "learn" — a photography collective is here to
+           shoot. Learning is the mechanism, not the goal, and saying so lets every group that
+           already has a mission see itself here. This is the sentence that stops the page reading
+           like school. -->
+      <p class="lg-punch">You don't have to be here to <em>learn</em>. Most circles are here to <b>make</b>.<br>
+        <span>But ship an issue a month, in front of people who'll actually see it, and the work gets better anyway. That's the whole trick.</span></p>
     </div>
   </section>
 
@@ -366,8 +423,8 @@
     <div class="wrap">
       <div class="head">
         <span class="eyebrow" style="color:var(--sambas)">what do you mean by &ldquo;gifts&rdquo;?</span>
-        <h2 class="slab">Whatever you'd practice if someone were <span class="ul">waiting</span><span class="stop">.</span></h2>
-        <p class="gifts-sub">Not just the respectable ones. A Circle has formed around every one of these.</p>
+        <h2 class="slab">Any craft that leaves something to <span class="ul">show</span><span class="stop">.</span></h2>
+        <p class="gifts-sub">If you can photograph what you made, it fills a page. Not just the respectable ones:</p>
       </div>
       <!-- MEDIA PLACEHOLDER (high value): a strip of 5-6 REAL square photos of these crafts being
            practised by real people — a skater mid-trick, hands doing nail art, a pour-over, a
@@ -441,6 +498,11 @@
         </figure>
 
       </div>
+
+      <!-- Don't over-commit to the zine. It is one EXEMPLAR — the artifact a circle leaves behind —
+           and the first format we happened to build. Saying so keeps the door open for the others,
+           and names the thing that quietly accrues to the maker: a portfolio. -->
+      <p class="exemplar">A zine is one kind of <b>exemplar</b> &mdash; the thing a circle leaves behind. It's the first format we built, not the last. And every issue you're in stacks up into <b>your portfolio</b>.</p>
 
       <!-- the pile: the same two-up shape (makers + their issue), shrunk and littered under the
            hand/bot pair. Folds MEET YOUR MAKERS in here — the proof that real people use this
@@ -797,6 +859,11 @@
         <p class="kit-sub">Chielo's research says a craft needs three things to take root: <b>people</b>, <b>virtual</b> and <b>material</b> resources. So that's what's in the box.</p>
       </div>
 
+      <!-- the gloss is hover-revealed, which is an invisible affordance without a nudge -->
+      <p class="kit-hint scrawl" aria-hidden="true">
+        <svg viewBox="0 0 40 26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6 C14 2 30 8 34 20" filter="url(#roughsm)"/><path d="M27 19 L35 22 L34 13" filter="url(#roughsm)"/></svg>
+        <span>tap a tag to see what it does</span>
+      </p>
       <div class="corkboard">
         <div class="cluster c-people">
           <span class="cl-tag">people</span>
@@ -1042,7 +1109,7 @@
   </div>
 </footer>
 
-<script type="module" src="app.js?v=60"></script>
+<script type="module" src="app.js?v=62"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign

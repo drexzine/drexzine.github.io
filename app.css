@@ -564,6 +564,88 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .pc-cap{margin:.95rem 0 0;color:var(--colorado);font-size:1.12rem;transform:rotate(-1deg)}
 @media(prefers-reduced-motion:reduce){.pc-card{transform:none}}
 
+/* the "btw, that's called situated learning" beat — a torn note taped under the loop.
+   Reads as an aside, never as a lecture: that's the entire reason it lands. */
+.reveal-name{position:relative;isolation:isolate;width:min(560px,92vw);
+  margin:clamp(1.8rem,4vw,2.6rem) auto 0;padding:clamp(1.1rem,2.4vw,1.5rem) clamp(1rem,2.2vw,1.4rem);
+  transform:rotate(-.7deg)}
+.reveal-name::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--oats);
+  border:2.6px solid var(--ink);border-radius:6px;box-shadow:7px 8px 0 0 var(--ink);
+  filter:url(#torn);animation:boil-torn var(--boil-paper) step-end infinite;animation-delay:-.5s}
+.rn-arrow{position:absolute;top:-.85rem;left:1.1rem;font-size:1.15rem;color:var(--colorado);
+  background:var(--oats);padding:0 .35em;transform:rotate(-2deg)}
+.reveal-name p{margin:0;font-size:clamp(.98rem,1.5vw,1.08rem);line-height:1.55;color:rgba(65,77,87,.9)}
+.reveal-name b{color:var(--ink)}
+.reveal-name em{font-style:italic}
+.rn-link{display:inline-block;margin-top:.75rem;font-family:var(--f-mono);font-size:.74rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--grass-deep);text-decoration:underline;
+  text-decoration-thickness:1.5px;text-underline-offset:3px;text-decoration-color:rgba(12,110,57,.45)}
+.rn-link:hover{text-decoration-color:var(--grass-deep)}
+
+/* ---------- the long game = durability, drawn ----------
+   One circle's own shelf, 001 to 012, each spine a little taller. The growth IS the argument:
+   these are not strangers cycling through, they're the same people getting good together. */
+.longgame{padding:clamp(1.8rem,4.5vw,3rem) 0 clamp(1.2rem,3vw,2rem)}
+.longgame .head{margin-bottom:clamp(1.6rem,3.6vw,2.4rem);text-align:center}
+.longgame .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;
+  font-size:clamp(1.7rem,4.8vw,2.7rem);line-height:1;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
+.longgame .head h2 .stop{color:var(--grass-deep)}
+.lg-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.02rem,1.7vw,1.24rem);line-height:1.5;
+  color:rgba(65,77,87,.85);max-width:50ch;margin:.85rem auto 0}
+
+.shelf{margin:clamp(1.4rem,3vw,2.2rem) auto 0;width:min(760px,94vw)}
+.spines{list-style:none;margin:0;padding:0;display:flex;align-items:flex-end;justify-content:center;
+  gap:clamp(3px,.6vw,7px);height:clamp(120px,15vw,175px)}
+/* These must read as ZINE SPINES ON A SHELF, not as bars on a chart — a chart implies the group
+   is growing, and the whole point is that it doesn't: the same people get better. So: uneven
+   widths (books aren't a histogram), head/tail bands like printed spines, and one leaning. */
+.spine{position:relative;flex:0 0 auto;width:var(--w,30px);height:var(--h,50%);
+  border-radius:2px 2px 0 0;transition:transform .16s ease}
+.spine::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--c,var(--lazuli));
+  border:2.4px solid var(--ink);border-radius:2px 2px 0 0;
+  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+/* the printed bands near the head and tail of a spine */
+.spine::after{content:"";position:absolute;left:16%;right:16%;top:9px;height:2px;
+  background:rgba(0,0,0,.3);box-shadow:0 5px 0 0 rgba(0,0,0,.22);border-radius:2px}
+.spine:last-child{transform:rotate(6deg);transform-origin:bottom left}   /* the leaner */
+.spine:last-child:hover{transform:rotate(6deg) translateY(-6px)}
+.spine{position:relative;isolation:isolate}
+.spine:nth-child(even)::before{animation-delay:-.6s}
+.spine:nth-child(3n)::before{animation-delay:-1.15s}
+.spine:hover{transform:translateY(-6px)}
+.sp-n{position:absolute;bottom:.5rem;left:50%;transform:translateX(-50%) rotate(-90deg);
+  transform-origin:center;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.1em;
+  color:var(--oats);white-space:nowrap}
+.spine:nth-child(2) .sp-n,.spine:nth-child(5) .sp-n,.spine:nth-child(8) .sp-n,
+.spine:nth-child(11) .sp-n{color:var(--ink)}      /* yellow spines need ink numerals */
+
+/* the shelf they stand on — a drawn plank, not a rule */
+.shelf-rule{height:5px;border-radius:3px;background:var(--ink);filter:url(#rough);
+  animation:boil-rough var(--boil-ink) step-end infinite}
+.shelf-ends{display:flex;justify-content:space-between;gap:1rem;margin-top:.85rem}
+.se-a,.se-b{font-size:1.05rem;line-height:1.25;color:var(--sambas);max-width:20ch}
+.se-a{text-align:left;transform:rotate(-1.2deg)}
+.se-b{text-align:right;transform:rotate(1.2deg);color:var(--grass-deep)}
+.se-a b,.se-b b{display:block;font-family:var(--f-hand);font-size:1.18rem;color:var(--ink)}
+.se-b b{color:var(--grass-deep)}
+@media(prefers-reduced-motion:reduce){.spine{transition:none}}
+/* twelve fixed-width spines sum to ~391px + gaps, which overflows a 390px phone. Scale the
+   whole shelf down rather than dropping issues — the full run of twelve IS the argument. */
+@media(max-width:560px){
+  .spines{gap:2px;height:clamp(96px,26vw,130px)}
+  .spine{width:calc(var(--w,30px) * .62)}
+  .spine::after{top:6px;box-shadow:0 4px 0 0 rgba(0,0,0,.22)}
+  .sp-n{display:none}
+}
+/* the widening: learning is the mechanism, not the goal */
+.lg-punch{max-width:54ch;margin:clamp(2rem,4vw,2.8rem) auto 0;text-align:center;
+  font-family:var(--f-slab);font-style:italic;font-weight:700;
+  font-size:clamp(1.15rem,2.3vw,1.5rem);line-height:1.28;color:var(--ink)}
+.lg-punch em{font-style:italic;color:var(--colorado)}
+.lg-punch b{color:var(--grass-deep)}
+.lg-punch span{display:block;margin-top:.6rem;font-family:var(--f-body);font-style:italic;
+  font-weight:400;font-size:clamp(.98rem,1.5vw,1.08rem);line-height:1.5;color:rgba(65,77,87,.8)}
+
 /* ---------- gifts = the range. Torn tags, littered, deliberately unranked ---------- */
 .gifts{padding:clamp(1.6rem,4vw,3rem) 0 clamp(1.2rem,3vw,2.2rem)}
 .gifts .head{margin-bottom:clamp(1.5rem,3.6vw,2.2rem);text-align:center}
@@ -680,7 +762,13 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
    Same card shape as .zine-pair, shrunk and littered. The two big ones teach HOW a zine gets
    made; the pile underneath is the quiet proof that real circles actually do it. Keeping them
    in one section means the evidence never reads as a separate marketing claim. */
-.pile-lead{text-align:center;margin:clamp(2rem,4.5vw,3rem) 0 clamp(1rem,2.4vw,1.5rem);
+.exemplar{max-width:56ch;margin:clamp(1.8rem,3.6vw,2.4rem) auto 0;text-align:center;
+  font-family:var(--f-body);font-size:clamp(.98rem,1.5vw,1.08rem);line-height:1.55;
+  color:rgba(65,77,87,.78)}
+.exemplar b{color:var(--ink)}
+.pc-cap2{display:block;margin-top:.3rem;font-size:.92rem;color:var(--sambas);line-height:1.3}
+.pc-cap2 em{font-style:italic}
+.pile-lead{text-align:center;margin:clamp(1.6rem,3.4vw,2.2rem) 0 clamp(1rem,2.4vw,1.5rem);
   color:var(--colorado);font-size:1.2rem;transform:rotate(-1deg)}
 /* The work is the whole point of this section, so give it a wider track than the 1150px .wrap —
    at 1038px inner the zines were shrunk to thumbnails to fit three across. */
@@ -719,6 +807,12 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .kit .head h2 .stop{color:var(--grass-deep)}
 .kit-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.02rem,1.7vw,1.26rem);line-height:1.5;
   color:rgba(65,77,87,.85);max-width:46ch;margin:.85rem auto 0}
+
+/* nudge for the hover/tap reveal — otherwise the gloss is an affordance nobody finds */
+.kit-hint{display:flex;align-items:center;justify-content:center;gap:.5rem;
+  margin:0 0 .7rem;color:var(--colorado);font-size:1.12rem;transform:rotate(-1deg)}
+.kit-hint svg{width:34px;height:22px;flex:none;transform:scaleX(-1) rotate(6deg)}
+@media(hover:hover){.kit-hint span::before{content:"hover or ";}}
 
 /* the board: warm cork, speckled, with an ink edge */
 .corkboard{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.9rem,2vw,1.5rem);
@@ -1193,6 +1287,91 @@ footer .legal .snd:focus-visible{outline:2px solid var(--oats);outline-offset:2p
 
 /* footer rubber stamp — alive ink badge */
 footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
+
+/* ============================================================
+   SQUIGGLEVISION RETROFIT — nothing on this site is drawn with a ruler.
+   Everything added in the kit / group-chat / challenge-card / pile work was
+   built with crisp CSS borders. Push each one's border+shadow onto a pseudo
+   layer so it can ride a roughen filter and boil like the rest of the page.
+   ============================================================ */
+
+/* the corkboard itself — a torn slab, not a rectangle */
+.corkboard{background:transparent;border:0;box-shadow:none;border-radius:0}
+.corkboard::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:#C89F6B;
+  background-image:radial-gradient(circle at 20% 30%, rgba(120,80,40,.22) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 60%, rgba(150,105,55,.2) 0 2.5px, transparent 3px),
+    radial-gradient(circle at 45% 85%, rgba(105,70,35,.18) 0 2px, transparent 3px);
+  background-size:37px 41px, 53px 47px, 29px 33px;
+  border:3px solid var(--ink);border-radius:8px;
+  box-shadow:10px 11px 0 0 var(--ink), inset 0 0 40px rgba(90,60,25,.28);
+  filter:url(#torn);animation:boil-torn var(--boil-paper) step-end infinite;animation-delay:-.7s}
+.corkboard{position:relative;isolation:isolate}
+
+/* the pinned tags */
+.pinit{background:transparent;border:0;box-shadow:none}
+.pinit::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+  border:2.4px solid var(--ink);border-radius:5px;box-shadow:3px 4px 0 0 rgba(40,26,10,.5);
+  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+.pinit:nth-child(even)::before{animation-delay:-.55s}
+.pinit:nth-child(3n)::before{animation-delay:-1.1s}
+.pinit:hover::before,.pinit:focus-within::before{box-shadow:6px 8px 0 0 rgba(40,26,10,.55)}
+.cl-tag{background:transparent;border:0;box-shadow:none}
+.cl-tag::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--c,var(--schoolbus));
+  border:2.2px solid var(--ink);border-radius:4px;box-shadow:2px 2px 0 0 var(--ink);
+  filter:url(#roughsm);animation:boil-roughsm var(--boil-ink) step-end infinite}
+.cl-tag{position:relative;isolation:isolate}
+
+/* the group chat — bubbles are drawn by hand, not by a UI kit */
+.chatmock,.circlemock{background:transparent;border:0;box-shadow:none;position:relative;isolation:isolate}
+.chatmock::before,.circlemock::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+  border:2.6px solid var(--ink);border-radius:8px;box-shadow:7px 8px 0 0 var(--ink);
+  filter:url(#torn);animation:boil-torn var(--boil-paper) step-end infinite}
+.circlemock::before{animation-delay:-.85s}
+.chatmock{background-image:repeating-linear-gradient(to bottom,transparent 0 25px,rgba(65,77,87,.05) 25px 26px)}
+.bub{background:transparent!important;border:0;position:relative;isolation:isolate}
+.bub::before{content:"";position:absolute;inset:0;z-index:-1;border:2.2px solid var(--ink);
+  border-radius:12px;filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+.bub.them::before{background:var(--oats);border-bottom-left-radius:3px}
+.bub.me::before{background:var(--lazuli);border-bottom-right-radius:3px}
+.bub.me{color:var(--oats)}
+.bub:nth-of-type(even)::before{animation-delay:-.6s}
+.ch-gap i{filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite}
+.ch-typing{background:transparent;border:0;position:relative;isolation:isolate}
+.ch-typing::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--oats);
+  border:2.2px solid var(--ink);border-radius:12px;border-bottom-left-radius:3px;filter:url(#roughsm)}
+
+/* the challenge note + its due stamp */
+.cm-note{background:transparent;border:0;position:relative;isolation:isolate}
+.cm-note::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--oats);
+  border:2.4px solid var(--ink);border-radius:6px;
+  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite;animation-delay:-.4s}
+.cm-note{background-image:repeating-linear-gradient(to bottom,transparent 0 22px,rgba(65,77,87,.09) 22px 23px)}
+.cm-due{background:transparent;position:relative;isolation:isolate}
+.cm-due::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--colorado);
+  border-radius:3px;filter:url(#roughsm);animation:boil-roughsm var(--boil-ink) step-end infinite}
+
+/* the challenge index card in HOW */
+.pc-card{background:transparent;border:0;box-shadow:none;position:relative;isolation:isolate}
+.pc-card::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+  background-image:repeating-linear-gradient(to bottom,transparent 0 27px,rgba(65,77,87,.11) 27px 28px);
+  border:2.6px solid var(--ink);border-radius:7px;box-shadow:9px 10px 0 0 var(--ink);
+  filter:url(#torn);animation:boil-torn var(--boil-paper) step-end infinite;animation-delay:-1.2s}
+
+/* the gift tags */
+.gift-pile li{background:transparent!important;border:0;box-shadow:none;position:relative;isolation:isolate}
+.gift-pile li::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--c,var(--ink));
+  border:2.2px solid var(--ink);border-radius:5px;box-shadow:3px 3px 0 0 var(--ink);
+  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+.gift-pile li:nth-child(odd)::before{animation-delay:-.7s}
+.gift-pile li:nth-child(3n)::before{animation-delay:-1.3s}
+
+/* the quoted rules in the organizer section — marker strokes, not table borders */
+.bring-cap,.bring-money{border-left:0;position:relative}
+.bring-cap::before,.bring-money::before{content:"";position:absolute;left:0;top:.1em;bottom:.1em;width:3px;
+  border-radius:2px;background:var(--grass);filter:url(#rough);
+  animation:boil-rough var(--boil-ink) step-end infinite}
+.bring-money::before{background:var(--colorado)}
 
 /* ===================================================================
    M4 — Founder's note: click-to-unfold 3D paper crumple overlay.

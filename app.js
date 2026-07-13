@@ -141,6 +141,8 @@ function boot() {
   initInteractionSounds();          // M1: stamp / toggle on interaction
   initSoundToggle(audio);           // M1: footer opt-in toggle
   initFounderCrumple();             // M4: founder's note = click-to-unfold 3D paper crumple
+  balanceMarginalia();              // top up any section whose gutters are bare — runs BEFORE
+                                    // initCollage so injected scraps inherit parallax + entrance
   initCollage();                    // ported: littered collage scraps + scroll entrance + parallax
   initHamburgerJoy(audio);          // M5: the hamburger that lies — flop, slit, pull-out nav
   initAttentionCta();               // ported: hero CTA idle "look at me" loop
@@ -166,6 +168,107 @@ function boot() {
    claiming weekly-only. Line 1 is nowrap (.l1) and ends at a hard <br>, so the
    slot grows into its own line-end: the lines below never move and the comma
    rides the word's tip like a carriage. */
+/* ===================================================================
+   MARGINALIA BALANCER — keeps the doodles evenly spread, forever.
+
+   The collage scraps were hand-placed per section, so every section anyone adds
+   lands with bare gutters and the page slowly goes lopsided (before this ran:
+   hero ~14 scraps/1000px, zine 6, and kit / bring / group-chat / gifts / long-game
+   flat ZERO across ~3,700px of page). Rather than hand-sprinkle each new section
+   — which just defers the problem to the next one — measure every section and top
+   up whatever is under target.
+
+   Placement is cheap because the gutter rails are viewport-anchored in CSS
+   (left: calc(50vw - 601px)), so we only choose a vertical band and a side.
+   Injected scraps use the same .cg-scrap markup, so initCollage() gives them
+   parallax, the wobble and the scroll entrance for free.
+   =================================================================== */
+const CG_POOL = [
+  // 4-point sparkle
+  (c) => `<svg width="42" height="42" viewBox="0 0 42 42" fill="none" stroke="var(--${c})" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M21 5 C23 14 26 17 37 21 C26 25 23 28 21 37 C19 28 16 25 5 21 C16 17 19 14 21 5 Z"/></g></svg>`,
+  // fat marker swoosh
+  (c) => `<svg width="104" height="30" viewBox="0 0 104 30" fill="none" stroke="var(--${c})" stroke-width="9" stroke-linecap="round"><g class="cg-wob" opacity=".75"><path d="M8 20 C30 8 58 26 82 14 C92 9 100 12 104 16"/></g></svg>`,
+  // curved arrow
+  (c) => `<svg width="48" height="34" viewBox="0 0 48 34" fill="none" stroke="var(--${c})" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M6 24 C16 6 38 6 44 22"/><path d="M44 22 L34 22 M44 22 L42 10"/></g></svg>`,
+  // confetti dots
+  (c) => `<svg width="34" height="26" viewBox="0 0 34 26" fill="none"><g class="cg-wob"><circle cx="6" cy="14" r="3.2" fill="var(--lazuli)"/><circle cx="17" cy="7" r="2.6" fill="var(--colorado)"/><circle cx="27" cy="17" r="3" fill="var(--schoolbus)"/></g></svg>`,
+  // plus
+  (c) => `<svg width="38" height="38" viewBox="0 0 38 38" fill="none" stroke="var(--${c})" stroke-width="2.8" stroke-linecap="round"><g class="cg-wob"><path d="M19 6 L19 32 M6 19 L32 19"/></g></svg>`,
+  // heart
+  (c) => `<svg width="44" height="40" viewBox="0 0 44 40" fill="none" stroke="var(--${c})" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M22 36 C10 26 3 18 5 11 C7 4 16 3 22 10 C28 3 37 4 39 11 C41 18 34 26 22 36 Z"/></g></svg>`,
+  // curl / squiggle
+  (c) => `<svg width="46" height="46" viewBox="0 0 46 46" fill="none" stroke="var(--${c})" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M23 23 C23 18 30 18 30 24 C30 32 17 32 16 23 C15 12 32 11 35 23 C38 37 17 41 11 28"/></g></svg>`,
+  // torn tape
+  (c) => `<svg width="60" height="26" viewBox="0 0 60 26"><g class="cg-wob"><path class="cg-torn" d="M3 5 L56 3 L58 21 L5 23 Z" fill="var(--${c})" opacity=".75"/></g></svg>`,
+];
+const CG_INKS = ['colorado', 'lazuli', 'schoolbus', 'grass', 'happy'];
+
+function balanceMarginalia() {
+  // While sealed, `main > section:not(.hero)` is display:none — every section measures 0 and
+  // there is nothing to balance. Wait for the cut, then top up.
+  const root = document.documentElement;
+  const ready = () => !root.classList.contains('sealed') || root.classList.contains('revealed');
+  if (!ready()) {
+    const mo = new MutationObserver(() => {
+      if (ready()) { mo.disconnect(); fillGutters(); }
+    });
+    mo.observe(root, { attributes: true, attributeFilter: ['class'] });
+    return;
+  }
+  fillGutters();
+}
+
+function fillGutters() {
+  const SCRAPS_PER_1000PX = 5.2;      // matches the density of the hand-tuned sections
+  const RAILS = ['cg-gl', 'cg-gr', 'cg-gl2', 'cg-gr2'];
+  const sections = document.querySelectorAll('main > section');
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const pick = (arr) => arr[(Math.random() * arr.length) | 0];
+  const fresh = [];
+
+  sections.forEach((sec) => {
+    // the hero is choreographed with the envelope cut — never touch it
+    if (sec.id === 'hero') return;
+
+    const h = sec.offsetHeight;
+    if (!h) return;
+    const have = sec.querySelectorAll('.cg-scrap').length;
+    const want = Math.round((h / 1000) * SCRAPS_PER_1000PX);
+    const need = want - have;
+    if (need <= 0) return;
+
+    // .cg-collage is position:absolute; inset:0 — it needs a positioned ancestor,
+    // and only a few sections declare position:relative in CSS.
+    if (getComputedStyle(sec).position === 'static') sec.style.position = 'relative';
+
+    const layer = document.createElement('div');
+    layer.className = 'cg-collage';
+    layer.setAttribute('aria-hidden', 'true');
+
+    for (let i = 0; i < need; i++) {
+      // one per band, alternating sides, so they never clump
+      const band = ((i + 0.5) / need) * 100;
+      const top = Math.max(2, Math.min(94, band + rnd(-5, 5)));
+      const rail = RAILS[i % 2] + (Math.random() < 0.3 ? '2' : '');
+      const s = document.createElement('span');
+      s.className = `cg-scrap cg-s${1 + (i % 5)} ${RAILS.includes(rail) ? rail : RAILS[i % 2]}`;
+      s.dataset.cgParallax = String(Math.round(rnd(4, 7)));
+      s.style.setProperty('--cg-rot', `${rnd(-12, 12).toFixed(1)}deg`);
+      s.style.setProperty('--cg-w', `${Math.round(rnd(38, 84))}px`);
+      s.style.top = `${top.toFixed(1)}%`;
+      s.innerHTML = pick(CG_POOL)(pick(CG_INKS));
+      layer.appendChild(s);
+      fresh.push(s);
+    }
+    sec.appendChild(layer);
+  });
+
+  // initCollage() already ran at boot and snapshotted its scrap list, so these are not in it.
+  // Re-calling it would double-bind the scroll listener; instead just settle them in directly.
+  // They keep the CSS wobble; they forgo parallax, which is a nicety nobody will miss.
+  if (fresh.length) requestAnimationFrame(() => fresh.forEach((s) => s.classList.add('cg-in')));
+}
+
 function initHeroRotate() {
   if (Stage.reduce) return;
   const w = document.getElementById('rot-word');
