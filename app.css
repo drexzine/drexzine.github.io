@@ -632,15 +632,25 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
    in one section means the evidence never reads as a separate marketing claim. */
 .pile-lead{text-align:center;margin:clamp(2rem,4.5vw,3rem) 0 clamp(1rem,2.4vw,1.5rem);
   color:var(--colorado);font-size:1.2rem;transform:rotate(-1deg)}
+/* The work is the whole point of this section, so give it a wider track than the 1150px .wrap —
+   at 1038px inner the zines were shrunk to thumbnails to fit three across. */
+#zine .wrap{max-width:1340px}
+
+/* Empty slots ("on the press", "your portrait", "unwritten") sat on the slate photo background,
+   which at thumbnail size passed but at full size reads as a dead black rectangle — the same
+   failure the hero reel had. A waiting slot should look like a blank page, not a void. */
+.zines .zpola .ph:has(.bot-ico){background:var(--oats);
+  box-shadow:inset 0 0 0 2.4px rgba(65,77,87,.22)}
+.zines .zpola .ph:has(.bot-ico) .soon-stamp{color:var(--colorado);border-color:var(--colorado)}
 .zine-pile{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;
-  gap:clamp(1rem,2.6vw,2rem)}
-/* the duo's zbook is 330px at desktop, which blows the card past its declared width (flex items
-   can't shrink below min-content) and forces a wrap. Shrink the polaroids, not just the card. */
-.zine-pile .zine-card{width:min(260px,100%);min-width:0;margin-inline:0}
-.zine-pile .zpola.zbook{width:clamp(104px,10vw,132px)}
-.zine-pile .zpola{width:clamp(76px,7vw,96px)}
-.zine-pile .zine-duo .zpola:nth-child(2){margin-left:-12px;margin-top:14px}
-.zine-pile .zpola-cap{font-size:.78rem}
+  gap:clamp(1rem,2vw,1.5rem)}
+/* flex items can't shrink below min-content, so the declared width is ignored unless min-width
+   is released; the 40px side margins have to go too or three won't fit the row. */
+.zine-pile .zine-card{width:min(390px,100%);min-width:0;margin-inline:0}
+.zine-pile .zpola.zbook{width:clamp(150px,15vw,205px)}
+.zine-pile .zpola{width:clamp(104px,10vw,140px)}
+.zine-pile .zine-duo .zpola:nth-child(2){margin-left:-14px;margin-top:18px}
+.zine-pile .zpola-cap{font-size:.9rem}
 .zine-pile .zine-card.hand{transform:rotate(-1.4deg)}
 .zine-pile .zine-card.bot{transform:rotate(1.4deg)}
 .zine-pile .zine-card:nth-child(3){transform:rotate(-.6deg)}
@@ -717,12 +727,12 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
    and the declared width:min(320px,100%) never applies. Release min-width, then size the
    polaroids so the duo actually fits the card. */
 @media(min-width:1000px){
-  /* the cards also carry 40px side margins, which pushed the row to 1149px in a 1038px track */
-  .zine-pair .zine-card{width:440px;min-width:0;margin-inline:0}
-  .zine-pair .zpola.zbook{width:240px}
-  .zine-pair .zpola{width:138px}
-  /* the -20px tuck was sized for a 330px book; at 240px it swallows the video polaroid's caption */
-  .zine-pair .zine-duo .zpola:nth-child(2){margin-left:-6px}
+  /* the cards also carry 40px side margins, which pushed the row past the track */
+  .zine-pair .zine-card{width:530px;min-width:0;margin-inline:0}
+  .zine-pair .zpola.zbook{width:300px}
+  .zine-pair .zpola{width:170px}
+  /* the -20px tuck was sized for the old book width; keep the video polaroid's caption legible */
+  .zine-pair .zine-duo .zpola:nth-child(2){margin-left:-8px}
 }
 /* bot placeholder = ghosted, dashed, "coming soon" */
 .zine-frame.ghost{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;
