@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=105" />
+<link rel="stylesheet" href="app.css?v=106" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -164,7 +164,7 @@
             <div class="hb-strand" id="hb-strand">
               <span class="hb-thread"></span>                 <!-- ONE continuous string: slit → through every tab → burger -->
               <ul class="hb-tray" id="hb-tray">
-                <li><a href="#about">About</a></li>
+                <li><a href="#founder">About</a></li>
                 <li><a href="#team">Team</a></li>
                 <li><a href="#circle">Circles</a></li>
                 <li><a href="#demo">Demo</a></li>
@@ -369,6 +369,10 @@
         <h2 class="slab">Whatever you'd practice if someone were <span class="ul">waiting</span><span class="stop">.</span></h2>
         <p class="gifts-sub">Not just the respectable ones. A Circle has formed around every one of these.</p>
       </div>
+      <!-- MEDIA PLACEHOLDER (high value): a strip of 5-6 REAL square photos of these crafts being
+           practised by real people — a skater mid-trick, hands doing nail art, a pour-over, a
+           penmanship close-up, a bonsai. Faces and hands, not stock. Word-tags tell the visitor the
+           range; photographs would let them SEE themselves in it. Drop them above this pile. -->
       <ul class="gift-pile">
         <li style="--r:-2.4deg;--c:var(--colorado)">skateboarding</li>
         <li style="--r:1.8deg;--c:var(--lazuli)">film photography</li>
@@ -498,6 +502,9 @@
         <h2 class="slab">Find your Circle by <span class="ul">flipping</span> through zines<span class="stop">.</span></h2>
         <p class="zines-sub">One shelf, every published issue. Flip one open: their challenge, and what each of them made of it. You'll know whose pages feel like yours before you ever knock.</p>
       </div>
+      <!-- MEDIA PLACEHOLDER (highest value on the page): a short screen-capture of someone actually
+           flipping through the Reader — thumb-scrolling a real shelf of real issues. The entire
+           discovery thesis lives here and it is currently an illustration with SOON stamped on it. -->
       <div class="flip2-stage">
         <figure class="flip2" role="img" aria-label="A hand-drawn phone; a stream of zines flips through it, one at a time">
           <div class="belt">
@@ -678,36 +685,52 @@
         <p class="vs-sub">You already have one. Be honest about how it's going.</p>
       </div>
 
+      <!-- SHOW the dead chat instead of describing it. The joke writes itself: three messages of
+           enthusiasm, then an eleven-month silence, then someone asking if anyone's still alive.
+           Nobody needs a bullet list to recognise their own group chat. -->
       <div class="vs-pair">
 
         <figure class="vs-card vs-chat">
           <span class="vs-tab vs-tab-sad">the group chat</span>
-          <div class="paper">
-            <span class="sheet ruled"></span>
-            <span class="tape" style="left:10%;top:-13px;transform:rotate(-3deg)"></span>
-            <div class="inner">
-              <ul class="vs-list">
-                <li><span class="vs-mark vs-x" aria-hidden="true">&times;</span> Someone drops a link. Three people say <em>&ldquo;omg we should totally do this.&rdquo;</em></li>
-                <li><span class="vs-mark vs-x" aria-hidden="true">&times;</span> Nothing is due. Nothing is set. No one is expecting you.</li>
-                <li><span class="vs-mark vs-x" aria-hidden="true">&times;</span> Eleven months later: 4,000 messages, and not one finished thing.</li>
-              </ul>
-            </div>
+          <div class="chatmock" role="img" aria-label="A group chat: three excited messages in January, then eleven months of silence, then one message asking if the chat is still alive.">
+            <span class="ch-day">JAN 4</span>
+            <p class="bub them">found this sick technique 🔥</p>
+            <p class="bub them">omg we should <em>totally</em> do this</p>
+            <p class="bub me">yes!! this weekend??</p>
+            <span class="ch-gap"><i></i>eleven months later<i></i></span>
+            <span class="ch-day">DEC 2</span>
+            <p class="bub them">is this chat still alive lol</p>
+            <span class="ch-typing" aria-hidden="true"><i></i><i></i><i></i></span>
           </div>
+          <figcaption class="cap">4,000 messages. Nothing made.</figcaption>
         </figure>
 
         <figure class="vs-card vs-circle">
           <span class="vs-tab vs-tab-glad">a Circle</span>
-          <div class="paper">
-            <span class="sheet ruled"></span>
-            <span class="tape b" style="right:10%;top:-13px;transform:rotate(4deg)"></span>
-            <div class="inner">
-              <ul class="vs-list">
-                <li><span class="vs-mark vs-c" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 L8 16 L17 4"/></svg></span> A challenge for your craft &mdash; and a date it's due.</li>
-                <li><span class="vs-mark vs-c" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 L8 16 L17 4"/></svg></span> The same few faces, who notice when you don't show.</li>
-                <li><span class="vs-mark vs-c" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 L8 16 L17 4"/></svg></span> Something <em>finished</em>, with your name in it, that a stranger can hold.</li>
-              </ul>
+          <div class="circlemock">
+            <div class="cm-note">
+              <span class="cm-pin" aria-hidden="true"></span>
+              <span class="cm-kick">the challenge</span>
+              <p class="cm-do">Shoot a roll you'd normally be scared to.</p>
+              <span class="cm-due">due friday</span>
+            </div>
+            <span class="cm-arrow" aria-hidden="true">
+              <svg viewBox="0 0 60 26" fill="none" stroke="var(--grass-deep)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13 H50" filter="url(#roughsm)"/><path d="M42 5 L52 13 L42 21" filter="url(#roughsm)"/></svg>
+            </span>
+            <!-- MEDIA PLACEHOLDER: swap this block for a real photo of a finished zine being held
+                 in someone's hands (ideally one of the Photo Phloor / XChange issues). A hand
+                 holding the artifact is the single most persuasive image on this page. -->
+            <div class="cm-out">
+              <span class="cm-outline" aria-hidden="true"></span>
+              <svg class="cm-zine" viewBox="0 0 64 78" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round">
+                <rect x="4" y="4" width="52" height="66" rx="2" fill="var(--schoolbus)"/>
+                <rect x="9" y="9" width="42" height="30" rx="1" fill="var(--paper)"/>
+                <path d="M13 47 h34 M13 55 h26 M13 63 h30" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+              </svg>
+              <b>one issue, everyone's name in it</b>
             </div>
           </div>
+          <figcaption class="cap">A challenge, a date, a finished thing.</figcaption>
         </figure>
 
       </div>
@@ -739,22 +762,18 @@
             <span class="eyebrow" style="color:var(--colorado)">already run something?</span>
             <h2 class="slab">Bring your group. Keep it <span class="ul">alive</span><span class="stop">.</span></h2>
             <p class="bring-body">You don't need us to find you people. You need the ones you have to <em>show up</em>.</p>
-            <p class="bring-body">Come in as the <b>editor</b> on day one. <b>Send us your people, we send them keys</b> &mdash; no queue, no approvals. You set the first challenge. By month's end there's an issue with everyone's name in it.</p>
+            <p class="bring-body">Come in as the <b>editor</b> on day one. <b>Send us your people, we send them keys</b> &mdash; no queue, no approvals. Set the first challenge. By month's end there's an issue with everyone's name in it.</p>
             <p class="bring-body bring-punch">You stop being the one who nags.<br>The deadline does that now.</p>
-            <p class="bring-body bring-cap">More than fifteen? Say so. We'd sooner reshape the rooms than ask you to drop five friends.</p>
-            <!-- Every neighbour bills the organiser: Skool, Circle, Kajabi, and Meetup (whose fee
-                 hikes are why organisers are leaving). Drex bills the group. Saying that out loud
-                 is the sharpest fact we have — and the pool is a commitment device before it is
-                 revenue: people show up to the thing they're paying into together. -->
-            <p class="bring-body bring-money"><b>And you won't be the one paying.</b> Free while we're in pilot. After that the circle keeps a small pool between them &mdash; a few dollars each, more like a Discord boost than a course fee. Skool, Circle and Meetup all bill the organizer. We don't. <em>And a circle that chips in together turns up together</em> &mdash; the pool is half the glue.</p>
+            <p class="bring-body bring-money"><b>And you won't be the one paying.</b> The circle keeps a small pool between them &mdash; a Discord boost, not a course fee. Skool, Circle and Meetup bill the organizer. We don't. <em>A circle that chips in together turns up together.</em></p>
+            <p class="bring-body bring-cap">More than fifteen? Say so &mdash; we'd sooner reshape the rooms than drop five friends.</p>
             <p class="bring-cta">
               <a class="btn" href="https://letters.drex.style/join-online/">I have a group <span class="arr">&rarr;</span></a>
               <span class="bring-note scrawl">Chielo will actually reply</span>
             </p>
-            <!-- Organizers asked for a group that got healthier. We don't have that case study yet.
-                 Saying so outright beats the silence, which reads as hiding. -->
-            <p class="bring-honest">We're early &mdash; we can't yet show you a collective that was dying and isn't. Yours would be among the first.</p>
+            <p class="bring-honest">We're early. We can't yet show you a collective that was dying and isn't &mdash; yours would be among the first.</p>
           </div>
+          <!-- MEDIA PLACEHOLDER: a photo of a real editor with their circle — the organizer needs to
+               see a person like them, mid-hour, not an icon. Ideally with a caption naming them. -->
           <ul class="bring-list">
             <li><span class="bl-x" aria-hidden="true">&times;</span> you, alone, reminding grown adults on a Tuesday</li>
             <li><span class="bl-c" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 L8 16 L17 4"/></svg></span> a challenge, a date, and a page with their name on it</li>
@@ -766,128 +785,115 @@
     </div>
   </section>
 
-  <!-- ============ SHOWING UP — the standing hour, and how Drex holds the door ============ -->
-  <section class="peek showup" id="show-up">
+  <!-- ============ THE KIT — situated learning, productized. Three resource types, which is
+       how the team actually thinks about it internally: PEOPLE (getting bodies in the room),
+       VIRTUAL (everything that isn't the craft), MATERIAL (what the pool buys). Icons over
+       prose: this section was 288 words and nobody read them. ============ -->
+  <section class="kit" id="kit">
     <div class="wrap">
-      <div class="cg-collage" aria-hidden="true"><span class="cg-scrap cg-s1 cg-gl" data-cg-parallax="4" style="--cg-rot:-5deg;--cg-w:92px;top:8%"><svg width="100" height="28" viewBox="0 0 100 28" fill="none" stroke="var(--lazuli)" stroke-width="9" stroke-linecap="round"><g class="cg-wob" opacity=".75"><path d="M6 18 C28 8 52 24 74 14 C84 10 92 13 96 16"/></g></svg></span><span class="cg-scrap cg-s4 cg-gr2" data-cg-parallax="6" style="--cg-rot:9deg;--cg-w:40px;top:26%"><svg width="38" height="38" viewBox="0 0 38 38" fill="none" stroke="var(--grass)" stroke-width="2.8" stroke-linecap="round"><g class="cg-wob"><path d="M19 6 L19 32 M6 19 L32 19"/></g></svg></span><span class="cg-scrap cg-s3 cg-gl2 cg-drop-sm" data-cg-parallax="5" style="--cg-rot:-10deg;--cg-w:46px;top:44%"><svg width="44" height="40" viewBox="0 0 44 40" fill="none" stroke="var(--colorado)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M22 36 C10 26 3 18 5 11 C7 4 16 3 22 10 C28 3 37 4 39 11 C41 18 34 26 22 36 Z"/></g></svg></span><span class="cg-scrap cg-s3 cg-gr" data-cg-parallax="5" style="--cg-rot:6deg;--cg-w:58px;top:64%"><svg width="60" height="26" viewBox="0 0 60 26"><g class="cg-wob"><path class="cg-torn" d="M3 5 L56 3 L58 21 L5 23 Z" fill="var(--schoolbus)" opacity=".75"/></g></svg></span><span class="cg-scrap cg-s2 cg-gl" data-cg-parallax="6" style="--cg-rot:-8deg;--cg-w:44px;top:82%"><svg width="46" height="46" viewBox="0 0 46 46" fill="none" stroke="var(--happy)" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M23 23 C23 18 30 18 30 24 C30 32 17 32 16 23 C15 12 32 11 35 23 C38 37 17 41 11 28"/></g></svg></span><span class="cg-scrap cg-s1 cg-gr" data-cg-parallax="6" style="--cg-rot:10deg;--cg-w:46px;top:18%"><svg width="42" height="42" viewBox="0 0 42 42" fill="none" stroke="var(--happy)" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M21 5 C23 14 26 17 37 21 C26 25 23 28 21 37 C19 28 16 25 5 21 C16 17 19 14 21 5 Z"/></g></svg></span><span class="cg-scrap cg-s2 cg-gl cg-drop-sm" data-cg-parallax="5" style="--cg-rot:-8deg;--cg-w:52px;top:48%"><svg width="48" height="34" viewBox="0 0 48 34" fill="none" stroke="var(--colorado)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M6 24 C16 6 38 6 44 22"/><path d="M44 22 L34 22 M44 22 L42 10"/></g></svg></span><span class="cg-scrap cg-s3 cg-gl2" data-cg-parallax="4" style="--cg-rot:4deg;--cg-w:40px;bottom:14%"><svg width="36" height="28" viewBox="0 0 36 28" fill="none"><g class="cg-wob"><circle cx="7" cy="16" r="3.4" fill="var(--lazuli)"/><circle cx="19" cy="9" r="2.8" fill="var(--colorado)"/><circle cx="29" cy="19" r="3.2" fill="var(--schoolbus)"/></g></svg></span></div>
       <div class="head">
-        <span class="eyebrow" style="color:var(--colorado)">the hard part</span>
-        <h2 class="slab">The hard part isn't making. It's <span class="ul">showing up</span><span class="stop">.</span></h2>
-        <p class="peek-sub">So most of what we build is just getting everyone into the room. The kit:</p>
+        <span class="eyebrow" style="color:var(--colorado)">the situated learning kit</span>
+        <h2 class="slab">How the magic <span class="ul">happens</span><span class="stop">.</span></h2>
+        <p class="kit-sub">Chielo's research says a craft needs three things to take root: <b>people</b>, <b>virtual</b> and <b>material</b> resources. So that's what's in the box.</p>
       </div>
-      <div class="pegwall">
-        <div class="peg-grid">
 
-          <figure class="peg-tool" style="--rot:-2.2deg">
-            <svg class="peg-hook" viewBox="0 0 26 18" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M13 17 V8 A5 5 0 0 1 23 8" filter="url(#roughsm)"/></svg>
-            <svg class="peg-obj" viewBox="0 0 100 100" role="img" aria-label="An alarm clock"><use href="#t-clock"/></svg>
-            <span class="peg-string" aria-hidden="true"></span>
-            <figcaption class="peg-tag" style="--tagrot:1.6deg">
-              <span class="capline" style="color:var(--grass-deep)">when you commit</span>
-              <b>Circle Time</b>
-              <span>weekly, biweekly, or the second Friday of the month &mdash; whatever rhythm your people keep</span>
-            </figcaption>
-          </figure>
-
-          <figure class="peg-tool" style="--rot:1.8deg">
-            <svg class="peg-hook" viewBox="0 0 26 18" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M13 17 V8 A5 5 0 0 1 23 8" filter="url(#roughsm)"/></svg>
-            <svg class="peg-obj" viewBox="0 0 100 100" role="img" aria-label="A door standing ajar with light spilling out"><use href="#t-door"/></svg>
-            <span class="peg-string" aria-hidden="true"></span>
-            <figcaption class="peg-tag" style="--tagrot:-1.4deg">
-              <span class="capline" style="color:var(--lazuli)">when you arrive</span>
-              <b>The Lobby</b>
-              <span>see who's inside before you walk in &mdash; it waits with you</span>
-            </figcaption>
-          </figure>
-
-          <figure class="peg-tool" style="--rot:-1.4deg">
-            <svg class="peg-hook" viewBox="0 0 26 18" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M13 17 V8 A5 5 0 0 1 23 8" filter="url(#roughsm)"/></svg>
-            <svg class="peg-obj" viewBox="0 0 100 100" role="img" aria-label="A hotel counter bell"><use href="#t-bell"/></svg>
-            <span class="peg-string" aria-hidden="true"></span>
-            <figcaption class="peg-tag" style="--tagrot:2deg">
-              <span class="capline" style="color:var(--colorado)">when it comes alive</span>
-              <b>The Bell</b>
-              <span>one ding when your room wakes up &mdash; if you switch it on</span>
-            </figcaption>
-          </figure>
-
-          <figure class="peg-tool" style="--rot:2deg">
-            <svg class="peg-hook" viewBox="0 0 26 18" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M13 17 V8 A5 5 0 0 1 23 8" filter="url(#roughsm)"/></svg>
-            <svg class="peg-obj" viewBox="0 0 100 100" role="img" aria-label="A payphone with a quarter"><use href="#t-phone"/></svg>
-            <span class="peg-string" aria-hidden="true"></span>
-            <figcaption class="peg-tag" style="--tagrot:-2.2deg">
-              <span class="capline" style="color:var(--grass-deep)">when nobody came</span>
-              <b>The Payphone</b>
-              <span>one quarter a month for the editor &mdash; the member who runs the issue &mdash; to ring everyone who said yes</span>
-            </figcaption>
-          </figure>
-
-          <figure class="peg-tool" style="--rot:-1.8deg">
-            <svg class="peg-hook" viewBox="0 0 26 18" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M13 17 V8 A5 5 0 0 1 23 8" filter="url(#roughsm)"/></svg>
-            <svg class="peg-obj" viewBox="0 0 100 100" role="img" aria-label="A confetti popper mid-pop"><use href="#t-popper"/></svg>
-            <span class="peg-string" aria-hidden="true"></span>
-            <figcaption class="peg-tag" style="--tagrot:1.2deg">
-              <span class="capline" style="color:var(--lazuli)">when you show your work</span>
-              <b>The Confetti</b>
-              <span>finishing an issue should feel like something &mdash; and once you've seen three through, the keys are yours</span>
-            </figcaption>
-          </figure>
-
-          <figure class="peg-tool" style="--rot:1.4deg">
-            <svg class="peg-hook" viewBox="0 0 26 18" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M13 17 V8 A5 5 0 0 1 23 8" filter="url(#roughsm)"/></svg>
-            <svg class="peg-obj" viewBox="0 0 100 100" role="img" aria-label="A doctor's bag with a cross"><use href="#t-bag"/></svg>
-            <span class="peg-string" aria-hidden="true"></span>
-            <figcaption class="peg-tag" style="--tagrot:-1.6deg">
-              <span class="capline" style="color:var(--colorado)">when you need hands</span>
-              <b>House Calls</b>
-              <span>our photographers, our hands &mdash; we'll even train you to lead the hour</span>
-            </figcaption>
-          </figure>
-
+      <div class="corkboard">
+        <div class="cluster c-people">
+          <span class="cl-tag">people</span>
+          <p class="cl-line">The hard part isn't making. It's <b>showing&nbsp;up</b>.</p>
+          <ul class="pins">
+            <li class="pinit" style="--r:-4deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 100 100" aria-hidden="true"><use href="#t-clock"/></svg>
+              <b>Circle Time</b><i>your standing hour</i>
+            </li>
+            <li class="pinit" style="--r:3deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 100 100" aria-hidden="true"><use href="#t-door"/></svg>
+              <b>The Lobby</b><i>see who's inside</i>
+            </li>
+            <li class="pinit" style="--r:-2deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 100 100" aria-hidden="true"><use href="#t-bell"/></svg>
+              <b>The Bell</b><i>one ding when it wakes</i>
+            </li>
+            <li class="pinit" style="--r:4deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 100 100" aria-hidden="true"><use href="#t-phone"/></svg>
+              <b>The Payphone</b><i>ring everyone, once a month</i>
+            </li>
+            <li class="pinit" style="--r:-3deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-wave"/></svg>
+              <b>House Calls</b><i>we'll come and help</i>
+            </li>
+            <li class="pinit" style="--r:2deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-list"/></svg>
+              <b>Who's missing</b><i>so somebody waves first</i>
+            </li>
+          </ul>
         </div>
-
-        <div class="peg-tray">
-          <svg class="tray-rule" viewBox="0 0 800 14" preserveAspectRatio="none" aria-hidden="true"><path d="M6 8 C120 4 260 11 400 7 C540 3 690 10 794 6" fill="none" stroke="var(--ink)" stroke-width="4.5" stroke-linecap="round" filter="url(#squig)"/></svg>
-          <div class="tray-duo2">
-            <div class="tray-inst" style="--irot:-.8deg">
-              <svg viewBox="0 0 100 100" aria-hidden="true">
-                <g filter="url(#roughsm)">
-                  <path d="M50 8 v9 M78 19 l-6 6 M22 19 l6 6 M89 46 h-9 M11 46 h9" stroke="var(--schoolbus)" stroke-width="3.5" stroke-linecap="round"/>
-                  <circle cx="50" cy="48" r="24" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="3.5"/>
-                  <circle cx="42" cy="40" r="6" fill="var(--happy)" stroke="none"/>
-                  <path d="M36 74 h28 l5 13 h-38 Z" fill="var(--sambas)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
-                </g>
-              </svg>
-              <span><b>the Orb</b><i>one glance at your circles: amber = Circle Time &middot; yellow = people inside</i></span>
-            </div>
-            <div class="tray-inst" style="--irot:.9deg">
-              <svg viewBox="0 0 100 100" aria-hidden="true">
-                <g filter="url(#roughsm)">
-                  <rect x="14" y="26" width="76" height="54" rx="4" fill="var(--ink)" transform="translate(4,5)"/>
-                  <rect x="14" y="26" width="76" height="54" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
-                  <rect x="38" y="19" width="26" height="10" fill="var(--schoolbus)" opacity=".85" transform="rotate(-3 51 24)"/>
-                  <path d="M20 58 h12 l6 -13 l8 24 l7 -32 l8 21 l5 -9 h16" fill="none" stroke="var(--colorado)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="82" cy="49" r="3.4" fill="var(--colorado)" stroke="none"/>
-                </g>
-              </svg>
-              <span><b>the Pulse</b><i>the editor&rsquo;s chart &mdash; not who to chase, but who to wave at. is the room alive? who's gone quiet? best week yet</i></span>
-            </div>
-          </div>
-          <span class="tray-label">&amp; in the drawer:</span>
-          <div class="bin-grid">
-            <div class="bin" style="--brot:-1.6deg"><svg class="bi" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-mail"/></svg><span>a welcome note the moment you join</span></div>
-            <div class="bin" style="--brot:1.2deg"><svg class="bi" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-bellsm"/></svg><span>your bell comes pre-rung</span></div>
-            <div class="bin" style="--brot:-1deg"><svg class="bi" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-wave"/></svg><span>your editor gets a nudge to greet you</span></div>
-            <div class="bin" style="--brot:1.8deg"><svg class="bi" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-news"/></svg><span>a &ldquo;what&rsquo;s stirring&rdquo; page &mdash; invites, never nags</span></div>
-            <div class="bin" style="--brot:-1.4deg"><svg class="bi" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-list"/></svg><span>a quiet who&rsquo;s-missing list, so someone waves</span></div>
-            <div class="bin" style="--brot:1deg"><svg class="bi" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-key"/></svg><span>a letter &amp; the keys, once you've seen three issues through</span></div>
-          </div>
-          <p class="tray-letters scrawl">&amp; when you want to run the hour better: <a href="https://letters.drex.style/">letters.drex.style</a> &mdash; field notes from Chielo, our in-house situated-learning expert</p>
+        <div class="cluster c-virtual">
+          <span class="cl-tag">virtual</span>
+          <p class="cl-line">Everything that <em>isn't</em> the craft &mdash; <b>handled</b>.</p>
+          <ul class="pins">
+            <li class="pinit" style="--r:-3deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-news"/></svg>
+              <b>The Zine</b><i>by hand, or by bot</i>
+            </li>
+            <li class="pinit" style="--r:3deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-key"/></svg>
+              <b>The Pulse</b><i>is the room alive?</i>
+            </li>
+            <li class="pinit" style="--r:-2deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 100 100" aria-hidden="true"><use href="#t-popper"/></svg>
+              <b>The Reader</b><i>every issue, one shelf</i>
+            </li>
+            <li class="pinit" style="--r:3deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-mail"/></svg>
+              <b>Letters</b><i>field notes from Chielo</i>
+            </li>
+            <li class="pinit" style="--r:-4deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-bellsm"/></svg>
+              <b>The Orb</b><i>one glance at your circles</i>
+            </li>
+          </ul>
+        </div>
+        <!-- MEDIA PLACEHOLDER: the material cluster is the least believable because it's the least
+             built. One photo of a circle in a rented studio — clay on a wheel, a darkroom safelight,
+             a riso pulling a print — would do more than any copy here. -->
+        <div class="cluster c-material">
+          <span class="cl-tag">material</span>
+          <p class="cl-line">What the <b>pool</b> buys. <span class="cl-soon">as circles ask for it</span></p>
+          <ul class="pins">
+            <li class="pinit" style="--r:-3deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 100 100" aria-hidden="true"><use href="#t-door"/></svg>
+              <b>Studio hours</b><i>a room with a kiln</i>
+            </li>
+            <li class="pinit" style="--r:4deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 100 100" aria-hidden="true"><use href="#t-bag"/></svg>
+              <b>Film, clay, thread</b><i>the stuff you make with</i>
+            </li>
+            <li class="pinit" style="--r:-2deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-news"/></svg>
+              <b>A printed issue</b><i>in your actual hands</i>
+            </li>
+          </ul>
         </div>
       </div>
-      <p class="showup-pulse scrawl">the whole app keeps your Circle's hour &mdash; it shows what your people have been making, then lights up all over when the room comes alive</p>
+
     </div>
   </section>
+
 
   <!-- ============ ABOUT (dark cut-paper) ============ -->
 
@@ -930,7 +936,9 @@
         <div class="inner note-grid">
           <div>
             <span class="eyebrow">learning with each other</span>
-            <p class="note-body">I spent my years at Stanford on situated learning &mdash; the unglamorous finding that people get good at things by making alongside other people, and almost never by being taught at. Apprentices, quilting bees, darkroom crews, kitchen brigades: that's the whole history of getting good. Almost nothing built for the internet works that way. So we built Drex to work that way instead.</p>
+            <p class="note-body">I studied situated learning at Stanford. The finding is unglamorous: people get good at things by making alongside other people &mdash; almost never by being taught at. Apprentices. Quilting bees. Darkroom crews.</p>
+            <p class="note-body">Almost nothing built for the internet works that way. So we built Drex that way instead.</p>
+            <p class="note-body note-punch">The zine isn't homework. It's a record of who you're becoming.</p>
             <p class="sign">Chielo</p>
             <p class="sign-role">Chielo Mbaezue &middot; CEO &amp; Co-founder</p>
           </div>
@@ -1004,25 +1012,6 @@
   </section>
 
   <!-- ABOUT: closing note, after the doors -->
-  <section class="about" id="about">
-    <div class="wrap">
-      <div class="cg-collage" aria-hidden="true"><span class="cg-scrap cg-s1 cg-gl2" data-cg-parallax="8" style="--cg-rot:8deg;--cg-w:76px;top:30%"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="var(--happy)" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M24 6 C26 18 30 22 42 24 C30 26 26 30 24 42 C22 30 18 26 6 24 C18 22 22 18 24 6 Z"/></g></svg></span><span class="cg-scrap cg-s2 cg-gr2 cg-drop-sm" data-cg-parallax="6" style="--cg-rot:-12deg;--cg-w:64px;top:48%"><svg width="42" height="42" viewBox="0 0 42 42" fill="none" stroke="var(--colorado)" stroke-width="3" stroke-linecap="round"><g class="cg-wob"><path d="M21 7 L21 35 M9 14 L33 28 M33 14 L9 28"/></g></svg></span><span class="cg-scrap cg-s3 cg-gr" data-cg-parallax="4" style="--cg-rot:-14deg;--cg-w:44px;top:6px"><svg width="30" height="60" viewBox="0 0 30 60" fill="none" stroke="var(--oats)" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M11 8 C11 4 19 4 19 8 L19 44 C19 52 7 52 7 44 L7 18 C7 14 15 14 15 18 L15 40"/></g></svg></span><span class="cg-scrap cg-s3 cg-gl cg-drop-sm" data-cg-parallax="7" style="--cg-rot:-10deg;--cg-w:56px;top:55%"><svg width="36" height="60" viewBox="0 0 36 60" fill="none" stroke="var(--colorado)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M25 6 L29 1"/><rect x="7" y="6" width="22" height="48" rx="5"/><rect x="11" y="11" width="14" height="12" rx="1.5" fill="var(--happy)" stroke="none"/><path stroke-width="2.6" d="M12 31 L12 31 M18 31 L18 31 M24 31 L24 31 M12 38 L12 38 M18 38 L18 38 M24 38 L24 38 M12 45 L12 45 M18 45 L18 45 M24 45 L24 45"/></g></svg></span><span class="cg-scrap cg-s2 cg-gl2 cg-shadow cg-drop-sm" data-cg-parallax="5" style="--cg-rot:-7deg;--cg-w:96px;top:74%"><svg width="96" height="52" viewBox="0 0 96 52"><path class="cg-torn" d="M4 8 L88 4 L92 44 L10 48 Z" fill="var(--colorado)" stroke="var(--ink)" stroke-width="2.2"/><g class="cg-wob" fill="none" stroke="var(--oats)" stroke-width="2.4" stroke-linecap="round"><path d="M16 22 L56 20 M16 32 L72 29"/></g></svg></span></div><div class="cg-collage cg-fore" aria-hidden="true"><span class="cg-scrap cg-s3 cg-gr2" data-cg-parallax="3" style="--cg-rot:6deg;--cg-w:64px;bottom:4px"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke-linecap="round"><g class="cg-wob"><path d="M20 6 C21.5 14 24 16.5 32 18 C24 19.5 21.5 22 20 30 C18.5 22 16 19.5 8 18 C16 16.5 18.5 14 20 6 Z" fill="var(--happy)" stroke="var(--ink)" stroke-width="2"/><path d="M46 22 C47 27 48.5 28.5 54 29.5 C48.5 30.5 47 32 46 37 C45 32 43.5 30.5 38 29.5 C43.5 28.5 45 27 46 22 Z" stroke="var(--oats)" stroke-width="2.2"/><path d="M28 42 C29 47 30.5 48.5 36 49.5 C30.5 50.5 29 52 28 57 C27 52 25.5 50.5 20 49.5 C25.5 48.5 27 47 28 42 Z" stroke="var(--happy)" stroke-width="2.2"/></g></svg></span></div>
-      <div class="paper">
-        <span class="sheet"></span>
-        <span class="tape b" style="right:12%;top:-14px;transform:rotate(4deg)"></span>
-        <div class="inner">
-          <span class="eyebrow">a little about us</span>
-          <h2>We exist to help people bring their <em>gifts</em> into the world.</h2>
-          <div class="body">
-            <p class="lead">What we care about most is people making real things in the same room as other people.</p>
-            <p>A Circle works the way people have always gotten good at something: not from a teacher at the front of the room, but by making real things alongside others, at every level at once.</p>
-            <p>There's a name for it &mdash; <a href="https://letters.drex.style/">situated learning</a> &mdash; and it's what every Circle is built on. The zine you make together isn't homework; it's a record of who you're becoming.</p>
-            <p>It's also why we sweat the least glamorous part: showing up. You can't learn alongside people who aren't in the room &mdash; so Drex holds the door until they are.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 </main>
 
 <!-- ============ FOOTER (torn band) ============ -->
