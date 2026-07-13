@@ -626,6 +626,29 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .vs-kicker .stop{color:var(--grass-deep)}
 @media(max-width:480px){.vs-card.vs-chat,.vs-card.vs-circle{transform:rotate(0)}}
 
+/* ---------- the pile = MEET YOUR MAKERS, folded under the hand/bot demo ----------
+   Same card shape as .zine-pair, shrunk and littered. The two big ones teach HOW a zine gets
+   made; the pile underneath is the quiet proof that real circles actually do it. Keeping them
+   in one section means the evidence never reads as a separate marketing claim. */
+.pile-lead{text-align:center;margin:clamp(2rem,4.5vw,3rem) 0 clamp(1rem,2.4vw,1.5rem);
+  color:var(--colorado);font-size:1.2rem;transform:rotate(-1deg)}
+.zine-pile{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;
+  gap:clamp(1rem,2.6vw,2rem)}
+/* the duo's zbook is 330px at desktop, which blows the card past its declared width (flex items
+   can't shrink below min-content) and forces a wrap. Shrink the polaroids, not just the card. */
+.zine-pile .zine-card{width:min(260px,100%);min-width:0;margin-inline:0}
+.zine-pile .zpola.zbook{width:clamp(104px,10vw,132px)}
+.zine-pile .zpola{width:clamp(76px,7vw,96px)}
+.zine-pile .zine-duo .zpola:nth-child(2){margin-left:-12px;margin-top:14px}
+.zine-pile .zpola-cap{font-size:.78rem}
+.zine-pile .zine-card.hand{transform:rotate(-1.4deg)}
+.zine-pile .zine-card.bot{transform:rotate(1.4deg)}
+.zine-pile .zine-card:nth-child(3){transform:rotate(-.6deg)}
+.zine-pile .zine-card:hover{transform:rotate(0) translateY(-5px)}
+.zine-pile .cap{font-size:.82rem;line-height:1.4}
+.zine-pile .zine-tab{font-size:.58rem}
+@media(max-width:480px){.zine-pile .zine-card{transform:rotate(0)}}
+
 /* ---------- bring your group = the organizer's door ---------- */
 .bring{padding:clamp(1.5rem,4vw,2.6rem) 0}
 .bring .inner{padding:clamp(1.4rem,3vw,2.3rem)}
@@ -688,6 +711,19 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .zine-card:hover .zine-more{color:var(--grass-deep)}
 /* the hand-scrawled "or" between the two paths */
 .zine-or{font-family:var(--f-hand);font-size:clamp(1.6rem,3vw,2.3rem);color:var(--sambas);transform:rotate(-4deg)}
+/* Pre-existing bug: the hand/bot pair could never fit on one row, so it silently stacked and
+   stranded the "or" off to the side, dividing two things that weren't beside each other.
+   Cause: .zine-card is a flex item, so its default min-width:auto pins it to min-content (560px)
+   and the declared width:min(320px,100%) never applies. Release min-width, then size the
+   polaroids so the duo actually fits the card. */
+@media(min-width:1000px){
+  /* the cards also carry 40px side margins, which pushed the row to 1149px in a 1038px track */
+  .zine-pair .zine-card{width:440px;min-width:0;margin-inline:0}
+  .zine-pair .zpola.zbook{width:240px}
+  .zine-pair .zpola{width:138px}
+  /* the -20px tuck was sized for a 330px book; at 240px it swallows the video polaroid's caption */
+  .zine-pair .zine-duo .zpola:nth-child(2){margin-left:-6px}
+}
 /* bot placeholder = ghosted, dashed, "coming soon" */
 .zine-frame.ghost{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;
   text-align:center;padding:1.4rem;border-style:dashed;box-shadow:6px 6px 0 0 rgba(65,77,87,.25);
