@@ -845,6 +845,37 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   .q{transition:none}
 }
 
+
+/* the challenge + the question, exactly as the zine's own Ledger presents them: the quotes below
+   are ANSWERS, and they only read as evidence if you can see the question they answer. */
+.q-head{margin:0 0 1.4rem;display:flex;flex-direction:column;gap:.5rem;text-align:left;
+  max-width:52ch;margin-inline:auto}
+.q-head p{margin:0;font-family:var(--f-body);font-size:clamp(.95rem,1.5vw,1.06rem);line-height:1.4;
+  color:var(--ink)}
+.q-head span{display:block;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--grass-deep);margin-bottom:.15rem}
+.q-head p:last-child span{color:var(--lazuli)}
+.q cite{display:block;margin-top:.9rem;font-style:normal;font-family:var(--f-mono);
+  font-size:.72rem;letter-spacing:.08em;color:var(--colorado)}
+.q-foot a{color:var(--grass-deep);text-decoration:underline;text-decoration-thickness:1.5px;
+  text-underline-offset:3px;text-decoration-color:rgba(12,110,57,.45);white-space:nowrap}
+.q-foot a:hover{text-decoration-color:var(--grass-deep)}
+
+
+/* Maker avatar. Initial-in-a-circle, exactly as the zine's own Ledger renders it — so it is honest
+   today and becomes a photo tomorrow by setting background-image (or a round video thumb for the
+   interview clips). Hand-drawn edge, per the no-straight-lines rule. */
+.q-av{display:inline-grid;place-items:center;width:2rem;height:2rem;margin-right:.5rem;
+  vertical-align:middle;position:relative;isolation:isolate;
+  font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:.86rem;
+  color:var(--oats);background-size:cover;background-position:center}
+.q-av::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:50%;
+  background:var(--grass-deep);border:2.2px solid var(--ink);
+  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+.q:nth-child(2n) .q-av::before{background:var(--colorado)}
+.q:nth-child(3n) .q-av::before{background:var(--lazuli)}
+.q cite{display:flex;align-items:center;justify-content:center}
+
 /* ---------- bring your group = the organizer's door ---------- */
 .bring{padding:clamp(1.5rem,4vw,2.6rem) 0}
 .bring .inner{padding:clamp(1.4rem,3vw,2.3rem)}

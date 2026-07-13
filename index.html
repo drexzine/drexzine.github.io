@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=112" />
+<link rel="stylesheet" href="app.css?v=114" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -560,23 +560,59 @@
            MEDIA PLACEHOLDER: the in-circle interview videos belong right here. Ideal shape is a
            small round video thumb to the left of the quote, tapping to open the clip — the face
            saying it is worth more than the words. -->
-      <figure class="quotes" aria-label="What members wrote in their reflections">
+      <!-- THE LEDGER. Not testimonials — the plain record. These are eleven makers answering one
+           reflection question in "Silk Road 001", lifted verbatim. The reflection question produces
+           social proof as a byproduct; nobody was ever asked for a quote.
+
+           Worth knowing why these specific ones: read them together and nearly every maker
+           independently describes Bandura's vicarious experience — "I didn't know what was possible
+           until I saw someone else do it." That is the mechanism in Chielo's research, stated
+           unprompted by people who have never heard the term. The quotes ARE the evidence.
+
+           MEDIA PLACEHOLDER (two of them):
+           1. MAKER PHOTOS. The avatars below are the Ledger's own initial-in-a-circle fallback. Drop
+              assets/makers/<handle>.jpg and set .q-av{background-image:url(...)} — the shape, size and
+              hand-drawn border are already right, so it is a one-line swap per maker.
+           2. THE INTERVIEW VIDEOS. Same slot, upgraded: make .q-av a round video thumb that plays the
+              clip of that person saying it. A face saying this beats the sentence. -->
+      <figure class="quotes" aria-label="Makers answering the reflection question from Silk Road 001">
+        <div class="q-head">
+          <p><span>the challenge</span> Come as Your Heritage. Come As Yourself.</p>
+          <p><span>everyone answered</span> What changed once you stepped off the runway?</p>
+        </div>
         <span class="q-mark" aria-hidden="true">&ldquo;</span>
         <div class="q-list">
           <blockquote class="q is-on">
-            <p>Since I'm capable of doing something like that, I feel like I could do anything.</p>
-            <cite>a maker in <b>XChange Models</b> &middot; from &ldquo;Silk Road 001&rdquo;</cite>
+            <p>I didn't know what was possible until I saw someone else do it.</p>
+            <cite><span class="q-av" aria-hidden="true">T</span>@tergel</cite>
           </blockquote>
           <blockquote class="q">
-            <p>I'd been meaning to start for three years. It took four people expecting me on a Tuesday.</p>
-            <cite><b>placeholder</b> &middot; swap for a real reflection</cite>
+            <p>Since I'm capable of doing something like that, then I feel like I could do anything.</p>
+            <cite><span class="q-av" aria-hidden="true">S</span>@shanara</cite>
           </blockquote>
           <blockquote class="q">
-            <p>I didn't know my handwriting could look like that. I just hadn't done it twelve times in a row before.</p>
-            <cite><b>placeholder</b> &middot; swap for a real reflection</cite>
+            <p>Watching everyone else, I thought &mdash; yeah, I can do that. I can definitely do that too.</p>
+            <cite><span class="q-av" aria-hidden="true">W</span>@weisean</cite>
+          </blockquote>
+          <blockquote class="q">
+            <p>Not every place you go, you feel like you belong. But this place, I feel right at home.</p>
+            <cite><span class="q-av" aria-hidden="true">F</span>@falcon</cite>
+          </blockquote>
+          <blockquote class="q">
+            <p>Seeing everybody embrace their individuality inspired me to show the world who I am.</p>
+            <cite><span class="q-av" aria-hidden="true">I</span>@ivy</cite>
+          </blockquote>
+          <blockquote class="q">
+            <p>They treat you as a person, not as a model.</p>
+            <cite><span class="q-av" aria-hidden="true">C</span>@chiamakabrowneyes</cite>
+          </blockquote>
+          <blockquote class="q">
+            <p>The very important lesson is just: go try it. And now I feel great.</p>
+            <cite><span class="q-av" aria-hidden="true">J</span>@janey</cite>
           </blockquote>
         </div>
-        <figcaption class="q-foot scrawl">&uarr; nobody asked them for a testimonial. these are their reflection answers, lifted out of the issues.</figcaption>
+        <figcaption class="q-foot scrawl">11 makers answered. nobody was asked for a testimonial &mdash;
+          <a href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">read the whole ledger &rarr;</a></figcaption>
       </figure>
 
       <p class="pile-cta">This wall is open. <a href="https://letters.drex.style/join-online/">Put your circle on it <span class="arr">&rarr;</span></a></p>
