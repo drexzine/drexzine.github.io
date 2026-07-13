@@ -625,6 +625,13 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   font-size:clamp(1.2rem,2.6vw,1.7rem);line-height:1.18;color:var(--ink);text-wrap:balance}
 .vs-kicker .stop{color:var(--grass-deep)}
 @media(max-width:480px){.vs-card.vs-chat,.vs-card.vs-circle{transform:rotate(0)}}
+/* the other two comparisons people arrive with — a course, and a community tool */
+.vs-also{list-style:none;margin:clamp(1.6rem,3.4vw,2.2rem) auto 0;padding:0;max-width:56ch;
+  display:flex;flex-direction:column;gap:.6rem;text-align:center}
+.vs-also li{font-size:clamp(.98rem,1.5vw,1.08rem);line-height:1.5;color:rgba(65,77,87,.7)}
+.vs-also li b{color:var(--ink)}
+.vs-also li:last-child{color:rgba(65,77,87,.92);margin-top:.35rem}
+.vs-also li:last-child b{color:var(--grass-deep)}
 
 /* ---------- the pile = MEET YOUR MAKERS, folded under the hand/bot demo ----------
    Same card shape as .zine-pair, shrunk and littered. The two big ones teach HOW a zine gets
@@ -675,6 +682,10 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
    organizer's own section (not 25% further down, in the footer) is what keeps them reading. */
 .bring-cap{font-size:clamp(.92rem,1.35vw,1rem);color:rgba(65,77,87,.72);font-style:italic;
   border-left:2.6px solid var(--grass);padding-left:.85rem;margin-top:1rem}
+/* the money answer, given weight — it is the one fact that beats every competitor outright */
+.bring-money{font-size:clamp(.95rem,1.4vw,1.04rem);border-left:2.6px solid var(--colorado);
+  padding-left:.85rem;margin-top:1rem;color:rgba(65,77,87,.88)}
+.bring-money b{color:var(--ink)}
 .bring-cta{display:flex;flex-wrap:wrap;align-items:center;gap:.9rem;margin:1.5rem 0 0}
 .bring-note{color:var(--colorado);font-size:1.1rem;transform:rotate(-1.5deg)}
 .bring-honest{font-family:var(--f-body);font-size:clamp(.88rem,1.25vw,.95rem);line-height:1.55;
