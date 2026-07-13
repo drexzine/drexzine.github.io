@@ -150,6 +150,7 @@ function boot() {
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
   initHowGag();                     // tap "every week" → the words stop, the ring spins instead
   initHeroRotate();                 // hero "week" gets retyped: month, 2nd Friday, other week…
+  initQuotes();                     // the reflection-answer quotes cycle in place
   // Hovering a card/polaroid grows its hard shadow under a live SVG filter —
   // a burst of quick re-rasters of a big sheet. That's a known, brief,
   // self-inflicted stall (same idea as the crumple capture at pauseFps(2500)):
@@ -267,6 +268,42 @@ function fillGutters() {
   // Re-calling it would double-bind the scroll listener; instead just settle them in directly.
   // They keep the CSS wobble; they forgo parallax, which is a nicety nobody will miss.
   if (fresh.length) requestAnimationFrame(() => fresh.forEach((s) => s.classList.add('cg-in')));
+}
+
+/* Cycle the reflection quotes. They share one grid cell, so three cost the height of one.
+   Pauses on hover/focus so nobody loses a sentence mid-read; under reduced-motion it just
+   shows the first and stops. */
+function initQuotes() {
+  const list = document.querySelector('.q-list');
+  if (!list) return;
+  const qs = Array.prototype.slice.call(list.querySelectorAll('.q'));
+  if (qs.length < 2) return;
+  if (Stage.reduce) return;
+
+  let i = 0, held = false, timer = null;
+  const show = (n) => {
+    qs.forEach((q, k) => q.classList.toggle('is-on', k === n));
+  };
+  const tick = () => {
+    if (!held) { i = (i + 1) % qs.length; show(i); }
+    timer = setTimeout(tick, 6200);
+  };
+  const box = list.closest('.quotes');
+  ['pointerenter', 'focusin'].forEach((e) => box.addEventListener(e, () => { held = true; }, { passive: true }));
+  ['pointerleave', 'focusout'].forEach((e) => box.addEventListener(e, () => { held = false; }, { passive: true }));
+
+  // don't burn a cycle while the section is off screen
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => {
+      es.forEach((e) => {
+        if (e.isIntersecting && !timer) timer = setTimeout(tick, 6200);
+        else if (!e.isIntersecting && timer) { clearTimeout(timer); timer = null; }
+      });
+    }, { threshold: 0.25 });
+    io.observe(box);
+  } else {
+    timer = setTimeout(tick, 6200);
+  }
 }
 
 function initHeroRotate() {

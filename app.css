@@ -772,109 +772,78 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   color:var(--colorado);font-size:1.2rem;transform:rotate(-1deg)}
 /* The work is the whole point of this section, so give it a wider track than the 1150px .wrap —
    at 1038px inner the zines were shrunk to thumbnails to fit three across. */
-#zine .wrap{max-width:1340px}
+#zine .wrap{max-width:1500px;padding-inline:clamp(1rem,2.2vw,1.75rem)}
 
-/* Empty slots ("on the press", "your portrait", "unwritten") sat on the slate photo background,
-   which at thumbnail size passed but at full size reads as a dead black rectangle — the same
-   failure the hero reel had. A waiting slot should look like a blank page, not a void. */
+/* Empty slots ("on the press", "photo soon") sat on the slate photo background, which at
+   thumbnail size passed but at full size reads as a dead black rectangle — the same failure the
+   hero reel had. A waiting slot should look like a blank page, not a void. */
 .zines .zpola .ph:has(.bot-ico){background:var(--oats);
   box-shadow:inset 0 0 0 2.4px rgba(65,77,87,.22)}
 .zines .zpola .ph:has(.bot-ico) .soon-stamp{color:var(--colorado);border-color:var(--colorado)}
-.zine-pile{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;
-  gap:clamp(1rem,2vw,1.5rem)}
-/* flex items can't shrink below min-content, so the declared width is ignored unless min-width
-   is released; the 40px side margins have to go too or three won't fit the row. */
-.zine-pile .zine-card{width:min(390px,100%);min-width:0;margin-inline:0}
-.zine-pile .zpola.zbook{width:clamp(150px,15vw,205px)}
-.zine-pile .zpola{width:clamp(104px,10vw,140px)}
-.zine-pile .zine-duo .zpola:nth-child(2){margin-left:-14px;margin-top:18px}
-.zine-pile .zpola-cap{font-size:.9rem}
-.zine-pile .zine-card.hand{transform:rotate(-1.4deg)}
-.zine-pile .zine-card.bot{transform:rotate(1.4deg)}
-.zine-pile .zine-card:nth-child(3){transform:rotate(-.6deg)}
-.zine-pile .zine-card:hover{transform:rotate(0) translateY(-5px)}
-.zine-pile .cap{font-size:.82rem;line-height:1.4}
-.zine-pile .zine-tab{font-size:.58rem}
-@media(max-width:480px){.zine-pile .zine-card{transform:rotate(0)}}
 
-/* ---------- THE KIT = a corkboard, not a paragraph ----------
-   Was 288 words of prose that nobody read. Now every tool is a pinned tag: icon + name at a
-   glance, gloss on hover. Grouped by resource type, colour-coded (people are yellow). */
-.kit{padding:clamp(1.8rem,4.5vw,3rem) 0}
-.kit .head{margin-bottom:clamp(1.6rem,3.6vw,2.4rem);text-align:center}
-.kit .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,5.4vw,2.9rem);
-  line-height:.98;margin:.3rem 0 0;color:var(--ink)}
-.kit .head h2 .stop{color:var(--grass-deep)}
-.kit-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.02rem,1.7vw,1.26rem);line-height:1.5;
-  color:rgba(65,77,87,.85);max-width:46ch;margin:.85rem auto 0}
+/* THE PILE — three real circles. Blurbs and issue names removed (the tab already names the
+   circle, and the work should do the talking), which frees the height to make the artefacts big.
+   Grid, not flex: three equal columns means the polaroids can be sized as a % of the card and
+   grow with the viewport instead of being pinned to a clamp that was tuned for a narrower track. */
+.pile-lead{text-align:center;margin:clamp(1.6rem,3.4vw,2.2rem) 0 clamp(1rem,2.4vw,1.5rem);
+  color:var(--colorado);font-size:1.2rem;transform:rotate(-1deg)}
+.zine-pile{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.6rem,1.2vw,1rem);
+  align-items:start;justify-items:center}
+.zine-pile .zine-card{width:100%;min-width:0;margin-inline:0}
+/* the duo must sum to <= 100% of the card or it escapes the grid cell and pushes the page wide:
+   40 + 66 - 8 = 98%, plus the rotation, still lands inside. */
+.zine-pile .zine-duo{justify-content:center}
+.zine-pile .zpola.zbook{width:66%}
+.zine-pile .zpola{width:40%}
+.zine-pile .zine-duo .zpola:nth-child(2){margin-left:-8%;margin-top:5%}
 
-/* nudge for the hover/tap reveal — otherwise the gloss is an affordance nobody finds */
-.kit-hint{display:flex;align-items:center;justify-content:center;gap:.5rem;
-  margin:0 0 .7rem;color:var(--colorado);font-size:1.12rem;transform:rotate(-1deg)}
-.kit-hint svg{width:34px;height:22px;flex:none;transform:scaleX(-1) rotate(6deg)}
-@media(hover:hover){.kit-hint span::before{content:"hover or ";}}
-
-/* the board: warm cork, speckled, with an ink edge */
-.corkboard{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.9rem,2vw,1.5rem);
-  background:#C89F6B;border:3px solid var(--ink);border-radius:8px;
-  box-shadow:10px 11px 0 0 var(--ink), inset 0 0 40px rgba(90,60,25,.28);
-  padding:clamp(.9rem,2vw,1.4rem);
-  background-image:radial-gradient(circle at 20% 30%, rgba(120,80,40,.22) 0 2px, transparent 3px),
-    radial-gradient(circle at 70% 60%, rgba(150,105,55,.2) 0 2.5px, transparent 3px),
-    radial-gradient(circle at 45% 85%, rgba(105,70,35,.18) 0 2px, transparent 3px);
-  background-size:37px 41px, 53px 47px, 29px 33px}
-
-.cluster{position:relative;padding:.5rem .4rem 0}
-.cl-tag{display:inline-block;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--ink);background:var(--c,var(--schoolbus));
-  border:2.2px solid var(--ink);border-radius:4px;padding:.28em .6em;transform:rotate(-1.5deg);
-  box-shadow:2px 2px 0 0 var(--ink)}
-.c-people{--c:var(--schoolbus)}      /* people are yellow */
-.c-virtual{--c:var(--lazuli)}
-.c-material{--c:var(--colorado)}
-.c-virtual .cl-tag,.c-material .cl-tag{color:var(--oats)}
-.cl-line{font-family:var(--f-body);font-size:clamp(.9rem,1.35vw,1.02rem);line-height:1.35;
-  color:#3B2A16;margin:.6rem 0 0;min-height:2.7em;text-shadow:0 1px 0 rgba(255,255,255,.18)}
-.cl-line b{color:#241708}
-.cl-line em{font-style:italic}
-.cl-soon{display:block;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.08em;
-  color:rgba(59,42,22,.75);margin-top:.2rem}
-
-/* the pinned tags. Absolute % offsets overlapped and clipped the names (a cluster column is only
-   ~380px and a tag is ~150px), so they flow instead — the scatter comes from rotation + a small
-   per-item vertical stagger, which cannot collide no matter how the column resizes. */
-.pins{list-style:none;margin:.9rem 0 0;padding:0 0 .6rem;display:flex;flex-wrap:wrap;
-  justify-content:center;align-items:flex-start;gap:.55rem .5rem}
-.pinit:nth-child(2n){margin-top:.85rem}
-.pinit:nth-child(3n){margin-top:.35rem}
-.pinit{position:static;width:clamp(112px,11.5vw,146px);transform:rotate(var(--r,0deg));
-  background:var(--paper);border:2.4px solid var(--ink);border-radius:5px;
-  box-shadow:3px 4px 0 0 rgba(40,26,10,.5);padding:.5rem .45rem .45rem;text-align:center;
-  transition:transform .16s ease, box-shadow .16s ease;cursor:default}
-.pinit:hover,.pinit:focus-within{transform:rotate(0) translateY(-5px) scale(1.04);z-index:4;
-  box-shadow:6px 8px 0 0 rgba(40,26,10,.55)}
-.pin{position:absolute;top:-7px;left:50%;margin-left:-6px;width:12px;height:12px;border-radius:50%;
-  background:var(--c,var(--colorado));border:2px solid var(--ink);
-  box-shadow:1px 1px 0 0 rgba(40,26,10,.5)}
-.pinic{display:block;width:clamp(28px,3.2vw,36px);height:clamp(28px,3.2vw,36px);margin:.15rem auto .3rem}
-.pinit b{display:block;font-family:var(--f-slab);font-style:italic;font-weight:700;
-  font-size:clamp(.74rem,1vw,.84rem);line-height:1.15;color:var(--ink)}
-/* the gloss is the only prose, and it stays hidden until you ask for it */
-.pinit i{display:block;font-family:var(--f-hand);font-style:normal;font-size:.82rem;line-height:1.15;
-  color:var(--colorado);max-height:0;opacity:0;overflow:hidden;
-  transition:max-height .16s ease, opacity .16s ease, margin-top .16s ease}
-.pinit:hover i,.pinit:focus-within i{max-height:3.2em;opacity:1;margin-top:.25rem}
-
-@media(hover:none){                      /* no hover on touch — never hide the meaning */
-  .pinit i{max-height:3.2em;opacity:1;margin-top:.25rem}
+/* the invite line under the pile — replaces the old empty "your Circle?" card, so the pile can be
+   three real circles instead of two and a blank. */
+.pile-cta{text-align:center;margin:clamp(1.6rem,3.2vw,2.2rem) auto 0;max-width:46ch;
+  font-family:var(--f-body);font-style:italic;font-size:clamp(1.02rem,1.6vw,1.18rem);
+  color:rgba(65,77,87,.8)}
+.pile-cta a{font-style:normal;font-family:var(--f-mono);font-size:.82rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--grass-deep);text-decoration:underline;
+  text-decoration-thickness:1.5px;text-underline-offset:3px;text-decoration-color:rgba(12,110,57,.45);
+  white-space:nowrap}
+.pile-cta a:hover{text-decoration-color:var(--grass-deep)}
+/* The pile reuses .hand/.bot purely for rotation, but those classes also drive tab colour in the
+   main pair (.bot = lazuli, default = ink). So the pile's tabs came out grey/blue by accident,
+   which reads as a distinction that means nothing. Give each circle its own accent, deliberately. */
+.zine-pile .zine-tab{font-size:.62rem;background:transparent;color:var(--oats)}
+.zine-pile .zine-card:nth-child(1) .zine-tab{--tabbg:var(--colorado)}
+.zine-pile .zine-card:nth-child(2) .zine-tab{--tabbg:var(--lazuli)}
+.zine-pile .zine-card:nth-child(3) .zine-tab{--tabbg:var(--grass-deep)}
+@media(max-width:820px){
+  .zine-pile{grid-template-columns:1fr;gap:1.6rem}
+  .zine-pile .zine-card{max-width:420px}
 }
-@media(max-width:900px){
-  .corkboard{grid-template-columns:1fr;gap:1.6rem}
-  .pins{height:auto;display:flex;flex-wrap:wrap;justify-content:center;gap:.7rem}
-  .pinit{position:static;transform:rotate(var(--r,0deg))}
-  .cl-line{min-height:0}
+
+/* ---------- the quotes = vicarious experience, drawn ----------
+   A torn note that cycles. Only one quote is visible at a time, so three testimonials cost the
+   page the vertical space of one — the whole point of this pass: same content, less felt weight. */
+.quotes{position:relative;isolation:isolate;width:min(680px,94vw);
+  margin:clamp(2rem,4.4vw,3rem) auto 0;padding:clamp(1.6rem,3.2vw,2.2rem) clamp(1.4rem,3vw,2rem) clamp(1.1rem,2.4vw,1.5rem);
+  transform:rotate(-.6deg);text-align:center}
+.quotes::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+  border:2.6px solid var(--ink);border-radius:7px;box-shadow:8px 9px 0 0 var(--ink);
+  filter:url(#torn);animation:boil-torn var(--boil-paper) step-end infinite;animation-delay:-1.6s}
+.q-mark{position:absolute;top:-.35em;left:.35em;font-family:var(--f-slab);font-style:italic;
+  font-weight:700;font-size:clamp(4rem,8vw,6rem);line-height:1;color:var(--happy);z-index:-1}
+/* the stack: every quote occupies the same cell, so the box never jumps as they cycle */
+.q-list{display:grid}
+.q{grid-area:1/1;margin:0;opacity:0;transform:translateY(6px);pointer-events:none;
+  transition:opacity .5s ease, transform .5s ease}
+.q.is-on{opacity:1;transform:none;pointer-events:auto}
+.q p{margin:0;font-family:var(--f-slab);font-style:italic;font-weight:700;
+  font-size:clamp(1.15rem,2.3vw,1.6rem);line-height:1.28;color:var(--ink);text-wrap:balance}
+.q cite{display:block;margin-top:.85rem;font-style:normal;font-family:var(--f-mono);
+  font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(65,77,87,.6)}
+.q cite b{color:var(--grass-deep)}
+.q-foot{margin:1.3rem 0 0;color:var(--colorado);font-size:1.05rem;line-height:1.3;transform:rotate(-.8deg)}
+@media(prefers-reduced-motion:reduce){
+  .q{transition:none}
 }
-@media(prefers-reduced-motion:reduce){.pinit{transition:none}}
 
 /* ---------- bring your group = the organizer's door ---------- */
 .bring{padding:clamp(1.5rem,4vw,2.6rem) 0}

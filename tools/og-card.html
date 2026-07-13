@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" class="og">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
+<link rel="stylesheet" href="../app.css?v=109">
+<style>
+  /* 1200x630 social card. Built from the site's own CSS so it can never drift from the brand
+     again. Rendered with browse at 1200x630 and saved over assets/og.png. */
+  html,body{margin:0;padding:0;background:var(--oats);width:1200px;height:630px;overflow:hidden}
+  body{background:var(--oats) repeating-linear-gradient(0deg,transparent 0 33px,rgba(65,77,87,.055) 33px 34px)}
+  .og-stage{position:relative;width:1200px;height:630px;display:grid;place-items:center}
+  .og-card{position:relative;width:1104px;height:534px;isolation:isolate}
+  .og-card>.sheet{position:absolute;inset:0;z-index:0;background:var(--paper);
+    background-image:repeating-linear-gradient(0deg,transparent 0 33px,rgba(65,77,87,.06) 33px 34px);
+    border:3px solid var(--ink);border-radius:8px;filter:url(#torn);box-shadow:11px 12px 0 0 var(--ink)}
+  .og-in{position:relative;z-index:2;padding:58px 64px;height:100%;box-sizing:border-box;
+    display:flex;flex-direction:column}
+  .og-eyebrow{font-family:var(--f-hand);font-size:34px;color:var(--colorado);
+    transform:rotate(-1deg);margin:0 0 14px}
+  .og-h{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:96px;line-height:1.02;
+    letter-spacing:-.02em;color:var(--ink);margin:0}
+  .og-h .hl{position:relative;display:inline;z-index:0}
+  .og-h .hl::before{content:"";position:absolute;left:-.16em;right:-.2em;top:.1em;bottom:-.02em;z-index:-1;
+    background:var(--happy);mix-blend-mode:multiply;transform:rotate(-.8deg) skewX(-5deg);
+    filter:url(#rough);border-radius:2px}
+  .og-h .stop{color:var(--grass-deep)}
+  .og-foot{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between}
+  .og-mark{width:190px;height:auto;display:block}
+  .og-url{font-family:var(--f-mono);font-size:26px;letter-spacing:.06em;color:var(--sambas);text-align:right}
+  .og-url b{display:block;font-family:var(--f-hand);font-weight:400;font-size:32px;
+    color:var(--grass-deep);letter-spacing:0;margin-bottom:6px}
+  .tape{position:absolute;width:190px;height:48px;background:var(--happy);opacity:.72;
+    top:-22px;left:96px;transform:rotate(-3deg);z-index:3;filter:url(#roughsm)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="roughsm"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="torn"><feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="4" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/></filter>
+</svg>
+
+<div class="og-stage">
+  <div class="og-card">
+    <span class="sheet"></span>
+    <span class="tape"></span>
+    <div class="og-in">
+      <p class="og-eyebrow">small learning circles</p>
+      <h1 class="og-h">Get&nbsp;better,<br><span class="hl">making&nbsp;together</span><span class="stop">.</span></h1>
+      <div class="og-foot">
+        <svg class="og-mark" viewBox="0 0 14696 6730" fill="#1CAB5B" role="img" aria-label="drex">
+          <path d="M5478.999,2905.779c0,0 421.063,-37.36 425.9,108.343l-343.709,1707.337c-61.242,136.313 -436.173,134.324 -442.946,-22.416l360.754,-1793.265Z"/><path d="M5041.89,2951.676c63.511,-60.841 526.771,-49.633 526.771,-49.633l-102.739,405.414c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M3924.681,1958.721c63.511,-60.841 530.662,-50.446 530.662,-50.446l-106.63,406.227c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M5726.866,3417.607c0,0 256.489,-511.828 914.019,-511.828l-313.821,549.187c0,0 -52.304,-37.36 -119.551,-37.36c-40.411,0 -354.324,251.272 -556.659,579.075l76.013,-579.075Z"/><ellipse cx="6634.347" cy="3332.931" rx="430.57" ry="427.151"/><path d="M4268.545,3833.937c-54.051,587.803 -422.164,984.658 -1012.447,984.658c-466.996,0 -803.233,-354.917 -803.233,-919.048c0,-545.451 486.888,-993.767 1032.339,-993.767c668.793,0 813.229,603.128 783.342,928.157Zm-643.455,-498.703c-234.497,-17.38 -499.751,191.996 -499.751,524.336c0,438.408 306.192,521.14 448.316,514.446c142.124,-6.694 404.43,-206.606 404.43,-554.612c0,-284.788 -150.331,-469.149 -352.995,-484.17Z"/><path d="M4388.096,1908.276c0,0 411.204,-11.208 424.724,108.343c0,19.142 -451.623,2260.261 -451.623,2260.261c15.69,59.775 224.905,-302.557 315.685,-313.821c110.397,-13.699 320.176,120.344 320.176,210.008c-0,122.494 -381.069,648.499 -765.873,648.499c-140.399,0 -328.765,-47.802 -392.277,-174.825l549.187,-2738.465Z"/><path d="M8385.582,2902.043c497.354,57.086 817.745,422.164 739.722,818.177c-90.045,457.032 -844.694,445.003 -1082.497,417.708c-230.119,-26.413 -368.235,-100.848 -422.572,-20.593c0,0 -107.744,106.625 251.184,223.032c419.614,136.089 691.752,-83.334 866.656,-96.072c140.311,-10.219 217.565,170.071 168.209,286.302c-66.995,157.772 -494.323,338.135 -1028.793,276.789c-285.793,-32.803 -922.08,-269.802 -773.345,-1004.975c130.759,-646.322 784.083,-957.454 1281.437,-900.368Zm-212.016,404.392c-264.608,50.886 -442.712,200.115 -438.042,342.082c4.67,141.967 311.61,175.439 541.715,149.439c165.317,-18.68 362.389,-47.848 366.125,-257.062c3.213,-179.919 -275.528,-271.818 -469.798,-234.459Z"/><path d="M9206.516,4052.426c-70.533,107.48 -90.728,764.251 662.245,766.169c771.79,1.966 1183.203,-1911.019 149.439,-1912.816c-257.116,-0.447 -637.291,99.928 -646.668,437.503c-3.838,138.152 129.653,198.923 237.929,188.041c127.279,-12.792 188.555,-176.528 452.832,-176.528c264.278,0 131.209,448.7 79.402,619.471c-101.286,333.868 -336.519,428.184 -390.245,405.158c-60.791,-26.053 81.561,-246.308 11.513,-333.868c-61.401,-76.751 -475.858,-115.932 -556.447,6.87Z"/><path d="M11593.807,3675.684c70.533,-107.48 91.02,-767.987 -661.952,-769.905c-771.79,-1.966 -1183.496,1911.019 -149.731,1912.816c257.116,0.447 637.291,-96.192 646.668,-433.767c3.838,-138.152 -129.653,-198.923 -237.929,-188.041c-127.279,12.792 -188.555,176.528 -452.832,176.528c-264.278,0 -131.209,-448.7 -79.402,-619.471c101.286,-333.868 336.519,-428.184 390.245,-405.158c60.791,26.053 -81.561,246.308 -11.513,333.868c61.401,76.751 475.858,115.932 556.447,-6.87Z"/><path d="M11830.971,4385.014c61.784,-59.74 306.841,-59.74 367.586,0c60.745,59.74 58.668,298.701 -3.115,358.441c-61.784,59.74 -306.841,59.74 -367.586,0c-60.745,-59.74 -58.668,-298.701 3.115,-358.441Z"/>
+        </svg>
+        <p class="og-url"><b>Learn in a small circle. Show and tell with the world.</b>drex.style</p>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
