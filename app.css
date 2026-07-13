@@ -177,9 +177,22 @@ html.sealed .hero-card{transform:translateY(122%)}
 html.sealed .envelope.opened .hero-card{transform:translateY(0)}
 /* compact hero so the whole card + seam live in one view (the envelope is a single screen) */
 .hero-card .inner{padding:clamp(1.1rem,2.4vw,1.7rem)}
-.hero-card h1{font-size:clamp(1.9rem,4vw,2.9rem);max-width:14ch;line-height:1.02}
+/* Headline is static now (the rotating cadence slot retired with the classroom framing).
+   Two sentences = two blocks: each wraps on its own and balances, so a line break can
+   never straddle the full stop ("circle. Show and / tell"). .hl needs its phrase to stay
+   on one line or the highlighter box tears, hence the nbsp in "small circle". */
+.hero-card h1{font-size:clamp(1.5rem,2.9vw,2.15rem);max-width:17ch;line-height:1.06}
+.hero-card h1 .h1s{display:block;text-wrap:balance}
+.hero-card h1 .h1s+.h1s{margin-top:.16em}
 .hero-card .lede{font-size:clamp(.95rem,1.5vw,1.15rem);max-width:32ch;margin-top:clamp(.7rem,1.6vw,1.05rem)}
 .hero-card .cta{margin-top:clamp(1.3rem,3.2vw,1.9rem)}
+/* the reassurance, in the margin, immediately under the scary half of the headline */
+.hero-aside{font-family:var(--f-hand);font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1.1;
+  color:var(--colorado);margin:.55rem 0 0;transform:rotate(-1.4deg);transform-origin:left center}
+
+/* price + time + the permission to fail. The three things a burned buyer looks for. */
+.hero-terms{font-family:var(--f-mono);font-size:clamp(.62rem,.85vw,.72rem);letter-spacing:.04em;
+  color:rgba(65,77,87,.72);margin:.9rem 0 0;max-width:none;line-height:1.6}
 
 /* inner shadow at the pocket mouth — the depth the card slides out of */
 .pocket-shadow{display:none}
@@ -317,14 +330,19 @@ html[data-tier="lite"] .cmark circle{animation:none!important}
 .reel-instax:hover::before{box-shadow:11px 12px 0 0 var(--ink)}
 
 /* the photo window — clips IG's chrome */
+/* Fallback matters more than it looks: the reel is a cross-origin Instagram embed, and a
+   meaningful slice of this audience (ad-blockers, privacy browsers, iOS Lockdown, EU consent
+   walls) never loads it. With a slate background, a blocked embed renders the LARGEST element
+   in the hero as a black void — reads as "broken site" on first paint. Paper + a visible cue
+   degrades it to an empty polaroid instead, which is on-brand and reads as intentional. */
 .reel-window{position:relative;z-index:1;width:100%;aspect-ratio:var(--ig-ratio,100/108);overflow:hidden;
-  background:var(--sambas);border:1.5px solid rgba(65,77,87,.28)}
+  background:var(--oats);border:1.5px solid rgba(65,77,87,.28)}
 /* --ig-zoom cover-fills the video: IG bakes pillarbox bars into the reel embed
    (content is only ~67% of the media width), so we scale the iframe up ~1.5x to
    push the bars outside the window (clipped) and fill edge-to-edge. */
 .reel-ig{position:absolute;top:calc(-1 * var(--ig-top,56px));left:50%;
   transform:translateX(-50%) scale(var(--ig-zoom,1));transform-origin:50% 20%;
-  width:100%;height:var(--ig-h,780px);border:0;display:block;background:var(--sambas);pointer-events:auto}   /* interactive → ONE tap reaches IG's play button (no wasted "arm" tap). Tear still works via the caption/frame. */
+  width:100%;height:var(--ig-h,780px);border:0;display:block;background:transparent;pointer-events:auto}   /* interactive → ONE tap reaches IG's play button (no wasted "arm" tap). Tear still works via the caption/frame. Transparent so a blocked embed shows the .reel-window paper, not a slate void. */
 .reel-window.reel-playing .reel-ig{pointer-events:auto}
 
 /* decorative play cue — the iframe underneath takes the click (IG's inline player);
@@ -525,6 +543,96 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
     white-space:nowrap;font-family:var(--f-hand);color:var(--colorado);font-size:.92rem;pointer-events:none}
 }
 
+/* ---------- gifts = the range. Torn tags, littered, deliberately unranked ---------- */
+.gifts{padding:clamp(1.6rem,4vw,3rem) 0 clamp(1.2rem,3vw,2.2rem)}
+.gifts .head{margin-bottom:clamp(1.5rem,3.6vw,2.2rem);text-align:center}
+.gifts .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.7rem,4.6vw,2.6rem);
+  line-height:1.02;margin:.3rem auto 0;color:var(--ink);max-width:22ch;text-wrap:balance}
+.gifts .head h2 .stop{color:var(--grass-deep)}
+.gifts-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1rem,1.7vw,1.24rem);line-height:1.5;
+  color:rgba(65,77,87,.85);max-width:44ch;margin:.85rem auto 0}
+.gift-pile{list-style:none;margin:0 auto;padding:0;display:flex;flex-wrap:wrap;justify-content:center;
+  align-items:center;gap:.6rem .55rem;max-width:68ch}
+/* --fg lets the light tags (schoolbus/happy) carry ink text — cream on yellow fails AA */
+.gift-pile li{transform:rotate(var(--r,0deg));font-family:var(--f-mono);font-size:clamp(.78rem,1.3vw,.92rem);
+  letter-spacing:.04em;color:var(--fg,var(--oats));background:var(--c,var(--ink));
+  border:2.2px solid var(--ink);border-radius:5px;padding:.4em .75em;
+  box-shadow:3px 3px 0 0 var(--ink);white-space:nowrap;transition:transform .16s ease}
+.gift-pile li:hover{transform:rotate(0) translateY(-3px)}
+.gifts-foot{text-align:center;margin:clamp(1.1rem,2.6vw,1.6rem) 0 0;color:var(--colorado);font-size:1.25rem}
+@media(prefers-reduced-motion:reduce){.gift-pile li{transition:none}}
+
+/* ---------- why not a group chat = the objection, answered side by side ----------
+   The chat column is deliberately the drab one (desaturated, tilted the "wrong"
+   way); the Circle column carries the grass accent. The kicker is the payload. */
+.versus{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
+.versus .head{margin-bottom:clamp(1.8rem,4.5vw,2.6rem);text-align:center}
+.versus .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);
+  line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
+.versus .head h2 .stop{color:var(--grass-deep)}
+.vs-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.05rem,1.8vw,1.3rem);line-height:1.5;
+  color:rgba(65,77,87,.85);max-width:40ch;margin:.9rem auto 0}
+
+.vs-pair{display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:clamp(1.4rem,3.4vw,2.6rem)}
+.vs-card{position:relative;width:min(380px,100%);transition:transform .18s ease}
+.vs-card.vs-chat{transform:rotate(-1.6deg)}
+.vs-card.vs-circle{transform:rotate(1.6deg)}
+.vs-card:hover{transform:rotate(0) translateY(-6px);z-index:5}
+.vs-card .paper{height:100%}
+/* the chat column reads greyed-out — the life has gone out of it */
+.vs-card.vs-chat .inner{color:rgba(65,77,87,.62)}
+.vs-card.vs-chat>.paper{filter:saturate(.35)}
+
+.vs-tab{position:absolute;z-index:4;top:-13px;left:50%;transform:translateX(-50%) rotate(-2deg);
+  font-family:var(--f-mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--oats);border-radius:4px;padding:.32em .7em;white-space:nowrap;background:var(--ink)}
+.vs-tab-glad{background:var(--grass-deep)}
+
+.vs-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.95rem}
+.vs-list li{position:relative;padding-left:1.9rem;font-size:clamp(.98rem,1.5vw,1.06rem);line-height:1.5}
+.vs-list em{font-style:italic}
+.vs-mark{position:absolute;left:0;top:.08em;width:1.25rem;height:1.25rem;display:grid;place-items:center;
+  font-family:var(--f-slab);font-weight:700;line-height:1}
+.vs-x{color:var(--colorado);font-size:1.35rem}
+.vs-c{color:var(--grass-deep)}
+.vs-c svg{width:1.05rem;height:1.05rem}
+
+.vs-kicker{margin:clamp(1.8rem,4vw,2.6rem) auto 0;text-align:center;max-width:52ch;
+  font-family:var(--f-body);font-size:clamp(1.05rem,1.9vw,1.32rem);line-height:1.55;color:rgba(65,77,87,.9)}
+.vs-kicker em{font-style:italic}
+.vs-kicker b{display:inline-block;margin-top:.5rem;font-family:var(--f-slab);font-style:italic;font-weight:700;
+  font-size:clamp(1.2rem,2.6vw,1.7rem);line-height:1.18;color:var(--ink);text-wrap:balance}
+.vs-kicker .stop{color:var(--grass-deep)}
+@media(max-width:480px){.vs-card.vs-chat,.vs-card.vs-circle{transform:rotate(0)}}
+
+/* ---------- bring your group = the organizer's door ---------- */
+.bring{padding:clamp(1.5rem,4vw,2.6rem) 0}
+.bring .inner{padding:clamp(1.4rem,3vw,2.3rem)}
+.bring-grid{display:grid;grid-template-columns:1.35fr .95fr;gap:clamp(1.4rem,3.4vw,2.8rem);align-items:center}
+.bring .head h2,.bring h2{font-family:var(--f-slab);font-style:italic;font-weight:700;
+  font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.02;margin:.35rem 0 0;color:var(--ink);max-width:18ch}
+.bring h2 .stop{color:var(--grass-deep)}
+.bring-body{font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.55;color:rgba(65,77,87,.9);margin:.95rem 0 0;max-width:46ch}
+.bring-body em{font-style:italic}
+/* the cap is the one fact that makes a 20-person collective INELIGIBLE. Answering it in the
+   organizer's own section (not 25% further down, in the footer) is what keeps them reading. */
+.bring-cap{font-size:clamp(.92rem,1.35vw,1rem);color:rgba(65,77,87,.72);font-style:italic;
+  border-left:2.6px solid var(--grass);padding-left:.85rem;margin-top:1rem}
+.bring-cta{display:flex;flex-wrap:wrap;align-items:center;gap:.9rem;margin:1.5rem 0 0}
+.bring-note{color:var(--colorado);font-size:1.1rem;transform:rotate(-1.5deg)}
+.bring-honest{font-family:var(--f-body);font-size:clamp(.88rem,1.25vw,.95rem);line-height:1.55;
+  color:rgba(65,77,87,.66);margin:1.3rem 0 0;max-width:52ch;font-style:italic}
+.bring-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.9rem}
+.bring-list li{position:relative;padding-left:1.9rem;font-size:clamp(.95rem,1.4vw,1.02rem);line-height:1.45;
+  color:rgba(65,77,87,.9)}
+.bring-list li:nth-child(odd){color:rgba(65,77,87,.6)}
+.bl-x,.bl-c{position:absolute;left:0;top:.05em;width:1.25rem;height:1.25rem;display:grid;place-items:center;
+  font-family:var(--f-slab);font-weight:700;line-height:1}
+.bl-x{color:var(--colorado);font-size:1.3rem}
+.bl-c{color:var(--grass-deep)}
+.bl-c svg{width:1.05rem;height:1.05rem}
+@media(max-width:900px){.bring-grid{grid-template-columns:1fr}}
+
 /* ---------- the zine = the tangible keepsake (hand-made vs bot-made) ---------- */
 .zines{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
 .zines .head{margin-bottom:clamp(1.8rem,4.5vw,2.6rem);text-align:center}
@@ -638,6 +746,8 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .team{padding:clamp(1.5rem,4vw,3rem) 0}
 .team .head{margin-bottom:clamp(1.9rem,4.5vw,2.8rem)}
 .team .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.9rem,5vw,2.8rem);line-height:1.02;margin:.35rem 0 0;color:var(--ink);max-width:20ch}
+.team-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1rem,1.6vw,1.18rem);line-height:1.5;
+  color:rgba(65,77,87,.85);max-width:52ch;margin:.9rem 0 0}
 .crew{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(1.7rem,4vw,3.2rem);align-items:flex-start}
 .polaroid{position:relative;width:min(300px,84%);padding:13px 13px 0;transition:transform .18s ease}
 /* border + hard shadow live on a backing layer so they can boil without warping the photo */
@@ -1232,6 +1342,10 @@ html.sealed:not(.revealed) .cg-scrap{opacity:0!important}
 .cta-alt:hover,.cta-alt:focus-visible{text-decoration-color:var(--grass-deep);transform:translateY(-1px)}
 .cta-alt:focus-visible{outline:2px solid var(--lazuli);outline-offset:3px;border-radius:3px}
 .hero .cta{align-items:center}          /* keep the quiet link baseline-aligned with the stamp button */
+/* the organizer's door — a DIFFERENT door, not a third flavour of the same one, so it
+   reads as "this page has a path for me" rather than more small print. */
+.cta-org{color:var(--colorado);text-decoration-color:rgba(247,84,88,.5)}
+.cta-org:hover,.cta-org:focus-visible{text-decoration-color:var(--colorado)}
 
 /* ===================================================================
    M5 — Photo VANDALISM: sharpie doodles scrawled onto a tapped photo.
