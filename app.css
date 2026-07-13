@@ -478,7 +478,10 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 /* the loop = a Circle: 5 stations around a hand-drawn ring, arrow looping back to Gather */
 /* container-query units keep the WHOLE diagram one scalable unit → the circle holds its
    proportions at every width (never overlaps), instead of collapsing to a linear stack */
-.how-loop{position:relative;width:min(560px,94vw);aspect-ratio:1;margin:clamp(1rem,3vw,2rem) auto 0;container-type:inline-size}
+/* the ring and its footnote share a stage, so the note can be parked in the dead margin beside the
+   ring on desktop and simply fall underneath it on phone. */
+.how-stage{position:relative;width:min(560px,94vw);margin:clamp(1rem,3vw,2rem) auto 0}
+.how-loop{position:relative;width:100%;aspect-ratio:1;container-type:inline-size}
 .how-ring{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible}
 .how-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-5deg);z-index:1;
   font-family:var(--f-hand);font-size:5.6cqw;line-height:1.02;text-align:center;color:var(--colorado);opacity:.85;
@@ -497,6 +500,9 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 @media(min-width:341px){
   .how .step::after{content:"";position:absolute;z-index:-1;right:-1.7cqw;bottom:-2.3cqw;width:0;height:0;
     border-left:3.6cqw solid transparent;border-bottom:3.6cqw solid var(--schoolbus);filter:url(#roughsm)}
+  /* the three OBJECT nodes have no sticky note under them — so they get no folded corner either,
+     or it floats in the ring like a stray scrap. */
+  .how .step.is-clock::after,.how .step.is-globe::after,.how .step.is-think::after{display:none}
 }
 /* tap "every week": the words stop — and the ring takes over the spinning.
    .flow sits above the center (z2 vs z1) — let clicks fall through it except on the notes. */
@@ -507,13 +513,14 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .how-loop.spin-swap .how-ring{transform-origin:50% 50%;animation:how-spin-ring 16s linear infinite}
 @keyframes how-spin-ring{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.how-loop.spin-swap .how-ring{animation:none}}
-.how .step:nth-child(1){top:12%;left:50%}      /* Gather — top (in the ring's gap) */
-.how .step:nth-child(2){top:38.3%;left:86.1%}  /* Make — right (exact R=38 on the ring) */
-.how .step:nth-child(3){top:80.7%;left:72.3%}  /* Reflect — lower right */
-.how .step:nth-child(4){top:80.7%;left:27.7%}  /* Zine — lower left */
-.how .step:nth-child(5){top:38.3%;left:13.9%}  /* Share — left */
-.how .step .n{font-family:var(--f-mono);font-weight:500;font-size:2.05cqw;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--sambas);display:block;margin-bottom:1cqw}
+/* Four nodes, not five: Practice was already one of the four words on the clock face, so as a step
+   it counted itself twice. Four lands on a clean compass at R=38 on the ring. */
+.how .step:nth-child(1){top:12%;left:50%}      /* Challenge   — top (in the ring's gap) */
+.how .step:nth-child(2){top:50%;left:88%}      /* Circle Time — right */
+.how .step:nth-child(3){top:88%;left:50%}      /* Reflect     — bottom */
+.how .step:nth-child(4){top:50%;left:12%}      /* Show & tell — left */
+.how .step .n{font-family:var(--f-mono);font-weight:600;font-size:2.05cqw;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink);display:block;margin-bottom:1cqw}
 .how .step .ico{width:10cqw;height:10cqw;margin:0 auto 1.3cqw;display:block}
 .how .step .ico svg{width:100%;height:100%;display:block;overflow:visible}
 .how .step .ico svg>*{filter:url(#roughsm)}              /* same hand-drawn boil as the collage scraps */
@@ -572,8 +579,19 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .reveal-name::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--oats);
   border:2.6px solid var(--ink);border-radius:6px;box-shadow:7px 8px 0 0 var(--ink);
   filter:url(#torn);animation:boil-torn var(--boil-paper) step-end infinite;animation-delay:-.5s}
-.rn-arrow{position:absolute;top:-.85rem;left:1.1rem;font-size:1.15rem;color:var(--colorado);
-  background:var(--oats);padding:0 .35em;transform:rotate(-2deg)}
+/* DYMO TAPE. The beat is "that loop has a name" — and a label maker is the object whose entire
+   purpose is giving a thing a name. So the aside marker stops being a scrawl and becomes embossed
+   tape: dark strip, letters lighter than the strip (plastic whitens where it's stretched), wide
+   tracking, rounded ends, stuck on at an angle over the note's torn edge. */
+.rn-arrow{position:absolute;top:-1rem;left:1.1rem;z-index:1;
+  font-family:var(--f-mono);font-weight:600;font-size:.78rem;letter-spacing:.22em;
+  text-transform:uppercase;text-indent:.22em;                 /* balance the trailing letter-space */
+  color:#FFF8EC;background:var(--coral-ink);                   /* classic Dymo: red tape, white embossed letters */
+  padding:.42em .7em .38em;border-radius:5px;
+  text-shadow:0 1px 0 rgba(93,18,22,.55);                      /* the raised-letter bite */
+  box-shadow:2px 2px 0 0 rgba(65,77,87,.4);
+  transform:rotate(-2.2deg);
+  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
 .reveal-name p{margin:0;font-size:clamp(.98rem,1.5vw,1.08rem);line-height:1.55;color:rgba(65,77,87,.9)}
 .reveal-name b{color:var(--ink)}
 .reveal-name em{font-style:italic}
@@ -581,6 +599,63 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   letter-spacing:.08em;text-transform:uppercase;color:var(--grass-deep);text-decoration:underline;
   text-decoration-thickness:1.5px;text-underline-offset:3px;text-decoration-color:rgba(12,110,57,.45)}
 .rn-link:hover{text-decoration-color:var(--grass-deep)}
+
+/* ---------- THE KIT = a corkboard, not a paragraph ----------
+   Was 288 words of prose nobody read. Now every tool is a pinned tag: icon + name at a glance,
+   gloss on hover. Grouped by resource type, colour-coded (people are yellow).
+   NOTE: this BASE layout must stay above the squigglevision retrofit further down, which strips
+   these borders/backgrounds onto ::before layers so they can ride the roughen filter. Deleting it
+   (as an over-eager CSS splice once did) collapses the board to a 15,000px stack. */
+.kit{padding:clamp(1.8rem,4.5vw,3rem) 0}
+.kit .head{margin-bottom:clamp(1.6rem,3.6vw,2.4rem);text-align:center}
+.kit .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,5.4vw,2.9rem);
+  line-height:.98;margin:.3rem 0 0;color:var(--ink)}
+.kit .head h2 .stop{color:var(--grass-deep)}
+.kit-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.02rem,1.7vw,1.26rem);line-height:1.5;
+  color:rgba(65,77,87,.85);max-width:52ch;margin:.85rem auto 0}
+.kit-sub b{font-style:normal;color:var(--ink)}
+
+.corkboard{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.9rem,2vw,1.5rem);
+  padding:clamp(.9rem,2vw,1.4rem)}
+.cluster{position:relative;padding:.5rem .4rem 0}
+.cl-tag{display:inline-block;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink);padding:.28em .6em;transform:rotate(-1.5deg)}
+.c-people{--c:var(--schoolbus)}
+.c-virtual{--c:var(--lazuli)}
+.c-material{--c:var(--colorado)}
+.c-virtual .cl-tag,.c-material .cl-tag{color:var(--oats)}
+.cl-line{font-family:var(--f-body);font-size:clamp(.9rem,1.35vw,1.02rem);line-height:1.35;
+  color:#3B2A16;margin:.6rem 0 0;min-height:2.7em;text-shadow:0 1px 0 rgba(255,255,255,.18)}
+.cl-line b{color:#241708}
+.cl-line em{font-style:italic}
+.cl-soon{display:block;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.08em;
+  color:rgba(59,42,22,.75);margin-top:.2rem}
+
+.pins{list-style:none;margin:.9rem 0 0;padding:0 0 .6rem;display:flex;flex-wrap:wrap;
+  justify-content:center;align-items:flex-start;gap:.55rem .5rem}
+.pinit{position:static;width:clamp(112px,11.5vw,146px);transform:rotate(var(--r,0deg));
+  padding:.5rem .45rem .45rem;text-align:center;cursor:default;
+  transition:transform .16s ease, box-shadow .16s ease}
+.pinit:nth-child(2n){margin-top:.85rem}
+.pinit:nth-child(3n){margin-top:.35rem}
+.pinit:hover,.pinit:focus-within{transform:rotate(0) translateY(-5px) scale(1.04);z-index:4}
+.pin{position:absolute;top:-7px;left:50%;margin-left:-6px;width:12px;height:12px;border-radius:50%;
+  background:var(--c,var(--colorado));border:2px solid var(--ink);
+  box-shadow:1px 1px 0 0 rgba(40,26,10,.5)}
+.pinic{display:block;width:clamp(28px,3.2vw,36px);height:clamp(28px,3.2vw,36px);margin:.15rem auto .3rem}
+.pinit b{display:block;font-family:var(--f-slab);font-style:italic;font-weight:700;
+  font-size:clamp(.74rem,1vw,.84rem);line-height:1.15;color:var(--ink)}
+/* The gloss used to be a hover reveal — which meant the corkboard read as fourteen bare labels
+   and the actual explanation was invisible to anyone not fishing for it (and to every screenshot).
+   The tags are short; just show them. Hover now only lifts the tag off the board. */
+.pinit i{display:block;font-family:var(--f-hand);font-style:normal;font-size:.82rem;line-height:1.15;
+  color:var(--colorado);margin-top:.25rem}
+@media(max-width:900px){
+  .corkboard{grid-template-columns:1fr;gap:1.6rem}
+  .pins{height:auto}
+  .cl-line{min-height:0}
+}
+@media(prefers-reduced-motion:reduce){.pinit{transition:none}}
 
 /* ---------- the long game = durability, drawn ----------
    One circle's own shelf, 001 to 012, each spine a little taller. The growth IS the argument:
@@ -773,6 +848,10 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 /* The work is the whole point of this section, so give it a wider track than the 1150px .wrap —
    at 1038px inner the zines were shrunk to thumbnails to fit three across. */
 #zine .wrap{max-width:1500px;padding-inline:clamp(1rem,2.2vw,1.75rem)}
+/* The gutter rails are pinned to the 1150px column (left: calc(50vw - 601px)). #zine runs a wider
+   1500px track, so its scraps land ON the artwork — they were appearing inside the maker polaroids.
+   The board and the pile are decoration enough; drop the collage here. */
+#zine .cg-collage{display:none}
 
 /* Empty slots ("on the press", "photo soon") sat on the slate photo background, which at
    thumbnail size passed but at full size reads as a dead black rectangle — the same failure the
@@ -790,12 +869,19 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .zine-pile{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.6rem,1.2vw,1rem);
   align-items:start;justify-items:center}
 .zine-pile .zine-card{width:100%;min-width:0;margin-inline:0}
-/* the duo must sum to <= 100% of the card or it escapes the grid cell and pushes the page wide:
-   40 + 66 - 8 = 98%, plus the rotation, still lands inside. */
+/* The duo must sum to <= 100% of the card or it escapes the grid cell and pushes the page wide.
+   The -8% tuck was tuned when these were thumbnails; at full size the zine (66%) sliced ~55px off
+   the photo (40%) and both read as CLIPPED rather than tucked. Bring the two objects closer in
+   size and barely overlap them, so each is legible as a whole thing: 46 + 58 - 4 = 100%. */
 .zine-pile .zine-duo{justify-content:center}
-.zine-pile .zpola.zbook{width:66%}
-.zine-pile .zpola{width:40%}
-.zine-pile .zine-duo .zpola:nth-child(2){margin-left:-8%;margin-top:5%}
+.zine-pile .zpola.zbook{width:58%}
+.zine-pile .zpola{width:46%}
+.zine-pile .zine-duo .zpola:nth-child(2){margin-left:-4%;margin-top:6%}
+/* the base rule stacks the maker photo ON TOP (z-index 2), which was fine at thumbnail size but now
+   slices the zine's cover text. The artefact is the point of this section — put the zine in front
+   and let the photo tuck behind it. */
+.zine-pile .zine-duo .zpola:nth-child(1){z-index:1}
+.zine-pile .zine-duo .zpola:nth-child(2){z-index:3}
 
 /* the invite line under the pile — replaces the old empty "your Circle?" card, so the pile can be
    three real circles instead of two and a blank. */
@@ -819,62 +905,286 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   .zine-pile .zine-card{max-width:420px}
 }
 
-/* ---------- the quotes = vicarious experience, drawn ----------
-   A torn note that cycles. Only one quote is visible at a time, so three testimonials cost the
-   page the vertical space of one — the whole point of this pass: same content, less felt weight. */
-.quotes{position:relative;isolation:isolate;width:min(680px,94vw);
-  margin:clamp(2rem,4.4vw,3rem) auto 0;padding:clamp(1.6rem,3.2vw,2.2rem) clamp(1.4rem,3vw,2rem) clamp(1.1rem,2.4vw,1.5rem);
-  transform:rotate(-.6deg);text-align:center}
-.quotes::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
-  border:2.6px solid var(--ink);border-radius:7px;box-shadow:8px 9px 0 0 var(--ink);
-  filter:url(#torn);animation:boil-torn var(--boil-paper) step-end infinite;animation-delay:-1.6s}
-.q-mark{position:absolute;top:-.35em;left:.35em;font-family:var(--f-slab);font-style:italic;
-  font-weight:700;font-size:clamp(4rem,8vw,6rem);line-height:1;color:var(--happy);z-index:-1}
-/* the stack: every quote occupies the same cell, so the box never jumps as they cycle */
-.q-list{display:grid}
-.q{grid-area:1/1;margin:0;opacity:0;transform:translateY(6px);pointer-events:none;
-  transition:opacity .5s ease, transform .5s ease}
-.q.is-on{opacity:1;transform:none;pointer-events:auto}
-.q p{margin:0;font-family:var(--f-slab);font-style:italic;font-weight:700;
-  font-size:clamp(1.15rem,2.3vw,1.6rem);line-height:1.28;color:var(--ink);text-wrap:balance}
-.q cite{display:block;margin-top:.85rem;font-style:normal;font-family:var(--f-mono);
-  font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(65,77,87,.6)}
-.q cite b{color:var(--grass-deep)}
-.q-foot{margin:1.3rem 0 0;color:var(--colorado);font-size:1.05rem;line-height:1.3;transform:rotate(-.8deg)}
-@media(prefers-reduced-motion:reduce){
-  .q{transition:none}
+/* ---------- THE MAKER BOARD = vicarious experience, pinned ----------
+   A polaroid is a photo plus a caption strip; the strip is where the handwritten quote lives.
+   All eleven makers visible at once: the repetition is the argument, and no one waits 6s to read
+   the second quote. Masonry columns so nothing orphans and it reflows 4 -> 3 -> 2 -> 1. */
+.makerboard{position:relative;isolation:isolate;margin:clamp(2rem,4.4vw,3rem) auto 0;
+  padding:clamp(1.8rem,3vw,2.6rem) clamp(1.2rem,2.4vw,2rem)}
+.makerboard::before{content:"";position:absolute;inset:0;z-index:-1;background:#C89F6B;
+  background-image:radial-gradient(circle at 20% 30%, rgba(120,80,40,.22) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 60%, rgba(150,105,55,.2) 0 2.5px, transparent 3px),
+    radial-gradient(circle at 45% 85%, rgba(105,70,35,.18) 0 2px, transparent 3px);
+  background-size:37px 41px,53px 47px,29px 33px;
+  border:3px solid var(--ink);border-radius:8px;
+  box-shadow:10px 11px 0 0 var(--ink), inset 0 0 40px rgba(90,60,25,.28);
+  filter:url(#torn);animation:boil-torn var(--boil-paper) step-end infinite;animation-delay:-1.9s}
+
+/* the question they were all answering — without it the quotes are just nice words */
+.mb-head{text-align:center;margin:0 0 clamp(1.2rem,2.4vw,1.7rem)}
+.mb-k{display:block;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.16em;
+  text-transform:uppercase;color:#5A3E1C;margin-bottom:.25rem}
+.mb-q{margin:0;font-family:var(--f-slab);font-style:italic;font-weight:700;
+  font-size:clamp(1.1rem,2.2vw,1.5rem);line-height:1.2;color:#2C1D0B;
+  text-shadow:0 1px 0 rgba(255,255,255,.2)}
+
+.mb-grid{columns:4;column-gap:clamp(.7rem,1.4vw,1.1rem)}
+@media(max-width:1080px){.mb-grid{columns:3}}
+@media(max-width:760px){.mb-grid{columns:2}}
+@media(max-width:460px){.mb-grid{columns:1}}
+
+.mpol{position:relative;isolation:isolate;break-inside:avoid;margin:0 0 clamp(.7rem,1.4vw,1.1rem);
+  padding:8px 8px 0;transform:rotate(var(--r,0deg));transition:transform .18s ease}
+.mpol::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+  border:2.4px solid var(--ink);border-radius:3px;box-shadow:4px 5px 0 0 rgba(40,26,10,.5);
+  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+.mpol:nth-child(even)::before{animation-delay:-.6s}
+.mpol:nth-child(3n)::before{animation-delay:-1.2s}
+.mpol:hover{transform:rotate(0) translateY(-6px) scale(1.03);z-index:9}
+.mpol:hover::before{box-shadow:7px 9px 0 0 rgba(40,26,10,.55)}
+.mv-pin{position:absolute;top:-8px;left:50%;margin-left:-7px;width:15px;height:15px;border-radius:50%;
+  background:var(--c,var(--colorado));border:2.2px solid var(--ink);z-index:2;
+  box-shadow:1px 2px 0 0 rgba(40,26,10,.5)}
+
+/* PHOTO. The placeholder is muted paper, not a saturated colour block — eleven loud squares made
+   the board shout and buried the handwriting. The accent lives on the pin and the handle instead. */
+.mv-ph{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:1/1;overflow:hidden;
+  background:#EDE4CF;border:2px solid var(--ink);background-size:cover;background-position:center}
+.mv-ini{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:2.3rem;
+  color:rgba(65,77,87,.22)}
+/* the instant a real photo lands at assets/makers/<handle>.jpg, JS sets it as the background and
+   flips this class — the initial and the stamp get out of the way. Nothing else changes. */
+.mv-ph.has-photo .mv-ini,.mv-ph.has-photo .mv-soon{display:none}
+.mv-soon{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
+  font-family:var(--f-mono);font-size:.46rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--colorado);border:1.6px solid var(--colorado);border-radius:3px;padding:.15em .35em;
+  filter:url(#roughsm)}
+.mv-vid{position:absolute;right:6px;bottom:6px;width:22px;height:22px;border-radius:50%;
+  background:var(--colorado);border:2px solid var(--ink);display:grid;place-items:center;z-index:2}
+.mv-vid::after{content:"";border-left:7px solid var(--oats);border-top:4.5px solid transparent;
+  border-bottom:4.5px solid transparent;margin-left:2px}
+
+/* THE STRIP — the whole idea: the quote IS the caption, in handwriting */
+.mv-strip{padding:.55rem .35rem .6rem;text-align:center}
+.mv-strip q{display:block;font-family:var(--f-hand);font-size:1rem;line-height:1.2;color:var(--ink);
+  quotes:'\201C' '\201D'}
+.mpol.lead .mv-strip q{font-size:1.22rem;line-height:1.18}
+.mv-strip b{display:block;margin-top:.35rem;font-family:var(--f-mono);font-weight:400;font-size:.54rem;
+  letter-spacing:.08em;color:var(--c,var(--colorado))}
+
+.mb-echo{margin:clamp(1.3rem,2.6vw,1.8rem) auto 0;text-align:center;font-size:1.16rem;
+  color:#3B2A16;max-width:48ch;text-shadow:0 1px 0 rgba(255,255,255,.22)}
+.mb-echo a{color:#0C6E39;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+@media(prefers-reduced-motion:reduce){.mpol{transition:none}}
+
+
+/* The Circle card sits on a yellow sticky note — the group chat is a cold slab of paper, the Circle
+   is the warm thing somebody stuck on the wall. Cheapest possible way to make the good column FEEL
+   good, and it brands the moment in schoolbus yellow. */
+.vs-card.vs-circle .circlemock::before{background:var(--happy)}
+.vs-card.vs-circle .cm-note::before{background:var(--paper)}
+/* the curled corner + the shadow that says "stuck on, not printed" */
+.vs-card.vs-circle .circlemock{position:relative}
+.vs-card.vs-circle .circlemock::after{content:"";position:absolute;right:-2px;bottom:-2px;
+  width:38px;height:38px;z-index:1;
+  background:linear-gradient(135deg, transparent 50%, rgba(65,77,87,.16) 50%, var(--schoolbus) 52%);
+  border-bottom-right-radius:8px;filter:url(#roughsm)}
+.vs-card.vs-circle .cm-out b{color:#4A3A08}
+.vs-card.vs-circle .cap{color:var(--grass-deep)}
+
+
+/* CIRCLE TIME is the heart of the loop, so it gets to be the biggest note on the ring — and it
+   carries Chielo's four "people resources" inline. Inline, not stacked: four words wrapping on one
+   line reads as a PROPERTY of the hour; four bullets on four lines reads as a to-do list and blows
+   the ring's geometry. If this node lands, the page needs no separate section explaining it. */
+/* 30cqw pushed the node outside the ring at the 3 o'clock position. 26 keeps it emphasised and
+   inside the circle; the happy-yellow ground does the rest of the work. */
+.how .step.is-key{width:26cqw;z-index:3}
+.how .step.is-key::before{inset:-2.6cqw -2cqw;background:var(--happy)}
+.how .step .mechs{margin:.45rem 0 0;padding-top:.45rem;position:relative;
+  font-family:var(--f-hand);font-size:2.6cqw;letter-spacing:.01em;line-height:1.25;
+  color:var(--ink);text-transform:lowercase;text-wrap:balance}
+/* a hand-drawn rule, because nothing here is drawn with a ruler */
+.how .step .mechs::before{content:"";position:absolute;top:0;left:12%;right:12%;height:2.2px;
+  background:var(--colorado);opacity:.4;border-radius:2px;filter:url(#rough)}
+.how .step p b{color:var(--ink)}
+
+
+/* CIRCLE TIME IS A CLOCK, not a sticky note. Breaking the ring's own visual system is the point:
+   four notes and one OBJECT says "this one is different" without a word of copy. The hour is
+   quartered into the four ways you use it. Hands sweep, because a clock that doesn't move is a
+   drawing of a clock. */
+.how .step.is-clock::before{display:none}          /* no sticky ground under the object */
+.how .step.is-clock .ico{width:100%;height:auto;margin:0 auto .3rem}
+.ctclock{width:clamp(104px,20cqw,168px);height:auto;display:block;margin:0 auto;overflow:visible;
+  filter:drop-shadow(4px 5px 0 rgba(65,77,87,.55))}
+.ct-hands{transform-origin:60px 60px}
+.ct-min{transform-origin:60px 60px;animation:ct-sweep 8s linear infinite}
+.ct-hr{transform-origin:60px 60px;animation:ct-sweep 96s linear infinite}
+@keyframes ct-sweep{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.ct-min,.ct-hr{animation:none}}
+/* the name goes ABOVE the object: you read the label, then look at the thing it names. */
+.how .step.is-clock h3,.how .step.is-globe h3,.how .step.is-cal h3{margin:0 0 .4cqw}
+.how .step.is-globe h3{font-size:3.9cqw;white-space:nowrap}
+
+
+/* SHOW & TELL IS A GLOBE. Two objects in a ring of notes: the CLOCK at 02 (the hour, small, your
+   people) and the GLOBE at 05 (the world, big, everyone else). That pairing IS the thesis —
+   make small, show and tell big — built into the loop instead of bolted on as a stunt.
+   The paper plane was already the Show icon; now it orbits. */
+.how .step.is-globe::before{display:none}
+.how .step.is-globe .ico{width:100%;height:auto;margin:0 auto .3rem}
+.ctglobe{width:clamp(104px,20cqw,168px);height:auto;display:block;margin:0 auto;overflow:visible;
+  filter:drop-shadow(4px 5px 0 rgba(65,77,87,.55))}
+/* plane + contrail are ONE group: the trail is the path already flown, so it must ride with the
+   plane. (It used to be a full ring counter-rotating on its own, which read as a hoop drawn around
+   the globe and, worse, moved the wrong way.) */
+.ct-orbit{transform-origin:60px 62px;animation:ct-orbit 11s linear infinite}
+@keyframes ct-orbit{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.ct-orbit{animation:none}}
+/* the plane drags a banner, the way a little plane over a beach does. One word fits, and the one
+   word is the product: the thing that goes around the world is the ZINE. */
+/* the word has to survive at ~30px of rendered banner: heaviest weight, tightest tracking that
+   still separates the letters, and a hairline ink stroke to hold the counters open against red. */
+.ct-banner{font-family:var(--f-mono);font-weight:700;font-size:8.4px;letter-spacing:.3px;
+  fill:var(--oats);paint-order:stroke;stroke:rgba(65,77,87,.35);stroke-width:.5px}
+
+
+/* REFLECT IS A THOUGHT BUBBLE. It had a sticky note with a speech-bubble icon drawn on it, which
+   is a picture of a thing on a picture of a thing. Make the note BE the bubble and the icon is
+   redundant — so it's gone. The ring now runs: card, CLOCK, THOUGHT, GLOBE.
+   A cartoon thought balloon is SCALLOPED — convex, near-semicircular lobes, uneven, overlapping
+   (see any Garfield balloon). Two things this got wrong before: (1) CSS border-radius can only ever
+   give you a smooth blob, and (2) stretching an SVG cloud to the note's box turns every round lobe
+   into a squashed ellipse. So: real path, real aspect ratio, no stretching — the TEXT fits the
+   balloon, not the other way round. The tail bubbles live inside the same SVG, so they scale and
+   boil with it instead of drifting around as absolutely-positioned divs. */
+.how .step.is-think{position:relative;width:22cqw}
+.how .step.is-think::before,.how .step.is-think::after{display:none}   /* the balloon IS the ground */
+.thoughtb{position:absolute;left:50%;top:50%;
+  /* the viewBox is 180 tall but the BALLOON only occupies the top 140 — its centre is 20 units
+     above the SVG's centre, so the whole thing shifts DOWN to put the balloon (not the tail) around
+     the text. Getting this sign wrong is what was pushing the copy out through the bottom lobes. */
+  transform:translate(-50%,-50%) translateY(4.6cqw);
+  width:46cqw;aspect-ratio:200/180;height:auto;z-index:-1;overflow:visible;
+  filter:drop-shadow(4px 5px 0 rgba(65,77,87,.5))}
+/* THE BALLOON BOILS. Everything else in the ring is a drawn object holding still; the balloon is
+   the one that represents THINKING, so it's the one that never settles. Fast cadence (--boil-ink,
+   the marker speed) rather than the calm paper breath — a thought still forming. The tail bubbles
+   are offset so the four shapes don't all jump on the same frame. */
+.thoughtb path,.thoughtb circle{filter:url(#roughsm);
+  animation:boil-roughsm var(--boil-ink) step-end infinite}
+.thoughtb circle:nth-of-type(1){animation-delay:-.17s}
+.thoughtb circle:nth-of-type(2){animation-delay:-.33s}
+.thoughtb circle:nth-of-type(3){animation-delay:-.08s}
+@media(prefers-reduced-motion:reduce){.thoughtb path,.thoughtb circle{animation:none}}
+
+/* a balloon holds less air than a square note of the same width — keep the text off the scallops */
+.how .step.is-think h3{font-size:3.6cqw}
+.how .step.is-think p{max-width:15ch;margin-inline:auto;font-size:2.6cqw;line-height:1.12}
+.how .step.is-think .n{margin-bottom:.35cqw}
+
+
+/* THE DEADLINE IS THE OBJECT. A stamped "DUE FRIDAY" tag was a sticker on a picture of a thing;
+   a tear-off desk calendar IS the thing — it carries the day, the fact that a fresh page comes
+   every week, and the challenge scrawled on it, without a word of prose. Now all four nodes are
+   objects: CALENDAR, CLOCK, THOUGHT BALLOON, GLOBE. */
+.how .step.is-cal::before,.how .step.is-cal::after{display:none}
+.how .step.is-cal .ico{width:100%;height:auto;margin:0 auto .3rem}
+.ctcal{width:clamp(96px,18cqw,152px);height:auto;display:block;margin:0 auto;overflow:visible;
+  filter:drop-shadow(4px 5px 0 rgba(65,77,87,.55));transform:rotate(-2deg)}
+/* the pad boils on the calm cadence — paper breathing, not marker jitter (that's the balloon's job).
+   Staggered per layer so the pages don't all wobble on the same frame. */
+.ctcal>path,.ctcal>g>path,.ctcal>g>circle{filter:url(#roughsm);
+  animation:boil-roughsm var(--boil-paper) step-end infinite}
+.ctcal>path:nth-of-type(2){animation-delay:-.4s}
+.ctcal>path:nth-of-type(3){animation-delay:-.8s}
+.ctcal>path:nth-of-type(4){animation-delay:-1.1s}
+@media(prefers-reduced-motion:reduce){.ctcal>path,.ctcal>g>path,.ctcal>g>circle{animation:none}}
+.cal-day{font-family:var(--f-mono);font-weight:600;font-size:15px;letter-spacing:2px;fill:var(--oats)}
+
+/* THE FOOTNOTE IS A STICKY NOTE. It's the only thing on the ring that isn't part of the ring, so it
+   gets the ring's discarded furniture: the yellow note the Practice step used to sit on. On desktop
+   it's parked in the empty margin beside the clock it annotates (the ring is 560px inside a 1150px
+   column — that margin is dead space). On phone there is no margin, so it just falls in underneath. */
+/* z-index at ALL widths: the thought balloon hangs well below the ring's box (it's a 46cqw object on
+   a node parked at 88%), so when the note falls into flow underneath it, the balloon was painting
+   straight over it. The clearance below is sized to the balloon's overhang, not to taste. */
+.how-fn{position:relative;z-index:4;display:flex;align-items:flex-start;gap:.5rem;
+  margin:clamp(5rem,13vw,6.5rem) auto 0;max-width:32ch;padding:.9rem 1rem;
+  transform:rotate(-1.4deg)}
+.how-fn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--happy);
+  border:2.6px solid var(--ink);border-radius:4px;box-shadow:4px 4px 0 0 var(--ink);
+  filter:url(#roughsm2)}
+/* the folded-up sticky corner. It has to peel up from INSIDE the note's own square — hung off the
+   outside edge it just looked like a triangle sitting on the drop shadow. Same construction as the
+   Circle card downpage: a diagonal split with a shadow on the fold line. */
+.how-fn::after{content:"";position:absolute;right:1px;bottom:1px;z-index:0;width:26px;height:26px;
+  background:linear-gradient(135deg, transparent 47%, rgba(65,77,87,.22) 47%, var(--schoolbus) 50%);
+  filter:url(#roughsm)}
+/* the arrow back to the asterisk it answers. Desktop only — on phone the note sits directly
+   underneath, so an arrow pointing sideways into nothing would be a lie. */
+.fn-link{display:none}
+/* The note only gets parked in the margin when there IS a margin. The ring is 560px inside a 1150px
+   column, so the gutter is ~295px a side — the note needs ~258px of it. Below ~1180px viewport the
+   column narrows, the gutter closes, and the note would hang off the page: so it drops back into
+   flow under the ring and the yarn (which would then point at nothing) goes away with it.
+   The yarn's box is stage-relative: at every width where it's visible the stage is a rigid 560px,
+   the clock sits at 74.1%/34% and the note's left edge at 104.8%, so these percentages hold. */
+@media(min-width:1180px){
+  .fn-link{display:block;position:absolute;left:92%;top:52%;width:16%;height:14%;
+    overflow:visible;filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite;
+    z-index:5;pointer-events:none}
+}
+.fn-star{font-family:var(--f-slab);font-weight:700;color:var(--colorado);
+  font-size:clamp(2.2rem,4vw,3rem);line-height:.62;flex:none;
+  filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite}
+.fn-body{font-family:var(--f-hand);font-size:clamp(1rem,1.4vw,1.14rem);line-height:1.22;
+  color:var(--ink);padding-top:.1rem}
+/* no highlighter on a highlighter-coloured note — the note IS the emphasis. The punch line
+   picks up the asterisk's red instead. */
+.fn-body b{font-weight:400;color:var(--coral-ink)}
+/* the marker on the clock's own word */
+.how .step .mechs sup{font-size:1.2em;line-height:0;vertical-align:baseline;color:var(--colorado)}
+@media(min-width:1180px){
+  .how-fn{position:absolute;right:-46%;top:52%;width:41%;max-width:none;margin:0;z-index:4}
 }
 
 
-/* the challenge + the question, exactly as the zine's own Ledger presents them: the quotes below
-   are ANSWERS, and they only read as evidence if you can see the question they answer. */
-.q-head{margin:0 0 1.4rem;display:flex;flex-direction:column;gap:.5rem;text-align:left;
-  max-width:52ch;margin-inline:auto}
-.q-head p{margin:0;font-family:var(--f-body);font-size:clamp(.95rem,1.5vw,1.06rem);line-height:1.4;
-  color:var(--ink)}
-.q-head span{display:block;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--grass-deep);margin-bottom:.15rem}
-.q-head p:last-child span{color:var(--lazuli)}
-.q cite{display:block;margin-top:.9rem;font-style:normal;font-family:var(--f-mono);
-  font-size:.72rem;letter-spacing:.08em;color:var(--colorado)}
-.q-foot a{color:var(--grass-deep);text-decoration:underline;text-decoration-thickness:1.5px;
-  text-underline-offset:3px;text-decoration-color:rgba(12,110,57,.45);white-space:nowrap}
-.q-foot a:hover{text-decoration-color:var(--grass-deep)}
+/* THE STACKED-LAYOUT YARN. Below 1180px the note drops beneath the ring, so the string runs from
+   the CLOCK'S MECHANISM LINE — the "practice* · observe · ask · be seen" the asterisk actually lives
+   in — diagonally down into the note's top-left... er, top-right corner.
+   Every number here is derived, because eyeballing it at one width is what kept breaking it:
+     · the note is centred and min(32ch, stage) wide, so only the note knows where its corner is —
+       hence the tie hangs off the NOTE (bottom:100%).
+     · the mechanism line's right edge sits at stage.left + 1.01 * ring, so its offset from the
+       note's right edge is (.51 * ring - noteWidth/2). That's the `right`/`width` calc below:
+       50% of .how-fn IS noteWidth/2, so CSS can express it exactly.
+     · the drop is the note's own top margin (same clamp, so they can't drift) + 20% of the ring
+       (mechanism line down to the ring's bottom edge).
+   Cord stretches (preserveAspectRatio:none + non-scaling-stroke keeps an even thickness); the knots
+   are CSS circles, so they stay round however the box distorts. */
+.fn-tie{display:none}
+@media(max-width:1179px){
+  .fn-tie{display:block;position:absolute;bottom:100%;z-index:1;pointer-events:none;
+    right:calc(50% - .51 * min(560px,94vw) + 20px);
+    width:max(8px, .51 * min(560px,94vw) - 50% - 6px);
+    height:calc(clamp(5rem,13vw,6.5rem) + .2 * min(560px,94vw));
+    filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite}
+  .fn-tie svg{width:100%;height:100%;display:block;overflow:visible}
+  .fn-tie::before,.fn-tie::after{content:"";position:absolute;width:9px;height:9px;
+    margin-left:-4.5px;border-radius:50%;background:var(--lazuli);border:1.6px solid var(--ink)}
+  .fn-tie::before{top:-4px;left:90%}                       /* knot on the mechanism line */
+  .fn-tie::after{bottom:-5px;left:15%;width:8px;height:8px;margin-left:-4px}   /* knot on the note */
+}
 
-
-/* Maker avatar. Initial-in-a-circle, exactly as the zine's own Ledger renders it — so it is honest
-   today and becomes a photo tomorrow by setting background-image (or a round video thumb for the
-   interview clips). Hand-drawn edge, per the no-straight-lines rule. */
-.q-av{display:inline-grid;place-items:center;width:2rem;height:2rem;margin-right:.5rem;
-  vertical-align:middle;position:relative;isolation:isolate;
-  font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:.86rem;
-  color:var(--oats);background-size:cover;background-position:center}
-.q-av::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:50%;
-  background:var(--grass-deep);border:2.2px solid var(--ink);
-  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
-.q:nth-child(2n) .q-av::before{background:var(--colorado)}
-.q:nth-child(3n) .q-av::before{background:var(--lazuli)}
-.q cite{display:flex;align-items:center;justify-content:center}
+/* THE LOOP TURNS. The ring is the one thing on the page that is literally a cycle, so let it cycle:
+   the arrow track rotates slowly, forever. Yellow (happy) rather than colorado — the red was
+   shouting over the notes, and the loop should feel like the warm thing holding them, not an alarm.
+   The "every week" scrawl is gone: the ring says it by moving. */
+.how-ring{animation:how-turn 18s linear infinite;transform-origin:50% 50%}
+@keyframes how-turn{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.how-ring{animation:none}}
 
 /* ---------- bring your group = the organizer's door ---------- */
 .bring{padding:clamp(1.5rem,4vw,2.6rem) 0}

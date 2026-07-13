@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Drex — the maker board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
+<link rel="stylesheet" href="../app.css?v=114">
+<style>
+  /* SANDBOX ONLY. The corkboard-of-polaroids idea, three ways.
+     A polaroid = photo + caption strip. The strip is where the quote lives, handwritten.
+     Pinned to cork = the same object language as the kit. */
+  body{background:var(--oats) repeating-linear-gradient(0deg,transparent 0 33px,rgba(65,77,87,.05) 33px 34px);
+    margin:0;padding:0 0 5rem;font-family:var(--f-body);color:var(--ink)}
+  .vwrap{max-width:1240px;margin:0 auto;padding:0 2rem}
+  .vlabel{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--oats);background:var(--ink);display:inline-block;padding:.35em .8em;border-radius:4px;
+    margin:3.5rem 0 .4rem}
+  .vname{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:1.9rem;margin:.2rem 0 .3rem}
+  .vwhy{font-family:var(--f-body);font-style:italic;color:rgba(65,77,87,.75);max-width:66ch;margin:0 0 1.6rem}
+
+  /* ---- the cork ground, shared ---- */
+  .cork{position:relative;isolation:isolate;padding:clamp(1.6rem,3vw,2.4rem)}
+  .cork::before{content:"";position:absolute;inset:0;z-index:-1;background:#C89F6B;
+    background-image:radial-gradient(circle at 20% 30%, rgba(120,80,40,.22) 0 2px, transparent 3px),
+      radial-gradient(circle at 70% 60%, rgba(150,105,55,.2) 0 2.5px, transparent 3px),
+      radial-gradient(circle at 45% 85%, rgba(105,70,35,.18) 0 2px, transparent 3px);
+    background-size:37px 41px,53px 47px,29px 33px;border:3px solid var(--ink);border-radius:8px;
+    box-shadow:10px 11px 0 0 var(--ink), inset 0 0 40px rgba(90,60,25,.28);filter:url(#torn)}
+
+  /* ---- the polaroid: photo + a DEEP strip, because the strip is the point ---- */
+  .pol{position:relative;isolation:isolate;width:var(--w,190px);padding:9px 9px 0;
+    transform:rotate(var(--r,0deg));transition:transform .18s ease, z-index 0s;cursor:pointer}
+  .pol::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+    border:2.4px solid var(--ink);border-radius:3px;box-shadow:5px 6px 0 0 rgba(40,26,10,.55);
+    filter:url(#roughsm)}
+  .pol:hover{transform:rotate(0) translateY(-7px) scale(1.03);z-index:9}
+  .pol .pin{position:absolute;top:-9px;left:50%;margin-left:-8px;width:16px;height:16px;border-radius:50%;
+    background:var(--c,var(--colorado));border:2.2px solid var(--ink);z-index:2;
+    box-shadow:1px 2px 0 0 rgba(40,26,10,.5)}
+  /* the photo — placeholder until real maker shots land */
+  .pol .ph{position:relative;width:100%;aspect-ratio:1/1;display:grid;place-items:center;overflow:hidden;
+    background:var(--c,var(--grass-deep));border:2px solid var(--ink);
+    font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:2.2rem;color:var(--oats)}
+  .pol .ph .vid{position:absolute;right:6px;bottom:6px;width:22px;height:22px;border-radius:50%;
+    background:var(--colorado);border:2px solid var(--ink);display:grid;place-items:center}
+  .pol .ph .vid::after{content:"";border-left:7px solid var(--oats);border-top:4.5px solid transparent;
+    border-bottom:4.5px solid transparent;margin-left:2px}
+  /* THE STRIP — handwritten quote + name */
+  .pol .strip{padding:.5rem .3rem .55rem;text-align:center}
+  .pol .strip q{display:block;font-family:var(--f-hand);font-size:.98rem;line-height:1.18;color:var(--ink);
+    quotes:'\201C' '\201D'}
+  .pol .strip b{display:block;margin-top:.3rem;font-family:var(--f-mono);font-weight:400;font-size:.55rem;
+    letter-spacing:.08em;color:var(--colorado)}
+
+  /* ============ E — THE BOARD: everyone pinned, one big. Chorus hierarchy on cork. ============ */
+  .board-e{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:.9rem}
+  .board-e .pol.lead{--w:260px}
+  .board-e .pol.lead .strip q{font-size:1.3rem}
+  .board-e .pol.mid{--w:200px}
+  .board-e .pol.sm{--w:160px}
+  .board-e .pol.sm .strip q{font-size:.88rem}
+
+  /* ============ F — THE SPOTLIGHT: small faces pinned, one lit big in the middle ============ */
+  .board-f{display:grid;grid-template-columns:1fr auto 1fr;gap:1.2rem;align-items:center}
+  .board-f .col{display:flex;flex-direction:column;gap:.8rem;align-items:center}
+  .board-f .pol.tiny{--w:118px}
+  .board-f .pol.tiny .ph{aspect-ratio:1/1;font-size:1.5rem}
+  .board-f .pol.tiny .strip q{display:none}
+  .board-f .pol.tiny .strip b{font-size:.52rem}
+  .board-f .pol.hero{--w:300px}
+  .board-f .pol.hero .strip q{font-size:1.42rem;line-height:1.2}
+  .board-f .pol.hero .strip{padding:.75rem .4rem .8rem}
+
+  /* ============ G — THE ROW: one long pinned strip, all eleven, quote on the lit one ============ */
+  .board-g .g-quote{text-align:center;margin:0 0 1.3rem;min-height:3.4em;display:grid;place-items:center}
+  .board-g .g-quote q{font-family:var(--f-slab);font-style:italic;font-weight:700;
+    font-size:clamp(1.2rem,2.4vw,1.7rem);line-height:1.28;color:#2C1D0B;max-width:30ch;text-wrap:balance;
+    text-shadow:0 1px 0 rgba(255,255,255,.18)}
+  .board-g .g-row{display:flex;justify-content:center;gap:.55rem;flex-wrap:wrap}
+  .board-g .pol{--w:104px;padding:6px 6px 0}
+  .board-g .pol .ph{font-size:1.3rem}
+  .board-g .pol .strip{padding:.35rem .2rem .4rem}
+  .board-g .pol .strip q{display:none}
+  .board-g .pol .strip b{font-size:.5rem}
+  .board-g .pol.on{transform:rotate(0) translateY(-8px) scale(1.06);z-index:9}
+  .board-g .pol.on::before{box-shadow:5px 6px 0 0 rgba(40,26,10,.55), 0 0 0 4px var(--happy)}
+
+  .echo{margin:1.4rem auto 0;text-align:center;font-family:var(--f-hand);font-size:1.12rem;
+    color:#3B2A16;max-width:44ch;text-shadow:0 1px 0 rgba(255,255,255,.2)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="roughsm"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="torn"><feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="4" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/></filter>
+</svg>
+
+<div class="vwrap">
+
+  <span class="vlabel">variant E</span>
+  <p class="vname">The Board</p>
+  <p class="vwhy">Every maker pinned, all quotes visible, sized as a chorus: one lead, two mid, the rest small. No cycling, no waiting, no hidden text. The strip is the caption &mdash; handwritten, like someone wrote it under the photo. Photos drop straight into the coloured squares; the red dot is the video.</p>
+  <div class="cork" id="v-e">
+    <div class="board-e">
+      <div class="pol lead" style="--r:-2deg;--c:var(--colorado)"><span class="pin"></span>
+        <div class="ph">T<span class="vid"></span></div>
+        <div class="strip"><q>I didn't know what was possible until I saw someone else do it.</q><b>@tergel</b></div></div>
+      <div class="pol mid" style="--r:1.6deg;--c:var(--lazuli)"><span class="pin"></span>
+        <div class="ph">S</div>
+        <div class="strip"><q>I feel like I could do anything.</q><b>@shanara</b></div></div>
+      <div class="pol mid" style="--r:-1.4deg;--c:var(--grass-deep)"><span class="pin"></span>
+        <div class="ph">W<span class="vid"></span></div>
+        <div class="strip"><q>Yeah, I can do that. I can definitely do that too.</q><b>@weisean</b></div></div>
+      <div class="pol sm" style="--r:2deg;--c:var(--schoolbus)"><span class="pin"></span>
+        <div class="ph">F</div>
+        <div class="strip"><q>This place, I feel right at home.</q><b>@falcon</b></div></div>
+      <div class="pol sm" style="--r:-2.2deg;--c:var(--colorado)"><span class="pin"></span>
+        <div class="ph">C</div>
+        <div class="strip"><q>They treat you as a person, not a model.</q><b>@chiamaka</b></div></div>
+      <div class="pol sm" style="--r:1.2deg;--c:var(--lazuli)"><span class="pin"></span>
+        <div class="ph">J</div>
+        <div class="strip"><q>Go try it. And now I feel great.</q><b>@janey</b></div></div>
+      <div class="pol sm" style="--r:-1deg;--c:var(--grass-deep)"><span class="pin"></span>
+        <div class="ph">A<span class="vid"></span></div>
+        <div class="strip"><q>Seeing them go before me relieved my stress.</q><b>@angela</b></div></div>
+    </div>
+    <p class="echo">eleven makers. nobody compared notes. they all said the same thing.</p>
+  </div>
+
+  <span class="vlabel">variant F</span>
+  <p class="vname">The Spotlight</p>
+  <p class="vwhy">The faces flank; one polaroid is pulled to the front, big, quote handwritten on its strip. Click any face and it takes the spotlight. Fewest words on screen of the three &mdash; the small ones show only a name &mdash; but you still see nine humans at once.</p>
+  <div class="cork" id="v-f">
+    <div class="board-f">
+      <div class="col">
+        <div class="pol tiny" style="--r:-3deg;--c:var(--lazuli)"><span class="pin"></span><div class="ph">S</div><div class="strip"><b>@shanara</b></div></div>
+        <div class="pol tiny" style="--r:2deg;--c:var(--grass-deep)"><span class="pin"></span><div class="ph">W<span class="vid"></span></div><div class="strip"><b>@weisean</b></div></div>
+        <div class="pol tiny" style="--r:-1.5deg;--c:var(--schoolbus)"><span class="pin"></span><div class="ph">F</div><div class="strip"><b>@falcon</b></div></div>
+        <div class="pol tiny" style="--r:2.5deg;--c:var(--colorado)"><span class="pin"></span><div class="ph">I</div><div class="strip"><b>@ivy</b></div></div>
+      </div>
+      <div class="pol hero" style="--r:-1.2deg;--c:var(--colorado)"><span class="pin"></span>
+        <div class="ph">T<span class="vid"></span></div>
+        <div class="strip"><q>I didn't know what was possible until I saw someone else do it.</q><b>@tergel</b></div></div>
+      <div class="col">
+        <div class="pol tiny" style="--r:2.2deg;--c:var(--grass-deep)"><span class="pin"></span><div class="ph">C</div><div class="strip"><b>@chiamaka</b></div></div>
+        <div class="pol tiny" style="--r:-2deg;--c:var(--lazuli)"><span class="pin"></span><div class="ph">J</div><div class="strip"><b>@janey</b></div></div>
+        <div class="pol tiny" style="--r:1.4deg;--c:var(--schoolbus)"><span class="pin"></span><div class="ph">A<span class="vid"></span></div><div class="strip"><b>@angela</b></div></div>
+        <div class="pol tiny" style="--r:-2.4deg;--c:var(--colorado)"><span class="pin"></span><div class="ph">M</div><div class="strip"><b>@miguel</b></div></div>
+      </div>
+    </div>
+    <p class="echo">eleven makers. nobody compared notes. they all said the same thing.</p>
+  </div>
+
+  <span class="vlabel">variant G</span>
+  <p class="vname">The Pinned Row</p>
+  <p class="vwhy">All eleven pinned in one row as small polaroids. The quote sits big above the board, on the cork. Click a face, the quote swaps and that polaroid lifts. This is Faces, but on cork and as objects instead of flat circles &mdash; and it fits all eleven with room to spare.</p>
+  <div class="cork board-g" id="v-g">
+    <div class="g-quote"><q id="gq">I didn't know what was possible until I saw someone else do it.</q></div>
+    <div class="g-row" id="grow">
+      <div class="pol on" data-k="tergel" style="--r:-2deg;--c:var(--colorado)"><span class="pin"></span><div class="ph">T<span class="vid"></span></div><div class="strip"><b>tergel</b></div></div>
+      <div class="pol" data-k="shanara" style="--r:1.5deg;--c:var(--lazuli)"><span class="pin"></span><div class="ph">S</div><div class="strip"><b>shanara</b></div></div>
+      <div class="pol" data-k="weisean" style="--r:-1.2deg;--c:var(--grass-deep)"><span class="pin"></span><div class="ph">W<span class="vid"></span></div><div class="strip"><b>weisean</b></div></div>
+      <div class="pol" data-k="falcon" style="--r:2deg;--c:var(--schoolbus)"><span class="pin"></span><div class="ph">F</div><div class="strip"><b>falcon</b></div></div>
+      <div class="pol" data-k="ivy" style="--r:-1.8deg;--c:var(--colorado)"><span class="pin"></span><div class="ph">I<span class="vid"></span></div><div class="strip"><b>ivy</b></div></div>
+      <div class="pol" data-k="chiamaka" style="--r:1.2deg;--c:var(--lazuli)"><span class="pin"></span><div class="ph">C</div><div class="strip"><b>chiamaka</b></div></div>
+      <div class="pol" data-k="janey" style="--r:-2.2deg;--c:var(--grass-deep)"><span class="pin"></span><div class="ph">J</div><div class="strip"><b>janey</b></div></div>
+      <div class="pol" data-k="andrea" style="--r:1.8deg;--c:var(--schoolbus)"><span class="pin"></span><div class="ph">A</div><div class="strip"><b>andrea</b></div></div>
+      <div class="pol" data-k="miguel" style="--r:-1.4deg;--c:var(--colorado)"><span class="pin"></span><div class="ph">M</div><div class="strip"><b>miguel</b></div></div>
+      <div class="pol" data-k="fredy" style="--r:2.4deg;--c:var(--lazuli)"><span class="pin"></span><div class="ph">F</div><div class="strip"><b>fredy</b></div></div>
+      <div class="pol" data-k="angela" style="--r:-1.6deg;--c:var(--grass-deep)"><span class="pin"></span><div class="ph">A<span class="vid"></span></div><div class="strip"><b>angela</b></div></div>
+    </div>
+    <p class="echo">eleven makers. nobody compared notes. they all said the same thing.</p>
+  </div>
+
+</div>
+
+<script>
+const Q={tergel:"I didn't know what was possible until I saw someone else do it.",
+shanara:"Since I'm capable of doing something like that, I feel like I could do anything.",
+weisean:"Watching everyone else, I thought — yeah, I can do that. I can definitely do that too.",
+falcon:"Not every place you go, you feel like you belong. But this place, I feel right at home.",
+ivy:"Seeing everybody embrace their individuality inspired me to show the world who I am.",
+chiamaka:"They treat you as a person, not as a model. I live as Chiamaka.",
+janey:"The very important lesson is just: go try it. And now I feel great.",
+andrea:"It was so cool to see people in their element — it was inspiring me to do the same.",
+miguel:"I had an idea of what I wanted to do; I didn't do any of it. It was all instinct.",
+fredy:"Stepping off, it just felt like I came back home. My heart is here.",
+angela:"Seeing people model before me relieved a lot of my stress."};
+document.querySelectorAll('#grow .pol').forEach(p=>{
+  p.addEventListener('click',()=>{
+    document.querySelectorAll('#grow .pol').forEach(x=>x.classList.remove('on'));
+    p.classList.add('on');
+    document.getElementById('gq').textContent=Q[p.dataset.k]||'';
+  });
+});
+</script>
+</body>
+</html>

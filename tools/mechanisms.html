@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Drex — the four mechanisms</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
+<link rel="stylesheet" href="../app.css?v=116">
+<style>
+  body{background:var(--oats) repeating-linear-gradient(0deg,transparent 0 33px,rgba(65,77,87,.05) 33px 34px);
+    margin:0;padding:0 0 5rem;font-family:var(--f-body);color:var(--ink)}
+  .vwrap{max-width:1100px;margin:0 auto;padding:0 2rem}
+  .vlabel{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--oats);background:var(--ink);display:inline-block;padding:.35em .8em;border-radius:4px;
+    margin:3rem 0 .4rem}
+  .vname{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:1.9rem;margin:.2rem 0 .3rem}
+  .vwhy{font-family:var(--f-body);font-style:italic;color:rgba(65,77,87,.75);max-width:64ch;margin:0 0 1.8rem}
+
+  /* THE FOUR MECHANISMS — what Circle Time is actually FOR. Four icons, four words.
+     This is the whole of Chielo's "people resources" made visible. */
+  .mech-head{text-align:center;margin:0 0 1.4rem}
+  .mech-k{display:block;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--lazuli);margin-bottom:.3rem}
+  .mech-h{margin:0;font-family:var(--f-slab);font-style:italic;font-weight:700;
+    font-size:clamp(1.3rem,2.6vw,1.9rem);line-height:1.1;color:var(--ink)}
+  .mech-sub{margin:.7rem auto 0;max-width:48ch;font-style:italic;color:rgba(65,77,87,.8);
+    font-size:1.02rem;line-height:1.5}
+
+  .mechs{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.7rem,1.6vw,1.2rem)}
+  @media(max-width:760px){.mechs{grid-template-columns:repeat(2,1fr)}}
+  .mech{position:relative;isolation:isolate;text-align:center;padding:1.2rem .7rem 1rem;
+    transform:rotate(var(--r,0deg));transition:transform .16s ease}
+  .mech::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+    border:2.6px solid var(--ink);border-radius:7px;box-shadow:5px 6px 0 0 var(--ink);
+    filter:url(#roughsm)}
+  .mech:hover{transform:rotate(0) translateY(-5px)}
+  .mech svg{width:clamp(46px,6vw,60px);height:clamp(46px,6vw,60px);display:block;margin:0 auto .55rem}
+  .mech b{display:block;font-family:var(--f-slab);font-style:italic;font-weight:700;
+    font-size:clamp(1rem,1.7vw,1.18rem);color:var(--ink);line-height:1.1}
+  .mech i{display:block;margin-top:.3rem;font-family:var(--f-hand);font-style:normal;
+    font-size:1rem;line-height:1.2;color:var(--colorado)}
+
+  .mech-foot{margin:1.5rem auto 0;text-align:center;max-width:56ch;
+    font-family:var(--f-body);font-style:italic;font-size:1.04rem;line-height:1.5;color:rgba(65,77,87,.8)}
+  .mech-foot b{font-style:normal;color:var(--ink)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="roughsm"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+</svg>
+
+<div class="vwrap">
+  <span class="vlabel">proposed &mdash; replaces loop step 03</span>
+  <p class="vname">The four mechanisms</p>
+  <p class="vwhy">Chielo: Circle Time is not "when you do the challenge" &mdash; it's the hour you have access to <b>people</b>, through four mechanisms. Four icons, four words, one line each. It replaces the vague "practice together" node and it is the academic spine of the whole product, stated without jargon.</p>
+
+  <div id="v-mech">
+    <div class="mech-head">
+      <span class="mech-k">what circle time is actually for</span>
+      <p class="mech-h">The hour you get people.</p>
+      <p class="mech-sub">Not a work session. It's the one hour a week you can reach into somebody else's hands.</p>
+    </div>
+
+    <div class="mechs">
+      <!-- PRACTISE — hands doing the thing -->
+      <div class="mech" style="--r:-1.4deg">
+        <svg viewBox="0 0 64 64" fill="none" stroke="var(--colorado)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 40 L14 52 M44 40 L50 52" filter="url(#roughsm)"/>
+          <path d="M16 22 C16 14 26 10 32 16 C38 10 48 14 48 22 C48 32 38 38 32 42 C26 38 16 32 16 22 Z" filter="url(#roughsm)"/>
+          <path d="M26 24 h12 M32 18 v12" stroke="var(--schoolbus)" filter="url(#roughsm)"/>
+        </svg>
+        <b>Practise</b><i>make the thing</i>
+      </div>
+
+      <!-- OBSERVE — an eye watching a pair of hands -->
+      <div class="mech" style="--r:1.2deg">
+        <svg viewBox="0 0 64 64" fill="none" stroke="var(--lazuli)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 32 C16 18 48 18 58 32 C48 46 16 46 6 32 Z" filter="url(#roughsm)"/>
+          <circle cx="32" cy="32" r="9" filter="url(#roughsm)"/>
+          <circle cx="32" cy="32" r="3.4" fill="var(--lazuli)" stroke="none"/>
+          <path d="M32 47 v7" stroke="var(--schoolbus)" filter="url(#roughsm)"/>
+        </svg>
+        <b>Observe</b><i>watch their hands</i>
+      </div>
+
+      <!-- ASK — a speech bubble with a question -->
+      <div class="mech" style="--r:-1deg">
+        <svg viewBox="0 0 64 64" fill="none" stroke="var(--grass-deep)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 12 H54 V42 H30 L18 52 V42 H10 Z" filter="url(#roughsm)"/>
+          <path d="M25 22 C25 16 39 16 39 24 C39 30 32 29 32 35" filter="url(#roughsm)"/>
+          <path d="M32 39 v.5" stroke-width="4"/>
+        </svg>
+        <b>Ask</b><i>&ldquo;show me how you did that&rdquo;</i>
+      </div>
+
+      <!-- BE OBSERVED — a figure with eyes on them -->
+      <div class="mech" style="--r:1.6deg">
+        <svg viewBox="0 0 64 64" fill="none" stroke="var(--schoolbus)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="24" r="8" filter="url(#roughsm)"/>
+          <path d="M18 52 C18 38 46 38 46 52" filter="url(#roughsm)"/>
+          <path d="M6 16 C9 13 13 13 16 16" stroke="var(--colorado)" filter="url(#roughsm)"/>
+          <path d="M48 16 C51 13 55 13 58 16" stroke="var(--colorado)" filter="url(#roughsm)"/>
+          <circle cx="11" cy="15" r="1.8" fill="var(--colorado)" stroke="none"/>
+          <circle cx="53" cy="15" r="1.8" fill="var(--colorado)" stroke="none"/>
+        </svg>
+        <b>Be observed</b><i>let them watch you</i>
+      </div>
+    </div>
+
+    <p class="mech-foot">Some circles spend the hour making. A DJ circle spends it going
+      <b>&ldquo;how did you cross-fade that?&rdquo;</b> &mdash; and someone shows them.
+      Both are the same four things.</p>
+  </div>
+</div>
+</body>
+</html>

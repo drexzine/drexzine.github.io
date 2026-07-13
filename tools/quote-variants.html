@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Drex — quote block variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
+<link rel="stylesheet" href="../app.css?v=114">
+<style>
+  /* SANDBOX ONLY — nothing here ships. Four real, in-brand directions for the maker-quote block,
+     built on app.css so what you see is what you'd get. */
+  body{background:var(--oats) repeating-linear-gradient(0deg,transparent 0 33px,rgba(65,77,87,.05) 33px 34px);
+    margin:0;padding:0 0 4rem;font-family:var(--f-body);color:var(--ink)}
+  .vwrap{max-width:1180px;margin:0 auto;padding:0 2rem}
+  .vlabel{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--oats);background:var(--ink);display:inline-block;padding:.35em .8em;border-radius:4px;
+    margin:3.5rem 0 .4rem}
+  .vname{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:1.9rem;margin:.2rem 0 .3rem}
+  .vwhy{font-family:var(--f-body);font-style:italic;color:rgba(65,77,87,.75);max-width:60ch;margin:0 0 1.6rem}
+
+  /* ============ A — THE WALL: every voice at once, pinned. No cycling, no waiting. ============ */
+  .wall{position:relative;isolation:isolate;padding:clamp(1.2rem,2.4vw,1.8rem);border-radius:8px}
+  .wall::before{content:"";position:absolute;inset:0;z-index:-1;background:#C89F6B;
+    background-image:radial-gradient(circle at 20% 30%, rgba(120,80,40,.22) 0 2px, transparent 3px),
+      radial-gradient(circle at 70% 60%, rgba(150,105,55,.2) 0 2.5px, transparent 3px);
+    background-size:37px 41px,53px 47px;border:3px solid var(--ink);border-radius:8px;
+    box-shadow:10px 11px 0 0 var(--ink), inset 0 0 40px rgba(90,60,25,.28);filter:url(#torn)}
+  .wall-grid{columns:3;column-gap:1rem}
+  .card{position:relative;isolation:isolate;break-inside:avoid;margin:0 0 1rem;padding:1rem .9rem .8rem;
+    transform:rotate(var(--r,0deg))}
+  .card::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+    border:2.4px solid var(--ink);border-radius:5px;box-shadow:3px 4px 0 0 rgba(40,26,10,.5);
+    filter:url(#roughsm)}
+  .card .pn{position:absolute;top:-7px;left:50%;margin-left:-6px;width:13px;height:13px;border-radius:50%;
+    background:var(--c,var(--colorado));border:2px solid var(--ink)}
+  .card p{margin:0;font-family:var(--f-body);font-size:.95rem;line-height:1.4;color:var(--ink)}
+  .card .who{display:flex;align-items:center;gap:.45rem;margin-top:.7rem;
+    font-family:var(--f-mono);font-size:.62rem;letter-spacing:.08em;color:var(--colorado)}
+  .av{width:1.7rem;height:1.7rem;display:grid;place-items:center;position:relative;isolation:isolate;
+    font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:.75rem;color:var(--oats);flex:none}
+  .av::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:50%;background:var(--c,var(--grass-deep));
+    border:2px solid var(--ink);filter:url(#roughsm)}
+  .card.big p{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:1.25rem;line-height:1.25}
+
+  /* ============ B — THE FACES: a row of humans. The faces ARE the proof. ============ */
+  .faces{position:relative;isolation:isolate;padding:clamp(1.6rem,3vw,2.2rem);text-align:center}
+  .faces::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+    border:2.6px solid var(--ink);border-radius:8px;box-shadow:8px 9px 0 0 var(--ink);filter:url(#torn)}
+  .f-quote{min-height:5.4em;display:grid;place-items:center;margin-bottom:1.4rem}
+  .f-quote p{margin:0;font-family:var(--f-slab);font-style:italic;font-weight:700;
+    font-size:clamp(1.2rem,2.4vw,1.65rem);line-height:1.3;max-width:26ch;text-wrap:balance}
+  .f-row{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap}
+  .face{position:relative;isolation:isolate;width:64px;cursor:pointer;transition:transform .16s ease}
+  .face:hover,.face.on{transform:translateY(-6px)}
+  .face .pic{width:64px;height:64px;display:grid;place-items:center;position:relative;isolation:isolate;
+    font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:1.5rem;color:var(--oats)}
+  .face .pic::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:50%;
+    background:var(--c,var(--grass-deep));border:2.6px solid var(--ink);filter:url(#roughsm)}
+  .face.on .pic::before{box-shadow:0 0 0 4px var(--happy)}
+  .face .nm{display:block;margin-top:.35rem;font-family:var(--f-mono);font-size:.56rem;
+    letter-spacing:.06em;color:rgba(65,77,87,.65)}
+  .play{position:absolute;right:-2px;bottom:16px;width:20px;height:20px;border-radius:50%;
+    background:var(--colorado);border:2px solid var(--ink);display:grid;place-items:center}
+  .play::after{content:"";border-left:6px solid var(--oats);border-top:4px solid transparent;
+    border-bottom:4px solid transparent;margin-left:2px}
+
+  /* ============ C — MARGIN NOTES: the quotes annotate the artefacts. ============ */
+  .margins{position:relative;min-height:340px;display:grid;place-items:center}
+  .fakezine{width:220px;height:290px;position:relative;isolation:isolate}
+  .fakezine::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--schoolbus);
+    border:2.6px solid var(--ink);border-radius:3px;box-shadow:8px 9px 0 0 var(--ink);filter:url(#torn)}
+  .fakezine span{position:absolute;left:14px;right:14px;top:16px;font-family:var(--f-slab);
+    font-style:italic;font-weight:700;font-size:1.15rem;color:var(--ink)}
+  .scrap{position:absolute;width:190px;padding:.7rem .7rem .6rem;transform:rotate(var(--r,0deg));
+    isolation:isolate}
+  .scrap::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+    border:2.2px solid var(--ink);box-shadow:3px 3px 0 0 var(--ink);filter:url(#roughsm)}
+  .scrap p{margin:0;font-family:var(--f-hand);font-size:1rem;line-height:1.25;color:var(--ink)}
+  .scrap b{display:block;margin-top:.3rem;font-family:var(--f-mono);font-weight:400;font-size:.58rem;
+    letter-spacing:.08em;color:var(--colorado)}
+  .tape2{position:absolute;top:-9px;left:50%;margin-left:-24px;width:48px;height:16px;
+    background:var(--happy);opacity:.8;filter:url(#roughsm)}
+  .s1{top:6%;left:2%;--r:-3deg} .s2{top:2%;right:3%;--r:2.5deg} .s3{bottom:8%;left:6%;--r:2deg}
+  .s4{bottom:4%;right:4%;--r:-2deg} .s5{top:44%;right:-1%;--r:1.5deg}
+
+  /* ============ D — THE CHORUS: three voices at once. The pattern IS the argument. ============ */
+  .chorus{position:relative;isolation:isolate;padding:clamp(1.6rem,3vw,2.2rem)}
+  .chorus::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+    border:2.6px solid var(--ink);border-radius:8px;box-shadow:8px 9px 0 0 var(--ink);filter:url(#torn)}
+  .ch-q{position:relative;isolation:isolate;margin:0 0 1rem;padding-left:3.2rem}
+  .ch-q .av{position:absolute;left:0;top:.1rem}
+  .ch-q p{margin:0;font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:1.28;color:var(--ink)}
+  .ch-q .who{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.08em;color:var(--colorado);margin-top:.3rem}
+  .ch-q.lead p{font-size:clamp(1.3rem,2.6vw,1.8rem)}
+  .ch-q.mid p{font-size:1.05rem;color:rgba(65,77,87,.85)}
+  .ch-q.small p{font-size:.95rem;color:rgba(65,77,87,.62)}
+  .ch-echo{margin-top:1.2rem;padding-top:1rem;position:relative;font-family:var(--f-hand);
+    font-size:1.1rem;color:var(--colorado);text-align:center}
+  .ch-echo::before{content:"";position:absolute;top:0;left:20%;right:20%;height:2.6px;
+    background:var(--colorado);opacity:.35;border-radius:2px;filter:url(#rough)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="roughsm"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="torn"><feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="4" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/></filter>
+</svg>
+
+<div class="vwrap">
+
+  <span class="vlabel">variant A</span>
+  <p class="vname">The Wall</p>
+  <p class="vwhy">Every voice at once, pinned. Nothing cycles, nothing is hidden, nobody waits 6 seconds to read the second quote. You scan it like a wall of postcards. The Bandura pattern is visible because you can see four people saying the same thing at the same time.</p>
+  <div class="wall" id="v-wall">
+    <div class="wall-grid">
+      <div class="card big" style="--r:-1.2deg;--c:var(--colorado)"><span class="pn"></span>
+        <p>I didn't know what was possible until I saw someone else do it.</p>
+        <span class="who"><span class="av" style="--c:var(--colorado)">T</span>@tergel</span></div>
+      <div class="card" style="--r:1deg;--c:var(--lazuli)"><span class="pn"></span>
+        <p>Watching everyone else, I thought &mdash; yeah, I can do that. I can definitely do that too.</p>
+        <span class="who"><span class="av" style="--c:var(--lazuli)">W</span>@weisean</span></div>
+      <div class="card" style="--r:-.8deg;--c:var(--grass-deep)"><span class="pn"></span>
+        <p>They treat you as a person, not as a model.</p>
+        <span class="who"><span class="av" style="--c:var(--grass-deep)">C</span>@chiamakabrowneyes</span></div>
+      <div class="card big" style="--r:.9deg;--c:var(--schoolbus)"><span class="pn"></span>
+        <p>Since I'm capable of doing something like that, I feel like I could do anything.</p>
+        <span class="who"><span class="av" style="--c:var(--schoolbus)">S</span>@shanara</span></div>
+      <div class="card" style="--r:-1.4deg;--c:var(--lazuli)"><span class="pn"></span>
+        <p>Not every place you go, you feel like you belong. But this place, I feel right at home.</p>
+        <span class="who"><span class="av" style="--c:var(--lazuli)">F</span>@falcon</span></div>
+      <div class="card" style="--r:1.3deg;--c:var(--colorado)"><span class="pn"></span>
+        <p>Seeing everybody embrace their individuality inspired me to show the world who I am.</p>
+        <span class="who"><span class="av" style="--c:var(--colorado)">I</span>@ivy</span></div>
+      <div class="card" style="--r:-.6deg;--c:var(--grass-deep)"><span class="pn"></span>
+        <p>The very important lesson is just: go try it. And now I feel great.</p>
+        <span class="who"><span class="av" style="--c:var(--grass-deep)">J</span>@janey</span></div>
+    </div>
+  </div>
+
+  <span class="vlabel">variant B</span>
+  <p class="vname">The Faces</p>
+  <p class="vwhy">A row of humans. You see eleven real people before you read a single word &mdash; that IS the proof. Tap a face, read that person. No timer, so nobody loses a sentence mid-read. Each face is already a play button: the in-circle interview videos drop straight in here.</p>
+  <div class="faces" id="v-faces">
+    <div class="f-quote"><p>&ldquo;I didn't know what was possible until I saw someone else do it.&rdquo;</p></div>
+    <div class="f-row">
+      <div class="face on"><div class="pic" style="--c:var(--colorado)">T<span class="play"></span></div><span class="nm">tergel</span></div>
+      <div class="face"><div class="pic" style="--c:var(--lazuli)">S</div><span class="nm">shanara</span></div>
+      <div class="face"><div class="pic" style="--c:var(--grass-deep)">W<span class="play"></span></div><span class="nm">weisean</span></div>
+      <div class="face"><div class="pic" style="--c:var(--schoolbus)">F</div><span class="nm">falcon</span></div>
+      <div class="face"><div class="pic" style="--c:var(--colorado)">I<span class="play"></span></div><span class="nm">ivy</span></div>
+      <div class="face"><div class="pic" style="--c:var(--lazuli)">C</div><span class="nm">chiamaka</span></div>
+      <div class="face"><div class="pic" style="--c:var(--grass-deep)">J</div><span class="nm">janey</span></div>
+      <div class="face"><div class="pic" style="--c:var(--schoolbus)">A</div><span class="nm">andrea</span></div>
+      <div class="face"><div class="pic" style="--c:var(--colorado)">M</div><span class="nm">miguel</span></div>
+      <div class="face"><div class="pic" style="--c:var(--lazuli)">F</div><span class="nm">fredy</span></div>
+      <div class="face"><div class="pic" style="--c:var(--grass-deep)">A</div><span class="nm">angela</span></div>
+    </div>
+  </div>
+
+  <span class="vlabel">variant C</span>
+  <p class="vname">Margin Notes</p>
+  <p class="vwhy">No quote block at all. The answers become torn scraps taped around the zines themselves &mdash; the testimonials annotate the artefact instead of sitting in a box below it. Fewest words on screen, most integrated. Riskiest: the quotes get short, and they compete with the artwork.</p>
+  <div class="margins" id="v-margins">
+    <div class="fakezine"><span>Silk Road 001</span></div>
+    <div class="scrap s1"><span class="tape2"></span><p>&ldquo;I didn't know what was possible until I saw someone else do it.&rdquo;</p><b>@tergel</b></div>
+    <div class="scrap s2"><span class="tape2"></span><p>&ldquo;Yeah, I can do that. I can definitely do that too.&rdquo;</p><b>@weisean</b></div>
+    <div class="scrap s3"><span class="tape2"></span><p>&ldquo;They treat you as a person, not as a model.&rdquo;</p><b>@chiamaka</b></div>
+    <div class="scrap s4"><span class="tape2"></span><p>&ldquo;I feel like I could do anything.&rdquo;</p><b>@shanara</b></div>
+    <div class="scrap s5"><span class="tape2"></span><p>&ldquo;This place, I feel right at home.&rdquo;</p><b>@falcon</b></div>
+  </div>
+
+  <span class="vlabel">variant D</span>
+  <p class="vname">The Chorus</p>
+  <p class="vwhy">Three voices at once, staggered big/medium/small, slow-cycling. This is the only layout that makes the actual finding visible: you SEE three different people independently saying the same thing. The echo line names it. Cheapest to build from what's already there.</p>
+  <div class="chorus" id="v-chorus">
+    <div class="ch-q lead"><span class="av" style="--c:var(--colorado)">T</span>
+      <p>&ldquo;I didn't know what was possible until I saw someone else do it.&rdquo;</p>
+      <span class="who">@tergel</span></div>
+    <div class="ch-q mid"><span class="av" style="--c:var(--lazuli)">W</span>
+      <p>&ldquo;Watching everyone else, I thought &mdash; yeah, I can do that.&rdquo;</p>
+      <span class="who">@weisean</span></div>
+    <div class="ch-q small"><span class="av" style="--c:var(--grass-deep)">A</span>
+      <p>&ldquo;Seeing people model before me relieved a lot of my stress.&rdquo;</p>
+      <span class="who">@angela</span></div>
+    <div class="ch-echo">eleven makers. nobody compared notes. they all said the same thing.</div>
+  </div>
+
+</div>
+</body>
+</html>
+<script>
+// B is interactive: click a face, read that person. No timer.
+const Q = {
+  tergel:"I didn't know what was possible until I saw someone else do it.",
+  shanara:"Since I'm capable of doing something like that, I feel like I could do anything.",
+  weisean:"Watching everyone else, I thought — yeah, I can do that. I can definitely do that too.",
+  falcon:"Not every place you go, you feel like you belong. But this place, I feel right at home.",
+  ivy:"Seeing everybody embrace their individuality inspired me to show the world who I am.",
+  chiamaka:"They treat you as a person, not as a model. I live as Chiamaka.",
+  janey:"The very important lesson is just: go try it. And now I feel great.",
+  andrea:"It was so cool to see people in their element — it was inspiring me to do the same.",
+  miguel:"I had an idea of what I wanted to do; I didn't do any of it. It was all instinct.",
+  fredy:"Stepping off, it just felt like I came back home. My heart is here.",
+  angela:"Seeing people model before me relieved a lot of my stress."
+};
+const out = document.querySelector('#v-faces .f-quote p');
+document.querySelectorAll('#v-faces .face').forEach(f=>{
+  f.addEventListener('click',()=>{
+    document.querySelectorAll('#v-faces .face').forEach(x=>x.classList.remove('on'));
+    f.classList.add('on');
+    const k=f.querySelector('.nm').textContent.trim();
+    out.textContent = '“'+(Q[k]||'')+'”';
+  });
+});
+</script>

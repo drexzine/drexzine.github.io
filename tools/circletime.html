@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Drex — what is Circle Time?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
+<link rel="stylesheet" href="../app.css?v=120">
+<style>
+  body{background:var(--oats) repeating-linear-gradient(0deg,transparent 0 33px,rgba(65,77,87,.05) 33px 34px);
+    margin:0;padding:0 0 6rem;font-family:var(--f-body);color:var(--ink)}
+  .vwrap{max-width:1120px;margin:0 auto;padding:0 2rem}
+  .vlabel{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--oats);background:var(--ink);display:inline-block;padding:.35em .8em;border-radius:4px;
+    margin:3.4rem 0 .4rem}
+  .vname{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:1.9rem;margin:.2rem 0 .3rem}
+  .vwhy{font-family:var(--f-body);font-style:italic;color:rgba(65,77,87,.75);max-width:66ch;margin:0 0 1.8rem}
+  .stage{position:relative;isolation:isolate;padding:clamp(1.6rem,3vw,2.4rem);text-align:center}
+  .stage::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+    border:2.6px solid var(--ink);border-radius:8px;box-shadow:8px 9px 0 0 var(--ink);filter:url(#torn)}
+  .kick{display:block;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--lazuli);margin-bottom:.3rem}
+  .htitle{margin:0 0 .5rem;font-family:var(--f-slab);font-style:italic;font-weight:700;
+    font-size:clamp(1.3rem,2.6vw,1.9rem);color:var(--ink)}
+  .hsub{margin:0 auto 1.6rem;max-width:46ch;font-style:italic;color:rgba(65,77,87,.8);line-height:1.5}
+  .dj{margin:1.5rem auto 0;max-width:52ch;font-family:var(--f-hand);font-size:1.16rem;color:var(--colorado)}
+
+  /* ===== M1 — THE CLOCK. The object IS the concept: an hour, quartered. ===== */
+  .clock{width:min(430px,86vw);margin:0 auto;position:relative}
+  .clock svg{width:100%;height:auto;display:block;overflow:visible}
+  .cq{cursor:pointer}
+  .cq .wedge{fill:var(--paper);stroke:var(--ink);stroke-width:2.6;transition:fill .16s ease}
+  .cq:hover .wedge{fill:var(--c)}
+  .cq .lab{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:15px;fill:var(--ink)}
+  .cq:hover .lab{fill:var(--oats)}
+  .cq .ico{stroke:var(--c);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round;
+    transition:stroke .16s ease}
+  .cq:hover .ico{stroke:var(--oats)}
+
+  /* ===== M2 — THE TABLE. Top-down: a literal circle of hands, each doing one thing. ===== */
+  .table{width:min(460px,90vw);margin:0 auto}
+  .table svg{width:100%;height:auto;display:block;overflow:visible}
+  .seat .cap{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:13px;fill:var(--ink)}
+  .seat .sub{font-family:'Patrick Hand',cursive;font-size:12px;fill:var(--colorado)}
+
+  /* ===== M3 — THE COMIC. Chielo's DJ example, drawn. ===== */
+  .comic{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;
+    max-width:760px;margin:0 auto}
+  .panel{position:relative;isolation:isolate;padding:1rem .9rem}
+  .panel::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--oats);
+    border:2.6px solid var(--ink);border-radius:5px;box-shadow:5px 6px 0 0 var(--ink);filter:url(#roughsm)}
+  .panel svg{width:100%;height:auto;display:block}
+  .bub2{position:relative;isolation:isolate;display:inline-block;margin-top:.6rem;padding:.45em .7em;
+    font-family:'Patrick Hand',cursive;font-size:1.02rem;line-height:1.2}
+  .bub2::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+    border:2.2px solid var(--ink);border-radius:12px;border-bottom-left-radius:3px;filter:url(#roughsm)}
+  .arrow2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:2rem;color:var(--grass-deep)}
+  .plabel{display:block;margin-top:.5rem;font-family:var(--f-mono);font-size:.54rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--sambas)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="roughsm"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="torn"><feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="4" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/></filter>
+</svg>
+
+<div class="vwrap">
+
+  <!-- ============ M1 THE CLOCK ============ -->
+  <span class="vlabel">M1</span>
+  <p class="vname">The Clock</p>
+  <p class="vwhy">The object IS the concept. It's called Circle <b>Time</b>, and it's "the hour" &mdash; so draw the hour, and quarter it into the four things that happen inside it. Hover a wedge and it fills. Skeuomorphic in the way the payphone and the bell are: a thing you recognise instantly, doing a job.</p>
+  <div class="stage" id="v-clock">
+    <span class="kick">what circle time is actually for</span>
+    <p class="htitle">The hour you get people.</p>
+    <p class="hsub">Not a work session. One hour a week where you can reach into somebody else's hands.</p>
+    <div class="clock">
+      <svg viewBox="0 0 320 320">
+        <!-- the case -->
+        <circle cx="160" cy="160" r="150" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="4" filter="url(#roughsm)"/>
+        <circle cx="160" cy="160" r="134" fill="var(--paper)" stroke="var(--ink)" stroke-width="3" filter="url(#roughsm)"/>
+        <!-- four wedges -->
+        <g class="cq" style="--c:var(--colorado)">
+          <path class="wedge" d="M160 160 L160 30 A130 130 0 0 1 290 160 Z" filter="url(#roughsm)"/>
+          <g class="ico" transform="translate(212,86)"><path d="M-10 12 C-10 2 0 -6 6 0 C12 -6 20 0 18 8 C16 16 4 20 0 14"/><path d="M-6 16 l-4 8 M12 16 l4 8"/></g>
+          <text class="lab" x="216" y="122" text-anchor="middle">Practise</text>
+        </g>
+        <g class="cq" style="--c:var(--lazuli)">
+          <path class="wedge" d="M160 160 L290 160 A130 130 0 0 1 160 290 Z" filter="url(#roughsm)"/>
+          <g class="ico" transform="translate(206,208)"><path d="M-16 6 C-8 -6 8 -6 16 6 C8 18 -8 18 -16 6 Z"/><circle cx="0" cy="6" r="5"/></g>
+          <text class="lab" x="210" y="246" text-anchor="middle">Observe</text>
+        </g>
+        <g class="cq" style="--c:var(--grass-deep)">
+          <path class="wedge" d="M160 160 L160 290 A130 130 0 0 1 30 160 Z" filter="url(#roughsm)"/>
+          <g class="ico" transform="translate(108,206)"><path d="M-16 -10 H16 V8 H-2 L-10 16 V8 H-16 Z"/><path d="M-4 -4 C-4 -8 6 -8 6 -3 C6 1 1 1 1 5"/><path d="M1 9 v.4"/></g>
+          <text class="lab" x="112" y="246" text-anchor="middle">Ask</text>
+        </g>
+        <g class="cq" style="--c:var(--sambas)">
+          <path class="wedge" d="M160 160 L30 160 A130 130 0 0 1 160 30 Z" filter="url(#roughsm)"/>
+          <g class="ico" transform="translate(106,88)"><circle cx="0" cy="-4" r="7"/><path d="M-12 16 C-12 4 12 4 12 16"/><path d="M-22 -12 C-19 -15 -15 -15 -12 -12" stroke="var(--colorado)"/><path d="M12 -12 C15 -15 19 -15 22 -12" stroke="var(--colorado)"/></g>
+          <text class="lab" x="110" y="126" text-anchor="middle">Be watched</text>
+        </g>
+        <!-- hands -->
+        <line x1="160" y1="160" x2="160" y2="70" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" filter="url(#roughsm)"/>
+        <line x1="160" y1="160" x2="226" y2="196" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" filter="url(#roughsm)"/>
+        <circle cx="160" cy="160" r="9" fill="var(--colorado)" stroke="var(--ink)" stroke-width="3"/>
+      </svg>
+    </div>
+    <p class="dj">a DJ circle spends it going &ldquo;how did you cross&#8209;fade that?&rdquo; &mdash; and someone shows them.</p>
+  </div>
+
+  <!-- ============ M2 THE TABLE ============ -->
+  <span class="vlabel">M2</span>
+  <p class="vname">The Table</p>
+  <p class="vwhy">Top&#8209;down. A round table, four people, each doing one of the four things &mdash; one making, one watching, one asking, one being watched. It is simultaneously the four mechanisms <b>and</b> a literal circle of people. The most Drex object of the three: it's the circle, drawn.</p>
+  <div class="stage" id="v-table">
+    <span class="kick">what circle time is actually for</span>
+    <p class="htitle">The hour you get people.</p>
+    <p class="hsub">Not a work session. One hour a week where you can reach into somebody else's hands.</p>
+    <div class="table">
+      <svg viewBox="0 0 380 380">
+        <!-- table -->
+        <circle cx="190" cy="190" r="96" fill="var(--oats)" stroke="var(--ink)" stroke-width="3.4" filter="url(#roughsm)"/>
+        <circle cx="190" cy="190" r="82" fill="none" stroke="var(--ink)" stroke-width="1.6" opacity=".25" filter="url(#roughsm)"/>
+        <text x="190" y="186" text-anchor="middle" font-family="Patrick Hand, cursive" font-size="15" fill="rgba(65,77,87,.5)">the</text>
+        <text x="190" y="204" text-anchor="middle" font-family="Patrick Hand, cursive" font-size="15" fill="rgba(65,77,87,.5)">hour</text>
+
+        <!-- N: practise — hands making -->
+        <g class="seat">
+          <circle cx="190" cy="52" r="26" fill="var(--colorado)" stroke="var(--ink)" stroke-width="3" filter="url(#roughsm)"/>
+          <g stroke="var(--oats)" stroke-width="2.6" fill="none" stroke-linecap="round">
+            <path d="M180 56 C180 46 190 40 196 48 C202 40 210 46 208 54"/><path d="M184 60 h20"/>
+          </g>
+          <path d="M190 80 L190 92" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" filter="url(#roughsm)"/>
+          <text class="cap" x="190" y="26" text-anchor="middle">Practise</text>
+          <text class="sub" x="190" y="40" text-anchor="middle">make the thing</text>
+        </g>
+        <!-- E: observe — an eye -->
+        <g class="seat">
+          <circle cx="328" cy="190" r="26" fill="var(--lazuli)" stroke="var(--ink)" stroke-width="3" filter="url(#roughsm)"/>
+          <g stroke="var(--oats)" stroke-width="2.6" fill="none"><path d="M314 190 C320 180 336 180 342 190 C336 200 320 200 314 190 Z"/><circle cx="328" cy="190" r="4.5" fill="var(--oats)"/></g>
+          <path d="M300 190 L288 190" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" filter="url(#roughsm)"/>
+          <text class="cap" x="328" y="234" text-anchor="middle">Observe</text>
+          <text class="sub" x="328" y="248" text-anchor="middle">watch their hands</text>
+        </g>
+        <!-- S: ask — speech bubble -->
+        <g class="seat">
+          <circle cx="190" cy="328" r="26" fill="var(--grass-deep)" stroke="var(--ink)" stroke-width="3" filter="url(#roughsm)"/>
+          <g stroke="var(--oats)" stroke-width="2.4" fill="none" stroke-linecap="round">
+            <path d="M178 318 H202 V332 H188 L182 338 V332 H178 Z"/><path d="M187 324 C187 321 194 321 194 325 C194 328 190 328 190 330"/>
+          </g>
+          <path d="M190 300 L190 288" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" filter="url(#roughsm)"/>
+          <text class="cap" x="190" y="368" text-anchor="middle">Ask</text>
+          <text class="sub" x="190" y="382" text-anchor="middle">&ldquo;show me how&rdquo;</text>
+        </g>
+        <!-- W: be watched — figure with eyes on them -->
+        <g class="seat">
+          <circle cx="52" cy="190" r="26" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="3" filter="url(#roughsm)"/>
+          <g stroke="var(--ink)" stroke-width="2.6" fill="none" stroke-linecap="round">
+            <circle cx="52" cy="184" r="6"/><path d="M42 202 C42 192 62 192 62 202"/>
+          </g>
+          <path d="M80 190 L92 190" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" filter="url(#roughsm)"/>
+          <text class="cap" x="52" y="234" text-anchor="middle">Be watched</text>
+          <text class="sub" x="52" y="248" text-anchor="middle">let them see you</text>
+        </g>
+      </svg>
+    </div>
+    <p class="dj">a DJ circle spends it going &ldquo;how did you cross&#8209;fade that?&rdquo; &mdash; and someone shows them.</p>
+  </div>
+
+  <!-- ============ M3 THE COMIC ============ -->
+  <span class="vlabel">M3</span>
+  <p class="vname">The Comic</p>
+  <p class="vwhy">Chielo's own example, drawn. Two panels: you're stuck; you ask; someone shows you their hands. This doesn't <em>define</em> the four mechanisms &mdash; it <em>demonstrates</em> one, and lets the four words sit underneath as a caption. The most cartoon of the three, and the least abstract.</p>
+  <div class="stage" id="v-comic">
+    <span class="kick">what circle time is actually for</span>
+    <p class="htitle">The hour you get people.</p>
+    <div class="comic">
+      <div class="panel">
+        <svg viewBox="0 0 160 120">
+          <rect x="30" y="46" width="100" height="52" rx="4" fill="var(--sambas)" stroke="var(--ink)" stroke-width="3" filter="url(#roughsm)"/>
+          <circle cx="55" cy="72" r="11" fill="none" stroke="var(--oats)" stroke-width="2.6"/>
+          <circle cx="105" cy="72" r="11" fill="none" stroke="var(--oats)" stroke-width="2.6"/>
+          <path d="M74 62 h12 M74 82 h12" stroke="var(--oats)" stroke-width="2.6" stroke-linecap="round"/>
+          <circle cx="80" cy="26" r="12" fill="none" stroke="var(--ink)" stroke-width="3"/>
+          <path d="M70 20 l4 -6 M90 20 l-4 -6" stroke="var(--colorado)" stroke-width="2.6" stroke-linecap="round"/>
+          <text x="80" y="31" text-anchor="middle" font-family="Patrick Hand, cursive" font-size="15" fill="var(--colorado)">?</text>
+        </svg>
+        <span class="bub2">how did you cross&#8209;fade that??</span>
+        <span class="plabel">you're stuck &middot; you ask</span>
+      </div>
+      <span class="arrow2">&rarr;</span>
+      <div class="panel">
+        <svg viewBox="0 0 160 120">
+          <rect x="30" y="46" width="100" height="52" rx="4" fill="var(--sambas)" stroke="var(--ink)" stroke-width="3" filter="url(#roughsm)"/>
+          <circle cx="55" cy="72" r="11" fill="none" stroke="var(--oats)" stroke-width="2.6"/>
+          <circle cx="105" cy="72" r="11" fill="none" stroke="var(--oats)" stroke-width="2.6"/>
+          <path d="M74 62 h12 M74 82 h12" stroke="var(--oats)" stroke-width="2.6" stroke-linecap="round"/>
+          <!-- two hands on the decks -->
+          <path d="M40 40 C40 30 52 26 56 34 C62 26 72 32 68 42" fill="none" stroke="var(--colorado)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M92 40 C92 30 104 26 108 34 C114 26 124 32 120 42" fill="none" stroke="var(--grass-deep)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M78 30 C86 22 96 22 104 28" fill="none" stroke="var(--schoolbus)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M100 26 l6 -1 -2 6" fill="none" stroke="var(--schoolbus)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="bub2">&mdash; here, watch my hands.</span>
+        <span class="plabel">they show you &middot; you watch</span>
+      </div>
+    </div>
+    <p class="dj" style="margin-top:1.6rem">that's the hour. <b style="color:var(--ink)">practise &middot; observe &middot; ask &middot; be watched</b> &mdash; that's all it ever is.</p>
+  </div>
+
+</div>
+</body>
+</html>

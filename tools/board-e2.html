@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Drex — the maker board (E refined)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
+<link rel="stylesheet" href="../app.css?v=114">
+<style>
+  body{background:var(--oats) repeating-linear-gradient(0deg,transparent 0 33px,rgba(65,77,87,.05) 33px 34px);
+    margin:0;padding:0 0 5rem;font-family:var(--f-body);color:var(--ink)}
+  .vwrap{max-width:1240px;margin:0 auto;padding:0 2rem}
+  .vlabel{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--oats);background:var(--ink);display:inline-block;padding:.35em .8em;border-radius:4px;
+    margin:3rem 0 .4rem}
+  .vname{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:1.9rem;margin:.2rem 0 .3rem}
+  .vwhy{font-family:var(--f-body);font-style:italic;color:rgba(65,77,87,.75);max-width:66ch;margin:0 0 1.6rem}
+
+  .cork{position:relative;isolation:isolate;padding:clamp(1.8rem,3vw,2.6rem) clamp(1.4rem,2.6vw,2rem)}
+  .cork::before{content:"";position:absolute;inset:0;z-index:-1;background:#C89F6B;
+    background-image:radial-gradient(circle at 20% 30%, rgba(120,80,40,.22) 0 2px, transparent 3px),
+      radial-gradient(circle at 70% 60%, rgba(150,105,55,.2) 0 2.5px, transparent 3px),
+      radial-gradient(circle at 45% 85%, rgba(105,70,35,.18) 0 2px, transparent 3px);
+    background-size:37px 41px,53px 47px,29px 33px;border:3px solid var(--ink);border-radius:8px;
+    box-shadow:10px 11px 0 0 var(--ink), inset 0 0 40px rgba(90,60,25,.28);filter:url(#torn)}
+
+  /* the head: the question they were all answering. Without it the quotes are just nice words. */
+  .bhead{text-align:center;margin:0 0 1.5rem}
+  .bhead .k{display:block;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.16em;
+    text-transform:uppercase;color:#5A3E1C;margin-bottom:.2rem}
+  .bhead .q{font-family:var(--f-slab);font-style:italic;font-weight:700;
+    font-size:clamp(1.1rem,2.2vw,1.5rem);color:#2C1D0B;text-shadow:0 1px 0 rgba(255,255,255,.2);margin:0}
+
+  /* masonry columns — no orphan rows, and it reflows cleanly at any width */
+  .board{columns:4;column-gap:clamp(.7rem,1.4vw,1.1rem)}
+  @media(max-width:1080px){.board{columns:3}}
+  @media(max-width:760px){.board{columns:2}}
+  @media(max-width:460px){.board{columns:1}}
+
+  .pol{position:relative;isolation:isolate;break-inside:avoid;margin:0 0 clamp(.7rem,1.4vw,1.1rem);
+    padding:8px 8px 0;transform:rotate(var(--r,0deg));transition:transform .18s ease;cursor:pointer}
+  .pol::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+    border:2.4px solid var(--ink);border-radius:3px;box-shadow:4px 5px 0 0 rgba(40,26,10,.5);
+    filter:url(#roughsm)}
+  .pol:hover{transform:rotate(0) translateY(-6px) scale(1.03);z-index:9}
+  .pol:hover::before{box-shadow:7px 9px 0 0 rgba(40,26,10,.55)}
+  .pin{position:absolute;top:-8px;left:50%;margin-left:-7px;width:15px;height:15px;border-radius:50%;
+    background:var(--c,var(--colorado));border:2.2px solid var(--ink);z-index:2;
+    box-shadow:1px 2px 0 0 rgba(40,26,10,.5)}
+
+  /* PHOTO. Placeholder is now a muted paper tone with a ghosted initial, not a loud colour block —
+     with 7 saturated squares the board was shouting. The accent lives on the pin + the handle. */
+  .ph{position:relative;width:100%;aspect-ratio:1/1;display:grid;place-items:center;overflow:hidden;
+    background:#EDE4CF;border:2px solid var(--ink);
+    box-shadow:inset 0 0 0 1px rgba(65,77,87,.08)}
+  .ph .ini{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:2.4rem;
+    color:rgba(65,77,87,.22)}
+  .ph .soon{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
+    font-family:var(--f-mono);font-size:.46rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--colorado);border:1.6px solid var(--colorado);border-radius:3px;padding:.15em .35em;
+    filter:url(#roughsm)}
+  .vid{position:absolute;right:6px;bottom:6px;width:22px;height:22px;border-radius:50%;
+    background:var(--colorado);border:2px solid var(--ink);display:grid;place-items:center;z-index:2}
+  .vid::after{content:"";border-left:7px solid var(--oats);border-top:4.5px solid transparent;
+    border-bottom:4.5px solid transparent;margin-left:2px}
+
+  /* THE STRIP — this is the whole idea: the quote is the caption, handwritten */
+  .strip{padding:.55rem .35rem .6rem;text-align:center}
+  .strip q{display:block;font-family:var(--f-hand);font-size:1rem;line-height:1.2;color:var(--ink);
+    quotes:'\201C' '\201D'}
+  .strip b{display:block;margin-top:.35rem;font-family:var(--f-mono);font-weight:400;font-size:.54rem;
+    letter-spacing:.08em;color:var(--c,var(--colorado))}
+  .pol.lead .strip q{font-size:1.24rem;line-height:1.18}
+
+  .echo{margin:1.5rem auto 0;text-align:center;font-family:var(--f-hand);font-size:1.16rem;
+    color:#3B2A16;max-width:46ch;text-shadow:0 1px 0 rgba(255,255,255,.22)}
+  .echo a{color:#0C6E39;text-decoration:underline;text-underline-offset:3px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="roughsm"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="torn"><feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="4" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/></filter>
+</svg>
+
+<div class="vwrap">
+  <span class="vlabel">variant E2</span>
+  <p class="vname">The Board</p>
+  <p class="vwhy">Your idea, fixed. Masonry columns instead of flex-wrap, so nothing orphans and it reflows 4&rarr;3&rarr;2&rarr;1 without a reflow bug. Photo placeholders are muted paper, not seven shouting colour blocks &mdash; the accent moved to the pin and the handle, so the board reads calm and the handwriting is the loudest thing on it. The question they were all answering sits at the top, or the quotes are just nice words. Every polaroid is a video slot.</p>
+
+  <div class="cork" id="v-e2">
+    <div class="bhead">
+      <span class="k">everyone in the circle answered</span>
+      <p class="q">&ldquo;What changed once you stepped off the runway?&rdquo;</p>
+    </div>
+
+    <div class="board">
+      <div class="pol lead" style="--r:-1.6deg;--c:var(--colorado)"><span class="pin"></span>
+        <div class="ph"><span class="ini">T</span><span class="soon">photo soon</span><span class="vid"></span></div>
+        <div class="strip"><q>I didn't know what was possible until I saw someone else do it.</q><b>@tergel</b></div></div>
+
+      <div class="pol" style="--r:1.4deg;--c:var(--lazuli)"><span class="pin"></span>
+        <div class="ph"><span class="ini">F</span><span class="soon">photo soon</span></div>
+        <div class="strip"><q>Not every place you feel like you belong. Here, I feel right at home.</q><b>@falcon</b></div></div>
+
+      <div class="pol lead" style="--r:1.2deg;--c:var(--schoolbus)"><span class="pin"></span>
+        <div class="ph"><span class="ini">S</span><span class="soon">photo soon</span></div>
+        <div class="strip"><q>Since I'm capable of doing something like that, I feel like I could do anything.</q><b>@shanara</b></div></div>
+
+      <div class="pol" style="--r:-2deg;--c:var(--grass-deep)"><span class="pin"></span>
+        <div class="ph"><span class="ini">W</span><span class="soon">photo soon</span><span class="vid"></span></div>
+        <div class="strip"><q>Watching everyone else, I thought &mdash; yeah, I can do that too.</q><b>@weisean</b></div></div>
+
+      <div class="pol" style="--r:-1.2deg;--c:var(--colorado)"><span class="pin"></span>
+        <div class="ph"><span class="ini">C</span><span class="soon">photo soon</span></div>
+        <div class="strip"><q>They treat you as a person, not as a model.</q><b>@chiamaka</b></div></div>
+
+      <div class="pol" style="--r:2deg;--c:var(--lazuli)"><span class="pin"></span>
+        <div class="ph"><span class="ini">I</span><span class="soon">photo soon</span><span class="vid"></span></div>
+        <div class="strip"><q>Seeing everybody embrace who they are inspired me to do the same.</q><b>@ivy</b></div></div>
+
+      <div class="pol" style="--r:-1.8deg;--c:var(--schoolbus)"><span class="pin"></span>
+        <div class="ph"><span class="ini">J</span><span class="soon">photo soon</span></div>
+        <div class="strip"><q>The lesson is just: go try it. And now I feel great.</q><b>@janey</b></div></div>
+
+      <div class="pol" style="--r:1.6deg;--c:var(--grass-deep)"><span class="pin"></span>
+        <div class="ph"><span class="ini">A</span><span class="soon">photo soon</span><span class="vid"></span></div>
+        <div class="strip"><q>Seeing them go before me relieved a lot of my stress.</q><b>@angela</b></div></div>
+
+      <div class="pol" style="--r:-1.4deg;--c:var(--colorado)"><span class="pin"></span>
+        <div class="ph"><span class="ini">F</span><span class="soon">photo soon</span></div>
+        <div class="strip"><q>Stepping off, it felt like I came back home. My heart is here.</q><b>@fredy</b></div></div>
+
+      <div class="pol" style="--r:1.8deg;--c:var(--lazuli)"><span class="pin"></span>
+        <div class="ph"><span class="ini">A</span><span class="soon">photo soon</span></div>
+        <div class="strip"><q>It was so cool to see people in their element. It was inspiring me.</q><b>@andrea</b></div></div>
+
+      <div class="pol" style="--r:-2.2deg;--c:var(--grass-deep)"><span class="pin"></span>
+        <div class="ph"><span class="ini">M</span><span class="soon">photo soon</span></div>
+        <div class="strip"><q>I had a plan. I did none of it. It was all instinct.</q><b>@miguel</b></div></div>
+    </div>
+
+    <p class="echo">eleven makers. nobody compared notes. they all said the same thing. &mdash;
+      <a href="#">read the ledger &rarr;</a></p>
+  </div>
+</div>
+</body>
+</html>

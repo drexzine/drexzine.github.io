@@ -150,7 +150,7 @@ function boot() {
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
   initHowGag();                     // tap "every week" → the words stop, the ring spins instead
   initHeroRotate();                 // hero "week" gets retyped: month, 2nd Friday, other week…
-  initQuotes();                     // the reflection-answer quotes cycle in place
+  initMakerPhotos();                // polaroids adopt assets/makers/<handle>.jpg if present
   // Hovering a card/polaroid grows its hard shadow under a live SVG filter —
   // a burst of quick re-rasters of a big sheet. That's a known, brief,
   // self-inflicted stall (same idea as the crumple capture at pauseFps(2500)):
@@ -230,6 +230,10 @@ function fillGutters() {
   sections.forEach((sec) => {
     // the hero is choreographed with the envelope cut — never touch it
     if (sec.id === 'hero') return;
+    // #zine runs a WIDER track (1500px) than the 1150px column the gutter rails are pinned to
+    // (left: calc(50vw - 601px)), so anything injected there lands ON the artwork — scraps were
+    // appearing inside the maker polaroids. Its own hand-placed collage is enough.
+    if (sec.id === 'zine') return;
 
     const h = sec.offsetHeight;
     if (!h) return;
@@ -273,6 +277,25 @@ function fillGutters() {
 /* Cycle the reflection quotes. They share one grid cell, so three cost the height of one.
    Pauses on hover/focus so nobody loses a sentence mid-read; under reduced-motion it just
    shows the first and stops. */
+/* Maker photos. The polaroids ship with an initial + "photo soon" stamp, and quietly upgrade
+   themselves the moment a real photo exists at assets/makers/<handle>.jpg — no markup change, no
+   redeploy of anything but the image. Probe, and only swap on a successful decode, so a missing
+   file degrades to the placeholder instead of a broken-image icon. */
+function initMakerPhotos() {
+  document.querySelectorAll('.mpol').forEach((pol) => {
+    const handle = (pol.querySelector('.mv-strip b')?.textContent || '').replace('@', '').trim();
+    if (!handle) return;
+    const ph = pol.querySelector('.mv-ph');
+    if (!ph) return;
+    const img = new Image();
+    img.onload = () => {
+      ph.style.backgroundImage = `url("assets/makers/${handle}.jpg")`;
+      ph.classList.add('has-photo');            // hides the initial + the "photo soon" stamp
+    };
+    img.src = `assets/makers/${handle}.jpg`;
+  });
+}
+
 function initQuotes() {
   const list = document.querySelector('.q-list');
   if (!list) return;
