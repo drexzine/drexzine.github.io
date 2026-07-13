@@ -543,6 +543,27 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
     white-space:nowrap;font-family:var(--f-hand);color:var(--colorado);font-size:.92rem;pointer-events:none}
 }
 
+/* ---------- the prompt card = the product, as one object ----------
+   An index card pinned to the page. Two beats only: the thing to MAKE, and the thing to
+   ANSWER — which is exactly what issues.workPrompt + issues.reflectionQuestion are. */
+.promptcard{margin:clamp(2rem,5vw,3.2rem) auto 0;width:min(430px,92vw);text-align:center}
+.pc-card{position:relative;background:var(--paper);border:2.6px solid var(--ink);border-radius:7px;
+  box-shadow:9px 10px 0 0 var(--ink);padding:clamp(1.5rem,3.4vw,2rem) clamp(1.3rem,3vw,1.8rem) clamp(1.3rem,3vw,1.7rem);
+  transform:rotate(-1.3deg);text-align:left;
+  background-image:repeating-linear-gradient(to bottom,transparent 0 27px,rgba(65,77,87,.11) 27px 28px)}
+.pc-pin{position:absolute;top:-11px;left:50%;width:19px;height:19px;margin-left:-9px;border-radius:50%;
+  background:var(--colorado);border:2.4px solid var(--ink);box-shadow:2px 2px 0 0 rgba(65,77,87,.35)}
+.pc-kicker{display:block;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--grass-deep)}
+.pc-kicker-q{color:var(--lazuli)}
+.pc-do,.pc-q{font-family:var(--f-hand);line-height:1.22;margin:.35rem 0 0;color:var(--ink)}
+.pc-do{font-size:clamp(1.45rem,3.1vw,1.85rem)}
+.pc-q{font-size:clamp(1.15rem,2.4vw,1.4rem);color:rgba(65,77,87,.9)}
+.pc-rule{display:block;height:2.2px;background:var(--ink);opacity:.18;border-radius:2px;
+  margin:1.15rem 0 1.15rem;filter:url(#roughsm)}
+.pc-cap{margin:.95rem 0 0;color:var(--colorado);font-size:1.12rem;transform:rotate(-1deg)}
+@media(prefers-reduced-motion:reduce){.pc-card{transform:none}}
+
 /* ---------- gifts = the range. Torn tags, littered, deliberately unranked ---------- */
 .gifts{padding:clamp(1.6rem,4vw,3rem) 0 clamp(1.2rem,3vw,2.2rem)}
 .gifts .head{margin-bottom:clamp(1.5rem,3.6vw,2.2rem);text-align:center}
@@ -614,6 +635,9 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .bring h2 .stop{color:var(--grass-deep)}
 .bring-body{font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.55;color:rgba(65,77,87,.9);margin:.95rem 0 0;max-width:46ch}
 .bring-body em{font-style:italic}
+/* the payload line — gets its own weight instead of hiding at the end of a paragraph */
+.bring-punch{font-family:var(--f-slab);font-style:italic;font-weight:700;
+  font-size:clamp(1.1rem,2vw,1.32rem);line-height:1.25;color:var(--ink)}
 /* the cap is the one fact that makes a 20-person collective INELIGIBLE. Answering it in the
    organizer's own section (not 25% further down, in the footer) is what keeps them reading. */
 .bring-cap{font-size:clamp(.92rem,1.35vw,1rem);color:rgba(65,77,87,.72);font-style:italic;

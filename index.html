@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=101" />
+<link rel="stylesheet" href="app.css?v=102" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -289,7 +289,7 @@
       <div class="head">
         <span class="eyebrow">how it works</span>
         <h2 class="slab">How a Circle <span class="ul">works</span><span class="stop">.</span></h2>
-        <p class="how-sub">Nobody lectures. One of you &mdash; the <b>editor</b> &mdash; sets the week's prompt and a question to answer. Everyone goes and makes. What you bring back becomes the zine.</p>
+        <p class="how-sub">Nobody lectures. One of you &mdash; the <b>editor</b> &mdash; sets the prompt. Everyone goes and makes. What comes back becomes the zine.</p>
       </div>
       <div class="how-loop">
         <svg class="how-ring" viewBox="0 0 100 100" aria-hidden="true">
@@ -341,6 +341,21 @@
           <span>back to the start</span>
         </div>
       </div>
+
+      <!-- SHOW, don't explain. "Prompt" was the page's most-used and least-understood word
+           (9 uses, never once defined). This is a real prompt from a real published issue —
+           one index card does the job of a paragraph, so the paragraph got deleted. -->
+      <figure class="promptcard">
+        <div class="pc-card">
+          <span class="pc-pin" aria-hidden="true"></span>
+          <span class="pc-kicker">this week</span>
+          <p class="pc-do">Make a doodle at the cafe.</p>
+          <span class="pc-rule" aria-hidden="true"></span>
+          <span class="pc-kicker pc-kicker-q">then tell us</span>
+          <p class="pc-q">Is drawing at the cafe different than&nbsp;at&nbsp;home?</p>
+        </div>
+        <figcaption class="pc-cap scrawl">&uarr; a real prompt, from a real issue. that's the whole ask.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -385,7 +400,7 @@
       <div class="head">
         <span class="eyebrow" style="color:var(--colorado)">the keepsake</span>
         <h2 class="slab">Every prompt ends in a <span class="ul">zine</span><span class="stop">.</span></h2>
-        <p class="zines-sub">A zine is that little magazine &mdash; your photos, your words, everyone's pages bound into one scrappy issue. Lay it out by hand, or upload the pile and the bot lays out the issue for you.</p>
+        <p class="zines-sub">Your photos, your words, everyone's pages bound into one scrappy issue. Cut and paste it by hand &mdash; or dump the pile and let the bot bind it.</p>
       </div>
       <div class="zine-pair">
 
@@ -432,7 +447,7 @@
       <div class="head">
         <span class="eyebrow" style="color:var(--lazuli)">find your people</span>
         <h2 class="slab">Find your Circle by <span class="ul">flipping</span> through zines<span class="stop">.</span></h2>
-        <p class="zines-sub">One shelf, every published issue. Flip one open and you see the prompt they were set, and what each of them made of it &mdash; so you can tell whose pages feel like yours before you ever knock.</p>
+        <p class="zines-sub">One shelf, every published issue. Flip one open: their prompt, and what each of them made of it. You'll know whose pages feel like yours before you ever knock.</p>
       </div>
       <div class="flip2-stage">
         <figure class="flip2" role="img" aria-label="A hand-drawn phone; a stream of zines flips through it, one at a time">
@@ -608,7 +623,7 @@
       <div class="head">
         <span class="eyebrow" style="color:var(--grass-deep)">real people</span>
         <h2 class="slab">MEET YOUR <span class="ul">MAKERS</span><span class="stop">.</span></h2>
-        <p class="zines-sub">Every zine hangs beside the people who made it &mdash; and you get a wall of your own: the work you're proudest of, on one quiet page, with no feed underneath it. <b>A face only if you want one.</b> The work goes out; how much of you goes with it stays yours to decide.</p>
+        <p class="zines-sub">Every zine hangs beside the people who made it. You get a wall of your own: your best work, one quiet page, no feed underneath. <b>A face only if you want one.</b></p>
       </div>
       <div class="zine-pair">
 
@@ -725,16 +740,17 @@
           <div>
             <span class="eyebrow" style="color:var(--colorado)">already run something?</span>
             <h2 class="slab">Bring your group. Keep it <span class="ul">alive</span><span class="stop">.</span></h2>
-            <p class="bring-body">A collective. A crit group. A server nobody posts in any more. If you already have the people, you don't need us to find you any &mdash; you need them to <em>show up</em>.</p>
-            <p class="bring-body">So you come in as the <b>editor</b> from day one. <b>Send us your people and we send them keys</b> &mdash; nobody queues for an invite, nobody gets approved. You set the first prompt, and there's an issue with everyone's name in it by the end of the month. You stop being the one who nags. The deadline does that now.</p>
-            <p class="bring-body bring-cap">More than fifteen of you? Say so. We'd sooner reshape the rooms around your people than ask you to drop five friends.</p>
+            <p class="bring-body">You don't need us to find you people. You need the ones you have to <em>show up</em>.</p>
+            <p class="bring-body">Come in as the <b>editor</b> on day one. <b>Send us your people, we send them keys</b> &mdash; no queue, no approvals. You set the first prompt. By month's end there's an issue with everyone's name in it.</p>
+            <p class="bring-body bring-punch">You stop being the one who nags.<br>The deadline does that now.</p>
+            <p class="bring-body bring-cap">More than fifteen? Say so. We'd sooner reshape the rooms than ask you to drop five friends.</p>
             <p class="bring-cta">
               <a class="btn" href="https://letters.drex.style/join-online/">I have a group <span class="arr">&rarr;</span></a>
-              <span class="bring-note scrawl">tell us who they are &mdash; Chielo will actually reply</span>
+              <span class="bring-note scrawl">Chielo will actually reply</span>
             </p>
             <!-- Organizers asked for a group that got healthier. We don't have that case study yet.
                  Saying so outright beats the silence, which reads as hiding. -->
-            <p class="bring-honest">We won't pretend otherwise: we're early. We can't yet point you at a collective that was dying and isn't. The circles on this page are the first ones. If that's disqualifying, we understand &mdash; if it's interesting, come be early with us.</p>
+            <p class="bring-honest">We're early &mdash; we can't yet show you a collective that was dying and isn't. Yours would be among the first.</p>
           </div>
           <ul class="bring-list">
             <li><span class="bl-x" aria-hidden="true">&times;</span> you, alone, reminding grown adults on a Tuesday</li>
@@ -754,7 +770,7 @@
       <div class="head">
         <span class="eyebrow" style="color:var(--colorado)">the hard part</span>
         <h2 class="slab">The hard part isn't making. It's <span class="ul">showing up</span><span class="stop">.</span></h2>
-        <p class="peek-sub">So a Circle runs on a standing hour &mdash; and Drex spends most of its energy getting everyone to it. The kit:</p>
+        <p class="peek-sub">So most of what we build is just getting everyone into the room. The kit:</p>
       </div>
       <div class="pegwall">
         <div class="peg-grid">
@@ -851,7 +867,7 @@
                   <circle cx="82" cy="49" r="3.4" fill="var(--colorado)" stroke="none"/>
                 </g>
               </svg>
-              <span><b>the Pulse</b><i>the editor&rsquo;s chart: who&rsquo;s missing &middot; how alive &middot; best week yet</i></span>
+              <span><b>the Pulse</b><i>the editor&rsquo;s chart &mdash; not who to chase, but who to wave at. is the room alive? who's gone quiet? best week yet</i></span>
             </div>
           </div>
           <span class="tray-label">&amp; in the drawer:</span>
@@ -861,7 +877,7 @@
             <div class="bin" style="--brot:-1deg"><svg class="bi" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-wave"/></svg><span>your editor gets a nudge to greet you</span></div>
             <div class="bin" style="--brot:1.8deg"><svg class="bi" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-news"/></svg><span>a &ldquo;what&rsquo;s stirring&rdquo; page &mdash; invites, never nags</span></div>
             <div class="bin" style="--brot:-1.4deg"><svg class="bi" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-list"/></svg><span>a quiet who&rsquo;s-missing list, so someone waves</span></div>
-            <div class="bin" style="--brot:1deg"><svg class="bi" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-key"/></svg><span>a letter &amp; the keys when you&rsquo;ve earned editor</span></div>
+            <div class="bin" style="--brot:1deg"><svg class="bi" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-key"/></svg><span>a letter &amp; the keys, once you've seen three issues through</span></div>
           </div>
           <p class="tray-letters scrawl">&amp; when you want to run the hour better: <a href="https://letters.drex.style/">letters.drex.style</a> &mdash; field notes from Chielo, our in-house situated-learning expert</p>
         </div>
@@ -879,7 +895,7 @@
       <div class="head">
         <span class="eyebrow" style="color:var(--grass-deep)">who's behind it</span>
         <h2 class="slab">Led by a researcher and two <span class="ul">designers</span>.</h2>
-        <p class="team-sub">One of us studies how people actually get good at things &mdash; that research <em>is</em> the product. Two of us make things by hand for a living. Drex is built by the people who'd use it, which is why it doesn't feel like software.</p>
+        <p class="team-sub">One of us studies how people actually get good at things. Two of us make things by hand for a living. That's the whole company &mdash; which is why it doesn't feel like software.</p>
       </div>
       <div class="crew">
         <figure class="polaroid">
