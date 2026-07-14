@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=215" />
+<link rel="stylesheet" href="app.css?v=218" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -243,6 +243,11 @@
                    and couldn't tell. Every earlier lede described a ritual. This one names the
                    software, then the loop, and ends on the one thing a stranger can picture. -->
               <p class="lede"><b>Drex is an app for creative groups.</b> A recurring challenge, a standing hour with your people, and a due date that turns what everyone made into a little magazine.</p>
+              <!-- The single highest-value line on the page, and it was missing. Someone reading
+                   this from Lagos or Leeds had no way to tell whether they were even allowed to
+                   want it, and nobody emails to ask — they just leave. Stated as a range Drex
+                   HAS, never as an apology for what it lacks. -->
+              <p class="hero-where">Some Circles meet in a <b>room</b>. Some meet on a <b>screen</b>. <span class="hw-eg">Photo&nbsp;Phloor meets in San&nbsp;Francisco; plenty of ours have never shared a city.</span></p>
               <span class="hero-rule" aria-hidden="true"></span>
               <!-- THREE DOORS, three different people arriving. One primary, two subs, three colours.
                    The organizer door is NOT a footnote: circles cap at fifteen, so members aren't the
@@ -824,6 +829,65 @@
     </div>
   </section>
 
+
+  <!-- ============ THE OPEN BOOK — two published issues, no gate ============
+       The page spent nine sections ASSERTING that a challenge turns into a zine. This is the
+       one place it SHOWS it. Both spreads are real pages from real published issues, and both
+       links go straight to the live issue with no invite in the way — that "no gate" is the
+       entire point of the section, so nothing here may ever end up behind the demo's auth.
+
+       Two DIFFERENT CIRCLES, not two production methods. "Drawing at the Cafe" was cut and
+       taped by hand; "Silk Road 001" was composed by the bot. That contrast is real and it is
+       named once, quietly, in the line under the book — never in the heading. Leading with
+       "here's the bot one" on a page arguing for hands and presence reads as "oh, it's an AI
+       thing", and the whole argument dies on the spot.
+
+       The challenge and the answer are set as TEXT, not left inside the screenshots, because
+       the caption is the product and a caption inside a 320px-wide JPEG is not a caption.
+       ================================================================== -->
+  <section class="proof" id="proof">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" style="color:var(--lazuli)">no invite, no signup, no gate</span>
+        <h2 class="slab">Two issues you can <span class="ul">read right now</span><span class="stop">.</span></h2>
+        <p class="proof-sub">Two Circles, two challenges, two very different worlds. Both are published, both are open on the web, and neither one is a mockup.</p>
+      </div>
+
+      <div class="book">
+        <span class="sheet" aria-hidden="true"></span>
+        <span class="bk-spine" aria-hidden="true"></span>
+
+        <article class="leaf">
+          <span class="lf-tag">Drex Zine &middot; 4 makers &middot; hand-laid</span>
+          <a class="lf-shot" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener">
+            <span class="lf-tape" aria-hidden="true"></span>
+            <img src="assets/zines/spread-cafe.jpg" width="720" height="1306" loading="lazy" decoding="async"
+                 alt="A page from “Drawing at the Cafe”: Claire holding up her drawing, her cut-out horse doodle pinned beside it, and a torn red note reading “relax and focus”." />
+          </a>
+          <p class="lf-q"><span class="lf-qlbl">the challenge</span>Make a doodle at the cafe. Is drawing at the cafe different than at home?</p>
+          <blockquote class="lf-a">It helps me relax and focus when I draw at the cafe!
+            <cite>Claire &mdash; designer who doodles at cafes</cite></blockquote>
+          <a class="lf-go" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener">Open <i>Drawing at the Cafe</i> <span class="arr">&rarr;</span></a>
+        </article>
+
+        <article class="leaf">
+          <span class="lf-tag">XChange Models &middot; 11 makers &middot; bot-laid</span>
+          <a class="lf-shot" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">
+            <span class="lf-tape" aria-hidden="true"></span>
+            <img src="assets/zines/spread-silk.jpg" width="720" height="895" loading="lazy" decoding="async"
+                 alt="A page from “Silk Road 001”: a model mid-stride with a fan on a dark runway, captioned “just try, try, try new things.”" />
+          </a>
+          <p class="lf-q"><span class="lf-qlbl">the challenge</span>What changed once you stepped off the runway?</p>
+          <blockquote class="lf-a">You definitely feel more. You believe in yourself.
+            <cite>Wei-Sean &mdash; walked for the first time</cite></blockquote>
+          <a class="lf-go" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">Open <i>Silk Road 001</i> <span class="arr">&rarr;</span></a>
+        </article>
+      </div>
+
+      <p class="bk-note scrawl">Lay it out yourself, or let the bot do it. Both of these are real issues.</p>
+    </div>
+  </section>
+
   <!-- ============ THE READER — find your Circle by flipping through zines ============ -->
   <section class="zines reader" id="reader">
     <div class="wrap">
@@ -1126,6 +1190,7 @@
         <span class="eyebrow" style="color:var(--colorado)">the situated learning kit</span>
         <h2 class="slab">How the magic <span class="ul">happens</span><span class="stop">.</span></h2>
         <p class="kit-sub">Chielo's research says a craft needs three things to take root: <b>people</b>, <b>virtual</b> and <b>material</b> resources. So that's what's in the box.</p>
+        <p class="kit-more">There's a good deal more in there &mdash; a bell, a payphone, house calls. You'll meet them once you're inside; naming them all here would just be a list.</p>
       </div>
 
       <div class="corkboard">
@@ -1139,26 +1204,6 @@
               <b>Circle Time</b><i>your standing hour</i>
             </li>
             <li class="pinit" style="--r:3deg">
-              <span class="pin" aria-hidden="true"></span>
-              <svg class="pinic" viewBox="0 0 100 100" aria-hidden="true"><use href="#t-door"/></svg>
-              <b>The Lobby</b><i>see who's inside</i>
-            </li>
-            <li class="pinit" style="--r:-2deg">
-              <span class="pin" aria-hidden="true"></span>
-              <svg class="pinic" viewBox="0 0 100 100" aria-hidden="true"><use href="#t-bell"/></svg>
-              <b>The Bell</b><i>one ding when it wakes</i>
-            </li>
-            <li class="pinit" style="--r:4deg">
-              <span class="pin" aria-hidden="true"></span>
-              <svg class="pinic" viewBox="0 0 100 100" aria-hidden="true"><use href="#t-phone"/></svg>
-              <b>The Payphone</b><i>ring everyone, once a month</i>
-            </li>
-            <li class="pinit" style="--r:-3deg">
-              <span class="pin" aria-hidden="true"></span>
-              <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-wave"/></svg>
-              <b>House Calls</b><i>we'll come and help</i>
-            </li>
-            <li class="pinit" style="--r:2deg">
               <span class="pin" aria-hidden="true"></span>
               <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-list"/></svg>
               <b>Who's missing</b><i>so somebody waves first</i>
@@ -1176,23 +1221,8 @@
             </li>
             <li class="pinit" style="--r:3deg">
               <span class="pin" aria-hidden="true"></span>
-              <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-key"/></svg>
-              <b>The Pulse</b><i>is the room alive?</i>
-            </li>
-            <li class="pinit" style="--r:-2deg">
-              <span class="pin" aria-hidden="true"></span>
               <svg class="pinic" viewBox="0 0 100 100" aria-hidden="true"><use href="#t-popper"/></svg>
               <b>The Reader</b><i>every issue, one shelf</i>
-            </li>
-            <li class="pinit" style="--r:3deg">
-              <span class="pin" aria-hidden="true"></span>
-              <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-mail"/></svg>
-              <b>Letters</b><i>field notes from Chielo</i>
-            </li>
-            <li class="pinit" style="--r:-4deg">
-              <span class="pin" aria-hidden="true"></span>
-              <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-bellsm"/></svg>
-              <b>The Orb</b><i>one glance at your circles</i>
             </li>
           </ul>
         </div>
@@ -1203,16 +1233,6 @@
           <span class="cl-tag">material</span>
           <p class="cl-line">What the <b>pool</b> buys. <span class="cl-soon">as circles ask for it</span></p>
           <ul class="pins">
-            <li class="pinit" style="--r:-3deg">
-              <span class="pin" aria-hidden="true"></span>
-              <svg class="pinic" viewBox="0 0 100 100" aria-hidden="true"><use href="#t-door"/></svg>
-              <b>Studio hours</b><i>a room with a kiln</i>
-            </li>
-            <li class="pinit" style="--r:4deg">
-              <span class="pin" aria-hidden="true"></span>
-              <svg class="pinic" viewBox="0 0 100 100" aria-hidden="true"><use href="#t-bag"/></svg>
-              <b>Film, clay, thread</b><i>the stuff you make with</i>
-            </li>
             <li class="pinit" style="--r:-2deg">
               <span class="pin" aria-hidden="true"></span>
               <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-news"/></svg>

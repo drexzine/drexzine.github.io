@@ -2424,6 +2424,7 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
    ===================================================================== */
 .how .head h2,.zines .head h2,.versus .head h2,.doors .head h2,
 .kit .head h2,.longgame .head h2,.gifts .head h2,.team .head h2,
+.proof .head h2,
 .bring .head h2,.bring h2{
   font-family:var(--f-head);font-style:normal;font-weight:700;
   letter-spacing:-.015em;line-height:1.06;text-wrap:balance;
@@ -3027,3 +3028,101 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   .card-stack .cs:nth-child(4){--mrt:24px}
   .card-stack .cs:nth-child(5){--mrt:16px;--mb:16px}
 }
+
+/* =====================================================================
+   THE OPEN BOOK  (#proof)
+   ---------------------------------------------------------------------
+   One sheet of paper, not two. A book drawn as two bordered cards side by side gives you a
+   double ink line down the middle where the pages meet, which reads as "two cards", never as
+   "one open book". So: a single torn sheet, and a stitched spine drawn ON it.
+
+   The tear lives on the .sheet layer. Everything printed on the page — type, photographs —
+   sits above it, unfiltered. Roughen the paper, never the ink.
+   ===================================================================== */
+.proof .head{margin-bottom:clamp(1.6rem,3.6vw,2.4rem);text-align:center}
+.proof .proof-sub{max-width:56ch;margin-inline:auto;color:var(--ink-soft);
+  font-family:var(--f-body);font-size:var(--fs-lede);line-height:1.5}
+
+.proof .book{position:relative;display:grid;grid-template-columns:1fr 1fr;
+  max-width:min(1020px,100%);margin:clamp(1.6rem,4vw,2.8rem) auto 0;
+  transform:rotate(-.35deg)}
+.proof .book>.sheet{position:absolute;inset:0;z-index:0;background:var(--paper);
+  border:2.6px solid var(--ink);border-radius:7px;box-shadow:10px 11px 0 0 var(--ink);
+  filter:url(#torn)}
+
+/* the spine: two ruled lines with the stitching between them */
+.proof .bk-spine{position:absolute;z-index:2;left:calc(50% - 6px);top:16px;bottom:16px;width:12px;
+  border-left:2.2px solid var(--ink);border-right:2.2px solid var(--ink);
+  background:repeating-linear-gradient(180deg,
+    var(--ink) 0 9px, transparent 9px 20px) center/2.2px 100% no-repeat;
+  filter:url(#roughsm)}
+
+.proof .leaf{position:relative;z-index:1;display:flex;flex-direction:column;
+  padding:clamp(1.1rem,2.3vw,1.9rem) clamp(1.2rem,2.6vw,2.1rem)}
+.proof .leaf:first-child{padding-right:clamp(1.5rem,3vw,2.4rem)}
+.proof .leaf:last-child{padding-left:clamp(1.5rem,3vw,2.4rem)}
+
+.proof .lf-tag{font-family:var(--f-head);font-size:var(--fs-label);text-transform:uppercase;
+  letter-spacing:.09em;color:var(--ink-faint);margin-bottom:.7rem}
+
+/* the spread is a PRINT pasted onto the page: a ragged paper rim, a strip of washi, no shadow */
+.proof .lf-shot{position:relative;display:block;margin-bottom:1.05rem;
+  transform:rotate(var(--sr,-.7deg))}
+.proof .leaf:last-child .lf-shot{--sr:.8deg}
+.proof .lf-shot::before{content:"";position:absolute;inset:-6px;z-index:0;
+  background:var(--paper);filter:url(#rough)}
+.proof .lf-shot img{position:relative;z-index:1;display:block;width:100%;height:auto;
+  aspect-ratio:4/5;object-fit:cover;object-position:top center}
+.proof .leaf:last-child .lf-shot img{object-position:center}
+.proof .lf-tape{position:absolute;z-index:3;top:-15px;left:16%;width:84px;height:23px;
+  background:rgba(241,221,1,.62);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3);
+  transform:rotate(-6deg);filter:url(#roughsm)}
+.proof .leaf:last-child .lf-tape{left:auto;right:14%;transform:rotate(7deg)}
+
+/* the challenge. This is the thing a Circle is actually handed, so it gets the hand. */
+.proof .lf-q{font-family:var(--f-hand);font-size:var(--fs-3);line-height:1.25;
+  color:var(--colorado);margin:0 0 .85rem}
+.proof .lf-qlbl{display:block;font-family:var(--f-head);font-size:var(--fs-label);
+  text-transform:uppercase;letter-spacing:.1em;color:var(--ink-faint);margin-bottom:.25rem}
+
+/* the answer. The caption IS the product — it is not a decoration on the photograph. */
+.proof .lf-a{margin:0 0 1.05rem;padding:0 0 0 .95rem;border-left:3px solid var(--happy);
+  font-family:var(--f-body);font-size:var(--fs-body);line-height:1.5;color:var(--ink)}
+.proof .lf-a cite{display:block;margin-top:.4rem;font-style:normal;
+  font-family:var(--f-head);font-size:var(--fs-small);color:var(--ink-faint)}
+
+.proof .lf-go{margin-top:auto;align-self:flex-start;font-family:var(--f-head);
+  font-size:var(--fs-small);font-weight:700;color:var(--lazuli-deep);
+  text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+.proof .lf-go i{font-style:italic}
+.proof .lf-go .arr{display:inline-block;transition:transform .18s ease}
+.proof .lf-go:hover .arr{transform:translateX(3px)}
+
+.proof .bk-note{text-align:center;margin:clamp(1.5rem,3.4vw,2.2rem) auto 0;
+  max-width:46ch;color:var(--ink-soft)}
+
+/* on a phone the book closes into one column and the spine becomes the fold between pages */
+@media(max-width:760px){
+  .proof .book{grid-template-columns:1fr;transform:rotate(-.25deg)}
+  .proof .leaf{padding:clamp(1.1rem,4vw,1.6rem)}
+  .proof .leaf:first-child{padding-right:clamp(1.1rem,4vw,1.6rem);padding-bottom:0}
+  .proof .leaf:last-child{padding-left:clamp(1.1rem,4vw,1.6rem)}
+  .proof .bk-spine{left:16px;right:16px;top:50%;bottom:auto;width:auto;height:12px;
+    border:0;border-top:2.2px solid var(--ink);border-bottom:2.2px solid var(--ink);
+    background:repeating-linear-gradient(90deg,
+      var(--ink) 0 9px, transparent 9px 20px) center/100% 2.2px no-repeat}
+  .proof .lf-shot img{aspect-ratio:5/4}
+}
+
+/* The in-person / online line. Set at body size in solid ink, not tucked into the marginalia —
+   it answers "am I even allowed to want this", which is a question you cannot afford to
+   whisper. The example runs quieter, because it's evidence for the claim, not the claim. */
+.hero-card .hero-where{font-family:var(--f-body);font-size:var(--fs-body);line-height:1.5;
+  color:var(--ink);margin:.85rem 0 0;text-wrap:pretty}
+.hero-card .hero-where b{font-weight:600;color:var(--grass-deep)}
+.hero-card .hero-where .hw-eg{display:block;margin-top:.2rem;
+  font-size:var(--fs-small);color:var(--ink-faint)}
+
+/* the kit's honest admission that it has been trimmed */
+.kit .kit-more{max-width:52ch;margin:.7rem auto 0;font-family:var(--f-body);
+  font-size:var(--fs-small);line-height:1.5;color:var(--ink-faint)}
