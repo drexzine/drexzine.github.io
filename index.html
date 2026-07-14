@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=244" />
+<link rel="stylesheet" href="app.css?v=254" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -250,7 +250,13 @@
                    cold, asked "is it a website, an app, a club, a magazine, or a service?" - this
                    names the software, then the loop, then the one thing a stranger can picture. -->
               <div class="ed-body">
-                <p class="ed-stand"><span class="ed-drop">D</span>rex is an app for creative groups &mdash; <b>in a room or on a screen</b>. A recurring challenge, a standing hour with your people, and a due date that turns what everyone made into a little magazine.</p>
+                <!-- "Drex is an" is cut: the name is already in the lockup and again in the slug
+                     directly above this line. The CATEGORY stays. It is the only place on the page
+                     that says what the thing is — the headline names a problem, the slug is a
+                     department label, and everything after this clause describes a practice
+                     (a challenge, an hour, a due date, a magazine), which on its own reads as a
+                     club or a course, not software. -->
+                <p class="ed-stand"><span class="ed-drop">A</span>n app for creative groups &mdash; <b>in a room or on a screen</b>. A recurring challenge, a standing hour with your people, and a due date that turns what everyone made into a little magazine.</p>
               </div>
 
               <!-- ZONE 3 - the CTA, printed as a coupon and cut from the page. The terms live INSIDE
@@ -269,24 +275,25 @@
                 <p class="ed-links">Have a group? <a href="#bring">Bring them.</a> <span class="sep" aria-hidden="true">&middot;</span> Got a key? <a href="https://demo.drex.style">Open the demo.</a></p>
               </div>
 
-            </div>
+              <!-- THE WELL. This is column 2 of .ed-inner, and it must live INSIDE the grid to be
+                   one: as a sibling of .inner it was just a block under the card and grid-column:2
+                   did nothing.
+                   Every text block above is pinned to column 1. This holds the pictures. A photo can
+                   therefore only cover a word if a word can enter column 2, and nothing in the grid
+                   puts anything there — so the pieces can be splayed anywhere in here and they still
+                   cannot collide. That is the whole point: the guarantee is the grid, not the
+                   coordinates. Absolutely positioning these over the card's right side (which is what
+                   they used to do) puts pictures where text happens not to be TODAY, and text moves. -->
+              <div class="card-stack" aria-hidden="true">
+                <figure class="cs" style="--r:-5deg;--t:0%;--l:4%;--w:60%;z-index:3"><i style="background-image:url(assets/zines/silk-road-cover.jpg)"></i></figure>
+                <figure class="cs" style="--r:6deg;--t:13%;--l:40%;--w:56%;z-index:4"><i style="background-image:url(assets/makers/falcon.jpg)"></i></figure>
+                <figure class="cs" style="--r:-3deg;--t:33%;--l:2%;--w:58%;z-index:5"><i style="background-image:url(assets/zine-handmade.jpg)"></i></figure>
+                <figure class="cs" style="--r:8deg;--t:50%;--l:38%;--w:56%;z-index:6"><i style="background-image:url(assets/makers/andrea.jpg)"></i></figure>
+                <figure class="cs" style="--r:-6deg;--t:69%;--l:6%;--w:58%;z-index:7"><i style="background-image:url(assets/makers/miguel.jpg)"></i></figure>
+                <span class="cs-tape t1" aria-hidden="true"></span>
+                <span class="cs-tape t2" aria-hidden="true"></span>
+              </div>
 
-            <!-- PHONE ONLY. On a phone the heap is a band ABOVE and BESIDE the card, so the card
-                 itself would be a bare sheet of type — and the whole promise of the page is that
-                 the work is on the page. These are cutouts glued to the sheet: rough edges, no
-                 shadow (a glued thing casts none), bottom-anchored in px so a headline rewrap can
-                 never push a photo into a word, and never crossing the card's edge — a glued
-                 cutout with no shadow that hangs off the paper reads as a rendering bug.
-                 Above 881 the card is a narrow column and the heap owns the rest of the stage;
-                 pasting these there is the collision this hero was just rebuilt to remove. -->
-            <div class="card-stack" aria-hidden="true">
-              <figure class="cs" style="--r:-6deg;--t:2%;--l:6%;--w:56%;z-index:3"><i style="background-image:url(assets/zines/silk-road-cover.jpg)"></i></figure>
-              <figure class="cs" style="--r:7deg;--t:20%;--l:40%;--w:52%;z-index:4"><i style="background-image:url(assets/makers/falcon.jpg)"></i></figure>
-              <figure class="cs" style="--r:-3deg;--t:44%;--l:2%;--w:54%;z-index:5"><i style="background-image:url(assets/zine-handmade.jpg)"></i></figure>
-              <figure class="cs" style="--r:9deg;--t:62%;--l:44%;--w:50%;z-index:6"><i style="background-image:url(assets/makers/andrea.jpg)"></i></figure>
-              <figure class="cs" style="--r:-8deg;--t:80%;--l:8%;--w:48%;z-index:7"><i style="background-image:url(assets/makers/miguel.jpg)"></i></figure>
-              <span class="cs-tape t1" aria-hidden="true"></span>
-              <span class="cs-tape t2" aria-hidden="true"></span>
             </div>
           </div>
         </div>

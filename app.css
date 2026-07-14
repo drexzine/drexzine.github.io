@@ -3712,3 +3712,117 @@ html[data-tier="lite"] .ed-hair{animation:none}
   animation:boil-rough var(--boil-paper) step-end infinite}
 @media(prefers-reduced-motion:reduce){ .mast .brand::before{animation:none} }
 html[data-tier="lite"] .mast .brand::before{animation:none}
+
+/* =====================================================================
+   THE PHOTO WELL — whitespace you can PROVE is empty.
+
+   The founder: "the smattering of photos should be in all the whitespace yet not
+   covering the text in the hero card. i know it's tricky because responsive."
+
+   It is tricky, and the reason is that the old .card-stack was ABSOLUTELY POSITIONED
+   over the card's right side. That is a guess: it puts pictures where text happens
+   not to be *today*, and text moves — with the viewport, with a font that loads late,
+   with a word someone edits next month — and then a photograph lands on a sentence.
+   No amount of tuning fixes a guess; it only postpones it.
+
+   So the empty region becomes STRUCTURAL. .ed-inner is a two-column grid. Every text
+   block is pinned to column 1 by grid-column:1. The well IS column 2. A photograph can
+   therefore only cover a word if a word can enter column 2 — and nothing in this grid
+   places anything there. The guarantee is the grid, not the coordinates: the pieces can
+   be splayed anywhere inside the well and the proof still holds.
+
+   The headline spans both columns on purpose: it is white-space:nowrap and its size is
+   derived from the CARD's width (6.2cqw), so narrowing it to a column would shrink the
+   h1 below the section heads — the exact bug this hero was rebuilt to fix.
+
+   The one piece that rises out of the well (--t:0 with the well's top at the standfirst)
+   sits beside the headline's short last line. That is safe by arithmetic, not by eye:
+   "Yours will." is nowrap and fixed at 11 characters, Courier advances a flat 0.6em, and
+   the h1 is 6.2cqw — so the line always ends at 10% (the left padding) + 11 x 0.6 x 6.2%
+   = ~51% of the card, and column 2 does not start until 58%. Seven percent of clearance
+   at every width, and the audit re-checks it anyway.
+   ===================================================================== */
+@media(min-width:881px){
+  .ed-inner{display:grid;grid-template-columns:minmax(0,58fr) minmax(0,42fr);
+    column-gap:clamp(1.5rem,3vw,2.4rem);align-items:start}
+  .ed-head{grid-column:1/-1}
+  .ed-body{grid-column:1;max-width:none}
+  .ed-foot{grid-column:1}
+
+  /* the well: a column with no text in it, ever */
+  .card-stack{display:block;position:relative;grid-column:2;grid-row:2/4;
+    align-self:stretch;min-height:clamp(300px,34vw,430px);
+    margin-top:clamp(.4rem,1.2vw,1rem);pointer-events:none}
+  .card-stack .cs{top:var(--t);left:var(--l);width:var(--w);transform:rotate(var(--r))}
+  .card-stack .cs-tape.t1{top:-2%;left:20%}
+  .card-stack .cs-tape.t2{bottom:-1%;left:30%}
+}
+/* ONE rule, not two. The phone half of the collage was still the old guess: pieces bottom-anchored
+   in px inside a right column reserved with padding on .ed-foot only. It held at 390 because it was
+   tuned at 390. The audit found it breaking from 430 to 820 — as the card widens the copy needs fewer
+   lines, the card gets SHORTER, and the bottom-anchored stack rides up out of the foot and into the
+   standfirst, which reserved nothing. So the well is the well at every width: same grid, same proof,
+   only the column ratio changes. The px bottom-anchoring goes away entirely. */
+.ed-inner{display:grid;grid-template-columns:minmax(0,66fr) minmax(0,34fr);
+  column-gap:clamp(.7rem,2.5vw,2.4rem);align-items:start}
+.ed-head{grid-column:1/-1}
+.ed-body{grid-column:1;max-width:none}
+.ed-foot{grid-column:1;padding-right:0}
+.card-stack{display:block;position:relative;grid-column:2;grid-row:2/4;align-self:stretch;
+  inset:auto;width:auto;height:auto;                 /* four earlier rules pin a width (down to
+     clamp(126px,15%,190px)) and a height on this element, from when it was an absolute box floating
+     over the card's right side. As a grid item it must take the COLUMN's width, or the well is a
+     126px sliver inside a 227px column and the pictures shrink to postage stamps. */
+  min-height:clamp(210px,44vw,430px);margin-top:.4rem;pointer-events:none}
+.card-stack .cs{position:absolute;top:var(--t);left:var(--l);width:var(--w);bottom:auto;right:auto;
+  transform:rotate(var(--r))}
+.card-stack .cs-tape.t1{top:-2%;left:18%;bottom:auto;right:auto}
+.card-stack .cs-tape.t2{bottom:-1%;left:28%;top:auto;right:auto}
+/* The topmost cutout and its washi were poking up out of the well into the hand tagline at 360-430:
+   the piece's ::before paper lip is inset -7px and the tape sat at top:-2%, so both reached above the
+   well's own top edge — and the row above is .ed-head, which spans BOTH columns, so its text is in
+   column 2's x-range. Give the well enough top margin to swallow the lip, and stop the tape climbing
+   out of the box that is doing the proving. */
+.card-stack{margin-top:1.15rem}
+.card-stack .cs-tape.t1{top:3%}
+
+/* The heap is clipped above 881 but was never clipped below it, so on a phone its photos ran ~90px
+   past the right edge of the viewport and the whole page scrolled sideways. Same clip, every width. */
+.hero-pile{overflow:clip}
+/* Clipping the heap clips its CHILDREN to its own box — but the heap's box is itself wider than the
+   viewport on a phone (negative insets, by design: the photographs are meant to run off the edge), and
+   so is the hamburger's string. So the clip has to live on an ancestor. overflow-x:clip, not hidden:
+   clip does not create a scroll container, so it cannot break anchor scrolling or sticky positioning. */
+html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-position, so it escapes a
+   clip set only on <body>, and it alone was dragging the page 14px sideways on a phone. Root-level
+   overflow propagates to the viewport, which is the only thing that contains a fixed element. */
+/* The burger's string rig is absolutely positioned off the burger and its widest piece (.hb-mouth)
+   reaches ~32px past the burger's right edge — which, at the right-hand end of the masthead, is past
+   the viewport. Neither html nor body's overflow-x:clip contains it, so the page rubber-banded ~14px
+   sideways on every phone. Clip the masthead row on X only; Y stays visible so the burger can still
+   fall out of it on a string. */
+.mast>.wrap{overflow-x:clip}
+/* On a phone a 34% photo column starved the copy to a 201px measure and wrapped the CTA button onto
+   two lines. The CTA is the most important object on the card and it does not negotiate for space:
+   below 700 the coupon takes the FULL width as its own grid row, and the well shortens to sit beside
+   the standfirst only. Still structural — the well is column 2 of the standfirst's row, and the foot
+   is a full-width row BELOW it, so neither can reach the other. */
+@media(max-width:700px){
+  .ed-inner{grid-template-columns:minmax(0,70fr) minmax(0,30fr)}
+  .ed-foot{grid-column:1/-1}
+  .card-stack{grid-row:2/3;min-height:0}
+}
+/* THE LAST HOLE, and it is the same disease in miniature. The pieces are sized as a % of the well's
+   WIDTH but positioned as a % of its HEIGHT, and the height came from whatever the copy beside it
+   happened to need. So when the copy got short (at exactly 700px, where the coupon goes full-width and
+   the well shortens to the standfirst's row), the stack was taller than the box that was doing the
+   proving, and the bottom piece spilled onto the coupon.
+   The well's height is now DERIVED from its own width instead of inherited from the text. The stack's
+   deepest point is 69% of the height plus one piece (58% of the width), so it fits whenever
+   height >= 1.87 x width. aspect-ratio 1/2.2 guarantees that at every viewport, with slack, and it
+   cannot be broken by anything the copy does. */
+.card-stack{align-self:start;height:auto;min-height:0;aspect-ratio:1/2.2}
+@media(min-width:701px){
+  /* a 40% well is wide enough that its derived height fills the copy column beside it */
+  .ed-inner{grid-template-columns:minmax(0,60fr) minmax(0,40fr)}
+}
