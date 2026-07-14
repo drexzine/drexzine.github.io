@@ -2702,3 +2702,101 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   .hero-pile .hp:nth-child(3){width:42%;--r:-3deg;margin-top:-.6rem}
   .hero-pile .hp:nth-child(4){width:46%;--r:7deg}
 }
+
+/* ---- MOBILE, take 3: a strip across the top + a scatter down both sides ----
+   Four big polaroids stacked above the card read as a gallery you scroll past, not a heap the
+   card is lying in. On a phone the card is 355px of a 390px viewport, so there's only ~18px of
+   margin — side polaroids have to overhang the card and bleed off the screen edge, which is
+   exactly what a real pile does. Small, many, overlapping, half-hidden behind the card. */
+@media(max-width:1100px){
+  .hero-pile{display:block;position:absolute;inset:-7% -17% -1% -17%;z-index:1;
+    margin:0;padding:0;max-width:none;opacity:1;transform:none}
+  .hero-pile .hp{position:absolute;margin:0;
+    top:var(--mt);left:var(--ml);width:var(--mw);transform:rotate(var(--mr))}
+  .hero-pile .hp::before{inset:-5px -5px -30px}
+  .hero-pile .hp figcaption{margin-top:4px}
+  .hero-pile .hp figcaption q{font-size:.6rem;line-height:1.15}
+  .hero-pile .hp figcaption b{font-size:.58rem}
+  .hero-pile .hp:nth-child(n+13){display:none}
+
+  /* the strip across the top — the card lies on its lower half */
+  .hero-pile .hp:nth-child(1){--mt:0%;--ml:2%;--mw:19%;--mr:-9deg}
+  .hero-pile .hp:nth-child(2){--mt:2.5%;--ml:20%;--mw:18%;--mr:6deg}
+  .hero-pile .hp:nth-child(3){--mt:0.5%;--ml:37%;--mw:19%;--mr:-4deg}
+  .hero-pile .hp:nth-child(4){--mt:3%;--ml:55%;--mw:18%;--mr:8deg}
+  .hero-pile .hp:nth-child(5){--mt:0%;--ml:72%;--mw:19%;--mr:-6deg}
+
+  /* down the LEFT edge — mostly behind the card, overhanging off the page */
+  .hero-pile .hp:nth-child(6){--mt:22%;--ml:-3%;--mw:17%;--mr:-11deg}
+  .hero-pile .hp:nth-child(7){--mt:40%;--ml:-5%;--mw:16%;--mr:7deg}
+  .hero-pile .hp:nth-child(8){--mt:58%;--ml:-2%;--mw:17%;--mr:-5deg}
+  .hero-pile .hp:nth-child(9){--mt:76%;--ml:-4%;--mw:16%;--mr:10deg}
+
+  /* down the RIGHT edge */
+  .hero-pile .hp:nth-child(10){--mt:20%;--ml:86%;--mw:17%;--mr:9deg}
+  .hero-pile .hp:nth-child(11){--mt:39%;--ml:88%;--mw:16%;--mr:-8deg}
+  .hero-pile .hp:nth-child(12){--mt:57%;--ml:85%;--mw:17%;--mr:5deg}
+  .hero-pile .hp:nth-child(13){--mt:75%;--ml:88%;--mw:16%;--mr:-10deg}
+
+  html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(22px)}
+  .card-clip{position:relative;z-index:3}
+}
+/* an earlier mobile pass capped the pile at four (`:nth-child(n+5){display:none}`) and that rule
+   outranks a plain `.hp{display:block}`. Match its weight to bring the rest of the heap back. */
+@media(max-width:1100px){
+  .hero-pile .hp:nth-child(n+5){display:block}
+  .hero-pile .hp:nth-child(n+7){display:block}
+  .hero-pile .hp:nth-child(n+13){display:none}
+}
+
+/* ---- MOBILE, take 4: the sides sit ON the card's edge, not behind it -------
+   Measured: the card is 355px of a 390px viewport, so there are only 18px of margin. Anything
+   tucked BEHIND the card shows an 18px sliver and reads as a rendering bug, not a pile. So the
+   side scatter goes IN FRONT — clipped to the card's outer edge, well clear of the text (which
+   starts ~42px in) and bleeding off the screen. That's what a real collage does: things land on
+   the page. Captions come off the side ones — there's no room, and the top strip carries them. */
+@media(max-width:1100px){
+  .hero-pile{inset:-8% -11% -1% -11%}
+  /* the strip across the top — bigger, and it clears the card so you actually see the work */
+  .hero-pile .hp:nth-child(1){--mt:0%;--ml:0%;--mw:23%;--mr:-9deg}
+  .hero-pile .hp:nth-child(2){--mt:3%;--ml:21%;--mw:22%;--mr:6deg}
+  .hero-pile .hp:nth-child(3){--mt:0.5%;--ml:41%;--mw:23%;--mr:-4deg}
+  .hero-pile .hp:nth-child(4){--mt:3.5%;--ml:62%;--mw:22%;--mr:8deg}
+  .hero-pile .hp:nth-child(5){--mt:0%;--ml:80%;--mw:22%;--mr:-6deg}
+
+  /* the side scatter — ON the card's edge, clear of the copy, running off the page */
+  .hero-pile .hp:nth-child(n+6){z-index:5}
+  .hero-pile .hp:nth-child(n+6) figcaption{display:none}
+  .hero-pile .hp:nth-child(n+6)::before{inset:-4px}
+  .hero-pile .hp:nth-child(6){--mt:24%;--ml:-6%;--mw:15%;--mr:-12deg}
+  .hero-pile .hp:nth-child(7){--mt:44%;--ml:-7%;--mw:14%;--mr:8deg}
+  .hero-pile .hp:nth-child(8){--mt:63%;--ml:-6%;--mw:15%;--mr:-5deg}
+  .hero-pile .hp:nth-child(9){--mt:81%;--ml:-7%;--mw:14%;--mr:11deg}
+  .hero-pile .hp:nth-child(10){--mt:22%;--ml:91%;--mw:15%;--mr:10deg}
+  .hero-pile .hp:nth-child(11){--mt:42%;--ml:92%;--mw:14%;--mr:-9deg}
+  .hero-pile .hp:nth-child(12){--mt:61%;--ml:91%;--mw:15%;--mr:6deg}
+  .hero-pile .hp:nth-child(13){display:block;--mt:80%;--ml:92%;--mw:14%;--mr:-11deg}
+}
+
+/* ---- MOBILE, take 5: give the strip air, widen the side peek ---------------
+   The strip had ~38px between the nav and the card's top edge — not enough to read as
+   photographs, so it looked like a rendering glitch. Push the card down and let the work
+   breathe above it. Side pieces get wider so they read as photos rather than slivers. */
+@media(max-width:1100px){
+  .hero{padding-top:clamp(6.5rem,20vw,8.5rem)}
+  .hero-pile{inset:-13% -13% -1% -13%}
+  .hero-pile .hp:nth-child(1){--mt:0%;--ml:-1%;--mw:25%;--mr:-9deg}
+  .hero-pile .hp:nth-child(2){--mt:3.5%;--ml:21%;--mw:24%;--mr:6deg}
+  .hero-pile .hp:nth-child(3){--mt:0.5%;--ml:42%;--mw:25%;--mr:-4deg}
+  .hero-pile .hp:nth-child(4){--mt:4%;--ml:64%;--mw:24%;--mr:8deg}
+  .hero-pile .hp:nth-child(5){--mt:0%;--ml:84%;--mw:23%;--mr:-6deg}
+  /* the sides: wide enough to read as a photograph, still clear of the copy */
+  .hero-pile .hp:nth-child(6){--mt:26%;--ml:-8%;--mw:19%;--mr:-12deg}
+  .hero-pile .hp:nth-child(7){--mt:45%;--ml:-9%;--mw:18%;--mr:8deg}
+  .hero-pile .hp:nth-child(8){--mt:64%;--ml:-8%;--mw:19%;--mr:-5deg}
+  .hero-pile .hp:nth-child(9){--mt:82%;--ml:-9%;--mw:18%;--mr:11deg}
+  .hero-pile .hp:nth-child(10){--mt:24%;--ml:89%;--mw:19%;--mr:10deg}
+  .hero-pile .hp:nth-child(11){--mt:43%;--ml:90%;--mw:18%;--mr:-9deg}
+  .hero-pile .hp:nth-child(12){--mt:62%;--ml:89%;--mw:19%;--mr:6deg}
+  .hero-pile .hp:nth-child(13){--mt:81%;--ml:90%;--mw:18%;--mr:-11deg}
+}
