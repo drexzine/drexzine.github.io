@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=259" />
+<link rel="stylesheet" href="app.css?v=263" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -1342,29 +1342,42 @@
       <div class="paper">
         <span class="sheet ruled"></span>
         <span class="tape c" style="left:16px;top:-13px;transform:rotate(-7deg)"></span>
+        <!-- REBUILT. Was a 6-paragraph wall in the left column with a 4-item list floating over an
+             empty quadrant on the right. Now: the LEFT is the pitch in three beats (promise, mechanism,
+             relief) with one emphasis each; the RIGHT carries its own weight — the before/after ledger
+             AND the funding card — so the column fills instead of floating. The funding model, which is
+             the one fact that beats every paid competitor, was buried as paragraph four; it is its own
+             object now. The >15 cap and the honest line drop to small print under the CTA where footnotes
+             belong. -->
         <div class="inner bring-grid">
-          <div>
+          <div class="bring-pitch">
             <span class="eyebrow" style="color:var(--colorado)">already run something?</span>
             <h2 class="slab">Bring your group. Keep it <span class="ul">alive</span><span class="stop">.</span></h2>
-            <p class="bring-body">You don't need us to find you people. You need the ones you have to <em>show up</em>.</p>
-            <p class="bring-body">Come in as the <b>editor</b> on day one. <b>Send us your people, we send them keys</b> &mdash; no queue, no approvals. Set the first challenge. By month's end there's an issue with everyone's name in it.</p>
+            <p class="bring-body bring-lede">You don&rsquo;t need us to find you people. You need the ones you have to <span class="hl hl-y">show up</span>.</p>
+            <p class="bring-body">Come in as the editor. Send us your people, we send them keys &mdash; no queue, no approvals. Set the first challenge, and by month&rsquo;s end there&rsquo;s an issue with everyone&rsquo;s name in it.</p>
             <p class="bring-body bring-punch">You stop being the one who nags.<br>The deadline does that now.</p>
-            <p class="bring-body bring-money"><b>And you won't be the one paying.</b> The circle keeps a small pool between them &mdash; a Discord boost, not a course fee. Skool, Circle and Meetup bill the organizer. We don't. <em>A circle that chips in together turns up together.</em></p>
-            <p class="bring-body bring-cap">More than fifteen? Say so &mdash; we'd sooner reshape the rooms than drop five friends.</p>
             <p class="bring-cta">
               <a class="btn" href="https://letters.drex.style/join-online/">I have a group <span class="arr">&rarr;</span></a>
               <span class="bring-note scrawl">Chielo will actually reply</span>
             </p>
-            <p class="bring-honest">We're early. We can't yet show you a collective that was dying and isn't &mdash; yours would be among the first.</p>
+            <p class="bring-fine">More than fifteen? Say so &mdash; we&rsquo;d sooner reshape the rooms than drop five friends. We&rsquo;re early: we can&rsquo;t yet show you a collective that was dying and isn&rsquo;t &mdash; yours would be among the first.</p>
           </div>
-          <!-- MEDIA PLACEHOLDER: a photo of a real editor with their circle — the organizer needs to
-               see a person like them, mid-hour, not an icon. Ideally with a caption naming them. -->
-          <ul class="bring-list">
-            <li><span class="bl-x" aria-hidden="true">&times;</span> you, alone, reminding grown adults on a Tuesday</li>
-            <li><span class="bl-c" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 L8 16 L17 4"/></svg></span> a challenge, a date, and a page with their name on it</li>
-            <li><span class="bl-x" aria-hidden="true">&times;</span> attendance you watch drain, month by month</li>
-            <li><span class="bl-c" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 L8 16 L17 4"/></svg></span> a quiet who's-missing list, so somebody waves first</li>
-          </ul>
+
+          <div class="bring-right">
+            <!-- the before/after: what the room is like without Drex, and with it -->
+            <ul class="bring-list">
+              <li><span class="bl-x" aria-hidden="true"></span> you, alone, reminding grown adults on a Tuesday</li>
+              <li><span class="bl-c" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 L8 16 L17 4"/></svg></span> a challenge, a date, and a page with their name on it</li>
+              <li><span class="bl-x" aria-hidden="true"></span> attendance you watch drain, month by month</li>
+              <li><span class="bl-c" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 L8 16 L17 4"/></svg></span> a quiet who&rsquo;s-missing list, so somebody waves first</li>
+            </ul>
+            <!-- the funding card: the one fact that beats every paid competitor, given its own object -->
+            <div class="bring-money">
+              <span class="bm-tab">and you won&rsquo;t be the one paying</span>
+              <p class="bm-lead">A Circle funds itself. Whoever&rsquo;s in it chips in what they like &mdash; a boost, not a course fee.</p>
+              <p class="bm-vs">Skool, Circle and Meetup bill the organizer. Drex doesn&rsquo;t.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

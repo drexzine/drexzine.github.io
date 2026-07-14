@@ -1236,14 +1236,9 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 /* the payload line — gets its own weight instead of hiding at the end of a paragraph */
 .bring-punch{font-family:var(--f-slab);font-style:italic;font-weight:700;
   font-size:clamp(1.1rem,2vw,1.32rem);line-height:1.25;color:var(--ink)}
-/* the cap is the one fact that makes a 20-person collective INELIGIBLE. Answering it in the
-   organizer's own section (not 25% further down, in the footer) is what keeps them reading. */
-.bring-cap{font-size:clamp(.92rem,1.35vw,1rem);color:rgba(65,77,87,.72);font-style:italic;
-  border-left:2.6px solid var(--grass);padding-left:.85rem;margin-top:1rem}
-/* the money answer, given weight — it is the one fact that beats every competitor outright */
-.bring-money{font-size:clamp(.95rem,1.4vw,1.04rem);border-left:2.6px solid var(--colorado);
-  padding-left:.85rem;margin-top:1rem;color:rgba(65,77,87,.88)}
-.bring-money b{color:var(--ink)}
+/* .bring-cap and the old inline .bring-money were the pre-rebuild left-border callout paragraphs.
+   The cap is folded into .bring-fine now and the money answer is a card (see the #bring rebuild block
+   at the end of this file); their old rules are deleted so they can't collide with the card's ::before. */
 .bring-cta{display:flex;flex-wrap:wrap;align-items:center;gap:.9rem;margin:1.5rem 0 0}
 .bring-note{color:var(--colorado);font-size:1.1rem;transform:rotate(-1.5deg)}
 .bring-honest{font-family:var(--f-body);font-size:clamp(.88rem,1.25vw,.95rem);line-height:1.55;
@@ -1714,12 +1709,6 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
 .gift-pile li:nth-child(odd)::before{animation-delay:-.7s}
 .gift-pile li:nth-child(3n)::before{animation-delay:-1.3s}
 
-/* the quoted rules in the organizer section — marker strokes, not table borders */
-.bring-cap,.bring-money{border-left:0;position:relative}
-.bring-cap::before,.bring-money::before{content:"";position:absolute;left:0;top:.1em;bottom:.1em;width:3px;
-  border-radius:2px;background:var(--grass);filter:url(#rough);
-  animation:boil-rough var(--boil-ink) step-end infinite}
-.bring-money::before{background:var(--colorado)}
 
 /* ===================================================================
    M4 — Founder's note: click-to-unfold 3D paper crumple overlay.
@@ -3714,4 +3703,59 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 @media(prefers-reduced-motion:reduce){
   .mg-tab{transition:none}
   .mg-tab:hover{transform:rotate(var(--tr,-1deg))}
+}
+
+/* =====================================================================
+   #bring, rebuilt — the pitch is three beats, the right column carries weight.
+   Was a 6-paragraph wall beside a 4-item list floating over an empty quadrant.
+   Now the LEFT is promise / mechanism / relief with ONE emphasis (the highlighter
+   on "show up"), and the RIGHT holds the before/after ledger AND the funding card,
+   so it fills its height. The funding model was buried as paragraph four; it is its
+   own object now, because it is the one fact that beats every paid competitor. The
+   cap and the honest line are small print under the CTA, where footnotes belong.
+   ===================================================================== */
+.bring-grid{grid-template-columns:1.15fr .85fr;align-items:start}
+.bring-lede{font-size:clamp(1.1rem,1.8vw,1.35rem);line-height:1.4;color:var(--ink);max-width:32ch}
+.bring-lede .hl{white-space:nowrap}
+.bring-fine{font-family:var(--f-body);font-size:var(--fs-small);line-height:1.55;
+  color:var(--ink-faint);margin:1.4rem 0 0;max-width:52ch}
+
+/* the before/after ledger — the X marks are drawn, not a glyph */
+.bring-list{margin-top:.3rem}
+.bring-list li{padding-left:2.2rem}
+.bl-x,.bl-c{top:.02em;width:1.5rem;height:1.5rem}
+.bl-x{position:absolute;left:0}
+.bl-x::before,.bl-x::after{content:"";position:absolute;left:50%;top:12%;width:2.8px;height:76%;
+  margin-left:-1.4px;background:var(--colorado);border-radius:2px;filter:url(#roughsm)}
+.bl-x::before{transform:rotate(45deg)}
+.bl-x::after{transform:rotate(-45deg)}
+
+/* the funding card: paper, ink outline, hard shadow, a torn tab — a real object */
+.bring-right{display:flex;flex-direction:column;gap:clamp(1.4rem,3vw,2.1rem)}
+.bring-money{position:relative;isolation:isolate;margin-top:.4rem;
+  padding:clamp(1.15rem,2.2vw,1.5rem) clamp(1.1rem,2.2vw,1.45rem) clamp(1.1rem,2vw,1.35rem);
+  transform:rotate(-1deg)}
+.bring-money::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+  border:2.6px solid var(--ink);border-radius:5px;box-shadow:7px 8px 0 0 var(--ink)}
+  /* no tear filter: a displacement filter chews a thin straight border into a detached vertical
+     squiggle on a tall card. A funding notice is a PRINTED card, not hand-torn paper — clean edges
+     are correct here, the way the coupon and buttons are clean. */
+.bm-tab{display:inline-block;font-family:var(--f-head);font-weight:700;font-size:var(--fs-label);
+  text-transform:uppercase;letter-spacing:.09em;color:var(--oats);background:var(--grass-deep);
+  border:2.2px solid var(--ink);border-radius:3px;padding:.28rem .6rem;margin:0 0 .7rem;
+  transform:rotate(-1.4deg);box-shadow:2px 2px 0 0 var(--ink)}
+.bm-lead{font-family:var(--f-body);font-weight:400;font-size:var(--fs-body);line-height:1.45;
+  color:var(--ink);margin:0}
+.bm-vs{font-family:var(--f-body);font-weight:300;font-style:italic;font-size:var(--fs-small);
+  line-height:1.45;color:var(--ink-soft);margin:.65rem 0 0}
+.bm-vs::before{content:"";display:block;width:34px;height:2px;background:var(--ink);opacity:.3;
+  margin:0 0 .6rem;filter:url(#roughsm)}
+
+@media(max-width:900px){
+  /* collapse to one column. My unconditional .bring-grid rule above is later in source order than
+     the original mobile rule, so it was overriding the collapse and leaving two cramped columns on
+     a phone. Re-assert it here, after, where it wins. */
+  .bring-grid{grid-template-columns:1fr;gap:1.6rem}
+  .bring-right{margin-top:.2rem}
+  .bring-money{transform:rotate(-.6deg);max-width:26rem}
 }
