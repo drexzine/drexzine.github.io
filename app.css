@@ -2829,7 +2829,73 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   .card-stack .cs-tape.t1{top:1%;left:26%;transform:rotate(-7deg)}
   .card-stack .cs-tape.t2{bottom:3%;left:34%;transform:rotate(5deg)}
 }
-@media(max-width:880px){ .card-stack{display:none} }   /* the phone already has its own scatter */
+/* ---- THE PHONE CARD GETS THE COLLAGE TOO --------------------------------------
+   The pile behind the card is framing, not proof. On a phone it only ever peeks
+   through a 30px margin, so the card itself — the thing you actually read — stayed
+   a clean sheet of paper. Wrong. The work belongs ON the page.
+
+   WHY THE PHOTOS ARE ANCHORED TO THE BOTTOM EDGE, IN PIXELS.
+   The first cut of this used percentages of the card's height. It looked right at
+   390px and fell apart at 360, because the h1 wraps to six lines there, the card
+   grows, and every percentage anchor slides — the top polaroid landed on the word
+   "finish". Percentages measured against copy that reflows is the same bug this hero
+   has now shipped three times.
+
+   The fix is to anchor to something that cannot move. The card's lower stack —
+   rule, CTA, the two doors, the terms line — is a fixed height at every width. So
+   the collage hangs off the card's BOTTOM edge in px, and no amount of headline
+   rewrapping can push it into a word. The h1 and the lede keep their full width and
+   are never touched; the three blocks in the lower stack reserve the gutter
+   explicitly (they'd otherwise run full-bleed under the photos).
+
+   Five polaroids, five different sizes, overlapping, two taped, two hanging off the
+   right edge. Mixed size and overlap are the whole point: evenly-spaced same-size
+   thumbnails read as a stock-photo column, which is the deadness we keep killing.
+   --------------------------------------------------------------------------- */
+@media(max-width:880px){
+  /* the lower stack gives up its right column so the collage has somewhere to live */
+  .hero-card .cta{padding-right:24%}
+  .hero-card .cta-subs{padding-right:24%}
+  .hero-card .hero-terms{padding-right:26%}
+
+  .card-stack{display:block;position:absolute;z-index:4;inset:0;pointer-events:none}
+  .card-stack .cs{position:absolute;margin:0;isolation:isolate;
+    bottom:var(--mb);right:var(--mrt);width:var(--mw);transform:rotate(var(--mr))}
+  /* the tear is on the paper, never on the photograph. #rough, not #torn — at 70px a
+     scale-12 displacement chews a 2px border into a caterpillar. */
+  .card-stack .cs::before{content:"";position:absolute;z-index:0;inset:-4px -4px -10px;
+    background:var(--paper);border:2px solid var(--ink);border-radius:3px;
+    box-shadow:4px 5px 0 0 var(--ink);filter:url(#rough)}
+  .card-stack .cs i{position:relative;z-index:1;display:block;aspect-ratio:1;
+    background-size:cover;background-position:center}
+  .card-stack .cs figcaption{display:none}   /* a quote at 70px wide is not legible; don't pretend */
+
+  /* Sizes and offsets in px, stacked bottom-up. The tallest piece tops out 322px above
+     the card's bottom edge; the lower stack is ~345px tall, so the collage always ends
+     below the lede. Negative `right` = hanging off the card onto the pile behind. */
+  .card-stack .cs:nth-child(1){--mw:58px;--mb:250px;--mrt:8px; --mr:-10deg}
+  .card-stack .cs:nth-child(2){--mw:70px;--mb:178px;--mrt:-4px;--mr:8deg}
+  .card-stack .cs:nth-child(3){--mw:86px;--mb:100px;--mrt:2px; --mr:-5deg}   /* the biggest */
+  .card-stack .cs:nth-child(4){--mw:64px;--mb:44px; --mrt:16px;--mr:11deg}
+  .card-stack .cs:nth-child(5){--mw:76px;--mb:4px;  --mrt:-8px;--mr:-7deg}
+
+  .card-stack .cs-tape{position:absolute;z-index:9;width:44px;height:14px;
+    background:rgba(241,221,1,.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28);
+    filter:url(#roughsm)}
+  .card-stack .cs-tape.t1{bottom:296px;right:26px;transform:rotate(-18deg)}
+  .card-stack .cs-tape.t2{bottom:172px;right:4px; transform:rotate(12deg)}
+}
+/* wider phones and small tablets have a fatter gutter, so the pieces grow with it —
+   still bottom-anchored, still bounded by the same 345px lower stack. */
+@media(min-width:561px) and (max-width:880px){
+  .card-stack .cs:nth-child(1){--mw:78px; --mb:232px;--mrt:10px;--mr:-10deg}
+  .card-stack .cs:nth-child(2){--mw:94px; --mb:158px;--mrt:-6px;--mr:8deg}
+  .card-stack .cs:nth-child(3){--mw:112px;--mb:78px; --mrt:4px; --mr:-5deg}
+  .card-stack .cs:nth-child(4){--mw:84px; --mb:30px; --mrt:20px;--mr:11deg}
+  .card-stack .cs:nth-child(5){--mw:100px;--mb:2px;  --mrt:-12px;--mr:-7deg}
+  .card-stack .cs-tape.t1{bottom:288px;right:30px}
+  .card-stack .cs-tape.t2{bottom:164px;right:6px}
+}
 
 /* "Yours will." is the promise and it cannot break across two lines. The photo column stole the
    width it needed. Give the copy back enough measure, and size the display to the column it
