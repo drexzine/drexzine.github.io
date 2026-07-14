@@ -3575,3 +3575,140 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    the headline, on the copy's own left axis, which is where it sat before this hero was rebuilt. */
 .ed-scrawl{position:static;width:auto;max-width:44ch;margin:.9rem 0 0;
   transform:rotate(-.5deg);color:var(--ink-soft)}
+
+/* The coupon's dashed rule is a CUT LINE — it is printed on the sheet, not lying on it. A drop
+   shadow under it claims the line is floating above the paper it is drawn on. The stamp inside
+   keeps its shadow: the button is an object. The line is ink. */
+.ed-coupon::before{box-shadow:none;background:none}
+
+/* =====================================================================
+   #proof, second pass — the post-it, the index tabs, and the type ladder.
+
+   THE NOTE. It was a torn cream scrap with washi tape: paper on paper, which
+   on a photocopied spread reads as "another piece of the same thing". It is a
+   POST-IT now, in the language the rest of the page already speaks (.how .step,
+   .how-fn): Happy yellow, ink outline, hard offset shadow, and the folded-up
+   corner built the way the others are — a diagonal hard-stop with a shadow on
+   the fold line, peeling from INSIDE the note's own square. A post-it is
+   self-adhesive, so the washi tape comes off: taping down a sticky note is a
+   detail that contradicts itself.
+
+   THE TABS. They were opaque paper rectangles — a nav bar wearing a costume.
+   They are book index tabs now: a CLEAR flag with an ink outline and a coloured
+   tip, tucked deep enough under the book's top edge that you see the torn paper
+   through the transparent part. The selected one fills with paper and stands up;
+   the other stays clear and sits back. The label lives on the clear flag in solid
+   ink, never on the coloured tip, so its contrast never depends on the tip colour.
+
+   THE TYPE. The challenge and the answer were 1 step apart in the SAME voice
+   (Bitter fs-3 italic over Bitter fs-2), so neither one led. The challenge is the
+   setup and drops to body; the answer is the payload and keeps the big size. And
+   the hanging quote mark was Grass — which on Happy yellow is green on yellow,
+   the one place that pairing cannot go.
+   ===================================================================== */
+
+/* ---- the post-it ---- */
+.z3-scrap{width:min(50%,440px);right:-10px;bottom:-30px;transform:rotate(-3deg);
+  padding:clamp(1.35rem,2.3vw,1.75rem) clamp(1.3rem,2.2vw,1.7rem) clamp(1.5rem,2.4vw,1.9rem)}
+.z3-scrap::before{background:var(--happy);border:2.6px solid var(--ink);border-radius:2px;
+  filter:url(#rough2);box-shadow:8px 9px 0 0 var(--ink)}
+/* the folded corner — same construction as .how-fn, peeling from inside the square */
+.z3-scrap::after{content:"";position:absolute;right:2px;bottom:2px;z-index:0;width:30px;height:30px;
+  background:linear-gradient(135deg, transparent 47%, rgba(65,77,87,.22) 47%, var(--schoolbus) 50%);
+  filter:url(#roughsm)}
+.z3-washi{display:none}   /* a post-it is self-adhesive. Taping it down is a lie about the object. */
+.z3-under{left:-14px;bottom:-15px;width:42%;height:34px;background:var(--colorado)}
+
+/* ---- the type on the note: setup small, payload big, one voice each ---- */
+.z3-q{font-size:var(--fs-body);color:var(--ink-soft);max-width:30ch;line-height:1.45}
+.z3-a{margin-top:clamp(.9rem,1.8vw,1.2rem);font-size:var(--fs-2);line-height:1.18;
+  letter-spacing:-.015em;color:var(--ink)}
+.z3-a .qm{color:var(--ink);font-size:2.6em;opacity:.42}
+.z3-a cite{margin-top:.65rem;color:var(--ink)}
+.z3-go{color:var(--ink);margin-top:clamp(.9rem,1.8vw,1.2rem)}
+.z3-go::before{border-color:var(--ink);box-shadow:3px 3px 0 0 var(--ink)}
+
+/* ---- the index tabs ---- */
+.z3-tabrow{margin-bottom:-26px;align-items:flex-end}
+.z3-tab{--tip:var(--happy);padding:1.55rem 1.15rem 1.5rem;min-height:64px;align-items:flex-end}
+.z3-tab:nth-of-type(2){--tip:var(--lazuli)}
+/* the flag: transparent, so the book's torn edge shows through where it overlaps */
+.z3-tab>.sheet{background:none;border:2.4px solid var(--ink);border-radius:6px 6px 0 0;
+  filter:url(#roughsm)}
+/* the coloured tip, at the top where the tab sticks out of the book */
+.z3-tab>.sheet::after{content:"";position:absolute;left:0;right:0;top:0;height:15px;
+  background:var(--tip);border-bottom:2px solid var(--ink);border-radius:3px 3px 0 0}
+.z3-tab>i{font-size:var(--fs-small);letter-spacing:.01em;color:var(--ink-faint)}
+/* selected: the flag fills with paper and stands up out of the book */
+.z3-r:nth-of-type(1):checked ~ .z3-tabrow .z3-tab:nth-of-type(1)>.sheet,
+.z3-r:nth-of-type(2):checked ~ .z3-tabrow .z3-tab:nth-of-type(2)>.sheet{background:var(--paper)}
+.z3-r:nth-of-type(1):checked ~ .z3-tabrow .z3-tab:nth-of-type(1),
+.z3-r:nth-of-type(2):checked ~ .z3-tabrow .z3-tab:nth-of-type(2){translate:0 -7px}
+.z3-r:nth-of-type(1):checked ~ .z3-tabrow .z3-tab:nth-of-type(1)>i,
+.z3-r:nth-of-type(2):checked ~ .z3-tabrow .z3-tab:nth-of-type(2)>i{color:var(--ink);font-weight:700}
+
+@media(max-width:720px){
+  .z3-scrap{width:auto;right:auto;bottom:auto;transform:rotate(-1.8deg)}
+  .z3-tab{padding:1.3rem .8rem 1.15rem;min-height:56px}
+  .z3-tabrow{margin-bottom:-20px}
+}
+/* A post-it is roughly SQUARE. At fs-2 the answer ragged to three lines and the note grew into a
+   tall slab — a sheet of paper again, which is the thing it was supposed to stop being. The answer
+   drops a step (it is still the biggest thing on the note, which is all the rank it needs) and the
+   note squares up. The tabs grow and tuck deeper: at 26px of overlap the clear part of the flag had
+   nothing behind it to be clear ABOUT. */
+.z3-a{font-size:var(--fs-3);line-height:1.24}
+.z3-a .qm{font-size:2.2em;opacity:.5}
+.z3-scrap{width:min(48%,420px);bottom:-38px}
+.z3-tabrow{margin-bottom:-38px;margin-left:34px;gap:clamp(.5rem,1.6vw,1.1rem)}
+.z3-tab{padding:1.7rem 1.5rem 2.5rem;min-height:82px}
+.z3-tab>.sheet::after{height:18px}
+.z3-tab>i{font-size:var(--fs-label);letter-spacing:.03em}
+.z3-hint{align-self:flex-start;margin:.4rem 0 0 .5rem}
+@media(max-width:720px){
+  .z3-tab{padding:1.4rem .85rem 1.9rem;min-height:68px}
+  .z3-tabrow{margin-bottom:-30px;margin-left:14px}
+}
+/* An index tab has no bottom edge — it IS the page, sticking out of it. The border was closing the
+   shape into a little box sitting on the book, which is exactly what these were before. */
+.z3-tab>.sheet{border-bottom:0;border-radius:6px 6px 0 0}
+
+/* =====================================================================
+   THE HAIRLINE. I set the slug's rule at 1.5px and put #roughsm on it — which is
+   the exact mistake the craft bible warns about: a displacement filter does not
+   wobble a line thinner than its own scale, it CHEWS it, and the rule came out as
+   a broken run of dashes reading as a ruler-straight hairline. A hand-drawn rule
+   has to carry enough ink for the tremor to show. 3px, solid, and it boils.
+   ===================================================================== */
+.ed-hair{height:3px;opacity:1;background:var(--ink);border-radius:2px;
+  filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite}
+@media(prefers-reduced-motion:reduce){ .ed-hair{animation:none} }
+html[data-tier="lite"] .ed-hair{animation:none}
+
+/* =====================================================================
+   THE MASTHEAD — no bar. The cream slab (plus a torn cream strip hanging off its
+   bottom) was cutting a hard horizontal line across the top of the page and boxing
+   the heap in. The mast comes out of flow and sits ON the heap: the photographs run
+   right up under it, and the lockup reverses to white — one solid colour, upright,
+   no filter and no tilt, which is what the logo rule actually requires. The heap is
+   what gives the white something to be white against, so the hero's top padding now
+   has to clear the mast on its own.
+   ===================================================================== */
+.mast{position:absolute;top:0;left:0;right:0;background:none;z-index:60}
+.mast::after{display:none}
+.mast .lg-icon svg,.mast .lg-icon svg path,
+.mast .lg-word svg,.mast .lg-word svg path{fill:#fff}
+.mast>.wrap>nav a{color:#fff}
+.hero{padding-top:clamp(6.2rem,9vw,7.6rem)}
+/* White on a photograph is only white where the photograph is dark, and this heap is not: measured
+   under the lockup, the bright patches give white a contrast ratio of 1.11 — it vanishes — and the
+   photo that lands there changes with the viewport, so it would vanish at SOME widths and not others.
+   The bible's own rule for paper-coloured type on an image is "only over an opaque flat shape".
+   So the lockup gets one: a small hand-cut ink sticker, not a bar. The logo itself stays clean —
+   one solid colour, upright, no filter, no tilt, no shadow, exactly as the brand rule requires. */
+.mast .brand{position:relative;isolation:isolate;padding:.55rem .9rem}
+.mast .brand::before{content:"";position:absolute;inset:-2px -4px;z-index:-1;
+  background:var(--ink);border-radius:5px;filter:url(#rough);
+  animation:boil-rough var(--boil-paper) step-end infinite}
+@media(prefers-reduced-motion:reduce){ .mast .brand::before{animation:none} }
+html[data-tier="lite"] .mast .brand::before{animation:none}
