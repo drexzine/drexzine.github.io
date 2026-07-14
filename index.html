@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=218" />
+<link rel="stylesheet" href="app.css?v=222" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -236,7 +236,7 @@
                    "4,000 messages. Nothing made." Creative groups don't fail for lack of talent.
                    They fail because nothing is ever due. Say that, and everyone who has ever been in
                    one recognises themselves in six words. Then "Yours will." is the promise. -->
-              <h1 aria-label="Most creative groups never finish anything. Yours will."><span class="h1s">Most creative groups <span class="hl">never&nbsp;finish</span> anything.</span><span class="h1s h1-green">Yours will<span class="stop">.</span></span></h1>
+              <h1 aria-label="Most creative groups never finish anything. Yours will."><span class="h1s">Most creative groups</span><span class="h1s"><span class="hl">never&nbsp;finish</span> anything.</span><span class="h1s h1-green">Yours will<span class="stop">.</span></span></h1>
               <p class="hero-scrawl scrawl">&mdash; improve as a circle. share with the world.</p>
               <!-- The subtext's one job: answer "what the fuck IS the app". Marcus, cold, asked
                    literally that — "is it a website, an app, a club, a magazine, or a service?" —
@@ -845,46 +845,108 @@
        The challenge and the answer are set as TEXT, not left inside the screenshots, because
        the caption is the product and a caption inside a 320px-wide JPEG is not a caption.
        ================================================================== -->
-  <section class="proof" id="proof">
+  <section class="proof zb" id="proof">
     <div class="wrap">
       <div class="head">
         <span class="eyebrow" style="color:var(--lazuli)">no invite, no signup, no gate</span>
         <h2 class="slab">Two issues you can <span class="ul">read right now</span><span class="stop">.</span></h2>
-        <p class="proof-sub">Two Circles, two challenges, two very different worlds. Both are published, both are open on the web, and neither one is a mockup.</p>
+        <p class="zb-sub">One booklet, two issues on the shelf. Both are published, both are open on the web, and neither one is a mockup.</p>
       </div>
 
-      <div class="book">
-        <span class="sheet" aria-hidden="true"></span>
-        <span class="bk-spine" aria-hidden="true"></span>
+      <div class="zb-stage">
+        <input class="zb-r" type="radio" name="zbissue" id="zb-cafe" checked
+               aria-label="Open the issue: Drawing at the Cafe" />
+        <input class="zb-r" type="radio" name="zbissue" id="zb-silk"
+               aria-label="Open the issue: Silk Road 001" />
 
-        <article class="leaf">
-          <span class="lf-tag">Drex Zine &middot; 4 makers &middot; hand-laid</span>
-          <a class="lf-shot" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener">
-            <span class="lf-tape" aria-hidden="true"></span>
-            <img src="assets/zines/spread-cafe.jpg" width="720" height="1306" loading="lazy" decoding="async"
-                 alt="A page from “Drawing at the Cafe”: Claire holding up her drawing, her cut-out horse doodle pinned beside it, and a torn red note reading “relax and focus”." />
-          </a>
-          <p class="lf-q"><span class="lf-qlbl">the challenge</span>Make a doodle at the cafe. Is drawing at the cafe different than at home?</p>
-          <blockquote class="lf-a">It helps me relax and focus when I draw at the cafe!
-            <cite>Claire &mdash; designer who doodles at cafes</cite></blockquote>
-          <a class="lf-go" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener">Open <i>Drawing at the Cafe</i> <span class="arr">&rarr;</span></a>
-        </article>
+        <div class="zb-tabs">
+          <label class="zb-tab" for="zb-cafe">
+            <span class="sheet" aria-hidden="true"></span>
+            <span class="tp" aria-hidden="true"></span>
+            <i>Drawing at the Cafe</i>
+            <b>Drex Zine &middot; 4 makers</b>
+          </label>
+          <label class="zb-tab" for="zb-silk">
+            <span class="sheet" aria-hidden="true"></span>
+            <span class="tp" aria-hidden="true"></span>
+            <i>Silk Road 001</i>
+            <b>XChange Models &middot; 11 makers</b>
+          </label>
+        </div>
+        <p class="zb-hint scrawl" aria-hidden="true">flip the tab <span class="arr">&rarr;</span></p>
 
-        <article class="leaf">
-          <span class="lf-tag">XChange Models &middot; 11 makers &middot; bot-laid</span>
-          <a class="lf-shot" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">
-            <span class="lf-tape" aria-hidden="true"></span>
-            <img src="assets/zines/spread-silk.jpg" width="720" height="895" loading="lazy" decoding="async"
-                 alt="A page from “Silk Road 001”: a model mid-stride with a fan on a dark runway, captioned “just try, try, try new things.”" />
-          </a>
-          <p class="lf-q"><span class="lf-qlbl">the challenge</span>What changed once you stepped off the runway?</p>
-          <blockquote class="lf-a">You definitely feel more. You believe in yourself.
-            <cite>Wei-Sean &mdash; walked for the first time</cite></blockquote>
-          <a class="lf-go" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">Open <i>Silk Road 001</i> <span class="arr">&rarr;</span></a>
-        </article>
+        <div class="zb-book">
+          <span class="zb-leaf l4" aria-hidden="true"></span>
+          <span class="zb-leaf l3" aria-hidden="true"></span>
+          <span class="zb-leaf l2" aria-hidden="true"></span>
+          <span class="zb-leaf l1" aria-hidden="true"></span>
+          <span class="zb-sheet" aria-hidden="true"></span>
+          <span class="zb-hatch" aria-hidden="true"></span>
+          <span class="zb-crease" aria-hidden="true"></span>
+          <span class="zb-staple s1" aria-hidden="true"></span>
+          <span class="zb-staple s2" aria-hidden="true"></span>
+
+          <!-- ISSUE 1 — Drawing at the Cafe -->
+          <div class="zb-pane p1" role="region" aria-label="Drawing at the Cafe">
+            <div class="zb-page verso">
+              <a class="zb-shot" style="--ar:3/4;--op:top center;--arm:4/3;--sr:-.9deg"
+                 href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener">
+                <span class="zb-tapeS" aria-hidden="true"></span>
+                <img src="assets/zines/spread-cafe.jpg" width="720" height="1306" loading="lazy" decoding="async"
+                     alt="A page from “Drawing at the Cafe”: Claire holding up her drawing, her cut-out horse doodle pinned beside it, and a torn red note reading “relax and focus”." />
+              </a>
+              <p class="zb-cap">page 4 &mdash; Claire&rsquo;s doodle, cut and taped in by hand</p>
+              <p class="zb-folio">2</p>
+            </div>
+
+            <div class="zb-page recto">
+              <h3 class="zb-mast slab">Drawing at the Cafe</h3>
+              <p class="zb-issue"><b>No. 001</b> <span>Drex Zine</span> <span>&middot;</span> <span>4 makers</span></p>
+
+              <span class="zb-lbl">the challenge</span>
+              <p class="zb-q">Make a doodle at the cafe. Is drawing at the cafe different than at home?</p>
+
+              <span class="zb-lbl">what one maker sent back</span>
+              <blockquote class="zb-a">It helps me relax and focus when I draw at the cafe!
+                <cite>Claire &mdash; designer who doodles at cafes</cite></blockquote>
+
+              <a class="zb-go" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener">Read <i>Drawing at the Cafe</i><span class="arr">&rarr;</span></a>
+              <p class="zb-folio">3</p>
+            </div>
+          </div>
+
+          <!-- ISSUE 2 — Silk Road 001 -->
+          <div class="zb-pane p2" role="region" aria-label="Silk Road 001">
+            <div class="zb-page verso">
+              <a class="zb-shot" style="--ar:720/895;--op:center;--arm:16/10;--sr:.7deg"
+                 href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">
+                <span class="zb-tapeS" aria-hidden="true"></span>
+                <img src="assets/zines/spread-silk.jpg" width="720" height="895" loading="lazy" decoding="async"
+                     alt="A page from “Silk Road 001”: a model mid-stride with a fan on a dark runway, captioned “just try, try, try new things.”" />
+              </a>
+              <p class="zb-cap">page 6 &mdash; Wei-Sean&rsquo;s first walk, shot from the floor</p>
+              <p class="zb-folio">2</p>
+            </div>
+
+            <div class="zb-page recto">
+              <h3 class="zb-mast slab">Silk Road 001</h3>
+              <p class="zb-issue"><b>No. 001</b> <span>XChange Models</span> <span>&middot;</span> <span>11 makers</span></p>
+
+              <span class="zb-lbl">the challenge</span>
+              <p class="zb-q">What changed once you stepped off the runway?</p>
+
+              <span class="zb-lbl">what one maker sent back</span>
+              <blockquote class="zb-a">You definitely feel more. You believe in yourself.
+                <cite>Wei-Sean &mdash; walked for the first time</cite></blockquote>
+
+              <a class="zb-go" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">Read <i>Silk Road 001</i><span class="arr">&rarr;</span></a>
+              <p class="zb-folio">3</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <p class="bk-note scrawl">Lay it out yourself, or let the bot do it. Both of these are real issues.</p>
+      <p class="zb-note">Lay it out yourself, or let the bot do it. Both of these are real issues.</p>
     </div>
   </section>
 

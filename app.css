@@ -3029,90 +3029,8 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   .card-stack .cs:nth-child(5){--mrt:16px;--mb:16px}
 }
 
-/* =====================================================================
-   THE OPEN BOOK  (#proof)
-   ---------------------------------------------------------------------
-   One sheet of paper, not two. A book drawn as two bordered cards side by side gives you a
-   double ink line down the middle where the pages meet, which reads as "two cards", never as
-   "one open book". So: a single torn sheet, and a stitched spine drawn ON it.
-
-   The tear lives on the .sheet layer. Everything printed on the page — type, photographs —
-   sits above it, unfiltered. Roughen the paper, never the ink.
-   ===================================================================== */
+/* the proof section's head keeps the page's standard centred-head treatment */
 .proof .head{margin-bottom:clamp(1.6rem,3.6vw,2.4rem);text-align:center}
-.proof .proof-sub{max-width:56ch;margin-inline:auto;color:var(--ink-soft);
-  font-family:var(--f-body);font-size:var(--fs-lede);line-height:1.5}
-
-.proof .book{position:relative;display:grid;grid-template-columns:1fr 1fr;
-  max-width:min(1020px,100%);margin:clamp(1.6rem,4vw,2.8rem) auto 0;
-  transform:rotate(-.35deg)}
-.proof .book>.sheet{position:absolute;inset:0;z-index:0;background:var(--paper);
-  border:2.6px solid var(--ink);border-radius:7px;box-shadow:10px 11px 0 0 var(--ink);
-  filter:url(#torn)}
-
-/* the spine: two ruled lines with the stitching between them */
-.proof .bk-spine{position:absolute;z-index:2;left:calc(50% - 6px);top:16px;bottom:16px;width:12px;
-  border-left:2.2px solid var(--ink);border-right:2.2px solid var(--ink);
-  background:repeating-linear-gradient(180deg,
-    var(--ink) 0 9px, transparent 9px 20px) center/2.2px 100% no-repeat;
-  filter:url(#roughsm)}
-
-.proof .leaf{position:relative;z-index:1;display:flex;flex-direction:column;
-  padding:clamp(1.1rem,2.3vw,1.9rem) clamp(1.2rem,2.6vw,2.1rem)}
-.proof .leaf:first-child{padding-right:clamp(1.5rem,3vw,2.4rem)}
-.proof .leaf:last-child{padding-left:clamp(1.5rem,3vw,2.4rem)}
-
-.proof .lf-tag{font-family:var(--f-head);font-size:var(--fs-label);text-transform:uppercase;
-  letter-spacing:.09em;color:var(--ink-faint);margin-bottom:.7rem}
-
-/* the spread is a PRINT pasted onto the page: a ragged paper rim, a strip of washi, no shadow */
-.proof .lf-shot{position:relative;display:block;margin-bottom:1.05rem;
-  transform:rotate(var(--sr,-.7deg))}
-.proof .leaf:last-child .lf-shot{--sr:.8deg}
-.proof .lf-shot::before{content:"";position:absolute;inset:-6px;z-index:0;
-  background:var(--paper);filter:url(#rough)}
-.proof .lf-shot img{position:relative;z-index:1;display:block;width:100%;height:auto;
-  aspect-ratio:4/5;object-fit:cover;object-position:top center}
-.proof .leaf:last-child .lf-shot img{object-position:center}
-.proof .lf-tape{position:absolute;z-index:3;top:-15px;left:16%;width:84px;height:23px;
-  background:rgba(241,221,1,.62);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3);
-  transform:rotate(-6deg);filter:url(#roughsm)}
-.proof .leaf:last-child .lf-tape{left:auto;right:14%;transform:rotate(7deg)}
-
-/* the challenge. This is the thing a Circle is actually handed, so it gets the hand. */
-.proof .lf-q{font-family:var(--f-hand);font-size:var(--fs-3);line-height:1.25;
-  color:var(--colorado);margin:0 0 .85rem}
-.proof .lf-qlbl{display:block;font-family:var(--f-head);font-size:var(--fs-label);
-  text-transform:uppercase;letter-spacing:.1em;color:var(--ink-faint);margin-bottom:.25rem}
-
-/* the answer. The caption IS the product — it is not a decoration on the photograph. */
-.proof .lf-a{margin:0 0 1.05rem;padding:0 0 0 .95rem;border-left:3px solid var(--happy);
-  font-family:var(--f-body);font-size:var(--fs-body);line-height:1.5;color:var(--ink)}
-.proof .lf-a cite{display:block;margin-top:.4rem;font-style:normal;
-  font-family:var(--f-head);font-size:var(--fs-small);color:var(--ink-faint)}
-
-.proof .lf-go{margin-top:auto;align-self:flex-start;font-family:var(--f-head);
-  font-size:var(--fs-small);font-weight:700;color:var(--lazuli-deep);
-  text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
-.proof .lf-go i{font-style:italic}
-.proof .lf-go .arr{display:inline-block;transition:transform .18s ease}
-.proof .lf-go:hover .arr{transform:translateX(3px)}
-
-.proof .bk-note{text-align:center;margin:clamp(1.5rem,3.4vw,2.2rem) auto 0;
-  max-width:46ch;color:var(--ink-soft)}
-
-/* on a phone the book closes into one column and the spine becomes the fold between pages */
-@media(max-width:760px){
-  .proof .book{grid-template-columns:1fr;transform:rotate(-.25deg)}
-  .proof .leaf{padding:clamp(1.1rem,4vw,1.6rem)}
-  .proof .leaf:first-child{padding-right:clamp(1.1rem,4vw,1.6rem);padding-bottom:0}
-  .proof .leaf:last-child{padding-left:clamp(1.1rem,4vw,1.6rem)}
-  .proof .bk-spine{left:16px;right:16px;top:50%;bottom:auto;width:auto;height:12px;
-    border:0;border-top:2.2px solid var(--ink);border-bottom:2.2px solid var(--ink);
-    background:repeating-linear-gradient(90deg,
-      var(--ink) 0 9px, transparent 9px 20px) center/100% 2.2px no-repeat}
-  .proof .lf-shot img{aspect-ratio:5/4}
-}
 
 /* The in-person / online line. Set at body size in solid ink, not tucked into the marginalia —
    it answers "am I even allowed to want this", which is a question you cannot afford to
@@ -3126,3 +3044,328 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
 /* the kit's honest admission that it has been trimmed */
 .kit .kit-more{max-width:52ch;margin:.7rem auto 0;font-family:var(--f-body);
   font-size:var(--fs-small);line-height:1.5;color:var(--ink-faint)}
+
+/* =====================================================================
+   #proof — ONE OPEN BOOKLET, TWO ISSUES ON PAPER TABS   (/design-shotgun winner: zine-B)
+   ---------------------------------------------------------------------
+   The previous object was a single sheet with two vertical rules and a dashed line
+   between them, and the founder read it as a ROAD. They were right, and the road was
+   only the symptom. The disease: it carried TWO mastheads and TWO colophons on one
+   sheet. A masthead is an OBJECT BOUNDARY — it is how the eye decides where one
+   publication ends and the next begins — so the eye correctly refused to fuse the two
+   halves into one book, and all that was left was a sheet with a divider on it. Worse,
+   because the content really is A-vs-B (hand vs bot, 4 makers vs 11), that divider was
+   doing the job of a comparison-table column rule. The road reading was not a rendering
+   accident; it was the layout telling the truth about itself.
+
+   So the book is now ONE book: one masthead, one fold, one colophon, real saddle-stitch
+   staples (TWO discrete staples at ~25%/75% of the fold — a continuous dash run reads as
+   a PERFORATION, i.e. 'tear here', which is the exact opposite of 'bound'), stacked leaf
+   edges behind the spread so the object has thickness, and square guillotined outer
+   corners so it stops reading as just another rounded UI card.
+
+   The two circles live on taped paper index TABS that flip which issue is open — pure
+   CSS (hidden radios + :checked), no JavaScript, keyboard reachable.
+   ===================================================================== */
+
+/* =====================================================================
+   zine-B-flip-tabs — ONE booklet, two issues, index tabs.
+
+   The object is a STACK before it is anything else: four flat-fill leaves
+   behind the open spread, each with its own 2.6px ink edge, so page edges
+   peep at the fore-edge and the bottom. Then the fold: ONE crease line (not
+   two rules and a dash run — that is a road), hand-hatched shadow pooling in
+   the valley on both sides of it, and TWO discrete saddle staples straddling
+   the crease at 26% / 74%.
+
+   The two-circles problem is solved by TABS, not by two mastheads: it is one
+   book with two issues indexed, and the tab you press decides which issue is
+   open. One masthead, one colophon, one book — always.
+
+   Displacement filters live ONLY on empty spans and ::before paper layers.
+   Roughen the paper, never the ink.
+   ===================================================================== */
+
+.zb{--fold:50%}
+.zb .head{text-align:center;margin-bottom:clamp(1.4rem,3.2vw,2rem)}
+.zb .head h2{font-size:var(--fs-1);margin:.35rem 0 0}
+.zb .head .stop{color:var(--grass-deep)}
+.zb-sub{max-width:56ch;margin:.9rem auto 0;color:var(--ink-soft);
+  font-family:var(--f-body);font-size:var(--fs-lede);line-height:1.5}
+
+/* ---------- the stage: radios, tabs, book ---------- */
+.zb-stage{position:relative;max-width:min(1020px,100%);margin:clamp(2.2rem,5vw,3.2rem) auto 0}
+
+/* real radios: off-screen to the eye, still in the tab order, still arrow-key navigable */
+.zb-r{position:absolute;top:0;left:12px;width:1px;height:1px;opacity:0;margin:0;pointer-events:none}
+
+/* ---------- the index tabs: torn card stock, taped to the leaf edge ---------- */
+.zb-tabs{position:relative;z-index:3;display:flex;align-items:flex-end;gap:clamp(.5rem,1.6vw,1.1rem);
+  padding-left:clamp(1rem,4vw,2.6rem);margin-bottom:-14px}   /* the -14px tucks them UNDER the book's top edge */
+.zb-tab{position:relative;display:block;min-height:52px;padding:.55rem 1.05rem .95rem;cursor:pointer;
+  transform:rotate(var(--tr,-1.6deg));transform-origin:bottom center;
+  transition:transform .12s ease, translate .12s ease;translate:0 6px}
+.zb-tab:nth-of-type(2){--tr:1.4deg}
+.zb-tab>.sheet{position:absolute;inset:0;z-index:0;background:var(--paper);
+  border:2.6px solid var(--ink);border-bottom:0;border-radius:5px 5px 0 0;
+  filter:url(#rough)}                                        /* small element → scale 4, not 12 */
+.zb-tab>i{position:relative;z-index:1;display:block;font-style:normal;
+  font-family:var(--f-head);font-size:var(--fs-label);font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--ink-faint);white-space:nowrap}
+.zb-tab>b{position:relative;z-index:1;display:block;margin-top:.15rem;
+  font-family:var(--f-hand);font-weight:400;font-size:var(--fs-small);line-height:1.1;
+  color:var(--ink-faint)}
+/* the strip of tape holding the tab on */
+.zb-tab>span.tp{position:absolute;z-index:2;left:50%;bottom:-9px;width:46px;height:16px;margin-left:-23px;
+  background:rgba(241,221,1,.6);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3);
+  transform:rotate(-3deg);filter:url(#roughsm2)}
+.zb-tab:nth-of-type(2)>span.tp{transform:rotate(4deg)}
+.zb-tab:hover{translate:0 2px}
+
+/* the chosen tab: pulled forward, inked solid, printed on Happy card stock */
+.zb-r:nth-of-type(1):checked ~ .zb-tabs .zb-tab:nth-of-type(1),
+.zb-r:nth-of-type(2):checked ~ .zb-tabs .zb-tab:nth-of-type(2){translate:0 0;--tr:-.7deg}
+.zb-r:nth-of-type(2):checked ~ .zb-tabs .zb-tab:nth-of-type(2){--tr:.6deg}
+.zb-r:nth-of-type(1):checked ~ .zb-tabs .zb-tab:nth-of-type(1)>.sheet,
+.zb-r:nth-of-type(2):checked ~ .zb-tabs .zb-tab:nth-of-type(2)>.sheet{background:var(--happy)}
+.zb-r:nth-of-type(1):checked ~ .zb-tabs .zb-tab:nth-of-type(1)>i,
+.zb-r:nth-of-type(1):checked ~ .zb-tabs .zb-tab:nth-of-type(1)>b,
+.zb-r:nth-of-type(2):checked ~ .zb-tabs .zb-tab:nth-of-type(2)>i,
+.zb-r:nth-of-type(2):checked ~ .zb-tabs .zb-tab:nth-of-type(2)>b{color:var(--ink)}
+/* keyboard: the ring lands on the tab you are actually about to press */
+.zb-r:nth-of-type(1):focus-visible ~ .zb-tabs .zb-tab:nth-of-type(1),
+.zb-r:nth-of-type(2):focus-visible ~ .zb-tabs .zb-tab:nth-of-type(2){outline:3px solid var(--lazuli);outline-offset:3px;border-radius:5px}
+
+.zb-hint{position:absolute;z-index:4;right:2%;top:-4px;margin:0;font-size:var(--fs-small);
+  color:var(--lazuli-deep);transform:rotate(-2deg);pointer-events:none}
+.zb-hint .arr{font-family:var(--f-mono)}
+
+/* ---------- the book ---------- */
+.zb-book{position:relative;transform:rotate(-.3deg)}
+
+/* THICKNESS. Four leaves under the open spread. Flat fill, ink edge, no shading.
+   Guillotined by hand: they do not line up, and that is the point. */
+.zb-leaf{position:absolute;inset:0;z-index:0;background:var(--paper);
+  border:2.6px solid var(--ink);border-radius:2px}
+.zb-leaf.l1{transform:translate(4px,3px) rotate(.32deg);filter:url(#torn2)}
+.zb-leaf.l2{transform:translate(-3px,6px) rotate(-.5deg);filter:url(#torn3)}
+.zb-leaf.l3{transform:translate(6px,9px) rotate(.72deg);filter:url(#torn)}
+.zb-leaf.l4{transform:translate(-1px,12px) rotate(-.85deg);filter:url(#torn2);
+  box-shadow:11px 12px 0 0 var(--ink)}   /* the whole stack casts ONE hard registration shadow */
+
+/* the open spread's own sheet: square-cut outer corners, torn edge, no radius softness */
+.zb-sheet{position:absolute;inset:0;z-index:1;background:var(--paper);
+  border:2.6px solid var(--ink);border-radius:2px;filter:url(#torn)}
+
+/* THE GUTTER IS A VALLEY. Hand-hatched shadow pooling either side of the crease
+   (a hard-stop repeating pattern — pen hatching, not a gradient), then ONE crease line
+   drawn over it. One line + two staples = a fold. Two lines + dashes = a road. */
+.zb-hatch{position:absolute;z-index:2;top:26px;bottom:26px;left:calc(var(--fold) - 13px);width:26px;
+  background:repeating-linear-gradient(74deg, var(--ink) 0 1px, transparent 1px 7px);
+  filter:url(#roughsm)}
+.zb-crease{position:absolute;z-index:3;top:18px;bottom:18px;left:calc(var(--fold) - 1.5px);width:3px;
+  background:var(--ink);filter:url(#roughsm2)}
+
+/* SADDLE STAPLES. Two. Discrete. Hardware. Sitting ON the fold. */
+.zb-staple{position:absolute;z-index:4;left:calc(var(--fold) - 7px);width:14px;height:5px;
+  background:var(--ink);border-radius:1px;filter:url(#roughsm3);
+  box-shadow:0 1.5px 0 0 var(--oats)}      /* the flattened metal catches one hard highlight */
+.zb-staple.s1{top:26%}
+.zb-staple.s2{top:74%}
+
+/* ---------- the spread ---------- */
+.zb-pane{position:relative;z-index:5;display:none;grid-template-columns:1fr 1fr}
+.zb-r:nth-of-type(1):checked ~ .zb-book .zb-pane.p1,
+.zb-r:nth-of-type(2):checked ~ .zb-book .zb-pane.p2{display:grid}
+
+.zb-page{display:flex;flex-direction:column;
+  padding:clamp(1.4rem,2.8vw,2.2rem) clamp(1.3rem,2.6vw,2.1rem) clamp(1rem,2vw,1.4rem)}
+.zb-page.verso{padding-right:clamp(1.7rem,3.2vw,2.6rem)}
+.zb-page.recto{padding-left:clamp(1.7rem,3.2vw,2.6rem)}
+
+/* the masthead — ONE per book, on the recto, xerox-crude and slightly off-register */
+.zb-mast{margin:0 0 .2rem;font-size:var(--fs-2);color:var(--ink)}
+.zb-issue{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem;
+  font-family:var(--f-head);font-size:var(--fs-label);text-transform:uppercase;letter-spacing:.11em;
+  color:var(--ink-faint);margin:0 0 1.1rem}
+.zb-issue b{color:var(--ink);font-weight:700}
+
+/* the printed spread, pasted onto the page: ragged paper rim + a strip of washi, no shadow */
+.zb-shot{position:relative;display:block;margin:0 0 .9rem;max-width:min(100%,400px);
+  transform:rotate(var(--sr,-.8deg))}
+.zb-shot::before{content:"";position:absolute;inset:-6px;z-index:0;background:var(--paper);filter:url(#rough2)}
+.zb-shot img{position:relative;z-index:1;display:block;width:100%;height:auto;
+  aspect-ratio:var(--ar);object-fit:cover;object-position:var(--op,center)}
+.zb-tapeS{position:absolute;z-index:2;top:-14px;left:14%;width:82px;height:22px;
+  background:rgba(36,150,201,.42);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28);
+  transform:rotate(-6deg);filter:url(#roughsm)}
+.zb-cap{font-family:var(--f-hand);font-size:var(--fs-small);color:var(--ink-faint);
+  margin:0;transform:rotate(-.6deg)}
+
+/* the challenge — the thing a Circle is actually handed */
+.zb-lbl{display:block;font-family:var(--f-head);font-size:var(--fs-label);font-weight:700;
+  text-transform:uppercase;letter-spacing:.11em;color:var(--ink-faint);margin-bottom:.3rem}
+.zb-q{font-family:var(--f-hand);font-size:var(--fs-3);line-height:1.25;color:var(--colorado);
+  margin:0 0 1.05rem}
+/* the answer. The caption IS the product. */
+.zb-a{margin:0 0 1.1rem;padding:0 0 0 .95rem;border-left:3px solid var(--happy);
+  font-family:var(--f-body);font-size:var(--fs-body);line-height:1.5;color:var(--ink)}
+.zb-a cite{display:block;margin-top:.45rem;font-style:normal;
+  font-family:var(--f-head);font-size:var(--fs-small);color:var(--ink-faint)}
+.zb-go{align-self:flex-start;font-family:var(--f-head);font-size:var(--fs-small);font-weight:700;
+  color:var(--lazuli-deep);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;
+  min-height:44px;display:inline-flex;align-items:center}
+.zb-go i{font-style:italic}
+.zb-go .arr{display:inline-block;margin-left:.35rem;font-family:var(--f-mono);transition:transform .18s ease}
+.zb-go:hover .arr{transform:translateX(3px)}
+.zb-go:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
+
+/* folios — a codex counts its pages */
+.zb-folio{margin:auto 0 0;padding-top:1.2rem;font-family:var(--f-head);font-size:var(--fs-label);
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-faint)}
+.zb-page.recto .zb-folio{text-align:right}
+
+/* the one quiet line. Named once, under the object. */
+.zb-note{text-align:center;margin:clamp(1.6rem,3.6vw,2.4rem) auto 0;max-width:48ch;
+  font-size:var(--fs-body);color:var(--ink-soft)}
+
+/* ---------- phone: the book does NOT fold in half. It shows ONE page. ---------- */
+/* An open spread at 390px is unreadable, and a horizontal rule across the object
+   would read as "tear here" — the exact opposite of "this is bound". So: the fold
+   moves to the LEFT edge, staples with it, and the stack peeps at the right fore-edge. */
+@media(max-width:760px){
+  .zb{--fold:15px}
+  .zb-tabs{margin-bottom:-12px;padding-left:.75rem;padding-right:.75rem;gap:.4rem}
+  .zb-tab{flex:1 1 0;min-width:0;padding:.5rem .6rem .9rem}
+  .zb-tab>i{white-space:normal;letter-spacing:.06em;line-height:1.15}
+  .zb-tab>b{display:none}
+  .zb-hint{display:none}
+  .zb-hatch{top:20px;bottom:20px;left:calc(var(--fold) + 2px);width:14px;
+    background:repeating-linear-gradient(74deg, var(--ink) 0 1px, transparent 1px 8px)}
+  .zb-crease{top:12px;bottom:12px}
+  .zb-pane{grid-template-columns:1fr}
+  .zb-page{padding:1.15rem 1.15rem 1.15rem 2.1rem}
+  .zb-page.verso{padding-right:1.15rem;padding-bottom:0}
+  .zb-page.recto{padding-left:2.1rem;padding-top:.2rem}
+  .zb-page.verso .zb-folio{display:none}
+  .zb-shot img{aspect-ratio:var(--arm,4/3)}
+  .zb-leaf.l3{transform:translate(5px,7px) rotate(.6deg)}
+  .zb-leaf.l4{transform:translate(2px,10px) rotate(-.7deg);box-shadow:8px 9px 0 0 var(--ink)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .zb-tab,.zb-go .arr{transition:none}
+}
+
+/* =====================================================================
+   HERO — THE TYPE LADDER   (/design-shotgun winner: hero-A)
+   ---------------------------------------------------------------------
+   Same object. The hierarchy inside it was measurably upside down:
+
+     - The LEDE — the one sentence that answers "what the fuck is this app" — was
+       18.4px, while the geography line UNDER it was 19px. Rank 2 in the argument
+       was rank 5 in the type.
+     - The EYEBROW was 25.6px of Patrick Hand: the least important line on the card
+       was its second-biggest thing, set in the hand face, at heading scale. Birdie
+       is margin annotation. At 25.6px it is a heading whatever you call it.
+     - .hero-terms was 10px at .72 ink — 30% under the type floor and under the ink
+       floor, on the price and the cadence, which are the three things a wary buyer
+       actually scans for. That is not restraint, it is hiding the terms.
+     - The h1 wrapped to SIX lines, because max-width:13ch was reasoning about copy
+       that no longer exists, and because the photo column was stealing the measure.
+
+   FIVE RANKS. Every one is a token. No invented clamp, nothing under --fs-small,
+   no ink under --ink-faint:
+     1 h1     --fs-display  Courier Prime italic   the argument
+     2 lede   --fs-lede     Bitter ROMAN           what the app is
+     3 where  --fs-body     Bitter                 who is allowed to want it
+     4 asides --fs-small    Patrick Hand / Bitter  marginalia + the terms
+     5 labels --fs-label    Space Grotesk tracked  eyebrow, buttons, doors
+
+   THE STRUCTURAL MOVE: the headline now owns the FULL width of the page, and the
+   glued cutouts start BELOW it, flanking the CTA. Faces beat type unconditionally —
+   so no photograph is given the chance to sit in the headline's optical field. That,
+   not a font-size, is what takes the h1 from six lines to three.
+   ===================================================================== */
+@media(min-width:881px){
+  /* the h1 gets the whole page; only the blocks BELOW it reserve the photo gutter */
+  .hero-card>.inner{padding-right:44px}
+  .hero-card .lede,
+  .hero-card .hero-where,
+  .hero-card .hero-rule,
+  .hero-card .cta,
+  .hero-card .cta-subs,
+  .hero-card .hero-terms{padding-right:clamp(150px,17%,215px)}
+  .hero-card .hero-scrawl{padding-right:clamp(150px,17%,215px)}
+
+  /* the cutouts drop below the headline and flank the CTA */
+  .card-stack{top:auto;bottom:5%;height:min(58%,430px);right:14px;width:clamp(126px,15%,190px)}
+  .card-stack .cs:nth-child(1){--dw:92%;--dt:0%; --dl:0%;--dr:-7deg}
+  .card-stack .cs:nth-child(2){--dw:92%;--dt:20%;--dl:6%;--dr:8deg}
+  .card-stack .cs:nth-child(3){--dw:92%;--dt:41%;--dl:0%;--dr:-4deg}
+  .card-stack .cs:nth-child(4){--dw:92%;--dt:62%;--dl:2%;--dr:10deg}
+  .card-stack .cs:nth-child(5){--dw:92%;--dt:80%;--dl:4%;--dr:-9deg}
+
+  .hero-card h1{font-size:var(--fs-display);max-width:24ch;line-height:1.05}
+}
+@media(min-width:881px) and (max-width:1180px){
+  /* the page is narrower than the sentence at 72px. Step a rank rather than invent a size. */
+  .hero-card h1{font-size:var(--fs-1)}
+}
+
+/* RANK 5 — the eyebrow is a LABEL, so it is set as one. Not 25px of Birdie. */
+.hero-card .eyebrow{font-family:var(--f-head);font-weight:500;font-size:var(--fs-label);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);
+  transform:none;margin:0 0 1.05rem;display:block}
+
+/* RANK 2 — Bitter ROMAN, not italic. Italic serif at a cramped measure is the single worst
+   legibility configuration there is, and it was what the product explanation was wearing. */
+.hero-card .lede{font-family:var(--f-body);font-weight:300;font-style:normal;
+  font-size:var(--fs-lede);line-height:1.5;color:var(--ink);max-width:52ch}
+.hero-card .lede b{font-weight:600}
+
+/* RANK 3 */
+.hero-card .hero-where{font-size:var(--fs-body);color:var(--ink-soft);max-width:58ch}
+
+/* RANK 4 — the terms are not hidden. 14px floor, .80 ink floor. */
+.hero-card .hero-terms{font-family:var(--f-head);font-weight:400;font-size:var(--fs-small);
+  line-height:1.45;color:var(--ink-faint);max-width:62ch}
+.hero-card .cta-who{font-size:var(--fs-small);color:var(--ink-faint)}
+.hero-card .door-who{font-size:var(--fs-small);color:var(--ink-faint)}
+.hero-card .door-lbl{font-size:var(--fs-label)}
+.hero-card .hero-scrawl{font-size:var(--fs-small)}
+
+/* the three lines of the headline are set explicitly; each is its own block */
+.hero-card h1 .h1s{display:block}
+
+/* ---- THE DISPLAY SIZE IS SET BY THE MEASURE, NOT BY TASTE --------------------
+   :root already says it: "--fs-display is capped at 72px because that is the hard ceiling of
+   the hero's LAYOUT, not a taste call." That reasoning was right and then went stale — the card
+   is 667px wide, which leaves 539px of column, and the longest line ("never finish anything.",
+   22 characters of a 0.6em mono) therefore caps out at FORTY pixels. Forty. Smaller than a
+   section heading. Setting --fs-display and hoping is what put the headline back on six lines.
+
+   Two moves, and they have to happen together:
+     1. Give the headline the measure it needs. The card widens on big screens; the heap still
+        has ~190px a side to spill through, which is all it ever showed anyway.
+     2. Derive the size FROM the card instead of asserting it. 6cqw of the card's inline size is
+        the largest Courier that fits 22 monospaced characters in the column, whatever the card
+        turns out to be — so the headline can never again outgrow the page it is printed on.
+        min() keeps --fs-display as the ceiling, so it stays the one off-scale size on the page.
+   --------------------------------------------------------------------------- */
+@media(min-width:881px){
+  .hero-card{container-type:inline-size}
+  .hero-card h1{font-size:min(var(--fs-display),6cqw)}
+}
+@media(min-width:1181px){
+  .hero .paper.hero-card{width:clamp(760px,74%,1080px)}
+}
+
+/* The card was still capped at 776px because the ENVELOPE it slides out of is the real
+   constraint — the card is a percentage of it, so widening the card alone did nothing. The
+   envelope opens up on big screens; the heap keeps ~160px a side to spill through, which is
+   more than it ever actually showed. */
+@media(min-width:1181px){
+  .hero .wrap{max-width:1300px}
+  .hero-card h1{max-width:23ch}
+}
