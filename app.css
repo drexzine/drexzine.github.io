@@ -2846,3 +2846,23 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   .card-stack .cs:nth-child(4){--t:55%;--l:36%;--r:10deg}
   .card-stack .cs:nth-child(5){--t:74%;--l:4%;--r:-9deg}
 }
+
+/* ---- MOBILE, take 6: the side scatter goes BACK BEHIND the card -------------
+   I put it in front because behind it only showed an 18px sliver at 390px. That was the wrong
+   trade. At 600px those pieces become slabs sitting ON the page, cutting into the card — which
+   is worse than a thin peek at any width. A sliver of paper showing from under a page reads as
+   a pile; a photo slapped across the copy reads as a bug. Behind, always. Captions come back. */
+@media(max-width:1100px){
+  .hero-pile .hp:nth-child(n+6){z-index:2}          /* behind the card (card-clip is 3) */
+  .hero-pile .hp:nth-child(n+6) figcaption{display:block}
+  .hero-pile .hp:nth-child(n+6)::before{inset:-5px -5px -30px}
+  /* wider + pushed further out, so the part that clears the card is a real photograph */
+  .hero-pile .hp:nth-child(6){--mt:25%;--ml:-11%;--mw:22%;--mr:-12deg}
+  .hero-pile .hp:nth-child(7){--mt:46%;--ml:-12%;--mw:21%;--mr:8deg}
+  .hero-pile .hp:nth-child(8){--mt:66%;--ml:-11%;--mw:22%;--mr:-5deg}
+  .hero-pile .hp:nth-child(9){--mt:85%;--ml:-12%;--mw:21%;--mr:11deg}
+  .hero-pile .hp:nth-child(10){--mt:23%;--ml:89%;--mw:22%;--mr:10deg}
+  .hero-pile .hp:nth-child(11){--mt:44%;--ml:90%;--mw:21%;--mr:-9deg}
+  .hero-pile .hp:nth-child(12){--mt:64%;--ml:89%;--mw:22%;--mr:6deg}
+  .hero-pile .hp:nth-child(13){--mt:83%;--ml:90%;--mw:21%;--mr:-11deg}
+}
