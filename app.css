@@ -2608,3 +2608,97 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .gift-pile li{display:inline-flex;align-items:center;gap:.42em}
 .gift-pile .g-ico{width:1.15em;height:1.15em;flex:none;display:block;
   filter:url(#roughsm)}                  /* the same hand-drawn boil as every other mark */
+
+/* ======================= HERO HOTFIXES ==============================
+   1. THE RULES WERE BEING WARPED. The blue lines and pink margin were painted on
+      .sheet, which carries filter:url(#torn) — so the displacement filter chewed the
+      lines the same way it chews the edge, and they skipped and wandered. Same bug as
+      everything else today: the tear belongs on the paper, never on what's printed on
+      it. Rules move to their own unfiltered layer, inset inside the torn edge. */
+.hero-card>.sheet.ruled{background:var(--paper)}          /* paper only. no printing. */
+.hero-card .rules{position:absolute;inset:5px;z-index:1;border-radius:5px;pointer-events:none;
+  background:
+    linear-gradient(90deg, transparent 0 60px, rgba(247,84,88,.42) 60px 61.6px, transparent 61.6px) no-repeat,
+    repeating-linear-gradient(0deg, transparent 0 26px, rgba(36,150,201,.26) 26px 27.4px);}
+@media(max-width:880px){
+  .hero-card .rules{background:repeating-linear-gradient(0deg, transparent 0 26px, rgba(36,150,201,.24) 26px 27.4px)}
+}
+
+/* 2. THE PILE WAS SHOWING BEFORE THE CUT. The whole point of the envelope is that
+      nothing has come out of it yet. The pile is a sibling of .card-clip, so the seal's
+      clip never touched it. It now rises with the card instead of sitting there waiting. */
+.hero-pile{opacity:1;transition:opacity .75s ease .45s, transform .9s cubic-bezier(.22,.7,.25,1) .45s}
+html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale(.97)}
+@media(prefers-reduced-motion:reduce){
+  .hero-pile{transition:opacity .3s ease}
+  html.sealed:not(.revealed) .hero-pile{transform:none}
+}
+
+/* 3. THE PILE WAS BLEEDING INTO THE NEXT SECTION. Keep it inside the hero, and let
+      everything below the hero paint over it regardless. */
+.hero{position:relative;z-index:0}
+.hero+*,.hero~section{position:relative;z-index:1}
+@media(min-width:881px){ .hero-pile{inset:-12% -14% 2% -14%} }
+
+/* ---- WAVY RULES, RESTORED (and lighter) --------------------------------
+   Printing the rules on the .sheet means filter:url(#torn) warps them — and that wave is the
+   whole charm: it reads as paper someone actually ruled by hand, not a CSS grid. Keep it.
+   Lighter, so the type wins the page it's printed on. */
+.hero-card .rules{display:none}
+.hero-card>.sheet.ruled{
+  background:
+    linear-gradient(90deg, transparent 0 60px, rgba(247,84,88,.28) 60px 61.4px, transparent 61.4px) no-repeat,
+    repeating-linear-gradient(0deg, transparent 0 26px, rgba(36,150,201,.14) 26px 27.2px),
+    var(--paper);
+}
+@media(max-width:880px){
+  .hero-card>.sheet.ruled{background:
+    repeating-linear-gradient(0deg, transparent 0 26px, rgba(36,150,201,.13) 26px 27.2px), var(--paper)}
+}
+
+/* ---- THE CLOCK, ACTUALLY BIGGER ---------------------------------------
+   My earlier 13.2cqw rule overrode an existing `width:100%` and SHRANK the dial from 155px to
+   79px — the opposite of the ask. The clock now carries four words; give it the room to say them. */
+.how .step.is-clock .ico{width:132%;height:auto;margin:0 -16% .3rem}
+@media(max-width:900px){ .how .step.is-clock .ico{width:118%;margin:0 -9% .3rem} }
+
+/* Polaroids carry the maker's OWN words — their reflection answer from the ledger. Nobody was
+   asked for a testimonial, which is exactly why they land. Never invent one of these. */
+.hero-pile .hp figcaption{display:block;margin-top:6px;line-height:1.2}
+.hero-pile .hp figcaption q{display:block;quotes:"\201C" "\201D";font-family:var(--f-hand);
+  font-size:.82rem;color:var(--ink);margin-bottom:2px}
+.hero-pile .hp figcaption b{display:block;font-family:var(--f-hand);font-weight:400;
+  font-size:.78rem;color:var(--colorado)}
+.hero-pile .hp::before{inset:-8px -8px -52px}   /* deeper chin: the quote needs the room */
+
+/* ---- MOBILE: the pile comes out from behind the card ------------------
+   On desktop the pile hides behind the card and spills round the edges. On a phone the card
+   fills the width, so "behind" means invisible — and the work IS the proof. So below 1100px it
+   stops being a backdrop and becomes a littered heap under the card: overlapping, tilted, still
+   unmistakably a pile, just one you scroll to instead of one you're buried in. */
+@media(max-width:1100px){
+  .hero-pile{display:flex;position:static;inset:auto;flex-wrap:wrap;justify-content:center;
+    align-items:flex-start;gap:0;margin:2.2rem auto 0;padding:0 4vw;max-width:640px;
+    opacity:1;transform:none}
+  .hero-pile .hp{position:relative;top:auto;left:auto;width:46%;margin:0 -3% 2.4rem;
+    transform:rotate(var(--r))}
+  .hero-pile .hp:nth-child(n+7){display:none}   /* six is a heap; thirteen is a scroll */
+  .hero-pile .hp::before{inset:-6px -6px -46px}
+  .hero-pile .hp figcaption q{font-size:.78rem}
+  html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(20px)}
+}
+
+/* Mobile, take 2: the pile goes ABOVE and the card lies ON it. On desktop the card is BURIED in
+   the work; putting the heap below the card on a phone told a different story (card first, work
+   as an afterthought). Same relationship, stacked: a pile of finished issues, with this week's
+   page lying across them. */
+@media(max-width:1100px){
+  .hero-pile{margin:0 auto -3.6rem;padding:0 3vw;position:relative;z-index:0}
+  .card-clip{position:relative;z-index:3}      /* the card lies ON the heap, same as desktop */
+  .hero-pile .hp{margin:0 -4% 2.2rem}
+  .hero-pile .hp:nth-child(n+5){display:none}  /* four reads as a heap without pushing the card down a screen */
+  .hero-pile .hp:nth-child(1){width:50%;--r:-6deg}
+  .hero-pile .hp:nth-child(2){width:44%;--r:5deg;margin-top:1.6rem}
+  .hero-pile .hp:nth-child(3){width:42%;--r:-3deg;margin-top:-.6rem}
+  .hero-pile .hp:nth-child(4){width:46%;--r:7deg}
+}
