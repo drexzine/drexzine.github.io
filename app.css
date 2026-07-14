@@ -2477,7 +2477,7 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
   background-size:cover;background-position:center}   /* clean cut-out edges. never filtered. */
 .hero-pile .hp figcaption{position:relative;z-index:1;display:block;font-family:var(--f-hand);
   font-size:.86rem;color:var(--ink);margin-top:5px}
-@media(max-width:1100px){.hero-pile{display:none}}   /* the card owns the phone; the pile would bury it */
+@media(max-width:880px){.hero-pile{display:none}}   /* the card owns the phone; the pile would bury it */
 
 /* the two beats of the headline: the problem in ink, the promise in grass */
 .hero-card h1 .h1-green{color:var(--grass-deep)}
@@ -2634,11 +2634,18 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   html.sealed:not(.revealed) .hero-pile{transform:none}
 }
 
-/* 3. THE PILE WAS BLEEDING INTO THE NEXT SECTION. Keep it inside the hero, and let
-      everything below the hero paint over it regardless. */
+/* 3. THE PILE WAS BLEEDING INTO THE NEXT SECTION — and the first fix for it was wrong.
+      Raising the following sections above the pile does nothing, because those sections have
+      no background: z-index decides who paints on top, not who is opaque, so the polaroids
+      went right on showing through the paper under "How a Circle works". The only thing that
+      actually contains them is a clip. `overflow:clip` on the pile bounds it to its own box,
+      which ends just above the seam — so the heap gets cut off at the CUT HERE line, which is
+      the one place on this page where a hard straight edge through a photograph reads as the
+      point rather than as a bug. */
 .hero{position:relative;z-index:0}
 .hero+*,.hero~section{position:relative;z-index:1}
-@media(min-width:881px){ .hero-pile{inset:-12% -14% 2% -14%} }
+@media(min-width:881px){ .hero-pile{inset:-12% -14% 4% -14%;overflow:clip} }
+
 
 /* ---- WAVY RULES, RESTORED (and lighter) --------------------------------
    Printing the rules on the .sheet means filter:url(#torn) warps them — and that wave is the
@@ -2676,7 +2683,7 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    fills the width, so "behind" means invisible — and the work IS the proof. So below 1100px it
    stops being a backdrop and becomes a littered heap under the card: overlapping, tilted, still
    unmistakably a pile, just one you scroll to instead of one you're buried in. */
-@media(max-width:1100px){
+@media(max-width:880px){
   .hero-pile{display:flex;position:static;inset:auto;flex-wrap:wrap;justify-content:center;
     align-items:flex-start;gap:0;margin:2.2rem auto 0;padding:0 4vw;max-width:640px;
     opacity:1;transform:none}
@@ -2692,7 +2699,7 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    the work; putting the heap below the card on a phone told a different story (card first, work
    as an afterthought). Same relationship, stacked: a pile of finished issues, with this week's
    page lying across them. */
-@media(max-width:1100px){
+@media(max-width:880px){
   .hero-pile{margin:0 auto -3.6rem;padding:0 3vw;position:relative;z-index:0}
   .card-clip{position:relative;z-index:3}      /* the card lies ON the heap, same as desktop */
   .hero-pile .hp{margin:0 -4% 2.2rem}
@@ -2708,7 +2715,7 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    card is lying in. On a phone the card is 355px of a 390px viewport, so there's only ~18px of
    margin — side polaroids have to overhang the card and bleed off the screen edge, which is
    exactly what a real pile does. Small, many, overlapping, half-hidden behind the card. */
-@media(max-width:1100px){
+@media(max-width:880px){
   .hero-pile{display:block;position:absolute;inset:-7% -17% -1% -17%;z-index:1;
     margin:0;padding:0;max-width:none;opacity:1;transform:none}
   .hero-pile .hp{position:absolute;margin:0;
@@ -2743,7 +2750,7 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
 }
 /* an earlier mobile pass capped the pile at four (`:nth-child(n+5){display:none}`) and that rule
    outranks a plain `.hp{display:block}`. Match its weight to bring the rest of the heap back. */
-@media(max-width:1100px){
+@media(max-width:880px){
   .hero-pile .hp:nth-child(n+5){display:block}
   .hero-pile .hp:nth-child(n+7){display:block}
   .hero-pile .hp:nth-child(n+13){display:none}
@@ -2755,7 +2762,7 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    side scatter goes IN FRONT — clipped to the card's outer edge, well clear of the text (which
    starts ~42px in) and bleeding off the screen. That's what a real collage does: things land on
    the page. Captions come off the side ones — there's no room, and the top strip carries them. */
-@media(max-width:1100px){
+@media(max-width:880px){
   .hero-pile{inset:-8% -11% -1% -11%}
   /* the strip across the top — bigger, and it clears the card so you actually see the work */
   .hero-pile .hp:nth-child(1){--mt:0%;--ml:0%;--mw:23%;--mr:-9deg}
@@ -2782,7 +2789,7 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    The strip had ~38px between the nav and the card's top edge — not enough to read as
    photographs, so it looked like a rendering glitch. Push the card down and let the work
    breathe above it. Side pieces get wider so they read as photos rather than slivers. */
-@media(max-width:1100px){
+@media(max-width:880px){
   .hero{padding-top:clamp(6.5rem,20vw,8.5rem)}
   .hero-pile{inset:-13% -13% -1% -13%}
   .hero-pile .hp:nth-child(1){--mt:0%;--ml:-1%;--mw:25%;--mr:-9deg}
@@ -2918,7 +2925,7 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    trade. At 600px those pieces become slabs sitting ON the page, cutting into the card — which
    is worse than a thin peek at any width. A sliver of paper showing from under a page reads as
    a pile; a photo slapped across the copy reads as a bug. Behind, always. Captions come back. */
-@media(max-width:1100px){
+@media(max-width:880px){
   .hero-pile .hp:nth-child(n+6){z-index:2}          /* behind the card (card-clip is 3) */
   .hero-pile .hp:nth-child(n+6) figcaption{display:block}
   .hero-pile .hp:nth-child(n+6)::before{inset:-5px -5px -30px}
@@ -2931,4 +2938,92 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   .hero-pile .hp:nth-child(11){--mt:44%;--ml:90%;--mw:21%;--mr:-9deg}
   .hero-pile .hp:nth-child(12){--mt:64%;--ml:89%;--mw:22%;--mr:6deg}
   .hero-pile .hp:nth-child(13){--mt:83%;--ml:90%;--mw:21%;--mr:-11deg}
+}
+
+/* ---- THE 881–1100 BAND: the desktop card was starving its own headline -------
+   Must sit at the END of the file: the rules it corrects live ~200 lines up at the same
+   specificity, so source order is the only thing that decides this, and it took a wasted
+   verification pass to notice.
+
+   `padding-right` on the copy was clamp(205px, 26%, 268px) — a hard 205px floor, sized for
+   the 760px card you get at 1440. At 900px the card is only 526px wide, so 84px of left
+   padding plus 205px of right left a 237px column, and "Most creative groups" shattered into
+   one word per line. The photo column and the padding that reserves it have to shrink WITH
+   the card (padding always a little wider than the column, or the photos land on the words),
+   and the display steps down to the measure it actually has.
+   ------------------------------------------------------------------------- */
+@media(min-width:881px) and (max-width:1100px){
+  .hero-card>.inner{padding-right:clamp(146px,27%,205px)}
+  .card-stack{width:clamp(138px,25%,196px)}
+  .hero-card h1{font-size:clamp(1.9rem,3.05vw,2.4rem)}
+}
+
+/* ---- THE ON-CARD PHOTOS ARE CUTOUTS, NOT POLAROIDS --------------------------
+   The pieces BEHIND the card are polaroids: paper, chin, border, hard offset shadow —
+   they're objects in a heap, and a heap has depth. The pieces ON the card are a different
+   thing entirely. They were glued down. So:
+
+     no chin, no border   — a polaroid frame says "object lying there"; we want "cut out
+                            with scissors and pasted", which has no frame at all
+     no shadow            — nothing glued flat to a page casts one. The shadow was the
+                            single strongest cue that these were floating ABOVE the card,
+                            which is exactly the wrong reading
+     nothing hangs off    — a shadowless cutout crossing the card's edge stops looking
+                            pasted and starts looking like a clipping bug. Overlapping each
+                            OTHER is still good, and does all the depth work the shadow used
+                            to do. Overlapping the card's border is not.
+
+   What's left is a 3px ragged rim of paper — the margin scissors leave — carrying the
+   #rough filter. The tear stays on that rim; the photograph itself is never filtered.
+   ------------------------------------------------------------------------- */
+.card-stack .cs::before{
+  inset:-3px;                 /* a scissor margin, not a polaroid chin */
+  border:0;
+  border-radius:0;
+  box-shadow:none;            /* glued flat. Nothing to cast a shadow. */
+  filter:url(#rough);
+}
+
+/* Bringing the column inside the card costs width, so the column and the padding that
+   reserves it both shrink. Measured: the widest cutout plus its rotation must clear the
+   copy's right edge at 881, 1024, 1280 and 1440 — the collision check covers all four. */
+/* NOTE the variable names. Each <figure class="cs"> carries --t/--l/--w/--r in an INLINE
+   style attribute, and an inline custom property beats any stylesheet — so every desktop
+   number written against those names was silently doing nothing, and the cutouts kept
+   rendering at the markup's sizes. Declaring the geometry through --dt/--dl/--dw/--dr, which
+   the markup never sets, is what actually lands. (The mobile block dodged this by accident:
+   --mt/--ml/--mw/--mr aren't inline either.) */
+@media(min-width:881px){
+  .card-stack{right:14px;width:clamp(126px,26%,184px)}
+  .card-stack .cs{width:var(--dw);top:var(--dt);left:var(--dl);transform:rotate(var(--dr))}
+  /* Big, and stacked hard into each other. With the shadow gone, OVERLAP is the only thing
+     left doing the depth work, so it has to be real overlap — 50-60px of it — and not five
+     photos in a tidy vertical line pretending to be a collage. */
+  .card-stack .cs:nth-child(1){--dw:92%;--dt:0%; --dl:0%;--dr:-7deg}
+  .card-stack .cs:nth-child(2){--dw:92%;--dt:16%;--dl:6%;--dr:8deg}
+  .card-stack .cs:nth-child(3){--dw:92%;--dt:33%;--dl:0%;--dr:-4deg}
+  .card-stack .cs:nth-child(4){--dw:92%;--dt:50%;--dl:2%;--dr:10deg}
+  .card-stack .cs:nth-child(5){--dw:92%;--dt:65%;--dl:4%;--dr:-9deg}
+}
+@media(min-width:881px) and (max-width:1100px){
+  .hero-card>.inner{padding-right:clamp(178px,29%,205px)}
+}
+
+/* The phone cutouts come in off the edge too. The offsets look over-generous on paper
+   because they aren't clearing the photo, they're clearing its ROTATION: a 112px square
+   turned 5deg has a bounding box ~10px wider than the square, and that corner is what was
+   crossing the card's border. */
+@media(max-width:880px){
+  .card-stack .cs:nth-child(1){--mrt:14px}
+  .card-stack .cs:nth-child(2){--mrt:11px}
+  .card-stack .cs:nth-child(3){--mrt:9px}
+  .card-stack .cs:nth-child(4){--mrt:18px}
+  .card-stack .cs:nth-child(5){--mrt:11px;--mb:12px}
+}
+@media(min-width:561px) and (max-width:880px){
+  .card-stack .cs:nth-child(1){--mrt:18px}
+  .card-stack .cs:nth-child(2){--mrt:14px}
+  .card-stack .cs:nth-child(3){--mrt:12px}
+  .card-stack .cs:nth-child(4){--mrt:24px}
+  .card-stack .cs:nth-child(5){--mrt:16px;--mb:16px}
 }
