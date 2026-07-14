@@ -3706,12 +3706,40 @@ html[data-tier="lite"] .ed-hair{animation:none}
    The bible's own rule for paper-coloured type on an image is "only over an opaque flat shape".
    So the lockup gets one: a small hand-cut ink sticker, not a bar. The logo itself stays clean —
    one solid colour, upright, no filter, no tilt, no shadow, exactly as the brand rule requires. */
-.mast .brand{position:relative;isolation:isolate;padding:.55rem .9rem}
-.mast .brand::before{content:"";position:absolute;inset:-2px -4px;z-index:-1;
-  background:var(--ink);border-radius:5px;filter:url(#rough);
+/* THE LOGO IS ON A TICKET. It needed an opaque bed (white on a photograph is only white where the
+   photograph is dark, and measured under the lockup the bright patches give white a contrast ratio of
+   1.11 — it vanishes). But a bed is not an object, and a plain ink rectangle is just a grey blob
+   floating on the heap. A ticket is an object: notched on both edges, perforated for a tear-off stub,
+   hard-shadowed, hand-cut.
+   Grass-deep, not grey: it is the palette's AA-safe green — white on it clears 4.83 — and it is the
+   same fill as the primary button, so the masthead reads as the brand's own colour instead of a slab.
+   Two pseudos, because a mask clips a box-shadow out of existence: ::before is the ticket, ::after is
+   its shadow, and both carry the same notches. The logo itself stays clean — upright, one solid
+   colour, no filter, no tilt, no shadow. The tear is on the ticket, never on the mark. */
+.mast .brand{position:relative;isolation:isolate;padding:.62rem 2.1rem .62rem 1.1rem}
+.mast .brand::before,
+.mast .brand::after{content:"";position:absolute;inset:-3px -6px;border-radius:5px;
+  filter:url(#rough);
+  /* the two notches punched out of the left and right edges — transparent, so the heap shows
+     THROUGH them, which is the whole reason it reads as a ticket and not a rounded rectangle */
+  -webkit-mask-image:radial-gradient(circle at 0 50%, transparent 0 8px, #000 8.5px),
+                     radial-gradient(circle at 100% 50%, transparent 0 8px, #000 8.5px);
+  -webkit-mask-composite:source-in;
+  mask-image:radial-gradient(circle at 0 50%, transparent 0 8px, #000 8.5px),
+             radial-gradient(circle at 100% 50%, transparent 0 8px, #000 8.5px);
+  mask-composite:intersect;
   animation:boil-rough var(--boil-paper) step-end infinite}
-@media(prefers-reduced-motion:reduce){ .mast .brand::before{animation:none} }
-html[data-tier="lite"] .mast .brand::before{animation:none}
+.mast .brand::before{z-index:-1;border:2.4px solid var(--ink);
+  background:
+    /* the perforation: a dashed tear-line, with a blank stub beyond it */
+    repeating-linear-gradient(180deg, rgba(254,246,228,.62) 0 5px, transparent 5px 10px) no-repeat,
+    var(--grass-deep);
+  background-size:1.7px 100%;
+  background-position:calc(100% - 24px) 0}
+.mast .brand::after{z-index:-2;background:var(--ink);transform:translate(4px,5px)}
+@media(prefers-reduced-motion:reduce){ .mast .brand::before,.mast .brand::after{animation:none} }
+html[data-tier="lite"] .mast .brand::before,
+html[data-tier="lite"] .mast .brand::after{animation:none}
 
 /* =====================================================================
    THE PHOTO WELL — whitespace you can PROVE is empty.
@@ -3837,7 +3865,9 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
    swatch, so on a phrase that wraps it paints a single box over every line in between — a redaction,
    not a highlight. nowrap keeps each mark on one line, which is the only state it is drawn for.
    Blue asks, green is where the people are, red is the deadline. Yellow stays the headline's alone. */
-.ed-stand .hl{white-space:nowrap}
+.ed-stand .hl,
+.ed-terms .hl{white-space:nowrap}   /* .hl::before is ONE absolutely-positioned swatch: let the phrase
+   wrap and it degenerates into a sliver spanning the line break. One line is the only state it draws. */
 .hl-b::before{background:var(--lazuli);opacity:.42}
 .hl-g::before{background:var(--grass);opacity:.42}
 .hl-r::before{background:var(--colorado);opacity:.42}
