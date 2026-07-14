@@ -3046,218 +3046,6 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   font-size:var(--fs-small);line-height:1.5;color:var(--ink-faint)}
 
 /* =====================================================================
-   #proof — ONE OPEN BOOKLET, TWO ISSUES ON PAPER TABS   (/design-shotgun winner: zine-B)
-   ---------------------------------------------------------------------
-   The previous object was a single sheet with two vertical rules and a dashed line
-   between them, and the founder read it as a ROAD. They were right, and the road was
-   only the symptom. The disease: it carried TWO mastheads and TWO colophons on one
-   sheet. A masthead is an OBJECT BOUNDARY — it is how the eye decides where one
-   publication ends and the next begins — so the eye correctly refused to fuse the two
-   halves into one book, and all that was left was a sheet with a divider on it. Worse,
-   because the content really is A-vs-B (hand vs bot, 4 makers vs 11), that divider was
-   doing the job of a comparison-table column rule. The road reading was not a rendering
-   accident; it was the layout telling the truth about itself.
-
-   So the book is now ONE book: one masthead, one fold, one colophon, real saddle-stitch
-   staples (TWO discrete staples at ~25%/75% of the fold — a continuous dash run reads as
-   a PERFORATION, i.e. 'tear here', which is the exact opposite of 'bound'), stacked leaf
-   edges behind the spread so the object has thickness, and square guillotined outer
-   corners so it stops reading as just another rounded UI card.
-
-   The two circles live on taped paper index TABS that flip which issue is open — pure
-   CSS (hidden radios + :checked), no JavaScript, keyboard reachable.
-   ===================================================================== */
-
-/* =====================================================================
-   zine-B-flip-tabs — ONE booklet, two issues, index tabs.
-
-   The object is a STACK before it is anything else: four flat-fill leaves
-   behind the open spread, each with its own 2.6px ink edge, so page edges
-   peep at the fore-edge and the bottom. Then the fold: ONE crease line (not
-   two rules and a dash run — that is a road), hand-hatched shadow pooling in
-   the valley on both sides of it, and TWO discrete saddle staples straddling
-   the crease at 26% / 74%.
-
-   The two-circles problem is solved by TABS, not by two mastheads: it is one
-   book with two issues indexed, and the tab you press decides which issue is
-   open. One masthead, one colophon, one book — always.
-
-   Displacement filters live ONLY on empty spans and ::before paper layers.
-   Roughen the paper, never the ink.
-   ===================================================================== */
-
-.zb{--fold:50%}
-.zb .head{text-align:center;margin-bottom:clamp(1.4rem,3.2vw,2rem)}
-.zb .head h2{font-size:var(--fs-1);margin:.35rem 0 0}
-.zb .head .stop{color:var(--grass-deep)}
-.zb-sub{max-width:56ch;margin:.9rem auto 0;color:var(--ink-soft);
-  font-family:var(--f-body);font-size:var(--fs-lede);line-height:1.5}
-
-/* ---------- the stage: radios, tabs, book ---------- */
-.zb-stage{position:relative;max-width:min(1020px,100%);margin:clamp(2.2rem,5vw,3.2rem) auto 0}
-
-/* real radios: off-screen to the eye, still in the tab order, still arrow-key navigable */
-.zb-r{position:absolute;top:0;left:12px;width:1px;height:1px;opacity:0;margin:0;pointer-events:none}
-
-/* ---------- the index tabs: torn card stock, taped to the leaf edge ---------- */
-.zb-tabs{position:relative;z-index:3;display:flex;align-items:flex-end;gap:clamp(.5rem,1.6vw,1.1rem);
-  padding-left:clamp(1rem,4vw,2.6rem);margin-bottom:-14px}   /* the -14px tucks them UNDER the book's top edge */
-.zb-tab{position:relative;display:block;min-height:52px;padding:.55rem 1.05rem .95rem;cursor:pointer;
-  transform:rotate(var(--tr,-1.6deg));transform-origin:bottom center;
-  transition:transform .12s ease, translate .12s ease;translate:0 6px}
-.zb-tab:nth-of-type(2){--tr:1.4deg}
-.zb-tab>.sheet{position:absolute;inset:0;z-index:0;background:var(--paper);
-  border:2.6px solid var(--ink);border-bottom:0;border-radius:5px 5px 0 0;
-  filter:url(#rough)}                                        /* small element → scale 4, not 12 */
-.zb-tab>i{position:relative;z-index:1;display:block;font-style:normal;
-  font-family:var(--f-head);font-size:var(--fs-label);font-weight:700;
-  text-transform:uppercase;letter-spacing:.1em;color:var(--ink-faint);white-space:nowrap}
-.zb-tab>b{position:relative;z-index:1;display:block;margin-top:.15rem;
-  font-family:var(--f-hand);font-weight:400;font-size:var(--fs-small);line-height:1.1;
-  color:var(--ink-faint)}
-/* the strip of tape holding the tab on */
-.zb-tab>span.tp{position:absolute;z-index:2;left:50%;bottom:-9px;width:46px;height:16px;margin-left:-23px;
-  background:rgba(241,221,1,.6);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3);
-  transform:rotate(-3deg);filter:url(#roughsm2)}
-.zb-tab:nth-of-type(2)>span.tp{transform:rotate(4deg)}
-.zb-tab:hover{translate:0 2px}
-
-/* the chosen tab: pulled forward, inked solid, printed on Happy card stock */
-.zb-r:nth-of-type(1):checked ~ .zb-tabs .zb-tab:nth-of-type(1),
-.zb-r:nth-of-type(2):checked ~ .zb-tabs .zb-tab:nth-of-type(2){translate:0 0;--tr:-.7deg}
-.zb-r:nth-of-type(2):checked ~ .zb-tabs .zb-tab:nth-of-type(2){--tr:.6deg}
-.zb-r:nth-of-type(1):checked ~ .zb-tabs .zb-tab:nth-of-type(1)>.sheet,
-.zb-r:nth-of-type(2):checked ~ .zb-tabs .zb-tab:nth-of-type(2)>.sheet{background:var(--happy)}
-.zb-r:nth-of-type(1):checked ~ .zb-tabs .zb-tab:nth-of-type(1)>i,
-.zb-r:nth-of-type(1):checked ~ .zb-tabs .zb-tab:nth-of-type(1)>b,
-.zb-r:nth-of-type(2):checked ~ .zb-tabs .zb-tab:nth-of-type(2)>i,
-.zb-r:nth-of-type(2):checked ~ .zb-tabs .zb-tab:nth-of-type(2)>b{color:var(--ink)}
-/* keyboard: the ring lands on the tab you are actually about to press */
-.zb-r:nth-of-type(1):focus-visible ~ .zb-tabs .zb-tab:nth-of-type(1),
-.zb-r:nth-of-type(2):focus-visible ~ .zb-tabs .zb-tab:nth-of-type(2){outline:3px solid var(--lazuli);outline-offset:3px;border-radius:5px}
-
-.zb-hint{position:absolute;z-index:4;right:2%;top:-4px;margin:0;font-size:var(--fs-small);
-  color:var(--lazuli-deep);transform:rotate(-2deg);pointer-events:none}
-.zb-hint .arr{font-family:var(--f-mono)}
-
-/* ---------- the book ---------- */
-.zb-book{position:relative;transform:rotate(-.3deg)}
-
-/* THICKNESS. Four leaves under the open spread. Flat fill, ink edge, no shading.
-   Guillotined by hand: they do not line up, and that is the point. */
-.zb-leaf{position:absolute;inset:0;z-index:0;background:var(--paper);
-  border:2.6px solid var(--ink);border-radius:2px}
-.zb-leaf.l1{transform:translate(4px,3px) rotate(.32deg);filter:url(#torn2)}
-.zb-leaf.l2{transform:translate(-3px,6px) rotate(-.5deg);filter:url(#torn3)}
-.zb-leaf.l3{transform:translate(6px,9px) rotate(.72deg);filter:url(#torn)}
-.zb-leaf.l4{transform:translate(-1px,12px) rotate(-.85deg);filter:url(#torn2);
-  box-shadow:11px 12px 0 0 var(--ink)}   /* the whole stack casts ONE hard registration shadow */
-
-/* the open spread's own sheet: square-cut outer corners, torn edge, no radius softness */
-.zb-sheet{position:absolute;inset:0;z-index:1;background:var(--paper);
-  border:2.6px solid var(--ink);border-radius:2px;filter:url(#torn)}
-
-/* THE GUTTER IS A VALLEY. Hand-hatched shadow pooling either side of the crease
-   (a hard-stop repeating pattern — pen hatching, not a gradient), then ONE crease line
-   drawn over it. One line + two staples = a fold. Two lines + dashes = a road. */
-.zb-hatch{position:absolute;z-index:2;top:26px;bottom:26px;left:calc(var(--fold) - 13px);width:26px;
-  background:repeating-linear-gradient(74deg, var(--ink) 0 1px, transparent 1px 7px);
-  filter:url(#roughsm)}
-.zb-crease{position:absolute;z-index:3;top:18px;bottom:18px;left:calc(var(--fold) - 1.5px);width:3px;
-  background:var(--ink);filter:url(#roughsm2)}
-
-/* SADDLE STAPLES. Two. Discrete. Hardware. Sitting ON the fold. */
-.zb-staple{position:absolute;z-index:4;left:calc(var(--fold) - 7px);width:14px;height:5px;
-  background:var(--ink);border-radius:1px;filter:url(#roughsm3);
-  box-shadow:0 1.5px 0 0 var(--oats)}      /* the flattened metal catches one hard highlight */
-.zb-staple.s1{top:26%}
-.zb-staple.s2{top:74%}
-
-/* ---------- the spread ---------- */
-.zb-pane{position:relative;z-index:5;display:none;grid-template-columns:1fr 1fr}
-.zb-r:nth-of-type(1):checked ~ .zb-book .zb-pane.p1,
-.zb-r:nth-of-type(2):checked ~ .zb-book .zb-pane.p2{display:grid}
-
-.zb-page{display:flex;flex-direction:column;
-  padding:clamp(1.4rem,2.8vw,2.2rem) clamp(1.3rem,2.6vw,2.1rem) clamp(1rem,2vw,1.4rem)}
-.zb-page.verso{padding-right:clamp(1.7rem,3.2vw,2.6rem)}
-.zb-page.recto{padding-left:clamp(1.7rem,3.2vw,2.6rem)}
-
-/* the masthead — ONE per book, on the recto, xerox-crude and slightly off-register */
-.zb-mast{margin:0 0 .2rem;font-size:var(--fs-2);color:var(--ink)}
-.zb-issue{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem;
-  font-family:var(--f-head);font-size:var(--fs-label);text-transform:uppercase;letter-spacing:.11em;
-  color:var(--ink-faint);margin:0 0 1.1rem}
-.zb-issue b{color:var(--ink);font-weight:700}
-
-/* the printed spread, pasted onto the page: ragged paper rim + a strip of washi, no shadow */
-.zb-shot{position:relative;display:block;margin:0 0 .9rem;max-width:min(100%,400px);
-  transform:rotate(var(--sr,-.8deg))}
-.zb-shot::before{content:"";position:absolute;inset:-6px;z-index:0;background:var(--paper);filter:url(#rough2)}
-.zb-shot img{position:relative;z-index:1;display:block;width:100%;height:auto;
-  aspect-ratio:var(--ar);object-fit:cover;object-position:var(--op,center)}
-.zb-tapeS{position:absolute;z-index:2;top:-14px;left:14%;width:82px;height:22px;
-  background:rgba(36,150,201,.42);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28);
-  transform:rotate(-6deg);filter:url(#roughsm)}
-.zb-cap{font-family:var(--f-hand);font-size:var(--fs-small);color:var(--ink-faint);
-  margin:0;transform:rotate(-.6deg)}
-
-/* the challenge — the thing a Circle is actually handed */
-.zb-lbl{display:block;font-family:var(--f-head);font-size:var(--fs-label);font-weight:700;
-  text-transform:uppercase;letter-spacing:.11em;color:var(--ink-faint);margin-bottom:.3rem}
-.zb-q{font-family:var(--f-hand);font-size:var(--fs-3);line-height:1.25;color:var(--colorado);
-  margin:0 0 1.05rem}
-/* the answer. The caption IS the product. */
-.zb-a{margin:0 0 1.1rem;padding:0 0 0 .95rem;border-left:3px solid var(--happy);
-  font-family:var(--f-body);font-size:var(--fs-body);line-height:1.5;color:var(--ink)}
-.zb-a cite{display:block;margin-top:.45rem;font-style:normal;
-  font-family:var(--f-head);font-size:var(--fs-small);color:var(--ink-faint)}
-.zb-go{align-self:flex-start;font-family:var(--f-head);font-size:var(--fs-small);font-weight:700;
-  color:var(--lazuli-deep);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;
-  min-height:44px;display:inline-flex;align-items:center}
-.zb-go i{font-style:italic}
-.zb-go .arr{display:inline-block;margin-left:.35rem;font-family:var(--f-mono);transition:transform .18s ease}
-.zb-go:hover .arr{transform:translateX(3px)}
-.zb-go:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
-
-/* folios — a codex counts its pages */
-.zb-folio{margin:auto 0 0;padding-top:1.2rem;font-family:var(--f-head);font-size:var(--fs-label);
-  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-faint)}
-.zb-page.recto .zb-folio{text-align:right}
-
-/* the one quiet line. Named once, under the object. */
-.zb-note{text-align:center;margin:clamp(1.6rem,3.6vw,2.4rem) auto 0;max-width:48ch;
-  font-size:var(--fs-body);color:var(--ink-soft)}
-
-/* ---------- phone: the book does NOT fold in half. It shows ONE page. ---------- */
-/* An open spread at 390px is unreadable, and a horizontal rule across the object
-   would read as "tear here" — the exact opposite of "this is bound". So: the fold
-   moves to the LEFT edge, staples with it, and the stack peeps at the right fore-edge. */
-@media(max-width:760px){
-  .zb{--fold:15px}
-  .zb-tabs{margin-bottom:-12px;padding-left:.75rem;padding-right:.75rem;gap:.4rem}
-  .zb-tab{flex:1 1 0;min-width:0;padding:.5rem .6rem .9rem}
-  .zb-tab>i{white-space:normal;letter-spacing:.06em;line-height:1.15}
-  .zb-tab>b{display:none}
-  .zb-hint{display:none}
-  .zb-hatch{top:20px;bottom:20px;left:calc(var(--fold) + 2px);width:14px;
-    background:repeating-linear-gradient(74deg, var(--ink) 0 1px, transparent 1px 8px)}
-  .zb-crease{top:12px;bottom:12px}
-  .zb-pane{grid-template-columns:1fr}
-  .zb-page{padding:1.15rem 1.15rem 1.15rem 2.1rem}
-  .zb-page.verso{padding-right:1.15rem;padding-bottom:0}
-  .zb-page.recto{padding-left:2.1rem;padding-top:.2rem}
-  .zb-page.verso .zb-folio{display:none}
-  .zb-shot img{aspect-ratio:var(--arm,4/3)}
-  .zb-leaf.l3{transform:translate(5px,7px) rotate(.6deg)}
-  .zb-leaf.l4{transform:translate(2px,10px) rotate(-.7deg);box-shadow:8px 9px 0 0 var(--ink)}
-}
-
-@media(prefers-reduced-motion:reduce){
-  .zb-tab,.zb-go .arr{transition:none}
-}
-
-/* =====================================================================
    HERO — THE TYPE LADDER   (/design-shotgun winner: hero-A)
    ---------------------------------------------------------------------
    Same object. The hierarchy inside it was measurably upside down:
@@ -3369,3 +3157,421 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   .hero .wrap{max-width:1300px}
   .hero-card h1{max-width:23ch}
 }
+
+/* =====================================================================
+   #proof — THE XEROX   (/design-shotgun r2 winner: z3)
+   ---------------------------------------------------------------------
+   Founder: "the screenshot could actually fill the page and you could just have a sticky
+   note on top of it for text. also maybe it should look like a xerox copy." Both right, and
+   together they fix four separate things:
+     - the dead half-page: the spread IS the page now, full bleed, so there is no empty half
+     - the label soup: three stacked tracked-caps labels go to ZERO. The challenge is simply
+       the biggest thing on the scrap and the answer is shaped like a pull-quote. If a reader
+       needs a caps label to tell a question from an answer, the type has failed.
+     - the Read<i>Title</i> missing-space bug, killed by deleting the construction: the link
+       is a rubber stamp reading "Read the issue".
+     - and the deep one: the object stops looking like a WEBPAGE ABOUT A ZINE, because a zine
+       is a photocopied thing, and now it looks photocopied.
+
+   The halftone is a hard-stop repeating-gradient dot screen, not a soft gradient. The duotone
+   is a COLOUR filter chain (grayscale/contrast/sepia): colour filters don't move pixels, so
+   the cardinal rule — displacement filters smear the content they touch — does not apply.
+   ===================================================================== */
+
+/* ============================================================
+   z3 — FULL-BLEED XEROX SPREAD + A TORN SCRAP
+   Namespaced .z3-* so nothing here collides with app.css .zb-*.
+   Type: tokens only. Faces: f-head (heads/labels), f-body (copy),
+   f-hand (the ONE cite + the ONE margin note). Courier never appears.
+   ============================================================ */
+.z3{--fold:50%;position:relative;padding-block:clamp(1rem,3vw,2rem)}
+.z3 .wrap{max-width:1090px}
+
+/* ---- ONE LEFT AXIS: head, tabs, book, note all hang from it ---- */
+.z3-head{max-width:44ch;margin:0 0 clamp(1.4rem,3vw,2rem)}
+.z3-head h2{font-family:var(--f-head);font-weight:700;font-size:var(--fs-1);
+  letter-spacing:-.015em;line-height:1.08;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
+.z3-head .stop{color:var(--grass-deep)}
+.z3-sub{font-family:var(--f-body);font-size:var(--fs-body);color:var(--ink-soft);
+  max-width:48ch;margin:.85rem 0 0;line-height:1.55}
+
+/* ---- TABS: paper, opposing hand-stuck tilts, one voice ---- */
+.z3-r{position:absolute;width:1px;height:1px;opacity:0;margin:0;pointer-events:none}
+.z3-tabrow{position:relative;z-index:3;display:flex;align-items:stretch;
+  gap:clamp(.45rem,1.4vw,.9rem);margin:0 0 -10px 26px}
+.z3-tab{position:relative;display:flex;align-items:center;min-width:0;min-height:48px;
+  padding:.7rem 1.1rem 1.1rem;cursor:pointer;transform:rotate(var(--tr,-1.5deg));
+  transform-origin:50% 100%;transition:translate .12s ease}
+.z3-tab:nth-of-type(2){--tr:2deg}
+.z3-tab>.sheet{position:absolute;inset:0;z-index:0;background:var(--paper);
+  border:2.4px solid var(--ink);border-radius:5px 5px 0 0;filter:url(#roughsm)}
+.z3-tab>i{position:relative;z-index:1;display:block;font-style:normal;
+  font-family:var(--f-head);font-weight:700;font-size:var(--fs-label);
+  letter-spacing:.02em;color:var(--ink-faint);line-height:1.2}
+.z3-tab:hover{translate:0 -2px}
+.z3-r:nth-of-type(1):checked ~ .z3-tabrow .z3-tab:nth-of-type(1)>.sheet,
+.z3-r:nth-of-type(2):checked ~ .z3-tabrow .z3-tab:nth-of-type(2)>.sheet{background:var(--happy)}
+.z3-r:nth-of-type(1):checked ~ .z3-tabrow .z3-tab:nth-of-type(1)>i,
+.z3-r:nth-of-type(2):checked ~ .z3-tabrow .z3-tab:nth-of-type(2)>i{color:var(--ink)}
+.z3-r:nth-of-type(1):focus-visible ~ .z3-tabrow .z3-tab:nth-of-type(1),
+.z3-r:nth-of-type(2):focus-visible ~ .z3-tabrow .z3-tab:nth-of-type(2){
+  outline:3px solid var(--lazuli);outline-offset:3px;border-radius:5px}
+/* the one hand annotation, sitting right where it is needed */
+.z3-hint{font-family:var(--f-hand);font-size:var(--fs-small);color:var(--ink-faint);
+  align-self:center;margin:0 0 .5rem .3rem;transform:rotate(-2.5deg);white-space:nowrap}
+.z3-hint .arr{color:var(--colorado);font-weight:700}
+
+/* ---- THE BOOK ---- */
+.z3-book{position:relative;padding:16px;transform:rotate(-1.2deg)}
+.z3-leaf{position:absolute;inset:-4px;z-index:0;background:var(--paper);
+  border:2.2px solid rgba(65,77,87,.55);border-radius:4px;filter:url(#rough)}
+.z3-leaf.a{transform:translate(3px,2px) skewX(-.3deg)}
+.z3-leaf.b{transform:translate(-2px,5px) skewX(-.3deg)}
+.z3-sheet{position:absolute;inset:-4px;z-index:1;background:var(--paper);
+  border:2.6px solid var(--ink);border-radius:4px;filter:url(#torn);
+  transform:skewX(-.35deg) rotate(.25deg);
+  box-shadow:12px 12px 0 0 rgba(65,77,87,.82)}
+
+/* ---- THE PHOTOCOPY (colour ops + hard-stop patterns only) ---- */
+.z3-pane{position:relative;display:none}
+.z3-r:nth-of-type(1):checked ~ .z3-book .z3-pane.p1,
+.z3-r:nth-of-type(2):checked ~ .z3-book .z3-pane.p2{display:block}
+.z3-glass{position:relative;z-index:2;isolation:isolate;overflow:hidden;
+  aspect-ratio:1.46;
+  box-shadow:inset 0 0 0 1.5px rgba(65,77,87,.60),
+             inset 0 0 0 5px rgba(65,77,87,.22),
+             inset 0 0 0 9px rgba(65,77,87,.09)}
+.z3-glass img{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%;
+  object-fit:cover;object-position:var(--op,50% 50%);
+  /* exposure is per-plate: a copier's dial. The cafe spread is bright construction paper
+     and needs holding back; the Silk Road spread is a dark stage and crushes to a solid
+     black rectangle at the same setting. Same machine, different dial. */
+  filter:grayscale(1) contrast(var(--con,1.52)) brightness(var(--bri,1.07))}
+.z3-glass img.ghost{z-index:1;transform:translate(1.5px,1px);opacity:.20;
+  mix-blend-mode:multiply;filter:grayscale(1) contrast(1.9)}
+.z3-glass::before{content:"";position:absolute;inset:0;z-index:1;background:var(--ink);
+  mix-blend-mode:screen;pointer-events:none}                 /* blacks -> ink   */
+.z3-glass::after{content:"";position:absolute;inset:0;z-index:2;background:var(--oats);
+  mix-blend-mode:multiply;pointer-events:none}               /* whites -> oats  */
+.z3-screen{position:absolute;inset:0;z-index:3;pointer-events:none;
+  mix-blend-mode:multiply;opacity:.40;
+  background-image:
+    radial-gradient(circle at 50% 50%, var(--ink) 0 .85px, transparent .85px),
+    radial-gradient(circle at 50% 50%, var(--ink) 0 .85px, transparent .85px);
+  background-size:4px 4px,4px 4px;background-position:0 0,2px 2px}
+.z3-dropout{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(circle at 30% 70%, var(--oats) 0 1.1px, transparent 1.1px);
+  background-size:37px 41px}
+.z3-streak{position:absolute;inset:0;z-index:4;pointer-events:none;
+  mix-blend-mode:multiply;opacity:.18;
+  background:repeating-linear-gradient(27deg, transparent 0 140px,
+    rgba(65,77,87,.55) 140px 141px, transparent 141px 300px)}
+
+/* ---- THE SPINE: a posterised copier band, not a hatch ---- */
+.z3-band{position:absolute;z-index:5;top:16px;bottom:16px;
+  left:calc(var(--fold) - 34px);width:68px;pointer-events:none;
+  mix-blend-mode:multiply;filter:url(#rough);
+  background:repeating-linear-gradient(90deg,
+    rgba(65,77,87,.06) 0 6px,  rgba(65,77,87,.14) 6px 13px,
+    rgba(65,77,87,.26) 13px 22px, rgba(65,77,87,.46) 22px 31px,
+    rgba(65,77,87,.62) 31px 37px, rgba(65,77,87,.46) 37px 46px,
+    rgba(65,77,87,.26) 46px 55px, rgba(65,77,87,.14) 55px 62px,
+    rgba(65,77,87,.06) 62px 68px)}
+.z3-crease{position:absolute;z-index:6;top:26px;bottom:26px;
+  left:calc(var(--fold) - 1px);width:2px;background:var(--ink);
+  opacity:.9;pointer-events:none}
+.z3-staple{position:absolute;z-index:7;left:calc(var(--fold) - 7px);width:14px;height:5px;
+  background:var(--ink);border-radius:1px;transform:rotate(-1deg);pointer-events:none}
+.z3-staple.s1{top:20%}
+.z3-staple.s2{top:76%}
+
+/* ---- MASTHEAD: a torn strip laid across the head of the spread ---- */
+.z3-mast{position:absolute;z-index:10;top:20px;left:20px;right:20px;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  padding:.5rem .95rem .6rem;transform:rotate(.35deg)}
+/* a ~50px strip: #rough (4), not #torn (12) — tear scale matches the object */
+.z3-mast::before{content:"";position:absolute;inset:0;z-index:0;background:var(--paper);
+  border:2.6px solid var(--ink);filter:url(#rough2)}
+.z3-mast h3{position:relative;z-index:1;margin:0;font-family:var(--f-head);font-weight:700;
+  font-size:var(--fs-2);letter-spacing:-.01em;line-height:1.1;color:var(--ink);white-space:nowrap}
+.z3-colophon{position:relative;z-index:1;margin:0;font-family:var(--f-head);font-weight:400;
+  font-size:var(--fs-label);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-faint);white-space:nowrap}
+
+/* ---- THE SCRAP: torn coloured paper over the gutter ---- */
+.z3-scrap{position:absolute;z-index:12;right:-14px;bottom:-26px;
+  width:min(56%,520px);padding:clamp(1.4rem,2.4vw,1.9rem) clamp(1.3rem,2.2vw,1.75rem) clamp(1.2rem,2vw,1.6rem);
+  transform:rotate(-2.2deg)}
+.z3-scrap::before{content:"";position:absolute;inset:0;z-index:0;background:var(--paper);
+  border:2.6px solid var(--ink);filter:url(#torn3);
+  box-shadow:9px 9px 0 0 rgba(65,77,87,.55)}
+/* a second scrap peeking out from under it — Colorado's whole job here */
+.z3-under{position:absolute;z-index:-1;left:-16px;bottom:-13px;width:46%;height:38px;
+  background:var(--colorado);border:2.4px solid var(--ink);filter:url(#rough3)}
+.z3-washi{position:absolute;z-index:3;width:104px;height:28px;
+  background:rgba(28,171,91,.46);border-inline:1px solid rgba(28,171,91,.30)}
+.z3-washi::after{content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,transparent 0 10px,rgba(254,246,228,.22) 10px 11px)}
+.z3-washi.w1{top:-15px;left:-24px;transform:rotate(-26deg)}
+.z3-washi.w2{bottom:-13px;right:-26px;transform:rotate(-24deg)}
+
+.z3-q{position:relative;z-index:1;margin:0;font-family:var(--f-body);font-style:italic;
+  font-weight:400;font-size:var(--fs-3);line-height:1.35;color:var(--ink);max-width:24ch}
+.z3-a{position:relative;z-index:1;margin:clamp(1rem,2vw,1.35rem) 0 0;
+  font-family:var(--f-body);font-weight:400;font-size:var(--fs-2);line-height:1.22;
+  letter-spacing:-.012em;color:var(--ink);text-indent:-.45em}
+.z3-a .qm{font-family:var(--f-body);font-size:3em;line-height:0;vertical-align:-.22em;
+  color:var(--grass);margin-right:-.06em}
+.z3-a cite{display:block;margin-top:.7rem;text-indent:0;font-style:normal;
+  font-family:var(--f-hand);font-size:var(--fs-small);color:var(--ink-faint);line-height:1.25}
+.z3-go{position:relative;z-index:1;display:inline-flex;align-items:center;gap:.5rem;
+  min-height:44px;margin-top:clamp(1rem,2vw,1.4rem);padding:.55rem 1.05rem;
+  font-family:var(--f-head);font-weight:700;font-size:var(--fs-label);
+  letter-spacing:.11em;text-transform:uppercase;color:var(--grass-deep);
+  text-decoration:none;transform:rotate(-.8deg);transition:transform .1s ease}
+.z3-go::before{content:"";position:absolute;inset:0;z-index:-1;
+  border:2.4px solid var(--grass-deep);box-shadow:4px 4px 0 0 var(--grass-deep);
+  filter:url(#roughsm)}
+.z3-go:hover{transform:rotate(0) translate(-1px,-1px)}
+.z3-go:active{transform:translate(3px,3px) rotate(0)}
+.z3-go:focus-visible{outline:3px solid var(--lazuli);outline-offset:4px}
+
+/* ---- the one line that names the hand/bot thing, quietly ---- */
+.z3-note{max-width:46ch;margin:clamp(2.6rem,5vw,3.6rem) 0 0;
+  font-family:var(--f-body);font-size:var(--fs-body);color:var(--ink-soft);line-height:1.55}
+
+/* ---- 390 ---- */
+@media (max-width:720px){
+  .z3-head{max-width:none}
+  .z3-tabrow{margin-left:14px;gap:.4rem}
+  .z3-tab{padding:.65rem .75rem 1rem}
+  .z3-hint{display:none}
+  .z3-book{padding:12px;transform:rotate(-.8deg)}
+  .z3-band,.z3-crease,.z3-staple{display:none}   /* no spread, no spine */
+  .z3-glass{aspect-ratio:3/4}
+  .z3-mast{position:relative;top:auto;left:auto;right:auto;margin:0 2px 0 -2px;
+    flex-direction:column;align-items:flex-start;gap:.15rem}
+  .z3-mast h3{white-space:normal}
+  .z3-scrap{position:relative;right:auto;bottom:auto;width:auto;
+    margin:-44px -6px 0 -2px;transform:rotate(-1.6deg)}
+  .z3-under{left:-8px;width:40%;height:30px}
+  .z3-washi.w1{left:-14px;top:-13px}
+  .z3-washi.w2{right:-14px;bottom:-11px}
+  .z3-a{font-size:var(--fs-3)}
+  .z3-note{margin-top:2rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .z3-tab,.z3-go{transition:none}
+}
+
+/* =====================================================================
+   HERO — THE EDITORIAL SPREAD   (/design-shotgun r2 winner: h2)
+   ---------------------------------------------------------------------
+   The card had grown to ELEVEN separate text objects. It read as a form, not a promise.
+   Six now, in three zones: the headline alone with air around it; ONE standfirst; and the
+   CTA printed as a coupon, cut from the page with a dashed rule and a pair of scissors,
+   with the terms inside it.
+
+   The plates cross the card's right edge on purpose, and that is not a contradiction of the
+   earlier rule. These carry paper, a border and a hard shadow — they are PRINTS lying on the
+   page, and an object with a shadow may overlap an edge. The glued cutouts had no shadow, so
+   crossing the border made them read as a clipping bug, which is why they had to stay inside.
+   The overlap is the only thing stitching the card to the heap behind it.
+   ===================================================================== */
+
+/* =====================================================================
+   h2-editorial — the hero as the OPENING SPREAD of a magazine feature.
+   The page is one sheet of paper. On it: a departmental slug, a hairline,
+   a Courier headline with room to breathe, a standfirst with a real
+   initial, and the work PASTED ON THE SHEET — two zine spreads and a
+   photo of the making, running off the right deckle so the paper and the
+   pictures are one object, not two paintings stacked.
+   Five text objects. One hand. One button. Sizes are tokens only.
+   ===================================================================== */
+.ed{--gut:clamp(1.25rem,10%,132px)}
+.ed-stage{position:relative;max-width:1100px;margin:0 auto}
+
+/* the sheet: reuse .paper/.sheet (torn ink border + hard solid registration shadow) */
+.ed-sheet{transform:rotate(-.8deg)}
+.ed-sheet>.inner{padding:clamp(1.75rem,3.4vw,3.25rem) clamp(1.25rem,3vw,2.25rem)
+                 clamp(2.5rem,5vw,3.75rem) var(--gut)}
+/* the margin rule of a ruled page — the one Colorado on the object */
+.ed-rule{position:absolute;left:calc(var(--gut) - 26px);top:14px;bottom:14px;z-index:1;
+  width:1.6px;background:rgba(247,84,88,.42);filter:url(#roughsm);pointer-events:none}
+@media(max-width:880px){.ed-rule{display:none}}
+
+/* --- the interior grid: copy hangs on ONE left axis, pictures own the right --- */
+.ed-inner{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);
+  column-gap:clamp(1rem,3vw,2.5rem);align-items:start}
+.ed-head{grid-column:1/-1;position:relative}
+.ed-body{grid-column:1;max-width:34ch}
+.ed-foot{grid-column:1}
+.ed-plates{grid-column:2;grid-row:2/4}
+
+/* ZONE 1 — the slug, the hairline, and then nothing but headline. */
+.ed-kicker{margin:0;font-family:var(--f-head);font-weight:500;font-size:var(--fs-label);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+.ed-kicker i{font-style:normal;color:var(--colorado)}
+.ed-hair{margin:.55rem 0 clamp(1.5rem,3.2vw,2.4rem);border:0;height:1.5px;
+  background:var(--ink);opacity:.55;filter:url(#roughsm)}
+.ed-h1{margin:0;font-family:var(--f-display);font-weight:700;font-size:var(--fs-display);
+  line-height:1.02;letter-spacing:-.03em;color:var(--ink);text-wrap:pretty}
+.ed-h1 .l{display:block}
+.ed-h1 .ed-stop{color:var(--grass-deep)}
+
+/* the ONE hand object: marginalia in the gutter, pointing at the pain. */
+.ed-scrawl{position:absolute;left:calc(-1 * var(--gut) + 8px);top:.35em;width:calc(var(--gut) - 42px);
+  margin:0;font-family:var(--f-hand);font-size:var(--fs-body);line-height:1.12;
+  color:var(--lazuli-deep);transform:rotate(-4deg)}
+.ed-scrawl svg{display:block;width:52px;height:22px;margin-top:.3rem;color:var(--lazuli-deep)}
+@media(max-width:880px){
+  .ed-scrawl{position:static;width:auto;max-width:24ch;margin:.9rem 0 0;transform:rotate(-1.6deg)}
+  .ed-scrawl svg{display:none}
+}
+
+/* ZONE 2 — the standfirst. A large initial, generous leading, short measure. */
+.ed-stand{margin:clamp(1.4rem,3vw,2.1rem) 0 0;font-family:var(--f-body);font-weight:300;
+  font-size:var(--fs-lede);line-height:1.72;color:var(--ink)}
+.ed-stand .ed-drop{float:left;font-family:var(--f-head);font-weight:700;font-size:var(--fs-display);
+  line-height:.82;color:var(--grass-deep);margin:.02em .1em -.02em 0}
+.ed-stand b{font-weight:600}
+
+/* ZONE 3 — the CTA is a printed coupon, cut from the page. */
+.ed-foot{margin-top:clamp(2rem,5vw,3.5rem)}
+.ed-coupon{position:relative;isolation:isolate;display:flex;flex-wrap:wrap;align-items:center;
+  gap:clamp(.9rem,2vw,1.4rem);max-width:min(32rem,100%);padding:clamp(1rem,2vw,1.3rem) clamp(1.1rem,2.2vw,1.5rem);
+  transform:rotate(-.9deg)}
+.ed-coupon::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+  border:2.4px dashed var(--ink);border-radius:4px;box-shadow:6px 6px 0 0 var(--ink);
+  filter:url(#rough)}
+.ed-snip{position:absolute;left:-14px;top:-16px;z-index:1;width:30px;height:30px;color:var(--ink);
+  transform:rotate(-16deg)}
+.ed-snip svg{width:100%;height:100%;display:block}
+.ed-stamp{font-family:var(--f-head);font-weight:500;font-size:var(--fs-label);letter-spacing:.13em;
+  text-transform:uppercase;display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;
+  background:var(--grass-deep);color:var(--oats);border:2.6px solid var(--ink);border-radius:5px;
+  padding:.9em 1.35em;min-height:46px;box-shadow:5px 5px 0 0 var(--ink);transform:rotate(-1.4deg);
+  transition:transform .09s ease,box-shadow .09s ease}
+.ed-stamp:hover{transform:rotate(0)}
+.ed-stamp:active{transform:translate(5px,5px) rotate(0);box-shadow:0 0 0 0 var(--ink)}
+.ed-stamp:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
+.ed-terms{margin:0;flex:1 1 12rem;font-family:var(--f-body);font-size:var(--fs-small);
+  line-height:1.45;color:var(--ink-faint)}
+.ed-links{margin:clamp(1rem,2vw,1.35rem) 0 0;font-family:var(--f-body);font-size:var(--fs-small);
+  color:var(--ink-soft)}
+.ed-links a{color:var(--ink);text-decoration:underline;text-decoration-thickness:1.5px;
+  text-underline-offset:3px;padding:.35rem 0;display:inline-block}
+.ed-links a:hover{text-decoration-color:var(--grass-deep)}
+.ed-links .sep{color:var(--colorado);padding:0 .3rem}
+
+/* --- THE WORK, PASTED ON THE SHEET. Two real spreads + the making of one,
+       overlapping and running off the right deckle so the paper and the
+       pictures read as ONE object. The tear is on the paper (::before); the
+       photographs are never filtered. --- */
+.ed-plates{position:relative;min-height:clamp(300px,40vw,520px);margin-right:-12%}
+.ed-plate{position:absolute;margin:0;isolation:isolate;
+  top:var(--t);left:var(--l);width:var(--w);transform:rotate(var(--r))}
+.ed-plate::before{content:"";position:absolute;inset:-9px -9px -14px;z-index:0;background:var(--paper);
+  border:2.6px solid var(--ink);border-radius:4px;box-shadow:8px 9px 0 0 var(--ink);filter:url(#torn)}
+.ed-plate i{position:relative;z-index:1;display:block;background-size:cover;background-position:center}
+.ed-plate figcaption{position:relative;z-index:1;display:block;max-width:19ch;margin-top:.45rem;
+  font-family:var(--f-hand);font-size:var(--fs-small);line-height:1.2;color:var(--ink)}
+.ed-p1 i{aspect-ratio:720/1306}   /* exact source ratio — a portrait spread is never cropped to 4/3 */
+.ed-p2 i{aspect-ratio:720/895}
+.ed-p3 i{aspect-ratio:4/3}
+.ed-plate .tape{width:78px;height:22px}
+
+@media(max-width:880px){
+  .ed{--gut:clamp(1.1rem,5vw,1.6rem)}
+  .ed-sheet{transform:rotate(-.5deg)}
+  .ed-inner{display:block}
+  .ed-body{max-width:none}
+  .ed-plates{min-height:0;margin:clamp(1.75rem,6vw,2.5rem) -2% 0 0;
+    display:flex;align-items:flex-start;justify-content:center;padding-top:14px}
+  .ed-plate{position:relative;top:auto;left:auto;width:auto;flex:0 1 43%}
+  .ed-plate+.ed-plate{margin-left:-5%;margin-top:1.6rem}
+  .ed-p3{display:none}     /* two sheets is a spread; three is a pile, and there's no room */
+  .ed-coupon{max-width:none}
+}
+@media(max-width:420px){
+  .ed-plate figcaption{max-width:15ch}
+}
+@media(prefers-reduced-motion:reduce){
+  .ed-stamp{transition:none}
+}
+
+/* =====================================================================
+   ONE PHOTO SYSTEM, NOT TWO.
+   The sheet carried three plates (both zine spreads + a making-of shot)
+   pasted over its right half — sitting directly on top of the heap that
+   already fills that same square, and showing the same two spreads that
+   #proof shows full-bleed 600px later. Claire's face appeared four times
+   above the fold. Two picture systems in one optical field is not a
+   composition, it is a collision.
+   The heap wins: it is the older object, it is the atmosphere, and it is
+   not repeated anywhere else. So the sheet narrows to a real column, the
+   copy runs down it as ONE column, and the photographs get the right of
+   the stage — a page laid on a heap, which is what the plates were faking.
+   ===================================================================== */
+.ed-plates{display:none}
+@media(min-width:881px){
+  /* .hero .paper.hero-card (0,3,0) sets the width and .hero-card>.inner still
+     reserved a 205-330px right column for the polaroid that used to live there.
+     Both are stale. Match the specificity and take the column back. */
+  .hero .paper.hero-card.ed-sheet{width:clamp(560px,70%,880px)}
+  .hero .paper.hero-card.ed-sheet>.inner{padding-right:clamp(1.25rem,3vw,2.25rem)}
+  .ed-inner{display:block}
+  .ed-body{max-width:34ch}
+  /* The display size is DERIVED from the measure, not asserted. Courier advances a flat
+     0.6em, the longest line is 22 characters, and the measure is inner ≈ card − 120px,
+     so the ceiling is (card − 120) / 13.2 — about 6.2cqw, with a little slack. Push past
+     it and line 2 breaks in half; fall to 6cqw and the h1 renders BELOW the 43px section
+     heads, which is the one thing a headline can never do. `nowrap` makes the three lines
+     structural: if the ceiling is ever wrong again it overflows visibly instead of
+     silently reflowing into four. */
+  .hero-card.ed-sheet .ed-h1{font-size:min(var(--fs-display),6.2cqw)}
+  .hero-card.ed-sheet .ed-h1 .l{white-space:nowrap}
+}
+/* 881-1099: the heap can give up more of the stage than it can at 1440, and it has to —
+   at 64% the card was 579px and the h1 derived to 38px, exactly TYING the section heads.
+   An h1 that does not outrank an h2 is not a headline. */
+@media(min-width:881px) and (max-width:1099px){
+  .hero .paper.hero-card.ed-sheet{width:clamp(560px,86%,800px)}
+  .hero-card.ed-sheet .ed-h1{font-size:min(var(--fs-display),5.9cqw)}   /* the padding overhead is a bigger share of a 650px card, so the ceiling is lower here */
+}
+/* The desktop half of the card-stack pasted five photos onto the card's right column —
+   the exact collision the editorial hero was rebuilt to remove, and that column no longer
+   exists anyway (the sheet is a narrow measure now, and the heap owns the stage). The
+   cutouts are a PHONE treatment only, where the heap can't reach the card. */
+@media(min-width:881px){
+  .card-stack{display:none}
+}
+@media(max-width:880px){
+  /* The phone cutouts are bottom-anchored, so they land on the card's lower right — which is
+     exactly where the coupon and the door links sit. The old reservation was keyed to .cta /
+     .cta-subs / .hero-terms, classes the editorial hero does not have, so it silently stopped
+     reserving anything and five photos sat on top of the price. Reserve the column again. */
+  .ed-foot{padding-right:24%}
+  .ed-scrawl{max-width:26ch}
+}
+
+/* "Yours will." is the promise, and the promise is the brand's colour. The full stop alone
+   was carrying it, which is a whisper where a claim belongs. */
+.ed-h1 .l:last-child{color:var(--grass-deep)}
+
+@media(max-width:880px){
+  /* A glued cutout carries no shadow, and a shadowless thing hanging off the paper's edge
+     reads as a rendering bug, not a collage. Every piece stays on the sheet. */
+  .card-stack .cs:nth-child(2){--mrt:6px}
+  .card-stack .cs:nth-child(5){--mrt:6px}
+}
+@media(max-width:440px){
+  .ed-kicker{letter-spacing:.07em}   /* at .16em the slug wraps and orphans "2026" */
+}
+
+/* The hand line is the tagline, not an annotation, so it does not belong in the gutter — and
+   it no longer fits there anyway: the sheet's gutter is ~83px wide, the punch holes already
+   live in it, and 41 characters wrapped to six lines straight through the holes. It sits under
+   the headline, on the copy's own left axis, which is where it sat before this hero was rebuilt. */
+.ed-scrawl{position:static;width:auto;max-width:44ch;margin:.9rem 0 0;
+  transform:rotate(-.5deg);color:var(--ink-soft)}

@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=222" />
+<link rel="stylesheet" href="app.css?v=238" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -185,7 +185,7 @@
 <main id="top">
 
   <!-- ============ HERO — drag-to-cut envelope ============ -->
-  <section class="hero" id="hero">
+  <section class="hero ed" id="hero">
     <div class="wrap">
       <div class="cg-collage cg-burst" aria-hidden="true"><span class="cg-scrap cg-s1 cg-gl cg-drop-lg" data-cg-parallax="6" style="--cg-rot:-16deg;--cg-w:52px;top:12%"><svg width="36" height="84" viewBox="0 0 36 84" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M10 14 H26 V58 L18 74 L10 58 Z" fill="var(--colorado)"/><path d="M10 14 H26 V6 C26 2 10 2 10 6 Z" fill="var(--schoolbus)"/><path d="M10 58 H26"/><path d="M15 66 L18 74 L21 66 Z" fill="var(--ink)" stroke="none"/></g></svg></span><span class="cg-scrap cg-s2 cg-gr" data-cg-parallax="7" style="--cg-rot:10deg;--cg-w:56px;top:9%"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke-linecap="round"><g class="cg-wob"><path d="M26 6 C28 17 31.5 20.5 42 22 C31.5 23.5 28 27 26 38 C24 27 20.5 23.5 10 22 C20.5 20.5 24 17 26 6 Z" stroke="var(--happy)" stroke-width="2.6"/><circle cx="46" cy="42" r="2.4" fill="var(--colorado)" stroke="none"/><circle cx="14" cy="46" r="1.8" fill="var(--lazuli)" stroke="none"/></g></svg></span><span class="cg-scrap cg-s3 cg-gl2 cg-shadow cg-drop-lg" data-cg-parallax="5" style="--cg-rot:-5deg;--cg-w:88px;bottom:14%"><svg width="88" height="48" viewBox="0 0 88 48"><path class="cg-torn" d="M5 9 L80 4 L84 40 L9 45 Z" fill="var(--grass)" stroke="var(--ink)" stroke-width="2"/><g class="cg-wob" fill="none" stroke="var(--oats)" stroke-width="2.4" stroke-linecap="round"><path d="M16 21 L52 19 M16 30 L66 27"/></g></svg></span><span class="cg-scrap cg-s2 cg-gr2 cg-drop-lg" data-cg-parallax="4" style="--cg-rot:6deg;--cg-w:92px;bottom:8%"><svg width="64" height="44" viewBox="0 0 64 44" fill="none" stroke="var(--lazuli)" stroke-width="2.4" stroke-linecap="round"><g class="cg-wob"><path d="M52 18 C58 28 44 40 28 40 C10 40 4 26 12 16 C20 7 44 6 54 16 C60 22 50 30 38 30"/></g></svg></span><span class="cg-scrap cg-s4 cg-gl2 cg-drop-lg" data-cg-parallax="5" style="--cg-rot:7deg;--cg-w:50px;--cg-r0:-14deg;top:42%"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--happy)" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M20 5 C22 15 25 18 35 20 C25 22 22 25 20 35 C18 25 15 22 5 20 C15 18 18 15 20 5 Z"/></g></svg></span><span class="cg-scrap cg-s5 cg-gr cg-drop-lg" data-cg-parallax="6" style="--cg-rot:-9deg;--cg-w:50px;--cg-r0:13deg;top:60%"><svg width="48" height="34" viewBox="0 0 48 34" fill="none" stroke="var(--colorado)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M6 24 C16 6 38 6 44 22"/><path d="M44 22 L34 22 M44 22 L42 10"/></g></svg></span></div>
       <!-- mobile confetti burst: a small FOREGROUND eruption (cg-fore = over the card)
@@ -221,58 +221,64 @@
 
         <!-- the card lives in a clipped pocket; sealed it is pushed down out of sight -->
         <div class="card-clip">
-          <div class="paper hero-card">
+          <div class="paper hero-card ed-sheet">
             <span class="cmark hero-cmark" aria-hidden="true"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" transform="rotate(-42 14 14)"/></svg></span>
             <span class="sheet ruled"></span>
             <!-- the punched edge: this is a page torn out of a notebook, which is exactly what a
                  Circle produces. Holes sit outside the pink margin rule, like real filler paper. -->
             <span class="holes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
             <span class="tape" style="left:12%;top:-14px"></span>
-            <div class="inner">
-              <span class="eyebrow" style="color:var(--colorado)">small learning circles &mdash; est. 2026</span>
-              <!-- THE PROBLEM, NAMED. Two cold readers couldn't say what Drex was; the old headline
-                   sold an aspiration ("get good") and left the pain unspoken. The pain is the whole
-                   company, and this page has been muttering it all along — the group-chat mock says
+            <div class="inner ed-inner">
+
+              <!-- ZONE 1 - the slug, a hairline, and the headline ALONE.
                    "4,000 messages. Nothing made." Creative groups don't fail for lack of talent.
                    They fail because nothing is ever due. Say that, and everyone who has ever been in
-                   one recognises themselves in six words. Then "Yours will." is the promise. -->
-              <h1 aria-label="Most creative groups never finish anything. Yours will."><span class="h1s">Most creative groups</span><span class="h1s"><span class="hl">never&nbsp;finish</span> anything.</span><span class="h1s h1-green">Yours will<span class="stop">.</span></span></h1>
-              <p class="hero-scrawl scrawl">&mdash; improve as a circle. share with the world.</p>
-              <!-- The subtext's one job: answer "what the fuck IS the app". Marcus, cold, asked
-                   literally that — "is it a website, an app, a club, a magazine, or a service?" —
-                   and couldn't tell. Every earlier lede described a ritual. This one names the
-                   software, then the loop, and ends on the one thing a stranger can picture. -->
-              <p class="lede"><b>Drex is an app for creative groups.</b> A recurring challenge, a standing hour with your people, and a due date that turns what everyone made into a little magazine.</p>
-              <!-- The single highest-value line on the page, and it was missing. Someone reading
-                   this from Lagos or Leeds had no way to tell whether they were even allowed to
-                   want it, and nobody emails to ask — they just leave. Stated as a range Drex
-                   HAS, never as an apology for what it lacks. -->
-              <p class="hero-where">Some Circles meet in a <b>room</b>. Some meet on a <b>screen</b>. <span class="hw-eg">Photo&nbsp;Phloor meets in San&nbsp;Francisco; plenty of ours have never shared a city.</span></p>
-              <span class="hero-rule" aria-hidden="true"></span>
-              <!-- THREE DOORS, three different people arriving. One primary, two subs, three colours.
-                   The organizer door is NOT a footnote: circles cap at fifteen, so members aren't the
-                   scarce resource — editors are. Every button on the old page pointed at the side of
-                   the market that isn't constrained. -->
-              <div class="cta">
-                <span class="cta-attn"><a class="btn" href="https://letters.drex.style/join-online/">Request an Invite <span class="arr">&rarr;</span></a><span class="cta-ring" aria-hidden="true"></span></span>
-                <p class="cta-who">on your own? we&rsquo;ll place you in a Circle.</p>
+                   one recognises themselves in six words. Then "Yours will." is the promise.
+                   Nothing shares the headline's optical field: faces beat type, unconditionally. -->
+              <div class="ed-head">
+                <p class="ed-kicker">Drex <i>&middot;</i> small creative circles <i>&middot;</i> pilot 2026</p>
+                <hr class="ed-hair" />
+                <h1 class="ed-h1" aria-label="Most creative groups never finish anything. Yours will."><span class="l">Most creative groups</span><span class="l"><span class="hl">never&nbsp;finish</span> anything.</span><span class="l">Yours will<span class="ed-stop">.</span></span></h1>
+                <!-- the ONE hand object on the card. Birdie is margin annotation and nothing else,
+                     so it lives in the margin, and it points at the pain. -->
+                <p class="ed-scrawl">&mdash; improve as a circle. share with the world.</p>
               </div>
-              <div class="cta-subs">
-                <a class="door org" href="#bring"><span class="door-lbl">I have a group <span class="arr">&rarr;</span></span><span class="door-who">bring your people</span></a>
-                <!-- "Knock on the demo" implied asking to be let in. The demo is passcode-gated —
-                     it is for people who ALREADY have a key. "Open" is the honest verb. -->
-                <a class="door key" href="https://demo.drex.style"><span class="door-lbl">Open the demo <span class="arr">&rarr;</span></span><span class="door-who">got a key already?</span></a>
+
+              <!-- ZONE 2 - the standfirst. ONE paragraph now. The "where circles meet" line used to
+                   be its own block set BIGGER than the lede (rank 3 outranking rank 2); it is four
+                   words inside the sentence instead, which is where it always belonged. Marcus,
+                   cold, asked "is it a website, an app, a club, a magazine, or a service?" - this
+                   names the software, then the loop, then the one thing a stranger can picture. -->
+              <div class="ed-body">
+                <p class="ed-stand"><span class="ed-drop">D</span>rex is an app for creative groups &mdash; <b>in a room or on a screen</b>. A recurring challenge, a standing hour with your people, and a due date that turns what everyone made into a little magazine.</p>
               </div>
-              <!-- Cost + time + the truth about being missed. An earlier draft said "miss one,
-                   nothing bad happens" — but the page then shows a payphone, a who's-missing list
-                   and an attendance chart, and readers believe the machinery over the reassurance.
-                   So: don't deny the noticing. Sell it. Being missed is the product. -->
-              <p class="hero-terms">Free while we're in pilot &middot; one standing hour a week &middot; skip one and nobody's angry &mdash; but somebody will notice. That's the point.</p>
+
+              <!-- ZONE 3 - the CTA, printed as a coupon and cut from the page. The terms live INSIDE
+                   it: price and cadence are the first things a wary buyer looks for, and they were
+                   set at 10px in sub-AA grey, which is not restraint, it is hiding them. -->
+              <div class="ed-foot">
+                <div class="ed-coupon">
+                  <span class="ed-snip" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8 7.5 20 16M8 16.5 20 8"/>
+                    </svg>
+                  </span>
+                  <span class="cta-attn"><a class="btn ed-stamp" href="https://letters.drex.style/join-online/">Request an Invite <span class="arr" aria-hidden="true">&rarr;</span></a></span>
+                  <p class="ed-terms">Free while we&rsquo;re in pilot &middot; one standing hour a week &middot; on your own? we&rsquo;ll place you in a Circle.</p>
+                </div>
+                <p class="ed-links">Have a group? <a href="#bring">Bring them.</a> <span class="sep" aria-hidden="true">&middot;</span> Got a key? <a href="https://demo.drex.style">Open the demo.</a></p>
+              </div>
+
             </div>
-            <!-- Work pasted ON the page, not just heaped behind it. The copy holds a left column
-                 and this lands in the space it leaves — the way anyone actually fills a notebook
-                 page: write down the side, stick the photos in the gap. Tilted, overlapping,
-                 taped. The tear is on each polaroid's paper (::before), never on the photograph. -->
+
+            <!-- PHONE ONLY. On a phone the heap is a band ABOVE and BESIDE the card, so the card
+                 itself would be a bare sheet of type — and the whole promise of the page is that
+                 the work is on the page. These are cutouts glued to the sheet: rough edges, no
+                 shadow (a glued thing casts none), bottom-anchored in px so a headline rewrap can
+                 never push a photo into a word, and never crossing the card's edge — a glued
+                 cutout with no shadow that hangs off the paper reads as a rendering bug.
+                 Above 881 the card is a narrow column and the heap owns the rest of the stage;
+                 pasting these there is the collision this hero was just rebuilt to remove. -->
             <div class="card-stack" aria-hidden="true">
               <figure class="cs" style="--r:-6deg;--t:2%;--l:6%;--w:56%;z-index:3"><i style="background-image:url(assets/zines/silk-road-cover.jpg)"></i></figure>
               <figure class="cs" style="--r:7deg;--t:20%;--l:40%;--w:52%;z-index:4"><i style="background-image:url(assets/makers/falcon.jpg)"></i></figure>
@@ -845,108 +851,97 @@
        The challenge and the answer are set as TEXT, not left inside the screenshots, because
        the caption is the product and a caption inside a 320px-wide JPEG is not a caption.
        ================================================================== -->
-  <section class="proof zb" id="proof">
+  <section class="proof z3" id="proof">
     <div class="wrap">
-      <div class="head">
-        <span class="eyebrow" style="color:var(--lazuli)">no invite, no signup, no gate</span>
-        <h2 class="slab">Two issues you can <span class="ul">read right now</span><span class="stop">.</span></h2>
-        <p class="zb-sub">One booklet, two issues on the shelf. Both are published, both are open on the web, and neither one is a mockup.</p>
+
+      <div class="z3-head">
+        <span class="eyebrow">no invite, no signup, no gate</span>
+        <h2>Two issues you can <span class="ul">read right now</span><span class="stop">.</span></h2>
+        <p class="z3-sub">Both are published, both are open on the web, and neither one is a mockup. This is the whole point of the due date.</p>
       </div>
 
-      <div class="zb-stage">
-        <input class="zb-r" type="radio" name="zbissue" id="zb-cafe" checked
-               aria-label="Open the issue: Drawing at the Cafe" />
-        <input class="zb-r" type="radio" name="zbissue" id="zb-silk"
-               aria-label="Open the issue: Silk Road 001" />
+      <input class="z3-r" type="radio" name="z3issue" id="z3-cafe" checked
+             aria-label="Open the issue: Drawing at the Cafe" />
+      <input class="z3-r" type="radio" name="z3issue" id="z3-silk"
+             aria-label="Open the issue: Silk Road 001" />
 
-        <div class="zb-tabs">
-          <label class="zb-tab" for="zb-cafe">
-            <span class="sheet" aria-hidden="true"></span>
-            <span class="tp" aria-hidden="true"></span>
-            <i>Drawing at the Cafe</i>
-            <b>Drex Zine &middot; 4 makers</b>
-          </label>
-          <label class="zb-tab" for="zb-silk">
-            <span class="sheet" aria-hidden="true"></span>
-            <span class="tp" aria-hidden="true"></span>
-            <i>Silk Road 001</i>
-            <b>XChange Models &middot; 11 makers</b>
-          </label>
-        </div>
-        <p class="zb-hint scrawl" aria-hidden="true">flip the tab <span class="arr">&rarr;</span></p>
-
-        <div class="zb-book">
-          <span class="zb-leaf l4" aria-hidden="true"></span>
-          <span class="zb-leaf l3" aria-hidden="true"></span>
-          <span class="zb-leaf l2" aria-hidden="true"></span>
-          <span class="zb-leaf l1" aria-hidden="true"></span>
-          <span class="zb-sheet" aria-hidden="true"></span>
-          <span class="zb-hatch" aria-hidden="true"></span>
-          <span class="zb-crease" aria-hidden="true"></span>
-          <span class="zb-staple s1" aria-hidden="true"></span>
-          <span class="zb-staple s2" aria-hidden="true"></span>
-
-          <!-- ISSUE 1 — Drawing at the Cafe -->
-          <div class="zb-pane p1" role="region" aria-label="Drawing at the Cafe">
-            <div class="zb-page verso">
-              <a class="zb-shot" style="--ar:3/4;--op:top center;--arm:4/3;--sr:-.9deg"
-                 href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener">
-                <span class="zb-tapeS" aria-hidden="true"></span>
-                <img src="assets/zines/spread-cafe.jpg" width="720" height="1306" loading="lazy" decoding="async"
-                     alt="A page from “Drawing at the Cafe”: Claire holding up her drawing, her cut-out horse doodle pinned beside it, and a torn red note reading “relax and focus”." />
-              </a>
-              <p class="zb-cap">page 4 &mdash; Claire&rsquo;s doodle, cut and taped in by hand</p>
-              <p class="zb-folio">2</p>
-            </div>
-
-            <div class="zb-page recto">
-              <h3 class="zb-mast slab">Drawing at the Cafe</h3>
-              <p class="zb-issue"><b>No. 001</b> <span>Drex Zine</span> <span>&middot;</span> <span>4 makers</span></p>
-
-              <span class="zb-lbl">the challenge</span>
-              <p class="zb-q">Make a doodle at the cafe. Is drawing at the cafe different than at home?</p>
-
-              <span class="zb-lbl">what one maker sent back</span>
-              <blockquote class="zb-a">It helps me relax and focus when I draw at the cafe!
-                <cite>Claire &mdash; designer who doodles at cafes</cite></blockquote>
-
-              <a class="zb-go" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener">Read <i>Drawing at the Cafe</i><span class="arr">&rarr;</span></a>
-              <p class="zb-folio">3</p>
-            </div>
-          </div>
-
-          <!-- ISSUE 2 — Silk Road 001 -->
-          <div class="zb-pane p2" role="region" aria-label="Silk Road 001">
-            <div class="zb-page verso">
-              <a class="zb-shot" style="--ar:720/895;--op:center;--arm:16/10;--sr:.7deg"
-                 href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">
-                <span class="zb-tapeS" aria-hidden="true"></span>
-                <img src="assets/zines/spread-silk.jpg" width="720" height="895" loading="lazy" decoding="async"
-                     alt="A page from “Silk Road 001”: a model mid-stride with a fan on a dark runway, captioned “just try, try, try new things.”" />
-              </a>
-              <p class="zb-cap">page 6 &mdash; Wei-Sean&rsquo;s first walk, shot from the floor</p>
-              <p class="zb-folio">2</p>
-            </div>
-
-            <div class="zb-page recto">
-              <h3 class="zb-mast slab">Silk Road 001</h3>
-              <p class="zb-issue"><b>No. 001</b> <span>XChange Models</span> <span>&middot;</span> <span>11 makers</span></p>
-
-              <span class="zb-lbl">the challenge</span>
-              <p class="zb-q">What changed once you stepped off the runway?</p>
-
-              <span class="zb-lbl">what one maker sent back</span>
-              <blockquote class="zb-a">You definitely feel more. You believe in yourself.
-                <cite>Wei-Sean &mdash; walked for the first time</cite></blockquote>
-
-              <a class="zb-go" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">Read <i>Silk Road 001</i><span class="arr">&rarr;</span></a>
-              <p class="zb-folio">3</p>
-            </div>
-          </div>
-        </div>
+      <div class="z3-tabrow">
+        <label class="z3-tab" for="z3-cafe"><span class="sheet" aria-hidden="true"></span><i>Drawing at the Cafe</i></label>
+        <label class="z3-tab" for="z3-silk"><span class="sheet" aria-hidden="true"></span><i>Silk Road 001</i></label>
+        <span class="z3-hint" aria-hidden="true"><span class="arr">&larr;</span> both real, pick one</span>
       </div>
 
-      <p class="zb-note">Lay it out yourself, or let the bot do it. Both of these are real issues.</p>
+      <div class="z3-book">
+        <span class="z3-leaf b" aria-hidden="true"></span>
+        <span class="z3-leaf a" aria-hidden="true"></span>
+        <span class="z3-sheet" aria-hidden="true"></span>
+
+        <!-- ISSUE 1 — Drawing at the Cafe -->
+        <div class="z3-pane p1" role="region" aria-label="Drawing at the Cafe">
+          <div class="z3-glass" style="--op:50% 8%">
+            <img src="assets/zines/spread-cafe.jpg" width="720" height="1306" decoding="async"
+                 alt="A spread from “Drawing at the Cafe”: Claire holding up her drawing, her cut-out horse doodle pinned beside it, and a torn red note reading “relax and focus”." />
+            <img class="ghost" src="assets/zines/spread-cafe.jpg" width="720" height="1306"
+                 decoding="async" alt="" aria-hidden="true" />
+            <span class="z3-screen" aria-hidden="true"></span>
+            <span class="z3-dropout" aria-hidden="true"></span>
+            <span class="z3-streak" aria-hidden="true"></span>
+          </div>
+
+          <div class="z3-mast">
+            <h3>Drawing at the Cafe</h3>
+            <p class="z3-colophon">No.&nbsp;001 &middot; Drex Zine &middot; 4 makers</p>
+          </div>
+
+          <div class="z3-scrap">
+            <span class="z3-under" aria-hidden="true"></span>
+            <span class="z3-washi w1" aria-hidden="true"></span>
+            <span class="z3-washi w2" aria-hidden="true"></span>
+            <p class="z3-q">Make a doodle at the cafe. Is drawing at the cafe different than at home?</p>
+            <blockquote class="z3-a"><span class="qm" aria-hidden="true">&ldquo;</span>It helps me relax and focus when I draw at the cafe!
+              <cite>Claire &mdash; designer who doodles at cafes</cite></blockquote>
+            <a class="z3-go" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41"
+               target="_blank" rel="noopener">Read the issue <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+
+        <!-- ISSUE 2 — Silk Road 001 -->
+        <div class="z3-pane p2" role="region" aria-label="Silk Road 001">
+          <div class="z3-glass" style="--op:50% 34%;--bri:1.62;--con:1.28">
+            <img src="assets/zines/spread-silk.jpg" width="720" height="895" decoding="async"
+                 alt="A spread from “Silk Road 001”: a model mid-stride with a fan on a dark runway, captioned “just try, try, try new things.”" />
+            <img class="ghost" src="assets/zines/spread-silk.jpg" width="720" height="895"
+                 decoding="async" alt="" aria-hidden="true" />
+            <span class="z3-screen" aria-hidden="true"></span>
+            <span class="z3-dropout" aria-hidden="true"></span>
+            <span class="z3-streak" aria-hidden="true"></span>
+          </div>
+
+          <div class="z3-mast">
+            <h3>Silk Road 001</h3>
+            <p class="z3-colophon">No.&nbsp;001 &middot; XChange Models &middot; 11 makers</p>
+          </div>
+
+          <div class="z3-scrap">
+            <span class="z3-under" aria-hidden="true"></span>
+            <span class="z3-washi w1" aria-hidden="true"></span>
+            <span class="z3-washi w2" aria-hidden="true"></span>
+            <p class="z3-q">What changed once you stepped off the runway?</p>
+            <blockquote class="z3-a"><span class="qm" aria-hidden="true">&ldquo;</span>You definitely feel more. You believe in yourself.
+              <cite>Wei-Sean &mdash; walked for the first time</cite></blockquote>
+            <a class="z3-go" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23"
+               target="_blank" rel="noopener">Read the issue <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+
+        <span class="z3-band" aria-hidden="true"></span>
+        <span class="z3-crease" aria-hidden="true"></span>
+        <span class="z3-staple s1" aria-hidden="true"></span>
+        <span class="z3-staple s2" aria-hidden="true"></span>
+      </div>
+
+      <p class="z3-note">Lay it out yourself, or let the bot do it. Both of these are real issues.</p>
+
     </div>
   </section>
 
