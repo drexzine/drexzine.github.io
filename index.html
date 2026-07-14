@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=258" />
+<link rel="stylesheet" href="app.css?v=259" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -867,96 +867,213 @@
        The challenge and the answer are set as TEXT, not left inside the screenshots, because
        the caption is the product and a caption inside a 320px-wide JPEG is not a caption.
        ================================================================== -->
-  <section class="proof z3" id="proof">
+  <!-- ============ THE PROOF — two issues you can read right now ============
+       The artifact is a TALL, portrait, variable-height SCROLLING WEB PAGE, not a
+       landscape paper spread. The old "book" cropped a 720x1306 page into a 1.46
+       landscape frame and threw away 60% of it, leaving a flat grey wall — the
+       object's proportions were lying about what a zine is.
+       Now each issue runs down a 300px gutter at its FULL uncropped height inside a
+       cartoon browser window (it says "web page" out loud, with a real URL bar), a
+       length ruler marks how tall it actually is, and the caption — the product —
+       is set calm in the wide margin. Craft on the facsimile; hierarchy in the type;
+       they never trade jobs. Tabs swap the issue, so all three fit one object and the
+       section is SHORTER than the 1148px it was. The third is the interactive
+       dress-up zine, drawn not shot, with no fabricated quote. ============ -->
+  <section class="mg" id="proof">
     <div class="wrap">
 
-      <div class="z3-head">
+      <div class="mg-head">
         <span class="eyebrow">no invite, no signup, no gate</span>
         <h2>Two issues you can <span class="ul">read right now</span><span class="stop">.</span></h2>
-        <p class="z3-sub">Both are published, both are open on the web, and neither one is a mockup. This is the whole point of the due date.</p>
+        <p class="mg-sub">Both are published, both are open on the web, and neither one is a mockup. This is the whole point of the due date.</p>
       </div>
 
-      <input class="z3-r" type="radio" name="z3issue" id="z3-cafe" checked
-             aria-label="Open the issue: Drawing at the Cafe" />
-      <input class="z3-r" type="radio" name="z3issue" id="z3-silk"
-             aria-label="Open the issue: Silk Road 001" />
+      <input class="mg-r" type="radio" name="mgissue" id="mg-a" checked aria-label="Show the issue: Drawing at the Cafe" />
+      <input class="mg-r" type="radio" name="mgissue" id="mg-b" aria-label="Show the issue: Silk Road 001" />
+      <input class="mg-r" type="radio" name="mgissue" id="mg-c" aria-label="Show the interactive issue: the dress-up game" />
 
-      <div class="z3-tabrow">
-        <label class="z3-tab" for="z3-cafe"><span class="sheet" aria-hidden="true"></span><i>Drawing at the Cafe</i></label>
-        <label class="z3-tab" for="z3-silk"><span class="sheet" aria-hidden="true"></span><i>Silk Road 001</i></label>
-        <span class="z3-hint" aria-hidden="true"><span class="arr">&larr;</span> both real, pick one</span>
+      <div class="mg-tabs">
+        <label class="mg-tab" for="mg-a"><span class="n">Drawing at the Cafe</span></label>
+        <label class="mg-tab" for="mg-b"><span class="n">Silk Road 001</span></label>
+        <label class="mg-tab" for="mg-c"><span class="n">Dress-up game</span></label>
+        <span class="mg-hint" aria-hidden="true">&larr; three real issues, pick one</span>
       </div>
 
-      <div class="z3-book">
-        <span class="z3-leaf b" aria-hidden="true"></span>
-        <span class="z3-leaf a" aria-hidden="true"></span>
-        <span class="z3-sheet" aria-hidden="true"></span>
+      <div class="mg-stage">
 
         <!-- ISSUE 1 — Drawing at the Cafe -->
-        <div class="z3-pane p1" role="region" aria-label="Drawing at the Cafe">
-          <div class="z3-glass" style="--op:50% 8%">
-            <img src="assets/zines/spread-cafe.jpg" width="720" height="1306" decoding="async"
-                 alt="A spread from “Drawing at the Cafe”: Claire holding up her drawing, her cut-out horse doodle pinned beside it, and a torn red note reading “relax and focus”." />
-            <img class="ghost" src="assets/zines/spread-cafe.jpg" width="720" height="1306"
-                 decoding="async" alt="" aria-hidden="true" />
-            <span class="z3-screen" aria-hidden="true"></span>
-            <span class="z3-dropout" aria-hidden="true"></span>
-            <span class="z3-streak" aria-hidden="true"></span>
+        <article class="mg-issue i1" aria-label="Drawing at the Cafe">
+          <div class="fac">
+            <span class="mg-ruler" aria-hidden="true"><b>1306</b><span>px tall</span></span>
+            <span class="tape" aria-hidden="true"></span>
+            <span class="tape b r" aria-hidden="true"></span>
+            <div class="fac-shot">
+              <div class="fac-bar" aria-hidden="true">
+                <i></i><i></i><i></i>
+                <span class="fac-url">demo.drex.style/z/b33a8293&hellip;</span>
+              </div>
+              <img src="assets/zines/spread-cafe.jpg" width="720" height="1306" decoding="async" loading="lazy"
+                   alt="The whole of “Drawing at the Cafe”, top to bottom: Claire holding up her drawing, her cut-out horse doodle taped beside it, and a torn red note reading “relax and focus”." />
+            </div>
+            <span class="fac-curl" aria-hidden="true"></span>
+            <p class="fac-note">the whole page, top to bottom &mdash; nothing cropped, nothing tidied <span class="arr" aria-hidden="true">&darr;</span></p>
           </div>
 
-          <div class="z3-mast">
-            <h3>Drawing at the Cafe</h3>
-            <p class="z3-colophon">No.&nbsp;001 &middot; Drex Zine &middot; 4 makers</p>
-          </div>
+          <div class="mg-margin">
+            <p class="mg-kicker">Issue No.&nbsp;001 &middot; published</p>
+            <h3 class="mg-title">Drawing at the Cafe</h3>
+            <p class="mg-slug">Drex Zine &middot; 4 makers &middot; cut and taped by hand</p>
 
-          <div class="z3-scrap">
-            <span class="z3-under" aria-hidden="true"></span>
-            <span class="z3-washi w1" aria-hidden="true"></span>
-            <span class="z3-washi w2" aria-hidden="true"></span>
-            <p class="z3-q">Make a doodle at the cafe. Is drawing at the cafe different than at home?</p>
-            <blockquote class="z3-a"><span class="qm" aria-hidden="true">&ldquo;</span>It helps me relax and focus when I draw at the cafe!
-              <cite>Claire &mdash; designer who doodles at cafes</cite></blockquote>
-            <a class="z3-go" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41"
-               target="_blank" rel="noopener">Read the issue <span aria-hidden="true">&rarr;</span></a>
+            <p class="mg-lab">The challenge</p>
+            <p class="mg-q">Make a doodle at the cafe. Is drawing at the cafe different than at home?</p>
+
+            <p class="mg-lab">Claire&rsquo;s answer</p>
+            <blockquote class="mg-a">&ldquo;It helps me relax and focus when I draw at the cafe!&rdquo;
+              <cite class="mg-cite">Claire &mdash; designer who doodles at cafes</cite></blockquote>
+
+            <p class="mg-cta">
+              <a class="btn" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41"
+                 target="_blank" rel="noopener">Read the issue <span class="arr" aria-hidden="true">&rarr;</span></a>
+            </p>
+            <p class="mg-why">Open on the web. No invite, no signup, no gate &mdash; the link is the whole thing.</p>
           </div>
-        </div>
+        </article>
 
         <!-- ISSUE 2 — Silk Road 001 -->
-        <div class="z3-pane p2" role="region" aria-label="Silk Road 001">
-          <div class="z3-glass" style="--op:50% 34%;--bri:1.62;--con:1.28">
-            <img src="assets/zines/spread-silk.jpg" width="720" height="895" decoding="async"
-                 alt="A spread from “Silk Road 001”: a model mid-stride with a fan on a dark runway, captioned “just try, try, try new things.”" />
-            <img class="ghost" src="assets/zines/spread-silk.jpg" width="720" height="895"
-                 decoding="async" alt="" aria-hidden="true" />
-            <span class="z3-screen" aria-hidden="true"></span>
-            <span class="z3-dropout" aria-hidden="true"></span>
-            <span class="z3-streak" aria-hidden="true"></span>
+        <article class="mg-issue i2" aria-label="Silk Road 001">
+          <div class="fac">
+            <span class="mg-ruler" aria-hidden="true"><b>895</b><span>px tall</span></span>
+            <span class="tape c" aria-hidden="true"></span>
+            <span class="tape r" aria-hidden="true"></span>
+            <div class="fac-shot">
+              <div class="fac-bar" aria-hidden="true">
+                <i></i><i></i><i></i>
+                <span class="fac-url">demo.drex.style/z/2020eaf7&hellip;</span>
+              </div>
+              <img src="assets/zines/spread-silk.jpg" width="720" height="895" decoding="async" loading="lazy"
+                   alt="The whole of “Silk Road 001”, top to bottom: a model mid-stride with a fan on a dark runway, captioned “just try, try, try new things.”" />
+            </div>
+            <span class="fac-curl" aria-hidden="true"></span>
+            <p class="fac-note">shorter page, eleven people &mdash; each issue ends where it ends</p>
           </div>
 
-          <div class="z3-mast">
-            <h3>Silk Road 001</h3>
-            <p class="z3-colophon">No.&nbsp;001 &middot; XChange Models &middot; 11 makers</p>
+          <div class="mg-margin">
+            <p class="mg-kicker">Issue No.&nbsp;001 &middot; published</p>
+            <h3 class="mg-title">Silk Road 001</h3>
+            <p class="mg-slug">XChange Models &middot; 11 makers &middot; composed by the bot</p>
+
+            <p class="mg-lab">The challenge</p>
+            <p class="mg-q">What changed once you stepped off the runway?</p>
+
+            <p class="mg-lab">Wei-Sean&rsquo;s answer</p>
+            <blockquote class="mg-a">&ldquo;You definitely feel more. You believe in yourself.&rdquo;
+              <cite class="mg-cite">Wei-Sean &mdash; walked for the first time</cite></blockquote>
+
+            <p class="mg-cta">
+              <a class="btn" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23"
+                 target="_blank" rel="noopener">Read the issue <span class="arr" aria-hidden="true">&rarr;</span></a>
+            </p>
+            <p class="mg-why">Open on the web. No invite, no signup, no gate &mdash; the link is the whole thing.</p>
+          </div>
+        </article>
+
+        <!-- THIRD OBJECT — the dress-up game. No screenshot exists, so it is DRAWN,
+             and it gets no fabricated pull-quote: it is a toy, and it says so. -->
+        <article class="mg-issue i3" aria-label="The interactive issue: a dress-up game">
+          <div class="fac">
+            <span class="mg-ruler mg-ruler-play" aria-hidden="true"><b>play</b><span>it live</span></span>
+            <span class="tape b" aria-hidden="true"></span>
+            <span class="tape c r" aria-hidden="true"></span>
+            <div class="fac-shot">
+              <div class="fac-bar" aria-hidden="true">
+                <i></i><i></i><i></i>
+                <span class="fac-url">demo.drex.style/z/5b548352&hellip;</span>
+              </div>
+              <svg viewBox="0 0 300 560" role="img"
+                   aria-label="A drawing of the interactive issue: a cartoon clip-art figure with a cut-out shirt peeling off him, a rack of cut-out clothes below, and a dashed line showing a piece being dragged onto him.">
+                <rect x="0" y="0" width="300" height="560" fill="var(--oats)"/>
+                <g filter="url(#rough)">
+                  <rect x="0" y="0" width="300" height="52" fill="var(--happy)"/>
+                  <path d="M0 52 H300" stroke="var(--ink)" stroke-width="3"/>
+                  <path d="M20 20 h96 M20 33 h58 M132 26 h34" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>
+                  <circle cx="272" cy="26" r="9" fill="var(--colorado)" stroke="var(--ink)" stroke-width="3"/>
+                </g>
+                <g filter="url(#roughsm)">
+                  <ellipse cx="112" cy="336" rx="52" ry="8" fill="rgba(65,77,87,.20)"/>
+                  <rect x="92" y="262" width="17" height="70" rx="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
+                  <rect x="118" y="262" width="17" height="70" rx="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
+                  <rect x="88" y="238" width="51" height="32" rx="5" fill="var(--lazuli)" stroke="var(--ink)" stroke-width="3"/>
+                  <rect x="90" y="168" width="47" height="76" rx="8" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
+                  <rect x="62" y="172" width="15" height="64" rx="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="3" transform="rotate(-9 69 204)"/>
+                  <rect x="150" y="172" width="15" height="64" rx="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="3" transform="rotate(9 157 204)"/>
+                  <circle cx="113" cy="134" r="29" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
+                  <path d="M92 108 q21 -16 42 0" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+                  <circle cx="103" cy="131" r="3.4" fill="var(--ink)"/>
+                  <circle cx="124" cy="131" r="3.4" fill="var(--ink)"/>
+                  <path d="M102 145 q11 9 22 0" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+                </g>
+                <g transform="rotate(-8 150 205)">
+                  <g filter="url(#rough)">
+                    <path d="M117 176 l22 -12 l30 0 l22 12 l-11 24 l-11 -6 l0 56 l-30 0 l0 -56 l-11 6 Z" transform="translate(6,7)" fill="rgba(65,77,87,.85)" stroke="none"/>
+                    <path d="M117 176 l22 -12 l30 0 l22 12 l-11 24 l-11 -6 l0 56 l-30 0 l0 -56 l-11 6 Z" fill="var(--grass)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+                    <path d="M139 164 q15 14 30 0" fill="none" stroke="var(--ink)" stroke-width="2.6"/>
+                  </g>
+                  <path d="M112 173 l25 -15 l35 0 l26 15 l-13 29 l-12 -7 l0 56 l-36 0 l0 -56 l-12 7 Z" fill="none" stroke="var(--paper)" stroke-width="2.4" stroke-dasharray="7 6" opacity=".9"/>
+                </g>
+                <g filter="url(#roughsm)" transform="rotate(-8 150 205)">
+                  <rect x="140" y="150" width="46" height="15" rx="1" fill="rgba(241,221,1,.62)" stroke="var(--ink)" stroke-width="1.6"/>
+                </g>
+                <g filter="url(#roughsm)">
+                  <path d="M214 452 C244 400 240 330 196 268" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-dasharray="8 8" stroke-linecap="round" opacity=".8"/>
+                  <path d="M196 268 l14 12 M196 268 l-3 18" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round"/>
+                  <circle cx="214" cy="452" r="13" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
+                  <path d="M214 445 v14 M207 452 h14" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+                </g>
+                <g filter="url(#rough)">
+                  <path d="M18 382 H282" stroke="var(--ink)" stroke-width="3"/>
+                  <path d="M40 430 l0 -22 l36 0 l0 22 l16 0 l0 12 l-68 0 l0 -12 Z" transform="translate(5,6)" fill="rgba(65,77,87,.85)"/>
+                  <path d="M40 430 l0 -22 l36 0 l0 22 l16 0 l0 12 l-68 0 l0 -12 Z" fill="var(--colorado)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+                  <path d="M120 406 l44 0 l4 60 l-16 0 l-10 -34 l-10 34 l-16 0 Z" transform="translate(5,6)" fill="rgba(65,77,87,.85)"/>
+                  <path d="M120 406 l44 0 l4 60 l-16 0 l-10 -34 l-10 34 l-16 0 Z" fill="var(--lazuli)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+                  <path d="M196 452 l26 0 l16 14 l0 8 l-42 0 Z" transform="translate(5,6)" fill="rgba(65,77,87,.85)"/>
+                  <path d="M196 452 l26 0 l16 14 l0 8 l-42 0 Z" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+                </g>
+                <g filter="url(#roughsm)">
+                  <rect x="46" y="374" width="52" height="16" rx="1" fill="rgba(36,150,201,.42)" stroke="var(--ink)" stroke-width="1.6" transform="rotate(-4 72 382)"/>
+                  <rect x="188" y="374" width="52" height="16" rx="1" fill="rgba(247,84,88,.42)" stroke="var(--ink)" stroke-width="1.6" transform="rotate(5 214 382)"/>
+                </g>
+                <g filter="url(#rough)" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" opacity=".55">
+                  <path d="M22 502 h150 M22 518 h216 M22 534 h96"/>
+                </g>
+              </svg>
+            </div>
+            <span class="fac-curl" aria-hidden="true"></span>
+            <p class="fac-note">no screenshot of this one &mdash; you have to go and play it</p>
           </div>
 
-          <div class="z3-scrap">
-            <span class="z3-under" aria-hidden="true"></span>
-            <span class="z3-washi w1" aria-hidden="true"></span>
-            <span class="z3-washi w2" aria-hidden="true"></span>
-            <p class="z3-q">What changed once you stepped off the runway?</p>
-            <blockquote class="z3-a"><span class="qm" aria-hidden="true">&ldquo;</span>You definitely feel more. You believe in yourself.
-              <cite>Wei-Sean &mdash; walked for the first time</cite></blockquote>
-            <a class="z3-go" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23"
-               target="_blank" rel="noopener">Read the issue <span aria-hidden="true">&rarr;</span></a>
-          </div>
-        </div>
+          <div class="mg-margin">
+            <p class="mg-kicker">Interactive issue &middot; published</p>
+            <h3 class="mg-title">The dress-up game</h3>
+            <p class="mg-slug">Drexzine &middot; 4 makers &middot; cutouts, glue, washi tape</p>
 
-        <span class="z3-band" aria-hidden="true"></span>
-        <span class="z3-crease" aria-hidden="true"></span>
-        <span class="z3-staple s1" aria-hidden="true"></span>
-        <span class="z3-staple s2" aria-hidden="true"></span>
+            <p class="mg-lab">What it is</p>
+            <p class="mg-q">These are web pages, not PDFs. This one is a dress-up game.</p>
+
+            <p class="mg-lab">Why there is no quote here</p>
+            <blockquote class="mg-a is-plain">Because it isn&rsquo;t an answer. It&rsquo;s a toy: a clip-art figure and cut-out clothes you drag onto him.
+              <cite class="mg-cite">Four people made it. You play it.</cite></blockquote>
+
+            <p class="mg-cta">
+              <a class="btn ink" href="https://demo.drex.style/z/5b548352-9124-4b25-bcaa-9c06322d30bb"
+                 target="_blank" rel="noopener">Play the issue <span class="arr" aria-hidden="true">&rarr;</span></a>
+            </p>
+            <p class="mg-why">It is not proof of a deadline &mdash; the two issues above are. It is proof of what a finished issue is allowed to be.</p>
+          </div>
+        </article>
+
       </div>
 
-      <p class="z3-note">Lay it out yourself, or let the bot do it. Both of these are real issues.</p>
+      <p class="mg-foot">Lay it out yourself, or let the bot do it. Both of these are real issues.</p>
 
     </div>
   </section>
