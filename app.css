@@ -3826,3 +3826,24 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
   /* a 40% well is wide enough that its derived height fills the copy column beside it */
   .ed-inner{grid-template-columns:minmax(0,60fr) minmax(0,40fr)}
 }
+
+/* THE THREE BEATS. The loop is a challenge, an hour, and a due date, and the sentence says so but
+   does not SHOW so. Colouring the words themselves is not an option: on Oats, every brand colour
+   fails WCAG AA as body text (grass 2.78, colorado 3.07, lazuli 3.11, schoolbus 1.82 — the floor is
+   4.5). So the colour goes BEHIND the ink, the way a highlighter actually works. And a highlighter is
+   translucent: at full strength ink-on-grass is 2.90 and unreadable, but at .42 it is 5.1 and passes,
+   while still reading unmistakably as green.
+   The marks sit on the three NOUNS, not the three clauses. .hl::before is one absolutely-positioned
+   swatch, so on a phrase that wraps it paints a single box over every line in between — a redaction,
+   not a highlight. nowrap keeps each mark on one line, which is the only state it is drawn for.
+   Blue asks, green is where the people are, red is the deadline. Yellow stays the headline's alone. */
+.ed-stand .hl{white-space:nowrap}
+.hl-b::before{background:var(--lazuli);opacity:.42}
+.hl-g::before{background:var(--grass);opacity:.42}
+.hl-r::before{background:var(--colorado);opacity:.42}
+/* the terms are longer now (they carry the funding model), so give the coupon room to hold them
+   without squeezing the stamp — and let the first sentence, the one that answers "what does it
+   cost", carry weight instead of hiding at the end of a run-on. */
+.ed-terms{flex:1 1 15rem;line-height:1.5}
+.ed-terms b{font-weight:600;color:var(--ink)}
+.ed-coupon{max-width:none}
