@@ -21,11 +21,41 @@
   --coral-ink:#C9343A;       /* sanctioned deepened Colorado (matches letters) */
   --lazuli-deep:#1C6F94;     /* sanctioned deepened Lazuli (matches letters) */
   --ink:#414D57;
+  /* Text ink has exactly three levels and NONE go below .80 — under that it fails AA on Oats
+     (.75 = 4.22:1). Body is solid. Bitter Light at full ink reads sharper, not heavier: it stops
+     competing with the paper grain. Do not invent a fourth level. */
+  --ink-soft:rgba(65,77,87,.85);   /* 5.42:1 — captions, secondary */
+  --ink-faint:rgba(65,77,87,.80);  /* 4.77:1 — the floor. Nothing on text is quieter than this. */
   --paper:#FEF6E4;            /* Oats — palette-pure; cards lift off the textured ground via torn ink border + hard shadow */
-  --f-slab:"Courier Prime",ui-monospace,monospace;  /* Pitch (display) */
-  --f-mono:"DM Mono",ui-monospace,monospace;         /* Pitch Sans (labels) */
+
+  /* ---- The four brand faces (brand book §06). One job each; never trade. ----
+     Pitch      → DISPLAY, "moments where we need maximum impact" = the h1, and nothing else.
+     Pitch Sans → "Headings and Subheadings" — an upright SANS. Was wrongly substituted with
+                  DM Mono (a monospace), which collapsed it into Pitch and killed the hierarchy.
+     Bitter     → body. Birdie → margin annotations ONLY (never a heading, never body). */
+  --f-display:"Courier Prime",ui-monospace,monospace;   /* Pitch — h1 only */
+  --f-slab:"Courier Prime",ui-monospace,monospace;      /* Pitch — display accents (pull-quotes, dropcap) */
+  --f-head:"Space Grotesk",system-ui,sans-serif;        /* Pitch Sans — h2, h3 */
+  --f-mono:"Space Grotesk",system-ui,sans-serif;        /* Pitch Sans — tracked uppercase labels */
   --f-body:"Bitter",Georgia,serif;
-  --f-hand:"Patrick Hand",cursive;                   /* Birdie (scrawl) */
+  --f-hand:"Patrick Hand",cursive;                      /* Birdie (scrawl) */
+
+  /* ---- Type scale: fluid, two-ratio (1.2 @375 → 1.333 @1440), base 17→19px. ----
+     THE RULE: no font-size literal anywhere outside this block. The page previously carried 108
+     font-size declarations / 58 distinct clamps for ~5 real ranks, which is why size stopped
+     meaning rank. One deliberately off-scale size exists (--fs-display). Do not add a second. */
+  /* --fs-display is capped at 72px because that is the hard ceiling of the hero's LAYOUT, not a
+     taste call: the hero card's inner width is 561px, and 13 characters of Courier Prime (a mono,
+     ~0.6em advance) at anything above 72px overflows it. Going bigger means going full-bleed and
+     dropping the polaroid below the headline. Measured, not guessed. */
+  --fs-display:clamp(2.375rem, 1.28rem + 4.60vw, 4.5rem);    /*  38 →  72px  hero h1 — off-scale, on purpose */
+  --fs-1:clamp(1.75rem, 1.35rem + 1.69vw, 2.75rem);          /*  28 →  44px  h2, TIER A */
+  --fs-2:clamp(1.5rem, 1.29rem + 0.94vw, 2.125rem);          /*  24 →  34px  h2, TIER B */
+  --fs-3:clamp(1.25rem, 1.13rem + 0.56vw, 1.625rem);         /*  20 →  26px  h3 / card heads */
+  --fs-lede:clamp(1.1875rem, 1.08rem + 0.47vw, 1.5rem);      /*  19 →  24px  hero lede, sub-decks */
+  --fs-body:clamp(1.0625rem, 1.02rem + 0.19vw, 1.1875rem);   /*  17 →  19px  body */
+  --fs-small:clamp(0.875rem, 0.84rem + 0.14vw, 0.97rem);     /*  14 → 15.5px captions, marginalia — FLOOR */
+  --fs-label:clamp(0.78rem, 0.76rem + 0.09vw, 0.84rem);      /* 12.5 → 13.5px tracked uppercase labels */
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;overflow-x:clip}
@@ -136,8 +166,8 @@ a{color:inherit}
 .hero{padding:clamp(2.4rem,7vw,5rem) 0 clamp(1.5rem,4vw,3rem)}
 .hero .inner{padding:clamp(1.8rem,5vw,3.6rem)}
 .hero .eyebrow{margin-bottom:1rem}
-.hero h1{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:1;letter-spacing:-.012em;
-  text-wrap:balance;font-size:clamp(2.7rem,9vw,6.6rem);margin:0;color:var(--ink);max-width:15ch}
+.hero h1{font-family:var(--f-display);font-style:italic;font-weight:700;line-height:1;letter-spacing:-.012em;
+  text-wrap:balance;font-size:var(--fs-display);margin:0;color:var(--ink);max-width:15ch}
 .hero h1 .stop{color:var(--grass-deep)}
 .hero .lede{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.2rem,2.3vw,1.7rem);
   line-height:1.55;max-width:32ch;margin:clamp(1.4rem,3.5vw,2.2rem) 0 0;color:var(--ink)}
@@ -146,7 +176,7 @@ a{color:inherit}
 .hero .pin{position:absolute;right:clamp(1rem,5vw,3rem);top:clamp(-.5rem,2vw,1rem);z-index:4;
   transform:rotate(4deg);text-align:center}
 .hero .pin .scrawl{font-size:1.25rem;color:var(--sambas);max-width:12ch}
-@media(max-width:680px){.hero .pin{display:none}}
+@media(max-width:880px){.hero .pin{display:none}}   /* below 881 the card goes full-width, so the pin lands ON the copy — and ≥881 the polaroid owns that corner. It has no viewport left. */
 
 /* ===================================================================
    HERO ENVELOPE — drag-to-cut. The card hides in a clipped pocket; sealed,
@@ -181,9 +211,17 @@ html.sealed .envelope.opened .hero-card{transform:translateY(0)}
    Two sentences = two blocks: each wraps on its own and balances, so a line break can
    never straddle the full stop ("circle. Show and / tell"). .hl needs its phrase to stay
    on one line or the highlighter box tears, hence the nbsp in "small circle". */
-.hero-card h1{font-size:clamp(1.5rem,2.9vw,2.15rem);max-width:17ch;line-height:1.06}
+/* NO font-size here. This rule used to carry clamp(1.5rem,2.9vw,2.15rem) at the same specificity
+   as .hero h1 (0,1,1), so source order silently won and the headline rendered at 34px — smaller
+   than every h2 on the page, and smaller than the h3 reading "Instagram". The apex is the one
+   thing a landing page cannot get wrong. Size lives in .hero h1 / --fs-display now. */
+/* 13ch is the card's real capacity at --fs-display max (561px inner ÷ 0.6em advance ÷ 72px).
+   Left to its own devices `text-wrap:balance` orphans the "a" onto its own line; pinning the
+   measure to the line the card can actually hold gives "Get good in a / small circle." */
+.hero-card h1{max-width:13ch;line-height:1.02}
 .hero-card h1 .h1s{display:block;text-wrap:balance}
-.hero-card h1 .h1s+.h1s{margin-top:.16em}
+/* Sentence two steps down a rank: the headline reads as two beats, not one wall of display type. */
+.hero-card h1 .h1s+.h1s{margin-top:.1em;font-size:.62em;color:var(--ink-soft)}
 .hero-card .lede{font-size:clamp(.95rem,1.5vw,1.15rem);max-width:32ch;margin-top:clamp(.7rem,1.6vw,1.05rem)}
 .hero-card .cta{margin-top:clamp(1.3rem,3.2vw,1.9rem)}
 /* the reassurance, in the margin, immediately under the scary half of the headline */
@@ -2366,3 +2404,207 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 }
 @media(prefers-reduced-motion:reduce){.belt-track,.bo,.bo-scroll{animation:none}.bo{opacity:0}}
 .showup-pulse{ color:var(--grass-deep); transform:rotate(1.2deg); max-width:40ch; }
+/* =====================================================================
+   THE HEADING SYSTEM  (brand book §06 — restored)
+   ---------------------------------------------------------------------
+   The brand defines TWO display faces and the site had collapsed them into one:
+
+     Pitch      (--f-display)  "moments where we need maximum impact"  → the h1. Nothing else.
+     Pitch Sans (--f-head)     "Headings and Subheadings"              → every h2 and h3.
+
+   Pitch Sans is an upright SANS; it had been substituted with DM Mono, a monospace. That made
+   the hero and all ten section heads the same face, in the same italic, at the same weight —
+   so SIZE was the only rank signal left, and size was broken too (the h1 rendered at 34px,
+   under every h2 on the page). Hierarchy is carried by FAMILY first, size second. Restore both
+   and it holds even at 25% zoom.
+
+   These rules come last on purpose: they match the per-section selectors' specificity and win on
+   source order, so the ~11 legacy `.x .head h2` blocks above are neutralised in one place rather
+   than edited in eleven. Delete those blocks when convenient; nothing here depends on them.
+   ===================================================================== */
+.how .head h2,.zines .head h2,.versus .head h2,.doors .head h2,
+.kit .head h2,.longgame .head h2,.gifts .head h2,.team .head h2,
+.bring .head h2,.bring h2{
+  font-family:var(--f-head);font-style:normal;font-weight:700;
+  letter-spacing:-.015em;line-height:1.06;text-wrap:balance;
+  /* margin-inline:auto is NOT optional: the .head containers are text-align:center, so a
+     max-width'd h2 block without it hugs the left edge and only its text centres inside the
+     narrow box — which reads as "every heading is off-centre". */
+  color:var(--ink);max-width:24ch;margin-inline:auto;
+  font-size:var(--fs-2);                    /* TIER B — the supporting cast */
+}
+/* TIER A — the spine of the pitch: what it is → what you make → how you find people →
+   why not a group chat. Someone who reads only these four heads has the whole product.
+   ID selectors (1,1,1) outrank the class rules above (0,2,1), so this is the only place tier
+   lives. To promote a section, add its id here. That's the whole mechanism. */
+#how .head h2,#zine .head h2,#reader .head h2,#why-not-chat .head h2{font-size:var(--fs-1)}
+
+/* h3s. `.card.big h3` used to sit at clamp(2.1rem,3.2vw,2.9rem) — 41px — which made the word
+   "Instagram" outrank six section headings and the h1. An h3 never outranks an h2. */
+.card h3,.card.big h3{
+  font-family:var(--f-head);font-style:normal;font-weight:700;
+  font-size:var(--fs-3);letter-spacing:-.01em;line-height:1.12;text-wrap:balance;
+}
+/* The loop's ring nodes keep their container-query sizes (cqw): the ring is a self-contained
+   illustration and must scale as one object, not on the page's rem ladder. Family only. */
+.how .step h3{font-family:var(--f-head);font-style:normal;font-weight:700}
+
+/* =====================================================================
+   THE HERO — "Most creative groups never finish anything. Yours will."
+   ---------------------------------------------------------------------
+   The pile of real work sits BEHIND the card and spills out on every side.
+   That ordering is the entire trick, and it's why a dozen earlier arrangements
+   read as dead: the card's paper is opaque, so the pile can be as chaotic and
+   overlapping as it likes and it can never cover a word. Any layout that puts
+   the work BESIDE the type has to keep the work tidy — and tidy has no energy.
+
+   Craft rules, all learned the expensive way:
+     · #torn is scale 12 (calibrated). #tornbig is 28 and SHREDS a thin border.
+     · An SVG displacement filter smears the element's CONTENT. It goes on a
+       ::before paper layer — never on anything holding text or a photograph.
+     · Flat fill, ink outline, hard SOLID offset shadow. No gradient, no blur.
+   ===================================================================== */
+.card-clip{z-index:3}                    /* the card, and its type, above the pile. always. */
+
+.hero-pile{position:absolute;inset:-8% -15% -8% -6%;z-index:1;pointer-events:none}
+.hero-pile .hp{position:absolute;margin:0;isolation:isolate;
+  top:var(--t);left:var(--l);width:var(--w);transform:rotate(var(--r))}
+/* the polaroid card. The tear lives HERE, on the paper — not on the photo. */
+.hero-pile .hp::before{content:"";position:absolute;inset:-8px -8px -26px;z-index:0;
+  background:var(--paper);border:2.6px solid var(--ink);border-radius:4px;
+  box-shadow:7px 8px 0 0 var(--ink);filter:url(#torn)}
+.hero-pile .hp i{position:relative;z-index:1;display:block;aspect-ratio:1;
+  background-size:cover;background-position:center}   /* clean cut-out edges. never filtered. */
+.hero-pile .hp figcaption{position:relative;z-index:1;display:block;font-family:var(--f-hand);
+  font-size:.86rem;color:var(--ink);margin-top:5px}
+@media(max-width:1100px){.hero-pile{display:none}}   /* the card owns the phone; the pile would bury it */
+
+/* the two beats of the headline: the problem in ink, the promise in grass */
+.hero-card h1 .h1-green{color:var(--grass-deep)}
+.hero-card h1 .h1-green .stop{color:var(--grass-deep)}
+.hero-scrawl{font-family:var(--f-hand);color:var(--grass-deep);margin:.5rem 0 0;
+  font-size:clamp(1.05rem,1.45vw,1.36rem);transform:rotate(-.8deg)}
+.hero-card .lede b{font-weight:600;color:var(--ink)}
+.hero-rule{display:block;height:4px;max-width:22ch;margin:1.2rem 0 1.1rem;
+  background:var(--ink);opacity:.5;filter:url(#rough)}   /* hand-drawn. never a straight border. */
+
+/* one primary + two subs. three colours. each says who it's for. */
+.cta-who{font-family:var(--f-hand);font-size:1rem;color:var(--ink-faint);
+  margin:.4rem 0 0 .3rem;transform:rotate(-.6deg)}
+.cta-subs{display:flex;gap:1.3rem;flex-wrap:wrap;margin-top:1rem}
+.door{display:flex;flex-direction:column;gap:.12rem;text-decoration:none}
+.door-lbl{position:relative;isolation:isolate;display:inline-block;font-family:var(--f-mono);
+  font-weight:700;font-size:.8rem;letter-spacing:.09em;text-transform:uppercase;padding:.52rem .9rem}
+/* the wobble is on the BUTTON, not on its letters — a filter on the element smears the text */
+.door-lbl::before{content:"";position:absolute;inset:0;z-index:-1;border:2.4px solid currentColor;
+  border-radius:4px;background:var(--paper);box-shadow:4px 4px 0 0 currentColor;filter:url(#roughsm)}
+.door.org .door-lbl{color:var(--lazuli-deep)}     /* the organizer — the scarce side of the market */
+.door.key .door-lbl{color:var(--coral-ink)}       /* already has a key */
+.door-who{font-family:var(--f-hand);font-size:.94rem;color:var(--ink-faint);margin-left:.2rem}
+.door:hover .door-lbl{transform:translate(1px,1px)}
+.door:hover .door-lbl::before{box-shadow:3px 3px 0 0 currentColor}
+
+/* The card was sized to leave a gutter for the instax polaroid that used to sit beside it.
+   That polaroid is gone (it was a cross-origin iframe that painted black for ad-blocker users),
+   and the pile now lives BEHIND the card instead of next to it — so the card can finally take
+   the width it needs. At 54% the new headline broke to four cramped lines. */
+@media(min-width:881px){
+  .hero .paper.hero-card{width:clamp(480px,63%,760px)}
+  .hero-pile{inset:-10% -13% -6% -10%}     /* spill on every side, not just the right */
+}
+/* the red "scroll down!" scrawl is absolutely positioned and was landing on top of the CTA
+   copy. It has no business overlapping a call to action. */
+.hero .sc-down{display:none}
+
+/* "Yours will." is not a subtitle — it's the second half of the sentence, and it's the promise.
+   It carries the same weight as the problem it answers. Full size, grass. (An earlier rule
+   dropped sentence two to .62em to make a *different* headline fit; that rule dies here.) */
+.hero-card h1 .h1s+.h1s{font-size:1em;margin-top:.14em;color:var(--ink)}
+.hero-card h1 .h1-green,.hero-card h1 .h1-green .stop{color:var(--grass-deep)}
+/* the scrawl steps back to lazuli so it reads as an aside, not a third shout in the same voice */
+.hero-scrawl{color:var(--lazuli-deep)}
+
+/* The green lost on specificity: `.h1s+.h1s` is (0,3,1) and `.h1-green` was (0,2,1).
+   Match the sibling selector's weight so the promise actually reads as the promise. */
+.hero-card h1 .h1s+.h1s.h1-green,
+.hero-card h1 .h1s+.h1s.h1-green .stop{color:var(--grass-deep)}
+
+/* .sc-down lives in .scroll-cue (a sibling of .hero), so `.hero .sc-down` never matched it.
+   It's absolutely positioned and was landing on top of the primary CTA's caption. */
+.sc-down{display:none}
+/* .hero .cta is a flex ROW, so the caption became a column beside the button instead of a
+   line beneath it. It belongs under the stamp — it's telling you who that door is for. */
+.hero .cta{flex-direction:column;align-items:flex-start;gap:0}
+.hero .cta .cta-attn{margin-bottom:.1rem}
+
+/* the clock's four words — Birdie, so they read as annotation on a drawn object, not as UI */
+.ctclock .ct-words text{font-family:var(--f-hand);font-weight:400}
+
+/* =====================================================================
+   THE HERO CARD IS LOOSELEAF — blue rules, pink margin, punched holes.
+   The card was faint grey lines on cream. Real filler paper is blue-ruled with a
+   pink/red vertical margin and a punched edge, and that's the object the whole
+   product is about: a page from a notebook that a group filled in together.
+   ===================================================================== */
+.hero-card>.sheet.ruled{
+  background:
+    /* the pink margin rule — one vertical line, down the left */
+    linear-gradient(90deg, transparent 0 60px, rgba(247,84,88,.42) 60px 61.6px, transparent 61.6px) no-repeat,
+    /* the blue horizontal rules */
+    repeating-linear-gradient(0deg, transparent 0 26px, rgba(36,150,201,.24) 26px 27.4px),
+    var(--paper);
+}
+/* the punched edge. Holes are the paper's colour with an ink lip, so they read as holes in the
+   sheet rather than dots on it — and they sit OUTSIDE the pink margin, where they belong. */
+.hero-card .holes{position:absolute;left:20px;top:0;bottom:0;z-index:2;width:22px;
+  display:flex;flex-direction:column;justify-content:space-evenly;align-items:center;
+  pointer-events:none}
+.hero-card .holes i{display:block;width:19px;height:19px;border-radius:50%;
+  background:var(--oats);box-shadow:inset 0 0 0 2.2px rgba(65,77,87,.55);filter:url(#roughsm)}
+@media(max-width:880px){
+  .hero-card>.sheet.ruled{background:
+    repeating-linear-gradient(0deg, transparent 0 26px, rgba(36,150,201,.22) 26px 27.4px), var(--paper)}
+  .hero-card .holes{display:none}
+}
+/* the copy starts to the RIGHT of the pink margin rule — that's what a margin is for */
+@media(min-width:881px){ .hero-card>.inner{padding-left:84px} }
+
+/* The headline was taking five lines and pushing the doors below the fold — which is the one
+   thing that must never happen: above the fold is the invest-or-leave moment. Tune the display
+   size to the card's real measure and tighten the vertical rhythm so all three doors clear it. */
+@media(min-width:881px){
+  .hero-card h1{font-size:clamp(2.4rem,3.7vw,3.35rem);line-height:1.06}
+  .hero-card .lede{margin-top:.75rem;font-size:clamp(1rem,1.1vw,1.1rem)}
+  .hero-scrawl{margin-top:.45rem}
+  .hero-rule{margin:.9rem 0 .85rem}
+  .hero .cta{margin-top:1rem}
+  .cta-subs{margin-top:.75rem}
+  .hero-card .holes i{width:16px;height:16px}
+}
+
+/* The copy was being strangled inside the paper: the lede was capped at 320px on a 662px card
+   (58% of the page it's printed on) and the h1 at 416px, both from `ch` caps sized for the old
+   34px headline in the old 561px card. The page is the measure now — let the type use it.
+   Right padding was 27px against 84px on the left; a page has margins on both sides. */
+@media(min-width:881px){
+  .hero-card h1{max-width:none}
+  .hero-card .lede{max-width:none}
+  .hero-card .hero-scrawl{max-width:none}
+  .hero-card>.inner{padding-right:52px}
+  .hero-rule{max-width:30ch}
+}
+
+/* the clock carries four words now, so it needs the room to say them. Bigger face = bigger type
+   at the same viewBox units, without the words overflowing the dial. */
+.how .step.is-clock .ico{width:13.2cqw;height:13.2cqw}
+@media(max-width:900px){ .how .step.is-clock .ico{width:66px;height:66px} }
+/* the pile wraps ALL FOUR sides of the card — it's a heap the card is buried in, not a backdrop */
+@media(min-width:881px){ .hero-pile{inset:-12% -14% -10% -14%} }
+
+/* Craft icons: one per colour block, in the block's OWN ink (currentColor). Monochrome is not a
+   style choice here — a multicolour icon ON a coloured block is colour-on-colour and turns to mud
+   at this size. And a one-ink set reads as ONE system, which is precisely the section's argument:
+   skateboarding, nail art, bonsai and pour-over all belong to the same world. */
+.gift-pile li{display:inline-flex;align-items:center;gap:.42em}
+.gift-pile .g-ico{width:1.15em;height:1.15em;flex:none;display:block;
+  filter:url(#roughsm)}                  /* the same hand-drawn boil as every other mark */
