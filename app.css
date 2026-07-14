@@ -2800,3 +2800,49 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   .hero-pile .hp:nth-child(12){--mt:62%;--ml:89%;--mw:19%;--mr:6deg}
   .hero-pile .hp:nth-child(13){--mt:81%;--ml:90%;--mw:18%;--mr:-11deg}
 }
+
+/* =====================================================================
+   POLAROIDS PASTED ON THE CARD — the right column of the page
+   ---------------------------------------------------------------------
+   The heap behind the card was doing all the work and the card's right half was dead
+   paper. So the copy takes a left column and the photos get stuck into the gap it
+   leaves — which is how anyone actually fills a notebook page: write down one side,
+   paste the photos in the space. Tilted, overlapping, taped, running past the edge.
+   ===================================================================== */
+@media(min-width:881px){
+  /* the copy holds a column; the photos take the rest */
+  .hero-card>.inner{padding-right:clamp(230px,30%,330px)}
+  .card-stack{position:absolute;z-index:4;top:5%;bottom:6%;right:-4%;
+    width:clamp(220px,31%,320px);pointer-events:none}
+  .card-stack .cs{position:absolute;margin:0;isolation:isolate;
+    top:var(--t);left:var(--l);width:var(--w);transform:rotate(var(--r))}
+  /* the tear is on the polaroid's PAPER. Never on the photograph. */
+  .card-stack .cs::before{content:"";position:absolute;inset:-7px -7px -16px;z-index:0;
+    background:var(--paper);border:2.4px solid var(--ink);border-radius:4px;
+    box-shadow:6px 7px 0 0 var(--ink);filter:url(#torn)}
+  .card-stack .cs i{position:relative;z-index:1;display:block;aspect-ratio:1;
+    background-size:cover;background-position:center}
+  /* washi holding the collage down, same as every other scrap on this page */
+  .card-stack .cs-tape{position:absolute;z-index:9;width:74px;height:22px;
+    background:rgba(241,221,1,.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28);
+    filter:url(#roughsm)}
+  .card-stack .cs-tape.t1{top:1%;left:26%;transform:rotate(-7deg)}
+  .card-stack .cs-tape.t2{bottom:3%;left:34%;transform:rotate(5deg)}
+}
+@media(max-width:880px){ .card-stack{display:none} }   /* the phone already has its own scatter */
+
+/* "Yours will." is the promise and it cannot break across two lines. The photo column stole the
+   width it needed. Give the copy back enough measure, and size the display to the column it
+   actually has — measured, not guessed: 11 chars of Courier Prime at 49px ≈ 323px. */
+@media(min-width:881px){
+  .hero-card>.inner{padding-right:clamp(205px,26%,268px)}
+  .hero-card h1{font-size:clamp(2.2rem,3.35vw,3.05rem);line-height:1.05}
+  .card-stack{width:clamp(200px,27%,272px);right:-5%}
+  /* tighter, more overlapped — a collage someone pasted, not a column of thumbnails */
+  .card-stack .cs{--w:64%}
+  .card-stack .cs:nth-child(1){--t:1%;--l:2%;--r:-7deg}
+  .card-stack .cs:nth-child(2){--t:17%;--l:34%;--r:8deg}
+  .card-stack .cs:nth-child(3){--t:36%;--l:0%;--r:-4deg}
+  .card-stack .cs:nth-child(4){--t:55%;--l:36%;--r:10deg}
+  .card-stack .cs:nth-child(5){--t:74%;--l:4%;--r:-9deg}
+}
