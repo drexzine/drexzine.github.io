@@ -306,6 +306,16 @@ html.sealed .envelope.cutting .cut-hook,
 html.sealed .envelope.opened .cut-hook{opacity:0;visibility:hidden;pointer-events:none}
 html.sealed.revealed .cut-hook{opacity:0;visibility:hidden;height:0;margin:0;overflow:hidden;pointer-events:none}
 html[data-tier="lite"] .cut-hook-line{filter:none!important;animation:none!important}
+/* the reveal PAYOFF — the card itself rises saying only this, then it dissolves into the real
+   card content. Scoped to .hero-card, so the pile/photo-smear behind is untouched. */
+.cut-payoff{display:none}
+html.sealed .envelope.opened .hero-card .cut-payoff{display:flex;position:absolute;inset:0;z-index:10;
+  align-items:center;justify-content:center;text-align:center;padding:1.5rem;pointer-events:none;
+  background:var(--paper);animation:cardFlashOut 3s ease both}
+html:not(.sealed) .hero-card .cut-payoff{display:none}
+.hero-card .cut-payoff .cut-payoff-line{margin:0;color:var(--grass-deep);line-height:1.08;max-width:13ch;
+  font-size:clamp(2.8rem,9vw,5.4rem)}
+@keyframes cardFlashOut{0%{opacity:1}62%{opacity:1}100%{opacity:0;visibility:hidden}}
 
 /* ---- the cut opens the whole site ---- */
 /* before the cut: only the hero envelope exists — everything below is hidden,
