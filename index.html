@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=264" />
+<link rel="stylesheet" href="app.css?v=265" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -872,7 +872,7 @@
           <h3 class="pc-title">Silk Road 001</h3>
           <p class="pc-slug"><b>XChange Models</b> &middot; 11 makers</p>
           <blockquote class="pc-a">&ldquo;You believe in yourself.&rdquo;<cite class="pc-cite">&mdash; Wei-Sean, and ten others</cite></blockquote>
-          <p class="pc-cta"><a class="btn" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">View zine &rarr;</a><a class="pc-ig" href="https://xchange.fashion/" target="_blank" rel="noopener">their site &rarr;</a></p>
+          <p class="pc-cta"><a class="btn" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">View zine &rarr;</a><a class="pc-ig" href="https://www.instagram.com/xchange.fashion.app/" target="_blank" rel="noopener">Instagram &rarr;</a></p>
         </div>
       </article>
 
@@ -897,7 +897,7 @@
       <!-- 4 · PHOTO PHLOOR — circle, non-model, honest -->
       <article class="pc" data-i="3" style="--key:var(--grass-deep)">
         <div class="pc-img">
-          <img src="assets/zines/phloor-makers.jpg" width="600" height="720" loading="lazy" decoding="async" alt="Photo Phloor: a lone streetlight over a dark walkway at night.">
+          <img src="assets/zines/phloor-chair.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Photo Phloor: an old wooden chair alone on a city sidewalk at night.">
           <span class="pc-name">Phloor</span>
         </div>
         <div class="pc-msg">
@@ -913,8 +913,8 @@
 
       <!-- 5 · SF PENMANS — circle, non-model, no photo asset yet -->
       <article class="pc" data-i="4" style="--key:var(--lazuli)">
-        <div class="pc-img" style="background:var(--lazuli);display:flex;align-items:center;justify-content:center">
-          <span style="font-family:var(--f-display);font-size:2.6rem;color:var(--oats)">SF</span>
+        <div class="pc-img">
+          <img src="assets/zines/penmans-desk.jpg" width="600" height="720" loading="lazy" decoding="async" alt="SF Penmans: a hand-lettered drop-cap and cursive verse in blue ink on cream paper.">
           <span class="pc-name">Penmans</span>
         </div>
         <div class="pc-msg">
@@ -924,14 +924,17 @@
           <p class="pc-slug"><b>San Francisco</b> &middot; a penmanship circle</p>
           <p class="pc-blurb">Nibs, ink and practice sheets &mdash; an hour spent getting the hand right.</p>
           <p class="pc-note">first issue on the press &rarr;</p>
-          <p class="pc-cta"><a class="btn" href="https://instagram.com/drexcircles" target="_blank" rel="noopener">Instagram &rarr;</a></p>
         </div>
       </article>
 
     </div>
 
-    <div class="dk-nav" id="dknav" role="tablist" aria-label="Choose a circle"></div>
-    <p class="dk-hint">tap a card to pull it up &middot; five real circles</p>
+    <div class="dk-controls">
+      <button class="dk-arrow" id="dkPrev" type="button" aria-label="Previous circle">&larr;</button>
+      <div class="dk-nav" id="dknav" role="tablist" aria-label="Choose a circle"></div>
+      <button class="dk-arrow" id="dkNext" type="button" aria-label="Next circle">&rarr;</button>
+    </div>
+    <p class="dk-hint">tap a card, the arrows, or the dots to flip through &middot; five real circles</p>
     <p class="dk-foot"><b>Lay it out yourself, or let the bot do it.</b> Every issue here is real, and open to anyone.</p>
   </section>
 
@@ -987,6 +990,8 @@
       if(e.key==='ArrowRight'){ e.preventDefault(); bringUp(front+1); }
       if(e.key==='ArrowLeft'){ e.preventDefault(); bringUp(front-1); }
     });
+    document.getElementById('dkPrev').addEventListener('click', function(){ bringUp(front-1); });
+    document.getElementById('dkNext').addEventListener('click', function(){ bringUp(front+1); });
     // ResizeObserver re-runs layout when the section un-hides at the cut-gate
     // reveal (0 -> real width) and on any resize; falls back to window resize.
     if(window.ResizeObserver){ new ResizeObserver(layout).observe(deck); }

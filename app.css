@@ -3857,3 +3857,21 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 .dk-foot b{font-style:normal;font-weight:600;color:var(--ink)}
 
 @media(prefers-reduced-motion:reduce){.pc{transition:none}}
+
+/* prev/next arrows flanking the dots — an easy way to cycle the pile.
+   position:relative + high z keeps them clickable above any card that
+   spills toward them (matters on phones where the heap sits lower). */
+.dk-controls{position:relative;z-index:70;display:flex;align-items:center;justify-content:center;gap:.9rem;margin-top:1.3rem}
+.dk-controls .dk-nav{margin-top:0}
+.dk-arrow{width:40px;height:40px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  background:var(--oats);border:2.4px solid var(--ink);border-radius:50%;box-shadow:3px 3px 0 0 var(--ink);
+  cursor:pointer;color:var(--ink);font-family:var(--f-head);font-size:1.15rem;line-height:1;padding:0}
+.dk-arrow:active{transform:translate(2px,2px);box-shadow:1px 1px 0 0 var(--ink)}
+.dk-arrow:focus-visible{outline:3px solid var(--lazuli);outline-offset:2px}
+/* phones: give the heap headroom so it doesn't sit on the controls, and add
+   a solid backer behind the controls row so it always reads clearly */
+@media(max-width:620px){
+  .deck{height:470px}
+  .dk-controls{margin-top:1.7rem}
+  .dk-controls::before{content:"";position:absolute;inset:-8px -16px;z-index:-1;background:var(--oats)}
+}
