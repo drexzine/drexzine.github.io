@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=274" />
+<link rel="stylesheet" href="app.css?v=276" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -285,10 +285,10 @@
               <div class="ed-head">
                 <p class="ed-kicker">improve as a circle <i>&middot;</i> share with the world</p>
                 <hr class="ed-hair" />
-                <h1 class="ed-h1" aria-label="Most creative groups never finish anything. Yours will."><span class="l">Most creative groups</span><span class="l"><span class="hl">never&nbsp;finish</span> anything.</span><span class="l">Yours will<span class="ed-stop">.</span></span></h1>
-                <!-- the ONE hand object on the card. Birdie is margin annotation and nothing else,
-                     so it lives in the margin, and it points at the pain. -->
-                <p class="ed-scrawl">&mdash; actually make something</p>
+                <!-- THE big moment: the category line. Says what Drex is AND how it's the solution,
+                     in one sentence. ONE highlight (yellow), deliberately outside the four-beat
+                     colours so it doesn't read as a fifth beat. -->
+                <h1 class="ed-cat">Drex is a <span class="hl">recurring making challenge for groups</span> &mdash; online or in person &mdash; that ends in a zine you&rsquo;re all in.</h1>
               </div>
 
               <!-- ZONE 2 - the standfirst. ONE paragraph now. The "where circles meet" line used to
@@ -297,13 +297,16 @@
                    cold, asked "is it a website, an app, a club, a magazine, or a service?" - this
                    names the software, then the loop, then the one thing a stranger can picture. -->
               <div class="ed-body">
-                <!-- "Drex is an" is cut: the name is already in the lockup and again in the slug
-                     directly above this line. The CATEGORY stays. It is the only place on the page
-                     that says what the thing is — the headline names a problem, the slug is a
-                     department label, and everything after this clause describes a practice
-                     (a challenge, an hour, a due date, a magazine), which on its own reads as a
-                     club or a course, not software. -->
-                <p class="ed-stand"><span class="ed-drop">A</span>n app that runs an <b>enforceable creative loop</b> &mdash; in a room or on a screen. <span class="hl hl-b">A recurring challenge</span>, <span class="hl hl-g">a standing hour</span> with your people, and <span class="hl hl-r">a due date</span> that turns what everyone made into a little magazine.</p>
+                <!-- ZONE 2 — the tagline lead-in, then the four beats of the loop. Each beat's name
+                     gets its highlighter: blue / green / red, then green-deep for the zine payoff.
+                     The lead-in INTRODUCES the beats (fixes it competing with the sign-off below). -->
+                <p class="ed-lead">everything that isn&rsquo;t the work &mdash; handled.</p>
+                <ul class="beats">
+                  <li><span class="hl hl-b">A challenge</span> &mdash; one prompt, set by your editor, every cycle.</li>
+                  <li><span class="hl hl-g">Circle Time</span> &mdash; the standing hour your people show up for, online or in person.</li>
+                  <li><span class="hl hl-r">A due date</span> &mdash; the deadline that turns talk into a finished thing.</li>
+                  <li><span class="hl hl-gd">Your zine</span> &mdash; proof you can hold, and a portfolio that stacks up.</li>
+                </ul>
               </div>
 
               <!-- ZONE 3 - the CTA, printed as a coupon and cut from the page. The terms live INSIDE
@@ -317,18 +320,13 @@
                     </svg>
                   </span>
                   <span class="cta-attn"><a class="btn ed-stamp" href="https://letters.drex.style/join-online/">Request an Invite <span class="arr" aria-hidden="true">&rarr;</span></a></span>
-                  <!-- "Free while we're in pilot" was UNDERselling: it says, to anyone reading
-                       carefully, that it costs money later. Nobody buys an account, ever, so say
-                       that instead. And name the funder — "Circles get funded" is agentless, and a
-                       wary reader fills that hole in with "so eventually I pay."
-                       The standing hour STAYS. It is the real price of Drex, it is the most honest
-                       thing on this coupon, and it selects for the people who will actually show up. -->
-                  <!-- The standing hour comes out of the coupon: it is already ON the card, in green,
-                       inside the standfirst ("a standing hour with your people"). Saying it twice in
-                       one card is repetition, not emphasis. -->
-                  <p class="ed-terms"><b>Nobody buys an account.</b> Free while we&rsquo;re in pilot. When payments switch on, a Circle will be kept alive by whoever in it wants to &mdash; never by whoever runs it. On your own? <span class="hl">we&rsquo;ll place you in a Circle.</span></p>
+                  <!-- Funding terms are OUT of the hero (moved to #kit / a funding beat): the loop
+                       comes first, the money model is a later beat. -->
                 </div>
                 <p class="ed-links"><a href="#proof">Read a real zine.</a> <span class="sep" aria-hidden="true">&middot;</span> Have a group? <a href="#bring">Bring them.</a> <span class="sep" aria-hidden="true">&middot;</span> Got a key? <a href="https://demo.drex.style">Open the demo.</a></p>
+                <!-- the tiny sign-off, demoted from the old big headline. Lives at the very bottom,
+                     far from the tagline lead-in, so the two closers no longer compete. -->
+                <p class="ed-signoff">Most creative groups never finish anything. <b>Yours will.</b></p>
               </div>
 
               <!-- THE WELL. This is column 2 of .ed-inner, and it must live INSIDE the grid to be

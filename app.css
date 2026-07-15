@@ -3258,6 +3258,29 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
 .ed-links a:hover{text-decoration-color:var(--grass-deep)}
 .ed-links .sep{color:var(--colorado);padding:0 .3rem}
 
+/* --- HERO COPY v2 (2026-07-15): category line · tagline lead-in · four beats · tiny sign-off.
+   Layout (where the beats sit, smear-vs-video) is deliberately left for /design-shotgun; this is
+   the COPY in place so it can be read in context. --- */
+.ed-cat{margin:0;font-family:var(--f-display);font-weight:700;
+  font-size:clamp(1.7rem, 1.1rem + 2.35vw, 2.45rem);line-height:1.22;letter-spacing:-.015em;
+  color:var(--ink);text-wrap:pretty;max-width:20ch}
+/* the category highlight must WRAP (the phrase is long): a cloned background per line-box, not the
+   single-rectangle .hl::before swatch, so it never runs off the card on narrow widths. */
+.ed-cat .hl{white-space:normal;background:var(--happy);mix-blend-mode:multiply;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+  padding:.02em .16em;border-radius:3px;box-shadow:0 0 0 .5px var(--happy)}
+.ed-cat .hl::before{content:none}
+.ed-lead{margin:clamp(1.3rem,2.8vw,2rem) 0 clamp(.85rem,1.8vw,1.15rem);
+  font-family:var(--f-head);font-weight:600;font-size:var(--fs-lede);line-height:1.3;color:var(--ink)}
+.beats{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;
+  gap:clamp(.55rem,1.3vw,.85rem)}
+.beats li{font-family:var(--f-body);font-weight:300;font-size:var(--fs-body);
+  line-height:1.42;color:var(--ink)}
+.beats .hl{white-space:nowrap;font-weight:600}
+.ed-signoff{margin:clamp(1.3rem,2.6vw,1.9rem) 0 0;font-family:var(--f-slab);font-style:italic;
+  font-size:var(--fs-small);color:var(--ink-soft)}
+.ed-signoff b{font-weight:700;font-style:normal;color:var(--grass-deep)}
+
 /* --- THE WORK, PASTED ON THE SHEET. Two real spreads + the making of one,
        overlapping and running off the right deckle so the paper and the
        pictures read as ONE object. The tear is on the paper (::before); the
@@ -3574,6 +3597,7 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 .hl-b::before{background:var(--lazuli);opacity:.42}
 .hl-g::before{background:var(--grass);opacity:.42}
 .hl-r::before{background:var(--colorado);opacity:.42}
+.hl-gd::before{background:var(--grass-deep);opacity:.42}   /* the zine payoff — a deeper green than Circle Time's grass */
 /* the terms are longer now (they carry the funding model), so give the coupon room to hold them
    without squeezing the stamp — and let the first sentence, the one that answers "what does it
    cost", carry weight instead of hiding at the end of a run-on. */
