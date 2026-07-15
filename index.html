@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=266" />
+<link rel="stylesheet" href="app.css?v=267" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -399,6 +399,133 @@
     <svg viewBox="0 0 24 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4 L12 12 L21 4"/></svg>
   </div>
 
+  <!-- ============ LOOK INSIDE THE APP — clothesline of real screens; tap to open ============ -->
+  <!-- Reuses .zpola / .ph / .play-badge / .soon-stamp / .is-vid / .is-ghost / .zpola-cap; only .bd-* is new.
+       Pin 1 = the real reel (opens the IG embed). Pins 2-3 open a self-hosted webm screen-recording.
+       Pins 4-5 are the existing ghost/"coming soon" idiom. The strip owns its own horizontal scroll. -->
+  <section class="board" id="inside" aria-label="A look inside the Drex app">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">not a mockup &mdash; the actual app</span>
+        <h2 class="slab">Look <span class="ul">inside</span> the app<span class="stop">.</span></h2>
+        <p class="bd-sub">Real, invite-only, and running right now. Here&rsquo;s what a Circle actually touches.</p>
+      </div>
+
+      <div class="bd-line" role="group" aria-label="Screens from the app — scroll sideways to see all five" tabindex="0">
+        <div class="bd-track">
+          <span class="bd-string" aria-hidden="true"></span>
+
+          <!-- 1 · VIDEO — the real reel -->
+          <div class="bd-peg" style="--r:-2.2deg;--c:var(--colorado)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola is-vid bd-open" data-embed="https://www.instagram.com/reel/DaEIcmkSW4o/embed/" data-link="https://www.instagram.com/reel/DaEIcmkSW4o/" data-cap="the zine, made by hand" aria-label="See the zine editor — opens the reel">
+              <span class="ph"><img src="assets/editor-reel-thumb.jpg" alt="A maker at a cafe table, phone in hand, placing pages in the zine editor" loading="lazy" width="600" height="720"><span class="play-badge" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"></circle><path d="M20 16 L33 24 L20 32 Z"></path></svg></span></span>
+              <span class="zpola-cap">see the zine editor <span class="arr">&rarr;</span></span>
+            </button>
+          </div>
+
+          <!-- 2 · Personal Wall / Magazine — real @144mb wall (webm) -->
+          <div class="bd-peg" style="--r:1.8deg;--c:var(--schoolbus)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola bd-open" data-video="assets/app/wall.webm" data-poster="assets/app/wall-poster.jpg" data-full="assets/app/wall.jpg" data-cap="your wall &mdash; a portfolio, not a feed" aria-label="Your wall — a portfolio, not a feed. Opens a short video.">
+              <span class="ph"><img src="assets/app/wall.jpg" alt="A maker's wall on Drex — a corkboard portfolio: bio, Lv.5 Legend, and six circles they edit" loading="lazy" width="600" height="750"></span>
+              <span class="zpola-cap">your wall &mdash; a portfolio, not a feed</span>
+            </button>
+          </div>
+
+          <!-- 3 · A real Circle — XChange (webm) -->
+          <div class="bd-peg" style="--r:-1.4deg;--c:var(--lazuli)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola bd-open" data-video="assets/app/circle.webm" data-poster="assets/app/circle-poster.jpg" data-full="assets/app/circle.jpg" data-cap="a real Circle &mdash; 11 makers, one deadline" aria-label="Inside a real Circle. Opens a short video.">
+              <span class="ph"><img src="assets/app/circle.jpg" alt="A Circle's home on Drex — 11 makers, a join button, and the next Circle Time" loading="lazy" width="600" height="750"></span>
+              <span class="zpola-cap">a real Circle &mdash; 11 makers deep</span>
+            </button>
+          </div>
+
+          <!-- 4 · The Challenge — ghost -->
+          <div class="bd-peg" style="--r:2.4deg;--c:var(--lazuli)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <div class="zpola is-ghost" role="img" aria-label="The week's challenge, due Friday. Screenshot coming soon.">
+              <span class="ph"><span class="bd-glyph" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 7h16l6 6v28H13z"/><path d="M29 7v6h6"/><path d="M18 22h12M18 29h12M18 36h7"/></svg></span><span class="soon-stamp">coming soon</span></span>
+              <span class="zpola-cap">the week&rsquo;s challenge, due Fri</span>
+            </div>
+          </div>
+
+          <!-- 5 · The Table — ghost -->
+          <div class="bd-peg" style="--r:-2deg;--c:var(--schoolbus)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <div class="zpola is-ghost" role="img" aria-label="Everyone's work, on the table. Screenshot coming soon.">
+              <span class="ph"><span class="bd-glyph" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="10" width="15" height="13" rx="2"/><rect x="27" y="14" width="14" height="12" rx="2"/><rect x="14" y="27" width="15" height="12" rx="2"/></svg></span><span class="soon-stamp">coming soon</span></span>
+              <span class="zpola-cap">everyone&rsquo;s work, on the table</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <p class="bd-foot"><span class="bd-drag scrawl" aria-hidden="true">drag &rarr;</span> invite-only for now &mdash; but <a href="#proof">the zines are open to read</a>. <span class="arr" aria-hidden="true">&rarr;</span></p>
+    </div>
+  </section>
+
+  <!-- the click-to-open modal (video / IG embed / image) -->
+  <div class="bd-modal" id="bdModal" role="dialog" aria-modal="true" aria-labelledby="bdModalCap" hidden>
+    <figure class="bd-modal-fig">
+      <button class="bd-modal-x" type="button" aria-label="Close" data-bd-close>&times;</button>
+      <img class="bd-modal-img" id="bdModalImg" src="" alt="" hidden>
+      <video class="bd-modal-vid" id="bdModalVid" muted loop playsinline preload="none" hidden></video>
+      <iframe class="bd-modal-embed" id="bdModalEmbed" title="Instagram reel" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen hidden></iframe>
+      <figcaption class="bd-modal-cap" id="bdModalCap"></figcaption>
+      <a class="bd-modal-play" id="bdModalPlay" href="#" target="_blank" rel="noopener" hidden>&#9654;&nbsp; watch on Instagram &rarr;</a>
+    </figure>
+  </div>
+
+  <script>
+  (function(){
+    var modal=document.getElementById('bdModal'); if(!modal) return;
+    var img=document.getElementById('bdModalImg'),
+        vid=document.getElementById('bdModalVid'),
+        embed=document.getElementById('bdModalEmbed'),
+        cap=document.getElementById('bdModalCap'),
+        play=document.getElementById('bdModalPlay'), last=null;
+    function onKey(e){ if(e.key==='Escape') close(); }
+    function reset(){
+      img.hidden=true; img.removeAttribute('src');
+      vid.hidden=true; try{ vid.pause(); }catch(e){} vid.removeAttribute('src'); vid.removeAttribute('poster');
+      embed.hidden=true; embed.removeAttribute('src');
+      play.hidden=true;
+    }
+    function open(btn){
+      last=btn; reset();
+      cap.innerHTML=btn.getAttribute('data-cap')||'';
+      var em=btn.getAttribute('data-embed'), vf=btn.getAttribute('data-video'), ff=btn.getAttribute('data-full');
+      if(em){                                            // Instagram reel embed
+        embed.src=em; embed.hidden=false;
+        var link=btn.getAttribute('data-link'); if(link){ play.href=link; play.hidden=false; }
+      } else if(vf){                                     // self-hosted webm screen-recording
+        var ps=btn.getAttribute('data-poster'); if(ps) vid.poster=ps;
+        vid.src=vf; vid.hidden=false; vid.currentTime=0;
+        var p=vid.play(); if(p&&p.catch) p.catch(function(){});
+      } else {                                           // static image fallback
+        img.src=ff||''; img.alt=btn.getAttribute('data-cap')||''; img.hidden=false;
+      }
+      modal.hidden=false;
+      var x=modal.querySelector('.bd-modal-x'); if(x) x.focus();
+      document.addEventListener('keydown', onKey);
+    }
+    function close(){
+      reset(); modal.hidden=true;
+      document.removeEventListener('keydown', onKey);
+      if(last) last.focus();
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('.bd-open'), function(b){
+      b.addEventListener('click', function(){ open(b); });
+    });
+    modal.addEventListener('click', function(e){
+      if(e.target===modal || e.target.hasAttribute('data-bd-close')) close();
+    });
+  })();
+  </script>
+
   <!-- ============ HOW A CIRCLE WORKS — the practice loop ============ -->
   <section class="how" id="how">
     <div class="wrap">
@@ -712,7 +839,6 @@
       <div class="head">
         <span class="eyebrow" style="color:var(--colorado)">show &amp; tell with the world</span>
         <h2 class="slab">Every challenge ends in a <span class="ul">zine</span><span class="stop">.</span></h2>
-        <p class="zines-sub">Your photos, your words, everyone's pages bound into one scrappy issue &mdash; an <b>interactive zine</b> a stranger can flip through, not a PDF. Cut and paste it by hand, or dump the pile and let the bot bind it.</p>
       </div>
       <div class="zine-pair">
 
@@ -728,10 +854,8 @@
               <span class="zpola-cap">watch it get made <span class="arr">&rarr;</span></span>
             </a>
           </div>
-          <figcaption class="cap">your pages, placed by you</figcaption>
         </figure>
 
-        <span class="zine-or scrawl" aria-hidden="true">or</span>
 
         <figure class="zine-card bot">
           <span class="zine-tab">bot-assisted</span>
@@ -745,7 +869,6 @@
               <span class="zpola-cap">bot &mdash; demo video</span>
             </div>
           </div>
-          <figcaption class="cap">your photos, your words &mdash; the bot just binds the book</figcaption>
         </figure>
 
       </div>
@@ -873,7 +996,6 @@
     <div class="dk-head">
       <span class="eyebrow">no invite &middot; no signup &middot; no gate</span>
       <h2>Real circles, and the zines they <span class="ul">made</span><span class="stop">.</span></h2>
-      <p class="dk-sub">A pile of finished issues from groups who never met. Tap one to pull it up &mdash; every one is a live web page, open to anyone.</p>
     </div>
 
     <div class="deck" id="deck" role="group" aria-label="A messy pile of postcards. Tap one to pull it to the top.">
@@ -1041,7 +1163,6 @@
       <div class="head">
         <span class="eyebrow" style="color:var(--lazuli)">find your people</span>
         <h2 class="slab">Find your Circle by <span class="ul">flipping</span> through zines<span class="stop">.</span></h2>
-        <p class="zines-sub">One shelf, every published issue. Flip one open: their challenge, and what each of them made of it. You'll know whose pages feel like yours before you ever knock.</p>
       </div>
       <!-- MEDIA PLACEHOLDER (highest value on the page): a short screen-capture of someone actually
            flipping through the Reader — thumb-scrolling a real shelf of real issues. The entire
@@ -1589,7 +1710,7 @@
   </div>
 </footer>
 
-<script type="module" src="app.js?v=70"></script>
+<script type="module" src="app.js?v=71"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign

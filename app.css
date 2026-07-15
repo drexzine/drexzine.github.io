@@ -3917,3 +3917,79 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.antidote .petals{animation:none}}
 @media(max-width:600px){.wa-list{grid-template-columns:1fr;gap:1.6rem}.wa-face{top:-46px;right:0;width:84px;height:84px}.antidote{flex-direction:column;text-align:center}.antidote .hero{margin-bottom:-.4rem}}
+
+/* ============ #inside — LOOK INSIDE: clothesline / film-strip of app screens ============ */
+.board{padding:clamp(2rem,5vw,3.5rem) 0 clamp(1.5rem,4vw,3rem)}
+.board .head{margin-bottom:clamp(1.3rem,3.5vw,2.1rem);text-align:center}
+.board .head .eyebrow{color:var(--lazuli)}
+.board .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;
+  font-size:clamp(1.8rem,6vw,3rem);line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
+.board .head h2 .stop{color:var(--grass-deep)}
+.board .bd-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.05rem,1.8vw,1.3rem);
+  color:var(--ink-soft);max-width:46ch;margin:.85rem auto 0;text-align:center}
+/* the strip owns its OWN horizontal scroll — the page never scrolls sideways. */
+.board .bd-line{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch;scrollbar-width:thin;
+  padding:6px clamp(1rem,4vw,2rem) 12px;margin-top:clamp(1rem,3vw,1.8rem);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 4%,#000 96%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 4%,#000 96%,transparent 100%)}
+.board .bd-line:focus-visible{outline:2.5px dashed var(--lazuli);outline-offset:2px;border-radius:6px}
+.board .bd-track{position:relative;display:flex;align-items:flex-start;width:max-content;margin:0 auto;
+  gap:clamp(1.1rem,3vw,1.7rem);padding-top:10px}
+.board .bd-string{position:absolute;left:0;right:0;top:6px;height:3px;background:var(--ink);
+  border-radius:2px;filter:url(#soft);z-index:0;pointer-events:none}
+.board .bd-peg{position:relative;z-index:1;flex:0 0 auto;scroll-snap-align:center;
+  padding-top:14px;transform:rotate(var(--r,0deg));transform-origin:top center;transition:transform .18s ease}
+.board .bd-peg:hover,.board .bd-peg:focus-within{transform:rotate(0) translateY(-4px);z-index:4}
+.board .bd-clip{position:absolute;left:50%;top:-2px;width:13px;height:30px;transform:translateX(-50%);
+  background:var(--paper);border:2.2px solid var(--ink);border-radius:4px;
+  box-shadow:2px 2px 0 0 var(--ink);filter:url(#roughsm);z-index:3}
+.board .bd-clip::after{content:"";position:absolute;left:50%;top:5px;bottom:5px;width:2px;
+  transform:translateX(-50%);background:var(--ink);border-radius:2px;opacity:.55}
+.board .bd-clip::before{content:"";position:absolute;left:50%;top:-4px;width:8px;height:8px;
+  transform:translateX(-50%);border-radius:50%;background:var(--c,var(--colorado));border:1.6px solid var(--ink)}
+.board .bd-line .zpola{width:clamp(154px,60vw,176px);margin:0}
+.board .bd-line .zpola:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
+.board .bd-line .zpola .ph{aspect-ratio:5/6}
+.board .bd-line .zpola .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.board button.zpola{appearance:none;-webkit-appearance:none;background:none;border:0;padding:0;margin:0;
+  font:inherit;color:inherit;text-align:inherit;cursor:pointer;display:block}
+.board .bd-line .is-ghost .ph{background:var(--oats);gap:.7rem}
+.board .bd-line .is-ghost .soon-stamp{color:var(--colorado);border-color:var(--colorado)}
+.board .bd-glyph{width:clamp(34px,7vw,46px);height:clamp(34px,7vw,46px);color:var(--ink-faint)}
+.board .bd-glyph svg{width:100%;height:100%;display:block;overflow:visible}
+.board .bd-glyph svg>*{filter:url(#roughsm)}
+.board .bd-foot{text-align:center;margin-top:clamp(1.1rem,3vw,1.7rem);
+  font-family:var(--f-body);font-size:1.02rem;color:var(--ink-soft)}
+.board .bd-foot a{color:var(--grass-deep);text-underline-offset:3px}
+.board .bd-foot .arr{font-family:var(--f-mono)}
+.board .bd-drag{display:inline-block;color:var(--colorado);font-size:1.1rem;margin-right:.4rem;transform:rotate(-2deg)}
+@media(min-width:900px){.board .bd-drag{display:none}}
+/* the click-to-open modal */
+.bd-modal{position:fixed;inset:0;z-index:200;display:grid;place-items:center;
+  background:rgba(65,77,87,.74);padding:clamp(1rem,4vw,2.5rem);animation:bd-fade .16s ease}
+.bd-modal[hidden]{display:none}
+.bd-modal-fig{position:relative;margin:0;max-width:min(92vw,500px);background:var(--paper);
+  border:3px solid var(--ink);box-shadow:10px 12px 0 0 rgba(65,77,87,.5);padding:14px 14px 12px}
+.bd-modal-img,.bd-modal-vid{display:block;width:100%;height:auto;max-height:70vh;object-fit:contain;
+  border:1.5px solid var(--ink);background:var(--sambas)}
+.bd-modal-embed{display:block;width:min(84vw,340px);aspect-ratio:9/16;max-height:72vh;
+  border:1.5px solid var(--ink);background:var(--sambas)}
+.bd-modal-img[hidden],.bd-modal-vid[hidden],.bd-modal-embed[hidden]{display:none}
+.bd-modal-cap{font-family:var(--f-hand);font-size:1.2rem;color:var(--ink);margin:.65rem .2rem .15rem;text-align:center}
+.bd-modal-play{display:block;width:max-content;margin:.6rem auto 0;font-family:var(--f-mono);font-weight:700;
+  font-size:.95rem;color:var(--paper);background:var(--grass);border:2.5px solid var(--ink);
+  box-shadow:3px 3px 0 0 var(--ink);padding:.5em .9em;text-decoration:none}
+.bd-modal-play[hidden]{display:none}
+.bd-modal-x{position:absolute;top:-17px;right:-17px;width:38px;height:38px;border-radius:50%;
+  background:var(--colorado);color:var(--paper);border:2.5px solid var(--ink);box-shadow:2px 2px 0 0 var(--ink);
+  font-size:1.5rem;line-height:33px;text-align:center;cursor:pointer;padding:0}
+@keyframes bd-fade{from{opacity:0}to{opacity:1}}
+html[data-tier="lite"] .board .bd-string,
+html[data-tier="lite"] .board .bd-clip,
+html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
+@media(prefers-reduced-motion:reduce){
+  .board .bd-peg,.board .bd-peg:hover,.board .bd-peg:focus-within,.board .bd-drag{transform:none!important;transition:none!important}
+  .board .bd-line{scroll-behavior:auto}
+  .bd-modal{animation:none}
+}
