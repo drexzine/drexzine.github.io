@@ -961,6 +961,32 @@ function initEnvelope(audio) {
   // hide the "there's more" cue once the visitor takes the hint and scrolls
   addEventListener('scroll', () => root.classList.add('scrolled'), { once: true, passive: true });
 
+  /* ---- auto-cut: rescue a visitor who never grabs the scissors ----
+     The sealed hero is near-blank; if nobody cuts, the pitch never shows. So after a short
+     idle, or on the first scroll intent, sweep the blades across and open it ourselves. Any
+     deliberate grab wins (we never fight a cut in progress). Silent by design: the audio
+     engine only arms on the real gesture, so no snip/tear plays here. Reduced-motion never
+     reaches this code (the sealed path returns early above), so it's exempt automatically. */
+  let autoArmed = false, idleTimer = 0;
+  function autoCut() {
+    if (autoArmed || done || cutting || cutMax > 0) return;   // swept already / opened / user cutting
+    autoArmed = true; clearTimeout(idleTimer);
+    const t0 = performance.now(), DUR = 720;                  // a visible sweep, not a snap
+    const stop = Stage.addDriver(() => {
+      if (done || cutting) { stop(); return; }                // a real grab takes over
+      const f = Math.min(1, (performance.now() - t0) / DUR);
+      setX(f); advance(f);                                    // advance() fires complete() at ~.97
+      if (f >= 1 || done) stop();
+    });
+  }
+  idleTimer = setTimeout(autoCut, 3200);                      // ~3.2s of no interaction
+  seam.addEventListener('pointerdown', () => {                // a deliberate grab disarms the idle timer
+    autoArmed = true; clearTimeout(idleTimer);
+  }, { once: true });
+  ['wheel', 'touchmove', 'scroll'].forEach((ev) =>            // first scroll intent — wheel/touch fire
+    addEventListener(ev, autoCut, { once: true, passive: true }));   // even when a sealed page can't scroll
+  (window.__drexCrit = window.__drexCrit || {}).autoCut = autoCut;   // QA hook
+
   /* ---- QA hooks ---- */
   window.__drexCrit = window.__drexCrit || {};
   window.__drexCrit.seek = (pos) => { const f = Math.max(0, Math.min(1, +pos || 0)); setX(f); advance(f); };
