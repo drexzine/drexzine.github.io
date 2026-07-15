@@ -3875,3 +3875,45 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
   .dk-controls{margin-top:1.7rem}
   .dk-controls::before{content:"";position:absolute;inset:-8px -16px;z-index:-1;background:var(--oats)}
 }
+
+
+/* ===== #why-not-chat: graveyard -> blooming flower (from _shotgun3/wnc) ===== */
+/* A3 — CROSSED OUT, ONE CIRCLED (best messaging, illustrated, no clean lines). */
+.wa{max-width:760px;margin:0 auto;position:relative}
+.wa-lead{font-family:var(--f-head);font-weight:800;font-size:var(--fs-2);line-height:1.08;letter-spacing:-.01em;color:var(--ink);text-align:center;margin:0 auto 1.6rem;max-width:22ch}
+.wa-lead em{font-style:normal;color:var(--colorado)}
+.wa-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;position:relative;align-items:start}
+/* each dead option is a skinny headstone with an arched top, side by side */
+.wrong{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;
+  background:var(--paper);border-radius:50% 50% 10px 10px / 42% 42% 10px 10px;
+  box-shadow:5px 6px 0 0 rgba(65,77,87,.24);padding:3.2rem 1.05rem 1.4rem;transform:rotate(var(--t,0deg))}
+.wrong.r1{--t:-1deg}.wrong.r2{--t:.7deg}.wrong.r3{--t:-.6deg}
+.wrong::before{content:"";position:absolute;inset:1px;border:2.6px solid var(--ink);border-radius:50% 50% 9px 9px / 42% 42% 9px 9px;filter:url(#rough);pointer-events:none;z-index:5}
+/* R.I.P. engraved into the arch */
+.wrong::after{content:"R.I.P.";position:absolute;top:20px;left:50%;transform:translateX(-50%);
+  font-family:var(--f-head);font-weight:700;letter-spacing:.14em;font-size:11px;color:var(--ink-faint);opacity:.65;z-index:6}
+.wrong .ill{display:block;width:56px;height:54px;margin-bottom:.5rem}
+.wrong .ill svg{display:block;width:56px;height:54px}
+.wrong h3{font-family:var(--f-head);font-weight:700;font-size:var(--fs-3);color:var(--ink);margin:0 0 .32rem;text-decoration:line-through;text-decoration-color:rgba(247,84,88,.6);text-decoration-thickness:2px;line-height:1.05}
+.wrong p{font-family:var(--f-body);font-size:var(--fs-small);color:var(--ink-soft);margin:0;line-height:1.35}
+.wrong .gh{position:absolute;top:-32px;left:50%;margin-left:-21px;width:42px;height:50px;z-index:8;pointer-events:none;animation:ghostrise 3.2s ease-in-out infinite}
+.wrong.r2 .gh{animation-delay:.7s}
+.wrong.r3 .gh{animation-delay:1.4s}
+@keyframes ghostrise{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-9px) rotate(5deg)}}
+@media(prefers-reduced-motion:reduce){.wrong .gh{animation:none}}
+.wa-face{position:absolute;top:-60px;right:-6px;width:102px;height:102px;transform:rotate(9deg);z-index:9}
+.wa-turn{display:flex;align-items:center;justify-content:center;gap:.5rem;margin:1.6rem 0 1.1rem;font-family:var(--f-hand);font-size:1.15rem;color:var(--ink-soft)}
+.wa-turn svg{width:24px;height:28px}
+/* the antidote — a flower blooming against the graveyard: the text lives in the
+   yellow centre, the petals spin round and round (the loop, alive) */
+.antidote{position:relative;max-width:600px;margin:0 auto;min-height:472px;display:flex;align-items:center;justify-content:center;padding:1rem}
+.antidote .petals{position:absolute;top:50%;left:50%;width:452px;height:452px;margin:-226px 0 0 -226px;z-index:0;pointer-events:none;transform-origin:center;animation:spin 30s linear infinite}
+.antidote .bloom{position:relative;z-index:1;width:270px;height:270px;border-radius:50%;background:var(--happy);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.5rem}
+.antidote .bloom::before{content:"";position:absolute;inset:0;border-radius:50%;border:3.4px solid var(--ink);filter:url(#rough);pointer-events:none}
+.antidote .bloom h3{font-family:var(--f-head);font-weight:800;font-size:var(--fs-2);color:var(--grass-deep);margin:0 0 .5rem;line-height:1.06;max-width:13ch}
+.antidote .bloom p{font-family:var(--f-body);font-size:var(--fs-small);color:var(--ink);margin:0;line-height:1.38;max-width:22ch}
+.antidote .bloom p b{color:var(--grass-deep);font-weight:700}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.antidote .petals{animation:none}}
+@media(max-width:600px){.wa-list{grid-template-columns:1fr;gap:1.6rem}.wa-face{top:-46px;right:0;width:84px;height:84px}.antidote{flex-direction:column;text-align:center}.antidote .hero{margin-bottom:-.4rem}}
