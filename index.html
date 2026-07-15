@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=263" />
+<link rel="stylesheet" href="app.css?v=264" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -59,6 +59,19 @@
     <filter id="torn2"><feTurbulence type="fractalNoise" baseFrequency="0.014 0.026" numOctaves="3" seed="17" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G"/></filter>
     <filter id="torn3"><feTurbulence type="fractalNoise" baseFrequency="0.014 0.026" numOctaves="3" seed="31" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G"/></filter>
     <filter id="roughsm2"><feTurbulence type="fractalNoise" baseFrequency="0.03 0.05" numOctaves="2" seed="19" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <!-- a hand-inked postage stamp + rubber postmark, for the #proof postcard pile -->
+    <symbol id="pcstamp" viewBox="0 0 84 58">
+      <g filter="url(#roughsm)" fill="none" stroke="var(--ink)" opacity=".5" stroke-width="2" stroke-linecap="round">
+        <circle cx="19" cy="29" r="15"/><circle cx="19" cy="29" r="9.5"/>
+        <path d="M37 21 h26 M37 29 h30 M37 37 h24"/>
+      </g>
+      <g filter="url(#roughsm)">
+        <rect x="47" y="6" width="31" height="45" rx="2" fill="currentColor" stroke="var(--ink)" stroke-width="2.6"/>
+        <rect x="51" y="10" width="23" height="37" rx="1" fill="none" stroke="var(--oats)" stroke-width="1.5" stroke-dasharray="2 3"/>
+        <circle cx="62.5" cy="28.5" r="7.5" fill="none" stroke="var(--oats)" stroke-width="2"/>
+        <circle cx="62.5" cy="28.5" r="1.8" fill="var(--oats)"/>
+      </g>
+    </symbol>
     <filter id="roughsm3"><feTurbulence type="fractalNoise" baseFrequency="0.03 0.05" numOctaves="2" seed="29" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
     <filter id="soft"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
     <filter id="soft2"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="13" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
@@ -708,49 +721,6 @@
            and names the thing that quietly accrues to the maker: a portfolio. -->
       <p class="exemplar">A zine is one kind of <b>exemplar</b> &mdash; the thing a circle leaves behind. It's the first format we built, not the last. And every issue you're in stacks up into <b>your portfolio</b>.</p>
 
-      <!-- the pile: the same two-up shape (makers + their issue), shrunk and littered under the
-           hand/bot pair. Folds MEET YOUR MAKERS in here — the proof that real people use this
-           belongs UNDER the demonstration of how, not in a section of its own. -->
-      <p class="pile-lead scrawl">&darr; and these are real circles and their zines</p>
-      <div class="zine-pile">
-        <figure class="zine-card hand">
-          <span class="zine-tab">XChange Fashion</span>
-          <div class="zine-duo">
-            <a class="zpola" href="https://xchange.fashion/" target="_blank" rel="noopener" aria-label="XChange Fashion &mdash; the community behind the XChange Models Circle">
-              <span class="ph"><img src="assets/zines/xchange-makers.jpg" alt="A model with a parasol posing at XChange's red-lit gate" loading="lazy" width="600" height="720" /></span></span>
-            </a>
-            <a class="zpola is-zine zbook" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener" aria-label="Read &ldquo;Silk Road 001&rdquo; &mdash; XChange Models' published issue">
-              <span class="ph"><img src="assets/zines/silk-road-cover.jpg" alt="A page of &ldquo;Silk Road 001&rdquo; &mdash; a model on a lantern-lit floor with a pull quote" loading="lazy" width="700" height="875" /></span></span>
-            </a>
-          </div>
-        </figure>
-        <figure class="zine-card bot">
-          <span class="zine-tab">Photo Phloor</span>
-          <div class="zine-duo">
-            <a class="zpola" href="https://www.instagram.com/photo.phloor/" target="_blank" rel="noopener" aria-label="Photo Phloor on Instagram &mdash; an SF photography collective">
-              <span class="ph"><img src="assets/zines/phloor-makers.jpg" alt="Photo Phloor's poster &mdash; a lone streetlight over a dark walkway at night" loading="lazy" width="600" height="720" /></span></span>
-            </a>
-            <div class="zpola is-zine is-ghost zbook" role="img" aria-label="Photo Phloor's first issue &mdash; on the press">
-              <span class="ph"><span class="bot-ico" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="var(--grass-deep)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M32 20 C26 16 18 16 12 18 V46 C18 44 26 44 32 48 C38 44 46 44 52 46 V18 C46 16 38 16 32 20 Z"/><path d="M32 20 V48"/></svg></span><span class="soon-stamp">on the press</span></span>
-            </div>
-          </div>
-        </figure>
-        <!-- SF PENMANS — third real circle. Replaces the empty "your Circle? / unwritten" slot:
-             three real circles read as evidence, two-plus-a-blank reads as a thin roster.
-             MEDIA PLACEHOLDER x2: (1) a photo of the Penmans at a table, nibs and ink out, and
-             (2) their issue cover. Swap the two .ph blocks below and drop the soon-stamps. -->
-        <figure class="zine-card hand">
-          <span class="zine-tab">SF Penmans</span>
-          <div class="zine-duo">
-            <div class="zpola is-vid" role="img" aria-label="SF Penmans &mdash; photo coming soon">
-              <span class="ph"><span class="bot-ico" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="var(--colorado)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M42 10 L54 22 L26 50 L12 52 L14 38 Z"/><path d="M40 12 L52 24"/><path d="M12 52 L20 44"/></svg></span><span class="soon-stamp">photo soon</span></span>
-            </div>
-            <div class="zpola is-zine is-ghost zbook" role="img" aria-label="SF Penmans &mdash; first issue on the press">
-              <span class="ph"><span class="bot-ico" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="var(--grass-deep)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M32 20 C26 16 18 16 12 18 V46 C18 44 26 44 32 48 C38 44 46 44 52 46 V18 C46 16 38 16 32 20 Z"/><path d="M32 20 V48"/></svg></span><span class="soon-stamp">on the press</span></span>
-            </div>
-          </div>
-        </figure>
-      </div>
 
       <!-- THE QUOTES. Not decoration — this is the conversion mechanism. Bandura (via Chielo's
            research): the strongest driver of self-efficacy is vicarious experience, i.e. seeing
@@ -852,231 +822,178 @@
   </section>
 
 
-  <!-- ============ THE OPEN BOOK — two published issues, no gate ============
-       The page spent nine sections ASSERTING that a challenge turns into a zine. This is the
-       one place it SHOWS it. Both spreads are real pages from real published issues, and both
-       links go straight to the live issue with no invite in the way — that "no gate" is the
-       entire point of the section, so nothing here may ever end up behind the demo's auth.
+  <!-- ============ THE PROOF — real circles + the zines they made ============
+       A messy 2-D heap of postcards. Merges the old "two issues you can read
+       right now" with the "and these are real circles and their zines" roster
+       into one object. Each card: the zine screenshot fills the left, the
+       maker's answer or the circle blurb on the right, the circle name up the
+       bottom-left like a spine label. Tap a card to pull it to the surface.
+       Hand-inked outlines via the roughen filters, drawn on border-only layers
+       so photos and type stay crisp (the cardinal rule).
+       FUTURE (blocked): the postage stamp on each card could use that circle's
+       own doodle data, and the card could show some of their marginalia — needs
+       programmatic access to that data, which we don't have yet.
+       CTAs: zine cards say "View zine" / "Play zine"; circle cards link Instagram;
+       a circle with both gets both. Non-model circle (Cafe) leads on purpose. ==== -->
+  <section class="dk" id="proof" aria-label="Real circles and the zines they made">
+    <div class="dk-head">
+      <span class="eyebrow">no invite &middot; no signup &middot; no gate</span>
+      <h2>Real circles, and the zines they <span class="ul">made</span><span class="stop">.</span></h2>
+      <p class="dk-sub">A pile of finished issues from groups who never met. Tap one to pull it up &mdash; every one is a live web page, open to anyone.</p>
+    </div>
 
-       Two DIFFERENT CIRCLES, not two production methods. "Drawing at the Cafe" was cut and
-       taped by hand; "Silk Road 001" was composed by the bot. That contrast is real and it is
-       named once, quietly, in the line under the book — never in the heading. Leading with
-       "here's the bot one" on a page arguing for hands and presence reads as "oh, it's an AI
-       thing", and the whole argument dies on the spot.
+    <div class="deck" id="deck" role="group" aria-label="A messy pile of postcards. Tap one to pull it to the top.">
 
-       The challenge and the answer are set as TEXT, not left inside the screenshots, because
-       the caption is the product and a caption inside a 320px-wide JPEG is not a caption.
-       ================================================================== -->
-  <!-- ============ THE PROOF — two issues you can read right now ============
-       The artifact is a TALL, portrait, variable-height SCROLLING WEB PAGE, not a
-       landscape paper spread. The old "book" cropped a 720x1306 page into a 1.46
-       landscape frame and threw away 60% of it, leaving a flat grey wall — the
-       object's proportions were lying about what a zine is.
-       Now each issue runs down a 300px gutter at its FULL uncropped height inside a
-       cartoon browser window (it says "web page" out loud, with a real URL bar), a
-       length ruler marks how tall it actually is, and the caption — the product —
-       is set calm in the wide margin. Craft on the facsimile; hierarchy in the type;
-       they never trade jobs. Tabs swap the issue, so all three fit one object and the
-       section is SHORTER than the 1148px it was. The third is the interactive
-       dress-up zine, drawn not shot, with no fabricated quote. ============ -->
-  <section class="mg" id="proof">
-    <div class="wrap">
+      <!-- 1 · CAFE — zine, non-model, leads -->
+      <article class="pc" data-i="0" style="--key:var(--schoolbus)">
+        <div class="pc-img">
+          <img src="assets/zines/spread-cafe.jpg" width="720" height="1415" loading="lazy" decoding="async" alt="Drawing at the Cafe: a bright collage, Claire holding her drawing.">
+          <span class="pc-name on-yellow">Cafe</span>
+        </div>
+        <div class="pc-msg">
+          <svg class="pc-post" aria-hidden="true"><use href="#pcstamp"/></svg>
+          <span class="pc-type on-yellow">Zine &middot; read</span>
+          <h3 class="pc-title">Drawing at the Cafe</h3>
+          <p class="pc-slug"><b>Drex Zine</b> &middot; 4 makers &middot; by hand</p>
+          <blockquote class="pc-a">&ldquo;It helps me relax and focus when I draw at the cafe!&rdquo;<cite class="pc-cite">&mdash; Claire</cite></blockquote>
+          <p class="pc-cta"><a class="btn" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener">View zine &rarr;</a></p>
+        </div>
+      </article>
 
-      <div class="mg-head">
-        <span class="eyebrow">no invite, no signup, no gate</span>
-        <h2>Two issues you can <span class="ul">read right now</span><span class="stop">.</span></h2>
-        <p class="mg-sub">Both are published, both are open on the web, and neither one is a mockup. This is the whole point of the due date.</p>
-      </div>
+      <!-- 2 · SILK ROAD — circle + zine, the model circle -->
+      <article class="pc" data-i="1" style="--key:var(--colorado)">
+        <div class="pc-img">
+          <img src="assets/zines/spread-silk.jpg" width="720" height="895" loading="lazy" decoding="async" alt="Silk Road 001: a dark editorial, a model mid-stride on a red-lit runway.">
+          <span class="pc-name">Silk Road</span>
+        </div>
+        <div class="pc-msg">
+          <svg class="pc-post" aria-hidden="true"><use href="#pcstamp"/></svg>
+          <span class="pc-type">Circle + zine</span>
+          <h3 class="pc-title">Silk Road 001</h3>
+          <p class="pc-slug"><b>XChange Models</b> &middot; 11 makers</p>
+          <blockquote class="pc-a">&ldquo;You believe in yourself.&rdquo;<cite class="pc-cite">&mdash; Wei-Sean, and ten others</cite></blockquote>
+          <p class="pc-cta"><a class="btn" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">View zine &rarr;</a><a class="pc-ig" href="https://xchange.fashion/" target="_blank" rel="noopener">their site &rarr;</a></p>
+        </div>
+      </article>
 
-      <input class="mg-r" type="radio" name="mgissue" id="mg-a" checked aria-label="Show the issue: Drawing at the Cafe" />
-      <input class="mg-r" type="radio" name="mgissue" id="mg-b" aria-label="Show the issue: Silk Road 001" />
-      <input class="mg-r" type="radio" name="mgissue" id="mg-c" aria-label="Show the interactive issue: the dress-up game" />
+      <!-- 3 · DRESS-UP — zine, interactive -->
+      <article class="pc" data-i="2" style="--key:var(--lazuli)">
+        <div class="pc-img">
+          <img src="assets/zines/spread-dressup.jpg" width="720" height="1965" loading="lazy" decoding="async" alt="The interactive dress-up zine: a clip-art figure with cut-out clothes taped beside him.">
+          <span class="pc-play"><svg viewBox="0 0 12 12"><path d="M2 1 L11 6 L2 11 Z" fill="var(--ink)"/></svg>Play</span>
+          <span class="pc-name">Dress-up</span>
+        </div>
+        <div class="pc-msg">
+          <svg class="pc-post" aria-hidden="true"><use href="#pcstamp"/></svg>
+          <span class="pc-type">Play it</span>
+          <h3 class="pc-title">The dress-up game</h3>
+          <p class="pc-slug"><b>Drexzine</b> &middot; 4 makers</p>
+          <p class="pc-blurb">These are web pages, not PDFs &mdash; this one is a dress-up game you play in the browser.</p>
+          <p class="pc-note">drag the clothes onto him &rarr;</p>
+          <p class="pc-cta"><a class="btn ink" href="https://demo.drex.style/z/5b548352-9124-4b25-bcaa-9c06322d30bb" target="_blank" rel="noopener">Play zine &rarr;</a></p>
+        </div>
+      </article>
 
-      <div class="mg-tabs">
-        <label class="mg-tab" for="mg-a"><span class="n">Drawing at the Cafe</span></label>
-        <label class="mg-tab" for="mg-b"><span class="n">Silk Road 001</span></label>
-        <label class="mg-tab" for="mg-c"><span class="n">Dress-up game</span></label>
-        <span class="mg-hint" aria-hidden="true">&larr; three real issues, pick one</span>
-      </div>
+      <!-- 4 · PHOTO PHLOOR — circle, non-model, honest -->
+      <article class="pc" data-i="3" style="--key:var(--grass-deep)">
+        <div class="pc-img">
+          <img src="assets/zines/phloor-makers.jpg" width="600" height="720" loading="lazy" decoding="async" alt="Photo Phloor: a lone streetlight over a dark walkway at night.">
+          <span class="pc-name">Phloor</span>
+        </div>
+        <div class="pc-msg">
+          <svg class="pc-post" aria-hidden="true"><use href="#pcstamp"/></svg>
+          <span class="pc-type">Circle</span>
+          <h3 class="pc-title">Photo Phloor</h3>
+          <p class="pc-slug"><b>San Francisco</b> &middot; a photography collective</p>
+          <p class="pc-blurb">Night walkers with cameras, out shooting the city and comparing frames.</p>
+          <p class="pc-note">first issue on the press &rarr;</p>
+          <p class="pc-cta"><a class="btn" href="https://www.instagram.com/photo.phloor/" target="_blank" rel="noopener">Instagram &rarr;</a></p>
+        </div>
+      </article>
 
-      <div class="mg-stage">
-
-        <!-- ISSUE 1 — Drawing at the Cafe -->
-        <article class="mg-issue i1" aria-label="Drawing at the Cafe">
-          <div class="fac">
-            <span class="mg-ruler" aria-hidden="true"><b>1306</b><span>px tall</span></span>
-            <span class="tape" aria-hidden="true"></span>
-            <span class="tape b r" aria-hidden="true"></span>
-            <div class="fac-shot">
-              <div class="fac-bar" aria-hidden="true">
-                <i></i><i></i><i></i>
-                <span class="fac-url">demo.drex.style/z/b33a8293&hellip;</span>
-              </div>
-              <img src="assets/zines/spread-cafe.jpg" width="720" height="1306" decoding="async" loading="lazy"
-                   alt="The whole of “Drawing at the Cafe”, top to bottom: Claire holding up her drawing, her cut-out horse doodle taped beside it, and a torn red note reading “relax and focus”." />
-            </div>
-            <span class="fac-curl" aria-hidden="true"></span>
-            <p class="fac-note">the whole page, top to bottom &mdash; nothing cropped, nothing tidied <span class="arr" aria-hidden="true">&darr;</span></p>
-          </div>
-
-          <div class="mg-margin">
-            <p class="mg-kicker">Issue No.&nbsp;001 &middot; published</p>
-            <h3 class="mg-title">Drawing at the Cafe</h3>
-            <p class="mg-slug">Drex Zine &middot; 4 makers &middot; cut and taped by hand</p>
-
-            <p class="mg-lab">The challenge</p>
-            <p class="mg-q">Make a doodle at the cafe. Is drawing at the cafe different than at home?</p>
-
-            <p class="mg-lab">Claire&rsquo;s answer</p>
-            <blockquote class="mg-a">&ldquo;It helps me relax and focus when I draw at the cafe!&rdquo;
-              <cite class="mg-cite">Claire &mdash; designer who doodles at cafes</cite></blockquote>
-
-            <p class="mg-cta">
-              <a class="btn" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41"
-                 target="_blank" rel="noopener">Read the issue <span class="arr" aria-hidden="true">&rarr;</span></a>
-            </p>
-            <p class="mg-why">Open on the web. No invite, no signup, no gate &mdash; the link is the whole thing.</p>
-          </div>
-        </article>
-
-        <!-- ISSUE 2 — Silk Road 001 -->
-        <article class="mg-issue i2" aria-label="Silk Road 001">
-          <div class="fac">
-            <span class="mg-ruler" aria-hidden="true"><b>895</b><span>px tall</span></span>
-            <span class="tape c" aria-hidden="true"></span>
-            <span class="tape r" aria-hidden="true"></span>
-            <div class="fac-shot">
-              <div class="fac-bar" aria-hidden="true">
-                <i></i><i></i><i></i>
-                <span class="fac-url">demo.drex.style/z/2020eaf7&hellip;</span>
-              </div>
-              <img src="assets/zines/spread-silk.jpg" width="720" height="895" decoding="async" loading="lazy"
-                   alt="The whole of “Silk Road 001”, top to bottom: a model mid-stride with a fan on a dark runway, captioned “just try, try, try new things.”" />
-            </div>
-            <span class="fac-curl" aria-hidden="true"></span>
-            <p class="fac-note">shorter page, eleven people &mdash; each issue ends where it ends</p>
-          </div>
-
-          <div class="mg-margin">
-            <p class="mg-kicker">Issue No.&nbsp;001 &middot; published</p>
-            <h3 class="mg-title">Silk Road 001</h3>
-            <p class="mg-slug">XChange Models &middot; 11 makers &middot; composed by the bot</p>
-
-            <p class="mg-lab">The challenge</p>
-            <p class="mg-q">What changed once you stepped off the runway?</p>
-
-            <p class="mg-lab">Wei-Sean&rsquo;s answer</p>
-            <blockquote class="mg-a">&ldquo;You definitely feel more. You believe in yourself.&rdquo;
-              <cite class="mg-cite">Wei-Sean &mdash; walked for the first time</cite></blockquote>
-
-            <p class="mg-cta">
-              <a class="btn" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23"
-                 target="_blank" rel="noopener">Read the issue <span class="arr" aria-hidden="true">&rarr;</span></a>
-            </p>
-            <p class="mg-why">Open on the web. No invite, no signup, no gate &mdash; the link is the whole thing.</p>
-          </div>
-        </article>
-
-        <!-- THIRD OBJECT — the dress-up game. No screenshot exists, so it is DRAWN,
-             and it gets no fabricated pull-quote: it is a toy, and it says so. -->
-        <article class="mg-issue i3" aria-label="The interactive issue: a dress-up game">
-          <div class="fac">
-            <span class="mg-ruler mg-ruler-play" aria-hidden="true"><b>play</b><span>it live</span></span>
-            <span class="tape b" aria-hidden="true"></span>
-            <span class="tape c r" aria-hidden="true"></span>
-            <div class="fac-shot">
-              <div class="fac-bar" aria-hidden="true">
-                <i></i><i></i><i></i>
-                <span class="fac-url">demo.drex.style/z/5b548352&hellip;</span>
-              </div>
-              <svg viewBox="0 0 300 560" role="img"
-                   aria-label="A drawing of the interactive issue: a cartoon clip-art figure with a cut-out shirt peeling off him, a rack of cut-out clothes below, and a dashed line showing a piece being dragged onto him.">
-                <rect x="0" y="0" width="300" height="560" fill="var(--oats)"/>
-                <g filter="url(#rough)">
-                  <rect x="0" y="0" width="300" height="52" fill="var(--happy)"/>
-                  <path d="M0 52 H300" stroke="var(--ink)" stroke-width="3"/>
-                  <path d="M20 20 h96 M20 33 h58 M132 26 h34" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>
-                  <circle cx="272" cy="26" r="9" fill="var(--colorado)" stroke="var(--ink)" stroke-width="3"/>
-                </g>
-                <g filter="url(#roughsm)">
-                  <ellipse cx="112" cy="336" rx="52" ry="8" fill="rgba(65,77,87,.20)"/>
-                  <rect x="92" y="262" width="17" height="70" rx="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
-                  <rect x="118" y="262" width="17" height="70" rx="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
-                  <rect x="88" y="238" width="51" height="32" rx="5" fill="var(--lazuli)" stroke="var(--ink)" stroke-width="3"/>
-                  <rect x="90" y="168" width="47" height="76" rx="8" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
-                  <rect x="62" y="172" width="15" height="64" rx="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="3" transform="rotate(-9 69 204)"/>
-                  <rect x="150" y="172" width="15" height="64" rx="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="3" transform="rotate(9 157 204)"/>
-                  <circle cx="113" cy="134" r="29" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
-                  <path d="M92 108 q21 -16 42 0" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
-                  <circle cx="103" cy="131" r="3.4" fill="var(--ink)"/>
-                  <circle cx="124" cy="131" r="3.4" fill="var(--ink)"/>
-                  <path d="M102 145 q11 9 22 0" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
-                </g>
-                <g transform="rotate(-8 150 205)">
-                  <g filter="url(#rough)">
-                    <path d="M117 176 l22 -12 l30 0 l22 12 l-11 24 l-11 -6 l0 56 l-30 0 l0 -56 l-11 6 Z" transform="translate(6,7)" fill="rgba(65,77,87,.85)" stroke="none"/>
-                    <path d="M117 176 l22 -12 l30 0 l22 12 l-11 24 l-11 -6 l0 56 l-30 0 l0 -56 l-11 6 Z" fill="var(--grass)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
-                    <path d="M139 164 q15 14 30 0" fill="none" stroke="var(--ink)" stroke-width="2.6"/>
-                  </g>
-                  <path d="M112 173 l25 -15 l35 0 l26 15 l-13 29 l-12 -7 l0 56 l-36 0 l0 -56 l-12 7 Z" fill="none" stroke="var(--paper)" stroke-width="2.4" stroke-dasharray="7 6" opacity=".9"/>
-                </g>
-                <g filter="url(#roughsm)" transform="rotate(-8 150 205)">
-                  <rect x="140" y="150" width="46" height="15" rx="1" fill="rgba(241,221,1,.62)" stroke="var(--ink)" stroke-width="1.6"/>
-                </g>
-                <g filter="url(#roughsm)">
-                  <path d="M214 452 C244 400 240 330 196 268" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-dasharray="8 8" stroke-linecap="round" opacity=".8"/>
-                  <path d="M196 268 l14 12 M196 268 l-3 18" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round"/>
-                  <circle cx="214" cy="452" r="13" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
-                  <path d="M214 445 v14 M207 452 h14" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
-                </g>
-                <g filter="url(#rough)">
-                  <path d="M18 382 H282" stroke="var(--ink)" stroke-width="3"/>
-                  <path d="M40 430 l0 -22 l36 0 l0 22 l16 0 l0 12 l-68 0 l0 -12 Z" transform="translate(5,6)" fill="rgba(65,77,87,.85)"/>
-                  <path d="M40 430 l0 -22 l36 0 l0 22 l16 0 l0 12 l-68 0 l0 -12 Z" fill="var(--colorado)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
-                  <path d="M120 406 l44 0 l4 60 l-16 0 l-10 -34 l-10 34 l-16 0 Z" transform="translate(5,6)" fill="rgba(65,77,87,.85)"/>
-                  <path d="M120 406 l44 0 l4 60 l-16 0 l-10 -34 l-10 34 l-16 0 Z" fill="var(--lazuli)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
-                  <path d="M196 452 l26 0 l16 14 l0 8 l-42 0 Z" transform="translate(5,6)" fill="rgba(65,77,87,.85)"/>
-                  <path d="M196 452 l26 0 l16 14 l0 8 l-42 0 Z" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
-                </g>
-                <g filter="url(#roughsm)">
-                  <rect x="46" y="374" width="52" height="16" rx="1" fill="rgba(36,150,201,.42)" stroke="var(--ink)" stroke-width="1.6" transform="rotate(-4 72 382)"/>
-                  <rect x="188" y="374" width="52" height="16" rx="1" fill="rgba(247,84,88,.42)" stroke="var(--ink)" stroke-width="1.6" transform="rotate(5 214 382)"/>
-                </g>
-                <g filter="url(#rough)" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" opacity=".55">
-                  <path d="M22 502 h150 M22 518 h216 M22 534 h96"/>
-                </g>
-              </svg>
-            </div>
-            <span class="fac-curl" aria-hidden="true"></span>
-            <p class="fac-note">no screenshot of this one &mdash; you have to go and play it</p>
-          </div>
-
-          <div class="mg-margin">
-            <p class="mg-kicker">Interactive issue &middot; published</p>
-            <h3 class="mg-title">The dress-up game</h3>
-            <p class="mg-slug">Drexzine &middot; 4 makers &middot; cutouts, glue, washi tape</p>
-
-            <p class="mg-lab">What it is</p>
-            <p class="mg-q">These are web pages, not PDFs. This one is a dress-up game.</p>
-
-            <p class="mg-lab">Why there is no quote here</p>
-            <blockquote class="mg-a is-plain">Because it isn&rsquo;t an answer. It&rsquo;s a toy: a clip-art figure and cut-out clothes you drag onto him.
-              <cite class="mg-cite">Four people made it. You play it.</cite></blockquote>
-
-            <p class="mg-cta">
-              <a class="btn ink" href="https://demo.drex.style/z/5b548352-9124-4b25-bcaa-9c06322d30bb"
-                 target="_blank" rel="noopener">Play the issue <span class="arr" aria-hidden="true">&rarr;</span></a>
-            </p>
-            <p class="mg-why">It is not proof of a deadline &mdash; the two issues above are. It is proof of what a finished issue is allowed to be.</p>
-          </div>
-        </article>
-
-      </div>
-
-      <p class="mg-foot">Lay it out yourself, or let the bot do it. Both of these are real issues.</p>
+      <!-- 5 · SF PENMANS — circle, non-model, no photo asset yet -->
+      <article class="pc" data-i="4" style="--key:var(--lazuli)">
+        <div class="pc-img" style="background:var(--lazuli);display:flex;align-items:center;justify-content:center">
+          <span style="font-family:var(--f-display);font-size:2.6rem;color:var(--oats)">SF</span>
+          <span class="pc-name">Penmans</span>
+        </div>
+        <div class="pc-msg">
+          <svg class="pc-post" aria-hidden="true"><use href="#pcstamp"/></svg>
+          <span class="pc-type">Circle</span>
+          <h3 class="pc-title">SF Penmans</h3>
+          <p class="pc-slug"><b>San Francisco</b> &middot; a penmanship circle</p>
+          <p class="pc-blurb">Nibs, ink and practice sheets &mdash; an hour spent getting the hand right.</p>
+          <p class="pc-note">first issue on the press &rarr;</p>
+          <p class="pc-cta"><a class="btn" href="https://instagram.com/drexcircles" target="_blank" rel="noopener">Instagram &rarr;</a></p>
+        </div>
+      </article>
 
     </div>
+
+    <div class="dk-nav" id="dknav" role="tablist" aria-label="Choose a circle"></div>
+    <p class="dk-hint">tap a card to pull it up &middot; five real circles</p>
+    <p class="dk-foot"><b>Lay it out yourself, or let the bot do it.</b> Every issue here is real, and open to anyone.</p>
   </section>
+
+  <script>
+  (function(){
+    var deck = document.getElementById('deck');
+    if(!deck) return;
+    var cards = Array.prototype.slice.call(deck.querySelectorAll('.pc'));
+    var n = cards.length;
+    var nav = document.getElementById('dknav');
+    var names = cards.map(function(c){ return c.querySelector('.pc-name').textContent.trim(); });
+    var front = 0;
+
+    // messy heap: x/y offsets (px) + rotation, fanning the bottom-left names along a lower arc
+    var scatter = [
+      { x:-186, y: 40, r:-11 },
+      { x: -78, y: 78, r: -3 },
+      { x:  44, y: 86, r:  6 },
+      { x: 168, y: 44, r: 13 },
+      { x:  86, y:-58, r: -7 }
+    ];
+    var zByI = {};
+    scatter.map(function(s,i){ return {i:i,y:s.y}; })
+           .sort(function(a,b){ return a.y - b.y; })
+           .forEach(function(o,rank){ zByI[o.i] = 20 + rank; });
+
+    function layout(){
+      var w = deck.clientWidth || 640;                 // 0 while the section is still sealed
+      var f = Math.max(0.5, Math.min(1, w / 640));
+      cards.forEach(function(c,i){
+        var isF = (i === front), s = scatter[i];
+        c.classList.toggle('is-front', isF);
+        var mul = isF ? 0.34 : 1;
+        c.style.setProperty('--x', (s.x * mul * f) + 'px');
+        c.style.setProperty('--y', ((s.y * mul - (isF ? 16 : 0)) * f) + 'px');
+        c.style.setProperty('--r', (isF ? s.r * 0.28 : s.r) + 'deg');
+        c.style.setProperty('--s', isF ? 1.06 : 1);
+        c.style.zIndex = isF ? 60 : String(zByI[i]);
+      });
+      Array.prototype.forEach.call(nav.children, function(d,i){ d.classList.toggle('on', i===front); d.setAttribute('aria-selected', i===front); });
+    }
+    function bringUp(i){ front = ((i % n) + n) % n; layout(); }
+
+    cards.forEach(function(c,i){
+      var dot = document.createElement('button');
+      dot.className='dk-dot'; dot.type='button'; dot.setAttribute('role','tab'); dot.setAttribute('aria-label', names[i]);
+      dot.addEventListener('click', function(){ bringUp(i); });
+      nav.appendChild(dot);
+      c.addEventListener('click', function(e){ if(e.target.closest('a')) return; bringUp(i); });
+    });
+    deck.setAttribute('tabindex','0');
+    deck.addEventListener('keydown', function(e){
+      if(e.key==='ArrowRight'){ e.preventDefault(); bringUp(front+1); }
+      if(e.key==='ArrowLeft'){ e.preventDefault(); bringUp(front-1); }
+    });
+    // ResizeObserver re-runs layout when the section un-hides at the cut-gate
+    // reveal (0 -> real width) and on any resize; falls back to window resize.
+    if(window.ResizeObserver){ new ResizeObserver(layout).observe(deck); }
+    else { window.addEventListener('resize', layout); }
+    layout();
+  })();
+  </script>
 
   <!-- ============ THE READER — find your Circle by flipping through zines ============ -->
   <section class="zines reader" id="reader">
