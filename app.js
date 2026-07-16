@@ -891,7 +891,9 @@ function initEnvelope(audio) {
     setCut(1); setX(1);
     Stage.play('cut', { gain: 0.42 });               // the heavier release tear
     env.classList.add('opened');                     // the card rises out of the pocket
-    { const _cc = document.querySelector('.card-clip'); _cc.style.height = ''; _cc.style.minHeight = ''; }   // release the centering clamp: the card rises to its NATURAL rest (clamp is shorter than the card, so keeping it overflows the card off-screen)
+    // Height stays PINNED (initSlitCenter's centred value) through the rise + burst so the slit sits
+    // at viewport centre while the card erupts through it. The settle beat below releases it
+    // (from centred height -> full height) = the card's visible downward settle.
     { const _stage = document.querySelector('.reel-stage');   // keep the reel's emerge clip glued to the card's mask line through the post-cut reflow
       if (_stage) { const _t0 = performance.now(); (function track(now){ if (env.classList.contains('done')) return; const cc = document.querySelector('.card-clip'); if (cc) _stage.style.setProperty('--reel-clip', (cc.getBoundingClientRect().bottom - _stage.getBoundingClientRect().top) + 'px'); if (now - _t0 < 800) requestAnimationFrame(track); })(performance.now()); } }
     spawnVolcano(seam);                               // marginalia ERUPTS upward out of the slit
