@@ -3625,7 +3625,10 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
 }
 /* MOBILE: static deck below the card text; tap to splay into a grid */
 @media(max-width:880px){
-  .hero-card-deck{position:relative;margin:1.1rem auto .2rem;width:min(86%,290px)}
+  /* below the desktop breakpoint the deck is NOT a col-2 grid item — force it onto its own full-width
+     row BELOW the foot (grid-column:1/-1). Without this it auto-flows into col 2 of the coupon's row
+     and lands beside the CTA. */
+  .hero-card-deck{grid-column:1/-1;position:relative;margin:1.1rem auto .2rem;width:min(86%,290px)}
   .hero-card-deck.stack-mode{height:calc(var(--pw) * 1.62)}
   .hero-card-deck.splayed{display:grid;grid-template-columns:1fr 1fr;gap:22px 12px;height:auto}
   .hero-card-deck.splayed .pola{position:static;width:auto;margin:0;transform:rotate(var(--r));transition:none}
