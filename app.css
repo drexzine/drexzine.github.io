@@ -3556,7 +3556,9 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
   column-gap:clamp(.7rem,2.5vw,2.4rem);align-items:start}
 .ed-head{grid-column:1/-1}
 .ed-body{grid-column:1;max-width:none}
-.ed-foot{grid-column:1;padding-right:0}
+/* the coupon spans the FULL width on its own row BELOW the deck (the deck only occupies the beats' row
+   now), so it is no longer squeezed into column 1 beside the stack. */
+.ed-foot{grid-column:1/-1;padding-right:0}
 .card-stack{display:block;position:relative;grid-column:2;grid-row:2/4;align-self:stretch;
   inset:auto;width:auto;height:auto;                 /* four earlier rules pin a width (down to
      clamp(126px,15%,190px)) and a height on this element, from when it was an absolute box floating
@@ -3583,7 +3585,13 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
    The card's 5 inner photos become a cycling deck of real challenges. Desktop: floats in the card's
    reserved right column, hover pauses the cycle so you can read the top card. Mobile: sits below the
    text, taps open into a grid. Squigglevision paper edges via #soft (static). */
-.hero-card-deck{--pw:clamp(178px,20vw,210px)}
+/* the deck sits BESIDE the feature list at EVERY width: a grid item in column 2, on the beats' ROW
+   (grid-row 2/3), pinned to the top so it lines up with "A challenge". Column 2 is narrow, so the deck
+   overflows it and spills off the card's right edge when the screen is tight; the coupon drops BELOW
+   (its own full-width row) instead of being boxed beside the deck. */
+.hero-card-deck{--pw:clamp(158px,23vw,205px);grid-column:2;grid-row:2/3;align-self:start;
+  justify-self:start;position:relative;z-index:4;width:clamp(174px,27vw,255px);
+  height:clamp(268px,31vw,342px);margin-top:clamp(1.2rem,2.6vw,1.8rem)}
 .hero-card-deck .pola{position:absolute;left:50%;margin-left:calc(var(--pw) / -2);top:4px;width:var(--pw);
   padding:8px 8px 0;cursor:pointer;pointer-events:auto;
   transform:translate(calc(var(--i,0)*4px),calc(var(--i,0)*7px)) rotate(var(--r)) scale(calc(1 - var(--i,0)*.03));
@@ -3607,36 +3615,15 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
   font-weight:700;line-height:1;color:var(--ink)}
 .hcd-hint{display:none}
 
-/* DESKTOP: the deck floats in the card's right column (the "well"), tucked to the RIGHT of the beats
-   and spilling a little past the card's right edge. Tap fans it out into a two-column spread. */
-@media(min-width:881px){
-  /* the deck is a GRID item in column 2, rows 2-4 — sitting BESIDE the beats (where the old photo
-     stack lived), pinned to the top so the stack lines up with the breakdown. Not absolute/centered. */
-  .hero-card-deck{grid-column:2;grid-row:2/4;align-self:start;justify-self:center;position:relative;
-    z-index:4;width:clamp(205px,96%,285px);height:clamp(290px,33vw,368px);
-    margin-top:clamp(1.2rem,2.6vw,1.8rem)}  /* match the beats' top margin so the stack lines up with "A challenge" */
-  .hero-card-deck.splayed{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:16px 12px;align-content:start}
-  .hero-card-deck.splayed .pola{position:static;left:auto;top:auto;margin:0;width:auto;
-    transform:rotate(var(--r));transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-  .hero-card-deck.splayed .pola i{height:86px}
-  .hero-card-deck.splayed .pola figcaption{font-size:12px;line-height:1.05;padding:6px 4px 8px}
-  .hero-card-deck.splayed .pola .kind{font-size:9px;margin-bottom:2px}
-  .hero-card-deck.splayed .pola::after{width:46px;height:13px;top:-7px}
-}
-/* MOBILE: static deck below the card text; tap to splay into a grid */
-@media(max-width:880px){
-  /* below the desktop breakpoint the deck is NOT a col-2 grid item — force it onto its own full-width
-     row BELOW the foot (grid-column:1/-1). Without this it auto-flows into col 2 of the coupon's row
-     and lands beside the CTA. */
-  .hero-card-deck{grid-column:1/-1;position:relative;margin:1.1rem auto .2rem;width:min(86%,290px)}
-  .hero-card-deck.stack-mode{height:calc(var(--pw) * 1.62)}
-  .hero-card-deck.splayed{display:grid;grid-template-columns:1fr 1fr;gap:22px 12px;height:auto}
-  .hero-card-deck.splayed .pola{position:static;width:auto;margin:0;transform:rotate(var(--r));transition:none}
-  .hero-card-deck.splayed .pola i{height:84px}
-  .hero-card-deck.splayed .pola figcaption{font-size:12.5px;padding:7px 4px 9px}
-  .hero-card-deck.splayed .pola .kind{font-size:9px;margin-bottom:2px}
-  .hero-card-deck.splayed .pola::after{width:50px;height:15px;top:-8px}
-}
+/* tap fans the stack out into a small two-column spread, in place, at every width */
+.hero-card-deck.splayed{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:14px 10px;
+  align-content:start;width:clamp(228px,42vw,320px)}
+.hero-card-deck.splayed .pola{position:static;left:auto;top:auto;margin:0;width:auto;
+  transform:rotate(var(--r));transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.hero-card-deck.splayed .pola i{height:82px}
+.hero-card-deck.splayed .pola figcaption{font-size:11.5px;line-height:1.04;padding:6px 4px 8px}
+.hero-card-deck.splayed .pola .kind{font-size:9px;margin-bottom:2px}
+.hero-card-deck.splayed .pola::after{width:44px;height:13px;top:-7px}
 /* Clipping the heap clips its CHILDREN to its own box — but the heap's box is itself wider than the
    viewport on a phone (negative insets, by design: the photographs are meant to run off the edge), and
    so is the hamburger's string. So the clip has to live on an ancestor. overflow-x:clip, not hidden:
