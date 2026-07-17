@@ -1027,8 +1027,10 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .mv-strip b{display:block;margin-top:.35rem;font-family:var(--f-mono);font-weight:400;font-size:.54rem;
   letter-spacing:.08em;color:var(--c,var(--colorado))}
 
-.mb-echo{margin:clamp(1.3rem,2.6vw,1.8rem) auto 0;text-align:center;font-size:1.16rem;
-  color:#3B2A16;max-width:48ch;text-shadow:0 1px 0 rgba(255,255,255,.22)}
+/* the echo sits BELOW the cycling deck. It was getting covered as the stack fanned downward, so it
+   now clears the deck's footprint and rides above it (z-index) as insurance against a stray card. */
+.mb-echo{position:relative;z-index:41;margin:clamp(2.2rem,4vw,3rem) auto 0;text-align:center;
+  font-size:1.16rem;color:#3B2A16;max-width:48ch;text-shadow:0 1px 0 rgba(255,255,255,.22)}
 .mb-echo a{color:#0C6E39;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 @media(prefers-reduced-motion:reduce){.mpol{transition:none}}
 
@@ -1037,7 +1039,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .mb-hint{display:none;text-align:center;font-family:var(--f-hand);color:#5A3E1C;font-size:1.02rem;
   margin:0 0 clamp(.9rem,1.8vw,1.3rem)}
 .makerboard.decked .mb-hint{display:block}
-.mb-grid.mb-stack{columns:auto;position:relative;height:clamp(348px,46vw,424px);
+.mb-grid.mb-stack{columns:auto;position:relative;height:clamp(392px,50vw,470px);
   max-width:min(330px,88%);margin:0 auto}
 .mb-grid.mb-stack .mpol{position:absolute;left:50%;top:0;width:min(300px,82vw);
   margin:0 0 0 calc(min(300px,82vw) / -2);
@@ -3271,8 +3273,10 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
 .ed-stamp:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
 .ed-terms{margin:0;flex:1 1 12rem;font-family:var(--f-body);font-size:var(--fs-small);
   line-height:1.45;color:var(--ink-faint)}
-.ed-links{margin:clamp(1rem,2vw,1.35rem) 0 0;font-family:var(--f-body);font-size:var(--fs-small);
-  color:var(--ink-soft)}
+/* the sub-links sit INSIDE the coupon (already a flex row), flowing into the space to the RIGHT of the
+   button and wrapping there; on a narrow card the flex row wraps and they drop under the button. */
+.ed-links{margin:0;flex:1 1 11rem;font-family:var(--f-body);font-size:var(--fs-small);
+  color:var(--ink-soft);line-height:1.5}
 .ed-links a{color:var(--ink);text-decoration:underline;text-decoration-thickness:1.5px;
   text-underline-offset:3px;padding:.35rem 0;display:inline-block}
 .ed-links a:hover{text-decoration-color:var(--grass-deep)}
@@ -3588,26 +3592,40 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
 .hero-card-deck .pola::after{content:"";position:absolute;left:50%;top:-11px;width:70px;height:20px;
   transform:translateX(-50%) rotate(-4deg);background:var(--schoolbus);border:2px solid var(--ink);
   opacity:.92;filter:url(#roughsm)}
+/* the washi-tape "tap here" label: sits on the top of the stack (covering the top card's own tape),
+   invites the fan-out. Hidden once splayed — you've already opened it. Replaces the old green hint. */
+.deck-tap{position:absolute;left:50%;z-index:50;top:0;transform:translate(-50%,-72%) rotate(-3deg);
+  background:var(--schoolbus);border:2.2px solid var(--ink);filter:url(#roughsm);
+  font-family:var(--f-hand);font-size:15px;line-height:1;color:var(--ink);padding:5px 15px 6px;
+  pointer-events:none;white-space:nowrap}
+.hero-card-deck.splayed .deck-tap{display:none}
 .hcd-hint{display:none}
 
-/* DESKTOP: the deck floats where .card-stack did (the copy already reserves this column) */
+/* DESKTOP: the deck floats in the card's right column (the "well"), tucked to the RIGHT of the beats
+   and spilling a little past the card's right edge. Tap fans it out into a two-column spread. */
 @media(min-width:881px){
-  .hero-card-deck{position:absolute;z-index:4;top:0;bottom:0;right:-3%;width:clamp(220px,31%,320px)}
+  .hero-card-deck{position:absolute;z-index:4;top:0;bottom:0;right:-8%;width:clamp(220px,31%,320px)}
   .hero-card-deck .pola{top:50%;margin-top:calc(var(--pw) * -.78)}
+  .deck-tap{top:50%;transform:translate(-50%,calc(var(--pw) * -.78 - 6px)) rotate(-3deg)}
+  .hero-card-deck.splayed{top:1%;bottom:auto;right:-13%;width:clamp(300px,40%,430px);
+    display:grid;grid-template-columns:1fr 1fr;gap:18px 12px;align-content:start}
+  .hero-card-deck.splayed .pola{position:static;left:auto;top:auto;margin:0;width:auto;
+    transform:rotate(var(--r));transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+  .hero-card-deck.splayed .pola i{height:92px}
+  .hero-card-deck.splayed .pola figcaption{font-size:12.5px;line-height:1.05;padding:7px 5px 9px}
+  .hero-card-deck.splayed .pola .kind{font-size:9.5px;margin-bottom:2px}
+  .hero-card-deck.splayed .pola::after{width:50px;height:14px;top:-8px}
 }
 /* MOBILE: static deck below the card text; tap to splay into a grid */
 @media(max-width:880px){
-  .hero-card-deck{position:relative;margin:.6rem auto .2rem;width:min(86%,290px)}
+  .hero-card-deck{position:relative;margin:1.1rem auto .2rem;width:min(86%,290px)}
   .hero-card-deck.stack-mode{height:calc(var(--pw) * 1.62)}
-  .hcd-hint{display:block;font-family:var(--f-hand);color:var(--grass-deep);
-    font-size:1rem;text-align:center;margin:0 0 .4rem}
   .hero-card-deck.splayed{display:grid;grid-template-columns:1fr 1fr;gap:22px 12px;height:auto}
   .hero-card-deck.splayed .pola{position:static;width:auto;margin:0;transform:rotate(var(--r));transition:none}
   .hero-card-deck.splayed .pola i{height:84px}
   .hero-card-deck.splayed .pola figcaption{font-size:12.5px;padding:7px 4px 9px}
   .hero-card-deck.splayed .pola .kind{font-size:9px;margin-bottom:2px}
   .hero-card-deck.splayed .pola::after{width:50px;height:15px;top:-8px}
-  .hero-card-deck.splayed .hcd-hint{grid-column:1/-1;margin-bottom:0}
 }
 /* Clipping the heap clips its CHILDREN to its own box — but the heap's box is itself wider than the
    viewport on a phone (negative insets, by design: the photographs are meant to run off the edge), and

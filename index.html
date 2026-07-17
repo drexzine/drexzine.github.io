@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=282" />
+<link rel="stylesheet" href="app.css?v=283" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -313,6 +313,8 @@
                    it: price and cadence are the first things a wary buyer looks for, and they were
                    set at 10px in sub-AA grey, which is not restraint, it is hiding them. -->
               <div class="ed-foot">
+                <!-- The sub-links live INSIDE the coupon, floating to the right of the button, so the
+                     whole CTA is one compact cut-out block (button + links) instead of stacked rows. -->
                 <div class="ed-coupon">
                   <span class="ed-snip" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -320,10 +322,10 @@
                     </svg>
                   </span>
                   <span class="cta-attn"><a class="btn ed-stamp" href="https://letters.drex.style/join-online/">Request an Invite <span class="arr" aria-hidden="true">&rarr;</span></a></span>
+                  <p class="ed-links"><a href="#proof">Read a real zine.</a> <span class="sep" aria-hidden="true">&middot;</span> Have a group? <a href="#bring">Bring them.</a> <span class="sep" aria-hidden="true">&middot;</span> Got a key? <a href="https://demo.drex.style">Open the demo.</a></p>
                   <!-- Funding terms are OUT of the hero (moved to #kit / a funding beat): the loop
                        comes first, the money model is a later beat. -->
                 </div>
-                <p class="ed-links"><a href="#proof">Read a real zine.</a> <span class="sep" aria-hidden="true">&middot;</span> Have a group? <a href="#bring">Bring them.</a> <span class="sep" aria-hidden="true">&middot;</span> Got a key? <a href="https://demo.drex.style">Open the demo.</a></p>
                 <!-- the tiny sign-off, demoted from the old big headline. Lives at the very bottom,
                      far from the tagline lead-in, so the two closers no longer compete. -->
                 <p class="ed-signoff">Most creative groups never finish anything. <b>Yours will.</b></p>
@@ -338,11 +340,11 @@
                    cannot collide. That is the whole point: the guarantee is the grid, not the
                    coordinates. Absolutely positioning these over the card's right side (which is what
                    they used to do) puts pictures where text happens not to be TODAY, and text moves. -->
-              <!-- the auto-rotating challenge deck: replaces the 5 .card-stack photos. Desktop = a
-                   cycling deck in the card's right column (hover pauses so you can read the top one);
-                   mobile = the deck below the text, tap to splay into a grid. Real photos, real prompts. -->
+              <!-- THE WELL, col-2: the auto-rotating challenge deck. It sits to the RIGHT of the beats
+                   and spills a little past the card's right edge. A washi-tape "tap here" label (stack
+                   mode only) invites the fan-out; the deck cycles a new challenge every ~3.2s. -->
               <div class="hero-card-deck" id="heroCardDeck" aria-label="Real challenges from real Circles">
-                <p class="hcd-hint">tap to see them all</p>
+                <span class="deck-tap" aria-hidden="true">tap here</span>
                 <figure class="pola" style="--r:-6deg"><i style="background-image:url(assets/zines/penmans-desk.jpg)"></i><figcaption><span class="kind">penmanship</span>Illuminate a dropcap &mdash; one letter, gone medieval.</figcaption></figure>
                 <figure class="pola" style="--r:4deg"><i style="background-image:url(assets/makers/tergel.jpg)"></i><figcaption><span class="kind">sacred cloth</span>The garment you wear when something is sacred.</figcaption></figure>
                 <figure class="pola" style="--r:-5deg"><i style="background-image:url(assets/zines/phloor-chair.jpg);background-position:center 60%"></i><figcaption><span class="kind">photography</span>Urban night photos of the overlooked &amp; under-photographed.</figcaption></figure>
@@ -962,7 +964,6 @@
           <a href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23/ledger" target="_blank" rel="noopener">read the ledger &rarr;</a></figcaption>
       </figure>
 
-      <p class="pile-cta">This wall is open. <a href="https://letters.drex.style/join-online/">Put your circle on it <span class="arr">&rarr;</span></a></p>
     </div>
   </section>
 
@@ -1732,7 +1733,7 @@
   deck.classList.add('stack-mode'); applyStack(); startCycle();
   deck.addEventListener('mouseenter',function(){ paused=true; });   // desktop: pause to read the top card
   deck.addEventListener('mouseleave',function(){ paused=false; });
-  deck.addEventListener('click',function(){ if(mq.matches){ deck.classList.toggle('splayed'); } });  // mobile: splay
+  deck.addEventListener('click',function(){ deck.classList.toggle('splayed'); });  // tap fans out (both breakpoints)
 })();
 /* B · makerboard cycling deck: same mechanic on the 11 maker answers, both breakpoints. */
 (function(){
@@ -1758,7 +1759,7 @@
   });
 })();
 </script>
-<script type="module" src="app.js?v=72"></script>
+<script type="module" src="app.js?v=73"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign

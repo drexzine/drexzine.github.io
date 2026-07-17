@@ -981,12 +981,18 @@ function initEnvelope(audio) {
       if (f >= 1 || done) stop();
     });
   }
-  idleTimer = setTimeout(autoCut, 3200);                      // ~3.2s of no interaction
+  idleTimer = setTimeout(autoCut, 5000);                      // ~5s of no interaction, then open it
   seam.addEventListener('pointerdown', () => {                // a deliberate grab disarms the idle timer
     autoArmed = true; clearTimeout(idleTimer);
   }, { once: true });
-  ['wheel', 'touchmove', 'scroll'].forEach((ev) =>            // first scroll intent — wheel/touch fire
-    addEventListener(ev, autoCut, { once: true, passive: true }));   // even when a sealed page can't scroll
+  // First scroll INTENT also opens it — but only AFTER a grace window. A load-time scroll restoration
+  // or a stray wheel/touch tick the instant the page arrives was snapping the seal open immediately;
+  // arming these late means only a scroll the visitor makes AFTER seeing the sealed page counts.
+  setTimeout(function(){
+    if (autoArmed || done || cutting) return;
+    ['wheel', 'touchmove', 'scroll'].forEach((ev) =>
+      addEventListener(ev, autoCut, { once: true, passive: true }));   // even when a sealed page can't scroll
+  }, 1400);
   (window.__drexCrit = window.__drexCrit || {}).autoCut = autoCut;   // QA hook
 
   /* ---- QA hooks ---- */
