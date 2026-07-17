@@ -3613,7 +3613,8 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
   /* the deck is a GRID item in column 2, rows 2-4 — sitting BESIDE the beats (where the old photo
      stack lived), pinned to the top so the stack lines up with the breakdown. Not absolute/centered. */
   .hero-card-deck{grid-column:2;grid-row:2/4;align-self:start;justify-self:center;position:relative;
-    z-index:4;width:clamp(205px,96%,285px);height:clamp(290px,33vw,368px)}
+    z-index:4;width:clamp(205px,96%,285px);height:clamp(290px,33vw,368px);
+    margin-top:clamp(1.2rem,2.6vw,1.8rem)}  /* match the beats' top margin so the stack lines up with "A challenge" */
   .hero-card-deck.splayed{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:16px 12px;align-content:start}
   .hero-card-deck.splayed .pola{position:static;left:auto;top:auto;margin:0;width:auto;
     transform:rotate(var(--r));transition:transform .35s cubic-bezier(.2,.8,.2,1)}
