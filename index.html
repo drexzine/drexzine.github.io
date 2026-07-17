@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=278" />
+<link rel="stylesheet" href="app.css?v=279" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -900,7 +900,8 @@
           <span class="mb-k mb-k-q">then tell us</span>
           <p class="mb-q">&ldquo;What changed once you stepped off the runway?&rdquo;</p>
         </div>
-        <div class="mb-grid">
+        <p class="mb-hint" id="mbHint">tap to read all eleven &rarr;</p>
+        <div class="mb-grid" id="mbDeck">
         <figure class="mpol lead" style="--r:-1.6deg;--c:var(--colorado)">
           <span class="mv-pin" aria-hidden="true"></span>
           <span class="mv-ph"><span class="mv-ini" aria-hidden="true">T</span><span class="mv-soon">photo soon</span><span class="mv-vid" aria-hidden="true"></span></span>
@@ -1732,6 +1733,29 @@
   deck.addEventListener('mouseenter',function(){ paused=true; });   // desktop: pause to read the top card
   deck.addEventListener('mouseleave',function(){ paused=false; });
   deck.addEventListener('click',function(){ if(mq.matches){ deck.classList.toggle('splayed'); } });  // mobile: splay
+})();
+/* B · makerboard cycling deck: same mechanic on the 11 maker answers, both breakpoints. */
+(function(){
+  var deck=document.getElementById('mbDeck');
+  if(!deck) return;
+  var board=deck.closest('.makerboard');
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)');
+  var order=[].slice.call(deck.querySelectorAll('.mpol'));
+  var timer=null, paused=false;
+  function applyStack(){ order.forEach(function(p,i){ p.style.setProperty('--i',i); }); }
+  function stacked(){ return deck.classList.contains('mb-stack'); }
+  function startCycle(){ clearInterval(timer); timer=null;
+    if(reduce.matches) return;
+    timer=setInterval(function(){ if(paused||!stacked())return; order.push(order.shift()); applyStack(); },2600);
+  }
+  deck.classList.add('mb-stack'); if(board)board.classList.add('decked'); applyStack(); startCycle();
+  deck.addEventListener('mouseenter',function(){ paused=true; });
+  deck.addEventListener('mouseleave',function(){ paused=false; });
+  deck.addEventListener('click',function(){
+    deck.classList.toggle('mb-stack');
+    if(board)board.classList.toggle('decked', deck.classList.contains('mb-stack'));
+    if(deck.classList.contains('mb-stack')) applyStack();
+  });
 })();
 </script>
 <script type="module" src="app.js?v=72"></script>
