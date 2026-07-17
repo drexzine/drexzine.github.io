@@ -3610,16 +3610,17 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
 /* DESKTOP: the deck floats in the card's right column (the "well"), tucked to the RIGHT of the beats
    and spilling a little past the card's right edge. Tap fans it out into a two-column spread. */
 @media(min-width:881px){
-  .hero-card-deck{position:absolute;z-index:4;top:0;bottom:0;right:clamp(6px,1.2%,22px);width:clamp(200px,28%,290px)}
-  .hero-card-deck .pola{top:50%;margin-top:calc(var(--pw) * -.78)}
-  .hero-card-deck.splayed{top:1%;bottom:auto;right:clamp(6px,1.2%,22px);width:clamp(280px,38%,400px);
-    display:grid;grid-template-columns:1fr 1fr;gap:18px 12px;align-content:start}
+  /* the deck is a GRID item in column 2, rows 2-4 — sitting BESIDE the beats (where the old photo
+     stack lived), pinned to the top so the stack lines up with the breakdown. Not absolute/centered. */
+  .hero-card-deck{grid-column:2;grid-row:2/4;align-self:start;justify-self:center;position:relative;
+    z-index:4;width:clamp(205px,96%,285px);height:clamp(290px,33vw,368px)}
+  .hero-card-deck.splayed{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:16px 12px;align-content:start}
   .hero-card-deck.splayed .pola{position:static;left:auto;top:auto;margin:0;width:auto;
     transform:rotate(var(--r));transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-  .hero-card-deck.splayed .pola i{height:92px}
-  .hero-card-deck.splayed .pola figcaption{font-size:12.5px;line-height:1.05;padding:7px 5px 9px}
-  .hero-card-deck.splayed .pola .kind{font-size:9.5px;margin-bottom:2px}
-  .hero-card-deck.splayed .pola::after{width:50px;height:14px;top:-8px}
+  .hero-card-deck.splayed .pola i{height:86px}
+  .hero-card-deck.splayed .pola figcaption{font-size:12px;line-height:1.05;padding:6px 4px 8px}
+  .hero-card-deck.splayed .pola .kind{font-size:9px;margin-bottom:2px}
+  .hero-card-deck.splayed .pola::after{width:46px;height:13px;top:-7px}
 }
 /* MOBILE: static deck below the card text; tap to splay into a grid */
 @media(max-width:880px){
