@@ -3592,6 +3592,14 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
 .hero-card-deck{--pw:clamp(158px,23vw,205px);grid-column:2;grid-row:2/3;align-self:start;
   justify-self:start;position:relative;z-index:4;width:clamp(174px,27vw,255px);
   height:clamp(268px,31vw,342px);margin-top:clamp(-2.4rem,-3vw,-1.7rem)}  /* lift beside the subtitle's 2nd line + the beats (clear of its long 1st line) */
+/* Roomy screens: column 2 is wider than the deck, so anchor it to the column's RIGHT edge and spill it
+   into the margin (the right "gutter"), and lift it UP beside the subtitle. There's room here to sit
+   clear of the subtitle's text on the left; on a narrow card there isn't, so it stays beside the beats
+   (the base rule above). */
+@media(min-width:900px){
+  .hero-card-deck{justify-self:end;margin-right:calc(-1 * clamp(4rem,9.5vw,6.5rem));
+    margin-top:clamp(-6.5rem,-7vw,-4rem)}
+}
 .hero-card-deck .pola{position:absolute;left:50%;margin-left:calc(var(--pw) / -2);top:4px;width:var(--pw);
   padding:8px 8px 0;cursor:pointer;pointer-events:auto;
   transform:translate(calc(var(--i,0)*4px),calc(var(--i,0)*7px)) rotate(var(--r)) scale(calc(1 - var(--i,0)*.03));
