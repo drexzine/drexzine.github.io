@@ -316,6 +316,13 @@ html:not(.sealed) .hero-card .cut-payoff{display:none}
 .hero-card .cut-payoff .cut-payoff-line{margin:0;color:var(--grass-deep);line-height:1.08;max-width:13ch;
   font-size:clamp(2.8rem,9vw,5.4rem)}
 @keyframes cardFlashOut{0%{opacity:1}62%{opacity:1}100%{opacity:0;visibility:hidden}}
+/* On a phone the card is ~1300px tall, so centering the flash put "drex means you actually do." at the
+   card's midpoint — right at/below the fold, so it was never seen. Anchor it to the TOP of the card so
+   it lands in the first screen as the card rises. */
+@media(max-width:880px){
+  html.sealed .envelope.opened .hero-card .cut-payoff{align-items:flex-start;
+    padding-top:clamp(5rem,30vh,13rem)}
+}
 
 /* ---- the cut opens the whole site ---- */
 /* before the cut: only the hero envelope exists — everything below is hidden,
@@ -3273,14 +3280,15 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
 .ed-stamp:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
 .ed-terms{margin:0;flex:1 1 12rem;font-family:var(--f-body);font-size:var(--fs-small);
   line-height:1.45;color:var(--ink-faint)}
-/* the sub-links sit INSIDE the coupon (already a flex row), flowing into the space to the RIGHT of the
-   button and wrapping there; on a narrow card the flex row wraps and they drop under the button. */
-.ed-links{margin:0;flex:1 1 11rem;font-family:var(--f-body);font-size:var(--fs-small);
-  color:var(--ink-soft);line-height:1.5}
-.ed-links a{color:var(--ink);text-decoration:underline;text-decoration-thickness:1.5px;
-  text-underline-offset:3px;padding:.35rem 0;display:inline-block}
-.ed-links a:hover{text-decoration-color:var(--grass-deep)}
-.ed-links .sep{color:var(--colorado);padding:0 .3rem}
+/* the sub-links sit INSIDE the coupon (a flex row), to the RIGHT of the button — ONE sub-CTA per line,
+   stacked. On a narrow card the coupon row wraps and the whole stack drops under the button. */
+.ed-links{margin:0;flex:1 1 12rem;display:flex;flex-direction:column;gap:.1rem;
+  font-family:var(--f-body);font-size:var(--fs-small);color:var(--ink-soft)}
+.ed-links a{display:inline-flex;align-items:baseline;gap:.4rem;width:fit-content;
+  color:var(--ink);text-decoration:none;padding:.2rem 0;
+  border-bottom:1.6px solid transparent;line-height:1.3}
+.ed-links a:hover{border-bottom-color:var(--grass-deep)}
+.ed-links a .arr{color:var(--grass-deep);font-weight:600}
 
 /* --- HERO COPY v2 (2026-07-15): category line · tagline lead-in · four beats · tiny sign-off.
    Layout (where the beats sit, smear-vs-video) is deliberately left for /design-shotgun; this is
@@ -3592,13 +3600,11 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
 .hero-card-deck .pola::after{content:"";position:absolute;left:50%;top:-11px;width:70px;height:20px;
   transform:translateX(-50%) rotate(-4deg);background:var(--schoolbus);border:2px solid var(--ink);
   opacity:.92;filter:url(#roughsm)}
-/* the washi-tape "tap here" label: sits on the top of the stack (covering the top card's own tape),
-   invites the fan-out. Hidden once splayed — you've already opened it. Replaces the old green hint. */
-.deck-tap{position:absolute;left:50%;z-index:50;top:0;transform:translate(-50%,-72%) rotate(-3deg);
-  background:var(--schoolbus);border:2.2px solid var(--ink);filter:url(#roughsm);
-  font-family:var(--f-hand);font-size:15px;line-height:1;color:var(--ink);padding:5px 15px 6px;
-  pointer-events:none;white-space:nowrap}
-.hero-card-deck.splayed .deck-tap{display:none}
+/* The TOP card's OWN washi tape carries the "tap here" cue — no separate label. JS marks the front
+   card with .dt; the rest keep a blank tape, and once splayed the cue is gone (you've opened it). */
+.hero-card-deck:not(.splayed) .pola.dt::after{content:"tap here";display:flex;align-items:center;
+  justify-content:center;width:76px;height:23px;font-family:var(--f-hand);font-size:13.5px;
+  line-height:1;color:var(--ink)}
 .hcd-hint{display:none}
 
 /* DESKTOP: the deck floats in the card's right column (the "well"), tucked to the RIGHT of the beats
@@ -3606,7 +3612,6 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
 @media(min-width:881px){
   .hero-card-deck{position:absolute;z-index:4;top:0;bottom:0;right:-8%;width:clamp(220px,31%,320px)}
   .hero-card-deck .pola{top:50%;margin-top:calc(var(--pw) * -.78)}
-  .deck-tap{top:50%;transform:translate(-50%,calc(var(--pw) * -.78 - 6px)) rotate(-3deg)}
   .hero-card-deck.splayed{top:1%;bottom:auto;right:-13%;width:clamp(300px,40%,430px);
     display:grid;grid-template-columns:1fr 1fr;gap:18px 12px;align-content:start}
   .hero-card-deck.splayed .pola{position:static;left:auto;top:auto;margin:0;width:auto;

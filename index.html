@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=283" />
+<link rel="stylesheet" href="app.css?v=284" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -322,7 +322,11 @@
                     </svg>
                   </span>
                   <span class="cta-attn"><a class="btn ed-stamp" href="https://letters.drex.style/join-online/">Request an Invite <span class="arr" aria-hidden="true">&rarr;</span></a></span>
-                  <p class="ed-links"><a href="#proof">Read a real zine.</a> <span class="sep" aria-hidden="true">&middot;</span> Have a group? <a href="#bring">Bring them.</a> <span class="sep" aria-hidden="true">&middot;</span> Got a key? <a href="https://demo.drex.style">Open the demo.</a></p>
+                  <div class="ed-links">
+                    <a href="#proof">Read a real zine <span class="arr" aria-hidden="true">&rarr;</span></a>
+                    <a href="#bring">Have a group? Bring them <span class="arr" aria-hidden="true">&rarr;</span></a>
+                    <a href="https://demo.drex.style">Got a key? Open the demo <span class="arr" aria-hidden="true">&rarr;</span></a>
+                  </div>
                   <!-- Funding terms are OUT of the hero (moved to #kit / a funding beat): the loop
                        comes first, the money model is a later beat. -->
                 </div>
@@ -344,7 +348,6 @@
                    and spills a little past the card's right edge. A washi-tape "tap here" label (stack
                    mode only) invites the fan-out; the deck cycles a new challenge every ~3.2s. -->
               <div class="hero-card-deck" id="heroCardDeck" aria-label="Real challenges from real Circles">
-                <span class="deck-tap" aria-hidden="true">tap here</span>
                 <figure class="pola" style="--r:-6deg"><i style="background-image:url(assets/zines/penmans-desk.jpg)"></i><figcaption><span class="kind">penmanship</span>Illuminate a dropcap &mdash; one letter, gone medieval.</figcaption></figure>
                 <figure class="pola" style="--r:4deg"><i style="background-image:url(assets/makers/tergel.jpg)"></i><figcaption><span class="kind">sacred cloth</span>The garment you wear when something is sacred.</figcaption></figure>
                 <figure class="pola" style="--r:-5deg"><i style="background-image:url(assets/zines/phloor-chair.jpg);background-position:center 60%"></i><figcaption><span class="kind">photography</span>Urban night photos of the overlooked &amp; under-photographed.</figcaption></figure>
@@ -1725,7 +1728,7 @@
   var reduce=matchMedia('(prefers-reduced-motion:reduce)');
   var order=[].slice.call(deck.querySelectorAll('.pola'));
   var timer=null, paused=false;
-  function applyStack(){ order.forEach(function(p,i){ p.style.setProperty('--i',i); }); }
+  function applyStack(){ order.forEach(function(p,i){ p.style.setProperty('--i',i); p.classList.toggle('dt', i===0); }); }  // .dt = the front card (its tape shows "tap here")
   function startCycle(){ clearInterval(timer); timer=null;
     if(reduce.matches) return;
     timer=setInterval(function(){ if(paused||deck.classList.contains('splayed'))return; order.push(order.shift()); applyStack(); },3200);
