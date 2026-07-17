@@ -3600,6 +3600,14 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
   .hero-card-deck{justify-self:end;margin-right:calc(-1 * clamp(4rem,9.5vw,6.5rem));
     margin-top:clamp(-6.5rem,-7vw,-4rem)}
 }
+/* Mid / skinny screens (500-899px): keep the subtitle inside column 1 (wrap it a touch narrower) so it
+   clears the deck's column, then lift the deck up beside it (top of the tape ~ top of the green text)
+   and nudge it right. Below 500 the deck is nearly half the card, so clearing the subtitle would force
+   it into 4 cramped lines — there it keeps the base placement (beside the beats). */
+@media(min-width:500px) and (max-width:899px){
+  .ed-sub{max-width:23ch}
+  .hero-card-deck{margin-top:clamp(-4.6rem,-7vw,-2.8rem);margin-left:clamp(6px,2.4vw,20px)}
+}
 .hero-card-deck .pola{position:absolute;left:50%;margin-left:calc(var(--pw) / -2);top:4px;width:var(--pw);
   padding:8px 8px 0;cursor:pointer;pointer-events:auto;
   transform:translate(calc(var(--i,0)*4px),calc(var(--i,0)*7px)) rotate(var(--r)) scale(calc(1 - var(--i,0)*.03));
