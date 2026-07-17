@@ -3591,7 +3591,7 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
    (its own full-width row) instead of being boxed beside the deck. */
 .hero-card-deck{--pw:clamp(158px,23vw,205px);grid-column:2;grid-row:2/3;align-self:start;
   justify-self:start;position:relative;z-index:4;width:clamp(174px,27vw,255px);
-  height:clamp(268px,31vw,342px);margin-top:clamp(1.2rem,2.6vw,1.8rem)}
+  height:clamp(268px,31vw,342px);margin-top:clamp(-2.4rem,-3vw,-1.7rem)}  /* lift beside the subtitle's 2nd line + the beats (clear of its long 1st line) */
 .hero-card-deck .pola{position:absolute;left:50%;margin-left:calc(var(--pw) / -2);top:4px;width:var(--pw);
   padding:8px 8px 0;cursor:pointer;pointer-events:auto;
   transform:translate(calc(var(--i,0)*4px),calc(var(--i,0)*7px)) rotate(var(--r)) scale(calc(1 - var(--i,0)*.03));
