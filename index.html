@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=292" />
+<link rel="stylesheet" href="app.css?v=293" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -1719,24 +1719,60 @@
   </div>
 </footer>
 
+<!-- The challenge lightbox: tapping the hero deck opens this — every kind of challenge at a readable
+     size, showing the RANGE of what "creative" means on Drex. Body-level (outside the transformed hero
+     card) so position:fixed is viewport-relative and it can't run off-screen. Cloned from the deck. -->
+<div class="deck-modal" id="deckModal" hidden role="dialog" aria-modal="true" aria-label="What we mean by creative">
+  <div class="dm-backdrop" data-close></div>
+  <div class="dm-panel" role="document">
+    <button class="dm-close" type="button" data-close aria-label="Close">&times;</button>
+    <p class="dm-eyebrow">what we mean by <span class="hl">creative</span></p>
+    <p class="dm-sub scrawl">one prompt every cycle &mdash; any craft that leaves something to show</p>
+    <div class="dm-grid" id="deckModalGrid"></div>
+  </div>
+</div>
+
 <script>
-/* hero card deck: cycle the top challenge; desktop hover pauses to read; mobile tap splays open. */
+/* hero card deck: cycle the top challenge; hover pauses to read; TAP opens the lightbox. The deck is
+   small and pinned in the gutter, so it can't fan out in place — it opens a centered modal instead. */
 (function(){
   var deck=document.getElementById('heroCardDeck');
   if(!deck) return;
-  var mq=matchMedia('(max-width:880px)');
   var reduce=matchMedia('(prefers-reduced-motion:reduce)');
   var order=[].slice.call(deck.querySelectorAll('.pola'));
   var timer=null, paused=false;
-  function applyStack(){ order.forEach(function(p,i){ p.style.setProperty('--i',i); p.classList.toggle('dt', i===0); }); }  // .dt = the front card (its tape shows "tap here")
+  var modal=document.getElementById('deckModal');
+  var grid=document.getElementById('deckModalGrid');
+  function modalOpen(){ return modal && !modal.hidden; }
+  function applyStack(){ order.forEach(function(p,i){ p.style.setProperty('--i',i); p.classList.toggle('dt', i===0); }); }  // .dt = front card (its tape shows "tap here")
   function startCycle(){ clearInterval(timer); timer=null;
     if(reduce.matches) return;
-    timer=setInterval(function(){ if(paused||deck.classList.contains('splayed'))return; order.push(order.shift()); applyStack(); },3200);
+    timer=setInterval(function(){ if(paused||modalOpen())return; order.push(order.shift()); applyStack(); },3200);
   }
   deck.classList.add('stack-mode'); applyStack(); startCycle();
+  deck.setAttribute('role','button'); deck.setAttribute('tabindex','0');
   deck.addEventListener('mouseenter',function(){ paused=true; });   // desktop: pause to read the top card
   deck.addEventListener('mouseleave',function(){ paused=false; });
-  deck.addEventListener('click',function(){ deck.classList.toggle('splayed'); });  // tap fans out (both breakpoints)
+
+  function openModal(){
+    if(!modal||!grid) return;
+    grid.innerHTML = deck.innerHTML;                                  // clone the challenges, shown big
+    [].forEach.call(grid.querySelectorAll('.pola'), function(p){ p.classList.remove('dt'); p.style.removeProperty('--i'); });
+    modal.hidden=false; document.documentElement.classList.add('modal-open');
+    var c=modal.querySelector('.dm-close'); if(c) c.focus();
+  }
+  function closeModal(){
+    if(!modal) return;
+    modal.hidden=true; if(grid) grid.innerHTML='';
+    document.documentElement.classList.remove('modal-open');
+    if(deck.focus) deck.focus();
+  }
+  deck.addEventListener('click', openModal);
+  deck.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(); } });
+  if(modal){
+    modal.addEventListener('click', function(e){ if(e.target.hasAttribute('data-close')) closeModal(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && modalOpen()) closeModal(); });
+  }
 })();
 /* B · makerboard cycling deck: same mechanic on the 11 maker answers, both breakpoints. */
 (function(){

@@ -3625,21 +3625,53 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
   transform:translateX(-50%) rotate(-4deg);background:var(--schoolbus);border:2px solid var(--ink);
   opacity:.92;filter:url(#roughsm)}
 /* The TOP card's OWN washi tape carries the "tap here" cue — no separate label. JS marks the front
-   card with .dt; the rest keep a blank tape, and once splayed the cue is gone (you've opened it). */
-.hero-card-deck:not(.splayed) .pola.dt::after{content:"tap here";display:flex;align-items:center;
+   card with .dt; the rest keep a blank tape. Tapping opens the lightbox (below), not an in-place fan. */
+.hero-card-deck .pola.dt::after{content:"tap here";display:flex;align-items:center;
   justify-content:center;width:78px;height:23px;font-family:var(--f-hand);font-size:14px;
   font-weight:700;line-height:1;color:var(--ink)}
 .hcd-hint{display:none}
 
-/* tap fans the stack out into a small two-column spread, in place, at every width */
-.hero-card-deck.splayed{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:14px 10px;
-  align-content:start;width:clamp(228px,42vw,320px)}
-.hero-card-deck.splayed .pola{position:static;left:auto;top:auto;margin:0;width:auto;
-  transform:rotate(var(--r));transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-.hero-card-deck.splayed .pola i{height:82px}
-.hero-card-deck.splayed .pola figcaption{font-size:11.5px;line-height:1.04;padding:6px 4px 8px}
-.hero-card-deck.splayed .pola .kind{font-size:9px;margin-bottom:2px}
-.hero-card-deck.splayed .pola::after{width:44px;height:13px;top:-7px}
+/* ===== CHALLENGE LIGHTBOX ===== tapping the hero deck (too small to fan out in place) opens this:
+   every kind of challenge at a readable size, framing what "creative" means on Drex. Body-level, so
+   position:fixed is viewport-relative and it can never run off-screen like the old in-place splay did. */
+.deck-modal{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;
+  padding:clamp(1rem,4vw,3rem)}
+.deck-modal[hidden]{display:none}
+html.modal-open{overflow:hidden}
+.dm-backdrop{position:absolute;inset:0;background:rgba(46,56,64,.62);backdrop-filter:blur(2px);
+  animation:dmFade .2s ease both}
+.dm-panel{position:relative;z-index:1;width:min(940px,96vw);max-height:90vh;overflow:auto;
+  background:var(--oats);padding:clamp(1.6rem,3.5vw,2.6rem);animation:dmPop .24s cubic-bezier(.2,.9,.3,1.1) both}
+.dm-panel::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--oats);
+  border:2.8px solid var(--ink);box-shadow:11px 11px 0 rgba(65,77,87,.85);filter:url(#soft)}
+.dm-close{position:absolute;top:.35rem;right:.5rem;z-index:2;width:40px;height:40px;display:flex;
+  align-items:center;justify-content:center;font-size:27px;line-height:1;background:none;border:0;
+  color:var(--ink);cursor:pointer;font-family:var(--f-head)}
+.dm-close:hover{color:var(--colorado)}
+.dm-close:focus-visible{outline:3px solid var(--lazuli);outline-offset:2px;border-radius:4px}
+.dm-eyebrow{margin:0;font-family:var(--f-head);font-weight:500;font-size:var(--fs-label);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+.dm-eyebrow .hl{background:var(--happy);mix-blend-mode:multiply;padding:.02em .18em;border-radius:3px;color:var(--ink)}
+.dm-sub{margin:.45rem 0 0;font-family:var(--f-hand);font-size:1.16rem;line-height:1.2;color:var(--grass-deep)}
+.dm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:clamp(1.2rem,2.8vw,2rem) clamp(.9rem,2vw,1.4rem);margin-top:clamp(1.1rem,2.6vw,1.7rem)}
+.dm-grid .pola{position:relative;width:auto;margin:0;padding:9px 9px 0;background:#fff;
+  transform:rotate(var(--r));cursor:default}
+.dm-grid .pola::before{content:"";position:absolute;inset:0;z-index:-1;background:#fff;
+  border:2.4px solid var(--ink);box-shadow:5px 5px 0 var(--ink);filter:url(#soft)}
+.dm-grid .pola:nth-of-type(3n+2)::before{filter:url(#soft2)}
+.dm-grid .pola:nth-of-type(3n)::before{filter:url(#soft3)}
+.dm-grid .pola i{display:block;height:122px;background-size:cover;background-position:center 28%}
+.dm-grid .pola figcaption{font-family:var(--f-hand);color:var(--ink);font-size:15px;line-height:1.08;
+  text-align:center;padding:9px 6px 12px}
+.dm-grid .pola .kind{display:block;font-family:var(--f-mono);font-weight:600;font-size:11px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--coral-ink);margin-bottom:3px}
+.dm-grid .pola::after{content:"";position:absolute;left:50%;top:-10px;width:56px;height:16px;
+  transform:translateX(-50%) rotate(-4deg);background:var(--schoolbus);border:2px solid var(--ink);
+  opacity:.9;filter:url(#roughsm)}
+@keyframes dmFade{from{opacity:0}to{opacity:1}}
+@keyframes dmPop{from{opacity:0;transform:translateY(10px) scale(.975)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.dm-backdrop,.dm-panel{animation:none}}
 /* Clipping the heap clips its CHILDREN to its own box — but the heap's box is itself wider than the
    viewport on a phone (negative insets, by design: the photographs are meant to run off the edge), and
    so is the hamburger's string. So the clip has to live on an ancestor. overflow-x:clip, not hidden:
