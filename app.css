@@ -689,6 +689,30 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .cl-line em{font-style:italic}
 .cl-soon{display:block;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.08em;
   color:rgba(59,42,22,.75);margin-top:.2rem}
+/* base-kit vs power-ups: a dashed cut-line under each column's base pins, then the
+   pool-funded unlocks as handwritten luggage-tags. Material is stamped "coming soon"
+   (the pool isn't built yet — copy: "We're still building that pool"). */
+.pu-div{position:relative;margin:1.15rem .1rem .9rem;border-top:2.4px dashed rgba(47,33,16,.55)}
+.pu-div .pu-lab{position:absolute;top:-.7em;left:.4rem;background:var(--c,var(--schoolbus));color:#2f2110;
+  font-family:var(--f-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.14rem .45rem;
+  transform:rotate(-2deg);box-shadow:1px 1px 0 rgba(40,26,10,.4)}
+.c-virtual .pu-lab,.c-material .pu-lab{color:var(--oats)}   /* light text on the blue/red grounds */
+.pu-list{display:flex;flex-wrap:wrap;gap:.6rem;padding:.4rem .1rem 0}
+.pu-tag{position:relative;font-family:var(--f-hand);font-size:.92rem;color:#2f2110;background:var(--oats);
+  border:1.7px solid var(--ink);border-radius:3px 9px 9px 3px;padding:.3rem .62rem .3rem .95rem;
+  box-shadow:2px 3px 0 rgba(40,26,10,.5)}
+.pu-tag:nth-child(odd){transform:rotate(-2.5deg)}
+.pu-tag:nth-child(even){transform:rotate(2deg)}
+.pu-tag::before{content:"";position:absolute;left:.42rem;top:50%;width:7px;height:7px;border-radius:50%;
+  transform:translateY(-50%);background:var(--paper);border:1.6px solid var(--ink)}
+.pu-tag .pu-plus{color:var(--grass-deep);font-weight:700;margin-right:.12rem}
+/* material = coming soon: desaturate the base cards, stamp a rough semi-transparent seal over them */
+.c-material{position:relative}
+.c-material .pins .pinit{filter:saturate(.55);opacity:.85}
+.c-material .pu-stampwrap{position:absolute;top:34%;left:8%;right:2%;display:grid;place-items:center;z-index:6;pointer-events:none}
+.c-material .pu-stamp2{font-family:var(--f-mono);font-weight:700;font-size:1.02rem;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(196,44,26,.62);border:3px solid rgba(196,44,26,.58);border-radius:7px;
+  padding:.22rem .6rem;transform:rotate(-9deg);filter:url(#roughsm);white-space:nowrap}
 
 .pins{list-style:none;margin:.9rem 0 0;padding:0 0 .6rem;display:flex;flex-wrap:wrap;
   justify-content:center;align-items:flex-start;gap:.55rem .5rem}
@@ -1336,6 +1360,16 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   .zine-pair .zpola{width:170px}
   /* the -20px tuck was sized for the old book width; keep the video polaroid's caption legible */
   .zine-pair .zine-duo .zpola:nth-child(2){margin-left:-8px}
+}
+@media(max-width:999px){
+  /* below the desktop breakpoint the -20px base tuck slid under the video polaroid's
+     caption ("watch it get made" → "tch it get made"); match the desktop tuck. */
+  .zine-pair .zine-duo .zpola:nth-child(2){margin-left:-8px}
+}
+@media(max-width:520px){
+  /* on phones the polaroids are proportionally larger, so -8px still clipped the leading
+     "w"; tuck tighter so the whole caption clears. */
+  .zine-pair .zine-duo .zpola:nth-child(2){margin-left:-2px}
 }
 /* bot placeholder = ghosted, dashed, "coming soon" */
 .zine-frame.ghost{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;
@@ -2410,6 +2444,9 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
   100%{transform:translateX(-780px)}
 }
 .belt-ui{position:absolute;left:50%;bottom:14%;transform:translateX(-50%) rotate(-2deg);z-index:3}
+/* the stamp is a fixed-size label; on phones the phone shrinks but the stamp didn't, so it
+   spilled past the bezel onto the neighbouring zines. Scale it to the small screen. */
+@media(max-width:640px){.belt-ui .soon-stamp{font-size:.55rem;letter-spacing:.08em;padding:.32em .5em}}
 /* the open-and-read overlay: the landed cover grows to fill the screen, then scrolls.
    Six panels, one per belt window, phased on the same 13s clock. */
 .belt-open{position:absolute;left:32.03%;top:22.5%;width:35.94%;height:55%;overflow:hidden;z-index:1}
@@ -3417,6 +3454,12 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   .card-stack .cs:nth-child(2){--mrt:6px}
   .card-stack .cs:nth-child(5){--mrt:6px}
 }
+@media(max-width:520px){
+  /* On phones the eyebrow runs the full sheet width and its last word slid under
+     the amber Circle ring in the corner. Reserve room for the ring + tuck it tighter. */
+  .ed-kicker{padding-right:40px}
+  .hero-cmark{top:6px;right:8px;width:34px}
+}
 @media(max-width:440px){
   .ed-kicker{letter-spacing:.07em}   /* at .16em the slug wraps and orphans "2026" */
 }
@@ -4070,11 +4113,11 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
    yellow centre, the petals spin round and round (the loop, alive) */
 .antidote{position:relative;max-width:600px;margin:0 auto;min-height:472px;display:flex;align-items:center;justify-content:center;padding:1rem}
 .antidote .petals{position:absolute;top:50%;left:50%;width:452px;height:452px;margin:-226px 0 0 -226px;z-index:0;pointer-events:none;transform-origin:center;animation:spin 30s linear infinite}
-.antidote .bloom{position:relative;z-index:1;width:270px;height:270px;border-radius:50%;background:var(--happy);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.5rem}
+.antidote .bloom{position:relative;z-index:1;width:292px;height:292px;border-radius:50%;background:var(--happy);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.25rem}
 .antidote .bloom::before{content:"";position:absolute;inset:0;border-radius:50%;border:3.4px solid var(--ink);filter:url(#rough);pointer-events:none}
-.antidote .bloom h3{font-family:var(--f-head);font-weight:800;font-size:var(--fs-2);color:var(--grass-deep);margin:0 0 .5rem;line-height:1.06;max-width:13ch}
-.antidote .bloom p{font-family:var(--f-body);font-size:var(--fs-small);color:var(--ink);margin:0;line-height:1.38;max-width:22ch}
+.antidote .bloom h3{font-family:var(--f-head);font-weight:800;font-size:var(--fs-2);color:var(--grass-deep);margin:0 0 .5rem;line-height:1.06;max-width:12ch}
+.antidote .bloom p{font-family:var(--f-body);font-size:var(--fs-small);color:var(--ink);margin:0;line-height:1.38;max-width:20ch}
 .antidote .bloom p b{color:var(--grass-deep);font-weight:700}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.antidote .petals{animation:none}}
