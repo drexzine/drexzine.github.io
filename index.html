@@ -357,10 +357,10 @@
                    challenge is hand-written below, and the whole card LINKS to the live zine. Tapping
                    the stack opens the lightbox (all four); clicking one there reads it. -->
               <div class="hero-card-deck" id="heroCardDeck" aria-label="Zines real Circles made &mdash; tap to browse and read them">
-                <a class="pola" href="https://demo.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856" target="_blank" rel="noopener" style="--r:-5deg"><i style="background-image:url(assets/zines/3am-2001-cover.png);background-position:center 12%"></i><span class="znote"><b class="zcat">photography</b>&ldquo;Urban night photos of the overlooked.&rdquo;</span></a>
-                <a class="pola" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener" style="--r:4deg"><i style="background-image:url(assets/zines/cover-cafe.png);background-position:center 18%"></i><span class="znote"><b class="zcat">drawing</b>&ldquo;Doodle at a caf&eacute; &mdash; different than at home?&rdquo;</span></a>
-                <a class="pola" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener" style="--r:-4deg"><i style="background-image:url(assets/zines/cover-silkroad.png);background-position:center 26%"></i><span class="znote"><b class="zcat">photo essay</b>&ldquo;Tell a place&rsquo;s story in five frames.&rdquo;</span></a>
-                <a class="pola" href="https://demo.drex.style/z/5b548352-9124-4b25-bcaa-9c06322d30bb" target="_blank" rel="noopener" style="--r:6deg"><i style="background-image:url(assets/zines/cover-dressup.png);background-position:center 18%"></i><span class="znote"><b class="zcat">game design</b>&ldquo;Build a paper dress-up game.&rdquo;</span></a>
+                <a class="pola" href="https://demo.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856" target="_blank" rel="noopener" style="--r:-5deg"><i style="background-image:url(assets/zines/cover-3am.jpg);background-position:center 8%"></i><span class="znote"><b class="zcat">photography</b>&ldquo;Urban night photos of the overlooked.&rdquo;</span></a>
+                <a class="pola" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener" style="--r:4deg"><i style="background-image:url(assets/zines/cover-cafe.jpg);background-position:center 8%"></i><span class="znote"><b class="zcat">drawing</b>&ldquo;Doodle at a caf&eacute; &mdash; different than at home?&rdquo;</span></a>
+                <a class="pola" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener" style="--r:-4deg"><i style="background-image:url(assets/zines/cover-silkroad.jpg);background-position:center 6%"></i><span class="znote"><b class="zcat">photo essay</b>&ldquo;Tell a place&rsquo;s story in five frames.&rdquo;</span></a>
+                <a class="pola" href="https://demo.drex.style/z/5b548352-9124-4b25-bcaa-9c06322d30bb" target="_blank" rel="noopener" style="--r:6deg"><i style="background-image:url(assets/zines/cover-dressup.jpg);background-position:center 8%"></i><span class="znote"><b class="zcat">game design</b>&ldquo;Build a paper dress-up game.&rdquo;</span></a>
               </div>
 
             </div>
@@ -449,9 +449,9 @@
           <!-- 3 · A real Circle — XChange (webm) -->
           <div class="bd-peg" style="--r:-1.4deg;--c:var(--lazuli)">
             <span class="bd-clip" aria-hidden="true"></span>
-            <button type="button" class="zpola bd-open" data-full="assets/app/circle.jpg" data-cap="a real Circle &mdash; 11 makers, one deadline" aria-label="Inside a real Circle. Opens a larger view.">
-              <span class="ph"><img src="assets/app/circle.jpg" alt="A Circle's home on Drex — 11 makers, a join button, and the next Circle Time" loading="lazy" width="600" height="750"></span>
-              <span class="zpola-cap">a real Circle &mdash; 11 makers deep</span>
+            <button type="button" class="zpola bd-open" data-full="assets/app/circle.jpg" data-cap="a real Circle &mdash; a challenge, a deadline, its makers" aria-label="Inside a real Circle. Opens a larger view.">
+              <span class="ph"><img src="assets/app/circle.jpg" alt="A Circle's home on Drex — the current challenge, a deadline, the makers, and the next Circle Time" loading="lazy" width="600" height="750"></span>
+              <span class="zpola-cap">a real Circle &mdash; mid-issue</span>
             </button>
           </div>
 
@@ -490,6 +490,8 @@
       <figcaption class="bd-modal-cap" id="bdModalCap"></figcaption>
       <a class="bd-modal-play" id="bdModalPlay" href="#" target="_blank" rel="noopener" hidden>&#9654;&nbsp; watch on Instagram &rarr;</a>
     </figure>
+    <button class="bd-modal-nav bd-modal-prev" type="button" aria-label="Previous screen" data-bd-prev>&#8249;</button>
+    <button class="bd-modal-nav bd-modal-next" type="button" aria-label="Next screen" data-bd-next>&#8250;</button>
   </div>
 
   <script>
@@ -500,15 +502,16 @@
         embed=document.getElementById('bdModalEmbed'),
         cap=document.getElementById('bdModalCap'),
         play=document.getElementById('bdModalPlay'), last=null;
-    function onKey(e){ if(e.key==='Escape') close(); }
+    var items=Array.prototype.slice.call(document.querySelectorAll('.bd-open')), idx=0;   // the clothesline, in order — for next/prev
+    function onKey(e){ if(e.key==='Escape') close(); else if(e.key==='ArrowLeft') go(-1); else if(e.key==='ArrowRight') go(1); }
     function reset(){
       img.hidden=true; img.removeAttribute('src');
       vid.hidden=true; try{ vid.pause(); }catch(e){} vid.removeAttribute('src'); vid.removeAttribute('poster');
       embed.hidden=true; embed.removeAttribute('src');
       play.hidden=true;
     }
-    function open(btn){
-      last=btn; reset();
+    function show(btn){                                  // swap the media only (shared by open + next/prev)
+      last=btn; idx=items.indexOf(btn); reset();
       cap.innerHTML=btn.getAttribute('data-cap')||'';
       var em=btn.getAttribute('data-embed'), vf=btn.getAttribute('data-video'), ff=btn.getAttribute('data-full');
       if(em){                                            // Instagram reel embed
@@ -521,6 +524,10 @@
       } else {                                           // static image fallback
         img.src=ff||''; img.alt=btn.getAttribute('data-cap')||''; img.hidden=false;
       }
+    }
+    function go(d){ if(!items.length) return; idx=(idx+d+items.length)%items.length; show(items[idx]); }   // wrap around the clothesline
+    function open(btn){
+      show(btn);
       modal.hidden=false;
       var x=modal.querySelector('.bd-modal-x'); if(x) x.focus();
       document.addEventListener('keydown', onKey);
@@ -530,9 +537,10 @@
       document.removeEventListener('keydown', onKey);
       if(last) last.focus();
     }
-    Array.prototype.forEach.call(document.querySelectorAll('.bd-open'), function(b){
-      b.addEventListener('click', function(){ open(b); });
-    });
+    items.forEach(function(b){ b.addEventListener('click', function(){ open(b); }); });
+    var pv=modal.querySelector('[data-bd-prev]'), nx=modal.querySelector('[data-bd-next]');
+    if(pv) pv.addEventListener('click', function(e){ e.stopPropagation(); go(-1); });
+    if(nx) nx.addEventListener('click', function(e){ e.stopPropagation(); go(1); });
     modal.addEventListener('click', function(e){
       if(e.target===modal || e.target.hasAttribute('data-bd-close')) close();
     });
