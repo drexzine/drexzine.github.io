@@ -3667,26 +3667,28 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
   .hero-card-deck{margin-top:clamp(-4.6rem,-7vw,-2.8rem);margin-left:clamp(6px,2.4vw,20px)}
 }
 .hero-card-deck .pola{position:absolute;left:50%;margin-left:calc(var(--pw) / -2);top:4px;width:var(--pw);
-  padding:8px 8px 0;cursor:pointer;pointer-events:auto;
+  padding:0;cursor:pointer;pointer-events:auto;text-decoration:none;color:var(--ink);
   transform:translate(calc(var(--i,0)*4px),calc(var(--i,0)*7px)) rotate(var(--r)) scale(calc(1 - var(--i,0)*.03));
-  z-index:calc(40 - var(--i,0));transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .4s}
-.hero-card-deck .pola::before{content:"";position:absolute;inset:0;z-index:-1;background:#fff;
-  border:2.4px solid var(--ink);box-shadow:6px 6px 0 var(--ink);filter:url(#soft)}
-.hero-card-deck .pola:nth-of-type(3n+2)::before{filter:url(#soft2)}
-.hero-card-deck .pola:nth-of-type(3n)::before{filter:url(#soft3)}
-.hero-card-deck .pola i{display:block;height:calc(var(--pw) * .72);background-size:cover;background-position:center 28%}
-.hero-card-deck .pola figcaption{font-family:var(--f-hand);color:var(--ink);
-  font-size:clamp(14px,1.15vw,17px);line-height:1.06;text-align:center;padding:8px 6px 11px}
-.hero-card-deck .pola .kind{display:block;font-family:var(--f-mono);font-weight:600;
-  font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--coral-ink);margin-bottom:4px}
-.hero-card-deck .pola::after{content:"";position:absolute;left:50%;top:-11px;width:70px;height:20px;
-  transform:translateX(-50%) rotate(-4deg);background:var(--schoolbus);border:2px solid var(--ink);
-  opacity:.92;filter:url(#roughsm)}
-/* The TOP card's OWN washi tape carries the "tap here" cue — no separate label. JS marks the front
-   card with .dt; the rest keep a blank tape. Tapping opens the lightbox (below), not an in-place fan. */
-.hero-card-deck .pola.dt::after{content:"tap here";display:flex;align-items:center;
-  justify-content:center;width:78px;height:23px;font-family:var(--f-hand);font-size:14px;
-  font-weight:700;line-height:1;color:var(--ink)}
+  z-index:calc(40 - var(--i,0));transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .4s;
+  /* booklet THICKNESS: layered paper/ink page edges behind the cover = a little magazine, not a flat card */
+  box-shadow:2px 2px 0 0 var(--paper),3px 3px 0 0 var(--ink),6px 6px 0 0 var(--paper),7px 8px 0 0 var(--ink)}
+.hero-card-deck .pola::before{display:none}   /* NO white polaroid mat */
+/* the real cover fills the WHOLE card, edge to edge -> a zine cover, not a polaroid photo */
+.hero-card-deck .pola i{display:block;width:100%;height:calc(var(--pw) * 1.34);background-size:cover;
+  background-position:center 14%;border:2.4px solid var(--ink);filter:url(#soft)}
+/* the sticky note sits ON the cover (bottom) and IS the caption: category + the challenge, in quotes */
+.hero-card-deck .pola .znote{position:absolute;z-index:3;left:7px;right:12px;bottom:8px;
+  font-family:var(--f-hand);font-size:clamp(11px,.92vw,13px);line-height:1.12;color:var(--ink);
+  background:var(--happy);border:2px solid var(--ink);padding:5px 9px 7px;transform:rotate(-2.6deg);
+  filter:url(#roughsm);box-shadow:2px 2px 0 0 rgba(65,77,87,.5)}
+.hero-card-deck .pola .znote .zcat{display:block;font-family:var(--f-mono);font-weight:700;font-size:9px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--coral-ink);margin-bottom:2px}
+.hero-card-deck .pola .znote::after{content:"";position:absolute;right:-1px;bottom:-2px;width:12px;height:12px;
+  background:linear-gradient(135deg,transparent 45%,rgba(65,77,87,.28) 46% 50%,#E4CE3F 53%)}
+/* the FRONT card wears the "tap to flip through" cue below it. JS marks it .dt. */
+.hero-card-deck .pola.dt::after{content:"tap to flip through \2192";position:absolute;left:50%;bottom:-24px;
+  transform:translateX(-50%) rotate(-3deg);white-space:nowrap;font-family:var(--f-hand);font-size:13.5px;
+  font-weight:700;line-height:1;color:var(--coral-ink)}
 .hcd-hint{display:none}
 
 /* ===== CHALLENGE LIGHTBOX ===== tapping the hero deck (too small to fan out in place) opens this:
@@ -3713,20 +3715,21 @@ html.modal-open{overflow:hidden}
 .dm-sub{margin:.45rem 0 0;font-family:var(--f-hand);font-size:1.16rem;line-height:1.2;color:var(--grass-deep)}
 .dm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
   gap:clamp(1.2rem,2.8vw,2rem) clamp(.9rem,2vw,1.4rem);margin-top:clamp(1.1rem,2.6vw,1.7rem)}
-.dm-grid .pola{position:relative;width:auto;margin:0;padding:9px 9px 0;background:#fff;
-  transform:rotate(var(--r));cursor:default}
-.dm-grid .pola::before{content:"";position:absolute;inset:0;z-index:-1;background:#fff;
-  border:2.4px solid var(--ink);box-shadow:5px 5px 0 var(--ink);filter:url(#soft)}
-.dm-grid .pola:nth-of-type(3n+2)::before{filter:url(#soft2)}
-.dm-grid .pola:nth-of-type(3n)::before{filter:url(#soft3)}
-.dm-grid .pola i{display:block;height:122px;background-size:cover;background-position:center 28%}
-.dm-grid .pola figcaption{font-family:var(--f-hand);color:var(--ink);font-size:15px;line-height:1.08;
-  text-align:center;padding:9px 6px 12px}
-.dm-grid .pola .kind{display:block;font-family:var(--f-mono);font-weight:600;font-size:11px;
+.dm-grid .pola{position:relative;width:auto;margin:0;padding:0;
+  transform:rotate(var(--r));cursor:pointer;text-decoration:none;color:var(--ink);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1);
+  box-shadow:2px 2px 0 0 var(--paper),3px 3px 0 0 var(--ink),6px 6px 0 0 var(--paper),7px 8px 0 0 var(--ink)}
+.dm-grid .pola::before{display:none}   /* NO white polaroid mat */
+.dm-grid .pola i{display:block;aspect-ratio:1/1.3;background-size:cover;background-position:center 14%;
+  border:2.4px solid var(--ink);filter:url(#soft)}
+.dm-grid .pola .znote{position:absolute;z-index:3;left:9px;right:16px;bottom:10px;font-family:var(--f-hand);
+  font-size:15px;line-height:1.14;color:var(--ink);background:var(--happy);border:2px solid var(--ink);
+  padding:7px 12px 9px;transform:rotate(-2.4deg);filter:url(#roughsm);box-shadow:2.5px 2.5px 0 0 rgba(65,77,87,.5)}
+.dm-grid .pola .znote .zcat{display:block;font-family:var(--f-mono);font-weight:700;font-size:11px;
   letter-spacing:.06em;text-transform:uppercase;color:var(--coral-ink);margin-bottom:3px}
-.dm-grid .pola::after{content:"";position:absolute;left:50%;top:-10px;width:56px;height:16px;
-  transform:translateX(-50%) rotate(-4deg);background:var(--schoolbus);border:2px solid var(--ink);
-  opacity:.9;filter:url(#roughsm)}
+.dm-grid .pola .znote::after{content:"";position:absolute;right:-1px;bottom:-2px;width:15px;height:15px;
+  background:linear-gradient(135deg,transparent 45%,rgba(65,77,87,.28) 46% 50%,#E4CE3F 53%)}
+.dm-grid .pola:hover,.dm-grid .pola:focus-visible{transform:rotate(0) translateY(-5px);outline:none}
 @keyframes dmFade{from{opacity:0}to{opacity:1}}
 @keyframes dmPop{from{opacity:0;transform:translateY(10px) scale(.975)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.dm-backdrop,.dm-panel{animation:none}}
