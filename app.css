@@ -199,7 +199,7 @@ a{color:inherit}
 html.sealed .card-clip{display:flex;align-items:flex-end;min-height:clamp(220px,32vh,330px);transition:min-height .46s cubic-bezier(.33,1,.4,1),margin-top .46s cubic-bezier(.34,1,.45,1)}
 html.sealed:not(.revealed) .card-clip{margin-top:calc(clamp(.7rem,1.8vw,1.4rem) - clamp(2.4rem,5.5vw,4.2rem))}  /* tight while sealed; reverts to 0 on settle = the card's downward drop, now CARD-ONLY */
 html.sealed.revealed .card-clip{min-height:0}                     /* pocket blank collapses on settle */
-html.sealed:not(.revealed) .card-clip{overflow:clip}              /* clip through the rise + burst; opens only at the settle (revealed) */
+html.sealed:not(.revealed) .card-clip{overflow:clip;height:calc(50vh - 136px);min-height:0}              /* clip through the rise + burst; opens only at the settle (revealed). height + min-height:0 = the FIRST-PAINT slit centring: the tall .hero-card would otherwise balloon this flex pocket to its full height (~965px) — min-height is inert against a taller child — and shove the seam far below the fold before initSlitCenter() runs. calc(50vh - 136px) lands the "cut here" line within ~3px of viewport centre on first paint (JS then refines to sub-px). :not(.revealed)-scoped (0,3,1 beats the min-height clamp on html.sealed .card-clip, and releases the moment the card settles so the full card shows). */
 
 /* the card: sealed = pushed down into the pocket (clipped away → blank above) */
 .hero-card{width:100%;transition:transform .58s cubic-bezier(.22,.7,.25,1)}  /* decel rise THROUGH the stationary slit (not a front-loaded slam) */
@@ -337,7 +337,7 @@ html.sealed.revealed .mast{opacity:1;visibility:visible}
    card's shadow), then on settle it + the prompt COLLAPSE their space so the gap
    below the card closes as everything drops into place. */
 html.sealed .seam,html.sealed .cut-prompt{transition:opacity .55s ease, height .6s ease, margin .6s ease}
-html.sealed .envelope.done .seam{opacity:0;pointer-events:none}
+html.sealed .envelope.opened .seam{opacity:0;pointer-events:none}
 html.sealed.revealed .seam,html.sealed.revealed .cut-prompt{height:0;margin:0;overflow:hidden;pointer-events:none}
 
 /* ---- hand-drawn "there's more" scroll cue: appears after the reveal, fades on scroll ---- */

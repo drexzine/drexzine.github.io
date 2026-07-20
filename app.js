@@ -1973,7 +1973,11 @@ function fcDetonate(anchor, audio) {
   fcPlayBurst(audio);
   fcBuzz([22, 26, 8, 26, 10, 30, 18]);
   setTimeout(() => fcBuzz(80), FC_COVER_MS);
-  setTimeout(() => { window.location.href = anchor.href; }, FC_TOTAL_MS);
+  // Navigate promptly after a brief flourish — never gate the link behind the
+  // full ~3s animation. A timer that long can be throttled (backgrounded tab)
+  // or skipped on a bfcache return, stranding the visitor on the green cover
+  // with the button hidden. A short foreground delay is prompt AND reliable.
+  setTimeout(() => { window.location.href = anchor.href; }, 480);
 }
 
 function initFirecrackerCta(audio) {
