@@ -814,6 +814,17 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .lg-punch span{display:block;margin-top:.6rem;font-family:var(--f-body);font-style:italic;
   font-weight:400;font-size:clamp(.98rem,1.5vw,1.08rem);line-height:1.5;color:rgba(65,77,87,.8)}
 
+/* the horizon: the far rung above a zine. Quieter than the punch, set off by a dotted rule so it
+   reads as "and later…" rather than competing with the emotional close above it. */
+.lg-horizon{max-width:50ch;margin:clamp(1.6rem,3.4vw,2.2rem) auto 0;padding-top:clamp(1.3rem,2.8vw,1.8rem);
+  text-align:center;font-family:var(--f-body);font-size:clamp(1rem,1.6vw,1.14rem);line-height:1.55;
+  color:rgba(65,77,87,.85);position:relative}
+.lg-horizon::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:min(220px,60%);height:0;border-top:2.6px dotted var(--sambas);opacity:.5}
+.lg-horizon b{font-family:var(--f-slab);font-style:italic;font-weight:700;color:var(--grass-deep)}
+.lg-horizon-k{display:block;margin-bottom:.5rem;color:var(--colorado);font-size:1.15rem;
+  transform:rotate(-1.2deg)}
+
 /* ---------- gifts = the range. Torn tags, littered, deliberately unranked ---------- */
 .gifts{padding:clamp(1.6rem,4vw,3rem) 0 clamp(1.2rem,3vw,2.2rem)}
 .gifts .head{margin-bottom:clamp(1.5rem,3.6vw,2.2rem);text-align:center}
@@ -832,6 +843,59 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .gift-pile li:hover{transform:rotate(0) translateY(-3px)}
 .gifts-foot{text-align:center;margin:clamp(1.1rem,2.6vw,1.6rem) 0 0;color:var(--colorado);font-size:1.25rem}
 @media(prefers-reduced-motion:reduce){.gift-pile li{transition:none}}
+
+/* ---------- the CRAFTBOARD: the range as instant photos pinned to cork. Chip colour -> label ink
+   + pushpin; photo stays neutral so the accent lives on pin + label. ---------- */
+.craftboard{position:relative;isolation:isolate;margin:clamp(1.2rem,3vw,1.9rem) auto 0;
+  max-width:940px;padding:clamp(1rem,3vw,2rem) clamp(.6rem,2vw,1.3rem);border-radius:9px;
+  display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;
+  gap:clamp(.55rem,1.5vw,1.05rem) clamp(.4rem,1.2vw,.85rem)}
+/* the cork: warm tan ground + a fine speckle, framed like a board on the wall */
+.craftboard::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:9px;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(120,80,40,.14) 0 1.2px, transparent 1.7px) 0 0/13px 13px,
+    radial-gradient(circle at 68% 66%, rgba(90,60,25,.13) 0 1px, transparent 1.5px) 5px 7px/18px 18px,
+    #C9A16A;
+  border:3px solid #6B4A24;box-shadow:inset 0 0 44px rgba(60,40,15,.30),4px 6px 0 0 rgba(40,26,10,.35)}
+
+.craft{position:relative;margin:0;width:clamp(92px,10.5vw,122px);padding:7px 7px 0;
+  transform:rotate(var(--r,0deg));transition:transform .17s ease}
+.craft::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+  border:2.2px solid var(--ink);border-radius:3px;box-shadow:3px 4px 0 0 rgba(40,26,10,.5);
+  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+.craft:nth-child(even)::before{animation-delay:-.6s}
+.craft:nth-child(3n)::before{animation-delay:-1.15s}
+.craft:hover{transform:rotate(0) translateY(-5px) scale(1.05);z-index:5}
+.craft:hover::before{box-shadow:5px 7px 0 0 rgba(40,26,10,.55)}
+/* a little vertical scatter so the board reads pinned-by-hand, not a spreadsheet */
+.craft:nth-child(3n){margin-top:clamp(.5rem,1.6vw,1.15rem)}
+.craft:nth-child(5n){margin-top:clamp(.85rem,2.2vw,1.55rem)}
+
+/* the pushpin — the chip's colour, domed with a little highlight */
+.cr-pin{position:absolute;top:-7px;left:50%;margin-left:-6.5px;width:13px;height:13px;border-radius:50%;
+  background:var(--c,var(--colorado));border:2px solid var(--ink);z-index:2;
+  box-shadow:1px 2px 0 0 rgba(40,26,10,.5)}
+.cr-pin::after{content:"";position:absolute;top:2px;left:2.4px;width:3.6px;height:3.6px;border-radius:50%;
+  background:rgba(255,255,255,.65)}
+
+/* the "photo": neutral ground + the craft's line-icon. Swap to a real photo by setting
+   background-image on .cr-ph and adding .has-photo (the icon steps aside). */
+.cr-ph{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:1/1;overflow:hidden;
+  background:#EDE4CF;border:2px solid var(--ink);color:rgba(65,77,87,.5);
+  background-size:cover;background-position:center}
+.cr-ph.has-photo .cr-ico{display:none}
+.cr-ico{width:52%;height:52%;display:block}
+
+/* the caption strip — handwritten, inked in the chip's colour (deep gold for the yellow ones) */
+.cr-cap{padding:.34rem .18rem .42rem;text-align:center;font-family:var(--f-hand);font-style:normal;
+  font-size:clamp(.84rem,1.5vw,1rem);line-height:1.08;color:var(--label,var(--c,var(--ink)))}
+@media(prefers-reduced-motion:reduce){.craft{transition:none}}
+/* mobile: a tidy 3-up grid instead of an 18-tall single column, scatter off so it stays compact */
+@media(max-width:560px){
+  .craftboard{padding:.85rem .5rem .95rem;gap:.55rem .4rem;max-width:none}
+  .craft{width:30%;min-width:0;margin-top:0!important}
+  .cr-cap{font-size:.72rem;padding:.28rem .1rem .34rem}
+}
 
 /* ---------- why not a group chat = the objection, answered side by side ----------
    The chat column is deliberately the drab one (desaturated, tilted the "wrong"
@@ -934,6 +998,12 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   font-family:var(--f-body);font-size:clamp(.98rem,1.5vw,1.08rem);line-height:1.55;
   color:rgba(65,77,87,.78)}
 .exemplar b{color:var(--ink)}
+/* the earn line trails the exemplar as a follow-on, not a louder headline: same body weight as its
+   parent, with only the payoff words in grass-deep so the unlock still pops without out-shouting
+   "a portfolio you never meant to build" above it. */
+.exemplar-earn{margin-top:clamp(.55rem,1.3vw,.85rem);color:rgba(65,77,87,.82);font-family:var(--f-body);
+  font-style:italic;font-weight:400;font-size:clamp(.98rem,1.5vw,1.08rem);line-height:1.5}
+.exemplar-earn b{color:var(--grass-deep);font-weight:700}
 .pc-cap2{display:block;margin-top:.3rem;font-size:.92rem;color:var(--sambas);line-height:1.3}
 .pc-cap2 em{font-style:italic}
 .pile-lead{text-align:center;margin:clamp(1.6rem,3.4vw,2.2rem) 0 clamp(1rem,2.4vw,1.5rem);
@@ -1495,6 +1565,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .note-punch{font-family:var(--f-slab);font-style:italic;font-weight:700;
   font-size:clamp(1.05rem,1.9vw,1.28rem);line-height:1.25;color:var(--ink)}
 .note-body{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.2rem,2.1vw,1.6rem);line-height:1.5;color:var(--ink);max-width:min(36ch,100%);margin:.9rem 0 0}
+.note-body b{font-weight:700;color:var(--grass-deep)}
 .sign{font-family:var(--f-hand);font-size:clamp(2.2rem,4.5vw,3.2rem);color:var(--grass-deep);margin:1.1rem 0 0;line-height:1}
 .sign-role{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--sambas);margin:.35rem 0 0}
 .snap{position:relative;width:min(312px,84vw);justify-self:center;padding:12px;transform:rotate(2.6deg)}
