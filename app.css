@@ -643,7 +643,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 /* the "btw, that's called situated learning" beat — a torn note taped under the loop.
    Reads as an aside, never as a lecture: that's the entire reason it lands. */
 .reveal-name{position:relative;isolation:isolate;width:min(560px,92vw);
-  margin:clamp(1.8rem,4vw,2.6rem) auto 0;padding:clamp(1.1rem,2.4vw,1.5rem) clamp(1rem,2.2vw,1.4rem);
+  margin:clamp(4.2rem,8vw,6rem) auto clamp(2rem,4.5vw,3rem);padding:clamp(1.1rem,2.4vw,1.5rem) clamp(1rem,2.2vw,1.4rem);
   transform:rotate(-1.9deg)}
 /* D · the sticky note: yellow Post-it, hand-cut edge (#soft), solid offset shadow, a peeled corner */
 .reveal-name::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--happy);
@@ -3793,7 +3793,7 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
 .hero-card-deck .pola .znote::after{content:"";position:absolute;right:-1px;bottom:-2px;width:12px;height:12px;
   background:linear-gradient(135deg,transparent 45%,rgba(65,77,87,.28) 46% 50%,#E4CE3F 53%)}
 /* the FRONT card wears the "tap to flip through" cue below it. JS marks it .dt. */
-.hero-card-deck .pola.dt::after{content:"tap to flip through \2192";position:absolute;left:50%;bottom:-24px;
+.hero-card-deck .pola.dt::after{content:"real zines\00a0\2014\00a0tap to flip\00a0\2192";position:absolute;left:50%;bottom:-24px;
   transform:translateX(-50%) rotate(-3deg);white-space:nowrap;font-family:var(--f-hand);font-size:13.5px;
   font-weight:700;line-height:1;color:var(--coral-ink)}
 .hcd-hint{display:none}
