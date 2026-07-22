@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=306" />
+<link rel="stylesheet" href="app.css?v=308" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -282,18 +282,18 @@
                    one recognises themselves in six words. Then "Yours will." is the promise.
                    Nothing shares the headline's optical field: faces beat type, unconditionally. -->
               <div class="ed-head">
-                <!-- ZONE 1 line 1 — THE FRAME (research): the fastest way a cold visitor gets it is a
-                     category they already understand + the one-word twist. "Book club" = a group that
-                     shows up on a schedule and finishes something together; "you make things" flips
-                     read -> create. This sets the reference frame BEFORE the promise lands. -->
-                <p class="ed-kicker" style="color:var(--colorado)">a club for whatever you make</p>
+                <!-- ZONE 1 line 1 — THE MECHANISM, demoted to the eyebrow. It's read first
+                     (positionally above the H1) and carries the differentiator + the only verb we
+                     have ("show-and-tell deadlines" = you present, on a clock), so the big line is
+                     free to be the warm, memorable invite. The eyebrow MUST stay legible — it's the
+                     smallest line but it's the one answering "what does it actually do." -->
+                <p class="ed-kicker" style="color:var(--colorado)">Tiny creative clubs with <b>show-and-tell deadlines</b>.</p>
                 <hr class="ed-hair" />
-                <!-- THE big moment: the pain -> promise. Research's most-legible line (visualisable,
-                     falsifiable, unique). "Yours will." goes grass-deep as the payoff colour. The
-                     category now lives in the frame above + the four beats below, so the headline is
-                     free to be pure emotional hook. -->
-                <h1 class="ed-cat">Tiny creative clubs with <b>show-and-tell deadlines</b>.</h1>
-                <p class="ed-sub">Clubs start challenges and end them with a magazine. Hello, <b>portfolio</b>.</p>
+                <!-- THE big moment: the warm, instant, repeatable invitation. Broad on purpose — the
+                     mechanism lives in the eyebrow above and the verbs in the sub below, so the H1 is
+                     the line you remember, not the line that explains. -->
+                <h1 class="ed-cat">A <span class="stop">club</span> for whatever you <span class="stop">make</span>.</h1>
+                <p class="ed-sub"><span class="stop">Up to 15 makers</span> do challenges which end in magazines. Hello, <b>portfolio</b>.</p>
               </div>
 
               <!-- ZONE 2 - the standfirst. ONE paragraph now. The "where circles meet" line used to
@@ -369,12 +369,14 @@
              all its .hero-reel lookups are null-guarded, so this is safe. -->
         <div class="reel-stage"></div>
 
-        <!-- pre-cut comprehension anchor: the only readable copy while the
-             envelope is sealed — a green squigglevision hook + the steady craft
-             tagline. Shows under html.sealed; fades + collapses on html.revealed
-             (CSS-only, mirrors how .cut-prompt is gated). -->
+        <!-- pre-cut comprehension anchor: the only readable copy while the envelope is
+             sealed. Belonging/communion is the #1 message, so this leads with the FEELING
+             (your people, the standing hour) — kept deliberately distinct from the post-cut
+             H1 ("A club for whatever you make") so the cut reveals a fresh line instead of
+             repeating one. Emotion teases; the category pays off on the cut. Shows under
+             html.sealed; fades + collapses on html.revealed (CSS-only, mirrors .cut-prompt). -->
         <div class="cut-hook">
-          <p class="cut-hook-line scrawl">a tiny club for whatever you make.</p>
+          <p class="cut-hook-line scrawl">The people you keep meaning to make things with.</p>
         </div>
 
         <!-- the seal you cut: keeps the "cut here" look; now a drag handle -->
