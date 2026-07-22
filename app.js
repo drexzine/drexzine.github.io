@@ -794,7 +794,14 @@ function spawnVolcano(seam){
   var N       = small ? 90 : 170;
   var EMIT_MS = 620;
 
-  var parts = [], spawned = 0, t0 = performance.now(), last = t0, raf = 0;
+  // real zine covers to blast out of the slit alongside the marginalia (the OUTPUT erupts, not just doodles)
+  var zineUrls = [];
+  document.querySelectorAll('.hero-pile .hp i, .cut-hook-zine i').forEach(function(el){
+    var bg = el.style.backgroundImage; if (bg && zineUrls.indexOf(bg) < 0) zineUrls.push(bg);
+  });
+  var Z = zineUrls.length ? (small ? 6 : 11) : 0;
+
+  var parts = [], spawned = 0, zSpawned = 0, t0 = performance.now(), last = t0, raf = 0;
 
   function birth(){
     var bit = document.createElement('span');
@@ -821,6 +828,33 @@ function spawnVolcano(seam){
     });
   }
 
+  function birthZine(){
+    var bit = document.createElement('span');
+    bit.className = 'vol-p vz';
+    var im = document.createElement('i');
+    im.style.backgroundImage = zineUrls[(Math.random() * zineUrls.length) | 0];
+    bit.appendChild(im);
+    var sx    = x0 + Math.random() * w;
+    var edge  = (sx - cx) / (w / 2);
+    var depth = Math.random();
+    layer.appendChild(bit);
+    parts.push({
+      el: bit,
+      x:  sx,
+      y:  y0 + (Math.random() * 10 - 5),
+      vx: edge * (120 + Math.random() * 180) + (Math.random() - 0.5) * 190,
+      vy:-(760 + depth * 430 + Math.random() * 260),   // heavier than doodles: launches a touch lower
+      g:  2050 + Math.random() * 300,
+      drag: 0.994,
+      rot:(Math.random() - 0.5) * 40,                  // covers stay near-upright, readable
+      vr:(Math.random() - 0.5) * 260,                  // a slow tumble, not a spin
+      sc: 0.9 + depth * 0.5,
+      op: 1,
+      born: performance.now(),
+      life: 2.2 + Math.random() * 1.0
+    });
+  }
+
   function tick(now){
     var dt = Math.min((now - last) / 1000, 0.05); last = now;
     var elapsed = now - t0;
@@ -829,6 +863,13 @@ function spawnVolcano(seam){
       var want = Math.ceil(N * Math.min(1, Math.pow(elapsed / EMIT_MS, 0.55)));
       if (want > N) want = N;
       while (spawned < want){ birth(); spawned++; }
+    }
+
+    // real zine covers erupt with the doodles — emitted across the same window
+    if (Z && zSpawned < Z){
+      var wantZ = Math.ceil(Z * Math.min(1, elapsed / EMIT_MS));
+      if (wantZ > Z) wantZ = Z;
+      while (zSpawned < wantZ){ birthZine(); zSpawned++; }
     }
 
     var alive = 0;
