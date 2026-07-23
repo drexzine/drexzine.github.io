@@ -1942,10 +1942,14 @@ html[data-tier="lite"] .corkboard::before{filter:none;animation:none}
    whole feature under reduced-motion / calm / lite, so nothing to hide here.
    =================================================================== */
 .crumple-host{position:absolute;inset:0;z-index:6;cursor:pointer}
-.crumple-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:8;
+.crumple-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:8;pointer-events:auto;
   font-family:var(--f-hand);font-size:1.1rem;color:var(--ink);background:rgba(254,246,228,.92);
   border:2.4px solid var(--ink);border-radius:7px;padding:.25em .8em;cursor:pointer;
   box-shadow:3px 3px 0 0 var(--ink);animation:crumpleBob 1.7s ease-in-out infinite}
+/* folded/readable state: a quiet corner chip, no bob, so it never fights the letter's copy */
+.crumple-hint.is-fold{left:auto;right:12px;bottom:12px;transform:none;animation:none;
+  font-size:.92rem;opacity:.82;box-shadow:2px 2px 0 0 var(--ink);transition:opacity .15s ease,transform .15s ease}
+.crumple-hint.is-fold:hover{opacity:1;transform:translateY(-1px)}
 .crumple-hint:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
 @keyframes crumpleBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-4px)}}
 @media(prefers-reduced-motion:reduce){.crumple-hint{animation:none}}
@@ -4322,8 +4326,8 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 .board .bd-line{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;
   -webkit-overflow-scrolling:touch;scrollbar-width:thin;
   padding:6px clamp(1rem,4vw,2rem) 12px;margin-top:clamp(1rem,3vw,1.8rem);
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 4%,#000 96%,transparent 100%);
-  mask-image:linear-gradient(90deg,transparent 0,#000 4%,#000 96%,transparent 100%)}
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 2.5%,#000 98.5%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 2.5%,#000 98.5%,transparent 100%)}
 .board .bd-line:focus-visible{outline:2.5px dashed var(--lazuli);outline-offset:2px;border-radius:6px}
 .board .bd-track{position:relative;display:flex;align-items:flex-start;width:max-content;margin:0 auto;
   gap:clamp(1.1rem,3vw,1.7rem);padding-top:10px}
@@ -4356,6 +4360,19 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 .board .bd-foot .arr{font-family:var(--f-mono)}
 .board .bd-drag{display:inline-block;color:var(--colorado);font-size:1.1rem;margin-right:.4rem;transform:rotate(-2deg)}
 @media(min-width:900px){.board .bd-drag{display:none}}
+/* swipe cue: hand-drawn "drag to see all six" — only when the strip overflows (.bd-scrollable),
+   fades on first scroll (.bd-scrolled), phones only. Pairs with the one-time nudge in index.html. */
+.board .bd-swipe{display:none;align-items:center;justify-content:center;gap:.45rem;
+  margin:clamp(.9rem,3vw,1.4rem) auto 0;font-family:var(--f-hand);color:var(--colorado);
+  font-size:1.18rem;transition:opacity .35s ease;pointer-events:none}
+.board.bd-scrollable .bd-swipe{display:flex}
+.board.bd-scrolled .bd-swipe{opacity:0}
+.board .bd-swipe .bd-swipe-hand{display:inline-block;animation:bd-wag 1.5s ease-in-out infinite}
+.board .bd-swipe .bd-swipe-arr{letter-spacing:.12em;opacity:.7}
+@keyframes bd-wag{0%,100%{transform:translateX(0) rotate(-4deg)}50%{transform:translateX(9px) rotate(4deg)}}
+@media(min-width:900px){.board .bd-swipe{display:none!important}}
+html[data-tier="lite"] .board .bd-swipe .bd-swipe-hand{animation:none}
+@media(prefers-reduced-motion:reduce){.board .bd-swipe .bd-swipe-hand{animation:none}}
 /* the click-to-open modal */
 .bd-modal{position:fixed;inset:0;z-index:200;display:grid;place-items:center;
   background:rgba(65,77,87,.74);padding:clamp(1rem,4vw,2.5rem);animation:bd-fade .16s ease}

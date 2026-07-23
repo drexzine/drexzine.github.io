@@ -1050,10 +1050,12 @@ window.__drexCrit = window.__drexCrit || {
 };
 
 /* ===================================================================
-   M4 — Founder's note: click-to-unfold 3D paper crumple.
-   The note sits as a crumpled paper ball; clicking it unfurls the sheet —
-   its own captured pixels, lit and hard-creased — at 24fps with a paper
-   crinkle, then hands back to the live DOM note (selectable, accessible).
+   M4 — Founder's note: readable by default, tap-to-crumple 3D paper toy.
+   The letter is important, so it reads flat and selectable on load. A quiet
+   "tap to crumple" affordance balls it up — its own captured pixels, lit and
+   hard-creased — at 24fps with a paper crinkle; "tap to unfold" (or a click
+   on the ball) flattens it and hands back to the live DOM note. A toggle, not
+   a gate: the content is never hidden behind an interaction.
    Three.js + the DOM-capture lib load LAZILY, only when the note nears view.
    Skipped under reduced-motion / calm / lite / no-WebGL; ANY failure leaves
    the plain flat note untouched. Sound routes through the opt-in audio engine
@@ -1200,8 +1202,9 @@ function initFounderCrumple() {
   const paper = document.querySelector('#founder .paper');
   if (!paper) return;
   let started = false;
-  // Dedicated wide-margin observer: load + build well BEFORE the note is on screen,
-  // so it's already crumpled when it scrolls in (no flat->crumple flash).
+  // Dedicated wide-margin observer: load + build the shader well BEFORE the note is on
+  // screen, so the first "tap to crumple" fires instantly (no import/capture stall).
+  // The note itself stays flat + readable throughout; the overlay is transparent until tapped.
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) {
       if (!e.isIntersecting || started) continue;
@@ -1274,18 +1277,16 @@ async function bootFounderCrumple(paper) {
 
     let raf = 0;
     const setT = (t) => { uniforms.uT.value = t; R.render(scene, cam); };
-    setT(1);
-    paper.style.visibility = 'hidden';        // only NOW hide the DOM note (everything above succeeded)
+    // Default state is FLAT + readable: the live DOM note stays visible and selectable,
+    // with the flat WebGL copy overlaid transparently and NOT capturing clicks. The
+    // crumple is opt-in delight, never a gate on the letter's content.
+    setT(0);
+    glCanvas.style.opacity = '0';
+    host.style.pointerEvents = 'none';        // let clicks + text selection reach the DOM letter
 
-    function swapToDom() {
-      paper.style.visibility = '';
-      glCanvas.style.transition = 'opacity .38s ease';
-      glCanvas.style.opacity = '0';
-      setTimeout(() => host.remove(), 440);
-    }
     const STEP = 1000 / 24;                    // 24fps cinema
     const ease = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-    function animate(from, to, dur) {
+    function animate(from, to, dur, onDone) {
       cancelAnimationFrame(raf);
       const t0 = performance.now(); let lastQ = -1, lastSnd = -1e9;
       (function fr(now) {
@@ -1294,26 +1295,50 @@ async function bootFounderCrumple(paper) {
         if (q !== lastQ) { lastQ = q; const pq = Math.min(q * STEP / dur, 1); setT(from + (to - from) * ease(pq)); }
         if (now - lastSnd > 70) { lastSnd = now; Stage.play('crinkle'); if (Math.random() < 0.5) Stage.play('crinkle'); }
         if (p < 1) raf = requestAnimationFrame(fr);
-        else { setT(to); if (to <= 0.001) swapToDom(); }
+        else { setT(to); onDone && onDone(); }
       })(performance.now());
     }
 
-    // "click to unfold" affordance (focusable button = keyboard accessible)
-    let activated = false;
+    // Toggle affordance (focusable button = keyboard accessible). Folded => "tap to
+    // crumple"; crumpled => "tap to unfold", and clicking the ball itself also unfolds.
+    let crumpled = false, animating = false;
     const hint = document.createElement('button');
     hint.type = 'button';
-    hint.className = 'crumple-hint';
-    hint.textContent = 'click to unfold';
-    hint.setAttribute('aria-label', 'Unfold the founder’s note');
+    hint.className = 'crumple-hint is-fold';
+    hint.textContent = 'tap to crumple';
+    hint.setAttribute('aria-label', 'Crumple the founder’s note');
     host.appendChild(hint);
-    function activate() {
-      if (activated) return; activated = true;
-      hint.remove(); host.style.cursor = 'default';
+    function toggle() {
+      if (animating) return;
+      animating = true;
       Stage.armSound();                        // deliberate gesture -> sound on for the session (unless muted)
-      animate(1, 0, 1500);
+      if (!crumpled) {
+        // flat, readable -> crumpled ball
+        hint.classList.remove('is-fold');
+        hint.textContent = 'tap to unfold';
+        hint.setAttribute('aria-label', 'Unfold the founder’s note');
+        glCanvas.style.transition = '';
+        glCanvas.style.opacity = '1';
+        paper.style.visibility = 'hidden';
+        host.style.pointerEvents = 'auto';     // the ball is clickable to unfold
+        animate(0, 1, 1300, () => { crumpled = true; animating = false; });
+      } else {
+        // crumpled ball -> flat, readable
+        hint.classList.add('is-fold');
+        hint.textContent = 'tap to crumple';
+        hint.setAttribute('aria-label', 'Crumple the founder’s note');
+        animate(1, 0, 1500, () => {
+          paper.style.visibility = '';
+          glCanvas.style.transition = 'opacity .38s ease';
+          glCanvas.style.opacity = '0';
+          host.style.pointerEvents = 'none';   // hand clicks + selection back to the letter
+          crumpled = false; animating = false;
+        });
+      }
     }
-    host.addEventListener('click', activate);
-    hint.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); } });
+    host.addEventListener('click', () => { if (crumpled) toggle(); });
+    hint.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
+    hint.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
   } catch (err) {
     // restore the plain note on any failure (incl. no-WebGL)
     paper.style.visibility = '';

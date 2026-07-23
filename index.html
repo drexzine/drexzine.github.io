@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>drex. — A club for whatever you make</title>
 <meta name="description" content="A club for whatever you make. A small club takes a monthly challenge, meets for a standing hour, and finishes a zine everyone's in — a portfolio that stacks up, issue after issue." />
-<meta property="og:title" content="drex. — a creative challenge that ends in a zine you're all in" />
-<meta property="og:description" content="A recurring creative challenge for groups, online or in person. A prompt, a standing hour your people show up for, a due date — and a zine to show for it. Just create — we'll make sure it happens." />
+<meta property="og:title" content="drex. — A club for whatever you make" />
+<meta property="og:description" content="A club for whatever you make. A small club takes a monthly challenge, meets for a standing hour, and finishes a zine everyone's in — a portfolio that stacks up, issue after issue." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://drex.style" />
 <meta property="og:image" content="https://drex.style/assets/og.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="drex. — Most creative groups never finish anything. Yours will. The drex zine-butterflies mark in grass green on a dark card, in the brand style." />
+<meta property="og:image:alt" content="drex. — Tiny creative clubs with show-and-tell deadlines. A club for whatever you make. Hello, portfolio. The drex zine-butterflies mark in grass green on an oats polaroid, on a grass-green card in the brand style." />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="drex. — a creative challenge that ends in a zine you're all in" />
-<meta name="twitter:description" content="A recurring creative challenge for groups, online or in person. A prompt, a standing hour, a due date — and a zine to show for it. Just create — we'll make sure it happens." />
+<meta name="twitter:title" content="drex. — A club for whatever you make" />
+<meta name="twitter:description" content="A club for whatever you make. A small club takes a monthly challenge, meets for a standing hour, and finishes a zine everyone's in — a portfolio that stacks up, issue after issue." />
 <meta name="twitter:image" content="https://drex.style/assets/og.png" />
 <meta name="theme-color" content="#FEF6E4" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7438 6955'%3E%3Cg fill='%231CAB5B'%3E%3Cpath d='M3940.792,1923.474c0,-237.327 876.575,-942.689 1916.579,-954.143c144.631,-1.593 160.411,78.319 137.9,189.4c-30.08,148.427 -98.327,433.131 -98.327,433.131c0,0 65.273,764.946 -24.815,794.112c-90.088,29.167 -290.952,-256.255 -825.803,-386.398c-752.956,-183.213 -1105.535,77.059 -1105.535,-76.102Z'/%3E%3Cpath d='M3904.129,2226.95c9.277,-48.947 42.212,-89.528 87.203,-107.447c243.766,-86.69 1260.521,-180.52 2114.804,662.836c42.289,41.921 54.919,106.632 31.665,162.246c-102.058,276.752 -340.779,1190.09 53.749,2858.265c38.355,162.175 -103.782,235.401 -233.086,138.553c-532.234,-398.637 -1304.501,-567.736 -1930.825,-724.558c-48.189,-11.629 -86.868,-48.709 -101.742,-97.538c-70.176,-252.215 -255.758,-1651.265 -21.766,-2892.358Z'/%3E%3Cpath d='M3496.708,1923.474c0,-237.327 -876.575,-942.689 -1916.579,-954.143c-144.631,-1.593 -160.411,78.319 -137.9,189.4c30.08,148.427 98.327,433.131 98.327,433.131c0,0 -65.273,764.946 24.815,794.112c90.088,29.167 290.952,-256.255 825.803,-386.398c752.956,-183.213 1105.535,77.059 1105.535,-76.102Z'/%3E%3Cpath d='M3533.371,2226.95c-9.277,-48.947 -42.212,-89.528 -87.203,-107.447c-243.766,-86.69 -1260.521,-180.52 -2114.804,662.836c-42.289,41.921 -54.919,106.632 -31.665,162.246c102.058,276.752 340.779,1190.09 -53.749,2858.265c-38.355,162.175 103.782,235.401 233.086,138.553c532.234,-398.637 1304.501,-567.736 1930.825,-724.558c48.189,-11.629 86.868,-48.709 101.742,-97.538c70.176,-252.215 255.758,-1651.265 21.766,-2892.358Z'/%3E%3C/g%3E%3C/svg%3E" />
@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=308" />
+<link rel="stylesheet" href="app.css?v=310" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -520,8 +520,73 @@
         </div>
       </div>
 
+      <!-- swipe affordance: a hand-drawn nudge that the strip scrolls. Only shows when the
+           run actually overflows (JS adds .bd-scrollable) and fades on first scroll (.bd-scrolled).
+           Phones only; the one-time bounce lives in the script below. -->
+      <p class="bd-swipe" aria-hidden="true"><span class="bd-swipe-hand">&#9995;</span> drag to see all six <span class="bd-swipe-arr">&rarr;&rarr;</span></p>
+
     </div>
   </section>
+
+  <!-- #inside swipe cues: show the drag hint only when the strip overflows, fade it on first
+       scroll, and bounce the strip once when it scrolls into view (skipped for reduced-motion + lite). -->
+  <script>
+  (function(){
+    var board=document.getElementById('inside'); if(!board) return;
+    var line=board.querySelector('.bd-line'); if(!line) return;
+    var lite=document.documentElement.getAttribute('data-tier')==='lite';
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+    // The cue only earns its place when there's more to see. Below 900px the six fixed
+    // ~176px cards always overflow (6*176 + gaps ~= 1190px), and the CSS hides the cue at
+    // >=900px anyway — so gate on the breakpoint. Deterministic: no flaky load-time width reads.
+    var mqScroll=window.matchMedia('(max-width:899.98px)');
+    function checkOverflow(){ board.classList.toggle('bd-scrollable', mqScroll.matches); }
+    checkOverflow();
+    (mqScroll.addEventListener ? mqScroll.addEventListener('change',checkOverflow)
+                              : mqScroll.addListener(checkOverflow));
+
+    line.addEventListener('scroll', function(){                 // once they've moved it, the hint has done its job
+      if(line.scrollLeft>6) board.classList.add('bd-scrolled');
+    }, {passive:true});
+
+    var nudged=false;
+    function nudge(){
+      if(nudged) return; nudged=true;
+      if(reduce||lite) return;
+      if(!board.classList.contains('bd-scrollable')) return;   // nothing to reveal, nothing to hint
+      if(line.scrollLeft>4) return;                             // user already grabbed it
+      line.style.scrollSnapType='none';                        // snap would yank the small bounce back to peg 1
+      var start=null, dur=780, amp=46;
+      function step(t){
+        if(start===null) start=t;
+        var p=(t-start)/dur;
+        if(p>=1){ line.scrollLeft=0; line.style.scrollSnapType=''; return; }
+        line.scrollLeft=Math.sin(p*Math.PI)*amp;                // out to 46px and back, one sine hump
+        requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    // Fire the one-time nudge when the strip scrolls into view. IntersectionObserver is the
+    // primary trigger; a scroll + offsetTop fallback covers the (rare) no-IO case. nudge() is
+    // idempotent via the `nudged` latch, so both firing is harmless.
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ setTimeout(nudge,220); io.disconnect(); } });
+      }, {threshold:0.4});
+      io.observe(line);
+    }
+    function inView(){
+      var top=0, el=line; while(el){ top+=el.offsetTop; el=el.offsetParent; }
+      var y=window.scrollY||document.documentElement.scrollTop||0;
+      var vh=window.innerHeight||document.documentElement.clientHeight;
+      return top < y+vh*0.85 && top+line.offsetHeight > y;
+    }
+    function maybeNudge(){ if(inView()){ setTimeout(nudge,220); window.removeEventListener('scroll',maybeNudge); } }
+    if(inView()) setTimeout(nudge,500);
+    else window.addEventListener('scroll', maybeNudge, {passive:true});
+  })();
+  </script>
 
   <!-- the click-to-open modal (video / IG embed / image) -->
   <div class="bd-modal" id="bdModal" role="dialog" aria-modal="true" aria-labelledby="bdModalCap" hidden>
@@ -639,7 +704,7 @@
                 <circle cx="80" cy="8" r="4.5" fill="var(--oats)" filter="url(#roughsm)"/>
               </g>
             </svg></span>
-            <p>your Editor sets one, with a deadline</p>
+            <p>your Host sets one, with a deadline</p>
           </li>
           <li class="step is-key is-clock">
             <span class="n">02</span>
@@ -1359,15 +1424,15 @@
     </div>
   </section>
 
-  <!-- ============ CLUB RESOURCES — situated learning, productized. Three resource types:
+  <!-- ============ CLUB KIT — situated learning, productized. Three resource types:
        PEOPLE (bodies in the room), VIRTUAL (everything that isn't the craft), MATERIAL (what the
-       pool buys). Some pins are real app polaroids. Each column's pool-funded power-ups sit under a
-       dashed cut-line, tagged in the column's own colour; MATERIAL is greyed + stamped coming soon. ============ -->
+       pool buys). Some pins are real app polaroids; MATERIAL is greyed + stamped coming soon. ============ -->
   <section class="resources" id="resources">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow" style="color:var(--colorado)">what's inside</span>
-        <h2 class="slab">Club resources and <span class="ul">upgrades</span><span class="stop">.</span></h2>
+        <span class="eyebrow" style="color:var(--colorado)">whatever your club needs, we bring</span>
+        <h2 class="slab">Club <span class="ul">kit</span><span class="stop">.</span></h2>
+        <p class="res-sub">As we learn what helps your club make things, we get it to you &mdash; a guest, a bigger shelf, a venue &mdash; so the same people keep showing up.</p>
       </div>
 
       <div class="corkboard">
@@ -1392,12 +1457,6 @@
               <b>Broadcasts</b><i>blast a message to your whole club</i>
             </li>
           </ul>
-          <div class="pu-div"><span class="pu-lab">power-ups</span></div>
-          <div class="pu-list">
-            <span class="pu-tag"><span class="pin" aria-hidden="true"></span><span class="pu-ic" aria-hidden="true"><span class="cmark"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" transform="rotate(-42 14 14)"/></svg></span><span class="pu-x">+</span></span>more broadcasts</span>
-            <span class="pu-tag"><span class="pin" aria-hidden="true"></span><span class="pu-ic" aria-hidden="true"><span class="cmark"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" transform="rotate(-42 14 14)"/></svg></span><span class="pu-x">+</span></span>house calls</span>
-            <div class="pu-stampwrap"><span class="pu-stamp2">coming soon</span></div>
-          </div>
         </div>
 
         <!-- VIRTUAL -->
@@ -1438,12 +1497,6 @@
               <b>Other clubs' zines</b><i>join or get inspired by what other clubs make</i>
             </li>
           </ul>
-          <div class="pu-div"><span class="pu-lab">power-ups</span></div>
-          <div class="pu-list">
-            <span class="pu-tag"><span class="pin" aria-hidden="true"></span><span class="pu-ic" aria-hidden="true"><span class="cmark"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" transform="rotate(-42 14 14)"/></svg></span><span class="pu-x">+</span></span>more zines</span>
-            <span class="pu-tag"><span class="pin" aria-hidden="true"></span><span class="pu-ic" aria-hidden="true"><span class="cmark"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" transform="rotate(-42 14 14)"/></svg></span><span class="pu-x">+</span></span>a bigger shelf</span>
-            <div class="pu-stampwrap"><span class="pu-stamp2">coming soon</span></div>
-          </div>
         </div>
 
         <!-- MATERIAL (coming soon) -->
@@ -1462,12 +1515,6 @@
               <b>Studio time</b><i>a wheel, a darkroom, a press</i>
             </li>
           </ul>
-          <div class="pu-div"><span class="pu-lab">power-ups</span></div>
-          <div class="pu-list">
-            <span class="pu-tag"><span class="pin" aria-hidden="true"></span><span class="pu-ic" aria-hidden="true"><span class="cmark"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" transform="rotate(-42 14 14)"/></svg></span><span class="pu-x">+</span></span>more studio time</span>
-            <span class="pu-tag"><span class="pin" aria-hidden="true"></span><span class="pu-ic" aria-hidden="true"><span class="cmark"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" transform="rotate(-42 14 14)"/></svg></span><span class="pu-x">+</span></span>another printed run</span>
-            <div class="pu-stampwrap"><span class="pu-stamp2">coming soon</span></div>
-          </div>
         </div>
       </div>
 
@@ -1699,7 +1746,7 @@
   });
 })();
 </script>
-<script type="module" src="app.js?v=75"></script>
+<script type="module" src="app.js?v=76"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign
