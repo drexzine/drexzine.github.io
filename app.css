@@ -724,13 +724,14 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   font-family:var(--f-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.14rem .45rem;
   transform:rotate(-2deg);box-shadow:1px 1px 0 rgba(40,26,10,.4)}
 .c-virtual .pu-lab,.c-material .pu-lab{color:var(--oats)}   /* light text on the blue/red grounds */
-@media(max-width:720px){
-  /* single column: the full-width dashed cut-line reads as a stray rule — drop it and let the
-     POWER-UPS tab sit as a plain inline label above the unlocks */
+@media(max-width:900px){
+  /* single column (matches the .corkboard 1-col breakpoint): the full-width dashed cut-line
+     reads as a stray rule with nothing beside it — drop it and let the POWER-UPS tab sit as a
+     plain inline label above the unlocks. The dashed line only earns its keep across 3 columns. */
   .pu-div{border-top:0;margin:.7rem .1rem 0}
   .pu-div .pu-lab{position:static;display:inline-block}
 }
-.pu-list{display:flex;flex-wrap:wrap;gap:.9rem .8rem;padding:.9rem .1rem 0}
+.pu-list{display:flex;flex-wrap:wrap;gap:.9rem .8rem;padding:.9rem .1rem 0;position:relative}
 .pu-tag{position:relative;display:inline-flex;align-items:center;font-family:var(--f-hand);font-size:.94rem;
   color:#2f2110;background:transparent;border:0;padding:.4rem .72rem .4rem .46rem;isolation:isolate}
 .pu-tag::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
@@ -743,11 +744,14 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 /* material = coming soon: greyscale the base cards + a text tag, plus the rough stamp over them */
 .c-material{position:relative}
 .c-material .pins .pinit{filter:grayscale(.92);opacity:.7}
-.c-material .pu-tag{filter:grayscale(.92);opacity:.72}   /* material's unlocks are coming-soon too */
+.pu-list .pu-tag{filter:grayscale(.92);opacity:.72}   /* every power-up unlock is coming-soon */
 .cl-soon2{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;
   font-weight:700;color:var(--colorado)}
 .c-material .pu-stampwrap{position:absolute;top:34%;left:8%;right:2%;display:grid;place-items:center;z-index:6;pointer-events:none}
-.c-material .pu-stamp2{font-family:var(--f-mono);font-weight:700;font-size:1.02rem;letter-spacing:.16em;
+/* people/virtual: base pins are LIVE, only the power-ups are coming soon — so stamp sits over the
+   pu-list itself (its own position:relative box), not the whole cluster like material's does */
+.c-people .pu-stampwrap,.c-virtual .pu-stampwrap{position:absolute;inset:0;display:grid;place-items:center;z-index:6;pointer-events:none}
+.pu-stamp2{font-family:var(--f-mono);font-weight:700;font-size:1.02rem;letter-spacing:.16em;
   text-transform:uppercase;color:rgba(196,44,26,.62);border:3px solid rgba(196,44,26,.58);border-radius:7px;
   padding:.22rem .6rem;transform:rotate(-9deg);filter:url(#roughsm);white-space:nowrap}
 
