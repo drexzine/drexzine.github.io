@@ -545,7 +545,7 @@
         embed=document.getElementById('bdModalEmbed'),
         cap=document.getElementById('bdModalCap'),
         play=document.getElementById('bdModalPlay'), last=null;
-    var items=Array.prototype.slice.call(document.querySelectorAll('.bd-open')), idx=0;   // the clothesline, in order — for next/prev
+    var items=Array.prototype.slice.call(document.querySelectorAll('.bd-line .bd-open')), idx=0;   // the clothesline, in order — for next/prev (pins outside the line open the modal but don't join the cycle)
     function onKey(e){ if(e.key==='Escape') close(); else if(e.key==='ArrowLeft') go(-1); else if(e.key==='ArrowRight') go(1); }
     function reset(){
       img.hidden=true; img.removeAttribute('src');
@@ -580,7 +580,12 @@
       document.removeEventListener('keydown', onKey);
       if(last) last.focus();
     }
-    items.forEach(function(b){ b.addEventListener('click', function(){ open(b); }); });
+    /* delegated: this script runs mid-document, so .bd-open pins further down the page
+       (the #resources pinboard) wouldn't exist yet to bind directly. */
+    document.addEventListener('click', function(e){
+      var b=e.target && e.target.closest ? e.target.closest('.bd-open') : null;
+      if(b) open(b);
+    });
     var pv=modal.querySelector('[data-bd-prev]'), nx=modal.querySelector('[data-bd-next]');
     if(pv) pv.addEventListener('click', function(e){ e.stopPropagation(); go(-1); });
     if(nx) nx.addEventListener('click', function(e){ e.stopPropagation(); go(1); });
@@ -1422,12 +1427,14 @@
             </li>
             <li class="pinit pinpola" style="--r:-2deg">
               <span class="pin" aria-hidden="true"></span>
-              <span class="pinshot" style="position:relative;background-image:url(assets/demo/book-cafe-poster.jpg)" role="img" aria-label="The book of issues, flipped open to another club's zine.">
-                <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="var(--paper)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;left:50%;top:50%;width:38%;height:auto;transform:translate(-50%,-50%) rotate(-4deg);filter:drop-shadow(0 1.5px 2px rgba(40,26,10,.55))">
-                  <path d="M20 4.8c8.7.5 15 6.6 15.2 15 .2 8.9-6.5 15.5-15.4 15.4C11 35.1 4.7 28.6 4.8 19.9 4.9 11.3 11.3 5.2 20 4.8Z"/>
-                  <path d="M16.6 13.9c3.9 1.9 7.4 4 10.7 6.1-3.2 2.2-6.8 4.3-10.7 6.2-.3-4.1-.3-8.2 0-12.3Z" fill="var(--paper)"/>
-                </svg>
-              </span>
+              <button type="button" class="bd-open" data-video="assets/demo/book-cafe.mp4" data-poster="assets/demo/book-cafe-poster.jpg" data-cap="flip through other clubs&rsquo; zines" aria-label="Play — flipping through other clubs' zines in the app" style="display:block;width:100%;padding:0;border:0;background:none;font:inherit;color:inherit;cursor:pointer">
+                <span class="pinshot" style="position:relative;background-image:url(assets/demo/book-cafe-thumb.jpg)" aria-hidden="true">
+                  <svg viewBox="0 0 40 40" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:46%;height:auto;transform:translate(-50%,-50%) rotate(-5deg);filter:url(#rough) drop-shadow(0 1.5px 2px rgba(40,26,10,.6))">
+                    <circle cx="20" cy="20" r="14.2" fill="rgba(40,26,10,.32)" stroke="var(--paper)" stroke-width="2.7" stroke-linecap="round" stroke-dasharray="80 11"/>
+                    <path d="M16.2 12.9 28.6 20 16.2 27.1Z" fill="var(--paper)"/>
+                  </svg>
+                </span>
+              </button>
               <b>Other clubs' zines</b><i>join or get inspired by what other clubs make</i>
             </li>
           </ul>
