@@ -731,7 +731,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   .pu-div{border-top:0;margin:.7rem .1rem 0}
   .pu-div .pu-lab{position:static;display:inline-block}
 }
-.pu-list{display:flex;flex-wrap:wrap;gap:.9rem .8rem;padding:.9rem .1rem 0;position:relative}
+.pu-list{display:flex;flex-wrap:wrap;justify-content:center;gap:.9rem .8rem;padding:.9rem .1rem 0;position:relative}
 .pu-tag{position:relative;display:inline-flex;align-items:center;font-family:var(--f-hand);font-size:.94rem;
   color:#2f2110;background:transparent;border:0;padding:.4rem .72rem .4rem .46rem;isolation:isolate}
 .pu-tag::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
@@ -747,10 +747,10 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .pu-list .pu-tag{filter:grayscale(.92);opacity:.72}   /* every power-up unlock is coming-soon */
 .cl-soon2{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;
   font-weight:700;color:var(--colorado)}
-.c-material .pu-stampwrap{position:absolute;top:34%;left:8%;right:2%;display:grid;place-items:center;z-index:6;pointer-events:none}
-/* people/virtual: base pins are LIVE, only the power-ups are coming soon — so stamp sits over the
-   pu-list itself (its own position:relative box), not the whole cluster like material's does */
-.c-people .pu-stampwrap,.c-virtual .pu-stampwrap{position:absolute;inset:0;display:grid;place-items:center;z-index:6;pointer-events:none}
+/* every cluster: the coming-soon stamp overlays its OWN power-ups list (pu-list is position:relative),
+   centered over the now-centered tags. Material's base pins already read coming-soon via greyscale +
+   the inline "(coming soon)" tag, so the stamp belongs on the power-ups here too, same as the rest. */
+.pu-stampwrap{position:absolute;inset:0;display:grid;place-items:center;z-index:6;pointer-events:none}
 .pu-stamp2{font-family:var(--f-mono);font-weight:700;font-size:1.02rem;letter-spacing:.16em;
   text-transform:uppercase;color:rgba(196,44,26,.62);border:3px solid rgba(196,44,26,.58);border-radius:7px;
   padding:.22rem .6rem;transform:rotate(-9deg);filter:url(#roughsm);white-space:nowrap}
