@@ -4457,6 +4457,21 @@ html[data-tier="lite"] .board .bd-arrow{filter:none}
 @media(prefers-reduced-motion:reduce){.bd-scroller .bd-arrow{translate:none!important}}
 /* lite only sets filter:none (not animation); belt-and-suspenders backstop to the JS lite guard */
 html[data-tier="lite"] .bd-scroller .bd-arrow{translate:none!important;animation:none!important}
+/* ---- NEXT-ball grand entrance: a body-level FIXED clone that falls from the top of the screen,
+   grows to normal + fades in by the viewport floor, bounces once, flies into place (WAAPI-driven).
+   Lives on <body> so position:fixed is viewport-true (no transformed/filtered ancestor). Self-contained:
+   the .board .bd-arrow rules can't reach a body child, so every visual is restated to land pixel-identical. */
+.bd-flyer{position:fixed;left:0;top:0;z-index:130;pointer-events:none;
+  width:44px;height:44px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;padding:0;margin:0;
+  background:var(--schoolbus);border:2.6px solid var(--ink);border-radius:49% 51% 52% 48%/48% 52% 49% 51%;
+  box-shadow:2.5px 3px 0 0 var(--ink);filter:url(#roughsm);                 /* SVG filter id resolves document-wide */
+  animation:boil-roughsm var(--boil-paper) step-end infinite;               /* boils mid-flight (FILTER only, never transform) */
+  transform-origin:50% 50%;will-change:transform,opacity;
+  transform:translate(0,0) scale(1) rotate(2deg)}                           /* resting look pre-WAAPI = no first-frame flash */
+.bd-flyer svg{width:24px;height:24px;display:block;overflow:visible}
+.bd-flyer svg path{fill:none;stroke:var(--colorado);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+@media(prefers-reduced-motion:reduce){.bd-flyer{animation:none!important;transform:none!important;opacity:1!important}}
+html[data-tier="lite"] .bd-flyer{display:none}
 /* the click-to-open modal */
 .bd-modal{position:fixed;inset:0;z-index:200;display:grid;place-items:center;
   background:rgba(65,77,87,.74);padding:clamp(1rem,4vw,2.5rem);animation:bd-fade .16s ease}

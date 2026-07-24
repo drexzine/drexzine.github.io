@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=319" />
+<link rel="stylesheet" href="app.css?v=320" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -213,7 +213,7 @@
               <ul class="hb-tray" id="hb-tray">
                 <li><a href="#bring">I have a group</a></li>
                 <li><a href="https://instagram.com/drexcircles">Instagram</a></li>
-                <li><a href="#demo">Demo</a></li>
+                <li><a href="https://demo.drex.style">Demo</a></li>
                 <li class="hb-cta"><a class="btn" href="https://letters.drex.style/join-online/">Join the waitlist <span class="arr">&rarr;</span></a></li>
               </ul>
               <button class="hb-fallen" id="hb-fallen" type="button" tabindex="-1" aria-hidden="true"><span class="bars"><i></i><i></i><i></i></span><svg class="hb-facesm" viewBox="0 0 48 44" aria-hidden="true"><g filter="url(#roughsm)"><circle cx="18" cy="18" r="2.8" fill="var(--ink)"/><circle cx="30" cy="18" r="2.8" fill="var(--ink)"/><path d="M16 26 q8 8 16 0" fill="none" stroke="var(--ink)" stroke-width="2.9" stroke-linecap="round"/></g></svg><svg class="hb-facex" viewBox="0 0 48 44" aria-hidden="true"><g filter="url(#roughsm)" stroke="var(--oats)" stroke-width="2.7" stroke-linecap="round" fill="none"><path d="M14.5 13 L21.5 20 M21.5 13 L14.5 20"/><path d="M26.5 13 L33.5 20 M33.5 13 L26.5 20"/><path d="M16 29 q4 -3.5 8 0 q4 3.5 8 0"/></g></svg><span class="hb-bubble" id="hb-bubble" aria-hidden="true"><svg class="hb-cloud" viewBox="0 0 216 140" aria-hidden="true"><g filter="url(#roughsm)"><path d="M30 98 A22 22 0 0 1 22 60 A24 24 0 0 1 62 42 A26 26 0 0 1 110 40 A24 24 0 0 1 152 50 A22 22 0 0 1 180 70 A20 20 0 0 1 170 100 A24 24 0 0 1 128 108 A24 24 0 0 1 80 108 A22 22 0 0 1 30 98 Z" transform="translate(3,5)" fill="var(--ink)"/><g stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M30 98 A22 22 0 0 1 22 60 A24 24 0 0 1 62 42 A26 26 0 0 1 110 40 A24 24 0 0 1 152 50 A22 22 0 0 1 180 70 A20 20 0 0 1 170 100 A24 24 0 0 1 128 108 A24 24 0 0 1 80 108 A22 22 0 0 1 30 98 Z" fill="var(--hb-tone,var(--paper))"/><circle cx="188" cy="80" r="9" fill="var(--hb-tone,var(--paper))"/><circle cx="200" cy="84" r="5.5" fill="var(--hb-tone,var(--paper))"/><circle cx="209" cy="88" r="3" fill="var(--hb-tone,var(--paper))"/></g></g></svg><span class="hb-say" id="hb-say"></span><svg class="hb-face" viewBox="0 0 216 140" aria-hidden="true"><g filter="url(#roughsm)"><circle cx="84" cy="64" r="4.6" fill="var(--ink)"/><circle cx="116" cy="64" r="4.6" fill="var(--ink)"/><path d="M78 80 q22 22 44 0" fill="none" stroke="var(--ink)" stroke-width="4.6" stroke-linecap="round"/></g></svg></span></button>
@@ -585,7 +585,7 @@
       requestAnimationFrame(frame);
     }
     function armStrip(){ scroller.classList.add('bd-armed'); }                 // releases the no-flash hold (all tiers)
-    function flyArrow(a){
+    function flyArrow(a){                                                       // cheap in-strip drop — still used by the PREV ball
       if(reduce||lite) return;                                                 // tiers already appear in place; never fly
       if(a.dataset.flew) return; a.dataset.flew='1';                           // once per arrow
       a.classList.add('bd-fly');
@@ -594,24 +594,101 @@
         a.classList.remove('bd-fly'); a.removeEventListener('animationend', h);
       });
     }
+
+    // ── NEXT ball GRAND ENTRANCE: falls from the top of the SCREEN, grows to normal + fades in by the
+    //    viewport floor, bounces once off it, then flies UP and lands on the arrow. A body-level fixed
+    //    clone does the trip (position:fixed = viewport-true). rAF-driven so the FALL/BOUNCE stay in
+    //    screen space but the LANDING homes to the real arrow's LIVE position every frame (tracked cheaply
+    //    from the scroll delta) — so it lands dead-on regardless of scroll, no hand-off jump. ──
+    var nextFlew=false;
+    function revealInPlace(delay){ armStrip(); setTimeout(nudge, delay||620); } // degraded / nothing-to-fly path
+    function flyNext(){
+      if(nextFlew) return; nextFlew=true; next.dataset.flew='1';
+      if(reduce||lite){ revealInPlace(260); return; }                         // no flight, just appear
+      // measure the TRUE rest centre ONCE (neutralize the -64px no-flash park inline, read, restore)
+      var parked=next.style.translate; next.style.translate='0px 0px';
+      var r=next.getBoundingClientRect(); next.style.translate=parked;
+      if(!r.width || !r.height){ revealInPlace(260); return; }
+      var half=r.width/2, trueCX=r.left+half;
+      // Read the arrow's LIVE viewport centre each frame so the landing tracks BOTH scroll AND layout shift
+      // (lazy images / reveal anims move the target mid-flight). The arrow stays parked (CSS translate:0 -64px)
+      // for the whole flight, so measure that constant lift ONCE and add it back — no per-frame inline write.
+      var rPark=next.getBoundingClientRect();                                 // parked again (inline was restored above)
+      var parkOffY=r.top - rPark.top;                                         // the CSS no-flash lift, ~ +64
+      var DUR=1450, BIG=2.2;
+      function targetCY(){ return next.getBoundingClientRect().top + half + parkOffY; }
+      // body-level fixed clone, driven entirely by transform in VIEWPORT space
+      var flyer=document.createElement('div');
+      flyer.className='bd-flyer'; flyer.setAttribute('aria-hidden','true');
+      flyer.innerHTML=next.querySelector('svg').outerHTML;
+      flyer.style.left='0px'; flyer.style.top='0px';
+      var startY=-(half*BIG);                                                 // scaled ball's BOTTOM edge sits on the viewport TOP line
+      flyer.style.opacity='0.18';                                            // paint the start pose before the first frame -> no flash
+      flyer.style.transform='translate('+(trueCX-half)+'px,'+(startY-half)+'px) scale('+BIG+') rotate(-8deg)';
+      document.body.appendChild(flyer);
+      window.__bdFlyer='flying';
+      var done=false, rafId=0, t0=null;
+      function easeOutBack(x){ var c1=1.25,c3=c1+1; return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2); }
+      function pose(cx,cy,sx,sy,rot,op){
+        flyer.style.transform='translate('+(cx-half).toFixed(1)+'px,'+(cy-half).toFixed(1)+'px) scale('+sx.toFixed(3)+','+sy.toFixed(3)+') rotate('+rot.toFixed(2)+'deg)';
+        flyer.style.opacity=op.toFixed(3);
+      }
+      function frame(ts){
+        if(done) return;
+        if(t0===null) t0=ts;
+        var p=(ts-t0)/DUR; if(p>1) p=1;
+        var vh=(window.visualViewport&&window.visualViewport.height)||window.innerHeight;
+        var floorY=vh-half, sTop=-(half*BIG);
+        var cx=trueCX, cy, sx=1, sy=1, rot, op;
+        if(p<0.46){                                                          // FALL: accelerate, grow->normal, fade in (screen-space)
+          var f=p/0.46, fe=f*f;
+          cy=sTop+(floorY-sTop)*fe;
+          var s=BIG+(1-BIG)*f; sx=s; sy=s;
+          op=0.18+0.82*Math.min(1,f*1.25);
+          rot=-8+13*f;
+        } else if(p<0.56){                                                   // IMPACT: one squash + rebound at the floor
+          var q=(p-0.46)/0.10; cy=floorY; op=1; rot=5-3*q;
+          if(q<0.5){ var a=q/0.5; sx=1+0.16*a; sy=1-0.14*a; }
+          else { var b=(q-0.5)/0.5; sx=1.16-0.18*b; sy=0.86+0.16*b; }
+        } else {                                                             // RISE + SETTLE: home to the LIVE target, gentle bob
+          var g=(p-0.56)/0.44; if(g>1) g=1;
+          cy=floorY+(targetCY()-floorY)*easeOutBack(g);
+          rot=5+(2-5)*g; op=1;
+        }
+        pose(cx,cy,sx,sy,rot,op);
+        if(p>=1){ handoff(); return; }
+        rafId=requestAnimationFrame(frame);
+      }
+      function handoff(){
+        if(done) return; done=true;
+        if(rafId) cancelAnimationFrame(rafId);
+        armStrip();                                                          // reveal the real arrow at its CURRENT position == where the clone sits (no jump, any scroll)
+        requestAnimationFrame(function(){ if(flyer.parentNode) flyer.parentNode.removeChild(flyer); });
+        window.__bdFlyer='landed';
+        setTimeout(nudge,130);                                               // strip wiggle answers ~130ms after landing
+      }
+      rafId=requestAnimationFrame(frame);
+      setTimeout(handoff, DUR+320);                                          // safety net
+    }
+
     if('IntersectionObserver' in window){
       var io=new IntersectionObserver(function(es){
         es.forEach(function(e){ if(e.isIntersecting){
-          armStrip();                                            // release the no-flash hold
-          if(next.classList.contains('is-on')) flyArrow(next);   // drop the on-arrow from above
-          setTimeout(nudge,620);                                 // strip wiggle ANSWERS ~100ms after it lands
+          update();                                              // refresh is-on from CURRENT geometry (it flickers false during reveal) before deciding
+          if(next.classList.contains('is-on')) flyNext();        // flyNext owns armStrip + post-land wiggle
+          else revealInPlace(620);                               // nothing to fly -> reveal + wiggle
           io.disconnect();
         }});
-      }, {threshold:0.4});
+      }, {threshold:0, rootMargin:'0px 0px -35% 0px'});   // fire only once the strip climbs into the top ~65% — "scrolled further", not just peeking
       io.observe(line);
     }
     function inView(){
       var top=0, el=line; while(el){ top+=el.offsetTop; el=el.offsetParent; }
       var y=window.scrollY||document.documentElement.scrollTop||0;
       var vh=window.innerHeight||document.documentElement.clientHeight;
-      return top < y+vh*0.85 && top+line.offsetHeight > y;
+      return top < y+vh*0.60 && top+line.offsetHeight > y;   // strip top up into the top 60% of the viewport
     }
-    function fireEntrance(){ armStrip(); if(next.classList.contains('is-on')) flyArrow(next); setTimeout(nudge,620); }
+    function fireEntrance(){ update(); if(next.classList.contains('is-on')) flyNext(); else revealInPlace(620); }
     function maybeNudge(){ if(inView()){ fireEntrance(); window.removeEventListener('scroll',maybeNudge); } }
     if(inView()) fireEntrance();
     else window.addEventListener('scroll', maybeNudge, {passive:true});
