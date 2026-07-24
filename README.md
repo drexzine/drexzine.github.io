@@ -22,7 +22,7 @@ team polaroids.
 
 ## Before it goes live — links + demo host (hardcoded in the markup / `app.js`)
 There is no `CONFIG` object; everything is hardcoded where it is used.
-- **Instagram** — `instagram.com/drexcircles`: the card button + `@drexcircles` text and
+- **Instagram** — `instagram.com/drexclubs`: the card button + `@drexclubs` text and
   the footer link are hardcoded in `index.html`. Update those if the handle changes.
 - **Circle** — `https://circles.drex.style/`: the Circle card button + `circles.drex.style`
   text are hardcoded in `index.html`.
