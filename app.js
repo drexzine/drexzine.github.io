@@ -2094,8 +2094,9 @@ function initFirecrackerCta(audio) {
     a.addEventListener('click', (e) => {
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;  // let new-tab / native nav happen
       const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const lite = document.documentElement.dataset.tier === 'lite';
-      if (reduce || lite || fired) return;                                  // → instant native nav
+      // A one-shot flourish on an EXPLICIT click — not ambient load — so it plays even under the
+      // lite FPS tier (which Firefox's slow SVG filters can latch at load). Only reduced-motion skips it.
+      if (reduce || fired) return;                                          // → instant native nav
       fired = true;
       e.preventDefault();
       fcDetonate(a, audio);

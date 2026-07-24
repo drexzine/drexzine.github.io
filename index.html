@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=320" />
+<link rel="stylesheet" href="app.css?v=321" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -604,7 +604,7 @@
     function revealInPlace(delay){ armStrip(); setTimeout(nudge, delay||620); } // degraded / nothing-to-fly path
     function flyNext(){
       if(nextFlew) return; nextFlew=true; next.dataset.flew='1';
-      if(reduce||lite){ revealInPlace(260); return; }                         // no flight, just appear
+      if(reduce){ revealInPlace(260); return; }                               // scroll-triggered one-shot — plays even under lite (only reduced-motion skips it)
       // measure the TRUE rest centre ONCE (neutralize the -64px no-flash park inline, read, restore)
       var parked=next.style.translate; next.style.translate='0px 0px';
       var r=next.getBoundingClientRect(); next.style.translate=parked;
