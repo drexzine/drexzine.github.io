@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=324" />
+<link rel="stylesheet" href="app.css?v=326" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -294,12 +294,16 @@
                      the line you remember, not the line that explains. -->
                 <h1 class="ed-cat">A <span class="stop">club</span> for whatever you <span class="stop">make</span>.</h1>
                 <!-- The blank is a fill-in-the-blank the visitor watches get typed in: the word deletes
-                     itself and the next one is typed in its place. The highlighter slot is sized by the
-                     WIDEST word (JS stacks a hidden ghost of every word in one inline-grid cell), so the
-                     swatch and the full stop after it never move — not even mid-delete.
+                     itself and the next one is typed in its place, and the marker swipes across each
+                     word once it's finished.
+                     The full stop is INSIDE the slot, right after the typed text, so it slides along
+                     with every keystroke the way it would if someone were writing the sentence. The
+                     slot still can't resize: JS stacks a hidden ghost of every word (with its full
+                     stop) in the same inline-grid cell, so the track is permanently as wide as
+                     "photographers." — the fixed width is invisible, it only stops the line reflowing.
                      The rotator is aria-hidden in the MARKUP (not from JS, so it holds with JS off) and
-                     .rot-a11y carries the one word a screen reader reads: "becoming creators." -->
-                <p class="ed-sub"><span class="stop">Up to 15 makers</span> do monthly challenges which end in magazines. They&rsquo;re becoming <span class="rot-a11y">creators</span><span class="hl hl-rot" id="rot-word" aria-hidden="true"><b class="rw">creators</b></span>.</p>
+                     .rot-a11y carries the sentence a screen reader reads: "becoming creators." -->
+                <p class="ed-sub"><span class="stop">Up to 15 makers</span> do monthly challenges which end in magazines. They&rsquo;re becoming <span class="rot-a11y">creators.</span><span class="hl-rot lit" id="rot-word" aria-hidden="true"><b class="rw"><span class="mark">creators</span>.</b></span></p>
               </div>
 
               <!-- ZONE 2 - the standfirst. ONE paragraph now. The "where circles meet" line used to
@@ -1912,7 +1916,7 @@
   });
 })();
 </script>
-<script type="module" src="app.js?v=83"></script>
+<script type="module" src="app.js?v=84"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign

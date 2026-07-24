@@ -2622,27 +2622,53 @@ html[data-tier="lite"] .vol-p.vz i{ filter:none; }   /* weak devices only: drop 
   font-size:clamp(1.05rem,2vw,1.3rem); line-height:1.3; color:var(--colorado); transform:rotate(-1.4deg); }
 
 /* ============ hero sub rotator — "They're becoming ____": the blank types itself in ============
-   The word is DELETED a letter at a time and the next one TYPED in its place, so the blank
-   reads as somebody at a keyboard changing their mind about what they're becoming.
+   The word is DELETED a letter at a time and the next one TYPED in its place, and the marker
+   swipes across each word once it lands. Two constraints that pull against each other:
 
-   The slot must NOT resize while that happens, or the full stop after it jitters and the sub
-   reflows under the headline. So the live word (.typer) shares one inline-grid cell with a
-   hidden copy of EVERY word (.ghost): the ghosts never change, so the track is permanently as
-   wide as the longest ("photographers") even at the instant the typer is down to one letter.
-   No measuring, no hard-coded ch width, no reflow. */
-/* LEFT-aligned, not centred: the letters have to grow rightward off a fixed left edge or it
-   doesn't read as typing — centred, the word collapses toward its own middle as it deletes.
-   The yellow the short words don't fill is the point: it's a blank waiting to be filled. */
-.hl-rot{display:inline-grid;vertical-align:baseline;text-align:left;
-  margin-right:.2em}   /* the swatch overhangs right by .24em — buy the full stop back off the yellow */
+   1. THE FULL STOP MUST FOLLOW THE TEXT. It's the last character of the sentence, so it has to
+      sit against the word's last letter at every length, exactly as it would if someone were
+      writing the line. That means it lives INSIDE the slot, as the tail of the typed run.
+   2. THE SLOT MUST NEVER RESIZE. If it breathed, "They're becoming" would re-wrap and the sub
+      would gain or lose a line — the hero card visibly grows and shrinks once per word.
+
+   Both hold because the live run (.rw, holding .mark + the stop) shares ONE inline-grid cell
+   with a hidden ghost of every word, each carrying its own stop. The ghosts never change, so
+   the track is permanently as wide as "photographers." even while the live word is two letters
+   down. No measuring, no hard-coded ch width, no reflow. The fixed width is invisible now —
+   it does nothing but stop the line moving.
+
+   LEFT-aligned: letters grow rightward off a fixed edge. Centred, a word collapses toward its
+   own middle as it deletes and the stop drifts left with it, which reads as nothing at all. */
+.hl-rot{display:inline-grid;vertical-align:baseline;text-align:left}
 .hl-rot .rw{grid-area:1/1;justify-self:start;white-space:nowrap;
   font-style:normal;font-weight:600;color:var(--ink)}
 .hl-rot .ghost{visibility:hidden}   /* sizers only — they hold the track open, they never animate */
-/* the word a screen reader actually gets. The rotator itself is aria-hidden, so without this
-   the sentence would end "They're becoming ." — or worse, "becoming photograp". */
+/* the sentence a screen reader actually gets. The rotator itself is aria-hidden, so without
+   this it would end "They're becoming ." — or worse, "becoming photograp". */
 .rot-a11y{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-/* No caret. A blinking I-beam is a keyboard's punctuation, not a hand's — on a page that
-   is otherwise all marker, tape and scrawl it was the one pixel that looked like software. */
+/* The swatch hugs the WORD, not the slot — which is only possible because it's a resting state:
+   it shows when the word is at full length and lifts before a letter is touched. Deliberately
+   NOT built on .hl: the hero's .hl swatches are already driven by the envelope reveal, the FPS
+   tier and the draw-on, and .hl::before's transition is set from a selector I can't outrank
+   from here. So this is a standalone marker that opts INTO the two parts it wants — the rough
+   filter and the boil — and owns its own transform. No caret: a blinking I-beam is a keyboard's
+   punctuation, not a hand's, and on a page of marker and tape it looked like software. */
+.hl-rot .mark{position:relative;z-index:0}
+.hl-rot .mark::before{content:"";position:absolute;left:-.17em;right:-.06em;top:.08em;bottom:-.04em;
+  z-index:-1;background:var(--happy);mix-blend-mode:multiply;opacity:.95;border-radius:2px;
+  filter:url(#rough);animation:boil-rough calc(var(--boil-ink) * 2.1) step-end infinite;
+  transform:rotate(-.9deg) skewX(-5deg) scaleX(0);transform-origin:left center;
+  transition:transform .24s ease-in}                     /* lifting off before a delete: quick */
+.hl-rot.lit .mark::before{transform:rotate(-.9deg) skewX(-5deg) scaleX(1);
+  transition:transform .46s cubic-bezier(.2,.7,.2,1)}    /* the swipe across a finished word */
+/* the FPS governor's bargain everywhere else on the page: keep the mark, drop the live filter */
+html[data-tier="lite"] .hl-rot .mark::before{filter:none;animation:none}
+/* Sealed, this swatch would be the ONE highlighter already drawn on a card whose others are
+   all still scaled to 0 waiting for the cut. Hold it back and let it swipe on with them —
+   same .lit-hl beat the rest of the hero uses. Both rules must outrank .hl-rot.lit, hence
+   the long selectors; neither sets transition, so the .24s/.46s pair below still governs. */
+html.sealed .hero-card .hl-rot .mark::before{transform:rotate(-.9deg) skewX(-5deg) scaleX(0)}
+html.sealed .envelope.lit-hl .hero-card .hl-rot.lit .mark::before{transform:rotate(-.9deg) skewX(-5deg) scaleX(1)}
 
 /* ============ the READER section — zines flip THROUGH the phone, one at a time ============ */
 .flip2-stage{display:flex;justify-content:center;margin:clamp(1rem,2.6vw,1.8rem) auto 0}

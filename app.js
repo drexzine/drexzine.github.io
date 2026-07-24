@@ -329,63 +329,65 @@ function initQuotes() {
   }
 }
 
-/* "They're becoming ____" — the blank in the hero sub deletes its word a letter at a time
-   and types the next one in its place, cursor and all.
-   "creators" leads and is the word in the served HTML — the claim in the abstract, so it's
-   what a crawler, a no-JS visitor and a reduced-motion visitor read. The craft nouns after
-   it are the same claim made concrete. Only the .typer element ever changes; a hidden ghost
-   of every word holds the slot open so it can't shrink onto a half-deleted word. */
+/* "They're becoming ____" — the blank in the hero sub deletes its word a letter at a time,
+   types the next one in its place, then swipes the marker across it once it lands.
+   "creators" leads, highlighted, and is the word in the served HTML — the claim in the
+   abstract, so it's what a crawler, a no-JS visitor and a reduced-motion visitor read. The
+   craft nouns after it are the same claim made concrete.
+   Only .mark's text ever changes. The full stop lives after it inside the same run so it
+   slides along with the typing, and a hidden ghost of every word (each carrying its own
+   stop) holds the slot open so the line can't reflow while the word is short. */
 function initHeroRotate() {
   const w = document.getElementById('rot-word');
   if (!w) return;
-  const WORDS = ['creators', 'bakers', 'designers', 'photographers', 'potters',
-                 'artists', 'stylists', 'tattooists', 'florists', 'barbers',
-                 'carpenters', 'calligraphers', 'poets'];
+  const WORDS = ['creators', 'photographers', 'carpenters', 'tattooists',
+                 'models', 'bakers', 'painters', 'florists'];
   // no motion or sound crafts here (animators, dancers, drummers, DJs): the payoff of the
   // loop is a PRINTED zine, and a craft that can't sit still on a page can't land in one.
-  const typer = w.querySelector('.rw');
-  if (!typer) return;
-  typer.classList.add('typer');
+  const mark = w.querySelector('.mark');
+  if (!mark) return;
   for (const word of WORDS) {                  // the sizers: hidden, full-length, never touched
     const g = document.createElement('b');
     g.className = 'rw ghost';
     g.setAttribute('aria-hidden', 'true');
-    g.textContent = word;
+    g.textContent = word + '.';                // the stop counts toward the width they hold open
     w.appendChild(g);
   }
-  if (Stage.reduce) return;   // reduced motion: the blank stays filled in with "creators"
+  if (Stage.reduce) return;   // reduced motion: the blank stays filled in, lit, with "creators"
 
   let i = 0, t = 0, started = false;
-  const HOLD = 2000;          // how long a finished word sits there before it gets deleted
+  const HOLD = 2000;          // how long a finished word sits there before the marker lifts
   const FIRST_HOLD = 3400;    // "creators" gets longer — it's the one that has to be read
-  /* The typer must never be truly EMPTY, only ever look empty. An inline-grid whose first
-     item has no line box has no baseline to align to, so the browser synthesises one from
-     the box edge — the sub's line box grows ~9px, and the hero card grows with it, once per
-     word. A zero-width space costs nothing visually and keeps the real baseline. */
-  const ZWSP = '\u200B';   // spelled as an escape: an invisible literal in source is a trap
-  let cur = typer.textContent;                   // the true text; the DOM may hold a ZWSP
-  const set = (s) => { cur = s; typer.textContent = s || ZWSP; };
+  const LIFT = 260;           // marker off the word before the first letter goes (matches the CSS)
+  const SWIPE = 460;          // …and back across the new one (ditto) before the hold starts
+  /* The stop is a sibling text node, never touched — it just gets pushed along as .mark's text
+     grows and shrinks. It also keeps the run's line box alive at zero letters, so the slot
+     always has a real baseline: an inline-grid with none synthesises one from the box edge,
+     which grew the sub ~9px and the hero card with it, once per word. */
+  const set = (s) => { mark.textContent = s; };
   const del = () => {                            // backspace, a touch faster than typing
-    if (cur.length) { set(cur.slice(0, -1)); t = setTimeout(del, 34 + Math.random() * 26); }
+    const s = mark.textContent;
+    if (s.length) { set(s.slice(0, -1)); t = setTimeout(del, 34 + Math.random() * 26); }
     else { i = (i + 1) % WORDS.length; type(WORDS[i], 0); }
   };
   const type = (word, n) => {                    // …and the uneven rhythm of a real hand
     if (n < word.length) { set(word.slice(0, n + 1)); t = setTimeout(() => type(word, n + 1), 52 + Math.random() * 46); }
-    else t = setTimeout(cycle, HOLD);
+    else { w.classList.add('lit'); t = setTimeout(cycle, SWIPE + HOLD); }   // swipe it, then rest
   };
-  const cycle = () => { del(); };
+  const cycle = () => { w.classList.remove('lit'); t = setTimeout(del, LIFT); };
   const start = () => { started = true; t = setTimeout(cycle, FIRST_HOLD); };
-  // nobody types in a tab nobody is looking at. On the way back, snap to the whole word
-  // rather than resuming mid-delete — a background tab shouldn't leave "photograp" on screen.
+  // nobody types in a tab nobody is looking at. On the way back, snap to the whole word and
+  // relight it — a background tab shouldn't leave "photograp." sitting there half-written.
   document.addEventListener('visibilitychange', () => {
     if (!started) return;
     clearTimeout(t);
     if (document.hidden) return;
     set(WORDS[i]);
+    w.classList.add('lit');
     t = setTimeout(cycle, HOLD);
   });
-  // begin only once the envelope is open (or immediately if it never sealed): while sealed
-  // the highlighter swatch is still scaled to 0, so a word would swap behind nothing.
+  // begin only once the envelope is open (or immediately if it never sealed) — otherwise the
+  // whole show plays out inside a card nobody has cut open yet, and "creators" is long gone.
   const root = document.documentElement;
   if (!root.classList.contains('sealed') || root.classList.contains('revealed')) start();
   else {
