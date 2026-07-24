@@ -4382,6 +4382,33 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 .board .bd-peg{position:relative;z-index:1;flex:0 0 auto;scroll-snap-align:center;
   padding-top:14px;transform:rotate(var(--r,0deg));transform-origin:top center;transition:transform .18s ease}
 .board .bd-peg:hover,.board .bd-peg:focus-within{transform:rotate(0) translateY(-4px);z-index:4}
+/* ---- "deal the photos in from the right": staggered slide onto the clothesline, the NEW opening
+   beat that plays BEFORE the ball drops + the strip wiggles. Rides the independent `translate`
+   property (never `transform`), so the resting rotate(var(--r)) tilt AND the hover
+   rotate(0) translateY(-4px) are untouched — slide + tilt animate different properties, zero
+   conflict, no jump. GPU transform(translate)+opacity only; no per-frame layout. */
+.board .bd-peg{--deal-x:46px}                                   /* how far RIGHT of rest each card starts */
+/* NO-FLASH GATE: JS adds .bd-deal-armed at load, before the section is on screen (it's below the
+   fold), so this parked pose is never seen. Cards sit offset-right + invisible until the deal fires. */
+.bd-scroller.bd-deal-armed .bd-peg{translate:var(--deal-x) 0;opacity:0}
+@keyframes bd-deal-in{
+  from{translate:var(--deal-x) 0;opacity:0}
+  55% {opacity:1}                                              /* fade lands early, before the overshoot settles */
+  to  {translate:0 0;opacity:1}                                /* == natural rest → forwards-fill reverts w/ zero delta */
+}
+/* GO: run the stagger. animation-delay steps by --i (leftmost = 0 = lands first). fill:both holds
+   the armed 'from' during the delay (no flash) + the rest pose after. back-out curve overshoots
+   ~7px left of rest then settles — reads as a card being dealt in. */
+.bd-scroller.bd-deal-go .bd-peg{
+  animation:bd-deal-in .42s cubic-bezier(.34,1.4,.5,1) both;
+  animation-delay:calc(var(--i,0) * 55ms)}
+/* reduced-motion: the global *{animation:none!important} freezes the keyframes, so neutralize the
+   gate too — cards just rest, fully visible (JS also skips arming under reduce; this is belt+braces). */
+@media(prefers-reduced-motion:reduce){
+  .bd-scroller.bd-deal-armed .bd-peg,.bd-scroller.bd-deal-go .bd-peg{
+    translate:none!important;opacity:1!important;animation:none!important}}
+/* NOTE: intentionally NO html[data-tier="lite"] rule here — the deal is cheap GPU translate+opacity
+   and must survive lite (which has been falsely demoting Firefox and stripping effects). */
 .board .bd-clip{position:absolute;left:50%;top:-2px;width:13px;height:30px;transform:translateX(-50%);
   background:var(--paper);border:2.2px solid var(--ink);border-radius:4px;
   box-shadow:2px 2px 0 0 var(--ink);filter:url(#roughsm);z-index:3}

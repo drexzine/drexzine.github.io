@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=321" />
+<link rel="stylesheet" href="app.css?v=322" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -585,6 +585,55 @@
       requestAnimationFrame(frame);
     }
     function armStrip(){ scroller.classList.add('bd-armed'); }                 // releases the no-flash hold (all tiers)
+
+    // ── NEW opening beat: DEAL THE PHOTOS IN FROM THE RIGHT ────────────────────────────────────
+    //   Staggered CSS @keyframes slide (translate+opacity, GPU) that runs FIRST, then hands off to
+    //   flyNext (the ball drop) which ends by calling nudge (the wiggle). Sequence: photos → arrow →
+    //   wiggle. Leftmost card lands first; each next deals in from the right, building the line L→R
+    //   (the on-screen cards land immediately; the masked tail keeps settling off to the right).
+    var pegs=Array.prototype.slice.call(line.querySelectorAll('.bd-peg'));
+    var DEAL_STEP=55, DEAL_DUR=420;                                            // per-peg stagger + per-peg duration (ms) — mirror the CSS
+    var dealt=false, dealSafety=0;
+    function revealPegsNow(){                                                  // clear the gate → cards rest visible, no slide
+      dealt=true; if(dealSafety){ clearTimeout(dealSafety); dealSafety=0; }
+      scroller.classList.remove('bd-deal-armed'); scroller.classList.remove('bd-deal-go');
+    }
+    function armDeal(){
+      if(reduce||dealt||!pegs.length||inView()) return;                       // skip if reduced / already dealt / already on screen (arming now would flash)
+      pegs.forEach(function(p,i){ p.style.setProperty('--i', i); });          // 0 = leftmost = lands first
+      scroller.classList.add('bd-deal-armed');                                // park offset-right + invisible (still below the fold → unseen)
+      dealSafety=setTimeout(function(){ if(!dealt) revealPegsNow(); }, 6000); // STUCK-HIDDEN guard: reveal even if the entrance never fires
+    }
+    function slidePhotosIn(done){                                             // resolves `done` when the cards have landed (then arrow → wiggle)
+      var cb=function(){ if(done) done(); };
+      if(dealt||reduce||!scroller.classList.contains('bd-deal-armed')){ cb(); return; }  // reduced / safety already fired → straight to the arrow
+      dealt=true; if(dealSafety){ clearTimeout(dealSafety); dealSafety=0; }
+      var last=pegs[pegs.length-1], handed=false, cleaned=false;
+      function cleanup(){                                                     // once every card has settled, hand control back to base CSS
+        if(cleaned) return; cleaned=true;
+        scroller.classList.remove('bd-deal-armed'); scroller.classList.remove('bd-deal-go');
+      }
+      function handoff(){ if(handed) return; handed=true; cb(); }             // → flyNext (arrow), which ends by calling nudge (wiggle)
+      last.addEventListener('animationend', function h(ev){
+        if(ev.animationName!=='bd-deal-in') return;
+        last.removeEventListener('animationend', h); cleanup(); handoff();
+      });
+      setTimeout(handoff, DEAL_STEP*2+DEAL_DUR+40);                           // OVERLAP: launch the arrow once the on-screen cards have landed
+      setTimeout(function(){ cleanup(); handoff(); }, DEAL_STEP*(pegs.length-1)+DEAL_DUR+220);  // hard fallback — never stuck armed
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){    // commit the armed 'from' pose one frame, THEN flip to GO (no flash)
+        scroller.classList.add('bd-deal-go');
+      }); });
+    }
+    // Arm the deal just BEFORE the strip scrolls into view (parked while still below the fold, so no
+    // flash) — NOT at load: #inside is deep in the page, and a load-time safety timer would expire
+    // long before you scroll down to it, so the deal would never play.
+    if('IntersectionObserver' in window){
+      var armIO=new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ armDeal(); armIO.disconnect(); } });
+      }, {rootMargin:'0px 0px 55% 0px'});                                       // ~half a viewport of lead time before it enters
+      armIO.observe(line);
+    }
+
     function flyArrow(a){                                                       // cheap in-strip drop — still used by the PREV ball
       if(reduce||lite) return;                                                 // tiers already appear in place; never fly
       if(a.dataset.flew) return; a.dataset.flew='1';                           // once per arrow
@@ -674,9 +723,7 @@
     if('IntersectionObserver' in window){
       var io=new IntersectionObserver(function(es){
         es.forEach(function(e){ if(e.isIntersecting){
-          update();                                              // refresh is-on from CURRENT geometry (it flickers false during reveal) before deciding
-          if(next.classList.contains('is-on')) flyNext();        // flyNext owns armStrip + post-land wiggle
-          else revealInPlace(620);                               // nothing to fly -> reveal + wiggle
+          fireEntrance();                                        // photos slide in → arrow drop → wiggle
           io.disconnect();
         }});
       }, {threshold:0, rootMargin:'0px 0px -35% 0px'});   // fire only once the strip climbs into the top ~65% — "scrolled further", not just peeking
@@ -688,7 +735,13 @@
       var vh=window.innerHeight||document.documentElement.clientHeight;
       return top < y+vh*0.60 && top+line.offsetHeight > y;   // strip top up into the top 60% of the viewport
     }
-    function fireEntrance(){ update(); if(next.classList.contains('is-on')) flyNext(); else revealInPlace(620); }
+    function fireEntrance(){                                    // 3-beat: photos slide in → arrow drop (flyNext) → wiggle (nudge)
+      update();
+      slidePhotosIn(function(){                                 // is-on re-read AFTER the deal, so the arrow decision uses settled geometry
+        if(next.classList.contains('is-on')) flyNext();        // flyNext owns armStrip + post-land wiggle
+        else revealInPlace(620);                               // nothing to fly -> reveal + wiggle
+      });
+    }
     function maybeNudge(){ if(inView()){ fireEntrance(); window.removeEventListener('scroll',maybeNudge); } }
     if(inView()) fireEntrance();
     else window.addEventListener('scroll', maybeNudge, {passive:true});
