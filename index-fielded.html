@@ -1,0 +1,1951 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>drex. — A club for whatever you make</title>
+<meta name="description" content="A club for whatever you make. A small club takes a monthly challenge, meets for a standing hour, and finishes a zine everyone's in — a portfolio that stacks up, issue after issue." />
+<meta property="og:title" content="drex. — A club for whatever you make" />
+<meta property="og:description" content="A club for whatever you make. A small club takes a monthly challenge, meets for a standing hour, and finishes a zine everyone's in — a portfolio that stacks up, issue after issue." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://drex.style" />
+<meta property="og:image" content="https://drex.style/assets/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="drex. — Tiny creative clubs with show-and-tell deadlines. A club for whatever you make. Hello, portfolio. The drex zine-butterflies mark in grass green on an oats polaroid, on a grass-green card in the brand style." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="drex. — A club for whatever you make" />
+<meta name="twitter:description" content="A club for whatever you make. A small club takes a monthly challenge, meets for a standing hour, and finishes a zine everyone's in — a portfolio that stacks up, issue after issue." />
+<meta name="twitter:image" content="https://drex.style/assets/og.png" />
+<meta name="theme-color" content="#FEF6E4" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7438 6955'%3E%3Cg fill='%231CAB5B'%3E%3Cpath d='M3940.792,1923.474c0,-237.327 876.575,-942.689 1916.579,-954.143c144.631,-1.593 160.411,78.319 137.9,189.4c-30.08,148.427 -98.327,433.131 -98.327,433.131c0,0 65.273,764.946 -24.815,794.112c-90.088,29.167 -290.952,-256.255 -825.803,-386.398c-752.956,-183.213 -1105.535,77.059 -1105.535,-76.102Z'/%3E%3Cpath d='M3904.129,2226.95c9.277,-48.947 42.212,-89.528 87.203,-107.447c243.766,-86.69 1260.521,-180.52 2114.804,662.836c42.289,41.921 54.919,106.632 31.665,162.246c-102.058,276.752 -340.779,1190.09 53.749,2858.265c38.355,162.175 -103.782,235.401 -233.086,138.553c-532.234,-398.637 -1304.501,-567.736 -1930.825,-724.558c-48.189,-11.629 -86.868,-48.709 -101.742,-97.538c-70.176,-252.215 -255.758,-1651.265 -21.766,-2892.358Z'/%3E%3Cpath d='M3496.708,1923.474c0,-237.327 -876.575,-942.689 -1916.579,-954.143c-144.631,-1.593 -160.411,78.319 -137.9,189.4c30.08,148.427 98.327,433.131 98.327,433.131c0,0 -65.273,764.946 24.815,794.112c90.088,29.167 290.952,-256.255 825.803,-386.398c752.956,-183.213 1105.535,77.059 1105.535,-76.102Z'/%3E%3Cpath d='M3533.371,2226.95c-9.277,-48.947 -42.212,-89.528 -87.203,-107.447c-243.766,-86.69 -1260.521,-180.52 -2114.804,662.836c-42.289,41.921 -54.919,106.632 -31.665,162.246c102.058,276.752 340.779,1190.09 -53.749,2858.265c-38.355,162.175 103.782,235.401 233.086,138.553c532.234,-398.637 1304.501,-567.736 1930.825,-724.558c48.189,-11.629 86.868,-48.709 101.742,-97.538c70.176,-252.215 255.758,-1651.265 21.766,-2892.358Z'/%3E%3C/g%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
+
+<!-- ============================================================================
+     index-fielded.html — a COMPARISON CUT of the landing page, not the site.
+     Live at drex.style/index-fielded.html so the two heroes can be read side by
+     side on a real device. It carries its OWN app-fielded.css / app-fielded.js
+     precisely so it can never touch index.html: the fielded hero pluralises
+     differently (the blank types singular nouns into the H1) and drops the
+     eyebrow + hairline, both of which the live page still needs.
+     Edits to app.css/app.js do NOT reach this page. If this cut wins, port it
+     back into app.css/app.js and delete these three files.
+     noindex: it is the same copy as the front page and should not compete with
+     it in search. Remove the robots tag if you ever want it indexed.
+     ============================================================================ -->
+<meta name="robots" content="noindex" />
+<link rel="stylesheet" href="app-fielded.css?v=1" />
+<script>
+  // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
+  // when motion is allowed. reduced-motion shows the hero normally. A failsafe
+  // un-seals after 6s if app.js never arms the envelope (e.g. a load error), so
+  // the hero can never be trapped behind the cut.
+  (function () {
+    var d = document.documentElement;
+    d.classList.add('js');
+    try {
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        d.classList.add('sealed');
+        setTimeout(function () { if (!d.classList.contains('armed')) d.classList.remove('sealed'); }, 6000);
+      }
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<!-- SVG filters: torn paper edges + rough marker wobble -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <filter id="torn"><feTurbulence type="fractalNoise" baseFrequency="0.014 0.026" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="tornbig"><feTurbulence type="fractalNoise" baseFrequency="0.01 0.045" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="28" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="tornbig2"><feTurbulence type="fractalNoise" baseFrequency="0.013 0.03" numOctaves="3" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="22" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.04 0.09" numOctaves="2" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="roughsm"><feTurbulence type="fractalNoise" baseFrequency="0.03 0.05" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <!-- SQUIGGLE VISION boil frames: same baseFrequency+scale per family, only seed
+         varies → constant wobble amount, redrawn by a different hand each frame.
+         No tornbig variants: the masthead/footer torn bands stay static on purpose. -->
+    <filter id="rough2"><feTurbulence type="fractalNoise" baseFrequency="0.04 0.09" numOctaves="2" seed="12" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="rough3"><feTurbulence type="fractalNoise" baseFrequency="0.04 0.09" numOctaves="2" seed="26" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="torn2"><feTurbulence type="fractalNoise" baseFrequency="0.014 0.026" numOctaves="3" seed="17" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="torn3"><feTurbulence type="fractalNoise" baseFrequency="0.014 0.026" numOctaves="3" seed="31" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="roughsm2"><feTurbulence type="fractalNoise" baseFrequency="0.03 0.05" numOctaves="2" seed="19" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <!-- a hand-inked postage stamp + rubber postmark, for the #proof postcard pile -->
+    <symbol id="pcstamp" viewBox="0 0 84 58">
+      <g filter="url(#roughsm)" fill="none" stroke="var(--ink)" opacity=".5" stroke-width="2" stroke-linecap="round">
+        <circle cx="19" cy="29" r="15"/><circle cx="19" cy="29" r="9.5"/>
+        <path d="M37 21 h26 M37 29 h30 M37 37 h24"/>
+      </g>
+      <g filter="url(#roughsm)">
+        <rect x="47" y="6" width="31" height="45" rx="2" fill="currentColor" stroke="var(--ink)" stroke-width="2.6"/>
+        <rect x="51" y="10" width="23" height="37" rx="1" fill="none" stroke="var(--oats)" stroke-width="1.5" stroke-dasharray="2 3"/>
+        <circle cx="62.5" cy="28.5" r="7.5" fill="none" stroke="var(--oats)" stroke-width="2"/>
+        <circle cx="62.5" cy="28.5" r="1.8" fill="var(--oats)"/>
+      </g>
+    </symbol>
+    <filter id="roughsm3"><feTurbulence type="fractalNoise" baseFrequency="0.03 0.05" numOctaves="2" seed="29" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="soft"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="soft2"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="13" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="soft3"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="23" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <!-- pronounced hand-drawn squiggle for the How-loop ring -->
+    <filter id="squig"><feTurbulence type="fractalNoise" baseFrequency="0.024 0.024" numOctaves="2" seed="8" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/></filter>
+
+    <!-- the showing-up pegboard kit: six hand-drawn tools -->
+    <symbol id="t-clock" viewBox="0 0 100 100">
+      <g filter="url(#roughsm)">
+        <circle cx="29" cy="16" r="9" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="3"/>
+        <circle cx="71" cy="16" r="9" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M26 84 L18 93 M74 84 L82 93" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="50" cy="54" r="34" fill="var(--grass)" stroke="var(--ink)" stroke-width="3.5"/>
+        <circle cx="50" cy="54" r="25" fill="var(--oats)" stroke="var(--ink)" stroke-width="2.5"/>
+        <path d="M50 34 v5 M50 69 v5 M30 54 h5 M65 54 h5" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M50 54 L50 39 M50 54 L60 61" stroke="var(--ink)" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="50" cy="54" r="3.2" fill="var(--colorado)" stroke="none"/>
+      </g>
+    </symbol>
+    <symbol id="t-door" viewBox="0 0 100 100">
+      <g filter="url(#roughsm)">
+        <rect x="24" y="16" width="40" height="76" fill="var(--happy)" stroke="none"/>
+        <path d="M18 34 L7 28 M18 54 L5 54 M18 74 L7 80" stroke="var(--schoolbus)" stroke-width="4" stroke-linecap="round"/>
+        <path d="M20 92 V12 H68 V92" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>
+        <path d="M64 16 L88 25 L88 84 L64 92 Z" fill="var(--lazuli)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="70" cy="54" r="3.2" fill="var(--oats)" stroke="none"/>
+      </g>
+    </symbol>
+    <symbol id="t-bell" viewBox="0 0 100 100">
+      <g filter="url(#roughsm)">
+        <path d="M22 72 A28 28 0 0 1 78 72 Z" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="3.5" stroke-linejoin="round"/>
+        <rect x="46" y="32" width="8" height="9" fill="var(--ink)" stroke="none"/>
+        <circle cx="50" cy="27" r="7" fill="var(--colorado)" stroke="var(--ink)" stroke-width="3"/>
+        <rect x="14" y="72" width="72" height="11" rx="4" fill="var(--sambas)" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M84 36 L93 28 M87 50 L98 47" stroke="var(--lazuli)" stroke-width="3.5" stroke-linecap="round"/>
+      </g>
+    </symbol>
+    <symbol id="t-phone" viewBox="0 0 100 100">
+      <g filter="url(#roughsm)">
+        <rect x="30" y="9" width="44" height="67" rx="7" fill="var(--colorado)" stroke="var(--ink)" stroke-width="3.5"/>
+        <rect x="38" y="17" width="28" height="10" rx="2" fill="var(--oats)" stroke="var(--ink)" stroke-width="2"/>
+        <g fill="var(--oats)" stroke="none">
+          <circle cx="43" cy="38" r="2.8"/><circle cx="52" cy="38" r="2.8"/><circle cx="61" cy="38" r="2.8"/>
+          <circle cx="43" cy="48" r="2.8"/><circle cx="52" cy="48" r="2.8"/><circle cx="61" cy="48" r="2.8"/>
+          <circle cx="43" cy="58" r="2.8"/><circle cx="52" cy="58" r="2.8"/><circle cx="61" cy="58" r="2.8"/>
+        </g>
+        <rect x="13" y="15" width="13" height="44" rx="6.5" fill="var(--sambas)" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M20 61 q-8 8 0 14 q8 7 0 14" fill="none" stroke="var(--ink)" stroke-width="2.6"/>
+        <circle cx="79" cy="87" r="9" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M75 87 h8" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>
+      </g>
+    </symbol>
+    <symbol id="t-popper" viewBox="0 0 100 100">
+      <g filter="url(#roughsm)">
+        <path d="M18 92 L46 54 L66 72 Z" fill="var(--colorado)" stroke="var(--ink)" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M28 80 L52 60" stroke="var(--oats)" stroke-width="4.5" stroke-linecap="round"/>
+        <path d="M54 46 L60 34 M64 52 L76 44 M46 40 L43 28" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+        <rect x="66" y="18" width="7" height="7" fill="var(--happy)" stroke="none" transform="rotate(20 69 21)"/>
+        <circle cx="83" cy="33" r="4.2" fill="var(--lazuli)" stroke="none"/>
+        <rect x="52" y="13" width="6.5" height="6.5" fill="var(--grass)" stroke="none" transform="rotate(-16 55 16)"/>
+        <circle cx="73" cy="9" r="3.6" fill="var(--colorado)" stroke="none"/>
+        <rect x="88" y="20" width="5.5" height="5.5" fill="var(--schoolbus)" stroke="none" transform="rotate(30 90 22)"/>
+        <circle cx="92" cy="44" r="3" fill="var(--grass)" stroke="none"/>
+      </g>
+    </symbol>
+    <symbol id="t-bag" viewBox="0 0 100 100">
+      <g filter="url(#roughsm)">
+        <path d="M38 32 C38 18 62 18 62 32" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>
+        <rect x="17" y="32" width="66" height="46" rx="11" fill="var(--lazuli)" stroke="var(--ink)" stroke-width="3.5"/>
+        <path d="M17 52 H83" stroke="var(--ink)" stroke-width="2.6"/>
+        <circle cx="50" cy="55" r="12.5" fill="var(--oats)" stroke="var(--ink)" stroke-width="2.6"/>
+        <path d="M50 48.5 v13 M43.5 55 h13" stroke="var(--grass)" stroke-width="4.5" stroke-linecap="round"/>
+      </g>
+    </symbol>
+    <symbol id="i-mail" viewBox="0 0 40 40"><g filter="url(#roughsm)" fill="none" stroke="var(--grass)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="9" width="30" height="22" rx="2"/><path d="M6 11 L20 22 L34 11"/></g></symbol>
+    <symbol id="i-bellsm" viewBox="0 0 40 40"><g filter="url(#roughsm)"><path d="M9 28 A11 13 0 0 1 31 28 Z" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round"/><circle cx="20" cy="12" r="2.4" fill="var(--colorado)" stroke="var(--ink)" stroke-width="1.8"/><rect x="6" y="28" width="28" height="4.5" rx="2" fill="var(--sambas)" stroke="var(--ink)" stroke-width="2"/></g></symbol>
+    <symbol id="i-wave" viewBox="0 0 40 40"><g filter="url(#roughsm)" fill="none" stroke="var(--lazuli)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 34 C9 26 8 18 12 12 M20 34 C17 24 17 14 21 8 M28 34 C26 26 27 18 31 13"/></g></symbol>
+    <symbol id="i-news" viewBox="0 0 40 40"><g filter="url(#roughsm)" fill="none" stroke="var(--colorado)" stroke-width="2.6" stroke-linecap="round"><rect x="6" y="8" width="28" height="24" rx="2"/><path d="M11 15 h12 M11 21 h18 M11 27 h14"/><circle cx="27" cy="15" r="2" fill="var(--colorado)" stroke="none"/></g></symbol>
+    <symbol id="i-list" viewBox="0 0 40 40"><g filter="url(#roughsm)" fill="none" stroke="var(--sambas)" stroke-width="2.6" stroke-linecap="round"><path d="M12 10 h20 M12 18 h20 M12 26 h20 M12 34 h12"/><circle cx="6.5" cy="10" r="1.8" fill="var(--sambas)" stroke="none"/><circle cx="6.5" cy="18" r="1.8" fill="var(--sambas)" stroke="none"/><circle cx="6.5" cy="26" r="1.8" fill="var(--sambas)" stroke="none"/></g></symbol>
+    <symbol id="i-key" viewBox="0 0 40 40"><g filter="url(#roughsm)" fill="none" stroke="var(--schoolbus)" stroke-width="3" stroke-linecap="round"><circle cx="13" cy="14" r="6.5"/><path d="M17 19 L31 33 M25 27 l5 -4 M29 31 l5 -4"/></g></symbol>
+      <filter id="roughbig"><feTurbulence type="fractalNoise" baseFrequency="0.02 0.03" numOctaves="2" seed="6" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="6.5" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <symbol id="ill-chat" viewBox="0 0 104 100">
+    <g filter="url(#rough)" fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 26 h66 q9 0 9 9 v30 q0 9 -9 9 h-38 l-15 15 v-15 h-13 q-9 0 -9 -9 v-30 q0 -9 9 -9 Z" fill="var(--paper)"/></g>
+    <g filter="url(#roughsm)" fill="var(--ink)"><circle cx="30" cy="50" r="3.2"/><circle cx="46" cy="50" r="3.2"/><circle cx="62" cy="50" r="3.2"/></g>
+    <g filter="url(#roughsm)" fill="none" stroke="var(--ink)" stroke-width="1.5" opacity=".5" stroke-linecap="round"><path d="M78 26 q12 3 14 15 M78 26 q3 9 14 15 M80 30 q5 6 9 8"/></g>
+    <g filter="url(#roughsm)" fill="none" stroke="var(--lazuli)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M60 16 h9 l-9 9 h9"/></g>
+  </symbol>
+    <symbol id="ill-course" viewBox="0 0 100 100">
+    <g filter="url(#rough)" fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"><rect x="14" y="14" width="72" height="46" rx="4" fill="var(--paper)"/><path d="M50 60 v8 M38 76 h24"/></g>
+    <g filter="url(#rough)"><path d="M42 28 L60 37 L42 46 Z" fill="var(--ink)"/></g>
+    <g filter="url(#rough)" fill="var(--paper)" stroke="var(--ink)" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"><circle cx="50" cy="84" r="7"/><path d="M36 100 q14 -14 28 0" fill="none"/></g>
+    <g filter="url(#roughsm)" fill="none" stroke="var(--ink)" stroke-width="1.8" opacity=".45" stroke-linecap="round"><path d="M74 82 q6 4 6 12 M80 78 q7 5 7 14"/></g>
+  </symbol>
+    <symbol id="ill-room" viewBox="0 0 100 100">
+    <g filter="url(#rough)" fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"><path d="M18 42 L50 18 L82 42 V84 H18 Z" fill="var(--paper)"/><path d="M50 18 V33"/></g>
+    <g filter="url(#roughsm)"><circle cx="50" cy="41" r="7.5" fill="var(--happy)" stroke="var(--ink)" stroke-width="3"/><path d="M46 49 h8" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/></g>
+    <g filter="url(#roughsm)" fill="var(--ink)" opacity=".4"><circle cx="34" cy="76" r="1.8"/><circle cx="64" cy="72" r="1.8"/><circle cx="52" cy="80" r="1.8"/></g>
+  </symbol>
+    <symbol id="skullface" viewBox="0 0 150 150">
+    <g filter="url(#roughbig)"><path d="M75 20 C106 18 128 40 127 70 C126 88 116 100 104 104 V118 C104 126 96 130 88 126 V116 L80 128 L72 116 V126 C64 130 56 126 56 118 V104 C44 100 24 88 23 70 C22 40 44 22 75 20 Z" fill="var(--paper)"/></g>
+    <g filter="url(#rough)" fill="none" stroke="var(--ink)" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M75 18 C106 16 128 38 127 70 C126 88 116 100 104 104 V118 C104 126 96 130 88 126 V116 L80 128 L72 116 V126 C64 130 56 126 56 118 V104 C44 100 24 88 23 70 C22 40 44 20 75 18 Z"/>
+      <path d="M88 116 V126 M72 116 V126"/></g>
+    <g filter="url(#rough)" fill="var(--ink)"><ellipse cx="55" cy="66" rx="15" ry="18"/><ellipse cx="95" cy="66" rx="15" ry="18"/></g>
+    <g fill="var(--paper)"><circle cx="61" cy="60" r="3.6"/><circle cx="101" cy="60" r="3.6"/></g>
+    <g filter="url(#rough)" fill="var(--ink)"><path d="M75 84 l-7 13 h14 Z"/></g>
+  </symbol>
+    <symbol id="ghost" viewBox="0 0 60 72">
+    <g filter="url(#roughsm)">
+      <path d="M10 42 Q9 14 30 13 Q51 14 50 42 L50 66 Q45 61 40 66 Q35 71 30 66 Q25 71 20 66 Q15 61 10 66 Z" fill="var(--paper)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="23" cy="36" r="3.6" fill="var(--ink)"/><circle cx="38" cy="36" r="3.6" fill="var(--ink)"/>
+      <path d="M26 47 q4 4 8 0" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+  </symbol>
+  </defs>
+</svg>
+
+<!-- ============ MASTHEAD (broadsheet, torn bottom) ============ -->
+<header class="mast">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="drex home">
+      <span class="lg-icon"><svg viewBox="0 0 7438 6955" fill="#414D57" role="img" aria-label="drex" style="display:block;width:100%;height:auto"><path d="M3940.792,1923.474c0,-237.327 876.575,-942.689 1916.579,-954.143c144.631,-1.593 160.411,78.319 137.9,189.4c-30.08,148.427 -98.327,433.131 -98.327,433.131c0,0 65.273,764.946 -24.815,794.112c-90.088,29.167 -290.952,-256.255 -825.803,-386.398c-752.956,-183.213 -1105.535,77.059 -1105.535,-76.102Z" style=""/><path d="M3904.129,2226.95c9.277,-48.947 42.212,-89.528 87.203,-107.447c243.766,-86.69 1260.521,-180.52 2114.804,662.836c42.289,41.921 54.919,106.632 31.665,162.246c-102.058,276.752 -340.779,1190.09 53.749,2858.265c38.355,162.175 -103.782,235.401 -233.086,138.553c-532.234,-398.637 -1304.501,-567.736 -1930.825,-724.558c-48.189,-11.629 -86.868,-48.709 -101.742,-97.538c-70.176,-252.215 -255.758,-1651.265 -21.766,-2892.358Z"/><path d="M3496.708,1923.474c0,-237.327 -876.575,-942.689 -1916.579,-954.143c-144.631,-1.593 -160.411,78.319 -137.9,189.4c30.08,148.427 98.327,433.131 98.327,433.131c0,0 -65.273,764.946 24.815,794.112c90.088,29.167 290.952,-256.255 825.803,-386.398c752.956,-183.213 1105.535,77.059 1105.535,-76.102Z" style=""/><path d="M3533.371,2226.95c-9.277,-48.947 -42.212,-89.528 -87.203,-107.447c-243.766,-86.69 -1260.521,-180.52 -2114.804,662.836c-42.289,41.921 -54.919,106.632 -31.665,162.246c102.058,276.752 340.779,1190.09 -53.749,2858.265c-38.355,162.175 103.782,235.401 233.086,138.553c532.234,-398.637 1304.501,-567.736 1930.825,-724.558c48.189,-11.629 86.868,-48.709 101.742,-97.538c70.176,-252.215 255.758,-1651.265 21.766,-2892.358Z"/></svg></span>
+      <span class="lg-word"><svg viewBox="0 0 14696 6730" fill="#414D57" role="img" aria-label="drex" style="display:block;width:100%;height:auto"><path d="M5478.999,2905.779c0,0 421.063,-37.36 425.9,108.343l-343.709,1707.337c-61.242,136.313 -436.173,134.324 -442.946,-22.416l360.754,-1793.265Z"/><path d="M5041.89,2951.676c63.511,-60.841 526.771,-49.633 526.771,-49.633l-102.739,405.414c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M3924.681,1958.721c63.511,-60.841 530.662,-50.446 530.662,-50.446l-106.63,406.227c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M5726.866,3417.607c0,0 256.489,-511.828 914.019,-511.828l-313.821,549.187c0,0 -52.304,-37.36 -119.551,-37.36c-40.411,0 -354.324,251.272 -556.659,579.075l76.013,-579.075Z"/><ellipse cx="6634.347" cy="3332.931" rx="430.57" ry="427.151"/><path d="M4268.545,3833.937c-54.051,587.803 -422.164,984.658 -1012.447,984.658c-466.996,0 -803.233,-354.917 -803.233,-919.048c0,-545.451 486.888,-993.767 1032.339,-993.767c668.793,0 813.229,603.128 783.342,928.157Zm-643.455,-498.703c-234.497,-17.38 -499.751,191.996 -499.751,524.336c0,438.408 306.192,521.14 448.316,514.446c142.124,-6.694 404.43,-206.606 404.43,-554.612c0,-284.788 -150.331,-469.149 -352.995,-484.17Z"/><path d="M4388.096,1908.276c0,0 411.204,-11.208 424.724,108.343c0,19.142 -451.623,2260.261 -451.623,2260.261c15.69,59.775 224.905,-302.557 315.685,-313.821c110.397,-13.699 320.176,120.344 320.176,210.008c-0,122.494 -381.069,648.499 -765.873,648.499c-140.399,0 -328.765,-47.802 -392.277,-174.825l549.187,-2738.465Z"/><path d="M8385.582,2902.043c497.354,57.086 817.745,422.164 739.722,818.177c-90.045,457.032 -844.694,445.003 -1082.497,417.708c-230.119,-26.413 -368.235,-100.848 -422.572,-20.593c0,0 -107.744,106.625 251.184,223.032c419.614,136.089 691.752,-83.334 866.656,-96.072c140.311,-10.219 217.565,170.071 168.209,286.302c-66.995,157.772 -494.323,338.135 -1028.793,276.789c-285.793,-32.803 -922.08,-269.802 -773.345,-1004.975c130.759,-646.322 784.083,-957.454 1281.437,-900.368Zm-212.016,404.392c-264.608,50.886 -442.712,200.115 -438.042,342.082c4.67,141.967 311.61,175.439 541.715,149.439c165.317,-18.68 362.389,-47.848 366.125,-257.062c3.213,-179.919 -275.528,-271.818 -469.798,-234.459Z"/><path d="M9206.516,4052.426c-70.533,107.48 -90.728,764.251 662.245,766.169c771.79,1.966 1183.203,-1911.019 149.439,-1912.816c-257.116,-0.447 -637.291,99.928 -646.668,437.503c-3.838,138.152 129.653,198.923 237.929,188.041c127.279,-12.792 188.555,-176.528 452.832,-176.528c264.278,0 131.209,448.7 79.402,619.471c-101.286,333.868 -336.519,428.184 -390.245,405.158c-60.791,-26.053 81.561,-246.308 11.513,-333.868c-61.401,-76.751 -475.858,-115.932 -556.447,6.87Z"/><path d="M11593.807,3675.684c70.533,-107.48 91.02,-767.987 -661.952,-769.905c-771.79,-1.966 -1183.496,1911.019 -149.731,1912.816c257.116,0.447 637.291,-96.192 646.668,-433.767c3.838,-138.152 -129.653,-198.923 -237.929,-188.041c-127.279,12.792 -188.555,176.528 -452.832,176.528c-264.278,0 -131.209,-448.7 -79.402,-619.471c101.286,-333.868 336.519,-428.184 390.245,-405.158c60.791,26.053 -81.561,246.308 -11.513,333.868c61.401,76.751 475.858,115.932 556.447,-6.87Z"/><path d="M11830.971,4385.014c61.784,-59.74 306.841,-59.74 367.586,0c60.745,59.74 58.668,298.701 -3.115,358.441c-61.784,59.74 -306.841,59.74 -367.586,0c-60.745,-59.74 -58.668,-298.701 3.115,-358.441Z"/></svg></span>
+    </a>
+    <!-- ===== the hamburger that LIES: tap it and it flops onto a string; a slit
+         opens where it sat and you must drag your nav links out (tug too hard and
+         the string tears — click the fallen burger to reel it back). ===== -->
+    <div class="hb" id="hb" data-state="rest">
+      <button class="burger" id="m-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="hb-tray">
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+      <div class="hb-rig" aria-hidden="true">
+        <div class="hb-mouth" id="hb-mouth">
+          <div class="hb-sway">
+            <!-- ONE strand on ONE string: items + the dangling burger all move together -->
+            <div class="hb-strand" id="hb-strand">
+              <span class="hb-thread"></span>                 <!-- ONE continuous string: slit → through every tab → burger -->
+              <ul class="hb-tray" id="hb-tray">
+                <li><a href="https://letters.drex.style/join-online/">Make a club for my group</a></li>
+                <li><a href="https://instagram.com/drexclubs">Instagram</a></li>
+                <li><a href="https://demo.drex.style">Demo</a></li>
+                <li class="hb-cta"><a class="btn" href="https://letters.drex.style/join-online/">Join the waitlist <span class="arr">&rarr;</span></a></li>
+              </ul>
+              <button class="hb-fallen" id="hb-fallen" type="button" tabindex="-1" aria-hidden="true"><span class="bars"><i></i><i></i><i></i></span><svg class="hb-facesm" viewBox="0 0 48 44" aria-hidden="true"><g filter="url(#roughsm)"><circle cx="18" cy="18" r="2.8" fill="var(--ink)"/><circle cx="30" cy="18" r="2.8" fill="var(--ink)"/><path d="M16 26 q8 8 16 0" fill="none" stroke="var(--ink)" stroke-width="2.9" stroke-linecap="round"/></g></svg><svg class="hb-facex" viewBox="0 0 48 44" aria-hidden="true"><g filter="url(#roughsm)" stroke="var(--oats)" stroke-width="2.7" stroke-linecap="round" fill="none"><path d="M14.5 13 L21.5 20 M21.5 13 L14.5 20"/><path d="M26.5 13 L33.5 20 M33.5 13 L26.5 20"/><path d="M16 29 q4 -3.5 8 0 q4 3.5 8 0"/></g></svg><span class="hb-bubble" id="hb-bubble" aria-hidden="true"><svg class="hb-cloud" viewBox="0 0 216 140" aria-hidden="true"><g filter="url(#roughsm)"><path d="M30 98 A22 22 0 0 1 22 60 A24 24 0 0 1 62 42 A26 26 0 0 1 110 40 A24 24 0 0 1 152 50 A22 22 0 0 1 180 70 A20 20 0 0 1 170 100 A24 24 0 0 1 128 108 A24 24 0 0 1 80 108 A22 22 0 0 1 30 98 Z" transform="translate(3,5)" fill="var(--ink)"/><g stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M30 98 A22 22 0 0 1 22 60 A24 24 0 0 1 62 42 A26 26 0 0 1 110 40 A24 24 0 0 1 152 50 A22 22 0 0 1 180 70 A20 20 0 0 1 170 100 A24 24 0 0 1 128 108 A24 24 0 0 1 80 108 A22 22 0 0 1 30 98 Z" fill="var(--hb-tone,var(--paper))"/><circle cx="188" cy="80" r="9" fill="var(--hb-tone,var(--paper))"/><circle cx="200" cy="84" r="5.5" fill="var(--hb-tone,var(--paper))"/><circle cx="209" cy="88" r="3" fill="var(--hb-tone,var(--paper))"/></g></g></svg><span class="hb-say" id="hb-say"></span><svg class="hb-face" viewBox="0 0 216 140" aria-hidden="true"><g filter="url(#roughsm)"><circle cx="84" cy="64" r="4.6" fill="var(--ink)"/><circle cx="116" cy="64" r="4.6" fill="var(--ink)"/><path d="M78 80 q22 22 44 0" fill="none" stroke="var(--ink)" stroke-width="4.6" stroke-linecap="round"/></g></svg></span></button>
+            </div>
+          </div>
+        </div>
+        <!-- the cut in the paper the strand feeds through (drawn ON TOP of the items) -->
+        <span class="hb-pocket"></span>
+        <span class="hb-slit"></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO — drag-to-cut envelope ============ -->
+  <section class="hero ed" id="hero">
+    <div class="wrap">
+      <div class="cg-collage cg-burst" aria-hidden="true"><span class="cg-scrap cg-s1 cg-gl cg-drop-lg" data-cg-parallax="6" style="--cg-rot:-16deg;--cg-w:52px;top:12%"><svg width="36" height="84" viewBox="0 0 36 84" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M10 14 H26 V58 L18 74 L10 58 Z" fill="var(--colorado)"/><path d="M10 14 H26 V6 C26 2 10 2 10 6 Z" fill="var(--schoolbus)"/><path d="M10 58 H26"/><path d="M15 66 L18 74 L21 66 Z" fill="var(--ink)" stroke="none"/></g></svg></span><span class="cg-scrap cg-s2 cg-gr" data-cg-parallax="7" style="--cg-rot:10deg;--cg-w:56px;top:9%"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke-linecap="round"><g class="cg-wob"><path d="M26 6 C28 17 31.5 20.5 42 22 C31.5 23.5 28 27 26 38 C24 27 20.5 23.5 10 22 C20.5 20.5 24 17 26 6 Z" stroke="var(--happy)" stroke-width="2.6"/><circle cx="46" cy="42" r="2.4" fill="var(--colorado)" stroke="none"/><circle cx="14" cy="46" r="1.8" fill="var(--lazuli)" stroke="none"/></g></svg></span><span class="cg-scrap cg-s3 cg-gl2 cg-shadow cg-drop-lg" data-cg-parallax="5" style="--cg-rot:-5deg;--cg-w:88px;bottom:14%"><svg width="88" height="48" viewBox="0 0 88 48"><path class="cg-torn" d="M5 9 L80 4 L84 40 L9 45 Z" fill="var(--grass)" stroke="var(--ink)" stroke-width="2"/><g class="cg-wob" fill="none" stroke="var(--oats)" stroke-width="2.4" stroke-linecap="round"><path d="M16 21 L52 19 M16 30 L66 27"/></g></svg></span><span class="cg-scrap cg-s2 cg-gr2 cg-drop-lg" data-cg-parallax="4" style="--cg-rot:6deg;--cg-w:92px;bottom:8%"><svg width="64" height="44" viewBox="0 0 64 44" fill="none" stroke="var(--lazuli)" stroke-width="2.4" stroke-linecap="round"><g class="cg-wob"><path d="M52 18 C58 28 44 40 28 40 C10 40 4 26 12 16 C20 7 44 6 54 16 C60 22 50 30 38 30"/></g></svg></span><span class="cg-scrap cg-s4 cg-gl2 cg-drop-lg" data-cg-parallax="5" style="--cg-rot:7deg;--cg-w:50px;--cg-r0:-14deg;top:42%"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--happy)" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M20 5 C22 15 25 18 35 20 C25 22 22 25 20 35 C18 25 15 22 5 20 C15 18 18 15 20 5 Z"/></g></svg></span><span class="cg-scrap cg-s5 cg-gr cg-drop-lg" data-cg-parallax="6" style="--cg-rot:-9deg;--cg-w:50px;--cg-r0:13deg;top:60%"><svg width="48" height="34" viewBox="0 0 48 34" fill="none" stroke="var(--colorado)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M6 24 C16 6 38 6 44 22"/><path d="M44 22 L34 22 M44 22 L42 10"/></g></svg></span></div>
+      <!-- mobile confetti burst: a small FOREGROUND eruption (cg-fore = over the card)
+           shown only <1200px, where the desktop gutter scraps are dropped. Erupts from
+           the slit with the gutter burst (shares .cg-burst; measured by the same JS),
+           settling at the card's corners so it reads on phones too. -->
+      <div class="cg-collage cg-fore cg-burst cg-mob" aria-hidden="true"><span class="cg-scrap cg-s3" data-cg-parallax="5" style="--cg-rot:-12deg;--cg-w:28px;--cg-r0:-20deg;top:6%;left:4%"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="var(--happy)" stroke-width="2.4" stroke-linecap="round"><g class="cg-wob"><path d="M14 3 C15 9 17 11 25 14 C17 17 15 19 14 25 C13 19 11 17 3 14 C11 11 13 9 14 3 Z"/></g></svg></span><span class="cg-scrap cg-s4" data-cg-parallax="6" style="--cg-rot:8deg;--cg-w:30px;--cg-r0:16deg;top:5%;right:6%"><svg width="30" height="20" viewBox="0 0 30 20" fill="none"><g class="cg-wob"><circle cx="6" cy="11" r="3" fill="var(--lazuli)"/><circle cx="16" cy="6" r="2.4" fill="var(--colorado)"/><circle cx="24" cy="14" r="2.8" fill="var(--schoolbus)"/></g></svg></span><span class="cg-scrap cg-s5" data-cg-parallax="5" style="--cg-rot:-7deg;--cg-w:24px;--cg-r0:22deg;bottom:30%;left:6%"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--colorado)" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M12 4 L12 20 M4 12 L20 12"/></g></svg></span><span class="cg-scrap cg-s6" data-cg-parallax="6" style="--cg-rot:6deg;--cg-w:32px;--cg-r0:-16deg;bottom:33%;right:7%"><svg width="32" height="16" viewBox="0 0 32 16" fill="none" stroke="var(--grass)" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M3 10 C8 3 13 14 18 8 C22 3 27 11 29 7"/></g></svg></span></div>
+      <div class="envelope" id="envelope">
+
+        <!-- THE PILE — the work a Circle actually leaves behind. It sits BEHIND the card and
+             spills out on every side. That ordering is the whole trick: the card's paper is
+             opaque, so the pile can be as chaotic as it likes and can never cover a word.
+             (Every arrangement that put the pile BESIDE the type forced it to be tidy, and
+             tidy read as dead.) Photos get clean cut-out edges, glued onto torn paper — the
+             tear lives on the ::before, never on the photograph. -->
+        <div class="hero-pile" aria-hidden="true">
+          <figure class="hp" style="--r:-7deg;--t:-4%;--l:44%;--w:20%;z-index:2"><i style="background-image:url(assets/zines/silk-road-cover.jpg)"></i><figcaption>photography</figcaption></figure>
+          <figure class="hp" style="--r:-10deg;--t:2%;--l:62%;--w:23%;z-index:2"><i style="background-image:url(assets/zines/phloor-makers.jpg)"></i><figcaption>night photography</figcaption></figure>
+          <figure class="hp" style="--r:6deg;--t:12%;--l:82%;--w:19%;z-index:3"><i style="background-image:url(assets/zines/xchange-makers.jpg)"></i><figcaption>styling</figcaption></figure>
+          <figure class="hp" style="--r:8deg;--t:22%;--l:74%;--w:21%;z-index:3"><i style="background-image:url(assets/zine-handmade.jpg)"></i><figcaption>illustration</figcaption></figure>
+          <figure class="hp" style="--r:-6deg;--t:46%;--l:70%;--w:22%;z-index:2"><i style="background-image:url(assets/makers/tergel.jpg)"></i><figcaption>sacred cloth</figcaption></figure>
+          <figure class="hp" style="--r:13deg;--t:66%;--l:62%;--w:20%;z-index:3"><i style="background-image:url(assets/makers/ivy.jpg)"></i><figcaption>streetwear</figcaption></figure>
+          <figure class="hp" style="--r:-4deg;--t:80%;--l:36%;--w:21%;z-index:2"><i style="background-image:url(assets/makers/janey.jpg)"></i><figcaption>self-portrait</figcaption></figure>
+          <figure class="hp" style="--r:9deg;--t:84%;--l:10%;--w:20%;z-index:3"><i style="background-image:url(assets/makers/weisean.jpg)"></i><figcaption>menswear</figcaption></figure>
+          <figure class="hp" style="--r:-12deg;--t:70%;--l:-2%;--w:19%;z-index:2"><i style="background-image:url(assets/makers/angela.jpg)"></i><figcaption>modeling</figcaption></figure>
+          <!-- the left and bottom of the pile. Without these the work bunched on one side and the
+               card looked propped against a wall instead of buried in a heap of finished issues. -->
+          <figure class="hp" style="--r:8deg;--t:-6%;--l:16%;--w:18%;z-index:2"><i style="background-image:url(assets/makers/shanara.jpg)"></i><figcaption>tailoring</figcaption></figure>
+          <figure class="hp" style="--r:-9deg;--t:34%;--l:-6%;--w:18%;z-index:2"><i style="background-image:url(assets/makers/fredy.jpg)"></i><figcaption>editorial</figcaption></figure>
+          <figure class="hp" style="--r:11deg;--t:88%;--l:60%;--w:18%;z-index:3"><i style="background-image:url(assets/makers/miguel.jpg)"></i><figcaption>film</figcaption></figure>
+          <figure class="hp" style="--r:-5deg;--t:92%;--l:24%;--w:17%;z-index:2"><i style="background-image:url(assets/makers/chiamakabrowneyes.jpg)"></i><figcaption>portraiture</figcaption></figure>
+        </div>
+
+        <!-- the card lives in a clipped pocket; sealed it is pushed down out of sight -->
+        <div class="card-clip">
+          <div class="paper hero-card ed-sheet">
+            <span class="cmark hero-cmark" aria-hidden="true"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" transform="rotate(-42 14 14)"/></svg></span>
+            <span class="sheet ruled"></span>
+            <!-- the punched edge: this is a page torn out of a notebook, which is exactly what a
+                 Circle produces. Holes sit outside the pink margin rule, like real filler paper. -->
+            <span class="holes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="tape" style="left:12%;top:-14px"></span>
+            <div class="inner ed-inner">
+
+              <!-- ZONE 1 - THE MECHANISM IS THE HEADLINE NOW. The eyebrow used to carry it
+                   ("Tiny creative clubs with show-and-tell deadlines.") so the big line could stay
+                   a warm invite; the big line says it louder, so the eyebrow and its hairline are
+                   gone rather than repeating the H1's own words one rank above it.
+                   Six words of product — you show your work, to the SAME people, on a repeat — and
+                   then the blank, which is the only promise that matters: keep doing it and the
+                   noun changes. Nothing shares the headline's optical field. -->
+              <div class="ed-head">
+                <!-- The blank is a fill-in-the-blank the visitor watches get typed in: the word deletes
+                     itself and the next one is typed in its place, and the marker swipes across each
+                     word once it's finished. It lives in the H1 now, not the sub — it is the last
+                     word of the headline's sentence, so it is set at the headline's size and slant.
+                     The full stop is INSIDE the slot, right after the typed text, so it slides along
+                     with every keystroke the way it would if someone were writing the sentence. The
+                     slot still can't resize: JS stacks a hidden ghost of the LONGEST word (with its
+                     full stop) in the same inline-grid cell, so the track is permanently as wide as
+                     "photographer." — the fixed width is invisible, it only stops the line reflowing.
+                     One ghost, not eight: this is the page's only H1, and eight hidden nouns inside
+                     it is what a rendering crawler reads as the headline.
+                     The rotator is aria-hidden in the MARKUP (not from JS, so it holds with JS off) and
+                     .rot-a11y carries the word a screen reader reads: "…until you become a creator." -->
+                <h1 class="ed-cat">Show-and-tell with the same <span class="stop">group</span> until you become a <span class="rot-a11y">creator.</span><span class="hl-rot lit" id="rot-word" aria-hidden="true"><b class="rw"><span class="mark">creator</span>.</b></span></h1>
+                <!-- The sub answers the question the blank provokes ("become one HOW?"): you don't
+                     stop and build a portfolio, the portfolio is the residue of the club work. -->
+                <p class="ed-sub">A <span class="stop">portfolio</span> follows the work you do together.</p>
+              </div>
+
+              <!-- ZONE 2 - the standfirst. ONE paragraph now. The "where circles meet" line used to
+                   be its own block set BIGGER than the lede (rank 3 outranking rank 2); it is four
+                   words inside the sentence instead, which is where it always belonged. Marcus,
+                   cold, asked "is it a website, an app, a club, a magazine, or a service?" - this
+                   names the software, then the loop, then the one thing a stranger can picture. -->
+              <div class="ed-body">
+                <!-- ZONE 2 — the lead-in, then the beats of the loop. Each beat's name gets its
+                     highlighter. The lead-in names what the beats are FOR: the H1 says "show-and-tell"
+                     and this is the three-line answer to "yes but what happens, exactly." It is set
+                     one rank under the sub on purpose — it introduces the small print, it isn't a
+                     second headline. -->
+                <p class="ed-lead">How show-and-tell works:</p>
+                <ul class="beats">
+                  <li><span class="hl hl-y">A challenge</span> &mdash; one prompt, one due date.</li>
+                  <li><span class="hl hl-y">Time together</span> &mdash; check in with your club.</li>
+                  <li><span class="hl hl-gd">Your zine</span> &mdash; a little magazine everyone&rsquo;s in. It builds your portfolio.</li>
+                </ul>
+              </div>
+
+              <!-- ZONE 3 - the CTA, printed as a coupon and cut from the page. The terms live INSIDE
+                   it: price and cadence are the first things a wary buyer looks for, and they were
+                   set at 10px in sub-AA grey, which is not restraint, it is hiding them. -->
+              <div class="ed-foot">
+                <!-- The sub-links live INSIDE the coupon, floating to the right of the button, so the
+                     whole CTA is one compact cut-out block (button + links) instead of stacked rows. -->
+                <div class="ed-coupon">
+                  <span class="ed-snip" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8 7.5 20 16M8 16.5 20 8"/>
+                    </svg>
+                  </span>
+                  <span class="cta-attn"><a class="btn ed-stamp" href="https://letters.drex.style/join-online/">Join the waitlist <span class="arr" aria-hidden="true">&rarr;</span></a></span>
+                  <!-- Order is intent, highest first: someone who already HAS a group is the one
+                       visitor who needs no convincing, so their door is the first line under the
+                       stamp. Reading a zine and knocking on the demo are both "sell me" moves. -->
+                  <div class="ed-links">
+                    <a href="https://letters.drex.style/join-online/">Make a club for my group <span class="arr" aria-hidden="true">&rarr;</span></a>
+                    <a href="#proof">Read a real zine <span class="arr" aria-hidden="true">&rarr;</span></a>
+                    <a href="https://demo.drex.style">Got a key? Open the demo <span class="arr" aria-hidden="true">&rarr;</span></a>
+                  </div>
+                  <!-- Funding terms are OUT of the hero (moved to #kit / a funding beat): the loop
+                       comes first, the money model is a later beat. -->
+                </div>
+              </div>
+
+              <!-- THE WELL. This is column 2 of .ed-inner, and it must live INSIDE the grid to be
+                   one: as a sibling of .inner it was just a block under the card and grid-column:2
+                   did nothing.
+                   Every text block above is pinned to column 1. This holds the pictures. A photo can
+                   therefore only cover a word if a word can enter column 2, and nothing in the grid
+                   puts anything there — so the pieces can be splayed anywhere in here and they still
+                   cannot collide. That is the whole point: the guarantee is the grid, not the
+                   coordinates. Absolutely positioning these over the card's right side (which is what
+                   they used to do) puts pictures where text happens not to be TODAY, and text moves. -->
+              <!-- THE WELL, col-2: the auto-rotating challenge deck. It sits to the RIGHT of the beats,
+                   fully ON the card (no longer spilling into the smear). The front card's own washi tape
+                   carries a bold "tap here"; tap fans the deck out. Cycles a new challenge every ~3.2s. -->
+              <!-- A STACK OF ZINES (the OUTPUT), not challenge polaroids. Each card is the real
+                   cover of a real Circle's zine; a yellow post-it TAB carries the category, the
+                   challenge is hand-written below, and the whole card LINKS to the live zine. Tapping
+                   the stack opens the lightbox (all four); clicking one there reads it. -->
+              <div class="hero-card-deck" id="heroCardDeck" aria-label="Zines real clubs made &mdash; tap to browse and read them">
+                <a class="pola" href="https://demo.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856" target="_blank" rel="noopener" style="--r:-5deg"><i style="background-image:url(assets/zines/cover-3am.jpg);background-position:center 8%"></i><span class="znote"><b class="zcat">photography</b>&ldquo;Urban night photos of the overlooked.&rdquo;</span></a>
+                <a class="pola" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener" style="--r:4deg"><i style="background-image:url(assets/zines/cover-cafe.jpg);background-position:center 8%"></i><span class="znote"><b class="zcat">drawing</b>&ldquo;Doodle at a caf&eacute; &mdash; different than at home?&rdquo;</span></a>
+                <a class="pola" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener" style="--r:-4deg"><i style="background-image:url(assets/zines/cover-silkroad.jpg);background-position:center 6%"></i><span class="znote"><b class="zcat">photo essay</b>&ldquo;Tell a place&rsquo;s story in five frames.&rdquo;</span></a>
+                <a class="pola" href="https://demo.drex.style/z/5b548352-9124-4b25-bcaa-9c06322d30bb" target="_blank" rel="noopener" style="--r:6deg"><i style="background-image:url(assets/zines/cover-dressup.jpg);background-position:center 8%"></i><span class="znote"><b class="zcat">game design</b>&ldquo;Build a paper dress-up game.&rdquo;</span></a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- The reel is GONE. It was a cross-origin Instagram iframe with no poster and no
+             fallback, so for anyone running an ad-blocker, Firefox strict tracking protection,
+             iOS Lockdown, or a corporate network, the single largest element in the hero painted
+             as an empty black box. The pile of real work replaces it and can't fail to load.
+             .reel-stage stays in the DOM (empty): app.js measures it for the slit clip-path and
+             all its .hero-reel lookups are null-guarded, so this is safe. -->
+        <div class="reel-stage"></div>
+
+        <!-- pre-cut comprehension anchor: the only readable copy while the envelope is
+             sealed. Belonging/communion is the #1 message, so this leads with the FEELING
+             (your people, the standing hour) — kept deliberately distinct from the post-cut
+             H1 ("Show-and-tell with the same group until you become a ___") so the cut reveals a
+             fresh line instead of repeating one. It sets that line up now rather than dodging it:
+             "the people you keep meaning to make things with" IS "the same group", named from the
+             visitor's side of the cut. Emotion teases; the mechanism pays off on it. Shows under
+             html.sealed; fades + collapses on html.revealed (CSS-only, mirrors .cut-prompt). -->
+        <div class="cut-hook">
+          <p class="cut-hook-line scrawl">The people you keep meaning to make things with.</p>
+        </div>
+
+        <!-- the seal you cut: keeps the "cut here" look; now a drag handle -->
+        <div class="seam" id="cutgate" role="button" tabindex="0"
+             aria-label="Drag the scissors across the line, or press Enter, to cut the paper open">
+          <span class="pocket-shadow" aria-hidden="true"></span>
+          <span class="cut-rule" aria-hidden="true"></span>
+          <span class="cut-torn" aria-hidden="true"></span>
+          <span class="cut-scissors" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8 7.5 20 16M8 16.5 20 8"/></svg></span>
+          <span class="label">cut here</span>
+        </div>
+
+        <!-- hand-drawn indicator; fades out the moment you start cutting -->
+        <div class="cut-prompt" aria-hidden="true">
+          <svg class="cut-prompt-star" viewBox="0 0 24 24"><path d="M12 2.4 L14.7 9.1 L21.6 9.4 L16.1 13.8 L18.1 20.6 L12 16.4 L5.9 20.6 L7.9 13.8 L2.4 9.4 L9.3 9.1 Z"/></svg>
+          <span class="cut-prompt-text scrawl">drag to cut</span>
+          <svg class="cut-prompt-arrow" viewBox="0 0 120 30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 15 H103"/><path d="M90 5 L107 15 L90 25"/>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- scroll cue — just the hand-drawn arrow; appears after the reveal, fades on first scroll -->
+  <div class="scroll-cue" aria-hidden="true">
+    <span class="sc-down">scroll down!</span>
+    <svg viewBox="0 0 24 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4 L12 12 L21 4"/></svg>
+  </div>
+
+  <!-- ============ GIFTS — answers the question the hero provokes ("learn WHAT?").
+       Deliberately paradigm-breaking range: a skater and a calligrapher belong to
+       the same idea. Self-recognition is the conversion event here. ============ -->
+  <section class="gifts" id="gifts">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" style="color:var(--colorado)">what counts</span>
+        <h2 class="slab">Any craft you can <span class="ul">show and tell</span><span class="stop">.</span></h2>
+      </div>
+      <!-- THE CRAFTBOARD. Each craft is an instant photo pinned to cork. The colour the chip
+           used to carry is now the ink of its handwritten label AND its pushpin; the photo stays
+           neutral so the accent lives on pin + label (same lesson as the maker board: loud photo
+           squares bury the handwriting). The "photo" is the craft's line-icon for now — to drop a
+           real one in, set .cr-ph background-image and add class="has-photo" (the icon steps aside).
+           Yellow chips get --label:var(--sambas) so the caption stays legible on the white strip. -->
+      <div class="craftboard" role="img" aria-label="A corkboard of instant photos, one per craft — skateboarding, photography, nail art, and a dozen more.">
+        <figure class="craft" style="--r:-2.4deg;--c:var(--colorado)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15h18"/><path d="M3 15c-1 0-1-2 1-2h16c2 0 2 2 1 2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></span><figcaption class="cr-cap">skateboarding</figcaption></figure>
+<a class="craft-a" href="#c-phloor" aria-label="photography — see Photo Phloor, a real Circle"><figure class="craft" style="--r:1.8deg;--c:var(--lazuli)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph has-photo" style="background-image:url(assets/zines/phloor-chair.jpg)"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h4l2-2h6l2 2h4v11H3z"/><circle cx="12" cy="13" r="3.4"/></svg></span><figcaption class="cr-cap">photography</figcaption></figure></a>
+        <figure class="craft" style="--r:-1.2deg;--c:var(--schoolbus);--label:var(--sambas)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="6" height="11" rx="1.6"/><path d="M10.5 9V6.5h3V9"/><path d="M11 4.2h2v2.3h-2z"/></svg></span><figcaption class="cr-cap">nail art</figcaption></figure>
+<a class="craft-a" href="#c-penmans" aria-label="penmanship — see SF Penmans, a real Circle"><figure class="craft" style="--r:2.6deg;--c:var(--grass-deep)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph has-photo" style="background-image:url(assets/zines/penmans-desk.jpg)"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19l3-1 10-10-2-2L6 16z"/><path d="M14 6l2 2"/><path d="M5 19l1.4-3.4"/></svg></span><figcaption class="cr-cap">penmanship</figcaption></figure></a>
+        <figure class="craft" style="--r:-1.9deg;--c:var(--sambas)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h12l-3 6H9z"/><path d="M11 12v3"/><path d="M7 20h10"/><path d="M9 20a3 3 0 0 1 6 0"/></svg></span><figcaption class="cr-cap">pour&#8209;over coffee</figcaption></figure>
+        <figure class="craft" style="--r:1.4deg;--c:var(--colorado)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8"/><path d="M9 4c-3 4-4 6-4 9a7 7 0 0 0 14 0c0-3-1-5-4-9"/><path d="M6 12h12"/></svg></span><figcaption class="cr-cap">ceramics</figcaption></figure>
+        <figure class="craft" style="--r:-2.8deg;--c:var(--lazuli)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12c0-4 3-6 8-6s8 2 8 6v6H4z"/><path d="M8 8.5 6.5 12M12 8.5 10.5 12M16 8.5 14.5 12"/></svg></span><figcaption class="cr-cap">bread</figcaption></figure>
+        <figure class="craft" style="--r:2.1deg;--c:var(--grass-deep)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="14" height="12" rx="1"/><path d="M17 8h4v3h-4"/><path d="M7 20h10"/></svg></span><figcaption class="cr-cap">screen printing</figcaption></figure>
+        <figure class="craft" style="--r:-1.5deg;--c:var(--schoolbus);--label:var(--sambas)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19l4-4"/><path d="M9 15l6-6 2-2 2 2-2 2-6 6z"/><path d="M14 6l4 4"/><circle cx="6.5" cy="17.5" r="1.4"/></svg></span><figcaption class="cr-cap">tattooing</figcaption></figure>
+        <figure class="craft" style="--r:2.9deg;--c:var(--sambas)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 12h7M9 16h5"/></svg></span><figcaption class="cr-cap">poetry</figcaption></figure>
+        <figure class="craft" style="--r:-2.2deg;--c:var(--colorado)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 20 4"/><path d="M17 4h3v3"/><path d="M9 15c-3 0-3 4 0 4s3-4 0-4z"/></svg></span><figcaption class="cr-cap">sewing</figcaption></figure>
+        <figure class="craft" style="--r:1.1deg;--c:var(--lazuli)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6"/><path d="M6 20h12"/><path d="M8 18h8"/><path d="M12 14c-4 0-5-2-5-4s2-3 3-2c0-2 3-3 4-1 2-1 4 1 3 3 2 1 1 4-2 4z"/></svg></span><figcaption class="cr-cap">bonsai</figcaption></figure>
+        <figure class="craft" style="--r:-2.6deg;--c:var(--grass-deep)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><path d="M12 4v2M18 8l-2 1"/></svg></span><figcaption class="cr-cap">DJing</figcaption></figure>
+        <figure class="craft" style="--r:1.7deg;--c:var(--schoolbus);--label:var(--sambas)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20V9l3-5 3 5v11z"/><path d="M9 12h6"/><path d="M11 20v-3M13 20v-3"/></svg></span><figcaption class="cr-cap">watercolor</figcaption></figure>
+        <figure class="craft" style="--r:-1.3deg;--c:var(--sambas)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15h13l4-4-3-3-4 4H3z"/><path d="M3 15v3h13v-3"/><path d="M6 15v3M9 15v3M12 15v3"/></svg></span><figcaption class="cr-cap">woodworking</figcaption></figure>
+        <figure class="craft" style="--r:2.3deg;--c:var(--colorado)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="14" r="5"/><path d="M5.5 10.5 12.5 17.5M12.5 10.5 5.5 17.5"/><path d="M13 12 21 4M19 4h2v2"/></svg></span><figcaption class="cr-cap">knitting</figcaption></figure>
+        <figure class="craft" style="--r:-1.7deg;--c:var(--lazuli)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6"/><path d="M10 4v2l-3 3 3 2v4"/><path d="M14 4v2l3 3-3 2v4"/><path d="M7 19h10"/><path d="M9 15h6l1 4H8z"/></svg></span><figcaption class="cr-cap">chess</figcaption></figure>
+        <figure class="craft" style="--r:2.2deg;--c:var(--grass-deep)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12l3 5-9 11L3 9z"/><path d="M3 9h18"/><path d="M9 4 7.5 9 12 20 16.5 9 15 4"/></svg></span><figcaption class="cr-cap">jewelry</figcaption></figure>
+        </div>
+      <p class="gifts-foot scrawl">&hellip;and whatever yours is.</p>
+    </div>
+  </section>
+
+  <!-- ============ LOOK INSIDE THE APP — clothesline of real screens; tap to open ============ -->
+  <!-- Reuses .zpola / .ph / .play-badge / .soon-stamp / .is-vid / .is-ghost / .zpola-cap; only .bd-* is new.
+       Pin 1 = the real reel (opens the IG embed). Pins 2-3 open a self-hosted webm screen-recording.
+       Pins 4-5 are the existing ghost/"coming soon" idiom. The strip owns its own horizontal scroll. -->
+  <section class="board" id="inside" aria-label="A look inside the Drex app">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">not a mockup &mdash; the actual app</span>
+        <h2 class="slab">Look <span class="ul">inside</span> the app<span class="stop">.</span></h2>
+        <p class="bd-sub">Real screens &mdash; what a club actually touches.</p>
+      </div>
+
+      <div class="bd-scroller">
+      <div class="bd-line" role="group" aria-label="Screens from the app — scroll sideways to see all six" tabindex="0">
+        <div class="bd-track">
+          <span class="bd-string" aria-hidden="true"></span>
+
+          <!-- 1 · VIDEO — the real reel -->
+          <div class="bd-peg" style="--r:-2.2deg;--c:var(--colorado)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola is-vid bd-open" data-embed="https://www.instagram.com/reel/DaEIcmkSW4o/embed/" data-link="https://www.instagram.com/reel/DaEIcmkSW4o/" data-cap="a zine, made by hand" aria-label="Watch a zine get made — opens the reel">
+              <span class="ph"><img src="assets/editor-reel-thumb.jpg" alt="A maker at a cafe table, phone in hand, placing pages in the zine editor" loading="lazy" width="600" height="720"><span class="play-badge" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"></circle><path d="M20 16 L33 24 L20 32 Z"></path></svg></span></span>
+              <span class="zpola-cap">watch a zine get made <span class="arr">&rarr;</span></span>
+            </button>
+          </div>
+
+          <!-- 2 · Personal Wall / Magazine — real @144mb wall (webm) -->
+          <div class="bd-peg" style="--r:1.8deg;--c:var(--schoolbus)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola bd-open" data-full="assets/app/wall.jpg" data-cap="your wall &mdash; your portfolio. proof you didn&rsquo;t do it alone." aria-label="Your wall — your portfolio. Proof you didn't do it alone. Opens a larger view.">
+              <span class="ph"><img src="assets/app/wall.jpg" alt="A maker's wall on Drex — a corkboard portfolio: bio, Lv.5 Legend, and six circles they edit" loading="lazy" width="600" height="750"></span>
+              <span class="zpola-cap">your wall &mdash; your portfolio. proof you didn&rsquo;t do it alone.</span>
+            </button>
+          </div>
+
+          <!-- 3 · A real Circle — XChange (webm) -->
+          <div class="bd-peg" style="--r:-1.4deg;--c:var(--lazuli)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola bd-open" data-full="assets/app/circle.jpg" data-cap="a real club &mdash; mid-issue" aria-label="Inside a real club. Opens a larger view.">
+              <span class="ph"><img src="assets/app/circle.jpg" alt="A club's home on Drex — the current challenge, a deadline, the makers, and the next Circle Time" loading="lazy" width="600" height="750"></span>
+              <span class="zpola-cap">a real club &mdash; mid-issue</span>
+            </button>
+          </div>
+
+          <!-- 4 · The Hour — the gather lobby / orb (real) -->
+          <div class="bd-peg" style="--r:2.4deg;--c:var(--schoolbus)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola bd-open" data-full="assets/app/circletime.jpg" data-cap="The Hour &mdash; the door's open" aria-label="The Hour — the door's open. Opens a larger view.">
+              <span class="ph"><img src="assets/app/circletime.jpg" alt="The Hour on Drex — the orb, 'the door's open, you're first in; we'll light up the moment another maker arrives'" loading="lazy" width="880" height="1160"></span>
+              <span class="zpola-cap">The Hour &mdash; the door's open</span>
+            </button>
+          </div>
+
+          <!-- 5 · The finished zine (real) -->
+          <div class="bd-peg" style="--r:-2deg;--c:var(--colorado)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola bd-open" data-full="assets/app/zine.jpg" data-cap="read a finished zine" aria-label="A finished, published zine. Opens a larger view.">
+              <span class="ph"><img src="assets/app/zine.jpg" alt="A published Drex zine — 'Silk Road 001', a runway editorial made by 11 makers" loading="lazy" width="880" height="1400"></span>
+              <span class="zpola-cap">read a finished zine</span>
+            </button>
+          </div>
+
+          <!-- 6 · VIDEO — the book of issues, flipped to another club's zine -->
+          <div class="bd-peg" style="--r:1.6deg;--c:var(--lazuli)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola is-vid bd-open" data-video="assets/demo/book-cafe.mp4" data-poster="assets/demo/book-cafe-poster.jpg" data-cap="flip through other clubs&rsquo; zines" aria-label="Flip through other clubs' zines — plays a screen recording from the app">
+              <span class="ph"><img src="assets/demo/book-cafe-thumb.jpg" alt="The book of issues in the Drex app, flipped open to another club's zine — &ldquo;Drawing at the Cafe&rdquo;" loading="lazy" width="600" height="720"><span class="play-badge" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"></circle><path d="M20 16 L33 24 L20 32 Z"></path></svg></span></span>
+              <span class="zpola-cap">flip through other clubs&rsquo; zines <span class="arr">&rarr;</span></span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+        <!-- always-on arrows: hand-drawn sharpie chevrons on torn-paper chips (brand doodle idiom),
+             unmissable "this scrolls" affordance + tap to page. JS toggles .is-on per edge. -->
+        <button type="button" class="bd-arrow bd-arrow-prev" aria-label="Previous screens">
+          <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M16.5 4.5 C13 8 10 11 8.5 13 C10 15 13 18 16.5 21.5"/></svg>
+        </button>
+        <button type="button" class="bd-arrow bd-arrow-next" aria-label="More screens">
+          <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M9.5 4.5 C13 8 16 11 17.5 13 C16 15 13 18 9.5 21.5"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- #inside strip: always-on paper arrows. Each arrow shows only when there's more that way
+       (next hidden at the end, prev hidden at the start), and pages the strip by ~1.2 cards. -->
+  <script>
+  (function(){
+    var line=document.querySelector('#inside .bd-line'); if(!line) return;
+    var prev=document.querySelector('#inside .bd-arrow-prev'),
+        next=document.querySelector('#inside .bd-arrow-next');
+    if(!prev||!next) return;
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+    function step(){                                            // one page = ~1.2 card widths
+      var peg=line.querySelector('.bd-peg');
+      return (peg ? peg.getBoundingClientRect().width : 190) * 1.2;
+    }
+    var scroller=line.closest('.bd-scroller')||line.parentElement;
+    function update(){                                          // show each arrow only when there's room that way
+      var max=line.scrollWidth-line.clientWidth, x=line.scrollLeft;
+      var hasNext=max>8 && x < max-8;
+      next.classList.toggle('is-on', hasNext);
+      prev.classList.toggle('is-on', max>8 && x > 8);
+      scroller.classList.toggle('has-next', hasNext);           // right-edge "more" shadow
+      // drop the prev ball in the first time it legitimately turns on (not during the programmatic wiggle)
+      if(scroller.classList.contains('bd-armed') && !wiggling && prev.classList.contains('is-on')) flyArrow(prev);
+    }
+    prev.addEventListener('click', function(){ line.scrollBy({left:-step(), behavior:reduce?'auto':'smooth'}); });
+    next.addEventListener('click', function(){ line.scrollBy({left: step(), behavior:reduce?'auto':'smooth'}); });
+    line.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update, {passive:true});
+    window.addEventListener('load', update);
+    // layout can settle late on this page; poll a few frames so the arrow appears reliably
+    update(); requestAnimationFrame(update);
+    var t=0, iv=setInterval(function(){ update(); if(++t>12) clearInterval(iv); }, 200);
+
+    // one-time wiggle when the strip scrolls into view — a live "it moves" cue on top of the arrows.
+    var lite=document.documentElement.getAttribute('data-tier')==='lite', nudged=false, wiggling=false;
+    function nudge(){
+      if(nudged) return; nudged=true;
+      if(reduce||lite) return;
+      if((line.scrollWidth-line.clientWidth)<=8 || line.scrollLeft>4) return;   // nothing to reveal / already moved
+      line.style.scrollSnapType='none';                                        // snap would fight the bounce
+      wiggling=true;                                                           // suppress prev-drop during the programmatic bounce
+      var start=null, dur=820, amp=52;
+      function frame(ts){
+        if(start===null) start=ts;
+        var p=(ts-start)/dur;
+        if(p>=1){ line.scrollLeft=0; line.style.scrollSnapType=''; wiggling=false; update(); return; }
+        line.scrollLeft=Math.sin(p*Math.PI)*amp;                               // out to 52px and back
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+    function armStrip(){ scroller.classList.add('bd-armed'); }                 // releases the no-flash hold (all tiers)
+
+    // ── NEW opening beat: DEAL THE PHOTOS IN FROM THE RIGHT ────────────────────────────────────
+    //   Staggered CSS @keyframes slide (translate+opacity, GPU) that runs FIRST, then hands off to
+    //   flyNext (the ball drop) which ends by calling nudge (the wiggle). Sequence: photos → arrow →
+    //   wiggle. Leftmost card lands first; each next deals in from the right, building the line L→R
+    //   (the on-screen cards land immediately; the masked tail keeps settling off to the right).
+    var pegs=Array.prototype.slice.call(line.querySelectorAll('.bd-peg'));
+    var DEAL_STEP=55, DEAL_DUR=420;                                            // per-peg stagger + per-peg duration (ms) — mirror the CSS
+    var dealt=false, dealSafety=0;
+    function revealPegsNow(){                                                  // clear the gate → cards rest visible, no slide
+      dealt=true; if(dealSafety){ clearTimeout(dealSafety); dealSafety=0; }
+      scroller.classList.remove('bd-deal-armed'); scroller.classList.remove('bd-deal-go');
+    }
+    function armDeal(){
+      if(reduce||dealt||!pegs.length||inView()) return;                       // skip if reduced / already dealt / already on screen (arming now would flash)
+      pegs.forEach(function(p,i){ p.style.setProperty('--i', i); });          // 0 = leftmost = lands first
+      scroller.classList.add('bd-deal-armed');                                // park offset-right + invisible (still below the fold → unseen)
+      dealSafety=setTimeout(function(){ if(!dealt) revealPegsNow(); }, 6000); // STUCK-HIDDEN guard: reveal even if the entrance never fires
+    }
+    function slidePhotosIn(done){                                             // resolves `done` when the cards have landed (then arrow → wiggle)
+      var cb=function(){ if(done) done(); };
+      if(dealt||reduce||!scroller.classList.contains('bd-deal-armed')){ cb(); return; }  // reduced / safety already fired → straight to the arrow
+      dealt=true; if(dealSafety){ clearTimeout(dealSafety); dealSafety=0; }
+      var last=pegs[pegs.length-1], handed=false, cleaned=false;
+      function cleanup(){                                                     // once every card has settled, hand control back to base CSS
+        if(cleaned) return; cleaned=true;
+        scroller.classList.remove('bd-deal-armed'); scroller.classList.remove('bd-deal-go');
+      }
+      function handoff(){ if(handed) return; handed=true; cb(); }             // → flyNext (arrow), which ends by calling nudge (wiggle)
+      last.addEventListener('animationend', function h(ev){
+        if(ev.animationName!=='bd-deal-in') return;
+        last.removeEventListener('animationend', h); cleanup(); handoff();
+      });
+      setTimeout(handoff, DEAL_STEP*2+DEAL_DUR+40);                           // OVERLAP: launch the arrow once the on-screen cards have landed
+      setTimeout(function(){ cleanup(); handoff(); }, DEAL_STEP*(pegs.length-1)+DEAL_DUR+220);  // hard fallback — never stuck armed
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){    // commit the armed 'from' pose one frame, THEN flip to GO (no flash)
+        scroller.classList.add('bd-deal-go');
+      }); });
+    }
+    // Arm the deal just BEFORE the strip scrolls into view (parked while still below the fold, so no
+    // flash) — NOT at load: #inside is deep in the page, and a load-time safety timer would expire
+    // long before you scroll down to it, so the deal would never play.
+    if('IntersectionObserver' in window){
+      var armIO=new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ armDeal(); armIO.disconnect(); } });
+      }, {rootMargin:'0px 0px 55% 0px'});                                       // ~half a viewport of lead time before it enters
+      armIO.observe(line);
+    }
+
+    function flyArrow(a){                                                       // cheap in-strip drop — still used by the PREV ball
+      if(reduce||lite) return;                                                 // tiers already appear in place; never fly
+      if(a.dataset.flew) return; a.dataset.flew='1';                           // once per arrow
+      a.classList.add('bd-fly');
+      a.addEventListener('animationend', function h(ev){
+        if(ev.animationName!=='bd-drop') return;                              // ignore the infinite boil
+        a.classList.remove('bd-fly'); a.removeEventListener('animationend', h);
+      });
+    }
+
+    // ── NEXT ball GRAND ENTRANCE: falls from the top of the SCREEN, grows to normal + fades in by the
+    //    viewport floor, bounces once off it, then flies UP and lands on the arrow. A body-level fixed
+    //    clone does the trip (position:fixed = viewport-true). rAF-driven so the FALL/BOUNCE stay in
+    //    screen space but the LANDING homes to the real arrow's LIVE position every frame (tracked cheaply
+    //    from the scroll delta) — so it lands dead-on regardless of scroll, no hand-off jump. ──
+    var nextFlew=false;
+    function revealInPlace(delay){ armStrip(); setTimeout(nudge, delay||620); } // degraded / nothing-to-fly path
+    function flyNext(){
+      if(nextFlew) return; nextFlew=true; next.dataset.flew='1';
+      if(reduce){ revealInPlace(260); return; }                               // scroll-triggered one-shot — plays even under lite (only reduced-motion skips it)
+      // measure the TRUE rest centre ONCE (neutralize the -64px no-flash park inline, read, restore)
+      var parked=next.style.translate; next.style.translate='0px 0px';
+      var r=next.getBoundingClientRect(); next.style.translate=parked;
+      if(!r.width || !r.height){ revealInPlace(260); return; }
+      var half=r.width/2, trueCX=r.left+half;
+      // Read the arrow's LIVE viewport centre each frame so the landing tracks BOTH scroll AND layout shift
+      // (lazy images / reveal anims move the target mid-flight). The arrow stays parked (CSS translate:0 -64px)
+      // for the whole flight, so measure that constant lift ONCE and add it back — no per-frame inline write.
+      var rPark=next.getBoundingClientRect();                                 // parked again (inline was restored above)
+      var parkOffY=r.top - rPark.top;                                         // the CSS no-flash lift, ~ +64
+      var DUR=1450, BIG=2.2;
+      function targetCY(){ return next.getBoundingClientRect().top + half + parkOffY; }
+      // body-level fixed clone, driven entirely by transform in VIEWPORT space
+      var flyer=document.createElement('div');
+      flyer.className='bd-flyer'; flyer.setAttribute('aria-hidden','true');
+      flyer.innerHTML=next.querySelector('svg').outerHTML;
+      flyer.style.left='0px'; flyer.style.top='0px';
+      var startY=-(half*BIG);                                                 // scaled ball's BOTTOM edge sits on the viewport TOP line
+      flyer.style.opacity='0.18';                                            // paint the start pose before the first frame -> no flash
+      flyer.style.transform='translate('+(trueCX-half)+'px,'+(startY-half)+'px) scale('+BIG+') rotate(-8deg)';
+      document.body.appendChild(flyer);
+      window.__bdFlyer='flying';
+      var done=false, rafId=0, t0=null;
+      function easeOutBack(x){ var c1=1.25,c3=c1+1; return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2); }
+      function pose(cx,cy,sx,sy,rot,op){
+        flyer.style.transform='translate('+(cx-half).toFixed(1)+'px,'+(cy-half).toFixed(1)+'px) scale('+sx.toFixed(3)+','+sy.toFixed(3)+') rotate('+rot.toFixed(2)+'deg)';
+        flyer.style.opacity=op.toFixed(3);
+      }
+      function frame(ts){
+        if(done) return;
+        if(t0===null) t0=ts;
+        var p=(ts-t0)/DUR; if(p>1) p=1;
+        var vh=(window.visualViewport&&window.visualViewport.height)||window.innerHeight;
+        var floorY=vh-half, sTop=-(half*BIG);
+        var cx=trueCX, cy, sx=1, sy=1, rot, op;
+        if(p<0.46){                                                          // FALL: accelerate, grow->normal, fade in (screen-space)
+          var f=p/0.46, fe=f*f;
+          cy=sTop+(floorY-sTop)*fe;
+          var s=BIG+(1-BIG)*f; sx=s; sy=s;
+          op=0.18+0.82*Math.min(1,f*1.25);
+          rot=-8+13*f;
+        } else if(p<0.56){                                                   // IMPACT: one squash + rebound at the floor
+          var q=(p-0.46)/0.10; cy=floorY; op=1; rot=5-3*q;
+          if(q<0.5){ var a=q/0.5; sx=1+0.16*a; sy=1-0.14*a; }
+          else { var b=(q-0.5)/0.5; sx=1.16-0.18*b; sy=0.86+0.16*b; }
+        } else {                                                             // RISE + SETTLE: home to the LIVE target, gentle bob
+          var g=(p-0.56)/0.44; if(g>1) g=1;
+          cy=floorY+(targetCY()-floorY)*easeOutBack(g);
+          rot=5+(2-5)*g; op=1;
+        }
+        pose(cx,cy,sx,sy,rot,op);
+        if(p>=1){ handoff(); return; }
+        rafId=requestAnimationFrame(frame);
+      }
+      function handoff(){
+        if(done) return; done=true;
+        if(rafId) cancelAnimationFrame(rafId);
+        armStrip();                                                          // reveal the real arrow at its CURRENT position == where the clone sits (no jump, any scroll)
+        requestAnimationFrame(function(){ if(flyer.parentNode) flyer.parentNode.removeChild(flyer); });
+        window.__bdFlyer='landed';
+        setTimeout(nudge,130);                                               // strip wiggle answers ~130ms after landing
+      }
+      rafId=requestAnimationFrame(frame);
+      setTimeout(handoff, DUR+320);                                          // safety net
+    }
+
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){
+          fireEntrance();                                        // photos slide in → arrow drop → wiggle
+          io.disconnect();
+        }});
+      }, {threshold:0, rootMargin:'0px 0px -35% 0px'});   // fire only once the strip climbs into the top ~65% — "scrolled further", not just peeking
+      io.observe(line);
+    }
+    function inView(){
+      var top=0, el=line; while(el){ top+=el.offsetTop; el=el.offsetParent; }
+      var y=window.scrollY||document.documentElement.scrollTop||0;
+      var vh=window.innerHeight||document.documentElement.clientHeight;
+      return top < y+vh*0.60 && top+line.offsetHeight > y;   // strip top up into the top 60% of the viewport
+    }
+    function fireEntrance(){                                    // 3-beat: photos slide in → arrow drop (flyNext) → wiggle (nudge)
+      update();
+      slidePhotosIn(function(){                                 // is-on re-read AFTER the deal, so the arrow decision uses settled geometry
+        if(next.classList.contains('is-on')) flyNext();        // flyNext owns armStrip + post-land wiggle
+        else revealInPlace(620);                               // nothing to fly -> reveal + wiggle
+      });
+    }
+    function maybeNudge(){ if(inView()){ fireEntrance(); window.removeEventListener('scroll',maybeNudge); } }
+    if(inView()) fireEntrance();
+    else window.addEventListener('scroll', maybeNudge, {passive:true});
+  })();
+  </script>
+
+  <!-- the click-to-open modal (video / IG embed / image) -->
+  <div class="bd-modal" id="bdModal" role="dialog" aria-modal="true" aria-labelledby="bdModalCap" hidden>
+    <figure class="bd-modal-fig">
+      <button class="bd-modal-x" type="button" aria-label="Close" data-bd-close>&times;</button>
+      <img class="bd-modal-img" id="bdModalImg" src="" alt="" hidden>
+      <video class="bd-modal-vid" id="bdModalVid" muted loop playsinline preload="none" hidden></video>
+      <iframe class="bd-modal-embed" id="bdModalEmbed" title="Instagram reel" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen hidden></iframe>
+      <figcaption class="bd-modal-cap" id="bdModalCap"></figcaption>
+      <a class="bd-modal-play" id="bdModalPlay" href="#" target="_blank" rel="noopener" hidden>&#9654;&nbsp; watch on Instagram &rarr;</a>
+    </figure>
+    <button class="bd-modal-nav bd-modal-prev" type="button" aria-label="Previous screen" data-bd-prev>&#8249;</button>
+    <button class="bd-modal-nav bd-modal-next" type="button" aria-label="Next screen" data-bd-next>&#8250;</button>
+  </div>
+
+  <script>
+  (function(){
+    var modal=document.getElementById('bdModal'); if(!modal) return;
+    var img=document.getElementById('bdModalImg'),
+        vid=document.getElementById('bdModalVid'),
+        embed=document.getElementById('bdModalEmbed'),
+        cap=document.getElementById('bdModalCap'),
+        play=document.getElementById('bdModalPlay'), last=null;
+    var items=Array.prototype.slice.call(document.querySelectorAll('.bd-line .bd-open')), idx=0;   // the clothesline, in order — for next/prev (pins outside the line open the modal but don't join the cycle)
+    function onKey(e){ if(e.key==='Escape') close(); else if(e.key==='ArrowLeft') go(-1); else if(e.key==='ArrowRight') go(1); }
+    function reset(){
+      img.hidden=true; img.removeAttribute('src');
+      vid.hidden=true; try{ vid.pause(); }catch(e){} vid.removeAttribute('src'); vid.removeAttribute('poster');
+      embed.hidden=true; embed.removeAttribute('src');
+      play.hidden=true;
+    }
+    function show(btn){                                  // swap the media only (shared by open + next/prev)
+      last=btn; idx=items.indexOf(btn); reset();
+      cap.innerHTML=btn.getAttribute('data-cap')||'';
+      var em=btn.getAttribute('data-embed'), vf=btn.getAttribute('data-video'), ff=btn.getAttribute('data-full');
+      if(em){                                            // Instagram reel embed
+        embed.src=em; embed.hidden=false;
+        var link=btn.getAttribute('data-link'); if(link){ play.href=link; play.hidden=false; }
+      } else if(vf){                                     // self-hosted webm screen-recording
+        var ps=btn.getAttribute('data-poster'); if(ps) vid.poster=ps;
+        vid.src=vf; vid.hidden=false; vid.currentTime=0;
+        var p=vid.play(); if(p&&p.catch) p.catch(function(){});
+      } else {                                           // static image fallback
+        img.src=ff||''; img.alt=btn.getAttribute('data-cap')||''; img.hidden=false;
+      }
+    }
+    function go(d){ if(!items.length) return; idx=(idx+d+items.length)%items.length; show(items[idx]); }   // wrap around the clothesline
+    function open(btn){
+      show(btn);
+      modal.hidden=false;
+      var x=modal.querySelector('.bd-modal-x'); if(x) x.focus();
+      document.addEventListener('keydown', onKey);
+    }
+    function close(){
+      reset(); modal.hidden=true;
+      document.removeEventListener('keydown', onKey);
+      if(last) last.focus();
+    }
+    /* delegated: this script runs mid-document, so .bd-open pins further down the page
+       (the #resources pinboard) wouldn't exist yet to bind directly. */
+    document.addEventListener('click', function(e){
+      var b=e.target && e.target.closest ? e.target.closest('.bd-open') : null;
+      if(b) open(b);
+    });
+    var pv=modal.querySelector('[data-bd-prev]'), nx=modal.querySelector('[data-bd-next]');
+    if(pv) pv.addEventListener('click', function(e){ e.stopPropagation(); go(-1); });
+    if(nx) nx.addEventListener('click', function(e){ e.stopPropagation(); go(1); });
+    modal.addEventListener('click', function(e){
+      if(e.target===modal || e.target.hasAttribute('data-bd-close')) close();
+    });
+  })();
+  </script>
+
+  <!-- ============ HOW A CIRCLE WORKS — the practice loop ============ -->
+  <section class="how" id="how">
+    <div class="wrap">
+      <div class="cg-collage" aria-hidden="true"><span class="cg-scrap cg-s3 cg-gr2 cg-drop-sm" data-cg-parallax="5" style="--cg-rot:8deg;--cg-w:56px;top:10%"><svg width="60" height="26" viewBox="0 0 60 26"><g class="cg-wob"><path class="cg-torn" d="M3 5 L56 3 L58 21 L5 23 Z" fill="var(--happy)" opacity=".75"/></g></svg></span><span class="cg-scrap cg-s1 cg-gl2" data-cg-parallax="6" style="--cg-rot:-7deg;--cg-w:48px;top:76%"><svg width="48" height="34" viewBox="0 0 48 34" fill="none" stroke="var(--lazuli)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M6 24 C16 6 38 6 44 22"/><path d="M44 22 L34 22 M44 22 L42 10"/></g></svg></span><span class="cg-scrap cg-s1 cg-gl" data-cg-parallax="5" style="--cg-rot:-11deg;--cg-w:50px;top:20%"><svg width="46" height="46" viewBox="0 0 46 46" fill="none" stroke="var(--lazuli)" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M23 23 C23 18 30 18 30 24 C30 32 17 32 16 23 C15 12 32 11 35 23 C38 37 17 41 11 28"/></g></svg></span><span class="cg-scrap cg-s2 cg-gr cg-drop-sm" data-cg-parallax="6" style="--cg-rot:9deg;--cg-w:42px;top:52%"><svg width="38" height="38" viewBox="0 0 38 38" fill="none" stroke="var(--colorado)" stroke-width="2.8" stroke-linecap="round"><g class="cg-wob"><path d="M19 6 L19 32 M6 19 L32 19"/></g></svg></span><span class="cg-scrap cg-s3 cg-gr2" data-cg-parallax="4" style="--cg-rot:-5deg;--cg-w:46px;bottom:16%"><svg width="42" height="42" viewBox="0 0 42 42" fill="none" stroke="var(--grass)" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M21 5 C23 14 26 17 37 21 C26 25 23 28 21 37 C19 28 16 25 5 21 C16 17 19 14 21 5 Z"/></g></svg></span></div>
+      <div class="head">
+        <span class="eyebrow">why it works</span>
+        <h2 class="slab">The magic is <span class="ul">the hour</span><span class="stop">.</span></h2>
+      </div>
+      <div class="how-stage">
+      <div class="how-loop">
+        <svg class="how-ring" viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <marker id="howarrow" viewBox="0 0 10 10" refX="6.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="6.5" markerHeight="6.5" orient="auto">
+              <path d="M1.5 1.5 L9 5 L1.5 8.5" fill="none" stroke="var(--happy)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </marker>
+          </defs>
+          <path d="M67.3 12.8 A41 41 0 1 1 32.7 12.8" fill="none" stroke="var(--happy)" stroke-width="2.6" stroke-linecap="round" marker-end="url(#howarrow)" filter="url(#squig)" opacity="1"/>
+        </svg>
+        <ol class="flow">
+          <li class="step is-cal">
+            <span class="n">01</span>
+            <h3>Challenge</h3>
+            <span class="ico"><svg class="ctcal" viewBox="0 0 120 120" role="img" aria-label="A tear-off desk calendar. The challenge is written on Friday's page.">
+              <!-- the pad underneath: this happens again next week, and the week after -->
+              <path d="M18 24 h88 v84 h-88 Z" fill="var(--oats)" stroke="var(--ink)" stroke-width="2.6" filter="url(#roughsm)" opacity=".55"/>
+              <path d="M15 21 h88 v84 h-88 Z" fill="var(--oats)" stroke="var(--ink)" stroke-width="2.8" filter="url(#roughsm)" opacity=".75"/>
+              <!-- today's page -->
+              <path d="M11 18 h92 v86 h-92 Z" fill="var(--paper)" stroke="var(--ink)" stroke-width="3.4" filter="url(#roughsm)"/>
+              <!-- the red band: the deadline is part of the object, not a sticker on it -->
+              <path d="M11 18 h92 v24 h-92 Z" fill="var(--colorado)" stroke="var(--ink)" stroke-width="3.4" filter="url(#roughsm)"/>
+              <text class="cal-day" x="57" y="37" text-anchor="middle">FRI</text>
+              <!-- the challenge, scrawled on the page -->
+              <g stroke="var(--sambas)" stroke-width="3.4" stroke-linecap="round" opacity=".5">
+                <path d="M23 60 c14 -3 34 2 48 -1" filter="url(#roughsm)"/>
+                <path d="M23 74 c18 3 44 -4 66 0" filter="url(#roughsm)"/>
+                <path d="M23 88 c11 -2 24 1 33 -1" filter="url(#roughsm)"/>
+              </g>
+              <!-- the binder rings -->
+              <g stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round">
+                <path d="M34 8 v14" filter="url(#roughsm)"/><path d="M80 8 v14" filter="url(#roughsm)"/>
+                <circle cx="34" cy="8" r="4.5" fill="var(--oats)" filter="url(#roughsm)"/>
+                <circle cx="80" cy="8" r="4.5" fill="var(--oats)" filter="url(#roughsm)"/>
+              </g>
+            </svg></span>
+            <p>your Host sets one, with a deadline</p>
+          </li>
+          <li class="step is-key is-clock">
+            <span class="n">02</span>
+            <h3>The hour</h3>
+            <span class="ico"><svg class="ctclock" viewBox="0 0 120 120" role="img" aria-label="A clock. The hour is quartered into practice, observe, ask, and be seen.">
+              <circle cx="60" cy="60" r="56" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="3.4" filter="url(#roughsm)"/>
+              <circle cx="60" cy="60" r="48" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.6" filter="url(#roughsm)"/>
+              <path d="M60 60 L60 12 A48 48 0 0 1 108 60 Z" fill="var(--colorado)" opacity=".16" filter="url(#roughsm)"/>
+              <path d="M60 60 L108 60 A48 48 0 0 1 60 108 Z" fill="var(--lazuli)" opacity=".16" filter="url(#roughsm)"/>
+              <path d="M60 60 L60 108 A48 48 0 0 1 12 60 Z" fill="var(--grass)" opacity=".18" filter="url(#roughsm)"/>
+              <path d="M60 60 L12 60 A48 48 0 0 1 60 12 Z" fill="var(--sambas)" opacity=".12" filter="url(#roughsm)"/>
+              <path d="M60 14 v92 M14 60 h92" stroke="var(--ink)" stroke-width="1.6" opacity=".22"/>
+              <!-- THE FOUR MECHANISMS, ON THE FACE. They used to be said twice — once as these
+                   icons and again as a ~9px red line underneath the node. Said twice, legible
+                   zero times. Now each word sits in its own quadrant, in that quadrant's colour,
+                   right under its icon. One object, one statement. The red line is deleted. -->
+              <!-- icons shrunk to ~0.72 and pushed out to the rim, so each word gets the room it
+                   needs. The word is the payload; the icon is the ornament. -->
+              <g stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="3.6">
+                <g stroke="var(--coral-ink)" transform="translate(24,4) scale(.72)"><path d="M78 30 c0 -6 7 -9 10 -4 c3 -5 10 -2 9 5 c-1 6 -9 9 -12 12 c-3 -3 -7 -7 -7 -13 Z"/></g>
+                <g stroke="var(--lazuli-deep)" transform="translate(21,17) scale(.72)"><path d="M78 78 c5 -7 15 -7 20 0 c-5 7 -15 7 -20 0 Z"/><circle cx="88" cy="78" r="3" fill="var(--lazuli-deep)" stroke="none"/></g>
+                <g stroke="var(--grass-deep)" transform="translate(9,16) scale(.72)"><path d="M22 70 H42 V84 H30 L24 90 V84 H22 Z"/><path d="M29 75 c0 -3 6 -3 6 1 c0 3 -3 3 -3 5"/></g>
+                <g stroke="var(--ink)" transform="translate(12,7) scale(.72)"><circle cx="32" cy="26" r="5.4"/><path d="M22 42 c0 -9 20 -9 20 0"/></g>
+              </g>
+              <!-- the words, DARK (the deep tokens, not the bright fills), bold, and out at r≈40
+                   where the shortened hands can't sweep through them. -->
+              <g class="ct-words" text-anchor="middle" font-size="12.6" font-weight="700">
+                <text x="84" y="47" fill="var(--coral-ink)">practice</text>
+                <text x="84" y="90" fill="var(--lazuli-deep)">observe</text>
+                <text x="36" y="90" fill="var(--grass-deep)">ask</text>
+                <text x="36" y="47" fill="var(--ink)">be seen</text>
+              </g>
+              <!-- The hands ROTATE, so any hand long enough to reach the words will eventually sweep
+                   through all four of them. The words sit at r≈27; keep both hands inside that. -->
+              <g class="ct-hands">
+                <line class="ct-min" x1="60" y1="60" x2="60" y2="42" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round"/>
+                <line class="ct-hr"  x1="60" y1="60" x2="70" y2="66" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round"/>
+              </g>
+              <circle cx="60" cy="60" r="5" fill="var(--colorado)" stroke="var(--ink)" stroke-width="2.4"/>
+            </svg></span>
+            <p>the recurring hour you've got <b>people</b></p>
+          </li>
+          <li class="step is-think">
+            <svg class="thoughtb" viewBox="0 0 200 180" aria-hidden="true">
+              <path d="M 100 16.9 A 24.4 24.4 0 0 1 145.7 25.5 A 19.3 19.3 0 0 1 176.4 47.6 A 15.4 15.4 0 0 1 181.1 77.7 A 17 17 0 0 1 161.9 105.4 A 21.2 21.2 0 0 1 123.1 120.8 A 24.5 24.5 0 0 1 76.5 123.2 A 21.6 21.6 0 0 1 37.9 105 A 17.8 17.8 0 0 1 16.5 77.9 A 16.2 16.2 0 0 1 23.4 47.6 A 19.1 19.1 0 0 1 53.6 25.6 A 24.4 24.4 0 0 1 100 16.9 Z"
+                fill="var(--paper)" stroke="var(--ink)" stroke-width="2.6" filter="url(#roughsm)"/>
+              <!-- the tail SWEEPS. Three bubbles on a curve that bends left and flattens out, the way a
+                   comic tail arcs back toward the thinker — not a straight 45-degree staircase. -->
+              <circle cx="58" cy="140" r="10.2" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.6" filter="url(#roughsm)"/>
+              <circle cx="35" cy="160" r="6.4" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4" filter="url(#roughsm)"/>
+              <circle cx="14" cy="167" r="3.6" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.2" filter="url(#roughsm)"/>
+            </svg>
+            <span class="n">03</span>
+            <h3>Your own time</h3>
+            <p>to work on the challenge</p>
+          </li>
+          <li class="step is-globe">
+            <span class="n">04</span>
+            <h3>Show &amp; tell</h3>
+            <span class="ico"><svg class="ctglobe" viewBox="0 0 120 120" role="img" aria-label="A globe with a paper plane circling it.">
+              <circle cx="60" cy="62" r="40" fill="var(--lazuli)" stroke="var(--ink)" stroke-width="3.4" filter="url(#roughsm)"/>
+              <g stroke="var(--oats)" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".85">
+                <path d="M20 62 h80" filter="url(#roughsm)"/>
+                <path d="M27 40 h66 M27 84 h66" filter="url(#roughsm)"/>
+                <path d="M60 22 C40 42 40 82 60 102" filter="url(#roughsm)"/>
+                <path d="M60 22 C80 42 80 82 60 102" filter="url(#roughsm)"/>
+              </g>
+              <g fill="var(--grass)" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round" opacity=".95">
+                <path d="M34 44 c7 -6 16 -5 21 1 c4 5 -1 9 -5 11 c-3 2 -2 7 -6 9 c-5 2 -9 -2 -12 -6 c-3 -5 -3 -11 2 -15 Z" filter="url(#roughsm)"/>
+                <path d="M64 66 c9 -4 17 0 18 7 c1 6 -5 9 -9 8 c-2 4 -5 9 -8 7 c-4 -2 -3 -8 -4 -12 c-1 -4 -1 -8 3 -10 Z" filter="url(#roughsm)"/>
+                <path d="M74 40 c5 -2 9 1 8 5 c-1 4 -7 5 -10 2 c-2 -3 -1 -6 2 -7 Z" filter="url(#roughsm)"/>
+                <path d="M40 78 c4 -2 8 0 8 4 c0 3 -4 5 -7 3 c-2 -1 -3 -5 -1 -7 Z" filter="url(#roughsm)"/>
+              </g>
+              <g class="ct-orbit">
+                <!-- CONTRAIL, not an orbit ring. It rides WITH the plane, starts just past the end
+                     of the ZINE banner, runs half a lap back, and fades out — so it reads as the
+                     path the plane has already flown, not as a hoop drawn around the globe. -->
+                <g class="ct-trail" stroke="var(--colorado)" fill="none" stroke-linecap="round">
+                  <path d="M96.3 90.3 A46 46 0 0 1 53.6 107.6" stroke-width="1.6" stroke-dasharray="3 8" opacity=".2"/>
+                  <path d="M53.6 107.6 A46 46 0 0 1 17.4 79.2" stroke-width="1.8" stroke-dasharray="4 7" opacity=".38"/>
+                  <path d="M17.4 79.2 A46 46 0 0 1 23.8 33.7" stroke-width="2" stroke-dasharray="5 6" opacity=".6"/>
+                </g>
+                <g transform="translate(60,62)">
+                  <!-- the whole assembly has to fit inside r=60 of the globe's box or it sweeps
+                       through the title above and the caption below. Keep it compact. -->
+                  <g class="ct-plane" transform="translate(0,-46)">
+                    <!-- the banner it drags: one word, and the word is the whole product -->
+                    <path d="M-8 3 L-13 4" stroke="var(--ink)" stroke-width="1.3" fill="none"/>
+                    <path d="M-13 -1 L-38 -2.5 L-33 4 L-38 11 L-13 9 Z" fill="var(--colorado)" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round" filter="url(#roughsm)"/>
+                    <text class="ct-banner" x="-24" y="7.2" text-anchor="middle">ZINE</text>
+                    <!-- the plane is PAPER: all white, one ink crease. A two-tone plane reads as an
+                         arrow at 30px. The colour pop belongs on the banner, where the word is. -->
+                    <path d="M12 0 L-10 -9 L-4 1 L-10 9 Z" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.7" stroke-linejoin="round" filter="url(#roughsm)"/>
+                    <path d="M12 0 L-4 1" stroke="var(--ink)" stroke-width="1.3" opacity=".55" fill="none" filter="url(#roughsm)"/>
+                  </g>
+                </g>
+              </g>
+            </svg></span>
+            <p>the zine goes out &mdash; <b>portfolio</b></p>
+          </li>
+        </ol>
+        <div class="how-loopback" aria-hidden="true">
+          <svg class="lb-arrow" viewBox="0 0 40 680" preserveAspectRatio="xMidYMid meet" fill="none" stroke="var(--colorado)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M31 662 C8 644 8 40 31 20" filter="url(#roughsm)"/>
+            <path d="M21 30 L31 17 L40 30" filter="url(#roughsm)"/>
+          </svg>
+          <span>back to the start</span>
+        </div>
+
+        <!-- Practice used to be its own step, which double-counted it: it's already one of the four
+             things the hour is FOR. Demoting it to a footnote is honest — most of the making happens
+             when nobody's watching — and it frees the ring to be four clean nodes. It's a sticky
+             note, parked in the empty margin beside the clock it annotates. -->
+      </div>
+        <!-- YARN, not an arrow: an arrow says "go here next", a string says "these two are pinned
+             together" — which is what a corkboard aside is. It hangs off the STAGE, not off the
+             note: the note's height breathes with the vw font clamps, so a string anchored to it
+             swung loose on every resize. Both ends are now rigid — a knot on the clock's rim, a
+             knot on the note's edge. -->
+
+      </div>
+
+
+      <!-- The magic moment: name the thing the reader has just understood. They've watched the loop,
+           they've seen a real challenge — now tell them it isn't a gimmick, it's a forty-year-old
+           finding, and we didn't invent it. Deliberately an aside, in the margin voice; the second
+           it becomes a lecture it stops landing. -->
+      <aside class="reveal-name">
+        <span class="rn-arrow" aria-hidden="true">btw</span>
+        <p>this is <b>situated&nbsp;learning</b> &mdash; Lave &amp; Wenger.</p>
+        <a class="rn-link" href="https://peer.asee.org/35417" target="_blank" rel="noopener">Read Our Founder&rsquo;s Stanford Research Paper &rarr;</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ WHAT IT DID TO THE MAKERS — relocated here (was inside #zine) so the emotional
+       proof lands AFTER the factual proof: real circles -> the zines they made -> and what the
+       loop did to the people who made one. ============ -->
+  <section class="zines" aria-label="What the challenge did to the makers of Silk Road 001">
+    <div class="wrap">
+      <!-- THE QUOTES. Not decoration — this is the conversion mechanism. Bandura (via Chielo's
+           research): the strongest driver of self-efficacy is vicarious experience, i.e. seeing
+           similar others succeed. So: real people, one step ahead of the reader, in their own words.
+
+           The lovely part is we don't have to solicit these. Every quote is somebody's REFLECTION
+           ANSWER, lifted straight out of an issue — the reflection question manufactures
+           testimonials as a byproduct. The first one is real (it's the pull-quote on the Silk Road
+           001 cover). The rest are PLACEHOLDERS: swap the text + cite, keep the shape.
+
+           MEDIA PLACEHOLDER: the in-circle interview videos belong right here. Ideal shape is a
+           small round video thumb to the left of the quote, tapping to open the clip — the face
+           saying it is worth more than the words. -->
+      <!-- THE MAKER BOARD. Eleven real people from "Silk Road 001", each answering the same
+           reflection question, pinned as polaroids. The quote lives on the polaroid's caption strip,
+           handwritten — a polaroid is already a photo plus a caption, so the strip was always the
+           right home for it.
+
+           Why a board and not a rotator: the old block cycled one quote at a time, which meant six
+           seconds of waiting to read the second one and only 7 of the 11 makers fitting at all.
+           Here every voice is visible at once and the repetition IS the argument — you can SEE four
+           people independently saying "I saw someone else do it, so I knew I could." That is
+           Bandura's vicarious experience, the mechanism in Chielo's research, confirmed unprompted
+           by people who were never asked for a testimonial.
+
+           MEDIA PLACEHOLDERS, both already shaped:
+           1. PHOTOS — drop assets/makers/<handle>.jpg and set .mv-ph{background-image:url(...)}.
+              The frame, aspect and hand-drawn border are already right. Delete the .mv-soon stamp.
+           2. VIDEOS — the red play dot marks the makers we filmed. Make .mv-vid open that clip.
+              Every polaroid is already a play button; no redesign needed. -->
+      <figure class="makerboard" aria-label="Six makers from Silk Road 001, answering the reflection question">
+        <div class="mb-head">
+          <span class="eyebrow" style="color:var(--colorado)">XChange Models club did a challenge&hellip;</span>
+          <p class="mb-challenge">Come as Your Heritage. Come As Yourself.</p>
+          <p class="mb-q">&ldquo;What changed once you stepped off the runway?&rdquo;</p>
+        </div>
+        <div class="mb-grid" id="mbDeck">
+        <figure class="mpol lead" style="--r:-1.6deg;--c:var(--colorado)">
+          <span class="mv-pin" aria-hidden="true"></span>
+          <span class="mv-ph has-photo" style="background-image:url(assets/makers/tergel.jpg);background-size:cover;background-position:center 22%"><span class="mv-vid" aria-hidden="true"></span></span>
+          <figcaption class="mv-strip"><q>I didn't know what was possible until I saw someone else do it.</q><b>@tergel</b></figcaption>
+        </figure>
+        <figure class="mpol" style="--r:1.4deg;--c:var(--lazuli)">
+          <span class="mv-pin" aria-hidden="true"></span>
+          <span class="mv-ph has-photo" style="background-image:url(assets/makers/falcon.jpg);background-size:cover;background-position:center 22%"></span>
+          <figcaption class="mv-strip"><q>Not every place you feel like you belong. Here, I feel right at home.</q><b>@falcon</b></figcaption>
+        </figure>
+        <figure class="mpol lead" style="--r:1.2deg;--c:var(--schoolbus)">
+          <span class="mv-pin" aria-hidden="true"></span>
+          <span class="mv-ph has-photo" style="background-image:url(assets/makers/shanara.jpg);background-size:cover;background-position:center 22%"></span>
+          <figcaption class="mv-strip"><q>Since I'm capable of doing something like that, I feel like I could do anything.</q><b>@shanara</b></figcaption>
+        </figure>
+        <figure class="mpol" style="--r:-1.2deg;--c:var(--colorado)">
+          <span class="mv-pin" aria-hidden="true"></span>
+          <span class="mv-ph has-photo" style="background-image:url(assets/makers/chiamakabrowneyes.jpg);background-size:cover;background-position:center 22%"></span>
+          <figcaption class="mv-strip"><q>They treat you as a person, not as a model.</q><b>@chiamakabrowneyes</b></figcaption>
+        </figure>
+        <figure class="mpol" style="--r:1.6deg;--c:var(--grass-deep)">
+          <span class="mv-pin" aria-hidden="true"></span>
+          <span class="mv-ph has-photo" style="background-image:url(assets/makers/angela.jpg);background-size:cover;background-position:center 22%"><span class="mv-vid" aria-hidden="true"></span></span>
+          <figcaption class="mv-strip"><q>Seeing them go before me relieved a lot of my stress.</q><b>@angela</b></figcaption>
+        </figure>
+        <figure class="mpol" style="--r:-2.2deg;--c:var(--grass-deep)">
+          <span class="mv-pin" aria-hidden="true"></span>
+          <span class="mv-ph has-photo" style="background-image:url(assets/makers/miguel.jpg);background-size:cover;background-position:center 22%"></span>
+          <figcaption class="mv-strip"><q>I had a plan. I did none of it. It was all instinct.</q><b>@miguel</b></figcaption>
+        </figure>
+        </div>
+        <figcaption class="mb-echo scrawl"><a href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23/ledger" target="_blank" rel="noopener">read the ledger &rarr;</a></figcaption>
+      </figure>
+    </div>
+  </section>
+
+
+  <!-- ============ THE SAME PEOPLE — the long game. One circle across issues: the shelf grows,
+       three real issues sit under it, and shipping three earns you hosting a club of your own. ============ -->
+  <section class="longgame" id="long-game">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" style="color:var(--grass-deep)">your club</span>
+        <h2 class="slab">The same people<span class="stop">.</span> <span class="ul">Issue after issue</span><span class="stop">.</span></h2>
+        <p class="lg-sub">The same few faces for a year &mdash; beginners next to old hands &mdash; who watch you get good.</p>
+      </div>
+
+      <figure class="shelf">
+        <ul class="spines" role="img" aria-label="A shelf of one circle's issues, 001 through 012, each one a little taller than the last.">
+          <li class="spine s1" style="--w:26px;--h:46%;--c:var(--lazuli)"><span class="sp-n">001</span></li>
+          <li class="spine s2" style="--w:31px;--h:52%;--c:var(--schoolbus)"><span class="sp-n">002</span></li>
+          <li class="spine s3" style="--w:24px;--h:49%;--c:var(--colorado)"><span class="sp-n">003</span></li>
+          <li class="spine s4" style="--w:34px;--h:58%;--c:var(--grass)"><span class="sp-n">004</span></li>
+          <li class="spine s5" style="--w:29px;--h:55%;--c:var(--happy)"><span class="sp-n">005</span></li>
+          <li class="spine s6" style="--w:37px;--h:64%;--c:var(--lazuli)"><span class="sp-n">006</span></li>
+          <li class="spine s7" style="--w:27px;--h:61%;--c:var(--colorado)"><span class="sp-n">007</span></li>
+          <li class="spine s8" style="--w:33px;--h:70%;--c:var(--schoolbus)"><span class="sp-n">008</span></li>
+          <li class="spine s9" style="--w:40px;--h:68%;--c:var(--grass)"><span class="sp-n">009</span></li>
+          <li class="spine s10" style="--w:30px;--h:78%;--c:var(--lazuli)"><span class="sp-n">010</span></li>
+          <li class="spine s11" style="--w:36px;--h:74%;--c:var(--happy)"><span class="sp-n">011</span></li>
+          <li class="spine s12" style="--w:44px;--h:88%;--c:var(--colorado)"><span class="sp-n">012</span></li>
+        </ul>
+        <div class="shelf-rule" aria-hidden="true"></div>
+        <div class="shelf-ends">
+          <span class="se-a scrawl">issue 001<br><b>you're the newest one here</b></span>
+          <span class="se-b scrawl">issue 012<br><b>somebody's asking&nbsp;you</b></span>
+        </div>
+      </figure>
+
+      <!-- featured zine proof: the made-by-hand pair (moved from the old #zine section) -->
+      <div class="zine-pair lg-feature">
+        <figure class="zine-card hand">
+          <div class="zine-duo">
+            <a class="zpola is-zine zbook" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener" aria-label="Flip through a real club zine, &ldquo;Drawing at the Cafe&rdquo;">
+              <span class="ph"><img src="assets/zine-handmade.jpg" alt="A real Drex club zine, &ldquo;Drawing at the Cafe&rdquo; &mdash; a taped photo of a maker holding her sketch, with the creative challenge highlighted." loading="lazy" width="700" height="955" /></span>
+              <span class="zpola-cap">read &ldquo;Drawing at the Cafe&rdquo; <span class="arr">&rarr;</span></span>
+            </a>
+            <a class="zpola is-vid" href="https://www.instagram.com/reel/DaEIcmkSW4o/" target="_blank" rel="noopener" aria-label="Watch a zine page come together &mdash; Instagram reel with @claguo">
+              <span class="ph"><img src="assets/editor-reel-thumb.jpg" alt="A maker at a cafe table, phone in hand, placing pages in the zine editor" loading="lazy" width="600" height="720" /><span class="play-badge" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"/><path d="M20 16 L33 24 L20 32 Z"/></svg></span></span>
+              <span class="zpola-cap">watch it get made <span class="arr">&rarr;</span></span>
+            </a>
+          </div>
+        </figure>
+      </div>
+
+      <!-- more issues off the shelf, same book style, small -->
+      <div class="lg-books">
+        <a class="zpola is-zine zbook" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener" aria-label="Read Silk Road 001, a bot-laid zine from XChange Models">
+          <span class="ph"><img src="assets/zines/silk-road-cover.jpg" alt="Silk Road 001 cover." loading="lazy" width="600" height="760"></span>
+          <span class="zpola-cap">Silk Road 001</span>
+        </a>
+        <a class="zpola is-zine zbook" href="https://demo.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856" target="_blank" rel="noopener" aria-label="Read Photo Phloor&rsquo;s zine, from a San Francisco photography club">
+          <span class="ph"><img src="assets/zines/phloor-chair.jpg" alt="Photo Phloor: a chair alone on a night sidewalk." loading="lazy" width="800" height="600"></span>
+          <span class="zpola-cap">Photo Phloor</span>
+        </a>
+        <figure class="zpola is-zine zbook">
+          <span class="ph"><img src="assets/zines/penmans-desk.jpg" alt="SF Penmans: hand-lettered verse in blue ink." loading="lazy" width="600" height="720"></span>
+          <span class="zpola-cap">SF Penmans</span>
+        </figure>
+      </div>
+
+      <p class="lg-earn scrawl">Ship three issues and you earn <b>hosting a club of your own</b>!</p>
+    </div>
+  </section>
+
+
+
+  <!-- ============ THE PROOF — real circles + the zines they made ============
+       A messy 2-D heap of postcards. Merges the old "two issues you can read
+       right now" with the "and these are real circles and their zines" roster
+       into one object. Each card: the zine screenshot fills the left, the
+       maker's answer or the circle blurb on the right, the circle name up the
+       bottom-left like a spine label. Tap a card to pull it to the surface.
+       Hand-inked outlines via the roughen filters, drawn on border-only layers
+       so photos and type stay crisp (the cardinal rule).
+       FUTURE (blocked): the postage stamp on each card could use that circle's
+       own doodle data, and the card could show some of their marginalia — needs
+       programmatic access to that data, which we don't have yet.
+       CTAs: zine cards say "View zine" / "Play zine"; circle cards link Instagram;
+       a circle with both gets both. Non-model circle (Cafe) leads on purpose. ==== -->
+  <section class="dk" id="proof" aria-label="Real clubs and the zines they made">
+
+    <div class="deck" id="deck" role="group" aria-label="A messy pile of postcards. Tap one to pull it to the top.">
+
+      <!-- 1 · CAFE — zine, non-model, leads -->
+      <article class="pc" data-i="0" style="--key:var(--schoolbus)">
+        <div class="pc-img">
+          <img src="assets/zines/spread-cafe.jpg" width="720" height="1415" loading="lazy" decoding="async" alt="Drawing at the Cafe: a bright collage, Claire holding her drawing.">
+          <span class="pc-name on-yellow">Cafe</span>
+        </div>
+        <div class="pc-msg">
+          <svg class="pc-post" aria-hidden="true"><use href="#pcstamp"/></svg>
+          <span class="pc-type on-yellow">Zine &middot; read</span>
+          <h3 class="pc-title">Drawing at the Cafe</h3>
+          <p class="pc-slug"><b>Drex Zine</b> &middot; 4 makers &middot; by hand</p>
+          <blockquote class="pc-a">&ldquo;It helps me relax and focus when I draw at the cafe!&rdquo;<cite class="pc-cite">&mdash; Claire</cite></blockquote>
+          <p class="pc-cta"><a class="btn" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener">View zine &rarr;</a></p>
+        </div>
+      </article>
+
+      <!-- 2 · SILK ROAD — circle + zine, the model circle -->
+      <article class="pc" data-i="1" style="--key:var(--colorado)">
+        <div class="pc-img">
+          <img src="assets/zines/spread-silk.jpg" width="720" height="895" loading="lazy" decoding="async" alt="Silk Road 001: a dark editorial, a model mid-stride on a red-lit runway.">
+          <span class="pc-name">Silk Road</span>
+        </div>
+        <div class="pc-msg">
+          <svg class="pc-post" aria-hidden="true"><use href="#pcstamp"/></svg>
+          <span class="pc-type">Club + zine</span>
+          <h3 class="pc-title">Silk Road 001</h3>
+          <p class="pc-slug"><b>XChange Models</b> &middot; 11 makers</p>
+          <blockquote class="pc-a">&ldquo;You believe in yourself.&rdquo;<cite class="pc-cite">&mdash; Wei-Sean, and ten others</cite></blockquote>
+          <p class="pc-cta"><a class="btn" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">View zine &rarr;</a><a class="pc-ig" href="https://www.instagram.com/xchange.fashion.app/" target="_blank" rel="noopener">Instagram &rarr;</a></p>
+        </div>
+      </article>
+
+      <!-- 3 · DRESS-UP — zine, interactive -->
+      <article class="pc" data-i="2" style="--key:var(--lazuli)">
+        <div class="pc-img">
+          <img src="assets/zines/spread-dressup.jpg" width="720" height="1965" loading="lazy" decoding="async" alt="The interactive dress-up zine: a clip-art figure with cut-out clothes taped beside him.">
+          <span class="pc-play"><svg viewBox="0 0 12 12"><path d="M2 1 L11 6 L2 11 Z" fill="var(--ink)"/></svg>Play</span>
+          <span class="pc-name">Dress-up</span>
+        </div>
+        <div class="pc-msg">
+          <svg class="pc-post" aria-hidden="true"><use href="#pcstamp"/></svg>
+          <span class="pc-type">Play it</span>
+          <h3 class="pc-title">The dress-up game</h3>
+          <p class="pc-slug"><b>Drexzine</b> &middot; 4 makers</p>
+          <p class="pc-cta"><a class="btn ink" href="https://demo.drex.style/z/5b548352-9124-4b25-bcaa-9c06322d30bb" target="_blank" rel="noopener">Play zine &rarr;</a></p>
+        </div>
+      </article>
+
+      <!-- 4 · PHOTO PHLOOR — circle, non-model, honest -->
+      <article class="pc" id="c-phloor" data-i="3" style="--key:var(--grass-deep)">
+        <div class="pc-img">
+          <img src="assets/zines/phloor-chair.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Photo Phloor: an old wooden chair alone on a city sidewalk at night.">
+          <span class="pc-name">Phloor</span>
+        </div>
+        <div class="pc-msg">
+          <svg class="pc-post" aria-hidden="true"><use href="#pcstamp"/></svg>
+          <span class="pc-type">Club</span>
+          <h3 class="pc-title">Photo Phloor</h3>
+          <p class="pc-slug"><b>San Francisco</b> &middot; a photography collective</p>
+          <p class="pc-cta"><a class="btn" href="https://www.instagram.com/photo.phloor/" target="_blank" rel="noopener">Instagram &rarr;</a></p>
+        </div>
+      </article>
+
+      <!-- 5 · SF PENMANS — circle, non-model, no photo asset yet -->
+      <article class="pc" id="c-penmans" data-i="4" style="--key:var(--lazuli)">
+        <div class="pc-img">
+          <img src="assets/zines/penmans-desk.jpg" width="600" height="720" loading="lazy" decoding="async" alt="SF Penmans: a hand-lettered drop-cap and cursive verse in blue ink on cream paper.">
+          <span class="pc-name">Penmans</span>
+        </div>
+        <div class="pc-msg">
+          <svg class="pc-post" aria-hidden="true"><use href="#pcstamp"/></svg>
+          <span class="pc-type">Club</span>
+          <h3 class="pc-title">SF Penmans</h3>
+          <p class="pc-slug"><b>San Francisco</b> &middot; a penmanship club</p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="dk-controls">
+      <button class="dk-arrow" id="dkPrev" type="button" aria-label="Previous circle">&larr;</button>
+      <div class="dk-nav" id="dknav" role="tablist" aria-label="Choose a Circle"></div>
+      <button class="dk-arrow" id="dkNext" type="button" aria-label="Next circle">&rarr;</button>
+    </div>
+  </section>
+
+  <script>
+  (function(){
+    var deck = document.getElementById('deck');
+    if(!deck) return;
+    var cards = Array.prototype.slice.call(deck.querySelectorAll('.pc'));
+    var n = cards.length;
+    var nav = document.getElementById('dknav');
+    var names = cards.map(function(c){ return c.querySelector('.pc-name').textContent.trim(); });
+    var front = 0;
+
+    // messy heap: x/y offsets (px) + rotation, fanning the bottom-left names along a lower arc
+    var scatter = [
+      { x:-186, y: 40, r:-11 },
+      { x: -78, y: 78, r: -3 },
+      { x:  44, y: 86, r:  6 },
+      { x: 168, y: 44, r: 13 },
+      { x:  86, y:-58, r: -7 }
+    ];
+    var zByI = {};
+    scatter.map(function(s,i){ return {i:i,y:s.y}; })
+           .sort(function(a,b){ return a.y - b.y; })
+           .forEach(function(o,rank){ zByI[o.i] = 20 + rank; });
+
+    function layout(){
+      var w = deck.clientWidth || 640;                 // 0 while the section is still sealed
+      var f = Math.max(0.5, Math.min(1, w / 640));
+      cards.forEach(function(c,i){
+        var isF = (i === front), s = scatter[i];
+        c.classList.toggle('is-front', isF);
+        var mul = isF ? 0.34 : 1;
+        c.style.setProperty('--x', (s.x * mul * f) + 'px');
+        c.style.setProperty('--y', ((s.y * mul - (isF ? 16 : 0)) * f) + 'px');
+        c.style.setProperty('--r', (isF ? s.r * 0.28 : s.r) + 'deg');
+        c.style.setProperty('--s', isF ? 1.06 : 1);
+        c.style.zIndex = isF ? 60 : String(zByI[i]);
+      });
+      Array.prototype.forEach.call(nav.children, function(d,i){ d.classList.toggle('on', i===front); d.setAttribute('aria-selected', i===front); });
+    }
+    function bringUp(i){ front = ((i % n) + n) % n; layout(); }
+
+    cards.forEach(function(c,i){
+      var dot = document.createElement('button');
+      dot.className='dk-dot'; dot.type='button'; dot.setAttribute('role','tab'); dot.setAttribute('aria-label', names[i]);
+      dot.addEventListener('click', function(){ bringUp(i); });
+      nav.appendChild(dot);
+      c.addEventListener('click', function(e){ if(e.target.closest('a')) return; bringUp(i); });
+    });
+    deck.setAttribute('tabindex','0');
+    deck.addEventListener('keydown', function(e){
+      if(e.key==='ArrowRight'){ e.preventDefault(); bringUp(front+1); }
+      if(e.key==='ArrowLeft'){ e.preventDefault(); bringUp(front-1); }
+    });
+    document.getElementById('dkPrev').addEventListener('click', function(){ bringUp(front-1); });
+    document.getElementById('dkNext').addEventListener('click', function(){ bringUp(front+1); });
+    // ResizeObserver re-runs layout when the section un-hides at the cut-gate
+    // reveal (0 -> real width) and on any resize; falls back to window resize.
+    if(window.ResizeObserver){ new ResizeObserver(layout).observe(deck); }
+    else { window.addEventListener('resize', layout); }
+    layout();
+  })();
+  </script>
+
+
+  <!-- ============ THE READER — find your Circle by flipping through zines ============ -->
+  <section class="zines reader" id="reader">
+    <div class="wrap">
+      <div class="cg-collage" aria-hidden="true"><span class="cg-scrap cg-s1 cg-gr2" data-cg-parallax="5" style="--cg-rot:9deg;--cg-w:36px;top:8%"><svg width="34" height="26" viewBox="0 0 34 26" fill="none"><g class="cg-wob"><circle cx="6" cy="14" r="3.2" fill="var(--lazuli)"/><circle cx="17" cy="7" r="2.6" fill="var(--colorado)"/><circle cx="27" cy="17" r="3" fill="var(--schoolbus)"/></g></svg></span><span class="cg-scrap cg-s1 cg-gl2 cg-drop-sm" data-cg-parallax="6" style="--cg-rot:-8deg;--cg-w:50px;top:58%"><svg width="48" height="34" viewBox="0 0 48 34" fill="none" stroke="var(--colorado)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M6 24 C16 6 38 6 44 22"/><path d="M44 22 L34 22 M44 22 L42 10"/></g></svg></span><span class="cg-scrap cg-s3 cg-gl" data-cg-parallax="4" style="--cg-rot:6deg;--cg-w:58px;top:84%"><svg width="60" height="26" viewBox="0 0 60 26"><g class="cg-wob"><path class="cg-torn" d="M3 5 L56 3 L58 21 L5 23 Z" fill="var(--happy)" opacity=".75"/></g></svg></span><span class="cg-scrap cg-s1 cg-gl cg-drop-sm" data-cg-parallax="5" style="--cg-rot:-7deg;--cg-w:46px;top:24%"><svg width="42" height="42" viewBox="0 0 42 42" fill="none" stroke="var(--lazuli)" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M21 5 C23 14 26 17 37 21 C26 25 23 28 21 37 C19 28 16 25 5 21 C16 17 19 14 21 5 Z"/></g></svg></span><span class="cg-scrap cg-s2 cg-gr" data-cg-parallax="6" style="--cg-rot:9deg;--cg-w:100px;top:52%"><svg width="100" height="28" viewBox="0 0 100 28" fill="none" stroke="var(--happy)" stroke-width="9" stroke-linecap="round"><g class="cg-wob" opacity=".75"><path d="M6 18 C26 8 50 24 72 14 C82 10 90 13 94 16"/></g></svg></span></div>
+      <div class="head">
+        <span class="eyebrow" style="color:var(--lazuli)">what if i don't have a group</span>
+        <h2 class="slab">Find your club by <span class="ul">flipping</span> through zines<span class="stop">.</span></h2>
+      </div>
+      <!-- MEDIA PLACEHOLDER (highest value on the page): a short screen-capture of someone actually
+           flipping through the Reader — thumb-scrolling a real shelf of real issues. The entire
+           discovery thesis lives here and it is currently an illustration with SOON stamped on it. -->
+      <div class="flip2-stage">
+        <figure class="flip2" role="img" aria-label="A hand-drawn phone; a stream of zines flips through it, one at a time">
+          <div class="belt">
+            <div class="belt-rail" aria-hidden="true">
+              <div class="belt-track">
+                <svg class="bz" viewBox="0 0 104 148"><g filter="url(#roughsm)"><rect x="10" y="11" width="88" height="132" rx="4" fill="var(--ink)"/><rect x="5" y="5" width="88" height="132" rx="4" fill="var(--colorado)" stroke="var(--ink)" stroke-width="3"/><circle cx="49" cy="52" r="20" fill="none" stroke="var(--oats)" stroke-width="3"/><path d="M22 96 h54 M22 110 h40" stroke="var(--oats)" stroke-width="3" stroke-linecap="round"/></g></svg>
+                <svg class="bz" viewBox="0 0 104 148"><g filter="url(#roughsm)"><rect x="10" y="11" width="88" height="132" rx="4" fill="var(--ink)"/><rect x="5" y="5" width="88" height="132" rx="4" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="3"/><path d="M20 46 l14 -14 14 14 14 -14 14 14" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 92 h54 M22 106 h46 M22 120 h32" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></g></svg>
+                <svg class="bz" viewBox="0 0 104 148"><g filter="url(#roughsm)"><rect x="10" y="11" width="88" height="132" rx="4" fill="var(--ink)"/><rect x="5" y="5" width="88" height="132" rx="4" fill="var(--lazuli)" stroke="var(--ink)" stroke-width="3"/><path d="M49 28 C52 42 56 46 70 49 C56 52 52 56 49 70 C46 56 42 52 28 49 C42 46 46 42 49 28 Z" fill="none" stroke="var(--oats)" stroke-width="3" stroke-linecap="round"/><path d="M24 100 h56 M24 114 h38" stroke="var(--oats)" stroke-width="3" stroke-linecap="round"/></g></svg>
+                <svg class="bz" viewBox="0 0 104 148"><g filter="url(#roughsm)"><rect x="10" y="11" width="88" height="132" rx="4" fill="var(--ink)"/><rect x="5" y="5" width="88" height="132" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/><path d="M20 34 C34 24 52 44 70 32" fill="none" stroke="var(--colorado)" stroke-width="8" stroke-linecap="round" opacity=".8"/><path d="M22 78 h56 M22 92 h48 M22 106 h56 M22 120 h30" stroke="var(--sambas)" stroke-width="3" stroke-linecap="round"/></g></svg>
+                <svg class="bz" viewBox="0 0 104 148"><g filter="url(#roughsm)"><rect x="10" y="11" width="88" height="132" rx="4" fill="var(--ink)"/><rect x="5" y="5" width="88" height="132" rx="4" fill="var(--grass)" stroke="var(--ink)" stroke-width="3"/><path d="M20 56 l58 -22 M20 74 l58 -22 M20 92 l58 -22" stroke="var(--oats)" stroke-width="4" stroke-linecap="round"/><circle cx="30" cy="116" r="6" fill="var(--oats)"/></g></svg>
+                <svg class="bz" viewBox="0 0 104 148"><g filter="url(#roughsm)"><rect x="10" y="11" width="88" height="132" rx="4" fill="var(--ink)"/><rect x="5" y="5" width="88" height="132" rx="4" fill="var(--happy)" stroke="var(--ink)" stroke-width="3"/><path d="M22 44 C32 34 40 54 50 44 C60 34 68 50 76 42" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><circle cx="66" cy="104" r="12" fill="none" stroke="var(--ink)" stroke-width="3"/><path d="M22 96 h28 M22 110 h34" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></g></svg>
+                <svg class="bz" viewBox="0 0 104 148"><g filter="url(#roughsm)"><rect x="10" y="11" width="88" height="132" rx="4" fill="var(--ink)"/><rect x="5" y="5" width="88" height="132" rx="4" fill="var(--colorado)" stroke="var(--ink)" stroke-width="3"/><circle cx="49" cy="52" r="20" fill="none" stroke="var(--oats)" stroke-width="3"/><path d="M22 96 h54 M22 110 h40" stroke="var(--oats)" stroke-width="3" stroke-linecap="round"/></g></svg>
+                <svg class="bz" viewBox="0 0 104 148"><g filter="url(#roughsm)"><rect x="10" y="11" width="88" height="132" rx="4" fill="var(--ink)"/><rect x="5" y="5" width="88" height="132" rx="4" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="3"/><path d="M20 46 l14 -14 14 14 14 -14 14 14" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 92 h54 M22 106 h46 M22 120 h32" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></g></svg>
+                <svg class="bz" viewBox="0 0 104 148"><g filter="url(#roughsm)"><rect x="10" y="11" width="88" height="132" rx="4" fill="var(--ink)"/><rect x="5" y="5" width="88" height="132" rx="4" fill="var(--lazuli)" stroke="var(--ink)" stroke-width="3"/><path d="M49 28 C52 42 56 46 70 49 C56 52 52 56 49 70 C46 56 42 52 28 49 C42 46 46 42 49 28 Z" fill="none" stroke="var(--oats)" stroke-width="3" stroke-linecap="round"/><path d="M24 100 h56 M24 114 h38" stroke="var(--oats)" stroke-width="3" stroke-linecap="round"/></g></svg>
+                <svg class="bz" viewBox="0 0 104 148"><g filter="url(#roughsm)"><rect x="10" y="11" width="88" height="132" rx="4" fill="var(--ink)"/><rect x="5" y="5" width="88" height="132" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/><path d="M20 34 C34 24 52 44 70 32" fill="none" stroke="var(--colorado)" stroke-width="8" stroke-linecap="round" opacity=".8"/><path d="M22 78 h56 M22 92 h48 M22 106 h56 M22 120 h30" stroke="var(--sambas)" stroke-width="3" stroke-linecap="round"/></g></svg>
+                <svg class="bz" viewBox="0 0 104 148"><g filter="url(#roughsm)"><rect x="10" y="11" width="88" height="132" rx="4" fill="var(--ink)"/><rect x="5" y="5" width="88" height="132" rx="4" fill="var(--grass)" stroke="var(--ink)" stroke-width="3"/><path d="M20 56 l58 -22 M20 74 l58 -22 M20 92 l58 -22" stroke="var(--oats)" stroke-width="4" stroke-linecap="round"/><circle cx="30" cy="116" r="6" fill="var(--oats)"/></g></svg>
+                <svg class="bz" viewBox="0 0 104 148"><g filter="url(#roughsm)"><rect x="10" y="11" width="88" height="132" rx="4" fill="var(--ink)"/><rect x="5" y="5" width="88" height="132" rx="4" fill="var(--happy)" stroke="var(--ink)" stroke-width="3"/><path d="M22 44 C32 34 40 54 50 44 C60 34 68 50 76 42" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><circle cx="66" cy="104" r="12" fill="none" stroke="var(--ink)" stroke-width="3"/><path d="M22 96 h28 M22 110 h34" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></g></svg>
+              </div>
+            </div>
+            <div class="belt-open" aria-hidden="true">
+              <div class="bo" style="--d:0">
+                <div class="bo-scroll">
+                  <svg viewBox="0 0 230 660" preserveAspectRatio="xMidYMin slice">
+                    <rect x="0" y="0" width="230" height="220" fill="var(--lazuli)"/>
+                    <path d="M115 30 C122 62 132 72 164 79 C132 86 122 96 115 128 C108 96 98 86 66 79 C98 72 108 62 115 30 Z" fill="none" stroke="var(--oats)" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M52 172 h126 M70 196 h90" stroke="var(--oats)" stroke-width="6" stroke-linecap="round"/>
+                    <rect x="0" y="220" width="230" height="440" fill="var(--oats)"/>
+                    <path d="M0 220 h230" stroke="var(--ink)" stroke-width="3"/>
+                    <g stroke="var(--sambas)" stroke-width="5" stroke-linecap="round" opacity=".85">
+                      <path d="M32 256 h166 M32 282 h138 M32 308 h154"/>
+                    </g>
+                    <rect x="30" y="336" width="170" height="112" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="4"/>
+                    <path d="M52 420 l34 -38 26 24 20 -18 32 32" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="164" cy="368" r="10" fill="none" stroke="var(--ink)" stroke-width="4"/>
+                    <rect x="32" y="478" width="70" height="12" rx="3" fill="var(--lazuli)"/>
+                    <g stroke="var(--sambas)" stroke-width="5" stroke-linecap="round" opacity=".85">
+                      <path d="M32 518 h158 M32 544 h120 M32 570 h146"/>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div class="bo" style="--d:1">
+                <div class="bo-scroll">
+                  <svg viewBox="0 0 230 660" preserveAspectRatio="xMidYMin slice">
+                    <rect x="0" y="0" width="230" height="220" fill="var(--paper)"/>
+                    <path d="M36 62 C78 34 130 90 196 52" fill="none" stroke="var(--colorado)" stroke-width="18" stroke-linecap="round" opacity=".85"/>
+                    <path d="M40 130 h150 M40 156 h126 M40 182 h150 M40 208 h84" stroke="var(--sambas)" stroke-width="6" stroke-linecap="round"/>
+                    <rect x="0" y="220" width="230" height="440" fill="var(--oats)"/>
+                    <path d="M0 220 h230" stroke="var(--ink)" stroke-width="3"/>
+                    <g stroke="var(--sambas)" stroke-width="5" stroke-linecap="round" opacity=".85">
+                      <path d="M32 256 h166 M32 282 h138 M32 308 h154"/>
+                    </g>
+                    <rect x="30" y="336" width="170" height="112" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="4"/>
+                    <path d="M52 420 l34 -38 26 24 20 -18 32 32" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="164" cy="368" r="10" fill="none" stroke="var(--ink)" stroke-width="4"/>
+                    <rect x="32" y="478" width="70" height="12" rx="3" fill="var(--colorado)"/>
+                    <g stroke="var(--sambas)" stroke-width="5" stroke-linecap="round" opacity=".85">
+                      <path d="M32 518 h158 M32 544 h120 M32 570 h146"/>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div class="bo" style="--d:2">
+                <div class="bo-scroll">
+                  <svg viewBox="0 0 230 660" preserveAspectRatio="xMidYMin slice">
+                    <rect x="0" y="0" width="230" height="220" fill="var(--grass)"/>
+                    <path d="M30 118 l170 -56 M30 156 l170 -56 M30 194 l170 -56" stroke="var(--oats)" stroke-width="9" stroke-linecap="round"/>
+                    <circle cx="52" cy="46" r="13" fill="var(--oats)"/>
+                    <rect x="0" y="220" width="230" height="440" fill="var(--oats)"/>
+                    <path d="M0 220 h230" stroke="var(--ink)" stroke-width="3"/>
+                    <g stroke="var(--sambas)" stroke-width="5" stroke-linecap="round" opacity=".85">
+                      <path d="M32 256 h166 M32 282 h138 M32 308 h154"/>
+                    </g>
+                    <rect x="30" y="336" width="170" height="112" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="4"/>
+                    <path d="M52 420 l34 -38 26 24 20 -18 32 32" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="164" cy="368" r="10" fill="none" stroke="var(--ink)" stroke-width="4"/>
+                    <rect x="32" y="478" width="70" height="12" rx="3" fill="var(--grass)"/>
+                    <g stroke="var(--sambas)" stroke-width="5" stroke-linecap="round" opacity=".85">
+                      <path d="M32 518 h158 M32 544 h120 M32 570 h146"/>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div class="bo" style="--d:3">
+                <div class="bo-scroll">
+                  <svg viewBox="0 0 230 660" preserveAspectRatio="xMidYMin slice">
+                    <rect x="0" y="0" width="230" height="220" fill="var(--happy)"/>
+                    <path d="M34 74 C58 50 78 96 102 72 C126 48 150 88 174 64 C186 54 196 60 200 66" fill="none" stroke="var(--ink)" stroke-width="7" stroke-linecap="round"/>
+                    <circle cx="160" cy="160" r="26" fill="none" stroke="var(--ink)" stroke-width="6"/><path d="M40 152 h64 M40 178 h78" stroke="var(--ink)" stroke-width="6" stroke-linecap="round"/>
+                    <rect x="0" y="220" width="230" height="440" fill="var(--oats)"/>
+                    <path d="M0 220 h230" stroke="var(--ink)" stroke-width="3"/>
+                    <g stroke="var(--sambas)" stroke-width="5" stroke-linecap="round" opacity=".85">
+                      <path d="M32 256 h166 M32 282 h138 M32 308 h154"/>
+                    </g>
+                    <rect x="30" y="336" width="170" height="112" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="4"/>
+                    <path d="M52 420 l34 -38 26 24 20 -18 32 32" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="164" cy="368" r="10" fill="none" stroke="var(--ink)" stroke-width="4"/>
+                    <rect x="32" y="478" width="70" height="12" rx="3" fill="var(--happy)"/>
+                    <g stroke="var(--sambas)" stroke-width="5" stroke-linecap="round" opacity=".85">
+                      <path d="M32 518 h158 M32 544 h120 M32 570 h146"/>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div class="bo" style="--d:4">
+                <div class="bo-scroll">
+                  <svg viewBox="0 0 230 660" preserveAspectRatio="xMidYMin slice">
+                    <rect x="0" y="0" width="230" height="220" fill="var(--colorado)"/>
+                    <circle cx="115" cy="86" r="48" fill="none" stroke="var(--oats)" stroke-width="7"/>
+                    <path d="M48 176 h134 M72 202 h86" stroke="var(--oats)" stroke-width="6" stroke-linecap="round"/>
+                    <rect x="0" y="220" width="230" height="440" fill="var(--oats)"/>
+                    <path d="M0 220 h230" stroke="var(--ink)" stroke-width="3"/>
+                    <g stroke="var(--sambas)" stroke-width="5" stroke-linecap="round" opacity=".85">
+                      <path d="M32 256 h166 M32 282 h138 M32 308 h154"/>
+                    </g>
+                    <rect x="30" y="336" width="170" height="112" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="4"/>
+                    <path d="M52 420 l34 -38 26 24 20 -18 32 32" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="164" cy="368" r="10" fill="none" stroke="var(--ink)" stroke-width="4"/>
+                    <rect x="32" y="478" width="70" height="12" rx="3" fill="var(--colorado)"/>
+                    <g stroke="var(--sambas)" stroke-width="5" stroke-linecap="round" opacity=".85">
+                      <path d="M32 518 h158 M32 544 h120 M32 570 h146"/>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div class="bo" style="--d:5">
+                <div class="bo-scroll">
+                  <svg viewBox="0 0 230 660" preserveAspectRatio="xMidYMin slice">
+                    <rect x="0" y="0" width="230" height="220" fill="var(--schoolbus)"/>
+                    <path d="M32 92 l32 -32 32 32 32 -32 32 32 32 -32" fill="none" stroke="var(--ink)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M40 160 h130 M40 186 h108 M40 212 h76" stroke="var(--ink)" stroke-width="6" stroke-linecap="round"/>
+                    <rect x="0" y="220" width="230" height="440" fill="var(--oats)"/>
+                    <path d="M0 220 h230" stroke="var(--ink)" stroke-width="3"/>
+                    <g stroke="var(--sambas)" stroke-width="5" stroke-linecap="round" opacity=".85">
+                      <path d="M32 256 h166 M32 282 h138 M32 308 h154"/>
+                    </g>
+                    <rect x="30" y="336" width="170" height="112" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="4"/>
+                    <path d="M52 420 l34 -38 26 24 20 -18 32 32" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="164" cy="368" r="10" fill="none" stroke="var(--ink)" stroke-width="4"/>
+                    <rect x="32" y="478" width="70" height="12" rx="3" fill="var(--schoolbus)"/>
+                    <g stroke="var(--sambas)" stroke-width="5" stroke-linecap="round" opacity=".85">
+                      <path d="M32 518 h158 M32 544 h120 M32 570 h146"/>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <svg class="belt-phone" viewBox="0 0 640 400" aria-hidden="true">
+              <g filter="url(#roughsm)">
+                <path fill-rule="evenodd" fill="var(--ink)" transform="translate(7,8)" d="M210 20 h220 q30 0 30 30 v300 q0 30 -30 30 h-220 q-30 0 -30 -30 v-300 q0 -30 30 -30 Z M205 90 h230 v220 h-230 Z"/>
+                <path fill-rule="evenodd" fill="var(--oats)" stroke="var(--ink)" stroke-width="4" d="M210 20 h220 q30 0 30 30 v300 q0 30 -30 30 h-220 q-30 0 -30 -30 v-300 q0 -30 30 -30 Z M205 90 h230 v220 h-230 Z"/>
+                <rect x="205" y="90" width="230" height="220" fill="none" stroke="var(--ink)" stroke-width="3"/>
+                <path d="M293 55 h54" stroke="var(--ink)" stroke-width="3.6" stroke-linecap="round"/>
+                <path d="M460 150 v56" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>
+              </g>
+            </svg>
+            <div class="belt-ui" aria-hidden="true">
+              <span class="soon-stamp">Reader demo &mdash; soon</span>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY NOT A GROUP CHAT — the objection everyone arrives with.
+       A chat has no deadline, no challenge, and nothing to show at the end; those
+       three absences are the whole product, so we name them side by side. ============ -->
+  <section class="versus" id="why-not-chat">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="slab">Why not a <span class="ul">group chat</span><span class="stop">?</span></h2>
+        <p class="vs-sub">Nobody quits. The date just stops being the date.</p>
+      </div>
+
+      <!-- SHOW the dead chat instead of describing it. The joke writes itself: three messages of
+           enthusiasm, then an eleven-month silence, then someone asking if anyone's still alive.
+           Nobody needs a bullet list to recognise their own group chat. -->
+      <div class="vs-pair">
+
+        <figure class="vs-card vs-chat">
+          <span class="vs-tab vs-tab-sad">the group chat</span>
+          <div class="chatmock" role="img" aria-label="A group chat: three excited messages in January, then eleven months of silence, then one message asking if the chat is still alive.">
+            <span class="ch-day">JAN 4</span>
+            <p class="bub them">found this sick technique 🔥</p>
+            <p class="bub them">omg we should <em>totally</em> do this</p>
+            <p class="bub me">yes!! this weekend??</p>
+            <span class="ch-gap"><i></i>eleven months later<i></i></span>
+            <span class="ch-day">DEC 2</span>
+            <p class="bub them">is this chat still alive lol</p>
+            <span class="ch-typing" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <figcaption class="cap">4,000 messages. Nothing made.</figcaption>
+        </figure>
+
+        <figure class="vs-card vs-circle">
+          <span class="vs-tab vs-tab-glad">a club</span>
+          <div class="circlemock">
+            <div class="cm-note">
+              <span class="cm-pin" aria-hidden="true"></span>
+              <span class="cm-kick">the challenge</span>
+              <p class="cm-do">Shoot a roll you'd normally be scared to.</p>
+              <span class="cm-due">due friday</span>
+            </div>
+            <span class="cm-arrow" aria-hidden="true">
+              <svg viewBox="0 0 60 26" fill="none" stroke="var(--grass-deep)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13 H50" filter="url(#roughsm)"/><path d="M42 5 L52 13 L42 21" filter="url(#roughsm)"/></svg>
+            </span>
+            <!-- MEDIA PLACEHOLDER: swap this block for a real photo of a finished zine being held
+                 in someone's hands (ideally one of the Photo Phloor / XChange issues). A hand
+                 holding the artifact is the single most persuasive image on this page. -->
+            <div class="cm-out">
+              <span class="cm-outline" aria-hidden="true"></span>
+              <svg class="cm-zine" viewBox="0 0 64 78" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round">
+                <rect x="4" y="4" width="52" height="66" rx="2" fill="var(--schoolbus)"/>
+                <rect x="9" y="9" width="42" height="30" rx="1" fill="var(--paper)"/>
+                <path d="M13 47 h34 M13 55 h26 M13 63 h30" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+              </svg>
+              <b>one issue, everyone's name in it</b>
+            </div>
+          </div>
+          <figcaption class="cap">A challenge, a date, a finished thing.</figcaption>
+        </figure>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ ORGANIZERS — the highest-value visitor on this page and, until now,
+       the one it ignored. Someone who already runs a dying collective arrives with the
+       whole circle in hand. They don't need to FIND people; they need them to show up.
+       Placed straight after the group-chat teardown, where that reader is most primed. ==== -->
+  <section class="bring" id="bring">
+    <div class="wrap">
+      <div class="paper">
+        <span class="sheet ruled"></span>
+        <span class="tape c" style="left:16px;top:-13px;transform:rotate(-7deg)"></span>
+        <!-- REBUILT. Was a 6-paragraph wall in the left column with a 4-item list floating over an
+             empty quadrant on the right. Now: the LEFT is the pitch in three beats (promise, mechanism,
+             relief) with one emphasis each; the RIGHT carries its own weight — the before/after ledger
+             AND the funding card — so the column fills instead of floating. The funding model, which is
+             the one fact that beats every paid competitor, was buried as paragraph four; it is its own
+             object now. The >15 cap and the honest line drop to small print under the CTA where footnotes
+             belong. -->
+        <div class="inner bring-grid">
+          <div class="bring-pitch">
+            <span class="eyebrow" style="color:var(--colorado)">already run something?</span>
+            <p class="bring-body bring-lede">You don&rsquo;t need new people. You need yours to <span class="hl hl-y">show up</span>.</p>
+            <p class="bring-cta">
+              <a class="btn" href="https://letters.drex.style/join-online/">Bring the same people back <span class="arr">&rarr;</span></a>
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLUB KIT — situated learning, productized. Three resource types:
+       PEOPLE (bodies in the room), VIRTUAL (everything that isn't the craft), MATERIAL (what the
+       pool buys). Some pins are real app polaroids; MATERIAL is greyed + stamped coming soon. ============ -->
+  <section class="resources" id="resources">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" style="color:var(--colorado)">whatever your club needs, we bring</span>
+        <h2 class="slab">Club <span class="ul">kit</span><span class="stop">.</span></h2>
+        <p class="res-sub">As we learn what helps your club make things, we get it to you &mdash; a guest, a bigger shelf, a venue &mdash; so the same people keep showing up.</p>
+      </div>
+
+      <div class="corkboard">
+        <!-- PEOPLE -->
+        <div class="cluster c-people">
+          <span class="cl-tag">people</span>
+          <p class="cl-line">The hard part isn't making. It's <b>showing&nbsp;up</b>.</p>
+          <ul class="pins">
+            <li class="pinit pinpola" style="--r:-3deg">
+              <span class="pin" aria-hidden="true"></span>
+              <span class="pinshot" style="background-image:url(assets/app/circletime.jpg)" role="img" aria-label="The Circle Time screen: you're first in, the door's open."></span>
+              <b>The hour</b><i>your standing time, together</i>
+            </li>
+            <li class="pinit" style="--r:2deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-list"/></svg>
+              <b>Who's missing</b><i>so somebody waves first</i>
+            </li>
+            <li class="pinit" style="--r:-2deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 100 100" aria-hidden="true"><use href="#t-bell"/></svg>
+              <b>Broadcasts</b><i>blast a message to your whole club</i>
+            </li>
+          </ul>
+        </div>
+
+        <!-- VIRTUAL -->
+        <div class="cluster c-virtual">
+          <span class="cl-tag">virtual</span>
+          <p class="cl-line">Everything that <em>isn't</em> the craft &mdash; <b>handled</b>.</p>
+          <ul class="pins">
+            <li class="pinit pinpola" style="--r:-3deg">
+              <span class="pin" aria-hidden="true"></span>
+              <span class="pinshot" style="background-image:url(assets/app/wall.jpg)" role="img" aria-label="Your portfolio wall on Drex."></span>
+              <b>Your portfolio</b><i>a wall with all your work</i>
+            </li>
+            <li class="pinit pinpola" style="--r:3deg">
+              <span class="pin" aria-hidden="true"></span>
+              <span class="pinshot" style="background-image:url(assets/app/circle.jpg)" role="img" aria-label="A club's page on Drex."></span>
+              <b>Club portfolio</b><i>a wall with the club's work</i>
+            </li>
+            <li class="pinit pinpola" style="--r:-2deg">
+              <span class="pin" aria-hidden="true"></span>
+              <span class="pinshot" style="background-image:url(assets/zines/cover-dressup.jpg)" role="img" aria-label="A hand-laid zine cover."></span>
+              <b>Hand-made zines</b><i>laid out by hand</i>
+            </li>
+            <li class="pinit pinpola" style="--r:2deg">
+              <span class="pin" aria-hidden="true"></span>
+              <span class="pinshot" style="background-image:url(assets/zines/silk-road-cover.jpg)" role="img" aria-label="A bot-laid zine cover."></span>
+              <b>Bot-laid zines</b><i>a portfolio item, auto-laid</i>
+            </li>
+            <li class="pinit pinpola" style="--r:-2deg">
+              <span class="pin" aria-hidden="true"></span>
+              <button type="button" class="bd-open" data-video="assets/demo/book-cafe.mp4" data-poster="assets/demo/book-cafe-poster.jpg" data-cap="flip through other clubs&rsquo; zines" aria-label="Play — flipping through other clubs' zines in the app" style="display:block;width:100%;padding:0;border:0;background:none;font:inherit;color:inherit;cursor:pointer">
+                <span class="pinshot" style="position:relative;background-image:url(assets/demo/book-cafe-thumb.jpg)" aria-hidden="true">
+                  <svg viewBox="0 0 40 40" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:46%;height:auto;transform:translate(-50%,-50%) rotate(-5deg);filter:url(#rough) drop-shadow(0 1.5px 2px rgba(40,26,10,.6))">
+                    <circle cx="20" cy="20" r="14.2" fill="rgba(40,26,10,.32)" stroke="var(--paper)" stroke-width="2.7" stroke-linecap="round" stroke-dasharray="80 11"/>
+                    <path d="M16.2 12.9 28.6 20 16.2 27.1Z" fill="var(--paper)"/>
+                  </svg>
+                </span>
+              </button>
+              <b>Other clubs' zines</b><i>join or get inspired by what other clubs make</i>
+            </li>
+          </ul>
+        </div>
+
+        <!-- MATERIAL (coming soon) -->
+        <div class="cluster c-material">
+          <span class="cl-tag">material</span>
+          <p class="cl-line">The stuff you can't <b>download</b>. <span class="cl-soon2">(coming soon)</span></p>
+          <ul class="pins">
+            <li class="pinit" style="--r:-2deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-news"/></svg>
+              <b>A printed issue</b><i>in your actual hands</i>
+            </li>
+            <li class="pinit" style="--r:3deg">
+              <span class="pin" aria-hidden="true"></span>
+              <svg class="pinic" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-key"/></svg>
+              <b>Studio time</b><i>a wheel, a darkroom, a press</i>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <!-- ============ ABOUT (dark cut-paper) ============ -->
+
+  <!-- ============ TEAM (taped polaroids) ============ -->
+
+  
+
+
+  <!-- ============ WHO&#39;S BEHIND IT (moved up: credibility before the deep dive) ============ -->
+  <section class="team" id="team">
+    <div class="wrap">
+      <div class="cg-collage" aria-hidden="true"><span class="cg-scrap cg-s1 cg-gl" data-cg-parallax="7" style="--cg-rot:-7deg;--cg-w:60px;top:46%"><svg width="40" height="52" viewBox="0 0 40 52" fill="none" stroke-linecap="round"><g class="cg-wob"><circle cx="20" cy="16" r="12" fill="var(--colorado)" stroke="var(--ink)" stroke-width="2.4"/><circle cx="16" cy="12" r="3" fill="rgba(254,246,228,.75)" stroke="none"/><path d="M20 28 L20 48" stroke="var(--ink)" stroke-width="2.4"/></g></svg></span><span class="cg-scrap cg-s2 cg-gr2 cg-drop-sm" data-cg-parallax="6" style="--cg-rot:9deg;--cg-w:76px;top:24%"><svg width="50" height="52" viewBox="0 0 50 52" fill="none" stroke="var(--grass)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M25 22 C22 12 12 12 13 20 C5 17 3 27 11 28 C5 33 12 41 17 34 C17 44 27 44 26 36 C34 39 37 29 29 28 C36 24 30 15 25 22 Z"/><circle cx="24" cy="28" r="3.4" fill="var(--schoolbus)" stroke="none"/><path d="M24 36 L24 50"/></g></svg></span><span class="cg-scrap cg-s3 cg-drop-sm" data-cg-parallax="5" style="--cg-rot:-3deg;--cg-w:96px;right:8%;bottom:0"><svg width="64" height="44" viewBox="0 0 64 44" fill="none" stroke="var(--lazuli)" stroke-width="2.4" stroke-linecap="round"><g class="cg-wob"><path d="M52 18 C58 28 44 40 28 40 C10 40 4 26 12 16 C20 7 44 6 54 16 C60 22 50 30 38 30"/></g></svg></span><span class="cg-scrap cg-s2 cg-gl2 cg-shadow cg-drop-sm" data-cg-parallax="6" style="--cg-rot:-5deg;--cg-w:90px;bottom:5%"><svg width="90" height="84" viewBox="0 0 90 84" fill="none" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path class="cg-torn" d="M10 6 H80 V56 H10 Z" fill="var(--oats)" stroke="var(--ink)" stroke-width="2.6"/><rect x="19" y="14" width="52" height="34" rx="2" fill="var(--lazuli)" stroke="var(--ink)" stroke-width="2.2"/><path d="M29 25 C36 20 44 30 53 24" stroke="var(--oats)" stroke-width="2.4"/><path d="M30 56 L26 70 L64 70 L60 56" fill="var(--oats)" stroke="var(--ink)" stroke-width="2.4"/><path d="M18 70 L72 70" stroke="var(--ink)" stroke-width="2.8"/></g></svg></span><span class="cg-scrap cg-s1" data-cg-parallax="4" style="--cg-rot:-2deg;--cg-w:120px;left:5%;top:5%"><svg width="120" height="36" viewBox="0 0 120 36" fill="none" stroke="var(--schoolbus)" stroke-width="9" stroke-linecap="round"><g class="cg-wob" opacity=".75"><path d="M8 24 C34 12 62 30 86 18 C98 12 106 15 112 20"/></g></svg></span></div>
+      <div class="head">
+        <span class="eyebrow" style="color:var(--grass-deep)">who's behind it</span>
+        <h2 class="slab">Led by a researcher and two <span class="ul">designers</span>.</h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOUNDER'S NOTE (handwritten letter + taped photo) ============ -->
+  <section class="note" id="founder">
+    <div class="wrap">
+      <div class="cg-collage" aria-hidden="true"><span class="cg-scrap cg-s1 cg-gl" data-cg-parallax="6" style="--cg-rot:-6deg;--cg-w:84px;top:2%"><svg width="56" height="48" viewBox="0 0 56 48" fill="none" stroke="var(--colorado)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M10 10 C2 16 2 30 14 32 C18 32 20 28 18 24 C16 21 11 22 11 25"/><path d="M34 10 C26 16 26 30 38 32 C42 32 44 28 42 24 C40 21 35 22 35 25"/></g></svg></span><span class="cg-scrap cg-s2 cg-gr2 cg-drop-sm" data-cg-parallax="5" style="--cg-rot:8deg;--cg-w:84px;top:20%"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="var(--sambas)" stroke-width="2.4" stroke-linecap="round"><g class="cg-wob" opacity=".55"><ellipse cx="28" cy="30" rx="19" ry="15"/><ellipse cx="28" cy="30" rx="14" ry="11" opacity=".6"/></g></svg></span><span class="cg-scrap cg-s3 cg-drop-sm" data-cg-parallax="8" style="--cg-rot:-4deg;--cg-w:64px;left:6%;bottom:10px"><svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="var(--schoolbus)" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M22 22 C22 18 28 18 28 23 C28 30 18 30 17 22 C16 12 30 11 33 22 C36 34 18 38 12 26"/></g></svg></span><span class="cg-scrap cg-s2 cg-gr cg-drop-sm" data-cg-parallax="4" style="--cg-rot:3deg;--cg-w:110px;bottom:0"><svg width="110" height="32" viewBox="0 0 110 32" fill="none" stroke="var(--happy)" stroke-width="9" stroke-linecap="round"><g class="cg-wob" opacity=".85"><path d="M7 20 C30 10 58 26 80 16 C92 11 100 14 104 18"/></g></svg></span></div>
+      <div class="paper">
+        <span class="sheet ruled"></span>
+        <span class="tape c" style="left:22px;top:-13px;transform:rotate(-8deg)"></span>
+        <div class="inner note-grid">
+          <div>
+            <span class="eyebrow">why we built it</span>
+            <p class="note-body">I researched how people pick up a craft: next to someone who&rsquo;s on the same journey. Nothing online works that way.</p>
+            <p class="sign">Chielo</p>
+            <p class="sign-role">Chielo Mbaezue &middot; CEO &amp; Co-founder</p>
+          </div>
+          <!-- The whole team lives in the letter now: three near-equal snaps in a tight row,
+               shoulder to shoulder, slight alternating tilts so it reads as a hand-laid strip. -->
+          <div class="note-crew">
+            <figure class="snap trio">
+              <span class="tape c" style="left:28%;top:-11px;transform:rotate(5deg)"></span>
+              <div class="ph"><img src="assets/team/chielo.jpg" alt="Chielo Mbaezue, CEO and co-founder of Drex" loading="lazy" width="600" height="720" style="transform:scale(1.4);transform-origin:60% 20%" /></div>
+              <figcaption class="cap-mini scrawl">&uarr; that&rsquo;s me</figcaption>
+            </figure>
+            <figure class="snap trio">
+              <span class="tape" style="left:50%;margin-left:-36px;top:-11px"></span>
+              <div class="ph"><img src="assets/team/uko.jpg" alt="Uko, designer at Drex" loading="lazy" width="600" height="720" /></div>
+              <figcaption class="cap-mini">Uko</figcaption>
+            </figure>
+            <figure class="snap trio">
+              <span class="tape c" style="left:18px;top:-11px;transform:rotate(-6deg)"></span>
+              <div class="ph"><img src="assets/team/lucero.jpg" alt="Lucero, designer at Drex" loading="lazy" width="600" height="720" /></div>
+              <figcaption class="cap-mini">Lucero</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THREE DOORS (littered postcards) ============ -->
+  <section class="doors">
+    <div class="wrap">
+      <div class="cg-collage" aria-hidden="true"><span class="cg-scrap cg-s1 cg-gl2 cg-shadow cg-drop-sm" data-cg-parallax="6" style="--cg-rot:-8deg;--cg-w:130px;top:18%"><svg width="92" height="44" viewBox="0 0 92 44"><path class="cg-torn" d="M4 6 H58 V38 H4 Z" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="2.2"/><line x1="60" y1="6" x2="60" y2="38" stroke="var(--ink)" stroke-width="2" stroke-dasharray="4 4"/><g class="cg-wob" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"><line x1="68" y1="14" x2="86" y2="14"/><line x1="68" y1="22" x2="86" y2="22"/><line x1="68" y1="30" x2="80" y2="30"/><circle cx="60" cy="6" r="2.5" fill="var(--oats)"/><circle cx="60" cy="38" r="2.5" fill="var(--oats)"/></g></svg></span><span class="cg-scrap cg-s2 cg-gr2 cg-shadow cg-drop-sm" data-cg-parallax="7" style="--cg-rot:7deg;--cg-w:78px;top:32%"><svg width="52" height="58" viewBox="0 0 52 58"><rect class="cg-torn" x="6" y="6" width="40" height="46" rx="2" fill="var(--lazuli)" stroke="var(--oats)" stroke-width="3" stroke-dasharray="3 4"/><g class="cg-wob" fill="none" stroke="var(--oats)" stroke-width="2.2" stroke-linecap="round"><path d="M19 38 C19 28 33 28 33 36 C33 30 18 28 18 22 C18 16 28 16 30 22"/><circle cx="26" cy="19" r="3.6"/></g></svg></span><span class="cg-scrap cg-s3" data-cg-parallax="5" style="--cg-rot:4deg;--cg-w:104px;left:42%;top:4px"><svg width="70" height="40" viewBox="0 0 70 40" fill="none" stroke="var(--colorado)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M6 30 C18 8 50 6 62 24"/><path d="M62 24 L48 24 M62 24 L60 10"/></g></svg></span><span class="cg-scrap cg-s2 cg-drop-sm" data-cg-parallax="6" style="--cg-rot:6deg;--cg-w:100px;right:4%;top:64px"><svg width="62" height="58" viewBox="0 0 62 58" fill="none" stroke="var(--sambas)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><rect x="5" y="5" width="52" height="40" rx="4"/><rect x="11" y="11" width="40" height="28" rx="2" fill="var(--lazuli)" stroke="none"/><path d="M27 19 L38 25 L27 31 Z" fill="var(--oats)" stroke="none"/><path d="M22 45 L20 52 M40 45 L42 52"/><path d="M15 52 L47 52"/></g></svg></span><span class="cg-scrap cg-s1 cg-drop-sm" data-cg-parallax="3" style="--cg-rot:-18deg;--cg-w:150px;right:-70px;top:45%"><svg width="150" height="44" viewBox="0 0 150 44" fill="none" stroke="var(--happy)" stroke-width="12" stroke-linecap="round"><g class="cg-wob" opacity=".8"><path d="M10 30 C40 14 80 34 112 20 C126 14 136 18 142 24"/></g></svg></span></div>
+      <div class="head">
+        <span class="eyebrow" style="color:var(--lazuli)">three ways in</span>
+        <h2 class="slab">Pick a <span class="ul">door</span><span class="stop" style="color:var(--grass-deep)">.</span></h2>
+      </div>
+
+      <div class="splay">
+
+        <!-- Circle (primary) -->
+        <article class="paper card big" id="circle">
+          <span class="sheet ruled"></span>
+          <span class="tape" style="left:50%;margin-left:-59px;top:-15px"></span>
+          <div class="inner">
+            <span class="cap" style="color:var(--grass-deep)">start here</span>
+            <h3><span class="ul">Clubs</span> <span class="cmark" aria-hidden="true"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" transform="rotate(-42 14 14)"/></svg></span></h3>
+            <p>Bring your group in &mdash; or grab a spot on the waitlist.</p>
+            <div class="foot">
+              <span class="cta-attn"><a class="btn" href="https://letters.drex.style/join-online/">Make a club for my group <span class="arr">&rarr;</span></a><span class="cta-ring" aria-hidden="true"></span></span>
+              <a class="btn ink" href="https://letters.drex.style/join-online/">Join the waitlist <span class="arr">&rarr;</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Instagram -->
+        <article class="paper card" id="instagram">
+          <span class="sheet"></span>
+          <span class="tape c" style="left:14px;top:-14px;transform:rotate(-7deg)"></span>
+          <div class="inner">
+            <h3>Instagram</h3>
+            <p>Watch clubs form &mdash; the people, the zines in progress.</p>
+            <div class="foot">
+              <a class="btn ink" href="https://instagram.com/drexclubs">Follow along <span class="arr">&rarr;</span></a>
+              <span class="url">@drexclubs</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Demo -->
+        <article class="paper card" id="demo">
+          <span class="sheet"></span>
+          <span class="tape b" style="right:14px;top:-14px;transform:rotate(6deg)"></span>
+          <div class="inner">
+            <h3>The Demo</h3>
+            <p>Published zines, the walls, a club&rsquo;s room. Latched pre-launch &mdash; knock for a key.</p>
+            <div class="foot">
+              <a class="btn ink" href="https://demo.drex.style">Knock on the demo <span class="arr">&rarr;</span></a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT: closing note, after the doors -->
+</main>
+
+<!-- ============ FOOTER (torn band) ============ -->
+
+
+<footer>
+  <div class="wrap">
+    <div class="cg-collage" aria-hidden="true"><span class="cg-scrap cg-s1 cg-gr cg-drop-sm" data-cg-parallax="6" style="--cg-rot:-14deg;--cg-w:104px;top:8px"><svg width="70" height="34" viewBox="0 0 70 34" fill="none" stroke="var(--oats)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M8 12 L56 12 C64 12 64 24 56 24 L14 24"/><path d="M8 12 C2 12 2 22 8 22 L8 8"/><circle cx="58" cy="12" r="3.4"/></g></svg></span><span class="cg-scrap cg-s2 cg-gl cg-drop-sm" data-cg-parallax="7" style="--cg-rot:6deg;--cg-w:76px;bottom:18px"><svg width="50" height="50" viewBox="0 0 50 50" fill="none" stroke="var(--happy)" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><circle cx="25" cy="25" r="18"/><circle cx="19" cy="21" r="1.6" fill="var(--happy)" stroke="none"/><circle cx="31" cy="21" r="1.6" fill="var(--happy)" stroke="none"/><path d="M17 30 C21 36 29 36 33 30"/></g></svg></span><span class="cg-scrap cg-s3 cg-drop-sm" data-cg-parallax="5" style="--cg-rot:-3deg;--cg-w:128px;left:30%;bottom:6px"><svg width="96" height="18" viewBox="0 0 96 18" fill="none" stroke="var(--oats)" stroke-width="2.4" stroke-linecap="round"><g class="cg-wob" opacity=".8"><path d="M4 10 C16 4 24 16 36 10 C48 4 56 16 68 10 C80 4 88 16 92 10"/></g></svg></span><span class="cg-scrap cg-s2 cg-drop-sm" data-cg-parallax="4" style="--cg-rot:5deg;--cg-w:88px;left:48%;top:10px"><svg width="88" height="48" viewBox="0 0 88 48"><path class="cg-torn" d="M5 9 L80 4 L84 40 L9 45 Z" fill="var(--oats)" stroke="var(--ink)" stroke-width="2"/><g class="cg-wob" fill="none" stroke="var(--grass-deep)" stroke-width="2.4" stroke-linecap="round"><path d="M16 21 L52 19 M16 30 L66 27"/></g></svg></span></div>
+    <div class="top">
+      <div>
+        <span class="ft-word"><svg viewBox="0 0 14696 6730" fill="#FEF6E4" role="img" aria-label="drex" style="display:block;width:100%;height:auto"><path d="M5478.999,2905.779c0,0 421.063,-37.36 425.9,108.343l-343.709,1707.337c-61.242,136.313 -436.173,134.324 -442.946,-22.416l360.754,-1793.265Z"/><path d="M5041.89,2951.676c63.511,-60.841 526.771,-49.633 526.771,-49.633l-102.739,405.414c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M3924.681,1958.721c63.511,-60.841 530.662,-50.446 530.662,-50.446l-106.63,406.227c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M5726.866,3417.607c0,0 256.489,-511.828 914.019,-511.828l-313.821,549.187c0,0 -52.304,-37.36 -119.551,-37.36c-40.411,0 -354.324,251.272 -556.659,579.075l76.013,-579.075Z"/><ellipse cx="6634.347" cy="3332.931" rx="430.57" ry="427.151"/><path d="M4268.545,3833.937c-54.051,587.803 -422.164,984.658 -1012.447,984.658c-466.996,0 -803.233,-354.917 -803.233,-919.048c0,-545.451 486.888,-993.767 1032.339,-993.767c668.793,0 813.229,603.128 783.342,928.157Zm-643.455,-498.703c-234.497,-17.38 -499.751,191.996 -499.751,524.336c0,438.408 306.192,521.14 448.316,514.446c142.124,-6.694 404.43,-206.606 404.43,-554.612c0,-284.788 -150.331,-469.149 -352.995,-484.17Z"/><path d="M4388.096,1908.276c0,0 411.204,-11.208 424.724,108.343c0,19.142 -451.623,2260.261 -451.623,2260.261c15.69,59.775 224.905,-302.557 315.685,-313.821c110.397,-13.699 320.176,120.344 320.176,210.008c-0,122.494 -381.069,648.499 -765.873,648.499c-140.399,0 -328.765,-47.802 -392.277,-174.825l549.187,-2738.465Z"/><path d="M8385.582,2902.043c497.354,57.086 817.745,422.164 739.722,818.177c-90.045,457.032 -844.694,445.003 -1082.497,417.708c-230.119,-26.413 -368.235,-100.848 -422.572,-20.593c0,0 -107.744,106.625 251.184,223.032c419.614,136.089 691.752,-83.334 866.656,-96.072c140.311,-10.219 217.565,170.071 168.209,286.302c-66.995,157.772 -494.323,338.135 -1028.793,276.789c-285.793,-32.803 -922.08,-269.802 -773.345,-1004.975c130.759,-646.322 784.083,-957.454 1281.437,-900.368Zm-212.016,404.392c-264.608,50.886 -442.712,200.115 -438.042,342.082c4.67,141.967 311.61,175.439 541.715,149.439c165.317,-18.68 362.389,-47.848 366.125,-257.062c3.213,-179.919 -275.528,-271.818 -469.798,-234.459Z"/><path d="M9206.516,4052.426c-70.533,107.48 -90.728,764.251 662.245,766.169c771.79,1.966 1183.203,-1911.019 149.439,-1912.816c-257.116,-0.447 -637.291,99.928 -646.668,437.503c-3.838,138.152 129.653,198.923 237.929,188.041c127.279,-12.792 188.555,-176.528 452.832,-176.528c264.278,0 131.209,448.7 79.402,619.471c-101.286,333.868 -336.519,428.184 -390.245,405.158c-60.791,-26.053 81.561,-246.308 11.513,-333.868c-61.401,-76.751 -475.858,-115.932 -556.447,6.87Z"/><path d="M11593.807,3675.684c70.533,-107.48 91.02,-767.987 -661.952,-769.905c-771.79,-1.966 -1183.496,1911.019 -149.731,1912.816c257.116,0.447 637.291,-96.192 646.668,-433.767c3.838,-138.152 -129.653,-198.923 -237.929,-188.041c-127.279,12.792 -188.555,176.528 -452.832,176.528c-264.278,0 -131.209,-448.7 -79.402,-619.471c101.286,-333.868 336.519,-428.184 390.245,-405.158c60.791,26.053 -81.561,246.308 -11.513,333.868c61.401,76.751 475.858,115.932 556.447,-6.87Z"/><path d="M11830.971,4385.014c61.784,-59.74 306.841,-59.74 367.586,0c60.745,59.74 58.668,298.701 -3.115,358.441c-61.784,59.74 -306.841,59.74 -367.586,0c-60.745,-59.74 -58.668,-298.701 3.115,-358.441Z"/></svg></span>
+        <p class="tagline">A club for whatever you&nbsp;make.</p>
+        <span class="stamp">Made by hand &middot; 2026</span>
+      </div>
+      <div class="links">
+        <a href="#circle">Clubs</a>
+        <a href="https://instagram.com/drexclubs">Instagram</a>
+        <a href="https://letters.drex.style/">Circle Letters</a>
+        <a href="#demo">The Demo</a>
+        <a href="mailto:hi@drex.style">hi@drex.style</a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>&copy; 2026 Drex Inc.</span>
+      <button class="snd" id="snd-toggle" type="button" aria-pressed="false">sound off</button>
+      <span>drex.style</span>
+    </div>
+  </div>
+</footer>
+
+<!-- The challenge lightbox: tapping the hero deck opens this — every kind of challenge at a readable
+     size, showing the RANGE of what "creative" means on Drex. Body-level (outside the transformed hero
+     card) so position:fixed is viewport-relative and it can't run off-screen. Cloned from the deck. -->
+<div class="deck-modal" id="deckModal" hidden role="dialog" aria-modal="true" aria-label="Zines real clubs made">
+  <div class="dm-backdrop" data-close></div>
+  <div class="dm-panel" role="document">
+    <button class="dm-close" type="button" data-close aria-label="Close">&times;</button>
+    <p class="dm-eyebrow">the zines clubs <span class="hl">made</span></p>
+    <p class="dm-sub scrawl">real issues &mdash; tap any cover to read</p>
+    <div class="dm-grid" id="deckModalGrid"></div>
+  </div>
+</div>
+
+<script>
+/* hero card deck: cycle the top challenge; hover pauses to read; TAP opens the lightbox. The deck is
+   small and pinned in the gutter, so it can't fan out in place — it opens a centered modal instead. */
+(function(){
+  var deck=document.getElementById('heroCardDeck');
+  if(!deck) return;
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)');
+  var order=[].slice.call(deck.querySelectorAll('.pola'));   // all four cards are zines now
+  var timer=null, paused=false;
+  var modal=document.getElementById('deckModal');
+  var grid=document.getElementById('deckModalGrid');
+  function modalOpen(){ return modal && !modal.hidden; }
+  function applyStack(){ order.forEach(function(p,i){ p.style.setProperty('--i',i); p.classList.toggle('dt', i===0); }); }  // .dt = front card (wears the "tap here" cue)
+  function startCycle(){ clearInterval(timer); timer=null;
+    if(reduce.matches) return;                             // reduced motion: no cycle, front zine stays put
+    timer=setInterval(function(){ if(paused||modalOpen())return; order.push(order.shift()); applyStack(); },3200);
+  }
+  deck.classList.add('stack-mode'); applyStack(); startCycle();
+  deck.setAttribute('role','button'); deck.setAttribute('tabindex','0');
+  deck.addEventListener('mouseenter',function(){ paused=true; });   // desktop: pause to read the top card
+  deck.addEventListener('mouseleave',function(){ paused=false; });
+
+  function openModal(){
+    if(!modal||!grid) return;
+    grid.innerHTML = deck.innerHTML;                                  // clone the challenges, shown big
+    [].forEach.call(grid.querySelectorAll('.pola'), function(p){ p.classList.remove('dt'); p.style.removeProperty('--i'); });
+    modal.hidden=false; document.documentElement.classList.add('modal-open');
+    var c=modal.querySelector('.dm-close'); if(c) c.focus();
+  }
+  function closeModal(){
+    if(!modal) return;
+    modal.hidden=true; if(grid) grid.innerHTML='';
+    document.documentElement.classList.remove('modal-open');
+    if(deck.focus) deck.focus();
+  }
+  deck.addEventListener('click', function(e){ e.preventDefault(); openModal(); });   // the cards are <a> zines; tapping the STACK browses (lightbox), it doesn't navigate
+  deck.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(); } });
+  if(modal){
+    modal.addEventListener('click', function(e){ if(e.target.hasAttribute('data-close')) closeModal(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && modalOpen()) closeModal(); });
+  }
+})();
+/* B · makerboard cycling deck: same mechanic on the 11 maker answers, both breakpoints. */
+(function(){
+  var deck=document.getElementById('mbDeck');
+  if(!deck) return;
+  var board=deck.closest('.makerboard');
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)');
+  var order=[].slice.call(deck.querySelectorAll('.mpol'));
+  var timer=null, paused=false;
+  function applyStack(){ order.forEach(function(p,i){ p.style.setProperty('--i',i); }); }
+  function stacked(){ return deck.classList.contains('mb-stack'); }
+  function startCycle(){ clearInterval(timer); timer=null;
+    if(reduce.matches) return;
+    timer=setInterval(function(){ if(paused||!stacked())return; order.push(order.shift()); applyStack(); },3200);
+  }
+  deck.classList.add('mb-stack'); if(board)board.classList.add('decked'); applyStack(); startCycle();
+  deck.addEventListener('mouseenter',function(){ paused=true; });
+  deck.addEventListener('mouseleave',function(){ paused=false; });
+  deck.addEventListener('click',function(){
+    deck.classList.toggle('mb-stack');
+    if(board)board.classList.toggle('decked', deck.classList.contains('mb-stack'));
+    if(deck.classList.contains('mb-stack')) applyStack();
+  });
+})();
+</script>
+<script type="module" src="app-fielded.js?v=1"></script>
+
+<!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
+     attribution rides on the ?ref= query param (GoatCounter's built-in campaign
+     tag): e.g. drex.style/?ref=qr-poster-cafe shows up under Referrers.
+     The config prefixes each recorded path with location.host so this site
+     (drex.style/…) and the app (demo.drex.style/…) share the drex dashboard
+     but stay distinguishable. It preserves location.search, so ?ref= still
+     registers. Inline config must precede count.js. -->
+<script>
+    window.goatcounter = { path: function (p) { return location.host + p } }
+</script>
+<script data-goatcounter="https://drex.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
