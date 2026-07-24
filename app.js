@@ -338,8 +338,8 @@ function initQuotes() {
 function initHeroRotate() {
   const w = document.getElementById('rot-word');
   if (!w) return;
-  const WORDS = ['creators', 'experts', 'bakers', 'designers', 'photographers', 'potters',
-                 'artists', 'stylists', 'tattooists', 'sewists', 'florists', 'barbers',
+  const WORDS = ['creators', 'bakers', 'designers', 'photographers', 'potters',
+                 'artists', 'stylists', 'tattooists', 'florists', 'barbers',
                  'carpenters', 'calligraphers', 'poets'];
   // no motion or sound crafts here (animators, dancers, drummers, DJs): the payoff of the
   // loop is a PRINTED zine, and a craft that can't sit still on a page can't land in one.
@@ -358,10 +358,15 @@ function initHeroRotate() {
   let i = 0, t = 0, started = false;
   const HOLD = 2000;          // how long a finished word sits there before it gets deleted
   const FIRST_HOLD = 3400;    // "creators" gets longer — it's the one that has to be read
-  const set = (s) => { typer.textContent = s; };
+  /* The typer must never be truly EMPTY, only ever look empty. An inline-grid whose first
+     item has no line box has no baseline to align to, so the browser synthesises one from
+     the box edge — the sub's line box grows ~9px, and the hero card grows with it, once per
+     word. A zero-width space costs nothing visually and keeps the real baseline. */
+  const ZWSP = '\u200B';   // spelled as an escape: an invisible literal in source is a trap
+  let cur = typer.textContent;                   // the true text; the DOM may hold a ZWSP
+  const set = (s) => { cur = s; typer.textContent = s || ZWSP; };
   const del = () => {                            // backspace, a touch faster than typing
-    const s = typer.textContent;
-    if (s.length) { set(s.slice(0, -1)); t = setTimeout(del, 34 + Math.random() * 26); }
+    if (cur.length) { set(cur.slice(0, -1)); t = setTimeout(del, 34 + Math.random() * 26); }
     else { i = (i + 1) % WORDS.length; type(WORDS[i], 0); }
   };
   const type = (word, n) => {                    // …and the uneven rhythm of a real hand
