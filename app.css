@@ -2430,6 +2430,51 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .hb.is-dragging .hb-fallen{cursor:grabbing}
 .hb.pulled .hb-fallen{margin-top:44px}
 
+/* coaching bubble — teaches the hidden pull. Lives inside #hb-fallen, so it rides
+   --pull / sway / tear / respawn for free. data-coach carries visibility + tone + copy. */
+.hb-bubble{position:absolute;right:40px;top:-16px;z-index:2;pointer-events:none;
+  width:152px;height:99px;opacity:0;transform:rotate(-3deg);transition:opacity .18s ease}
+.hb-cloud,.hb-face{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.hb-face{display:none}
+/* once opened, the pulled-out burger square itself goes happy-yellow + smiles (same face) */
+.hb-facesm{display:none;width:28px;height:26px}
+.hb.hb-happy .hb-fallen{background:var(--happy);transition:background .35s ease}
+.hb.hb-happy .hb-fallen .bars{display:none}
+.hb.hb-happy .hb-fallen .hb-facesm{display:block}
+/* torn off: the falling burger goes red with a hand-drawn X-eyes dead face */
+.hb-facex{display:none;width:30px;height:28px}
+.hb[data-state="torn"] .hb-fallen{background:var(--colorado)}
+.hb[data-state="torn"] .hb-fallen .bars{display:none}
+.hb[data-state="torn"] .hb-fallen .hb-facex{display:block}
+.hb-say{position:absolute;left:9%;top:28%;width:74%;height:44%;display:flex;align-items:center;justify-content:center;
+  text-align:center;font-family:var(--f-hand);font-weight:700;font-size:.96rem;line-height:1.02;color:var(--hb-ink,var(--ink));padding:0 1px}
+/* visibility gate: a data-coach key present AND the rig is out */
+.hb[data-state="fallen"] .hb-bubble[data-coach],.hb[data-state="open"] .hb-bubble[data-coach],.hb[data-state="torn"] .hb-bubble[data-coach]{opacity:1}
+/* idle downward bob (points the way) */
+.hb-bubble[data-coach="pull"],.hb-bubble[data-coach="keep"]{animation:hbcoachbob 1.4s ease-in-out infinite}
+/* tone ramp: neutral paper -> cool blue -> GREEN just-right -> yellow -> red. Cloud fill = --hb-tone, text = --hb-ink */
+.hb-bubble[data-coach="almost"]{--hb-tone:var(--lazuli);--hb-ink:var(--oats)}
+.hb-bubble[data-coach="release"]{--hb-tone:var(--grass);--hb-ink:var(--oats)}
+.hb-bubble[data-coach="strain"]{--hb-tone:var(--schoolbus);--hb-ink:var(--ink)}
+.hb-bubble[data-coach="danger"],.hb-bubble[data-coach="tear"]{--hb-tone:var(--colorado);--hb-ink:var(--oats)}
+.hb-bubble[data-coach="danger"]{animation:hbcoachshake .12s linear infinite}
+/* fully pulled out: happy cloud becomes a hand-drawn smiley, words hidden, then it auto-fades */
+.hb-bubble[data-coach="open"]{--hb-tone:var(--happy);animation:hbcoachbye .5s ease 1.15s forwards}
+.hb-bubble[data-coach="open"] .hb-say{display:none}
+.hb-bubble[data-coach="open"] .hb-face{display:block}
+@keyframes hbcoachbob{0%,100%{transform:rotate(-3deg) translateY(0)}50%{transform:rotate(-3deg) translateY(4px)}}
+@keyframes hbcoachshake{0%,100%{transform:rotate(-3deg) translateX(0)}50%{transform:rotate(-3deg) translateX(2.5px)}}
+@keyframes hbcoachbye{to{opacity:0}}
+/* localized confetti on the first successful open (reuses the site's spray glyphs) */
+.hb-conf{position:fixed;inset:0;z-index:90;pointer-events:none;overflow:hidden}
+.hb-conf-bit{position:absolute;top:-6%;width:16px;height:16px;opacity:0;animation:hbconffall var(--dur,2s) linear var(--dl,0ms) forwards}
+.hb-conf-bit svg{width:100%;height:100%;display:block}
+@keyframes hbconffall{0%{opacity:0;transform:translateY(0) translateX(0) rotate(0)}
+  7%{opacity:1}90%{opacity:1}
+  100%{opacity:.85;transform:translateY(112vh) translateX(var(--drift,0)) rotate(var(--rot,360deg))}}
+@media(prefers-reduced-motion:reduce){.hb-bubble{transition:none}.hb-conf{display:none}
+  .hb-bubble[data-coach="pull"],.hb-bubble[data-coach="keep"],.hb-bubble[data-coach="danger"]{animation:none}}
+
 /* the cut, drawn ON TOP so the strand reads as emerging from the paper */
 .hb-pocket{display:none;position:absolute;top:-3px;right:-6px;width:150px;height:24px;pointer-events:none;z-index:2;
   background:linear-gradient(to bottom, rgba(65,77,87,.16), rgba(65,77,87,0))}
@@ -2444,8 +2489,9 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .hb.is-straining .hb-tray a{border-color:var(--colorado)}
 
 /* TORN: the strand drops away */
-.hb[data-state="torn"] .hb-strand{animation:hbdrop .85s cubic-bezier(.4,0,.7,1) forwards}
-@keyframes hbdrop{to{transform:translateY(470px) rotate(26deg);opacity:0}}
+.hb[data-state="torn"] .hb-mouth{overflow:visible}   /* let the snapped burger fall past the clip, all the way off-screen */
+.hb[data-state="torn"] .hb-strand{animation:hbdrop 1s cubic-bezier(.5,0,.9,.45) forwards}
+@keyframes hbdrop{to{transform:translateY(120vh) rotate(34deg)}}
 
 /* keyboard / reduced-motion / no-JS: an honest dropdown */
 .hb[data-state="plain"] .hb-mouth{position:static;overflow:visible;width:auto;height:auto;pointer-events:auto}
@@ -4360,19 +4406,57 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 .board .bd-foot .arr{font-family:var(--f-mono)}
 .board .bd-drag{display:inline-block;color:var(--colorado);font-size:1.1rem;margin-right:.4rem;transform:rotate(-2deg)}
 @media(min-width:900px){.board .bd-drag{display:none}}
-/* swipe cue: hand-drawn "drag to see all six" — only when the strip overflows (.bd-scrollable),
-   fades on first scroll (.bd-scrolled), phones only. Pairs with the one-time nudge in index.html. */
-.board .bd-swipe{display:none;align-items:center;justify-content:center;gap:.45rem;
-  margin:clamp(.9rem,3vw,1.4rem) auto 0;font-family:var(--f-hand);color:var(--colorado);
-  font-size:1.18rem;transition:opacity .35s ease;pointer-events:none}
-.board.bd-scrollable .bd-swipe{display:flex}
-.board.bd-scrolled .bd-swipe{opacity:0}
-.board .bd-swipe .bd-swipe-hand{display:inline-block;animation:bd-wag 1.5s ease-in-out infinite}
-.board .bd-swipe .bd-swipe-arr{letter-spacing:.12em;opacity:.7}
-@keyframes bd-wag{0%,100%{transform:translateX(0) rotate(-4deg)}50%{transform:translateX(9px) rotate(4deg)}}
-@media(min-width:900px){.board .bd-swipe{display:none!important}}
-html[data-tier="lite"] .board .bd-swipe .bd-swipe-hand{animation:none}
-@media(prefers-reduced-motion:reduce){.board .bd-swipe .bd-swipe-hand{animation:none}}
+/* ---- swipe affordance: always-on paper arrows + a real half-card peek ---- */
+.board .bd-scroller{position:relative}
+/* stronger peek on phones: bump the card so ~1.6 fit — the next screen is clearly sliced,
+   not a hairline. (Desktop keeps the smaller 176px cap from .bd-line .zpola above.) */
+@media(max-width:600px){.board .bd-line .zpola{width:clamp(188px,64vw,220px)}}
+/* the next-arrow rides a soft shadow so the sliced card reads as "continues under here" */
+.board .bd-scroller::after{content:"";position:absolute;top:0;bottom:0;right:0;width:56px;z-index:4;
+  pointer-events:none;opacity:0;transition:opacity .2s ease;
+  background:linear-gradient(90deg,transparent,rgba(65,77,87,.16))}
+.board .bd-scroller.has-next::after{opacity:1}
+/* hand-cut paper chips with a sharpie chevron — torn edge (#roughsm), pinned to the strip edges */
+.board .bd-arrow{position:absolute;top:calc(50% - 10px);z-index:6;
+  width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;
+  background:var(--schoolbus);border:2.6px solid var(--ink);border-radius:49% 51% 52% 48%/48% 52% 49% 51%;
+  box-shadow:2.5px 3px 0 0 var(--ink);filter:url(#roughsm);
+  animation:boil-roughsm var(--boil-paper) step-end infinite;   /* squigglevision: chip + chevron boil together */
+  opacity:0;visibility:hidden;transition:opacity .18s ease, transform .12s ease}
+.board .bd-arrow svg{width:24px;height:24px;display:block;overflow:visible}
+.board .bd-arrow svg path{fill:none;stroke:var(--colorado);stroke-width:3.2;
+  stroke-linecap:round;stroke-linejoin:round}
+.board .bd-arrow.is-on{opacity:1;visibility:visible}
+.board .bd-arrow:hover{                                          /* --happy is too close to schoolbus to read a press; darken toward the red accent */
+  background:#E8A21C;
+  background:color-mix(in srgb, var(--schoolbus) 84%, var(--colorado));
+  transform:rotate(-3deg)}
+.board .bd-arrow:active{transform:translateY(1px)}
+.board .bd-arrow:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
+.board .bd-arrow-prev{left:2px;transform:rotate(-2deg);animation-delay:-.6s}   /* desync the two boils */
+.board .bd-arrow-next{right:2px;transform:rotate(2deg)}
+.board .bd-arrow-prev:hover{transform:rotate(-5deg)}
+.board .bd-arrow-next:hover{transform:rotate(5deg)}
+html[data-tier="lite"] .board .bd-arrow{filter:none}
+/* ---- "drop onto the clothesline": the ball falls from above + bobs once onto the strip ----
+   Rides the independent `translate` property, so it never touches `filter` (the boil) or
+   `transform` (the resting/hover tilt) — all three animate different properties, zero conflict. */
+/* NO-FLASH GATE: update() flips .is-on on the next arrow at load, before the section is visible.
+   Until JS arms the scroller, park the on-arrow hidden AND lifted up on the string.
+   Specificity (0,4,0) beats the base .board .bd-arrow.is-on (0,3,0) regardless of source order. */
+.bd-scroller:not(.bd-armed) .bd-arrow.is-on{opacity:0;visibility:hidden;translate:0 -64px}
+@keyframes bd-drop{
+  0%  {opacity:0;translate:0 -64px}
+  18% {opacity:1;translate:0 -40px}
+  100%{opacity:1;translate:0 0}          /* == resting translate → reverts with zero delta, no fill needed */
+}
+.board .bd-arrow.bd-fly{                 /* comma-list: boil (FILTER, infinite) + drop (TRANSLATE, once) */
+  animation:boil-roughsm var(--boil-paper) step-end infinite,
+            bd-drop .52s cubic-bezier(.26,1.36,.44,1)}
+/* reduced-motion: global *{animation:none} already kills boil+drop; just clear the parked lift */
+@media(prefers-reduced-motion:reduce){.bd-scroller .bd-arrow{translate:none!important}}
+/* lite only sets filter:none (not animation); belt-and-suspenders backstop to the JS lite guard */
+html[data-tier="lite"] .bd-scroller .bd-arrow{translate:none!important;animation:none!important}
 /* the click-to-open modal */
 .bd-modal{position:fixed;inset:0;z-index:200;display:grid;place-items:center;
   background:rgba(65,77,87,.74);padding:clamp(1rem,4vw,2.5rem);animation:bd-fade .16s ease}

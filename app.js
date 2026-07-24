@@ -468,6 +468,7 @@ function initAudio() {
     if (key === 'crinkle') return synthCrinkle(ctx, opts);   // synthesized paper crinkle (no sample)
     if (key === 'squeak')  return synthSqueak(ctx, opts);    // synthesized felt-tip marker squeak
     if (key === 'fanfare') return synthFanfare(ctx, opts);   // synthesized triumphant arpeggio
+    if (key === 'sad')     return synthSad(ctx, opts);       // synthesized womp-womp sad trombone
     const buf = buffers.get(key);
     if (!buf) return;
     const src = ctx.createBufferSource();
@@ -482,7 +483,7 @@ function initAudio() {
   const engine = {
     play(key, opts = {}) {
       if (!enabled || !ctx) return;
-      const synth = key === 'crinkle' || key === 'squeak' || key === 'fanfare';
+      const synth = key === 'crinkle' || key === 'squeak' || key === 'fanfare' || key === 'sad';
       // Ready right now → fire immediately (the common, warm path).
       if (ctx.state === 'running' && (synth || buffers.has(key))) return fire(key, opts);
       // Not ready: the context is still resuming or the buffer is still decoding.
@@ -975,15 +976,31 @@ function initEnvelope(audio) {
     audio && audio.armForCut();                       // the cut gesture turns sound on (unless muted)
     const f = fracAt(e.clientX); setX(f); advance(f);
   });
+  // Lifted the finger early? Sweep the blades the rest of the way home ourselves,
+  // then open — a botched cut still finishes. Keeps the 'cutting' look (scissors
+  // pinned, prompt hidden) until complete() clears it; advance() plays the snips
+  // and fires complete() at ~.97. A fresh grab (cutting→true) hands control back.
+  function finishCut() {
+    const from = cutMax, span = 1 - from;
+    if (span <= 0) { complete(); return; }
+    const t0 = performance.now(), DUR = Math.max(140, span * 520);   // longer sweep the earlier they bailed
+    const stop = Stage.addDriver(() => {
+      if (done || cutting) { stop(); return; }        // opened already / user grabbed again
+      const f = Math.min(1, from + span * ((performance.now() - t0) / DUR));
+      setX(f); advance(f);
+      if (f >= 1 || done) stop();
+    });
+  }
   const endDrag = () => {
     audio && audio.armForCut();                       // unlock on the RELEASE too — the global
                                                       // listener can miss a captured pointer's
                                                       // pointerup, and the clean release is what
                                                       // actually wakes audio on stubborn mobile.
     if (done || !cutting) return;
-    cutting = false; env.classList.remove('cutting');
-    if (cutMax >= 0.8) complete();                    // forgiving: most of the way across = done
-    else setX(cutMax);                                // rest the blades at the cut front; grab again
+    cutting = false;
+    if (cutMax >= 0.8) { env.classList.remove('cutting'); complete(); }   // most of the way across = done, instantly
+    else if (cutMax > 0) finishCut();                 // lifted early → we finish the cut for them
+    else env.classList.remove('cutting');             // never really started; idle/scroll auto-cut still rescues
   };
   seam.addEventListener('pointerup', endDrag);
   seam.addEventListener('pointercancel', endDrag);
@@ -1127,6 +1144,30 @@ function synthFanfare(ctx, opts = {}) {
     g.gain.setValueAtTime(0.0001, t);
     g.gain.exponentialRampToValueAtTime(peak, t + 0.012);
     g.gain.exponentialRampToValueAtTime(0.0001, t + 0.42);
+    o1.connect(lp); o2.connect(lp); lp.connect(g); g.connect(ctx.destination);
+    o1.start(t); o2.start(t); o1.stop(t + 0.45); o2.stop(t + 0.45);
+  });
+}
+
+// Synthesized 'sad trombone' (no audio asset). Played via Stage.play('sad') when the
+// string is over-pulled and snaps. Three descending notes, each sagging downward — the
+// classic womp-womp of a small failure, muted with a lowpass so it stays cozy, not harsh.
+function synthSad(ctx, opts = {}) {
+  const now = ctx.currentTime;
+  const base = (opts.gain ?? 0.26);
+  const notes = [311, 277, 233];                     // Eb4 -> Db4 -> Bb3, a downward slump
+  notes.forEach((f, i) => {
+    const t = now + i * 0.16;
+    const o1 = ctx.createOscillator(); o1.type = 'sawtooth';
+    const o2 = ctx.createOscillator(); o2.type = 'triangle';
+    o1.frequency.setValueAtTime(f, t); o1.frequency.linearRampToValueAtTime(f * 0.94, t + 0.15);   // each note sags
+    o2.frequency.setValueAtTime(f * 0.5, t); o2.frequency.linearRampToValueAtTime(f * 0.47, t + 0.15);
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1200;            // muted, trombone-ish
+    const g = ctx.createGain();
+    const peak = base * (i === notes.length - 1 ? 1.12 : 0.85);   // last note is the "womp"
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(peak, t + 0.03);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + (i === notes.length - 1 ? 0.42 : 0.32));
     o1.connect(lp); o2.connect(lp); lp.connect(g); g.connect(ctx.destination);
     o1.start(t); o2.start(t); o1.stop(t + 0.45); o2.stop(t + 0.45);
   });
@@ -2253,6 +2294,37 @@ function initHamburgerJoy(audio) {
   const OPEN = 1, STRAIN = 1.04, DANGER = 1.13, TRAVEL = 230;   // string is anchored at the slit + stretches; tear when taut (~34px of stretch)
   let pull = 0, dragging = false, startPull = 0, startY = 0, moved = false, torn = false, lastVibe = 0;
 
+  // Coaching bubble: teaches the hidden pull the first time. data-coach carries tone+visibility (CSS);
+  // once a visitor opens it, we stop coaching them (persisted). Pointer-path only — calm/keyboard get plainOpen.
+  const bubble = document.getElementById('hb-bubble');
+  const say = document.getElementById('hb-say');
+  let hit8 = false;   // the coaching + reward fire every open (it's a toy, not a one-time tutorial)
+  const coach = (k, t) => { if (bubble) { bubble.dataset.coach = k; if (say) say.textContent = t; } };
+  const hush = () => { if (bubble) bubble.removeAttribute('data-coach'); };
+  // little celebratory burst at the burger — reuses the site's spray glyphs (marks/stars/dots/butterflies)
+  function hbConfetti() {
+    if (Stage.reduce) return;
+    const layer = document.createElement('div'); layer.className = 'hb-conf';
+    const KIND = ['mark', 'star', 'dot', 'butterfly', 'dot', 'star'];
+    const COLOR = ['var(--grass)', 'var(--colorado)', 'var(--lazuli)', 'var(--schoolbus)', 'var(--happy)', 'var(--sambas)'];
+    for (let i = 0; i < 36; i++) {
+      const kind = KIND[i % KIND.length];
+      const bit = document.createElement('span'); bit.className = 'hb-conf-bit';
+      bit.style.left = (Math.random() * 100).toFixed(1) + '%';         // scattered across the ceiling
+      bit.style.color = COLOR[i % COLOR.length];
+      const sz = kind === 'butterfly' ? 24 : 11 + Math.random() * 10;
+      bit.style.width = bit.style.height = sz.toFixed(0) + 'px';
+      bit.style.setProperty('--drift', ((Math.random() - 0.5) * 180).toFixed(0) + 'px');   // horizontal sway on the way down
+      bit.style.setProperty('--rot', ((Math.random() - 0.5) * 900).toFixed(0) + 'deg');
+      bit.style.setProperty('--dur', (1500 + Math.random() * 1500).toFixed(0) + 'ms');
+      bit.style.setProperty('--dl', (Math.random() * 650).toFixed(0) + 'ms');
+      bit.innerHTML = fcGlyph(kind);
+      layer.appendChild(bit);
+    }
+    document.body.appendChild(layer);
+    setTimeout(() => layer.remove(), 3400);
+  }
+
   const setPull = (p) => {
     pull = p; hb.style.setProperty('--pull', p.toFixed(3));
     hb.classList.toggle('is-straining', p >= STRAIN && p < DANGER);
@@ -2265,6 +2337,7 @@ function initHamburgerJoy(audio) {
     setState('fallen'); setPull(0);
     burger.setAttribute('aria-expanded', 'true');
     arm(); Stage.play('rustle', { gain: 0.3 }); buzz(12);
+    hush(); hb.classList.remove('hb-happy'); if (!Stage.calm) coach('pull', 'Pull me down ↓');
   }
   function plainOpen() {
     const open = hb.dataset.state !== 'plain';
@@ -2273,13 +2346,15 @@ function initHamburgerJoy(audio) {
   }
   function reset() {
     if (torn) return;
-    setState('rest'); setPull(0);
+    setState('rest'); setPull(0); hush(); hb.classList.remove('hb-happy');
     burger.setAttribute('aria-expanded', 'false');
     Stage.play('rustle', { gain: 0.2, rate: 1.12 });
   }
   function tear() {
-    torn = true; setState('torn'); hb.classList.remove('is-straining', 'is-dragging');
+    torn = true; setState('torn'); hb.classList.remove('is-straining', 'is-dragging', 'hb-happy');
+    coach('tear', 'Snapped!');
     Stage.play('taperip', { gain: 0.45 }); setTimeout(() => Stage.play('cut', { gain: 0.3 }), 90);
+    setTimeout(() => Stage.play('sad', { gain: 0.26 }), 150);   // you did it wrong: the womp-womp
     buzz([35, 30, 90]);
     setTimeout(() => {
       torn = false; hb.classList.add('respawning'); setState('rest'); setPull(0);
@@ -2297,7 +2372,7 @@ function initHamburgerJoy(audio) {
   fallen.addEventListener('pointerdown', (e) => {
     if (torn || (hb.dataset.state !== 'fallen' && hb.dataset.state !== 'open')) return;
     e.preventDefault();
-    dragging = true; moved = false; startPull = pull; startY = e.clientY; lastVibe = 0;
+    dragging = true; moved = false; startPull = pull; startY = e.clientY; lastVibe = 0; hit8 = false;
     hb.classList.add('is-dragging');
     try { fallen.setPointerCapture(e.pointerId); } catch (_) {}
     arm();
@@ -2308,6 +2383,15 @@ function initHamburgerJoy(audio) {
     if (Math.abs(dy) > 5) moved = true;
     const p = Math.max(0, Math.min(DANGER, startPull + dy / TRAVEL));   // clamp AT the clear point — no overshoot-stop
     setPull(p);
+    {                                                              // live coaching, keyed to the same pull value the CSS reads
+      if (p < DANGER) {
+        if (p >= STRAIN) { const q = Math.floor((p - STRAIN) / 0.045); coach(q >= 1 ? 'danger' : 'strain', q >= 1 ? 'OW! LET GO!' : 'Ow! let go!'); }   // past the sweet spot you can still release — so say so
+        else if (p >= 0.8) { if (!hit8) { hit8 = true; buzz(8); } coach('release', 'Ah, just right!'); }   // the green sweet spot + one haptic tick
+        else if (p >= 0.65) coach('almost', 'Almost!');
+        else if (p > 0) coach('keep', 'Keep pulling…');
+      }
+      if (p < 0.8) hit8 = false;                                    // re-arm the release tick if they back off
+    }
     if (p >= STRAIN) {                                               // escalating warning before the tear
       const lvl = Math.floor((p - STRAIN) / 0.045);
       if (lvl > lastVibe) { lastVibe = lvl; buzz(6 + lvl * 7); Stage.play('snip', { gain: 0.08 + lvl * 0.02, rate: 1 + lvl * 0.05 }); }
@@ -2318,8 +2402,11 @@ function initHamburgerJoy(audio) {
     if (!dragging || torn) return;
     dragging = false; hb.classList.remove('is-dragging');
     if (!moved) { reset(); return; }                                // a tap (no drag) on the burger reels it home
-    if (pull >= 0.8) { setState('open'); setPull(OPEN); hb.classList.add('pulled'); Stage.play('snip', { gain: 0.2 }); buzz(10); }
-    else { setState('fallen'); setPull(0); }
+    if (pull >= 0.8) { setState('open'); setPull(OPEN); hb.classList.add('pulled'); Stage.play('snip', { gain: 0.2 }); buzz(10);
+      coach('open', ''); hbConfetti(); Stage.play('fanfare', { gain: 0.3 });   // you did it right: confetti + triumphant fanfare
+      // after the happy thought fades, the pulled-out burger itself goes yellow + smiles
+      setTimeout(() => { if (hb.dataset.state === 'open') hb.classList.add('hb-happy'); }, 1650); }
+    else { setState('fallen'); setPull(0); coach('pull', 'Pull me down ↓'); }
   };
   fallen.addEventListener('pointerup', up);
   fallen.addEventListener('pointercancel', up);

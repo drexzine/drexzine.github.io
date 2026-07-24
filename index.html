@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
-<link rel="stylesheet" href="app.css?v=310" />
+<link rel="stylesheet" href="app.css?v=319" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -216,7 +216,7 @@
                 <li><a href="#demo">Demo</a></li>
                 <li class="hb-cta"><a class="btn" href="https://letters.drex.style/join-online/">Join the waitlist <span class="arr">&rarr;</span></a></li>
               </ul>
-              <button class="hb-fallen" id="hb-fallen" type="button" tabindex="-1" aria-hidden="true"><span class="bars"><i></i><i></i><i></i></span></button>
+              <button class="hb-fallen" id="hb-fallen" type="button" tabindex="-1" aria-hidden="true"><span class="bars"><i></i><i></i><i></i></span><svg class="hb-facesm" viewBox="0 0 48 44" aria-hidden="true"><g filter="url(#roughsm)"><circle cx="18" cy="18" r="2.8" fill="var(--ink)"/><circle cx="30" cy="18" r="2.8" fill="var(--ink)"/><path d="M16 26 q8 8 16 0" fill="none" stroke="var(--ink)" stroke-width="2.9" stroke-linecap="round"/></g></svg><svg class="hb-facex" viewBox="0 0 48 44" aria-hidden="true"><g filter="url(#roughsm)" stroke="var(--oats)" stroke-width="2.7" stroke-linecap="round" fill="none"><path d="M14.5 13 L21.5 20 M21.5 13 L14.5 20"/><path d="M26.5 13 L33.5 20 M33.5 13 L26.5 20"/><path d="M16 29 q4 -3.5 8 0 q4 3.5 8 0"/></g></svg><span class="hb-bubble" id="hb-bubble" aria-hidden="true"><svg class="hb-cloud" viewBox="0 0 216 140" aria-hidden="true"><g filter="url(#roughsm)"><path d="M30 98 A22 22 0 0 1 22 60 A24 24 0 0 1 62 42 A26 26 0 0 1 110 40 A24 24 0 0 1 152 50 A22 22 0 0 1 180 70 A20 20 0 0 1 170 100 A24 24 0 0 1 128 108 A24 24 0 0 1 80 108 A22 22 0 0 1 30 98 Z" transform="translate(3,5)" fill="var(--ink)"/><g stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M30 98 A22 22 0 0 1 22 60 A24 24 0 0 1 62 42 A26 26 0 0 1 110 40 A24 24 0 0 1 152 50 A22 22 0 0 1 180 70 A20 20 0 0 1 170 100 A24 24 0 0 1 128 108 A24 24 0 0 1 80 108 A22 22 0 0 1 30 98 Z" fill="var(--hb-tone,var(--paper))"/><circle cx="188" cy="80" r="9" fill="var(--hb-tone,var(--paper))"/><circle cx="200" cy="84" r="5.5" fill="var(--hb-tone,var(--paper))"/><circle cx="209" cy="88" r="3" fill="var(--hb-tone,var(--paper))"/></g></g></svg><span class="hb-say" id="hb-say"></span><svg class="hb-face" viewBox="0 0 216 140" aria-hidden="true"><g filter="url(#roughsm)"><circle cx="84" cy="64" r="4.6" fill="var(--ink)"/><circle cx="116" cy="64" r="4.6" fill="var(--ink)"/><path d="M78 80 q22 22 44 0" fill="none" stroke="var(--ink)" stroke-width="4.6" stroke-linecap="round"/></g></svg></span></button>
             </div>
           </div>
         </div>
@@ -459,6 +459,7 @@
         <p class="bd-sub">Real screens &mdash; what a club actually touches.</p>
       </div>
 
+      <div class="bd-scroller">
       <div class="bd-line" role="group" aria-label="Screens from the app — scroll sideways to see all six" tabindex="0">
         <div class="bd-track">
           <span class="bd-string" aria-hidden="true"></span>
@@ -519,60 +520,88 @@
 
         </div>
       </div>
-
-      <!-- swipe affordance: a hand-drawn nudge that the strip scrolls. Only shows when the
-           run actually overflows (JS adds .bd-scrollable) and fades on first scroll (.bd-scrolled).
-           Phones only; the one-time bounce lives in the script below. -->
-      <p class="bd-swipe" aria-hidden="true"><span class="bd-swipe-hand">&#9995;</span> drag to see all six <span class="bd-swipe-arr">&rarr;&rarr;</span></p>
+        <!-- always-on arrows: hand-drawn sharpie chevrons on torn-paper chips (brand doodle idiom),
+             unmissable "this scrolls" affordance + tap to page. JS toggles .is-on per edge. -->
+        <button type="button" class="bd-arrow bd-arrow-prev" aria-label="Previous screens">
+          <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M16.5 4.5 C13 8 10 11 8.5 13 C10 15 13 18 16.5 21.5"/></svg>
+        </button>
+        <button type="button" class="bd-arrow bd-arrow-next" aria-label="More screens">
+          <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M9.5 4.5 C13 8 16 11 17.5 13 C16 15 13 18 9.5 21.5"/></svg>
+        </button>
+      </div>
 
     </div>
   </section>
 
-  <!-- #inside swipe cues: show the drag hint only when the strip overflows, fade it on first
-       scroll, and bounce the strip once when it scrolls into view (skipped for reduced-motion + lite). -->
+  <!-- #inside strip: always-on paper arrows. Each arrow shows only when there's more that way
+       (next hidden at the end, prev hidden at the start), and pages the strip by ~1.2 cards. -->
   <script>
   (function(){
-    var board=document.getElementById('inside'); if(!board) return;
-    var line=board.querySelector('.bd-line'); if(!line) return;
-    var lite=document.documentElement.getAttribute('data-tier')==='lite';
+    var line=document.querySelector('#inside .bd-line'); if(!line) return;
+    var prev=document.querySelector('#inside .bd-arrow-prev'),
+        next=document.querySelector('#inside .bd-arrow-next');
+    if(!prev||!next) return;
     var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-    // The cue only earns its place when there's more to see. Below 900px the six fixed
-    // ~176px cards always overflow (6*176 + gaps ~= 1190px), and the CSS hides the cue at
-    // >=900px anyway — so gate on the breakpoint. Deterministic: no flaky load-time width reads.
-    var mqScroll=window.matchMedia('(max-width:899.98px)');
-    function checkOverflow(){ board.classList.toggle('bd-scrollable', mqScroll.matches); }
-    checkOverflow();
-    (mqScroll.addEventListener ? mqScroll.addEventListener('change',checkOverflow)
-                              : mqScroll.addListener(checkOverflow));
+    function step(){                                            // one page = ~1.2 card widths
+      var peg=line.querySelector('.bd-peg');
+      return (peg ? peg.getBoundingClientRect().width : 190) * 1.2;
+    }
+    var scroller=line.closest('.bd-scroller')||line.parentElement;
+    function update(){                                          // show each arrow only when there's room that way
+      var max=line.scrollWidth-line.clientWidth, x=line.scrollLeft;
+      var hasNext=max>8 && x < max-8;
+      next.classList.toggle('is-on', hasNext);
+      prev.classList.toggle('is-on', max>8 && x > 8);
+      scroller.classList.toggle('has-next', hasNext);           // right-edge "more" shadow
+      // drop the prev ball in the first time it legitimately turns on (not during the programmatic wiggle)
+      if(scroller.classList.contains('bd-armed') && !wiggling && prev.classList.contains('is-on')) flyArrow(prev);
+    }
+    prev.addEventListener('click', function(){ line.scrollBy({left:-step(), behavior:reduce?'auto':'smooth'}); });
+    next.addEventListener('click', function(){ line.scrollBy({left: step(), behavior:reduce?'auto':'smooth'}); });
+    line.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update, {passive:true});
+    window.addEventListener('load', update);
+    // layout can settle late on this page; poll a few frames so the arrow appears reliably
+    update(); requestAnimationFrame(update);
+    var t=0, iv=setInterval(function(){ update(); if(++t>12) clearInterval(iv); }, 200);
 
-    line.addEventListener('scroll', function(){                 // once they've moved it, the hint has done its job
-      if(line.scrollLeft>6) board.classList.add('bd-scrolled');
-    }, {passive:true});
-
-    var nudged=false;
+    // one-time wiggle when the strip scrolls into view — a live "it moves" cue on top of the arrows.
+    var lite=document.documentElement.getAttribute('data-tier')==='lite', nudged=false, wiggling=false;
     function nudge(){
       if(nudged) return; nudged=true;
       if(reduce||lite) return;
-      if(!board.classList.contains('bd-scrollable')) return;   // nothing to reveal, nothing to hint
-      if(line.scrollLeft>4) return;                             // user already grabbed it
-      line.style.scrollSnapType='none';                        // snap would yank the small bounce back to peg 1
-      var start=null, dur=780, amp=46;
-      function step(t){
-        if(start===null) start=t;
-        var p=(t-start)/dur;
-        if(p>=1){ line.scrollLeft=0; line.style.scrollSnapType=''; return; }
-        line.scrollLeft=Math.sin(p*Math.PI)*amp;                // out to 46px and back, one sine hump
-        requestAnimationFrame(step);
+      if((line.scrollWidth-line.clientWidth)<=8 || line.scrollLeft>4) return;   // nothing to reveal / already moved
+      line.style.scrollSnapType='none';                                        // snap would fight the bounce
+      wiggling=true;                                                           // suppress prev-drop during the programmatic bounce
+      var start=null, dur=820, amp=52;
+      function frame(ts){
+        if(start===null) start=ts;
+        var p=(ts-start)/dur;
+        if(p>=1){ line.scrollLeft=0; line.style.scrollSnapType=''; wiggling=false; update(); return; }
+        line.scrollLeft=Math.sin(p*Math.PI)*amp;                               // out to 52px and back
+        requestAnimationFrame(frame);
       }
-      requestAnimationFrame(step);
+      requestAnimationFrame(frame);
     }
-    // Fire the one-time nudge when the strip scrolls into view. IntersectionObserver is the
-    // primary trigger; a scroll + offsetTop fallback covers the (rare) no-IO case. nudge() is
-    // idempotent via the `nudged` latch, so both firing is harmless.
+    function armStrip(){ scroller.classList.add('bd-armed'); }                 // releases the no-flash hold (all tiers)
+    function flyArrow(a){
+      if(reduce||lite) return;                                                 // tiers already appear in place; never fly
+      if(a.dataset.flew) return; a.dataset.flew='1';                           // once per arrow
+      a.classList.add('bd-fly');
+      a.addEventListener('animationend', function h(ev){
+        if(ev.animationName!=='bd-drop') return;                              // ignore the infinite boil
+        a.classList.remove('bd-fly'); a.removeEventListener('animationend', h);
+      });
+    }
     if('IntersectionObserver' in window){
       var io=new IntersectionObserver(function(es){
-        es.forEach(function(e){ if(e.isIntersecting){ setTimeout(nudge,220); io.disconnect(); } });
+        es.forEach(function(e){ if(e.isIntersecting){
+          armStrip();                                            // release the no-flash hold
+          if(next.classList.contains('is-on')) flyArrow(next);   // drop the on-arrow from above
+          setTimeout(nudge,620);                                 // strip wiggle ANSWERS ~100ms after it lands
+          io.disconnect();
+        }});
       }, {threshold:0.4});
       io.observe(line);
     }
@@ -582,8 +611,9 @@
       var vh=window.innerHeight||document.documentElement.clientHeight;
       return top < y+vh*0.85 && top+line.offsetHeight > y;
     }
-    function maybeNudge(){ if(inView()){ setTimeout(nudge,220); window.removeEventListener('scroll',maybeNudge); } }
-    if(inView()) setTimeout(nudge,500);
+    function fireEntrance(){ armStrip(); if(next.classList.contains('is-on')) flyArrow(next); setTimeout(nudge,620); }
+    function maybeNudge(){ if(inView()){ fireEntrance(); window.removeEventListener('scroll',maybeNudge); } }
+    if(inView()) fireEntrance();
     else window.addEventListener('scroll', maybeNudge, {passive:true});
   })();
   </script>
@@ -1746,7 +1776,7 @@
   });
 })();
 </script>
-<script type="module" src="app.js?v=76"></script>
+<script type="module" src="app.js?v=81"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign
