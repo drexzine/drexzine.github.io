@@ -2621,15 +2621,28 @@ html[data-tier="lite"] .vol-p.vz i{ filter:none; }   /* weak devices only: drop 
 .zines-knock,.showup-pulse{ margin:clamp(1.6rem,3.4vw,2.4rem) auto 0; max-width:36ch; text-align:center;
   font-size:clamp(1.05rem,2vw,1.3rem); line-height:1.3; color:var(--colorado); transform:rotate(-1.4deg); }
 
-/* ============ hero rhythm rotator — "week" gets retyped: month, 2nd Friday, other week… ============ */
-.l1{white-space:nowrap}  /* line 1 ends at the <br>: the slot breathes into its own line-end, so the lines below never move and the comma can't be orphaned off the slot */
-.hl-rot{white-space:nowrap;vertical-align:bottom}
-.hl-rot .rw{display:inline-block;transform-origin:left center;white-space:nowrap}
-.hl-rot::after{content:"";display:inline-block;width:.09em;height:.82em;background:var(--ink);
-  margin-left:.07em;vertical-align:-.06em;opacity:0}
-.hl-rot.typing::after{opacity:1;animation:rot-caret .75s steps(1) infinite}
-@keyframes rot-caret{50%{opacity:0}}
-@media(prefers-reduced-motion:reduce){.hl-rot::after{display:none}}
+/* ============ hero sub rotator — "They're becoming ____": the blank types itself in ============
+   The word is DELETED a letter at a time and the next one TYPED in its place, so the blank
+   reads as somebody at a keyboard changing their mind about what they're becoming.
+
+   The slot must NOT resize while that happens, or the full stop after it jitters and the sub
+   reflows under the headline. So the live word (.typer) shares one inline-grid cell with a
+   hidden copy of EVERY word (.ghost): the ghosts never change, so the track is permanently as
+   wide as the longest ("photographers") even at the instant the typer is down to one letter.
+   No measuring, no hard-coded ch width, no reflow. */
+/* LEFT-aligned, not centred: the letters have to grow rightward off a fixed left edge or it
+   doesn't read as typing — centred, the word collapses toward its own middle as it deletes.
+   The yellow the short words don't fill is the point: it's a blank waiting to be filled. */
+.hl-rot{display:inline-grid;vertical-align:baseline;text-align:left;
+  margin-right:.2em}   /* the swatch overhangs right by .24em — buy the full stop back off the yellow */
+.hl-rot .rw{grid-area:1/1;justify-self:start;white-space:nowrap;
+  font-style:normal;font-weight:600;color:var(--ink)}
+.hl-rot .ghost{visibility:hidden}   /* sizers only — they hold the track open, they never animate */
+/* the word a screen reader actually gets. The rotator itself is aria-hidden, so without this
+   the sentence would end "They're becoming ." — or worse, "becoming photograp". */
+.rot-a11y{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+/* No caret. A blinking I-beam is a keyboard's punctuation, not a hand's — on a page that
+   is otherwise all marker, tape and scrawl it was the one pixel that looked like software. */
 
 /* ============ the READER section — zines flip THROUGH the phone, one at a time ============ */
 .flip2-stage{display:flex;justify-content:center;margin:clamp(1rem,2.6vw,1.8rem) auto 0}

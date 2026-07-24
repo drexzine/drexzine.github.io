@@ -329,42 +329,58 @@ function initQuotes() {
   }
 }
 
+/* "They're becoming ____" — the blank in the hero sub deletes its word a letter at a time
+   and types the next one in its place, cursor and all.
+   "creators" leads and is the word in the served HTML — the claim in the abstract, so it's
+   what a crawler, a no-JS visitor and a reduced-motion visitor read. The craft nouns after
+   it are the same claim made concrete. Only the .typer element ever changes; a hidden ghost
+   of every word holds the slot open so it can't shrink onto a half-deleted word. */
 function initHeroRotate() {
-  if (Stage.reduce) return;
   const w = document.getElementById('rot-word');
   if (!w) return;
-  const WORDS = ['week', 'other week', '2nd Friday', 'month'];
-  // the slot breathes between week-wide and 1.75x; anything longer gets
-  // typewriter-SQUISHED into 1.75x so line 1 can't overflow the card on phones.
-  const inner = document.createElement('span');
-  inner.className = 'rw';
-  inner.textContent = w.textContent;
-  w.textContent = '';
-  w.appendChild(inner);
-  const baseW = inner.offsetWidth;             // width of 'week'
-  const maxW = baseW * 1.75;
-  w.style.display = 'inline-block';
-  w.style.width = baseW + 'px';
-  const fit = () => {
-    const nat = inner.offsetWidth;
-    const slot = Math.max(baseW, Math.min(nat, maxW));
-    w.style.width = slot + 'px';
-    inner.style.transform = nat > slot ? 'scaleX(' + (slot / nat) + ')' : 'none';
-  };
-  const set = (s) => { inner.textContent = s; fit(); };
-  let i = 0, t;
-  const rest = (word) => (word === 'week' ? 4600 : 2700);
-  const del = () => {
-    const s = inner.textContent;
-    if (s.length) { set(s.slice(0, -1)); t = setTimeout(del, 36 + Math.random() * 28); }
+  const WORDS = ['creators', 'experts', 'bakers', 'designers', 'photographers', 'potters',
+                 'artists', 'stylists', 'tattooists', 'sewists', 'florists', 'barbers',
+                 'carpenters', 'calligraphers', 'poets'];
+  // no motion or sound crafts here (animators, dancers, drummers, DJs): the payoff of the
+  // loop is a PRINTED zine, and a craft that can't sit still on a page can't land in one.
+  const typer = w.querySelector('.rw');
+  if (!typer) return;
+  typer.classList.add('typer');
+  for (const word of WORDS) {                  // the sizers: hidden, full-length, never touched
+    const g = document.createElement('b');
+    g.className = 'rw ghost';
+    g.setAttribute('aria-hidden', 'true');
+    g.textContent = word;
+    w.appendChild(g);
+  }
+  if (Stage.reduce) return;   // reduced motion: the blank stays filled in with "creators"
+
+  let i = 0, t = 0, started = false;
+  const HOLD = 2000;          // how long a finished word sits there before it gets deleted
+  const FIRST_HOLD = 3400;    // "creators" gets longer — it's the one that has to be read
+  const set = (s) => { typer.textContent = s; };
+  const del = () => {                            // backspace, a touch faster than typing
+    const s = typer.textContent;
+    if (s.length) { set(s.slice(0, -1)); t = setTimeout(del, 34 + Math.random() * 26); }
     else { i = (i + 1) % WORDS.length; type(WORDS[i], 0); }
   };
-  const type = (word, n) => {
-    if (n < word.length) { set(word.slice(0, n + 1)); t = setTimeout(() => type(word, n + 1), 58 + Math.random() * 46); }
-    else { w.classList.remove('typing'); t = setTimeout(() => { w.classList.add('typing'); del(); }, rest(word)); }
+  const type = (word, n) => {                    // …and the uneven rhythm of a real hand
+    if (n < word.length) { set(word.slice(0, n + 1)); t = setTimeout(() => type(word, n + 1), 52 + Math.random() * 46); }
+    else t = setTimeout(cycle, HOLD);
   };
-  const start = () => { t = setTimeout(() => { w.classList.add('typing'); del(); }, rest('week')); };
-  // begin only once the envelope is open (or immediately if it never sealed)
+  const cycle = () => { del(); };
+  const start = () => { started = true; t = setTimeout(cycle, FIRST_HOLD); };
+  // nobody types in a tab nobody is looking at. On the way back, snap to the whole word
+  // rather than resuming mid-delete — a background tab shouldn't leave "photograp" on screen.
+  document.addEventListener('visibilitychange', () => {
+    if (!started) return;
+    clearTimeout(t);
+    if (document.hidden) return;
+    set(WORDS[i]);
+    t = setTimeout(cycle, HOLD);
+  });
+  // begin only once the envelope is open (or immediately if it never sealed): while sealed
+  // the highlighter swatch is still scaled to 0, so a word would swap behind nothing.
   const root = document.documentElement;
   if (!root.classList.contains('sealed') || root.classList.contains('revealed')) start();
   else {
