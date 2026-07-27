@@ -4002,8 +4002,16 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
    read as dirt at this size. Gone.
 
    ONE LINE, ALWAYS — white-space:nowrap. Real tape has no second row; a strip that wraps stops
-   being tape and becomes a sign. That caps a challenge at ~24 characters at this size, which is a
-   tighter brief than "five words" and a better one. If a prompt does not fit, shorten the prompt.
+   being tape and becomes a sign. Measured budget: the strip maxes at .90 * --pw = 270px, and
+   Courier Prime at .042 * --pw with .05em tracking gives ~31 CHARACTERS. (An earlier comment here
+   said 24, guessed rather than measured, and that guess did real damage — see below.)
+
+   EVERY CHALLENGE MUST STAY AN IMPERATIVE. "doodle at the cafe", "come as your heritage", "make a
+   dropcap", "take night photos of the unseen" — a challenge is an instruction, and the tape is
+   the only place the instruction appears in the fold. A previous pass shortened one of these to
+   "the overlooked, at night" to fit a budget that was not real, which turned an instruction into
+   a noun phrase and quietly stopped it being a challenge at all. If a prompt is too long, rewrite
+   it as a SHORTER INSTRUCTION; never trim it into a fragment.
    No --f-dymo webfont: --f-head (Space Grotesk 700) uppercase with tracking does the job, and the
    page is not spending another Google Fonts request on one strip. */
 .hero-card-deck .pola .zchal{position:absolute;z-index:3;
