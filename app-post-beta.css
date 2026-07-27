@@ -4034,6 +4034,32 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
   padding:calc(var(--pw) * .017) calc(var(--pw) * .032);
   text-shadow:0 1px 0 rgba(0,0,0,.5),0 -1px 0 rgba(255,255,255,.3);
   box-shadow:0 2px 5px rgba(40,26,10,.4)}
+/* THE CRAFT CHIP. The deck used to name its category in words — the old .zcat said "photography",
+   "drawing", "photo essay", "game design" inside the yellow sticky note — and that information was
+   lost when the note became a Dymo strip. This puts it back as a picture, which costs no width.
+
+   It matters most on the two cards where the prompt does NOT imply the craft: "come as your
+   heritage" could be anything, where "doodle at the cafe" and "take night photos of the unseen"
+   already say it. It goes on all six anyway — one card with a badge and one without reads as a bug.
+
+   BOTTOM-right, not top-right. Top-right is the obvious spot and it is wrong: the chip and the tape
+   would share that row, so the tape has to give up ~28% of its width, and at .72 the longest prompt
+   clips to "TAKE NIGHT PHOTOS OF THE U". Measured, not guessed. Bottom-right sits on the photograph,
+   clear of the tape above and the green band below, and is empty on all six cards.
+
+   The icons are LIFTED FROM .cr-ico in the craft grid one section down — same viewBox, same
+   stroke-width 1.9, same round caps — so this is the page's existing hand, not a second one. Only
+   the clothes hanger is new; the grid has sewing and jewelry but no fashion. Drawing uses the
+   grid's watercolour BRUSH rather than a pencil, because a pencil and the penmanship nib are the
+   same shape at 37px and the two cards sit next to each other in the cycle. */
+.hero-card-deck .pola .zcraft{position:absolute;z-index:4;
+  right:calc(var(--pw) * .05);bottom:calc(var(--pw) * .205);
+  width:calc(var(--pw) * .125);height:calc(var(--pw) * .125);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--oats);border:2.2px solid var(--ink);color:var(--ink);
+  transform:rotate(-5deg);box-shadow:2px 2px 0 0 rgba(65,77,87,.55)}
+.hero-card-deck .pola .zcraft svg{width:66%;height:66%;display:block}
+
 /* the answer: flush green band, handwriting, with the credit under it */
 .hero-card-deck .pola .zrefl{position:absolute;z-index:3;left:0;right:0;bottom:0;text-align:center;
   color:var(--oats);background:var(--grass-deep);border-top:2.4px solid var(--ink);
@@ -4101,6 +4127,11 @@ html.modal-open{overflow:hidden}
   font-size:10.5px;letter-spacing:.05em;line-height:1.42;padding:4px 8px;
   text-shadow:0 1px 0 rgba(0,0,0,.5),0 -1px 0 rgba(255,255,255,.3);
   box-shadow:0 2px 5px rgba(40,26,10,.4)}
+.dm-grid .pola .zcraft{position:absolute;z-index:4;right:9px;bottom:58px;
+  width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+  background:var(--oats);border:2.2px solid var(--ink);color:var(--ink);
+  transform:rotate(-5deg);box-shadow:2px 2px 0 0 rgba(65,77,87,.55)}
+.dm-grid .pola .zcraft svg{width:66%;height:66%;display:block}
 .dm-grid .pola .zrefl{position:absolute;z-index:3;left:0;right:0;bottom:0;text-align:center;
   color:var(--oats);background:var(--grass-deep);border-top:2.4px solid var(--ink);
   font-family:var(--f-hand);font-size:16px;line-height:1.1;padding:7px 10px 9px}
