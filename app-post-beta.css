@@ -3993,10 +3993,13 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
    whole idea; putting the answer on green tape too collapses both voices into one and turns a
    quiet realisation ("i could do anything") into a slogan on a locker. It was tried; don't.
 
-   The emboss is three effects stacked: a vertical gradient for the curl of the tape, a dark seat
-   plus a light lip on each glyph (text-shadow, in that order) for the raised character, and an
-   inset highlight/shadow pair for the thickness of the plastic. The two dots are the punched
-   holes at each end, which is the detail that actually says "Dymo" rather than "red box".
+   FLAT COLOUR, and the emboss lives on the GLYPHS ONLY. The first pass stacked a vertical
+   gradient, an inset highlight and an inset shadow on the strip itself, and it came out looking
+   shaded and plasticky — a bevelled button, not a piece of tape. Real tape is a flat saturated
+   colour; the only thing actually raised on it is the lettering. So: one flat fill, a dark seat
+   plus a light lip on each glyph, and a single soft drop shadow so the strip sits ON the
+   photograph. Nothing else. It also had two little dots for the punched holes at each end; they
+   read as dirt at this size. Gone.
 
    ONE LINE, ALWAYS — white-space:nowrap. Real tape has no second row; a strip that wraps stops
    being tape and becomes a sign. That caps a challenge at ~24 characters at this size, which is a
@@ -4007,27 +4010,33 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
   top:calc(var(--pw) * .055);left:calc(var(--pw) * .045);max-width:calc(var(--pw) * .90);
   white-space:nowrap;overflow:hidden;transform:rotate(-1.6deg);
   border-radius:calc(var(--pw) * .013);
-  background:linear-gradient(180deg,#D8434A 0%,#C1313A 42%,#A92A33 100%);color:#fff;
-  font-family:var(--f-head);font-weight:700;text-transform:uppercase;
-  font-size:calc(var(--pw) * .044);letter-spacing:.10em;line-height:1.42;
-  padding:calc(var(--pw) * .017) calc(var(--pw) * .038);
-  text-shadow:0 1px 0 rgba(0,0,0,.55),0 -1px 0 rgba(255,255,255,.35);
-  box-shadow:0 2px 0 rgba(0,0,0,.35),0 3px 7px rgba(0,0,0,.4),
-             inset 0 1px 0 rgba(255,255,255,.30),inset 0 -2px 3px rgba(0,0,0,.28)}
-.hero-card-deck .pola .zchal::before,
-.hero-card-deck .pola .zchal::after{content:"";position:absolute;top:50%;width:3px;height:3px;
-  border-radius:50%;background:rgba(255,255,255,.42);box-shadow:0 0 0 1px rgba(0,0,0,.25);
-  transform:translateY(-50%)}
-.hero-card-deck .pola .zchal::before{left:calc(var(--pw) * .014)}
-.hero-card-deck .pola .zchal::after{right:calc(var(--pw) * .014)}
+  background:var(--colorado);color:#fff;
+  /* --colorado, the brand red, NOT --coral-ink. Know the cost before changing it back or forward:
+     white on #F75458 is 3.30:1 and white on #C9343A is 5.20:1, and these glyphs are ~13px bold —
+     normal text by WCAG, so the bar is 4.5:1 and the brand red misses it. Sue's call, made with the
+     numbers in front of her. It is defensible on this element specifically: the tape is one of two
+     redundant carriers (every card's full prompt is also in its aria-label, spelled out), so no
+     information is only available at 3.3:1. If that ever stops being true, or the audit tightens,
+     swap this one token to var(--coral-ink) and nothing else has to move.
+     Courier Prime (--f-mono) is the brand mono. It is a 0.6em-advance monospace, so it sets much
+     wider than Space Grotesk did — letter-spacing comes down .10em -> .05em and the size .044 ->
+     .042 to keep the longest prompt on one strip. */
+  font-family:var(--f-mono);font-weight:700;text-transform:uppercase;
+  font-size:calc(var(--pw) * .042);letter-spacing:.05em;line-height:1.42;
+  padding:calc(var(--pw) * .017) calc(var(--pw) * .032);
+  text-shadow:0 1px 0 rgba(0,0,0,.5),0 -1px 0 rgba(255,255,255,.3);
+  box-shadow:0 2px 5px rgba(40,26,10,.4)}
 /* the answer: flush green band, handwriting, with the credit under it */
 .hero-card-deck .pola .zrefl{position:absolute;z-index:3;left:0;right:0;bottom:0;text-align:center;
   color:var(--oats);background:var(--grass-deep);border-top:2.4px solid var(--ink);
   font-family:var(--f-hand);font-size:calc(var(--pw) * .062);line-height:1.08;
   padding:calc(var(--pw) * .022) calc(var(--pw) * .03) calc(var(--pw) * .028)}
-/* the credit. No quotation marks anywhere on these: the lines are COMPRESSED from longer ledger
-   answers (Claire actually wrote "It helps me relax and focus when I draw at the cafe!"), and a
-   quote mark asserts verbatim. The @handle does the testimonial work without claiming exactness. */
+/* The answers are in curly quotes (Sue's call, overriding an earlier objection of mine worth
+   recording: these lines are COMPRESSED from longer ledger entries — Claire actually wrote "It
+   helps me relax and focus when I draw at the cafe!" — and a quote mark asserts verbatim. The
+   house rule permits it, since the rule is "no quotes on NON-testimonial copy" and these are real
+   testimonial. If anyone ever tightens the claims audit, the fix is to quote the ledger exactly
+   rather than to drop the marks: the marks are what make it read as a person talking. */
 .hero-card-deck .pola .zrefl small{display:block;font-family:var(--f-head);font-weight:700;
   text-transform:uppercase;font-size:calc(var(--pw) * .029);letter-spacing:.11em;
   opacity:.7;margin-top:4px}
@@ -4079,18 +4088,11 @@ html.modal-open{overflow:hidden}
    (auto-fill minmax) rather than a --pw multiple, so these are absolute values. */
 .dm-grid .pola .zchal{position:absolute;z-index:3;top:11px;left:9px;max-width:calc(100% - 18px);
   white-space:nowrap;overflow:hidden;transform:rotate(-1.6deg);border-radius:3px;
-  background:linear-gradient(180deg,#D8434A 0%,#C1313A 42%,#A92A33 100%);color:#fff;
-  font-family:var(--f-head);font-weight:700;text-transform:uppercase;
-  font-size:11px;letter-spacing:.10em;line-height:1.42;padding:4px 9px;
-  text-shadow:0 1px 0 rgba(0,0,0,.55),0 -1px 0 rgba(255,255,255,.35);
-  box-shadow:0 2px 0 rgba(0,0,0,.35),0 3px 7px rgba(0,0,0,.4),
-             inset 0 1px 0 rgba(255,255,255,.30),inset 0 -2px 3px rgba(0,0,0,.28)}
-.dm-grid .pola .zchal::before,
-.dm-grid .pola .zchal::after{content:"";position:absolute;top:50%;width:3px;height:3px;
-  border-radius:50%;background:rgba(255,255,255,.42);box-shadow:0 0 0 1px rgba(0,0,0,.25);
-  transform:translateY(-50%)}
-.dm-grid .pola .zchal::before{left:3px}
-.dm-grid .pola .zchal::after{right:3px}
+  background:var(--colorado);color:#fff;
+  font-family:var(--f-mono);font-weight:700;text-transform:uppercase;
+  font-size:10.5px;letter-spacing:.05em;line-height:1.42;padding:4px 8px;
+  text-shadow:0 1px 0 rgba(0,0,0,.5),0 -1px 0 rgba(255,255,255,.3);
+  box-shadow:0 2px 5px rgba(40,26,10,.4)}
 .dm-grid .pola .zrefl{position:absolute;z-index:3;left:0;right:0;bottom:0;text-align:center;
   color:var(--oats);background:var(--grass-deep);border-top:2.4px solid var(--ink);
   font-family:var(--f-hand);font-size:16px;line-height:1.1;padding:7px 10px 9px}
