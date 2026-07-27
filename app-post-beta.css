@@ -3987,22 +3987,50 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
    Every dimension ramps off --pw so one number resizes the whole card. Percentages of --pw, not vw:
    the deck also renders inside .dm-grid at a completely different size, and type that tracked the
    viewport would be wrong in one of the two places. */
-.hero-card-deck .pola .zchal,
-.hero-card-deck .pola .zrefl{position:absolute;z-index:3;left:0;right:0;text-align:center;
-  color:var(--oats);padding:calc(var(--pw) * .022) calc(var(--pw) * .03) calc(var(--pw) * .028)}
-.hero-card-deck .pola .zchal{top:0;background:var(--coral-ink);border-bottom:2.4px solid var(--ink);
-  font-family:var(--f-mono);font-weight:700;font-size:calc(var(--pw) * .052);line-height:1.1}
-.hero-card-deck .pola .zrefl{bottom:0;background:var(--grass-deep);border-top:2.4px solid var(--ink);
-  font-family:var(--f-hand);font-size:calc(var(--pw) * .062);line-height:1.08}
-/* the kickers: "the challenge" above the prompt, the credit below the answer. Both are --f-head at
-   ~3% of --pw, which is 9px on the desktop deck — small enough to read as a label rather than a
-   third voice, large enough to survive the #soft displacement filter on the card edge. */
-.hero-card-deck .pola .zchal small,
+/* THE CHALLENGE IS A DYMO STRIP. The prompt is ISSUED to you — by the editor, by the club, by the
+   month — so it wants a labelling medium: embossed plastic, mechanical, uppercase, slapped on at a
+   slight angle. The answer underneath stays handwriting, because it is yours. That split is the
+   whole idea; putting the answer on green tape too collapses both voices into one and turns a
+   quiet realisation ("i could do anything") into a slogan on a locker. It was tried; don't.
+
+   The emboss is three effects stacked: a vertical gradient for the curl of the tape, a dark seat
+   plus a light lip on each glyph (text-shadow, in that order) for the raised character, and an
+   inset highlight/shadow pair for the thickness of the plastic. The two dots are the punched
+   holes at each end, which is the detail that actually says "Dymo" rather than "red box".
+
+   ONE LINE, ALWAYS — white-space:nowrap. Real tape has no second row; a strip that wraps stops
+   being tape and becomes a sign. That caps a challenge at ~24 characters at this size, which is a
+   tighter brief than "five words" and a better one. If a prompt does not fit, shorten the prompt.
+   No --f-dymo webfont: --f-head (Space Grotesk 700) uppercase with tracking does the job, and the
+   page is not spending another Google Fonts request on one strip. */
+.hero-card-deck .pola .zchal{position:absolute;z-index:3;
+  top:calc(var(--pw) * .055);left:calc(var(--pw) * .045);max-width:calc(var(--pw) * .90);
+  white-space:nowrap;overflow:hidden;transform:rotate(-1.6deg);
+  border-radius:calc(var(--pw) * .013);
+  background:linear-gradient(180deg,#D8434A 0%,#C1313A 42%,#A92A33 100%);color:#fff;
+  font-family:var(--f-head);font-weight:700;text-transform:uppercase;
+  font-size:calc(var(--pw) * .044);letter-spacing:.10em;line-height:1.42;
+  padding:calc(var(--pw) * .017) calc(var(--pw) * .038);
+  text-shadow:0 1px 0 rgba(0,0,0,.55),0 -1px 0 rgba(255,255,255,.35);
+  box-shadow:0 2px 0 rgba(0,0,0,.35),0 3px 7px rgba(0,0,0,.4),
+             inset 0 1px 0 rgba(255,255,255,.30),inset 0 -2px 3px rgba(0,0,0,.28)}
+.hero-card-deck .pola .zchal::before,
+.hero-card-deck .pola .zchal::after{content:"";position:absolute;top:50%;width:3px;height:3px;
+  border-radius:50%;background:rgba(255,255,255,.42);box-shadow:0 0 0 1px rgba(0,0,0,.25);
+  transform:translateY(-50%)}
+.hero-card-deck .pola .zchal::before{left:calc(var(--pw) * .014)}
+.hero-card-deck .pola .zchal::after{right:calc(var(--pw) * .014)}
+/* the answer: flush green band, handwriting, with the credit under it */
+.hero-card-deck .pola .zrefl{position:absolute;z-index:3;left:0;right:0;bottom:0;text-align:center;
+  color:var(--oats);background:var(--grass-deep);border-top:2.4px solid var(--ink);
+  font-family:var(--f-hand);font-size:calc(var(--pw) * .062);line-height:1.08;
+  padding:calc(var(--pw) * .022) calc(var(--pw) * .03) calc(var(--pw) * .028)}
+/* the credit. No quotation marks anywhere on these: the lines are COMPRESSED from longer ledger
+   answers (Claire actually wrote "It helps me relax and focus when I draw at the cafe!"), and a
+   quote mark asserts verbatim. The @handle does the testimonial work without claiming exactness. */
 .hero-card-deck .pola .zrefl small{display:block;font-family:var(--f-head);font-weight:700;
-  letter-spacing:.14em;text-transform:uppercase;font-size:calc(var(--pw) * .031)}
-.hero-card-deck .pola .zchal small{opacity:.8;margin-bottom:3px}
-.hero-card-deck .pola .zrefl small{opacity:.7;margin-top:4px;letter-spacing:.11em;
-  font-size:calc(var(--pw) * .029)}
+  text-transform:uppercase;font-size:calc(var(--pw) * .029);letter-spacing:.11em;
+  opacity:.7;margin-top:4px}
 /* the FRONT card wears the "tap to flip through" cue below it. JS marks it .dt. */
 .hero-card-deck .pola.dt::after{content:"real zines\00a0\2014\00a0tap to flip\00a0\2192";position:absolute;left:50%;bottom:-24px;
   transform:translateX(-50%) rotate(-3deg);white-space:nowrap;font-family:var(--f-hand);font-size:13.5px;
@@ -4047,18 +4075,27 @@ html.modal-open{overflow:hidden}
    own sizes for them. The grid cell is fluid (auto-fill minmax) rather than a --pw multiple, so these
    are absolute: the modal is where the deck is finally big enough to be READ rather than glanced at,
    and the answers deserve to be legible there. */
-.dm-grid .pola .zchal,
-.dm-grid .pola .zrefl{position:absolute;z-index:3;left:0;right:0;text-align:center;
-  color:var(--oats);padding:7px 10px 9px}
-.dm-grid .pola .zchal{top:0;background:var(--coral-ink);border-bottom:2.4px solid var(--ink);
-  font-family:var(--f-mono);font-weight:700;font-size:13px;line-height:1.12}
-.dm-grid .pola .zrefl{bottom:0;background:var(--grass-deep);border-top:2.4px solid var(--ink);
-  font-family:var(--f-hand);font-size:16px;line-height:1.1}
-.dm-grid .pola .zchal small,
+/* the same Dymo-and-handwriting split, at the modal's fixed cell size. The grid cell is fluid
+   (auto-fill minmax) rather than a --pw multiple, so these are absolute values. */
+.dm-grid .pola .zchal{position:absolute;z-index:3;top:11px;left:9px;max-width:calc(100% - 18px);
+  white-space:nowrap;overflow:hidden;transform:rotate(-1.6deg);border-radius:3px;
+  background:linear-gradient(180deg,#D8434A 0%,#C1313A 42%,#A92A33 100%);color:#fff;
+  font-family:var(--f-head);font-weight:700;text-transform:uppercase;
+  font-size:11px;letter-spacing:.10em;line-height:1.42;padding:4px 9px;
+  text-shadow:0 1px 0 rgba(0,0,0,.55),0 -1px 0 rgba(255,255,255,.35);
+  box-shadow:0 2px 0 rgba(0,0,0,.35),0 3px 7px rgba(0,0,0,.4),
+             inset 0 1px 0 rgba(255,255,255,.30),inset 0 -2px 3px rgba(0,0,0,.28)}
+.dm-grid .pola .zchal::before,
+.dm-grid .pola .zchal::after{content:"";position:absolute;top:50%;width:3px;height:3px;
+  border-radius:50%;background:rgba(255,255,255,.42);box-shadow:0 0 0 1px rgba(0,0,0,.25);
+  transform:translateY(-50%)}
+.dm-grid .pola .zchal::before{left:3px}
+.dm-grid .pola .zchal::after{right:3px}
+.dm-grid .pola .zrefl{position:absolute;z-index:3;left:0;right:0;bottom:0;text-align:center;
+  color:var(--oats);background:var(--grass-deep);border-top:2.4px solid var(--ink);
+  font-family:var(--f-hand);font-size:16px;line-height:1.1;padding:7px 10px 9px}
 .dm-grid .pola .zrefl small{display:block;font-family:var(--f-head);font-weight:700;
-  letter-spacing:.13em;text-transform:uppercase;font-size:9px}
-.dm-grid .pola .zchal small{opacity:.8;margin-bottom:3px}
-.dm-grid .pola .zrefl small{opacity:.72;margin-top:4px;letter-spacing:.1em}
+  letter-spacing:.1em;text-transform:uppercase;font-size:9px;opacity:.72;margin-top:4px}
 .dm-grid .pola:hover,.dm-grid .pola:focus-visible{transform:rotate(0) translateY(-5px);outline:none}
 @keyframes dmFade{from{opacity:0}to{opacity:1}}
 @keyframes dmPop{from{opacity:0;transform:translateY(10px) scale(.975)}to{opacity:1;transform:none}}
