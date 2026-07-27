@@ -3993,13 +3993,28 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
    whole idea; putting the answer on green tape too collapses both voices into one and turns a
    quiet realisation ("i could do anything") into a slogan on a locker. It was tried; don't.
 
-   FLAT COLOUR, and the emboss lives on the GLYPHS ONLY. The first pass stacked a vertical
-   gradient, an inset highlight and an inset shadow on the strip itself, and it came out looking
-   shaded and plasticky — a bevelled button, not a piece of tape. Real tape is a flat saturated
-   colour; the only thing actually raised on it is the lettering. So: one flat fill, a dark seat
-   plus a light lip on each glyph, and a single soft drop shadow so the strip sits ON the
-   photograph. Nothing else. It also had two little dots for the punched holes at each end; they
-   read as dirt at this size. Gone.
+   THIS PAGE ALREADY HAS A DYMO TAPE — .rn-arrow at :665, the "btw" label in the reveal-name aside,
+   whose own comment says "a label maker is the object whose entire purpose is giving a thing a
+   name". So this is not a new component, it is a second instance of an existing one, and it
+   follows that spec. Earlier passes here did not, and the result read as too skeuomorphic against
+   the rest of the page. What the house spec is, and why each part of it matters:
+
+     --coral-ink, not --colorado         the tape colour the page already uses (and the AA-safe
+                                          one: white on #F75458 is 3.30:1, on #C9343A it is 5.20:1)
+     #FFF8EC letters, not pure white     plastic whitens where it is stretched; it never goes white
+     ONE text-shadow, tinted dark red    a black seat plus a white lip is a 3D bevel, which is
+                                          realism; this page does cartoon-analog, not photoreal
+     box-shadow 2px 2px 0 0              HARD offset, zero blur. The stylesheet has 103 zero-blur
+                                          shadows; a blurred one was the single exception and it
+                                          was this element. That was the tell.
+     filter:url(#roughsm) + boil         every other paper object on the page trembles. A rigid
+                                          rectangle with perfectly straight edges is the only
+                                          thing in the hero that does not, and it shows.
+
+   ONE DELIBERATE DIVERGENCE: .rn-arrow tracks at .22em; this tracks at .05em. Not a slip. That
+   label carries one word ("btw") and this one carries up to 31 characters on a strip that may not
+   wrap, and .22em tracking at a legible size overflows it by ~65px. Matching the tracking would
+   mean dropping to ~10px type. Legibility wins; every other property matches exactly.
 
    ONE LINE, ALWAYS — white-space:nowrap. Real tape has no second row; a strip that wraps stops
    being tape and becomes a sign. Measured budget: the strip maxes at .90 * --pw = 270px, and
@@ -4017,8 +4032,8 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
 .hero-card-deck .pola .zchal{position:absolute;z-index:3;
   top:calc(var(--pw) * .055);left:calc(var(--pw) * .045);max-width:calc(var(--pw) * .90);
   white-space:nowrap;overflow:hidden;transform:rotate(-1.6deg);
-  border-radius:calc(var(--pw) * .013);
-  background:var(--colorado);color:#fff;
+  border-radius:5px;
+  background:var(--coral-ink);color:#FFF8EC;
   /* --colorado, the brand red, NOT --coral-ink. Know the cost before changing it back or forward:
      white on #F75458 is 3.30:1 and white on #C9343A is 5.20:1, and these glyphs are ~13px bold —
      normal text by WCAG, so the bar is 4.5:1 and the brand red misses it. Sue's call, made with the
@@ -4031,9 +4046,10 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
      .042 to keep the longest prompt on one strip. */
   font-family:var(--f-mono);font-weight:700;text-transform:uppercase;
   font-size:calc(var(--pw) * .042);letter-spacing:.05em;line-height:1.42;
-  padding:calc(var(--pw) * .017) calc(var(--pw) * .032);
-  text-shadow:0 1px 0 rgba(0,0,0,.5),0 -1px 0 rgba(255,255,255,.3);
-  box-shadow:0 2px 5px rgba(40,26,10,.4)}
+  padding:calc(var(--pw) * .017) calc(var(--pw) * .032);text-indent:.05em;
+  text-shadow:0 1px 0 rgba(93,18,22,.55);
+  box-shadow:2px 2px 0 0 rgba(65,77,87,.4);
+  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
 /* THE CRAFT CHIP. The deck used to name its category in words — the old .zcat said "photography",
    "drawing", "photo essay", "game design" inside the yellow sticky note — and that information was
    lost when the note became a Dymo strip. This puts it back as a picture, which costs no width.
@@ -4061,10 +4077,16 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
 .hero-card-deck .pola .zcraft svg{width:66%;height:66%;display:block}
 
 /* the answer: flush green band, handwriting, with the credit under it */
+/* The band gets the wobble too. Its border-top was the other perfectly straight line in the hero —
+   a 2.4px ruler across a card whose every other edge is hand-cut. #roughsm plus the same boil the
+   rest of the page's paper runs on. (A displacement filter needs ~3px of ink to read as tremor
+   rather than chew it into dashes — see the note on the retired .ed-hair at :3519 — so the rule
+   goes 2.4px -> 3px at the same time. That is the minimum that survives the filter.) */
 .hero-card-deck .pola .zrefl{position:absolute;z-index:3;left:0;right:0;bottom:0;text-align:center;
-  color:var(--oats);background:var(--grass-deep);border-top:2.4px solid var(--ink);
+  color:var(--oats);background:var(--grass-deep);border-top:3px solid var(--ink);
   font-family:var(--f-hand);font-size:calc(var(--pw) * .062);line-height:1.08;
-  padding:calc(var(--pw) * .022) calc(var(--pw) * .03) calc(var(--pw) * .028)}
+  padding:calc(var(--pw) * .022) calc(var(--pw) * .03) calc(var(--pw) * .028);
+  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
 /* The answers are in curly quotes (Sue's call, overriding an earlier objection of mine worth
    recording: these lines are COMPRESSED from longer ledger entries — Claire actually wrote "It
    helps me relax and focus when I draw at the cafe!" — and a quote mark asserts verbatim. The
@@ -4122,19 +4144,21 @@ html.modal-open{overflow:hidden}
    (auto-fill minmax) rather than a --pw multiple, so these are absolute values. */
 .dm-grid .pola .zchal{position:absolute;z-index:3;top:11px;left:9px;max-width:calc(100% - 18px);
   white-space:nowrap;overflow:hidden;transform:rotate(-1.6deg);border-radius:3px;
-  background:var(--colorado);color:#fff;
+  background:var(--coral-ink);color:#FFF8EC;
   font-family:var(--f-mono);font-weight:700;text-transform:uppercase;
-  font-size:10.5px;letter-spacing:.05em;line-height:1.42;padding:4px 8px;
-  text-shadow:0 1px 0 rgba(0,0,0,.5),0 -1px 0 rgba(255,255,255,.3);
-  box-shadow:0 2px 5px rgba(40,26,10,.4)}
+  font-size:10.5px;letter-spacing:.05em;line-height:1.42;padding:4px 8px;text-indent:.05em;
+  text-shadow:0 1px 0 rgba(93,18,22,.55);
+  box-shadow:2px 2px 0 0 rgba(65,77,87,.4);
+  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
 .dm-grid .pola .zcraft{position:absolute;z-index:4;right:9px;bottom:58px;
   width:30px;height:30px;display:flex;align-items:center;justify-content:center;
   background:var(--oats);border:2.2px solid var(--ink);color:var(--ink);
   transform:rotate(-5deg);box-shadow:2px 2px 0 0 rgba(65,77,87,.55)}
 .dm-grid .pola .zcraft svg{width:66%;height:66%;display:block}
 .dm-grid .pola .zrefl{position:absolute;z-index:3;left:0;right:0;bottom:0;text-align:center;
-  color:var(--oats);background:var(--grass-deep);border-top:2.4px solid var(--ink);
-  font-family:var(--f-hand);font-size:16px;line-height:1.1;padding:7px 10px 9px}
+  color:var(--oats);background:var(--grass-deep);border-top:3px solid var(--ink);
+  font-family:var(--f-hand);font-size:16px;line-height:1.1;padding:7px 10px 9px;
+  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
 .dm-grid .pola .zrefl small{display:block;font-family:var(--f-head);font-weight:700;
   letter-spacing:.1em;text-transform:uppercase;font-size:9px;opacity:.72;margin-top:4px}
 .dm-grid .pola:hover,.dm-grid .pola:focus-visible{transform:rotate(0) translateY(-5px);outline:none}
