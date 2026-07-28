@@ -3968,6 +3968,17 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
   padding:0;cursor:pointer;pointer-events:auto;text-decoration:none;color:var(--ink);
   transform:translate(calc(var(--i,0)*4px),calc(var(--i,0)*7px)) rotate(var(--r)) scale(calc(1 - var(--i,0)*.03));
   z-index:calc(40 - var(--i,0));transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .4s;
+  /* THE SETTLE. Each card carries two SVG-filtered ::before layers (the tape and the green band)
+     and the stack transform includes a per-depth scale(1 - i*.03). An SVG filter is evaluated in
+     the element's own coordinate space, so when the card scales the browser rasterises the filter
+     result at one size, transforms that bitmap for the .5s transition, and then re-rasterises it
+     sharply at the end — which reads as the card "settling" a beat after it lands. It is loudest
+     on the green band because that is the largest filtered area with a hard edge.
+     will-change:transform promotes the card to its own compositor layer, so the filter rasterises
+     ONCE and the transition just transforms that texture. The cards only ever scale DOWN from 1,
+     so there is no upscaling blur to pay for. Six layers, one per card, is a fair price; do not
+     spread will-change any wider than this without re-checking the FPS governor. */
+  will-change:transform;
   /* booklet THICKNESS: layered paper/ink page edges behind the cover = a little magazine, not a flat card */
   box-shadow:2px 2px 0 0 var(--paper),3px 3px 0 0 var(--ink),6px 6px 0 0 var(--paper),7px 8px 0 0 var(--ink)}
 .hero-card-deck .pola::before{display:none}   /* NO white polaroid mat */
@@ -4007,9 +4018,18 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
      box-shadow 2px 2px 0 0              HARD offset, zero blur. The stylesheet has 103 zero-blur
                                           shadows; a blurred one was the single exception and it
                                           was this element. That was the tell.
-     filter:url(#roughsm) + boil         every other paper object on the page trembles. A rigid
-                                          rectangle with perfectly straight edges is the only
-                                          thing in the hero that does not, and it shows.
+     filter:url(#roughsm)                every other paper object on the page has hand-cut edges.
+                                          A rigid rectangle with perfectly straight sides was the
+                                          only thing in the hero that did not, and it showed.
+
+   THE STATIC EDGE, BUT NOT THE BOIL. .rn-arrow pairs #roughsm with animation:boil-roughsm, and
+   this deliberately does not. The hand-drawn EDGE is what buys the consistency; the BOIL is an
+   animated SVG filter, which is the most expensive thing on the page per element — and .rn-arrow
+   is ONE element where this is twelve (six cards x two bands), plus twelve more once the lightbox
+   clones them. The FPS governor (app-post-beta.js:44) latches html[data-tier="lite"] when the
+   average frame goes over 34ms, and lite then kills animations that matter more than this one —
+   including the H1 highlighter's swipe at :2665. Boiling the deck risks trading the headline's
+   marker for a wobble nobody asked for. Static edge, no boil.
 
    ONE DELIBERATE DIVERGENCE: .rn-arrow tracks at .22em; this tracks at .05em. Not a slip. That
    label carries one word ("btw") and this one carries up to 31 characters on a strip that may not
@@ -4029,27 +4049,31 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
    it as a SHORTER INSTRUCTION; never trim it into a fragment.
    No --f-dymo webfont: --f-head (Space Grotesk 700) uppercase with tracking does the job, and the
    page is not spending another Google Fonts request on one strip. */
-.hero-card-deck .pola .zchal{position:absolute;z-index:3;
+/* THE FILTER GOES ON A ::before, NEVER ON THE ELEMENT. An SVG displacement filter distorts
+   everything inside the box it is applied to — including the type, which came out visibly chewed
+   on a 13px monospace. The page already solves this and this follows it: .ed-coupon::before and
+   .dm-panel::before each carry the background, the border and the filter on a pseudo-element at
+   z-index:-1, and let the text sit above them unfiltered. Wobbly edges, crisp letters.
+   Two consequences worth knowing: the element itself must carry NO background (or it would cover
+   the ::before), and it must NOT be overflow:hidden — the displacement pushes ink a few px past
+   the box, and clipping it gives back the straight edge this whole rule exists to remove. */
+.hero-card-deck .pola .zchal{position:absolute;z-index:3;isolation:isolate;
   top:calc(var(--pw) * .055);left:calc(var(--pw) * .045);max-width:calc(var(--pw) * .90);
-  white-space:nowrap;overflow:hidden;transform:rotate(-1.6deg);
-  border-radius:5px;
-  background:var(--coral-ink);color:#FFF8EC;
-  /* --colorado, the brand red, NOT --coral-ink. Know the cost before changing it back or forward:
-     white on #F75458 is 3.30:1 and white on #C9343A is 5.20:1, and these glyphs are ~13px bold —
-     normal text by WCAG, so the bar is 4.5:1 and the brand red misses it. Sue's call, made with the
-     numbers in front of her. It is defensible on this element specifically: the tape is one of two
-     redundant carriers (every card's full prompt is also in its aria-label, spelled out), so no
-     information is only available at 3.3:1. If that ever stops being true, or the audit tightens,
-     swap this one token to var(--coral-ink) and nothing else has to move.
-     Courier Prime (--f-mono) is the brand mono. It is a 0.6em-advance monospace, so it sets much
-     wider than Space Grotesk did — letter-spacing comes down .10em -> .05em and the size .044 ->
-     .042 to keep the longest prompt on one strip. */
+  white-space:nowrap;transform:rotate(-1.6deg);
+  color:#FFF8EC;
+  /* --coral-ink, matching .rn-arrow. This briefly used raw --colorado and the contrast is why it
+     should not go back: white on #F75458 is 3.30:1, on #C9343A it is 5.20:1, and these glyphs are
+     ~13px bold — normal text by WCAG, so the bar is 4.5:1 and the brand red misses it.
+     Courier Prime (--f-mono) is the brand mono, and the same face .rn-arrow uses. It is a 0.6em
+     advance monospace so it sets much wider than a geometric sans: letter-spacing .05em and size
+     .042 are what keep the longest prompt on one strip. */
   font-family:var(--f-mono);font-weight:700;text-transform:uppercase;
   font-size:calc(var(--pw) * .042);letter-spacing:.05em;line-height:1.42;
   padding:calc(var(--pw) * .017) calc(var(--pw) * .032);text-indent:.05em;
-  text-shadow:0 1px 0 rgba(93,18,22,.55);
-  box-shadow:2px 2px 0 0 rgba(65,77,87,.4);
-  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+  text-shadow:0 1px 0 rgba(93,18,22,.55)}
+.hero-card-deck .pola .zchal::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:var(--coral-ink);border-radius:5px;box-shadow:2px 2px 0 0 rgba(65,77,87,.4);
+  filter:url(#roughsm)}
 /* THE CRAFT CHIP. The deck used to name its category in words — the old .zcat said "photography",
    "drawing", "photo essay", "game design" inside the yellow sticky note — and that information was
    lost when the note became a Dymo strip. This puts it back as a picture, which costs no width.
@@ -4068,13 +4092,24 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
    the clothes hanger is new; the grid has sewing and jewelry but no fashion. Drawing uses the
    grid's watercolour BRUSH rather than a pencil, because a pencil and the penmanship nib are the
    same shape at 37px and the two cards sit next to each other in the cycle. */
+/* A DOODLE, NOT A BADGE. This started as an oats paper chip with an ink border and a hard shadow —
+   a UI badge pinned to a photograph, which is what it read as. Bare yellow marker on the picture is
+   the page's own marginalia idiom instead (the hand-drawn arrows, circles and stars in .cg-scrap all
+   sit directly on the artwork with nothing behind them).
+   Three things make it survive without a chip:
+     - #roughsm on the SVG. Wobbling TYPE is a defect and wobbling a DOODLE is the whole point, so
+       the filter goes on the element here, unlike the two bands above.
+     - stroke-width 2.3 via CSS, overriding the 1.9 baked into the markup as a presentation
+       attribute. 1.9 is tuned for ink on oats in the craft grid; --happy on a photograph needs more.
+     - ONE tight ink drop-shadow. Not a background and not an outline — without it the yellow
+       vanishes on the Penman card, which is cream paper, and on the bright half of Claire's cafe. */
 .hero-card-deck .pola .zcraft{position:absolute;z-index:4;
-  right:calc(var(--pw) * .05);bottom:calc(var(--pw) * .205);
-  width:calc(var(--pw) * .125);height:calc(var(--pw) * .125);
+  right:calc(var(--pw) * .045);bottom:calc(var(--pw) * .20);
+  width:calc(var(--pw) * .145);height:calc(var(--pw) * .145);
   display:flex;align-items:center;justify-content:center;
-  background:var(--oats);border:2.2px solid var(--ink);color:var(--ink);
-  transform:rotate(-5deg);box-shadow:2px 2px 0 0 rgba(65,77,87,.55)}
-.hero-card-deck .pola .zcraft svg{width:66%;height:66%;display:block}
+  color:var(--happy);transform:rotate(-6deg);
+  filter:url(#roughsm) drop-shadow(0 1.5px 1px rgba(38,28,12,.75))}
+.hero-card-deck .pola .zcraft svg{width:100%;height:100%;display:block;stroke-width:2.3}
 
 /* the answer: flush green band, handwriting, with the credit under it */
 /* The band gets the wobble too. Its border-top was the other perfectly straight line in the hero —
@@ -4082,11 +4117,14 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
    rest of the page's paper runs on. (A displacement filter needs ~3px of ink to read as tremor
    rather than chew it into dashes — see the note on the retired .ed-hair at :3519 — so the rule
    goes 2.4px -> 3px at the same time. That is the minimum that survives the filter.) */
-.hero-card-deck .pola .zrefl{position:absolute;z-index:3;left:0;right:0;bottom:0;text-align:center;
-  color:var(--oats);background:var(--grass-deep);border-top:3px solid var(--ink);
+.hero-card-deck .pola .zrefl{position:absolute;z-index:3;isolation:isolate;
+  left:0;right:0;bottom:0;text-align:center;color:var(--oats);
   font-family:var(--f-hand);font-size:calc(var(--pw) * .062);line-height:1.08;
-  padding:calc(var(--pw) * .022) calc(var(--pw) * .03) calc(var(--pw) * .028);
-  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+  padding:calc(var(--pw) * .022) calc(var(--pw) * .03) calc(var(--pw) * .028)}
+/* inset -2px on the sides and bottom so the filter's displacement has somewhere to go without
+   pulling the fill in off the card's edge; the band is meant to bleed, only its TOP rule wobbles */
+.hero-card-deck .pola .zrefl::before{content:"";position:absolute;inset:0 -2px -2px;z-index:-1;
+  background:var(--grass-deep);border-top:3px solid var(--ink);filter:url(#roughsm)}
 /* The answers are in curly quotes (Sue's call, overriding an earlier objection of mine worth
    recording: these lines are COMPRESSED from longer ledger entries — Claire actually wrote "It
    helps me relax and focus when I draw at the cafe!" — and a quote mark asserts verbatim. The
@@ -4142,23 +4180,24 @@ html.modal-open{overflow:hidden}
    and the answers deserve to be legible there. */
 /* the same Dymo-and-handwriting split, at the modal's fixed cell size. The grid cell is fluid
    (auto-fill minmax) rather than a --pw multiple, so these are absolute values. */
-.dm-grid .pola .zchal{position:absolute;z-index:3;top:11px;left:9px;max-width:calc(100% - 18px);
-  white-space:nowrap;overflow:hidden;transform:rotate(-1.6deg);border-radius:3px;
-  background:var(--coral-ink);color:#FFF8EC;
+.dm-grid .pola .zchal{position:absolute;z-index:3;isolation:isolate;top:11px;left:9px;
+  max-width:calc(100% - 18px);white-space:nowrap;transform:rotate(-1.6deg);color:#FFF8EC;
   font-family:var(--f-mono);font-weight:700;text-transform:uppercase;
   font-size:10.5px;letter-spacing:.05em;line-height:1.42;padding:4px 8px;text-indent:.05em;
-  text-shadow:0 1px 0 rgba(93,18,22,.55);
-  box-shadow:2px 2px 0 0 rgba(65,77,87,.4);
-  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+  text-shadow:0 1px 0 rgba(93,18,22,.55)}
+.dm-grid .pola .zchal::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:var(--coral-ink);border-radius:3px;box-shadow:2px 2px 0 0 rgba(65,77,87,.4);
+  filter:url(#roughsm)}
 .dm-grid .pola .zcraft{position:absolute;z-index:4;right:9px;bottom:58px;
-  width:30px;height:30px;display:flex;align-items:center;justify-content:center;
-  background:var(--oats);border:2.2px solid var(--ink);color:var(--ink);
-  transform:rotate(-5deg);box-shadow:2px 2px 0 0 rgba(65,77,87,.55)}
-.dm-grid .pola .zcraft svg{width:66%;height:66%;display:block}
-.dm-grid .pola .zrefl{position:absolute;z-index:3;left:0;right:0;bottom:0;text-align:center;
-  color:var(--oats);background:var(--grass-deep);border-top:3px solid var(--ink);
-  font-family:var(--f-hand);font-size:16px;line-height:1.1;padding:7px 10px 9px;
-  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+  width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+  color:var(--happy);transform:rotate(-6deg);
+  filter:url(#roughsm) drop-shadow(0 1.5px 1px rgba(38,28,12,.75))}
+.dm-grid .pola .zcraft svg{width:100%;height:100%;display:block;stroke-width:2.3}
+.dm-grid .pola .zrefl{position:absolute;z-index:3;isolation:isolate;left:0;right:0;bottom:0;
+  text-align:center;color:var(--oats);
+  font-family:var(--f-hand);font-size:16px;line-height:1.1;padding:7px 10px 9px}
+.dm-grid .pola .zrefl::before{content:"";position:absolute;inset:0 -2px -2px;z-index:-1;
+  background:var(--grass-deep);border-top:3px solid var(--ink);filter:url(#roughsm)}
 .dm-grid .pola .zrefl small{display:block;font-family:var(--f-head);font-weight:700;
   letter-spacing:.1em;text-transform:uppercase;font-size:9px;opacity:.72;margin-top:4px}
 .dm-grid .pola:hover,.dm-grid .pola:focus-visible{transform:rotate(0) translateY(-5px);outline:none}
