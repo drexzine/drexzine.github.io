@@ -24,37 +24,18 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
 <!-- ============================================================================
-     index-post-beta.html — the POST-BETA CUT of the landing page, the proposed
-     alternative to index.html. Live at drex.style/index-post-beta.html so it can
-     be read on a real device beside the front page and beside index-fielded.html.
+     index-old.html — the RETIRED front page, kept verbatim. It was drex.style/
+     index.html until 2026-07-27, when the post-beta cut was promoted over it.
 
-     It carries its OWN app-post-beta.css / app-post-beta.js precisely so it can
-     never touch index.html OR index-fielded.html. Edits to app.css/app.js and to
-     app-fielded.css/app-fielded.js do NOT reach this page, and edits here reach
-     nothing else. If this cut wins, port it back into app.css/app.js and delete
-     the fielded and post-beta files together.
+     Kept rather than deleted so the previous fold can still be opened on a real
+     device and compared. It still runs app.css / app.js, which stay in the repo
+     for exactly this reason — the live front page runs app-post-beta.* instead.
 
-     What it changes against index-fielded.html, and only this:
-       1. THE FOLD. H1 is "Together, you become a ___." — 33 characters against a
-          documented ~52 ceiling, so it sets larger than any headline the card has
-          carried. "Together" leads because the collaboration is the product, not a
-          trailing prepositional phrase. The blank ENDS the sentence: the rotator's
-          full stop lives inside the slot so it travels with the typing (009ff07),
-          which means the blank can only ever be a sentence's last word. Sub carries
-          the mechanism the H1 no longer states.
-       2. THE DECK. Five cards, each a real photograph out of a real issue, with the
-          challenge set in a red band across the top and the maker's own reflection
-          in a green band across the bottom — both as live HTML, at ~46% larger.
-          The old covers were screenshots of the zine's cover page with that text
-          baked into the pixels at a size illegible under 205px, so the card carried
-          a sticky note ON TOP of an image already trying to say the same thing.
-       3. THE PILE loses its two zine covers, which the bigger deck now duplicates.
-
-     noindex: it is the same offer as the front page and should not compete with
-     it in search. Remove the robots tag if you ever want it indexed.
+     noindex, added at retirement: it is the same offer as the front page under a
+     different URL, and two indexed copies of one pitch compete with each other.
      ============================================================================ -->
 <meta name="robots" content="noindex" />
-<link rel="stylesheet" href="app-post-beta.css?v=1" />
+<link rel="stylesheet" href="app.css?v=326" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -242,7 +223,7 @@
             <div class="hb-strand" id="hb-strand">
               <span class="hb-thread"></span>                 <!-- ONE continuous string: slit → through every tab → burger -->
               <ul class="hb-tray" id="hb-tray">
-                <li><a href="https://letters.drex.style/join-online/">Join as a group</a></li>
+                <li><a href="https://letters.drex.style/join-online/">Make a club for my group</a></li>
                 <li><a href="https://instagram.com/drexclubs">Instagram</a></li>
                 <li><a href="https://demo.drex.style">Demo</a></li>
                 <li class="hb-cta"><a class="btn" href="https://letters.drex.style/join-online/">Join the waitlist <span class="arr">&rarr;</span></a></li>
@@ -281,14 +262,8 @@
         <div class="hero-pile" aria-hidden="true">
           <figure class="hp" style="--r:-7deg;--t:-4%;--l:44%;--w:20%;z-index:2"><i style="background-image:url(assets/zines/silk-road-cover.jpg)"></i><figcaption>photography</figcaption></figure>
           <figure class="hp" style="--r:-10deg;--t:2%;--l:62%;--w:23%;z-index:2"><i style="background-image:url(assets/zines/phloor-makers.jpg)"></i><figcaption>night photography</figcaption></figure>
-          <!-- These two slots used to carry assets/zines/xchange-makers.jpg ("styling") and
-               assets/zine-handmade.jpg ("illustration"). Both had to go: zine-handmade.jpg IS the
-               photograph on deck card 1, and xchange-makers.jpg is the same parasol subject as deck
-               card 3. At 205px that was a coincidence nobody noticed; at 300px the deck sits right
-               beside its own twins. The pile is the RESIDUE of the work and the deck is the work —
-               a given photograph belongs to exactly one of them. -->
-          <figure class="hp" style="--r:6deg;--t:12%;--l:82%;--w:19%;z-index:3"><i style="background-image:url(assets/makers/andrea.jpg)"></i><figcaption>styling</figcaption></figure>
-          <figure class="hp" style="--r:8deg;--t:22%;--l:74%;--w:21%;z-index:3"><i style="background-image:url(assets/makers/falcon.jpg)"></i><figcaption>illustration</figcaption></figure>
+          <figure class="hp" style="--r:6deg;--t:12%;--l:82%;--w:19%;z-index:3"><i style="background-image:url(assets/zines/xchange-makers.jpg)"></i><figcaption>styling</figcaption></figure>
+          <figure class="hp" style="--r:8deg;--t:22%;--l:74%;--w:21%;z-index:3"><i style="background-image:url(assets/zine-handmade.jpg)"></i><figcaption>illustration</figcaption></figure>
           <figure class="hp" style="--r:-6deg;--t:46%;--l:70%;--w:22%;z-index:2"><i style="background-image:url(assets/makers/tergel.jpg)"></i><figcaption>sacred cloth</figcaption></figure>
           <figure class="hp" style="--r:13deg;--t:66%;--l:62%;--w:20%;z-index:3"><i style="background-image:url(assets/makers/ivy.jpg)"></i><figcaption>streetwear</figcaption></figure>
           <figure class="hp" style="--r:-4deg;--t:80%;--l:36%;--w:21%;z-index:2"><i style="background-image:url(assets/makers/janey.jpg)"></i><figcaption>self-portrait</figcaption></figure>
@@ -313,53 +288,34 @@
             <span class="tape" style="left:12%;top:-14px"></span>
             <div class="inner ed-inner">
 
-              <!-- ZONE 1 - THE TRANSFORMATION IS THE HEADLINE, AND "TOGETHER" LEADS IT.
-                   The fielded cut put the mechanism in the H1 ("Show-and-tell with the same group
-                   until you become a ___", 52 characters) and paid for it twice: the headline had to
-                   be set smaller at every width (see app-post-beta.css:3592) and the collaboration —
-                   the actual product — arrived last, as a trailing prepositional phrase nobody reads.
-                   This inverts it. "Together" is the first word on the page because being in it with
-                   other people is the offer; the blank is the promise; the mechanism drops to the sub.
-                   33 characters, so the H1 sets larger here than it ever has.
-                   Nothing shares the headline's optical field: no eyebrow, no hairline, no deck. -->
+              <!-- ZONE 1 - the slug, a hairline, and the headline ALONE.
+                   "4,000 messages. Nothing made." Creative groups don't fail for lack of talent.
+                   They fail because nothing is ever due. Say that, and everyone who has ever been in
+                   one recognises themselves in six words. Then "Yours will." is the promise.
+                   Nothing shares the headline's optical field: faces beat type, unconditionally. -->
               <div class="ed-head">
+                <!-- ZONE 1 line 1 — THE MECHANISM, demoted to the eyebrow. It's read first
+                     (positionally above the H1) and carries the differentiator + the only verb we
+                     have ("show-and-tell deadlines" = you present, on a clock), so the big line is
+                     free to be the warm, memorable invite. The eyebrow MUST stay legible — it's the
+                     smallest line but it's the one answering "what does it actually do." -->
+                <p class="ed-kicker" style="color:var(--colorado)">Tiny creative clubs with <b>show-and-tell deadlines</b>.</p>
+                <hr class="ed-hair" />
+                <!-- THE big moment: the warm, instant, repeatable invitation. Broad on purpose — the
+                     mechanism lives in the eyebrow above and the verbs in the sub below, so the H1 is
+                     the line you remember, not the line that explains. -->
+                <h1 class="ed-cat">A <span class="stop">club</span> for whatever you <span class="stop">make</span>.</h1>
                 <!-- The blank is a fill-in-the-blank the visitor watches get typed in: the word deletes
                      itself and the next one is typed in its place, and the marker swipes across each
-                     word once it's finished. It lives in the H1 now, not the sub — it is the last
-                     word of the headline's sentence, so it is set at the headline's size and slant.
+                     word once it's finished.
                      The full stop is INSIDE the slot, right after the typed text, so it slides along
                      with every keystroke the way it would if someone were writing the sentence. The
-                     slot still can't resize: JS stacks a hidden ghost of the LONGEST word (with its
-                     full stop) in the same inline-grid cell, so the track is permanently as wide as
-                     "photographer." — the fixed width is invisible, it only stops the line reflowing.
-                     One ghost, not eight: this is the page's only H1, and eight hidden nouns inside
-                     it is what a rendering crawler reads as the headline.
+                     slot still can't resize: JS stacks a hidden ghost of every word (with its full
+                     stop) in the same inline-grid cell, so the track is permanently as wide as
+                     "photographers." — the fixed width is invisible, it only stops the line reflowing.
                      The rotator is aria-hidden in the MARKUP (not from JS, so it holds with JS off) and
-                     .rot-a11y carries the word a screen reader reads: "…until you become a creator." -->
-                <h1 class="ed-cat"><span class="stop">Together</span>, you become a <span class="rot-a11y">creator.</span><span class="hl-rot lit" id="rot-word" aria-hidden="true"><b class="rw"><span class="mark">creator</span>.</b></span></h1>
-                <!-- The sub answers the question the blank provokes ("become one HOW?") and carries the
-                     whole mechanism the 33-character H1 no longer has room to state: a challenge goes in,
-                     a magazine comes out, and everyone is in it. The green token moves here from
-                     "portfolio" because collaboration is the claim this fold is making.
-                     THE SUB IS THE ONLY COMPREHENSION LINE IN THIS FOLD. That is the constraint to
-                     hold on to before rewriting it. The old H1 ("Show-and-tell with the same group
-                     until you become a ___") carried the mechanism itself, which left the sub free to
-                     be warm. This H1 is pure promise with no object in it, so everything a stranger
-                     needs — what the thing IS, what you DO, what you GET — has to live here.
-                     Hence the arc: takes a challenge -> ends up with a magazine. The causality is the
-                     point. "Show-and-tell with a magazine your whole club made" was warmer and said
-                     what you get, but never said what you do or why a magazine exists at all.
-                     Three earlier drafts died here and the reasons are worth keeping:
-                       - "a magazine you all made" reads as each of you making one of your OWN, because
-                         "all" DISTRIBUTES. "made together" cannot; that is why it is safe.
-                       - "Every challenge ends in one magazine, with all of you in it" was accurate and
-                         completely dead — a spec sentence, with the disambiguating "one" doing grammar
-                         work while the line did no emotional work at all.
-                       - "A challenge. A magazine. A tiny group." was the best-sounding of them and
-                         collided head-on with beat 01, "A challenge", one line below it.
-                     Collaboration rides on the SUBJECT, not on a numeral: a club is singular, so a
-                     club ends up with one magazine. That is what lets the line skip "all" and "one". -->
-                <p class="ed-sub">Your club takes a <b>challenge</b> and ends up with a magazine <span class="stop">you made together</span>.</p>
+                     .rot-a11y carries the sentence a screen reader reads: "becoming creators." -->
+                <p class="ed-sub"><span class="stop">Up to 15 makers</span> do monthly challenges which end in magazines. They&rsquo;re becoming <span class="rot-a11y">creators.</span><span class="hl-rot lit" id="rot-word" aria-hidden="true"><b class="rw"><span class="mark">creators</span>.</b></span></p>
               </div>
 
               <!-- ZONE 2 - the standfirst. ONE paragraph now. The "where circles meet" line used to
@@ -368,44 +324,13 @@
                    cold, asked "is it a website, an app, a club, a magazine, or a service?" - this
                    names the software, then the loop, then the one thing a stranger can picture. -->
               <div class="ed-body">
-                <!-- ZONE 2 — the lead-in, then the beats of the loop. Each beat's name gets its
-                     highlighter. The lead-in names what the beats are FOR: the H1 says "show-and-tell"
-                     and this is the three-line answer to "yes but what happens, exactly." It is set
-                     one rank under the sub on purpose — it introduces the small print, it isn't a
-                     second headline. -->
-                <!-- "How show-and-tell works:" lost its antecedent when the H1 stopped saying
-                     show-and-tell, and a lead-in that refers to a phrase nowhere above it reads as a
-                     paste-up error. "How it works:" points at the sub, which is where the loop is now. -->
-                <p class="ed-lead">How it works:</p>
-                <!-- The three beats carry the three things the sub cannot. The loop Sue describes is
-                     "you help each other finish your own answer, THEN the answers become one magazine
-                     you make together, AND you show it to each other and to the world" — that is three
-                     clauses, and no 34ch sub can hold three clauses without becoming the 86-character
-                     run-on the fold already rejected once. So the sub keeps the single strongest idea
-                     (one magazine, all of you in it) and the beats take the other two.
-                     Beat 02 was "check in with your club", which described attendance rather than help
-                     — the weakest line on the card, and the natural home for the mutual-finishing that
-                     is the actual reason the hour exists.
-                     Beat 03 DEFINES THE WORD FIRST. "Zine" is the page's one piece of unavoidable
-                     jargon, and a stranger's mental image of it is a photocopied paper thing — which
-                     is wrong in the way that matters, because what they actually get is a URL. It is
-                     checkable: the exported issue is one <body> with overflow-y:auto and a scroll
-                     listener, no pagination, and the live viewer literally says "unfolding the zine…
-                     keep going". So: a scrollable online magazine.
-                     Then it names what is IN it, in the deck card's own words: a card is
-                     a photograph plus a green band headed WHAT WE LEARNED, and the beat now reads
-                     "everyone's work and what they learned" — the same two things, so the list and the
-                     picture beside it describe one object instead of two.
-                     NOT "everyone's photos": the Penmans make dropcaps and Claire makes drawings, and
-                     narrowing beat 03 to photography is the exact trap the rotator's word list exists to
-                     avoid. Not "reflection answers" either — that is internal product vocabulary a cold
-                     reader has never seen.
-                     It briefly carried "then show it to the world", from when show-and-tell had left the
-                     card entirely; the sub says show-and-tell again, so that is a duplicate now. -->
+                <!-- ZONE 2 — the tagline lead-in, then the four beats of the loop. Each beat's name
+                     gets its highlighter: blue / green / red, then green-deep for the zine payoff.
+                     The lead-in INTRODUCES the beats (fixes it competing with the sign-off below). -->
                 <ul class="beats">
                   <li><span class="hl hl-y">A challenge</span> &mdash; one prompt, one due date.</li>
-                  <li><span class="hl hl-y">Time together</span> &mdash; you help each other finish.</li>
-                  <li><span class="hl hl-gd">Your zine</span> &mdash; a scrollable online magazine: everyone&rsquo;s work, and what they learned. It builds everyone&rsquo;s portfolio.</li>
+                  <li><span class="hl hl-y">Time together</span> &mdash; check in with your club.</li>
+                  <li><span class="hl hl-gd">Your zine</span> &mdash; a little magazine everyone&rsquo;s in. It builds your portfolio.</li>
                 </ul>
               </div>
 
@@ -424,16 +349,9 @@
                   <span class="cta-attn"><a class="btn ed-stamp" href="https://letters.drex.style/join-online/">Join the waitlist <span class="arr" aria-hidden="true">&rarr;</span></a></span>
                   <!-- Order is intent, highest first: someone who already HAS a group is the one
                        visitor who needs no convincing, so their door is the first line under the
-                       stamp. Reading a zine and knocking on the demo are both "sell me" moves.
-                       "Join as a group", not "Make a club for my group" (6204aef). Two reasons. It
-                       parallels the stamp above it — Join the waitlist / Join as a group, one door
-                       each for arriving alone or arriving with people — and it is HONEST about the
-                       destination: every CTA on this page, including this one, goes to the same
-                       letters.drex.style/join-online/. "Make a club" promised a bigger, different
-                       act than the link performs. If these ever point somewhere different, this
-                       wording can get more ambitious again. -->
+                       stamp. Reading a zine and knocking on the demo are both "sell me" moves. -->
                   <div class="ed-links">
-                    <a href="https://letters.drex.style/join-online/">Join as a group <span class="arr" aria-hidden="true">&rarr;</span></a>
+                    <a href="https://letters.drex.style/join-online/">Make a club for my group <span class="arr" aria-hidden="true">&rarr;</span></a>
                     <a href="#proof">Read a real zine <span class="arr" aria-hidden="true">&rarr;</span></a>
                     <a href="https://demo.drex.style">Got a key? Open the demo <span class="arr" aria-hidden="true">&rarr;</span></a>
                   </div>
@@ -454,41 +372,15 @@
               <!-- THE WELL, col-2: the auto-rotating challenge deck. It sits to the RIGHT of the beats,
                    fully ON the card (no longer spilling into the smear). The front card's own washi tape
                    carries a bold "tap here"; tap fans the deck out. Cycles a new challenge every ~3.2s. -->
-              <!-- A STACK OF ZINES (the OUTPUT). Each card is now a real PHOTOGRAPH out of a real
-                   issue, with the challenge in a red band across the top and the maker's own
-                   reflection in a green band across the bottom — both as live HTML, not pixels.
-                   That is the whole change. The fielded deck used assets/zines/cover-*.jpg, which are
-                   720x965 SCREENSHOTS of each zine's cover page with the challenge and the reflection
-                   baked into the image at a size that is illegible under 205px — so the card had to
-                   carry a yellow sticky note ON TOP of an image already trying to say the same thing.
-                   Two caption systems fighting inside 200px. Pulling the text out of the picture is
-                   what makes the card readable; the size increase alone would not have.
-
-                   EVERY RED AND GREEN LINE IS REAL, and checkable: the challenges are the assignments
-                   off each issue's ledger (demo.drex.style/z/<id>/ledger) and the green lines are the
-                   makers' own reflection answers, compressed to five words. Nothing here was written
-                   for the landing page. Each card links to the issue it came from, so any of it can
-                   be verified in one click.
-
-                   CARDS 2/4 AND 3/5 SHARE A CHALLENGE ON PURPOSE — do not "fix" this. Two makers in
-                   the same club took the same prompt and came back with different pictures and
-                   different answers. One challenge, many answers, is the argument for the club. -->
+              <!-- A STACK OF ZINES (the OUTPUT), not challenge polaroids. Each card is the real
+                   cover of a real Circle's zine; a yellow post-it TAB carries the category, the
+                   challenge is hand-written below, and the whole card LINKS to the live zine. Tapping
+                   the stack opens the lightbox (all four); clicking one there reads it. -->
               <div class="hero-card-deck" id="heroCardDeck" aria-label="Zines real clubs made &mdash; tap to browse and read them">
-                <a class="pola" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener" style="--r:-3.5deg" aria-label="Drawing at the Cafe, by Drexzine. The challenge: doodle at the cafe. Claire&rsquo;s answer: helps me relax and focus. Opens the issue."><i style="background-image:url(assets/zines/post-beta/pb-cafe-claire.jpg)"></i><span class="zchal">doodle at the cafe</span><span class="zcraft" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17c2.5-5.5 4.5 3.5 7-2s4.5 3 7-3.5"/><path d="M5.5 20.5c4-1.5 9-2 13.5-1"/></svg></span><span class="zrefl">&ldquo;helps me relax and focus&rdquo;<small>@claire &middot; Drexzine</small></span></a>
-                <a class="pola" href="https://demo.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856" target="_blank" rel="noopener" style="--r:3deg" aria-label="[ 3 A M, 2 0 0 1 ], by Photo Phloor. The challenge: take night photos of the unseen. The answer: a single light, touching through. Opens the issue."><i style="background-image:url(assets/zines/post-beta/pb-3am-capp.jpg)"></i><span class="zchal">take night photos of the unseen</span><span class="zcraft" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h4l2-2h6l2 2h4v11H3z"/><circle cx="12" cy="13" r="3.4"/></svg></span><span class="zrefl">&ldquo;a single light, touching through&rdquo;<small>@144mb &middot; Photo Phloor</small></span></a>
-                <a class="pola" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener" style="--r:-2.5deg" aria-label="Silk Road 001, by XChange Models. The challenge: come as your heritage. Shanara&rsquo;s answer: I could do anything. Opens the issue."><i style="background-image:url(assets/zines/post-beta/pb-silk-parasol.jpg)"></i><span class="zchal">come as your heritage</span><span class="zcraft" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9V7.4a1.7 1.7 0 1 1 1.7 1.7"/><path d="M12 9 3.8 14.6c-.9.6-.5 2 .6 2h15.2c1.1 0 1.5-1.4.6-2L12 9z"/></svg></span><span class="zrefl">&ldquo;i could do anything&rdquo;<small>@shanara &middot; XChange Models</small></span></a>
-                <a class="pola" href="https://demo.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856" target="_blank" rel="noopener" style="--r:4deg" aria-label="[ 3 A M, 2 0 0 1 ], by Photo Phloor. The same challenge: take night photos of the unseen. A different answer: too good to pass up. Opens the issue."><i style="background-image:url(assets/zines/post-beta/pb-3am-streak.jpg)"></i><span class="zchal">take night photos of the unseen</span><span class="zcraft" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h4l2-2h6l2 2h4v11H3z"/><circle cx="12" cy="13" r="3.4"/></svg></span><span class="zrefl">&ldquo;too good to pass up&rdquo;<small>@144mb &middot; Photo Phloor</small></span></a>
-                <a class="pola" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener" style="--r:-3deg" aria-label="Silk Road 001, by XChange Models. The same challenge: come as your heritage. Tergel&rsquo;s answer: live with more attitude. Opens the issue."><i style="background-image:url(assets/zines/post-beta/pb-silk-lavender.jpg)"></i><span class="zchal">come as your heritage</span><span class="zcraft" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9V7.4a1.7 1.7 0 1 1 1.7 1.7"/><path d="M12 9 3.8 14.6c-.9.6-.5 2 .6 2h15.2c1.1 0 1.5-1.4.6-2L12 9z"/></svg></span><span class="zrefl">&ldquo;live with more attitude&rdquo;<small>@tergel &middot; XChange Models</small></span></a>
-                <!-- SF PENMANS — the odd one out, deliberately, and the ONE card in the deck that does
-                     not link to a published issue: the Penmans have no zine on demo yet, so this links
-                     to their postcard in #proof instead. Everything on it is still real (the challenge,
-                     Sue's own answer, her own dropcap), it just cannot be checked by opening an issue
-                     the way the other five can. When the Penman issue publishes, repoint the href at
-                     /z/<id> and delete this comment.
-                     It earns the slot on range: lettering is the only craft here that is neither a
-                     camera nor a pencil, and the deck lost its fourth category when the dress-up zine
-                     was cut for having no photograph. -->
-                <a class="pola" href="#c-penmans" style="--r:2.5deg" aria-label="SF Penmans, a penmanship club in San Francisco. The challenge: make a dropcap. Sue&rsquo;s answer: never made an illustrated one. Opens their postcard."><i style="background-image:url(assets/zines/post-beta/pb-penman-dropcap.jpg)"></i><span class="zchal">make a dropcap</span><span class="zcraft" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3.5h8l-4 11.5z"/><path d="M12 8.5v3"/><path d="M6.5 20c3-2.5 8 2 11-1"/></svg></span><span class="zrefl">&ldquo;never made an illustrated one&rdquo;<small>@sue &middot; SF Penmans</small></span></a>
+                <a class="pola" href="https://demo.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856" target="_blank" rel="noopener" style="--r:-5deg"><i style="background-image:url(assets/zines/cover-3am.jpg);background-position:center 8%"></i><span class="znote"><b class="zcat">photography</b>&ldquo;Urban night photos of the overlooked.&rdquo;</span></a>
+                <a class="pola" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener" style="--r:4deg"><i style="background-image:url(assets/zines/cover-cafe.jpg);background-position:center 8%"></i><span class="znote"><b class="zcat">drawing</b>&ldquo;Doodle at a caf&eacute; &mdash; different than at home?&rdquo;</span></a>
+                <a class="pola" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener" style="--r:-4deg"><i style="background-image:url(assets/zines/cover-silkroad.jpg);background-position:center 6%"></i><span class="znote"><b class="zcat">photo essay</b>&ldquo;Tell a place&rsquo;s story in five frames.&rdquo;</span></a>
+                <a class="pola" href="https://demo.drex.style/z/5b548352-9124-4b25-bcaa-9c06322d30bb" target="_blank" rel="noopener" style="--r:6deg"><i style="background-image:url(assets/zines/cover-dressup.jpg);background-position:center 8%"></i><span class="znote"><b class="zcat">game design</b>&ldquo;Build a paper dress-up game.&rdquo;</span></a>
               </div>
 
             </div>
@@ -505,10 +397,8 @@
         <!-- pre-cut comprehension anchor: the only readable copy while the envelope is
              sealed. Belonging/communion is the #1 message, so this leads with the FEELING
              (your people, the standing hour) — kept deliberately distinct from the post-cut
-             H1 ("Show-and-tell with the same group until you become a ___") so the cut reveals a
-             fresh line instead of repeating one. It sets that line up now rather than dodging it:
-             "the people you keep meaning to make things with" IS "the same group", named from the
-             visitor's side of the cut. Emotion teases; the mechanism pays off on it. Shows under
+             H1 ("A club for whatever you make") so the cut reveals a fresh line instead of
+             repeating one. Emotion teases; the category pays off on the cut. Shows under
              html.sealed; fades + collapses on html.revealed (CSS-only, mirrors .cut-prompt). -->
         <div class="cut-hook">
           <p class="cut-hook-line scrawl">The people you keep meaning to make things with.</p>
@@ -562,7 +452,7 @@
         <figure class="craft" style="--r:-2.4deg;--c:var(--colorado)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15h18"/><path d="M3 15c-1 0-1-2 1-2h16c2 0 2 2 1 2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></span><figcaption class="cr-cap">skateboarding</figcaption></figure>
 <a class="craft-a" href="#c-phloor" aria-label="photography — see Photo Phloor, a real Circle"><figure class="craft" style="--r:1.8deg;--c:var(--lazuli)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph has-photo" style="background-image:url(assets/zines/phloor-chair.jpg)"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h4l2-2h6l2 2h4v11H3z"/><circle cx="12" cy="13" r="3.4"/></svg></span><figcaption class="cr-cap">photography</figcaption></figure></a>
         <figure class="craft" style="--r:-1.2deg;--c:var(--schoolbus);--label:var(--sambas)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="6" height="11" rx="1.6"/><path d="M10.5 9V6.5h3V9"/><path d="M11 4.2h2v2.3h-2z"/></svg></span><figcaption class="cr-cap">nail art</figcaption></figure>
-<a class="craft-a" href="#c-penmans" aria-label="penmanship — see SF Penmans, a real Circle"><figure class="craft" style="--r:2.6deg;--c:var(--grass-deep)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph has-photo" style="background-image:url(assets/zines/penmans-desk.jpg)"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3.5h8l-4 11.5z"/><path d="M12 8.5v3"/><path d="M6.5 20c3-2.5 8 2 11-1"/></svg></span><figcaption class="cr-cap">penmanship</figcaption></figure></a>
+<a class="craft-a" href="#c-penmans" aria-label="penmanship — see SF Penmans, a real Circle"><figure class="craft" style="--r:2.6deg;--c:var(--grass-deep)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph has-photo" style="background-image:url(assets/zines/penmans-desk.jpg)"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19l3-1 10-10-2-2L6 16z"/><path d="M14 6l2 2"/><path d="M5 19l1.4-3.4"/></svg></span><figcaption class="cr-cap">penmanship</figcaption></figure></a>
         <figure class="craft" style="--r:-1.9deg;--c:var(--sambas)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h12l-3 6H9z"/><path d="M11 12v3"/><path d="M7 20h10"/><path d="M9 20a3 3 0 0 1 6 0"/></svg></span><figcaption class="cr-cap">pour&#8209;over coffee</figcaption></figure>
         <figure class="craft" style="--r:1.4deg;--c:var(--colorado)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8"/><path d="M9 4c-3 4-4 6-4 9a7 7 0 0 0 14 0c0-3-1-5-4-9"/><path d="M6 12h12"/></svg></span><figcaption class="cr-cap">ceramics</figcaption></figure>
         <figure class="craft" style="--r:-2.8deg;--c:var(--lazuli)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12c0-4 3-6 8-6s8 2 8 6v6H4z"/><path d="M8 8.5 6.5 12M12 8.5 10.5 12M16 8.5 14.5 12"/></svg></span><figcaption class="cr-cap">bread</figcaption></figure>
@@ -572,7 +462,7 @@
         <figure class="craft" style="--r:-2.2deg;--c:var(--colorado)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 20 4"/><path d="M17 4h3v3"/><path d="M9 15c-3 0-3 4 0 4s3-4 0-4z"/></svg></span><figcaption class="cr-cap">sewing</figcaption></figure>
         <figure class="craft" style="--r:1.1deg;--c:var(--lazuli)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6"/><path d="M6 20h12"/><path d="M8 18h8"/><path d="M12 14c-4 0-5-2-5-4s2-3 3-2c0-2 3-3 4-1 2-1 4 1 3 3 2 1 1 4-2 4z"/></svg></span><figcaption class="cr-cap">bonsai</figcaption></figure>
         <figure class="craft" style="--r:-2.6deg;--c:var(--grass-deep)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><path d="M12 4v2M18 8l-2 1"/></svg></span><figcaption class="cr-cap">DJing</figcaption></figure>
-        <figure class="craft" style="--r:1.7deg;--c:var(--schoolbus);--label:var(--sambas)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17c2.5-5.5 4.5 3.5 7-2s4.5 3 7-3.5"/><path d="M5.5 20.5c4-1.5 9-2 13.5-1"/></svg></span><figcaption class="cr-cap">watercolor</figcaption></figure>
+        <figure class="craft" style="--r:1.7deg;--c:var(--schoolbus);--label:var(--sambas)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20V9l3-5 3 5v11z"/><path d="M9 12h6"/><path d="M11 20v-3M13 20v-3"/></svg></span><figcaption class="cr-cap">watercolor</figcaption></figure>
         <figure class="craft" style="--r:-1.3deg;--c:var(--sambas)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15h13l4-4-3-3-4 4H3z"/><path d="M3 15v3h13v-3"/><path d="M6 15v3M9 15v3M12 15v3"/></svg></span><figcaption class="cr-cap">woodworking</figcaption></figure>
         <figure class="craft" style="--r:2.3deg;--c:var(--colorado)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="14" r="5"/><path d="M5.5 10.5 12.5 17.5M12.5 10.5 5.5 17.5"/><path d="M13 12 21 4M19 4h2v2"/></svg></span><figcaption class="cr-cap">knitting</figcaption></figure>
         <figure class="craft" style="--r:-1.7deg;--c:var(--lazuli)"><span class="cr-pin" aria-hidden="true"></span><span class="cr-ph"><svg class="cr-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6"/><path d="M10 4v2l-3 3 3 2v4"/><path d="M14 4v2l3 3-3 2v4"/><path d="M7 19h10"/><path d="M9 15h6l1 4H8z"/></svg></span><figcaption class="cr-cap">chess</figcaption></figure>
@@ -1893,7 +1783,7 @@
             <h3><span class="ul">Clubs</span> <span class="cmark" aria-hidden="true"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" transform="rotate(-42 14 14)"/></svg></span></h3>
             <p>Bring your group in &mdash; or grab a spot on the waitlist.</p>
             <div class="foot">
-              <span class="cta-attn"><a class="btn" href="https://letters.drex.style/join-online/">Join as a group <span class="arr">&rarr;</span></a><span class="cta-ring" aria-hidden="true"></span></span>
+              <span class="cta-attn"><a class="btn" href="https://letters.drex.style/join-online/">Make a club for my group <span class="arr">&rarr;</span></a><span class="cta-ring" aria-hidden="true"></span></span>
               <a class="btn ink" href="https://letters.drex.style/join-online/">Join the waitlist <span class="arr">&rarr;</span></a>
             </div>
           </div>
@@ -1989,18 +1879,7 @@
   function applyStack(){ order.forEach(function(p,i){ p.style.setProperty('--i',i); p.classList.toggle('dt', i===0); }); }  // .dt = front card (wears the "tap here" cue)
   function startCycle(){ clearInterval(timer); timer=null;
     if(reduce.matches) return;                             // reduced motion: no cycle, front zine stays put
-    /* 4000. This was 2500, set on the premise that a full pass had to fit inside the time a visitor
-       gives the fold — which is the wrong premise: nobody watches a full pass, so what matters is
-       whether the two or three cards they DO see can be read.
-       Measured: a card carries 13 words on average (tape + answer + credit; the longest is 15), and
-       at 240wpm that is 3.3s of reading before the photograph gets any attention at all. The
-       transform transition is .5s of that. So 2.5s was showing each card for less time than it took
-       to read one, which is the definition of a card nobody reads.
-       Slower also settles a second problem: the H1's typewriter runs a ~3.5s cycle, and a deck at
-       2.5s beat against it so the two were often moving at once. 4s separates them, and the deck is
-       the animation that should yield — the headline is what has to be read first.
-       Floor is ~2.2s (the .5s transition would still be running); ceiling is taste. */
-    timer=setInterval(function(){ if(paused||modalOpen())return; order.push(order.shift()); applyStack(); },4000);
+    timer=setInterval(function(){ if(paused||modalOpen())return; order.push(order.shift()); applyStack(); },3200);
   }
   deck.classList.add('stack-mode'); applyStack(); startCycle();
   deck.setAttribute('role','button'); deck.setAttribute('tabindex','0');
@@ -2051,7 +1930,7 @@
   });
 })();
 </script>
-<script type="module" src="app-post-beta.js?v=1"></script>
+<script type="module" src="app.js?v=84"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign

@@ -3600,6 +3600,14 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   border-bottom:1.6px solid transparent;line-height:1.3}
 .ed-links a:hover{border-bottom-color:var(--grass-deep)}
 .ed-links a .arr{color:var(--grass-deep);font-weight:600}
+/* The first sub-link is a DOOR, the other two are "sell me" moves (read a zine, open the demo), and
+   the coupon should say so. Green text, not a second filled button: the stamp is the one loud thing
+   in here, and a second box would split the primary action in two so that neither is the answer to
+   "what do I do". This is the same green as the stamp's fill, at text weight — "also a way in".
+   --grass-deep, never --grass: on oats, grass is 2.78:1 and fails AA outright; grass-deep is 5.91:1.
+   And deliberately NO resting underline — .ed-links a:hover already spends the green rule, so a
+   permanent one would leave hover with nothing to say and read as a visited link. */
+.ed-links a.is-door{color:var(--grass-deep);font-weight:600}
 
 /* --- HERO COPY v2 (2026-07-15): category line · tagline lead-in · four beats · tiny sign-off.
    Layout (where the beats sit, smear-vs-video) is deliberately left for /design-shotgun; this is
