@@ -35,7 +35,7 @@
      them touching each other. Renaming would collide.
 
      What this page changed against the cut it replaced:
-       1. THE FOLD. H1 is "Together, you become a ___." — 33 characters against a
+       1. THE FOLD. H1 is "Together, you become ___." — 31 characters against a
           documented ~52 ceiling, so it sets larger than any headline the card has
           carried. "Together" leads because the collaboration is the product, not a
           trailing prepositional phrase. The blank ENDS the sentence: the rotator's
@@ -59,7 +59,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=2" />
+<link rel="stylesheet" href="app-post-beta.css?v=6" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -325,7 +325,10 @@
                    the actual product — arrived last, as a trailing prepositional phrase nobody reads.
                    This inverts it. "Together" is the first word on the page because being in it with
                    other people is the offer; the blank is the promise; the mechanism drops to the sub.
-                   33 characters, so the H1 sets larger here than it ever has.
+                   31 characters, so the H1 sets larger here than it ever has.
+                   No article, and the blank is PLURAL ("…you become carpenters."): the "you" is the
+                   group, not one visitor, so the sentence has to promise a thing they all become
+                   together. "you become a carpenter" said the group was a means to a private end.
                    Nothing shares the headline's optical field: no eyebrow, no hairline, no deck. -->
               <div class="ed-head">
                 <!-- The blank is a fill-in-the-blank the visitor watches get typed in: the word deletes
@@ -336,12 +339,12 @@
                      with every keystroke the way it would if someone were writing the sentence. The
                      slot still can't resize: JS stacks a hidden ghost of the LONGEST word (with its
                      full stop) in the same inline-grid cell, so the track is permanently as wide as
-                     "photographer." — the fixed width is invisible, it only stops the line reflowing.
+                     "photographers." — the fixed width is invisible, it only stops the line reflowing.
                      One ghost, not eight: this is the page's only H1, and eight hidden nouns inside
                      it is what a rendering crawler reads as the headline.
                      The rotator is aria-hidden in the MARKUP (not from JS, so it holds with JS off) and
-                     .rot-a11y carries the word a screen reader reads: "…until you become a creator." -->
-                <h1 class="ed-cat"><span class="stop">Together</span>, you become a <span class="rot-a11y">creator.</span><span class="hl-rot lit" id="rot-word" aria-hidden="true"><b class="rw"><span class="mark">creator</span>.</b></span></h1>
+                     .rot-a11y carries the word a screen reader reads: "Together, you become creators." -->
+                <h1 class="ed-cat"><span class="stop">Together</span>, you become <span class="rot-a11y">creators.</span><span class="hl-rot lit" id="rot-word" aria-hidden="true"><b class="rw"><span class="mark">creators</span>.</b></span></h1>
                 <!-- The sub answers the question the blank provokes ("become one HOW?") and carries the
                      whole mechanism the 33-character H1 no longer has room to state: a challenge goes in,
                      a magazine comes out, and everyone is in it. The green token moves here from
@@ -382,7 +385,7 @@
                      show-and-tell, and a lead-in that refers to a phrase nowhere above it reads as a
                      paste-up error. "How it works:" points at the sub, which is where the loop is now. -->
                 <p class="ed-lead">How it works:</p>
-                <!-- The three beats carry the three things the sub cannot. The loop Sue describes is
+                <!-- The beats carry the things the sub cannot. The loop Sue describes is
                      "you help each other finish your own answer, THEN the answers become one magazine
                      you make together, AND you show it to each other and to the world" — that is three
                      clauses, and no 34ch sub can hold three clauses without becoming the 86-character
@@ -410,7 +413,30 @@
                 <ul class="beats">
                   <li><span class="hl hl-y">A challenge</span> &mdash; one prompt, one due date.</li>
                   <li><span class="hl hl-y">Time together</span> &mdash; you help each other finish.</li>
-                  <li><span class="hl hl-gd">Your zine</span> &mdash; a scrollable online magazine: everyone&rsquo;s work, and what they learned. It builds everyone&rsquo;s portfolio.</li>
+                  <!-- THE POINTER. Beat 03 names an object the reader has never seen, and the object is
+                       sitting right there in column 2 — so the beat reaches over and LANDS ON IT. The
+                       head sits on the front zine, not in the gutter beside it: a stub arrow ending in
+                       empty paper 130px short of the deck was read as decoration, not as a pointer.
+                       TWO PIECES, and the split is the whole trick:
+                         - <i class="beat-anchor"> is a zero-width inline marker at the end of the
+                           sentence. It carries no ink; it exists so the arrow's TAIL is placed by the
+                           text's own line box — it moves with every rewrap, at no cost, forever.
+                         - <svg class="beat-point"> is absolutely positioned inside this <li> (which is
+                           already position:relative) and drawn by JS from the anchor's live rect to the
+                           front polaroid's live rect, on load and on every resize.
+                       It has to be measured. The tail's x moves with the sentence's last line and the
+                       deck's x moves on vw clamps — the gap between them is 87px at 1000 but only 37px
+                       at 1100, so it does not even widen monotonically. No static arrow hits that.
+                       Decoration only: aria-hidden, pointer-events:none, so it cannot eat the deck's
+                       "tap to flip". Under 641px .ed-inner is one column (app-post-beta.css) and the
+                       deck sits BELOW this text — there is nothing to the right to point at, so the
+                       arrow is display:none and the JS bails on it. -->
+                  <li><span class="hl hl-gd">Your zine</span> &mdash; a scrollable online magazine: everyone&rsquo;s work, and what they learned. It builds everyone&rsquo;s portfolio.<i class="beat-anchor" aria-hidden="true"></i><svg class="beat-point" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg></li>
+                  <!-- 04 has no object and no dash, on purpose: 01-03 are the things that happen, and
+                       this is the fact that they happen AGAIN. It is the shortest line on the card and
+                       the only one with a bang. Yellow, not green — it hands the reader back to 01,
+                       it isn't a second payoff. -->
+                  <li><span class="hl hl-y">Repeat!</span></li>
                 </ul>
               </div>
 
@@ -510,7 +536,7 @@
         <!-- pre-cut comprehension anchor: the only readable copy while the envelope is
              sealed. Belonging/communion is the #1 message, so this leads with the FEELING
              (your people, the standing hour) — kept deliberately distinct from the post-cut
-             H1 ("Show-and-tell with the same group until you become a ___") so the cut reveals a
+             H1 ("Together, you become ___.") so the cut reveals a
              fresh line instead of repeating one. It sets that line up now rather than dodging it:
              "the people you keep meaning to make things with" IS "the same group", named from the
              visitor's side of the cut. Emotion teases; the mechanism pays off on it. Shows under
@@ -2056,7 +2082,7 @@
   });
 })();
 </script>
-<script type="module" src="app-post-beta.js?v=2"></script>
+<script type="module" src="app-post-beta.js?v=6"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign

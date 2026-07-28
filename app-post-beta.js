@@ -150,6 +150,7 @@ function boot() {
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
   initHowGag();                     // tap "every week" → the words stop, the ring spins instead
   initHeroRotate();                 // hero "week" gets retyped: month, 2nd Friday, other week…
+  initBeatPointer();                // beat 03's marker arrow, drawn from the sentence onto the front zine
   initMakerPhotos();                // polaroids adopt assets/makers/<handle>.jpg if present
   // Hovering a card/polaroid grows its hard shadow under a live SVG filter —
   // a burst of quick re-rasters of a big sheet. That's a known, brief,
@@ -329,26 +330,29 @@ function initQuotes() {
   }
 }
 
-/* "…until you become a ____" — the blank at the end of the hero HEADLINE deletes its word a
+/* "…you become ____" — the blank at the end of the hero HEADLINE deletes its word a
    letter at a time, types the next one in its place, then swipes the marker across it once it
-   lands. "creator" leads, highlighted, and is the word in the served HTML — the claim in the
+   lands. "creators" leads, highlighted, and is the word in the served HTML — the claim in the
    abstract, so it's what a crawler, a no-JS visitor and a reduced-motion visitor read. The
-   craft nouns after it are the same claim made concrete. Singular: they follow "become a".
+   craft nouns after it are the same claim made concrete. PLURAL, all of them: the sentence is
+   "Together, you become ___" — no article, and the "you" is the whole group, not one person.
    Only .mark's text ever changes. The full stop lives after it inside the same run so it
    slides along with the typing, and ONE hidden ghost — the longest word, carrying its own
    stop — holds the slot open so the line can't reflow while the word is short. */
 function initHeroRotate() {
   const w = document.getElementById('rot-word');
   if (!w) return;
-  const WORDS = ['creator', 'photographer', 'carpenter', 'tattooist',
-                 'model', 'baker', 'painter', 'florist'];
+  const WORDS = ['creators', 'photographers', 'carpenters', 'tattooists',
+                 'models', 'bakers', 'painters', 'florists'];
   // no motion or sound crafts here (animators, dancers, drummers, DJs): the payoff of the
   // loop is a PRINTED zine, and a craft that can't sit still on a page can't land in one.
-  // Nothing vowel-initial either — the article is printed in the headline, and it's "a".
+  // A vowel-initial noun is fine now that the article is gone, but the width is not: every
+  // word here is paid for in the ghost track (app-post-beta.css:3634), which is as wide as
+  // the LONGEST of them. Nothing longer than "photographers." without re-deriving that block.
   const mark = w.querySelector('.mark');
   if (!mark) return;
-  // reduced motion: the blank stays filled in, lit, with "creator" — and gets NO sizer. Nothing
-  // ever types here, so a slot held open to "photographer." would just be a hole in the headline
+  // reduced motion: the blank stays filled in, lit, with "creators" — and gets NO sizer. Nothing
+  // ever types here, so a slot held open to "photographers." would just be a hole in the headline
   // after the word. The width lock exists to stop the line reflowing mid-type; there is no
   // mid-type. (This has to come before the ghost, not after it.)
   if (Stage.reduce) return;
@@ -356,7 +360,7 @@ function initHeroRotate() {
   // ghosts share one inline-grid cell — and the slot lives in the page's only <h1> now, so this
   // is one hidden noun a rendering crawler reads inside the headline instead of eight.
   // Longest-by-characters is exact here: the display face is monospace (Courier Prime), and
-  // "photographer." is three characters clear of the field in any face anyway.
+  // "photographers." is three characters clear of the field in any face anyway.
   const g = document.createElement('b');
   g.className = 'rw ghost';
   g.setAttribute('aria-hidden', 'true');
@@ -404,6 +408,86 @@ function initHeroRotate() {
     });
     mo.observe(root, { attributes: true, attributeFilter: ['class'] });
   }
+}
+
+/* THE BEAT-03 POINTER: a marker arrow from the end of "…everyone's portfolio." onto the front zine.
+   It is drawn, not authored, because both of its ends move independently — the tail rides the
+   sentence's last line (which rewraps) and the head rides the deck (whose position is a stack of vw
+   clamps). A static arrow would be right at one width and wrong at every other.
+   Everything is in the <li>'s coordinate space: the svg is absolutely positioned at 0,0 of the li and
+   given an explicit px box, so the path can be written in plain local coordinates and read back in
+   the same numbers a getBoundingClientRect() sweep reports. */
+function initBeatPointer() {
+  const svg = document.querySelector('.beat-point');
+  const anchor = document.querySelector('.beat-anchor');
+  const deck = document.getElementById('heroCardDeck');
+  if (!svg || !anchor || !deck) return;
+  const li = svg.parentElement;
+  // the front card of the stack, which is the one the arrow must land on: it is the .pola the deck
+  // paints on top, and the deck's z-order is authored high-to-low in the markup, so it's the first.
+  const front = deck.querySelector('.pola');
+  if (!front) return;
+
+  const PAD = 26;        // slack around the box so the stroke's round caps and the head never clip
+  const GAP = 7;         // air between the full stop and where the tail starts
+  const INTO = .26;      // how far ONTO the photo the head lands, as a fraction of its width
+  const DOWN = .55;      // …and how far down it: clear of the red challenge band and the green one
+
+  const draw = () => {
+    // display:none under 641px (one column: the deck is below this text, not beside it). Nothing to
+    // point at, and the rects would be nonsense, so don't write a path at all.
+    if (getComputedStyle(svg).display === 'none') return;
+    const a = anchor.getBoundingClientRect();
+    const p = front.getBoundingClientRect();
+    const box = li.getBoundingClientRect();
+    if (!p.width) return;
+    const x0 = a.right - box.left + GAP, y0 = (a.top + a.bottom) / 2 - box.top;
+    const x1 = p.left - box.left + p.width * INTO, y1 = p.top - box.top + p.height * DOWN;
+    const run = x1 - x0;
+    if (run < 40) { svg.style.visibility = 'hidden'; return; }   // deck too close to bother
+    svg.style.visibility = '';
+    // the svg's own box: the union of both ends plus PAD. Local coords are offset by that origin.
+    const ox = Math.min(x0, x1) - PAD, oy = Math.min(y0, y1) - PAD;
+    svg.style.left = ox + 'px';
+    svg.style.top = oy + 'px';
+    const w = Math.abs(run) + PAD * 2, h = Math.abs(y1 - y0) + PAD * 2;
+    svg.setAttribute('width', w); svg.setAttribute('height', h);
+    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    const ax = x0 - ox, ay = y0 - oy, bx = x1 - ox, by = y1 - oy;
+    // one hand-drawn swoop: it leaves the sentence flat, and only climbs once it is OUT of the text
+    // column. That elbow is not a taste call — the tail starts at the END of the last line, so the
+    // line ABOVE it is still running to the column's right edge, and a curve that starts rising
+    // immediately crosses it (at 700px it clipped the "It" of "…what they learned. It"). Pinning the
+    // first control point to the column edge holds the shaft down until there is nothing left to hit.
+    const colEdge = box.width - ox;                    // the text column's right edge, in local coords
+    const c1x = Math.min(Math.max(ax + run * .3, colEdge), bx - run * .2), c1y = ay + 12;
+    const c2x = ax + run * .62, c2y = by + (ay - by) * .34;
+    // the head is built off the CURVE'S OWN tangent at the end (c2 -> b), not off horizontal, so it
+    // always sits square on the line instead of splaying open as the rise changes.
+    const tx = bx - c2x, ty = by - c2y, tl = Math.hypot(tx, ty) || 1;
+    const ux = tx / tl, uy = ty / tl, L = 13, SP = .52;      // barb length, half-angle spread
+    const h1x = bx - L * (ux + uy * SP), h1y = by - L * (uy - ux * SP);
+    const h2x = bx - L * (ux - uy * SP), h2y = by - L * (uy + ux * SP);
+    const shaft = `M${ax} ${ay} C${c1x} ${c1y} ${c2x} ${c2y} ${bx} ${by}`;
+    const head = `M${h1x} ${h1y} L${bx} ${by} L${h2x} ${h2y}`;
+    // drawn twice: a paper-coloured pass under the red one, so the arrow survives the night photo it
+    // ends on. Same two paths, so the halo can never drift out of register with the ink.
+    svg.innerHTML =
+      `<g class="halo" fill="none" stroke-width="6.6" stroke-linecap="round" stroke-linejoin="round">` +
+        `<path d="${shaft}"/><path d="${head}"/></g>` +
+      `<g fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">` +
+        `<path d="${shaft}" filter="url(#roughsm)"/><path d="${head}" filter="url(#roughsm)"/></g>`;
+  };
+
+  draw();
+  // both ends move on resize, on font load, and when the envelope opens (the card changes size as it
+  // rises through the slit), so redraw off the boxes themselves rather than guessing when to look.
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver(() => requestAnimationFrame(draw));
+    ro.observe(li); ro.observe(deck);
+  }
+  window.addEventListener('resize', () => requestAnimationFrame(draw), { passive: true });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
 }
 
 /* tap the loop's center: "every week" freezes and the ring itself starts to turn.

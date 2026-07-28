@@ -2647,7 +2647,7 @@ html[data-tier="lite"] .vol-p.vz i{ filter:none; }   /* weak devices only: drop 
 .zines-knock,.showup-pulse{ margin:clamp(1.6rem,3.4vw,2.4rem) auto 0; max-width:36ch; text-align:center;
   font-size:clamp(1.05rem,2vw,1.3rem); line-height:1.3; color:var(--colorado); transform:rotate(-1.4deg); }
 
-/* ============ hero headline rotator — "…become a ____": the blank types itself in ============
+/* ============ hero headline rotator — "…you become ____": the blank types itself in ============
    The word is DELETED a letter at a time and the next one TYPED in its place, and the marker
    swipes across each word once it lands. Two constraints that pull against each other:
 
@@ -3631,8 +3631,8 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    so every override below is `.hero-card h1.ed-cat` (0,2,1).
 
    Two hard numbers govern this block. Courier Prime is monospace at a 0.6em advance, so with the
-   inherited -.012em tracking the blank's ghost track — "photographer." — is exactly
-   13 x .588em = 7.644em WIDE AND UNBREAKABLE (.hl-rot .rw is white-space:nowrap, and an
+   inherited -.012em tracking the blank's ghost track — "photographers." — is exactly
+   14 x .588em = 8.232em WIDE AND UNBREAKABLE (.hl-rot .rw is white-space:nowrap, and an
    inline-grid is an atomic inline box). And html,body are overflow-x:clip, so if it doesn't fit
    it does not scroll — it is silently guillotined at the card's edge, mid-word.
    At the inherited size that blank is 98% of the mobile measure: 290px of ghost against a 290px
@@ -3643,28 +3643,32 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   /* 6cqw (app.css:3459) was sized for a two-line category line. The fielded cut's 52-character
      sentence set at that size was four display lines and pushed the coupon off the card, so it was
      cut to 5.3cqw (~43px in an 818px card).
-     POST-BETA: the sentence is 33 characters. "Together, you become a ___." is two display lines at
+     POST-BETA: the sentence is 31 characters. "Together, you become ___." is two display lines at
      6.1cqw (~50px), which is what the fold is worth — this is the page's one headline and it had been
      paying, in points, for words that have since moved to the sub. Still min()'d against --fs-display
      so it can never outgrow the type scale's own 72px ceiling. */
   .hero-card h1.ed-cat{font-size:min(var(--fs-display),6.1cqw)}
 }
 @media(max-width:880px){
-  /* the ONLY size that keeps 7.644em of unbreakable blank inside the sheet: at 360px the inner
-     column is 290px, so the ceiling is 37.9px and --fs-display's own floor (38px) already misses
-     it by a letter — and under 521px the H1 also gives up 40px to the corner ring (below), which
-     takes the ceiling to 32px at 360 and 27.5px at 320. 8.2vw = 29.5px / 26.2px: clears both,
-     with the measure released so the sentence uses the full sheet instead of the 13ch column
-     that was cut for "small circle."
+  /* the ONLY size that keeps 8.232em of unbreakable blank inside the sheet: at 360px the inner
+     column is 290px, so the ceiling is 35.2px and --fs-display's own floor (38px) already misses
+     it by more than a letter — and under 521px the H1 also gives up 40px to the corner ring
+     (below), which takes the ceiling to 30.3px at 360 and 25.5px at 320. 7.9vw = 28.4px / 25.3px:
+     clears both, with the measure released so the sentence uses the full sheet instead of the
+     13ch column that was cut for "small circle."
+     PLURAL: the ghost went from "photographer." to "photographers." — one character, .588em, and
+     8.2vw stopped clearing 320px by a quarter of a pixel. Hence 7.9. The blank is guillotined,
+     not scrolled, so this ceiling has to be re-derived every time the word list's longest entry
+     changes; it is the only thing in the page that pays for that character.
      min(), not clamp(): a rem FLOOR would be the one term of a clamp that doesn't track the
      viewport, so a reader running a 20px or 24px browser default font would push the headline
      back through the ceiling this whole rule exists to hold — and the blank doesn't wrap or
      scroll, it gets clipped. The ceiling is the invariant; the floor is not.
-     POST-BETA: this ceiling does NOT move even though the sentence got 19 characters shorter. It was
-     never set by the sentence — it is set by the ghost track, "photographer." at 7.644em, which is
-     unbreakable and unchanged. Shortening the copy buys headline size on desktop (above) and buys
-     nothing at all here. Do not "match" the two. */
-  .hero-card h1.ed-cat{font-size:min(2.6rem,8.2vw);max-width:none;line-height:1.15;
+     POST-BETA: this ceiling does not track the sentence, which got 21 characters shorter. It is set
+     by the ghost track, "photographers." at 8.232em, which is unbreakable — so it moves when the
+     WORD LIST changes and not when the copy around it does. Shortening the copy buys headline size
+     on desktop (above) and buys nothing at all here. Do not "match" the two. */
+  .hero-card h1.ed-cat{font-size:min(2.6rem,7.9vw);max-width:none;line-height:1.15;
     /* the amber Circle ring sits in the card's top-right corner and zone 1's FIRST line now runs
        the full sheet — reserve its column. This lived at max-width:520px when it was protecting a
        one-line eyebrow; the H1 is display type across the whole under-881 branch, and between 521
@@ -3703,6 +3707,25 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   position:absolute;left:0;top:.14em;font-family:var(--f-head);font-size:.72em;font-weight:700;
   letter-spacing:.04em;color:var(--ink-faint)}
 .beats .hl{white-space:nowrap;font-weight:600}
+/* THE POINTER off beat 03, landing ON the front zine. Red, because red is this page's marginalia hand
+   (the deck's own "real zines — tap to flip →" caption, the loopback arrow in #how) — green would read
+   as a fourth highlight and yellow as a fifth.
+   The tail is placed by .beat-anchor, a zero-width inline marker sitting after the full stop, so it
+   rides the sentence's last line for free. The svg itself is absolutely positioned in the <li> and
+   both its box and its path are written by initBeatPointer() from live rects; everything here is what
+   does NOT depend on measurement. z-index 5 clears the deck's own z-index:4 (both resolve in
+   .ed-inner's stacking context — .beats li is position:relative with z-index auto, so it does not
+   trap this one underneath). pointer-events:none is load-bearing: the arrow's box overlaps the front
+   polaroid, which is a link, and the deck's whole caption is "tap to flip". */
+.beat-anchor{display:inline-block;width:0;height:1em;vertical-align:baseline}
+.beat-point{display:none;position:absolute;left:0;top:0;overflow:visible;pointer-events:none;z-index:5;
+  color:var(--colorado)}
+.beat-point .halo{stroke:var(--paper);opacity:.38}   /* the photo it lands on is a night shot: red on near-black is invisible without a light pass under it. Kept under .4 — heavier and the arrow reads as a sticker laid on the photo rather than drawn over it */
+/* 641px is where .ed-inner becomes one column — i.e. 641 is the first width at which there IS a deck
+   to the right to point at. Below it the deck is stacked underneath and the arrow would be aiming at
+   the card's edge. Do not soften this to a hand-picked width: it must move with the grid rule or it
+   will point at nothing on some phone. */
+@media(min-width:641px){ .beat-point{display:block} }
 .ed-signoff{margin:clamp(1.3rem,2.6vw,1.9rem) 0 0;font-family:var(--f-slab);font-style:italic;
   font-size:var(--fs-small);color:var(--ink-soft)}
 .ed-signoff b{font-weight:700;font-style:normal;color:var(--grass-deep)}
@@ -3983,7 +4006,7 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
 @media(min-width:900px){
   /* The lift was -6.5rem when zone 1 was an eyebrow + a hairline + a two-line headline + a THREE-line
      subtitle: it pulled the deck up beside the sub's lower lines. Zone 1 is a three-line sentence and
-     a one-line sub now, and the sentence's last line ends in the blank's 7.644em slot — so the old
+     a one-line sub now, and the sentence's last line ends in the blank's 8.232em slot — so the old
      lift put the front polaroid on top of the headline's full stop from ~910px to ~1210px. Half the
      lift keeps the deck beside the copy without reaching into the line above it. */
   .hero-card-deck{justify-self:end;margin-right:calc(-1 * clamp(4rem,9.5vw,6.5rem));
@@ -4298,7 +4321,7 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
   .hero-card-deck .pola{left:50%;margin-left:calc(var(--pw) / -2)}
 }
 
-/* THE THREE BEATS. The loop is a challenge, an hour, and a due date, and the sentence says so but
+/* THE BEATS. The loop is a challenge, an hour, and a due date, and the sentence says so but
    does not SHOW so. Colouring the words themselves is not an option: on Oats, every brand colour
    fails WCAG AA as body text (grass 2.78, colorado 3.07, lazuli 3.11, schoolbus 1.82 — the floor is
    4.5). So the colour goes BEHIND the ink, the way a highlighter actually works. And a highlighter is
