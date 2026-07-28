@@ -381,7 +381,7 @@ html[data-tier="lite"] .sc-down{filter:none!important;animation:none!important}
 /* Circle glyph (the .cmark ring from the reader's ringMark) — decorative amber motif at Circle anchor points */
 .cmark{display:inline-grid;place-items:center;width:.92em;height:.92em;vertical-align:-.08em;color:var(--schoolbus)}
 .cmark svg{width:100%;height:100%;display:block;overflow:visible}
-.cmark circle{fill:none;stroke:currentColor;stroke-width:2.7;stroke-linecap:round;stroke-dasharray:55 9;filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite}
+.cmark circle{fill:none;stroke:currentColor;stroke-width:2.7;stroke-linecap:round;stroke-dasharray:55 9;filter:url(#rough)}
 html[data-tier="lite"] .cmark circle{animation:none!important}
 /* Circle glyph stamped on the hero notecard, upper-right */
 .hero-cmark{position:absolute;top:clamp(10px,1.5vw,18px);right:clamp(12px,1.8vw,26px);width:clamp(40px,4.8vw,62px);height:auto;color:var(--schoolbus);z-index:3;opacity:.92}
@@ -404,7 +404,7 @@ html[data-tier="lite"] .cmark circle{animation:none!important}
 /* white backing (border + hard shadow) on its own layer so it can boil without warping the video */
 .reel-instax::before{content:"";position:absolute;inset:0;z-index:0;background:var(--paper);
   border:2.6px solid var(--ink);border-radius:5px;box-shadow:8px 8px 0 0 var(--ink);
-  filter:url(#soft);animation:boil-soft var(--boil-paper) step-end infinite;transition:box-shadow .18s ease}
+  filter:url(#soft);transition:box-shadow .18s ease}
 .reel-instax:hover{transform:rotate(0) translateY(-6px)}
 .reel-instax:hover::before{box-shadow:11px 12px 0 0 var(--ink)}
 
@@ -658,7 +658,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 /* D · the sticky note: yellow Post-it, hand-cut edge (#soft), solid offset shadow, a peeled corner */
 .reveal-name::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--happy);
   border:2.4px solid var(--ink);border-radius:5px;box-shadow:6px 8px 0 0 var(--ink);
-  filter:url(#soft);animation:boil-soft var(--boil-paper) step-end infinite;animation-delay:-.5s}
+  filter:url(#soft)}
 .reveal-name::after{content:"";position:absolute;right:-3px;bottom:-4px;width:34px;height:34px;z-index:-1;
   background:linear-gradient(135deg,transparent 44%,rgba(65,77,87,.28) 45% 49%,#E4CE3F 52%);
   border-bottom-right-radius:6px;filter:url(#roughsm)}
@@ -802,7 +802,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   border-radius:2px 2px 0 0;transition:transform .16s ease}
 .spine::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--c,var(--lazuli));
   border:2.4px solid var(--ink);border-radius:2px 2px 0 0;
-  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+  filter:url(#roughsm)}
 /* the printed bands near the head and tail of a spine */
 .spine::after{content:"";position:absolute;left:16%;right:16%;top:9px;height:2px;
   background:rgba(0,0,0,.3);box-shadow:0 5px 0 0 rgba(0,0,0,.22);border-radius:2px}
@@ -819,8 +819,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .spine:nth-child(11) .sp-n{color:var(--ink)}      /* yellow spines need ink numerals */
 
 /* the shelf they stand on — a drawn plank, not a rule */
-.shelf-rule{height:5px;border-radius:3px;background:var(--ink);filter:url(#rough);
-  animation:boil-rough var(--boil-ink) step-end infinite}
+.shelf-rule{height:5px;border-radius:3px;background:var(--ink);filter:url(#rough)}
 .shelf-ends{display:flex;justify-content:space-between;gap:1rem;margin-top:.85rem}
 .se-a,.se-b{font-size:1.05rem;line-height:1.25;color:var(--sambas);max-width:20ch}
 .se-a{text-align:left;transform:rotate(-1.2deg)}
@@ -916,7 +915,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .craftboard::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:8px;
   background:var(--cork-fill);
   border:3px solid var(--ink);box-shadow:8px 8px 0 0 var(--ink),inset 0 0 40px rgba(90,60,25,.28);
-  filter:url(#torn);animation:boil-torn var(--boil-paper) step-end infinite;animation-delay:-1.2s}
+  filter:url(#torn)}
 html[data-tier="lite"] .craftboard::before{filter:none;animation:none}
 
 /* photography + penmanship tiles link to their real Circle postcard in #proof. display:contents =
@@ -927,7 +926,7 @@ html[data-tier="lite"] .craftboard::before{filter:none;animation:none}
   transform:rotate(var(--r,0deg));transition:transform .17s ease}
 .craft::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
   border:2.2px solid var(--ink);border-radius:3px;box-shadow:3px 4px 0 0 rgba(40,26,10,.5);
-  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+  filter:url(#roughsm)}
 .craft:nth-child(even)::before{animation-delay:-.6s}
 .craft:nth-child(3n)::before{animation-delay:-1.15s}
 .craft:hover{transform:rotate(0) translateY(-5px) scale(1.05);z-index:5}
@@ -1143,7 +1142,7 @@ html[data-tier="lite"] .craftboard::before{filter:none;animation:none}
   background:var(--cork-fill);
   border:3px solid var(--ink);
   box-shadow:8px 8px 0 0 var(--ink), inset 0 0 40px rgba(90,60,25,.28);
-  filter:url(#torn);animation:boil-torn var(--boil-paper) step-end infinite;animation-delay:-1.9s}
+  filter:url(#torn)}
 html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
 
 /* the question they were all answering — without it the quotes are just nice words */
@@ -1166,7 +1165,7 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
   padding:8px 8px 0;transform:rotate(var(--r,0deg));transition:transform .18s ease}
 .mpol::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
   border:2.4px solid var(--ink);border-radius:3px;box-shadow:4px 5px 0 0 rgba(40,26,10,.5);
-  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+  filter:url(#roughsm)}
 .mpol:nth-child(even)::before{animation-delay:-.6s}
 .mpol:nth-child(3n)::before{animation-delay:-1.2s}
 .mpol:hover{transform:rotate(0) translateY(-6px) scale(1.03);z-index:9}
@@ -1316,8 +1315,7 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
    the one that represents THINKING, so it's the one that never settles. Fast cadence (--boil-ink,
    the marker speed) rather than the calm paper breath — a thought still forming. The tail bubbles
    are offset so the four shapes don't all jump on the same frame. */
-.thoughtb path,.thoughtb circle{filter:url(#roughsm);
-  animation:boil-roughsm var(--boil-ink) step-end infinite}
+.thoughtb path,.thoughtb circle{filter:url(#roughsm)}
 .thoughtb circle:nth-of-type(1){animation-delay:-.17s}
 .thoughtb circle:nth-of-type(2){animation-delay:-.33s}
 .thoughtb circle:nth-of-type(3){animation-delay:-.08s}
@@ -1339,8 +1337,7 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
   filter:drop-shadow(4px 5px 0 rgba(65,77,87,.55));transform:rotate(-2deg)}
 /* the pad boils on the calm cadence — paper breathing, not marker jitter (that's the balloon's job).
    Staggered per layer so the pages don't all wobble on the same frame. */
-.ctcal>path,.ctcal>g>path,.ctcal>g>circle{filter:url(#roughsm);
-  animation:boil-roughsm var(--boil-paper) step-end infinite}
+.ctcal>path,.ctcal>g>path,.ctcal>g>circle{filter:url(#roughsm)}
 .ctcal>path:nth-of-type(2){animation-delay:-.4s}
 .ctcal>path:nth-of-type(3){animation-delay:-.8s}
 .ctcal>path:nth-of-type(4){animation-delay:-1.1s}
@@ -1377,12 +1374,12 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
    the clock sits at 74.1%/34% and the note's left edge at 104.8%, so these percentages hold. */
 @media(min-width:1180px){
   .fn-link{display:block;position:absolute;left:92%;top:52%;width:16%;height:14%;
-    overflow:visible;filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite;
+    overflow:visible;filter:url(#rough);
     z-index:5;pointer-events:none}
 }
 .fn-star{font-family:var(--f-slab);font-weight:700;color:var(--colorado);
   font-size:clamp(2.2rem,4vw,3rem);line-height:.62;flex:none;
-  filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite}
+  filter:url(#rough)}
 .fn-body{font-family:var(--f-hand);font-size:clamp(1rem,1.4vw,1.14rem);line-height:1.22;
   color:var(--ink);padding-top:.1rem}
 /* no highlighter on a highlighter-coloured note — the note IS the emphasis. The punch line
@@ -1414,7 +1411,7 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
     right:calc(50% - .51 * min(560px,94vw) + 20px);
     width:max(8px, .51 * min(560px,94vw) - 50% - 6px);
     height:calc(clamp(5rem,13vw,6.5rem) + .2 * min(560px,94vw));
-    filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite}
+    filter:url(#rough)}
   .fn-tie svg{width:100%;height:100%;display:block;overflow:visible}
   .fn-tie::before,.fn-tie::after{content:"";position:absolute;width:9px;height:9px;
     margin-left:-4.5px;border-radius:50%;background:var(--lazuli);border:1.6px solid var(--ink)}
@@ -1606,7 +1603,7 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
 /* border + hard shadow live on a backing layer so they can boil without warping the photo */
 .polaroid::before{content:"";position:absolute;inset:0;z-index:0;background:var(--paper);
   border:2.6px solid var(--ink);border-radius:5px;box-shadow:8px 8px 0 0 var(--ink);
-  filter:url(#soft);animation:boil-soft var(--boil-paper) step-end infinite;transition:box-shadow .18s ease}
+  filter:url(#soft);transition:box-shadow .18s ease}
 .polaroid>.ph,.polaroid>.cap{position:relative;z-index:1}
 .polaroid .ph{position:relative;width:100%;aspect-ratio:5/6;overflow:hidden;background:var(--sambas);border:1.5px solid rgba(65,77,87,.28)}
 .polaroid .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.94) contrast(1.03)}
@@ -1636,7 +1633,7 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
 .sign-role{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--sambas);margin:.35rem 0 0}
 .snap{position:relative;width:min(312px,84vw);justify-self:center;padding:12px;transform:rotate(2.6deg)}
 .snap::before{content:"";position:absolute;inset:0;z-index:0;background:var(--paper);border:2.6px solid var(--ink);border-radius:5px;
-  box-shadow:8px 8px 0 0 var(--ink);filter:url(#soft);animation:boil-soft var(--boil-paper) step-end infinite;animation-delay:-.9s}
+  box-shadow:8px 8px 0 0 var(--ink);filter:url(#soft)}
 .snap>.ph{position:relative;z-index:1}
 .snap .ph{position:relative;width:100%;aspect-ratio:5/6;overflow:hidden;background:var(--sambas);border:1.5px solid rgba(65,77,87,.28)}
 .snap .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.94) contrast(1.03)}
@@ -1832,6 +1829,35 @@ footer .legal .snd:focus-visible{outline:2px solid var(--oats);outline-offset:2p
    everything to the static frame via the *{animation:none} guard above.
    The masthead/footer torn bands and the LOGO are deliberately NOT boiled.
    ================================================================ */
+/* ================================================================
+   BOIL POLICY (post-beta): THE MARKER MOVES, THE PAPER DOESN'T.
+
+   Boil used to run on ~104 elements — 20 craft tiles, 12 spines, 10 pins, 7 sheets,
+   6 makerboard polaroids, every board, every chip. Each boiling element re-rasterises
+   an SVG filter on a step-end loop forever, on and off screen alike, and this page is
+   ~20,000px tall: most of that work was never visible to anyone. It is now ~20.
+
+   The line is not a perf hack, it is a hierarchy. Boil is how the page POINTS. So the
+   animation is reserved for ink that is being drawn FOR you — the marker family, whose
+   whole job is "look here" — and everything that is merely hand-MADE sits still:
+
+     BOILS   .ul::after            underlines, "the heart of squigglevision"  (10)
+             .hl::before           highlighter swipes                          (6)
+             .hl-rot .mark::before the H1 blank's marker — the fold's moment    (1)
+             .cut-hook-line        the only copy readable while sealed          (1)
+             .sc-down              the scroll cue                               (1)
+             .rn-arrow             the Dymo aside that names the loop           (1)
+
+     STILL   every sheet, board, tile, pin, chip, polaroid, stamp and card.
+
+   THEY ALL KEEP filter:url(#...). Losing the animation costs nothing in stillness — a
+   static SVG filter rasterises once and is cached, so the hand-drawn EDGE, which is what
+   carries the style, is untouched on all 129 of them. Only the motion was removed.
+
+   Before adding boil to anything: it is an attention device, and attention does not
+   scale. If everything wobbles, nothing is being pointed at — and the FPS governor
+   (app-post-beta.js:44) starts killing animations that matter more.
+   ================================================================ */
 :root{
   --boil-ink:.5s;     /* underlines + highlighter — smallest, pure marker, liveliest */
   --boil-paper:1.5s;  /* section sheet edges + photo borders/shadows — calm breathing */
@@ -1849,7 +1875,7 @@ footer .legal .snd:focus-visible{outline:2px solid var(--oats);outline-offset:2p
 
 /* SECTION BORDERS — cut-paper sheets; border + hard shadow ride the same
    filter so they boil together. Per-section phase offsets break lockstep. */
-.paper>.sheet{animation:boil-torn var(--boil-paper) step-end infinite}
+.paper>.sheet{}
 .hero .sheet{animation-delay:-.3s}
 .about .paper>.sheet{animation-delay:-.95s}
 .note .sheet{animation-delay:-1.4s}
@@ -1858,7 +1884,7 @@ footer .legal .snd:focus-visible{outline:2px solid var(--oats);outline-offset:2p
 .splay .card:nth-child(3)>.sheet{animation-delay:-.2s}
 
 /* footer rubber stamp — alive ink badge */
-footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
+footer .stamp{}
 
 /* ============================================================
    SQUIGGLEVISION RETROFIT — nothing on this site is drawn with a ruler.
@@ -1873,7 +1899,7 @@ footer .stamp{animation:boil-roughsm var(--boil-stamp) step-end infinite}
   background:var(--cork-fill);
   border:3px solid var(--ink);
   box-shadow:8px 8px 0 0 var(--ink), inset 0 0 40px rgba(90,60,25,.28);
-  filter:url(#torn);animation:boil-torn var(--boil-paper) step-end infinite;animation-delay:-.7s}
+  filter:url(#torn)}
 html[data-tier="lite"] .corkboard::before{filter:none;animation:none}
 .corkboard{position:relative;isolation:isolate}
 
@@ -1881,31 +1907,31 @@ html[data-tier="lite"] .corkboard::before{filter:none;animation:none}
 .pinit{background:transparent;border:0;box-shadow:none}
 .pinit::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
   border:2.4px solid var(--ink);border-radius:5px;box-shadow:3px 4px 0 0 rgba(40,26,10,.5);
-  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+  filter:url(#roughsm)}
 .pinit:nth-child(even)::before{animation-delay:-.55s}
 .pinit:nth-child(3n)::before{animation-delay:-1.1s}
 .pinit:hover::before,.pinit:focus-within::before{box-shadow:6px 8px 0 0 rgba(40,26,10,.55)}
 .cl-tag{background:transparent;border:0;box-shadow:none}
 .cl-tag::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--c,var(--schoolbus));
   border:2.2px solid var(--ink);border-radius:4px;box-shadow:2px 2px 0 0 var(--ink);
-  filter:url(#roughsm);animation:boil-roughsm var(--boil-ink) step-end infinite}
+  filter:url(#roughsm)}
 .cl-tag{position:relative;isolation:isolate}
 
 /* the group chat — bubbles are drawn by hand, not by a UI kit */
 .chatmock,.circlemock{background:transparent;border:0;box-shadow:none;position:relative;isolation:isolate}
 .chatmock::before,.circlemock::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
   border:2.6px solid var(--ink);border-radius:8px;box-shadow:7px 8px 0 0 var(--ink);
-  filter:url(#torn);animation:boil-torn var(--boil-paper) step-end infinite}
+  filter:url(#torn)}
 .circlemock::before{animation-delay:-.85s}
 .chatmock{background-image:repeating-linear-gradient(to bottom,transparent 0 25px,rgba(65,77,87,.05) 25px 26px)}
 .bub{background:transparent!important;border:0;position:relative;isolation:isolate}
 .bub::before{content:"";position:absolute;inset:0;z-index:-1;border:2.2px solid var(--ink);
-  border-radius:12px;filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+  border-radius:12px;filter:url(#roughsm)}
 .bub.them::before{background:var(--oats);border-bottom-left-radius:3px}
 .bub.me::before{background:var(--lazuli);border-bottom-right-radius:3px}
 .bub.me{color:var(--oats)}
 .bub:nth-of-type(even)::before{animation-delay:-.6s}
-.ch-gap i{filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite}
+.ch-gap i{filter:url(#rough)}
 .ch-typing{background:transparent;border:0;position:relative;isolation:isolate}
 .ch-typing::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--oats);
   border:2.2px solid var(--ink);border-radius:12px;border-bottom-left-radius:3px;filter:url(#roughsm)}
@@ -1914,24 +1940,24 @@ html[data-tier="lite"] .corkboard::before{filter:none;animation:none}
 .cm-note{background:transparent;border:0;position:relative;isolation:isolate}
 .cm-note::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--oats);
   border:2.4px solid var(--ink);border-radius:6px;
-  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite;animation-delay:-.4s}
+  filter:url(#roughsm)}
 .cm-note{background-image:repeating-linear-gradient(to bottom,transparent 0 22px,rgba(65,77,87,.09) 22px 23px)}
 .cm-due{background:transparent;position:relative;isolation:isolate}
 .cm-due::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--colorado);
-  border-radius:3px;filter:url(#roughsm);animation:boil-roughsm var(--boil-ink) step-end infinite}
+  border-radius:3px;filter:url(#roughsm)}
 
 /* the challenge index card in HOW */
 .pc-card{background:transparent;border:0;box-shadow:none;position:relative;isolation:isolate}
 .pc-card::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
   background-image:repeating-linear-gradient(to bottom,transparent 0 27px,rgba(65,77,87,.11) 27px 28px);
   border:2.6px solid var(--ink);border-radius:7px;box-shadow:9px 10px 0 0 var(--ink);
-  filter:url(#torn);animation:boil-torn var(--boil-paper) step-end infinite;animation-delay:-1.2s}
+  filter:url(#torn)}
 
 /* the gift tags */
 .gift-pile li{background:transparent!important;border:0;box-shadow:none;position:relative;isolation:isolate}
 .gift-pile li::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--c,var(--ink));
   border:2.2px solid var(--ink);border-radius:5px;box-shadow:3px 3px 0 0 var(--ink);
-  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
+  filter:url(#roughsm)}
 .gift-pile li:nth-child(odd)::before{animation-delay:-.7s}
 .gift-pile li:nth-child(3n)::before{animation-delay:-1.3s}
 
@@ -3834,8 +3860,7 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   -webkit-mask-composite:source-in;
   mask-image:radial-gradient(circle at 0 50%, transparent 0 8px, #000 8.5px),
              radial-gradient(circle at 100% 50%, transparent 0 8px, #000 8.5px);
-  mask-composite:intersect;
-  animation:boil-rough var(--boil-paper) step-end infinite}
+  mask-composite:intersect}
 .mast .brand::before{z-index:-1;border:2.4px solid var(--ink);
   background:
     /* the perforation: a dashed tear-line, with a blank stub beyond it */
@@ -4726,8 +4751,7 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 .board .bd-arrow{position:absolute;top:calc(50% - 10px);z-index:6;
   width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;
   background:var(--schoolbus);border:2.6px solid var(--ink);border-radius:49% 51% 52% 48%/48% 52% 49% 51%;
-  box-shadow:2.5px 3px 0 0 var(--ink);filter:url(#roughsm);
-  animation:boil-roughsm var(--boil-paper) step-end infinite;   /* squigglevision: chip + chevron boil together */
+  box-shadow:2.5px 3px 0 0 var(--ink);filter:url(#roughsm);   /* squigglevision: chip + chevron boil together */
   opacity:0;visibility:hidden;transition:opacity .18s ease, transform .12s ease}
 .board .bd-arrow svg{width:24px;height:24px;display:block;overflow:visible}
 .board .bd-arrow svg path{fill:none;stroke:var(--colorado);stroke-width:3.2;
@@ -4756,9 +4780,7 @@ html[data-tier="lite"] .board .bd-arrow{filter:none}
   18% {opacity:1;translate:0 -40px}
   100%{opacity:1;translate:0 0}          /* == resting translate → reverts with zero delta, no fill needed */
 }
-.board .bd-arrow.bd-fly{                 /* comma-list: boil (FILTER, infinite) + drop (TRANSLATE, once) */
-  animation:boil-roughsm var(--boil-paper) step-end infinite,
-            bd-drop .52s cubic-bezier(.26,1.36,.44,1)}
+.board .bd-arrow.bd-fly{/* comma-list: boil (FILTER, infinite) + drop (TRANSLATE, once) */}
 /* reduced-motion: global *{animation:none} already kills boil+drop; just clear the parked lift */
 @media(prefers-reduced-motion:reduce){.bd-scroller .bd-arrow{translate:none!important}}
 /* lite only sets filter:none (not animation); belt-and-suspenders backstop to the JS lite guard */
@@ -4770,8 +4792,7 @@ html[data-tier="lite"] .bd-scroller .bd-arrow{animation:none!important}   /* kee
 .bd-flyer{position:fixed;left:0;top:0;z-index:130;pointer-events:none;
   width:44px;height:44px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;padding:0;margin:0;
   background:var(--schoolbus);border:2.6px solid var(--ink);border-radius:49% 51% 52% 48%/48% 52% 49% 51%;
-  box-shadow:2.5px 3px 0 0 var(--ink);filter:url(#roughsm);                 /* SVG filter id resolves document-wide */
-  animation:boil-roughsm var(--boil-paper) step-end infinite;               /* boils mid-flight (FILTER only, never transform) */
+  box-shadow:2.5px 3px 0 0 var(--ink);filter:url(#roughsm);                 /* SVG filter id resolves document-wide */;               /* boils mid-flight (FILTER only, never transform) */
   transform-origin:50% 50%;will-change:transform,opacity;
   transform:translate(0,0) scale(1) rotate(2deg)}                           /* resting look pre-WAAPI = no first-frame flash */
 .bd-flyer svg{width:24px;height:24px;display:block;overflow:visible}
