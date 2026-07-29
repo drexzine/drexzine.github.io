@@ -151,14 +151,19 @@ a{color:inherit}
 .mast{position:relative;z-index:60;background:var(--oats);border-bottom:0}
 .mast::after{content:"";position:absolute;left:0;right:0;bottom:-15px;height:30px;background:var(--oats);filter:url(#tornbig);z-index:1}
 .mast .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:1rem;position:relative;z-index:2}
-.mast .brand{display:flex;align-items:center;gap:0}   /* brand rule: exactly one 'x' of space between mark + word.
-   The SVG art carries ~18px of internal whitespace (mark's right + word's left) at this size, which equals
-   the wordmark's 'x' (~17px), so gap:0 lands the visible space at one 'x'. */
-.mast .lg-icon{width:46px;display:block}   /* mark = dominant element, per brand lockups */
-.mast .lg-word{width:84px;display:block}
-.mast .lg-icon svg,.mast .lg-word svg{display:block;width:100%;height:auto}
-/* brand mark + logotype in brand green (overrides the SVGs' inline ink fill) */
-.mast .lg-icon svg,.mast .lg-icon svg path,
+/* THE MASTHEAD LOGO — the SECONDARY logo (brand guidelines §03 Logo Suite): the "drex." wordmark
+   ALONE. The butterflies mark used to sit beside it, which is §03 Incorrect Usage panel 6 verbatim,
+   "Do not reorganize or combine logos" — the suite issues exactly three forms (mark stacked OVER
+   wordmark; wordmark alone; mark alone) and no horizontal pairing. The old rules here claimed the
+   book as their warrant ("one 'x' of space between mark + word", "mark = dominant element, per brand
+   lockups"); neither is in it. Chrome takes the wordmark because it is the only thing on this page
+   that says the name, and the mark has not earned the right to stand for it yet. */
+.mast .brand{display:flex;align-items:center}
+/* 87px is INK, not box: the viewBox is cropped to the path bounds, so this is the lettering's true
+   width and its height follows at 26px — the same chrome size the app and the reader use. Against
+   the old uncropped box, "84px" drew only ~56px of actual letters. */
+.mast .lg-word{width:87px;display:block}
+.mast .lg-word svg{display:block;width:100%;height:auto}
 .mast .lg-word svg,.mast .lg-word svg path{fill:var(--grass)}
 /* desktop masthead nav — scoped to the DIRECT nav so these rules never bleed
    into the ported mobile burger panel's own <nav> (which also lives in .mast) */
@@ -3860,8 +3865,9 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    ===================================================================== */
 .mast{position:absolute;top:0;left:0;right:0;background:none;z-index:60}
 .mast::after{display:none}
-.mast .lg-icon svg,.mast .lg-icon svg path,
-.mast .lg-word svg,.mast .lg-word svg path{fill:#fff}
+/* Oats, not #fff: pure white is not in the palette, and §05 Logo Application says to pick the
+   approved colorway with the highest contrast for the ground — here the deep-grass ticket. */
+.mast .lg-word svg,.mast .lg-word svg path{fill:var(--oats)}
 .mast>.wrap>nav a{color:#fff}
 .hero{padding-top:clamp(6.2rem,9vw,7.6rem)}
 /* White on a photograph is only white where the photograph is dark, and this heap is not: measured
@@ -3880,7 +3886,14 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    Two pseudos, because a mask clips a box-shadow out of existence: ::before is the ticket, ::after is
    its shadow, and both carry the same notches. The logo itself stays clean — upright, one solid
    colour, no filter, no tilt, no shadow. The tear is on the ticket, never on the mark. */
-.mast .brand{position:relative;isolation:isolate;padding:.62rem 2.1rem .62rem 1.1rem}
+/* Padding IS the exclusion zone. §03 requires one "x" glyph clear on every side; the "x" is 2452
+   of the wordmark's 9790 cropped units, so at 87px wide that is 22px. The extra 18px on the right
+   keeps the perforation line (24px in from the ticket edge, and the ticket bleeds 6px past this
+   box) outside the zone too — a dashed tear-line ruled through the clear space is still a graphic
+   in it. The old .62rem/1.1rem let the ticket border crowd the logo on all four sides.
+   44px on the right, not 40: measured off the render, 40 left only 20px between the last letter and
+   the tear-line — a hair inside the 21.8px zone. */
+.mast .brand{position:relative;isolation:isolate;padding:22px 44px 22px 22px}
 .mast .brand::before,
 .mast .brand::after{content:"";position:absolute;inset:-3px -6px;border-radius:5px;
   filter:url(#rough);
