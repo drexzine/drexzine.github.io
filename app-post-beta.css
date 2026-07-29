@@ -1677,7 +1677,12 @@ footer::before{content:"";position:absolute;left:0;right:0;top:-15px;height:30px
 footer .top{display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap}
 footer .ft-word{width:clamp(150px,24vw,240px);display:block}
 footer .ft-word svg{display:block;width:100%;height:auto}
-footer .tagline{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.5rem,3.4vw,2.3rem);color:var(--oats);max-width:13ch;margin:.8rem 0 0;line-height:1.05}
+/* 20ch, not the old 13: the tagline is now "Group challenge in, group magazine out." and its
+   longest clause ("Group challenge in,") is 19ch on its own. The clauses are nbsp-bound in the
+   markup, so at 13ch they had nowhere to go and the line either overflowed the column or broke
+   into four ragged lines; 20ch lets it sit as two clean clauses split at its own comma.
+   Re-measure if the tagline changes again — this cap tracks the longest clause, not the line. */
+footer .tagline{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.5rem,3.4vw,2.3rem);color:var(--oats);max-width:20ch;margin:.8rem 0 0;line-height:1.05}
 footer .links{display:flex;flex-direction:column;gap:.35rem}
 footer .links a{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--oats);
   display:inline-flex;align-items:center;min-height:44px;                       /* >=44px tap target */
