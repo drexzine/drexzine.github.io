@@ -3554,7 +3554,12 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   column-gap:clamp(1rem,3vw,2.5rem);align-items:start}
 .ed-head{grid-column:1/-1;position:relative}
 .ed-body{grid-column:1;max-width:34ch}
-.ed-foot{grid-column:1}
+/* grid-row:3 is explicit on purpose. With the deck spanning rows 2/4 in column 2, auto-placement put
+   the coupon in a FOURTH row — below the deck instead of beside it — and the card carried the deck's
+   full height plus the whole coupon underneath. Naming the row puts the coupon back in column 1
+   alongside the deck, which is the only reason the left column now flows beats -> coupon with no
+   blank paper between them. */
+.ed-foot{grid-column:1;grid-row:3}
 .ed-plates{grid-column:2;grid-row:2/4}
 
 /* ZONE 1 — nothing but headline. The eyebrow (.ed-kicker) and the hairline under it (.ed-hair)
@@ -3589,10 +3594,22 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
 .ed-foot{margin-top:clamp(2rem,5vw,3.5rem)}
 /* width:fit-content — the dashed rule is a CUT LINE, and you cut a coupon to its contents. As a
    plain block it filled the column and printed a cut line around a large empty rectangle, which
-   reads as a missing element rather than as a coupon. It still wraps at the max-width, and the
-   ≤880px query hands it back to auto so the stamp and links can use the full narrow column. */
-.ed-coupon{position:relative;isolation:isolate;display:flex;flex-wrap:wrap;align-items:center;
-  gap:clamp(.9rem,2vw,1.4rem);width:fit-content;max-width:min(32rem,100%);
+   reads as a missing element rather than as a coupon.
+   flex-wrap:nowrap goes WITH the fit-content, and the pair is load-bearing. Shrink-to-fit on a
+   wrapping flex row is a trap: fit-content settles at a width a few px under what the stamp and the
+   link stack need side by side, the links wrap under the button, and the coupon gets ~90px TALLER
+   than the full-width version it replaced. nowrap makes the shrink-to-fit width honest — the row
+   cannot fold, so the width resolves to the one-line width and the box is as short as it looks.
+   width:max-content, NOT fit-content, and max-width:32rem, NOT min(32rem,100%). Both rejected forms
+   are capped by the AVAILABLE width, and the available width here is column 1 of .ed-inner (~400px)
+   against a row that wants ~424px — so the coupon got squeezed by 24px and the stamp, the one flex
+   item that cannot reflow, ate it and broke "JOIN WAITLIST" across two lines. max-content ignores
+   the column and takes the width the row actually needs; the small overhang lands in the empty
+   gutter between column 1 and the deck, which starts ~150px further right, so nothing collides. The
+   32rem ceiling is what still stops it running under the deck.
+   The ≤880px query hands both back (auto + wrap): one narrow column has no room for a row. */
+.ed-coupon{position:relative;isolation:isolate;display:flex;flex-wrap:nowrap;align-items:center;
+  gap:clamp(.9rem,2vw,1.4rem);width:max-content;max-width:32rem;
   padding:clamp(1rem,2vw,1.3rem) clamp(1.1rem,2.2vw,1.5rem);
   transform:rotate(-.9deg)}
 .ed-coupon::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
@@ -3614,7 +3631,7 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    covers the border-box exactly, so its own border lands precisely where the real one used to. */
 .ed-stamp{font-family:var(--f-head);font-weight:500;font-size:var(--fs-label);letter-spacing:.13em;
   text-transform:uppercase;display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;
-  position:relative;isolation:isolate;
+  position:relative;isolation:isolate;white-space:nowrap;   /* the label is two words and must stay on one line — see .ed-coupon's width note */
   background:transparent;color:var(--oats);border:2.6px solid transparent;
   padding:.9em 1.35em;min-height:46px;transform:rotate(-1.4deg);
   transition:transform .09s ease}
@@ -3868,7 +3885,7 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   .ed-plate{position:relative;top:auto;left:auto;width:auto;flex:0 1 43%}
   .ed-plate+.ed-plate{margin-left:-5%;margin-top:1.6rem}
   .ed-p3{display:none}     /* two sheets is a spread; three is a pile, and there's no room */
-  .ed-coupon{width:auto;max-width:none}   /* one narrow column — let it use the whole of it */
+  .ed-coupon{width:auto;max-width:none;flex-wrap:wrap}   /* one narrow column — let it use the whole of it, and let the row fold */
 }
 @media(max-width:420px){
   .ed-plate figcaption{max-width:15ch}
@@ -4118,7 +4135,13 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
    the gutter — the same deliberate spill the min-width:900px rule below already does — and the card's
    bottom third is empty ruled paper, so there is vertical room to spare. Below 205px the two bands
    stop being readable, which is what made the old deck need a sticky note in the first place. */
-.hero-card-deck{--pw:clamp(210px,26vw,300px);grid-column:2;grid-row:2/3;align-self:start;
+/* grid-row:2/4 — the deck spans the body row AND the coupon row, which is what .ed-plates (the same
+   slot in the other cut of this hero) has always done. At 2/3 the deck sat alone in row 2, so row 2
+   was as tall as the DECK (465px) while the beats beside it were 184px, and the coupon in row 3
+   started below all of it: 276px of blank paper in the left column and a hero card 255px taller
+   than its own content. Spanning both rows lets column 1 flow beats -> coupon continuously and the
+   deck simply sit alongside. align-self:start keeps it pinned to the top of the span. */
+.hero-card-deck{--pw:clamp(210px,26vw,300px);grid-column:2;grid-row:2/4;align-self:start;
   justify-self:start;position:relative;z-index:4;width:clamp(232px,29vw,340px);
   height:clamp(300px,36vw,470px);margin-top:clamp(-2.4rem,-3vw,-1.7rem)}  /* lift beside the subtitle's 2nd line + the beats (clear of its long 1st line) */
 /* Roomy screens: column 2 is wider than the deck, so anchor it to the column's RIGHT edge and spill it
@@ -4312,9 +4335,15 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
 .hero-card-deck .pola .zrefl small{display:block;font-family:var(--f-head);font-weight:700;
   text-transform:uppercase;font-size:calc(var(--pw) * .029);letter-spacing:.11em;
   opacity:.7;margin-top:4px}
-/* the FRONT card wears the "tap to flip through" cue below it. JS marks it .dt. */
-.hero-card-deck .pola.dt::after{content:"real zines\00a0\2014\00a0tap to flip\00a0\2192";position:absolute;left:50%;bottom:-24px;
-  transform:translateX(-50%) rotate(-3deg);white-space:nowrap;font-family:var(--f-hand);font-size:13.5px;
+/* the FRONT card wears the "tap to flip through" cue. JS marks it .dt.
+   ABOVE the deck, not below it. Below, the cue fell off the bottom of the polaroid and onto whatever
+   the collage happened to be showing there — which is a wall of dark photographs, so 13.5px of
+   coral hand-lettering on a night shot was simply unreadable. Above the deck is the hero card's own
+   cream paper, every time: the deck sits in column 2 with align-self:start, so the space over it is
+   the sheet, not the collage. Same reason the size goes to 14.5px — it is the one instruction in
+   this fold that tells you the pictures are tappable, and it was the quietest thing on the card. */
+.hero-card-deck .pola.dt::after{content:"real zines\00a0\2014\00a0tap to flip\00a0\2192";position:absolute;left:50%;top:-26px;
+  transform:translateX(-50%) rotate(-3deg);white-space:nowrap;font-family:var(--f-hand);font-size:14.5px;
   font-weight:700;line-height:1;color:var(--coral-ink)}
 .hcd-hint{display:none}
 
@@ -4460,10 +4489,12 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 .hl-g::before{background:var(--grass);opacity:.42}
 .hl-r::before{background:var(--colorado);opacity:.42}
 .hl-gd::before{background:var(--grass-deep);opacity:.42}
-/* THE BEATS' HIGHLIGHTERS RUN BLUE, THEN YELLOW. 01 and 02 are marked in Lazuli — the things you
-   DO — and 03's "scrollable magazine" breaks to Happy, as does "Repeat = portfolio." below the
-   list. So the fold's marker says one thing consistently: blue is the work, yellow is what you get
-   out of it, and the break lands exactly where the loop turns into the object.
+/* BLUE IS THE LOOP, YELLOW IS THE ONE THING IT MAKES. 01, 02 and "Repeat" are marked in Lazuli;
+   Happy is spent exactly once, on "scrollable magazine". So the marker breaks colour at precisely
+   the point where doing turns into a made object, and nowhere else — one yellow mark in the fold
+   means the eye cannot mistake what the payoff is.
+   "Repeat" is blue for the reason it was always the odd one: it hands the reader back to 01. That
+   argument used to keep it yellow because 01 was yellow; 01 is blue now, so the hand-back is blue.
    This inverts the older scheme, where the three mechanics shared yellow and only the payoff broke
    (to green). Yellow was doing duty as the neutral, which left the payoff needing a third colour to
    escape it; making the mechanics the coloured ones frees yellow to BE the payoff, and green drops
