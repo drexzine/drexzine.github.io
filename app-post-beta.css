@@ -3760,7 +3760,15 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    dead rules: if a lead-in ever comes back it needs the margin reset back with it. */
 .beats{list-style:none;margin:clamp(1.2rem,2.6vw,1.8rem) 0 0;padding:0;display:flex;flex-direction:column;
   gap:clamp(.55rem,1.3vw,.85rem);counter-reset:beat}
-.beats li{font-family:var(--f-body);font-weight:300;font-size:var(--fs-body);
+/* font-weight 400, NOT 300. The colour was never the problem — these have always computed to
+   rgb(65,77,87), which is --ink and is literally the same hex as --sambas, the darkest text value
+   the palette has. They READ grey because Bitter Light at 18.75px lays down a stroke thin enough
+   that the paper's own grain shows through it, and a thin dark stroke on a textured cream ground
+   greys out perceptually no matter what the colour says.
+   The old note here claimed "Bitter Light at full ink reads sharper, not heavier: it stops
+   competing with the paper grain" — it is the other way round at this size. Regular wins the grain
+   back. The three ink LEVELS are untouched; this is a weight change, not a fourth level. */
+.beats li{font-family:var(--f-body);font-weight:400;font-size:var(--fs-body);
   line-height:1.42;color:var(--ink);position:relative;padding-left:2em}
 /* THE DYMO TAPE. The beat numbers are embossed label-maker tape stuck in the margin. They were 13px
    of faint grey set flush left, which is a footnote marker — the loop is the point of this card and
@@ -3831,8 +3839,8 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    the sub uses. Same size and colour as the beats, because it is the same voice; different axis,
    because it is not the same kind of thing.
    It needs its own .hl rule: `.beats .hl` no longer reaches it. */
-.beat-sum{margin:clamp(.85rem,2vw,1.2rem) 0 0;font-family:var(--f-body);font-weight:300;
-  font-size:var(--fs-body);line-height:1.42;color:var(--ink)}
+.beat-sum{margin:clamp(.85rem,2vw,1.2rem) 0 0;font-family:var(--f-body);font-weight:400;
+  font-size:var(--fs-body);line-height:1.42;color:var(--ink)}   /* 400 with the beats — same voice, same weight */
 .beat-sum .hl{white-space:nowrap;font-weight:600}
 /* THE POINTER off beat 03, landing ON the front zine. Red, because red is this page's marginalia hand
    (the deck's own "real zines — tap to flip →" caption, the loopback arrow in #how) — green would read
@@ -4489,12 +4497,14 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 .hl-g::before{background:var(--grass);opacity:.42}
 .hl-r::before{background:var(--colorado);opacity:.42}
 .hl-gd::before{background:var(--grass-deep);opacity:.42}
-/* BLUE IS THE LOOP, YELLOW IS THE ONE THING IT MAKES. 01, 02 and "Repeat" are marked in Lazuli;
-   Happy is spent exactly once, on "scrollable magazine". So the marker breaks colour at precisely
-   the point where doing turns into a made object, and nowhere else — one yellow mark in the fold
-   means the eye cannot mistake what the payoff is.
-   "Repeat" is blue for the reason it was always the odd one: it hands the reader back to 01. That
-   argument used to keep it yellow because 01 was yellow; 01 is blue now, so the hand-back is blue.
+/* BLUE IS YOURS, YELLOW IS THE CLUB'S — and yellow is spent exactly once. The Lazuli marks are
+   "challenge", "finish" and "portfolio": the thing you take on, the thing you get done, the thing
+   you end up owning. Happy marks one phrase in the whole fold, "scrollable magazine", the single
+   object the club makes together. One yellow mark means the eye cannot mistake what the collective
+   output is; the three blue ones trace what the reader personally walks away with.
+   The mark sits on "portfolio", NOT on "Repeat". Marking the verb highlighted the instruction to go
+   round again; marking the noun highlights what going round again GETS you, which is the only
+   reason that line is on the card at all.
    This inverts the older scheme, where the three mechanics shared yellow and only the payoff broke
    (to green). Yellow was doing duty as the neutral, which left the payoff needing a third colour to
    escape it; making the mechanics the coloured ones frees yellow to BE the payoff, and green drops
