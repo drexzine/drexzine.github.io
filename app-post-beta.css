@@ -3587,8 +3587,13 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
 
 /* ZONE 3 — the CTA is a printed coupon, cut from the page. */
 .ed-foot{margin-top:clamp(2rem,5vw,3.5rem)}
+/* width:fit-content — the dashed rule is a CUT LINE, and you cut a coupon to its contents. As a
+   plain block it filled the column and printed a cut line around a large empty rectangle, which
+   reads as a missing element rather than as a coupon. It still wraps at the max-width, and the
+   ≤880px query hands it back to auto so the stamp and links can use the full narrow column. */
 .ed-coupon{position:relative;isolation:isolate;display:flex;flex-wrap:wrap;align-items:center;
-  gap:clamp(.9rem,2vw,1.4rem);max-width:min(32rem,100%);padding:clamp(1rem,2vw,1.3rem) clamp(1.1rem,2.2vw,1.5rem);
+  gap:clamp(.9rem,2vw,1.4rem);width:fit-content;max-width:min(32rem,100%);
+  padding:clamp(1rem,2vw,1.3rem) clamp(1.1rem,2.2vw,1.5rem);
   transform:rotate(-.9deg)}
 .ed-coupon::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
   border:2.4px dashed var(--ink);border-radius:4px;box-shadow:6px 6px 0 0 var(--ink);
@@ -3720,7 +3725,13 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
 /* the hero subtitle: handles the "do I need a group?" question right under the headline */
 .ed-sub{margin:clamp(.7rem,1.7vw,1.15rem) 0 0;font-family:var(--f-body);font-style:italic;font-weight:400;
   font-size:var(--fs-lede);line-height:1.4;color:var(--ink);max-width:34ch}
-.ed-sub .stop{color:var(--grass);font-weight:700;font-style:normal}   /* brand green + bold + upright, so it reads as the same green token as "Together" in the H1.
+/* LAZULI, not grass — and --lazuli-deep, not --lazuli. The token used to echo the H1's green
+   "Together", which meant the fold's two strongest marks were the same colour saying different
+   things; blue separates the OFFER (this line) from the brand voice (the headline), and the
+   headline keeps the green to itself. Deep, because this is colour carrying text: bright Lazuli
+   on Oats measures 3.11:1 and fails AA outright, --lazuli-deep clears at 5.21:1. Same rule that
+   sent the margin tape to --coral-ink. */
+.ed-sub .stop{color:var(--lazuli-deep);font-weight:700;font-style:normal}   /* bold + upright, so it reads as one token.
    NO nowrap. It was there for a 12-character token ("you made together") that could always be pushed
    whole onto the next line; the token is "monthly show-and-tell with deadlines" now, which is 36
    characters against a 34ch measure — nowrap on that does not keep it on one line, it forces one
@@ -3796,12 +3807,16 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
 .beats li:nth-child(2)::before{--dymo-r:1.5deg}
 .beats li:nth-child(3)::before{--dymo-r:-1.1deg}
 .beats .hl{white-space:nowrap;font-weight:600}
-/* the closing line ("Repeat = portfolio.") is a summation, not a fourth step, so it gets no numeral.
-   It KEEPS the 2em padding — dropping the indent as well would break the list's left rail and the
-   line would read as a stray paragraph that had fallen out of the list. counter-increment stays off
-   too, not just the content: the number is gone visually either way, but leaving the counter alone
-   means anything added after it numbers correctly. */
-.beats li.beat-out::before{content:none;counter-increment:none}
+/* the closing line ("Repeat = portfolio.") is a summation, not a fourth step. It was briefly a
+   fourth <li> with the numeral suppressed and the 2em indent kept, on the theory that holding the
+   list's left rail was tidier — it wasn't: on the rail with no number, it reads as a step that has
+   LOST its 04. So it left the <ul> entirely and is a paragraph on the body's own left axis, the one
+   the sub uses. Same size and colour as the beats, because it is the same voice; different axis,
+   because it is not the same kind of thing.
+   It needs its own .hl rule: `.beats .hl` no longer reaches it. */
+.beat-sum{margin:clamp(.85rem,2vw,1.2rem) 0 0;font-family:var(--f-body);font-weight:300;
+  font-size:var(--fs-body);line-height:1.42;color:var(--ink)}
+.beat-sum .hl{white-space:nowrap;font-weight:600}
 /* THE POINTER off beat 03, landing ON the front zine. Red, because red is this page's marginalia hand
    (the deck's own "real zines — tap to flip →" caption, the loopback arrow in #how) — green would read
    as a fourth highlight and yellow as a fifth.
@@ -3853,7 +3868,7 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   .ed-plate{position:relative;top:auto;left:auto;width:auto;flex:0 1 43%}
   .ed-plate+.ed-plate{margin-left:-5%;margin-top:1.6rem}
   .ed-p3{display:none}     /* two sheets is a spread; three is a pile, and there's no room */
-  .ed-coupon{max-width:none}
+  .ed-coupon{width:auto;max-width:none}   /* one narrow column — let it use the whole of it */
 }
 @media(max-width:420px){
   .ed-plate figcaption{max-width:15ch}
@@ -4444,16 +4459,26 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 .hl-b::before{background:var(--lazuli);opacity:.42}
 .hl-g::before{background:var(--grass);opacity:.42}
 .hl-r::before{background:var(--colorado);opacity:.42}
-.hl-gd::before{background:var(--grass-deep);opacity:.42}   /* the zine payoff — the ONE color break in the beats */
-/* the mechanic beats (challenge / Circle Time / deadline) share one calm highlighter family so the
-   four beats read as a sequence, not a four-color rainbow. Only beat 4 (Your zine) breaks to green. */
+.hl-gd::before{background:var(--grass-deep);opacity:.42}
+/* THE BEATS' HIGHLIGHTERS RUN BLUE, THEN YELLOW. 01 and 02 are marked in Lazuli — the things you
+   DO — and 03's "scrollable magazine" breaks to Happy, as does "Repeat = portfolio." below the
+   list. So the fold's marker says one thing consistently: blue is the work, yellow is what you get
+   out of it, and the break lands exactly where the loop turns into the object.
+   This inverts the older scheme, where the three mechanics shared yellow and only the payoff broke
+   (to green). Yellow was doing duty as the neutral, which left the payoff needing a third colour to
+   escape it; making the mechanics the coloured ones frees yellow to BE the payoff, and green drops
+   out of the beats entirely — it stays the headline's. */
 .hl-y::before{background:var(--happy);opacity:.5}
 /* the terms are longer now (they carry the funding model), so give the coupon room to hold them
    without squeezing the stamp — and let the first sentence, the one that answers "what does it
    cost", carry weight instead of hiding at the end of a run-on. */
 .ed-terms{flex:1 1 15rem;line-height:1.5}
 .ed-terms b{font-weight:600;color:var(--ink)}
-.ed-coupon{max-width:none}
+/* `.ed-coupon{max-width:none}` used to live here, and it was the reason the cut-out ran the full
+   width of the column with 240px of empty paper inside it. It was added for .ed-terms — the funding
+   copy that used to sit in the coupon and needed the room — and .ed-terms then moved out of the hero
+   to #kit without this coming with it. The coupon holds a stamp and three links; it shrink-wraps
+   them now (width:fit-content on the base rule). A coupon is cut to its contents. */
 
 /* =====================================================================
    #proof — THE LONG PAGE   (/design-shotgun r3 winner: P3-margin + grafts)
