@@ -2226,6 +2226,11 @@ html.sealed:not(.revealed) .cg-scrap{opacity:0!important}
   100% {transform:translateX(-50%) rotate(-3deg) translateY(0)}
 }
 .cta-attn:not(.cta-quiet){animation:ctaShimmy 5.2s ease-in-out infinite}
+/* ...except the hero's "Join the waitlist", which boils instead (see .ed-stamp::before). Two
+   attention devices on one button is one too many: the shimmy would rock the casing while the
+   casing is already redrawing itself, and the two read as a glitch rather than as one alive thing.
+   Scoped to .hero so the "Join as a group" CTA further down keeps its shimmy + ring + scrawl. */
+.hero .cta-attn:not(.cta-quiet){animation:none}
 .cta-attn:not(.cta-quiet) .cta-ring{animation:ctaRing 5.2s ease-in-out infinite}
 .cta-attn:not(.cta-quiet) .cta-scrawl{animation:ctaBob 5.2s ease-in-out infinite}
 .cta-attn.cta-quiet{animation:none}
@@ -3591,13 +3596,30 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
 .ed-snip{position:absolute;left:-14px;top:-16px;z-index:1;width:30px;height:30px;color:var(--ink);
   transform:rotate(-16deg)}
 .ed-snip svg{width:100%;height:100%;display:block}
+/* THE CASING IS A SEPARATE, BOILING LAYER. The fill, the ink border and the 5px hard shadow all
+   move off the <a> and onto ::before, which carries url(#roughsm) and boils on --boil-paper. The
+   reason for the split is the label: a filter applied to the button itself displaces its own text,
+   and a 13px tracked uppercase CTA is the last string on this page that should wobble. Casing
+   boils, label stays crisp.
+   THIS REPLACED THE SHIMMY. The button used to twitch on a 5.2s ctaShimmy loop (rotate + scale) to
+   pull the eye. That is an animation ABOUT the button, laid on from outside; the boil is the button
+   being drawn the way every other edge on the page is drawn. It never stops, never lunges, and it
+   costs the reader nothing — which is what an always-on attention cue has to be.
+   The <a> keeps a transparent 2.6px border so the padding box is unchanged, and ::before at inset:0
+   covers the border-box exactly, so its own border lands precisely where the real one used to. */
 .ed-stamp{font-family:var(--f-head);font-weight:500;font-size:var(--fs-label);letter-spacing:.13em;
   text-transform:uppercase;display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;
-  background:var(--grass-deep);color:var(--oats);border:2.6px solid var(--ink);border-radius:5px;
-  padding:.9em 1.35em;min-height:46px;box-shadow:5px 5px 0 0 var(--ink);transform:rotate(-1.4deg);
-  transition:transform .09s ease,box-shadow .09s ease}
+  position:relative;isolation:isolate;
+  background:transparent;color:var(--oats);border:2.6px solid transparent;
+  padding:.9em 1.35em;min-height:46px;transform:rotate(-1.4deg);
+  transition:transform .09s ease}
+.ed-stamp::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:var(--grass-deep);border:2.6px solid var(--ink);border-radius:5px;
+  box-shadow:5px 5px 0 0 var(--ink);
+  filter:url(#roughsm);animation:boil-roughsm var(--boil-paper) step-end infinite}
 .ed-stamp:hover{transform:rotate(0)}
-.ed-stamp:active{transform:translate(5px,5px) rotate(0);box-shadow:0 0 0 0 var(--ink)}
+.ed-stamp:active{transform:translate(5px,5px) rotate(0)}
+.ed-stamp:active::before{box-shadow:0 0 0 0 var(--ink)}   /* press INTO the shadow — now the casing's job */
 .ed-stamp:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
 .ed-terms{margin:0;flex:1 1 12rem;font-family:var(--f-body);font-size:var(--fs-small);
   line-height:1.45;color:var(--ink-faint)}
@@ -3698,25 +3720,88 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
 /* the hero subtitle: handles the "do I need a group?" question right under the headline */
 .ed-sub{margin:clamp(.7rem,1.7vw,1.15rem) 0 0;font-family:var(--f-body);font-style:italic;font-weight:400;
   font-size:var(--fs-lede);line-height:1.4;color:var(--ink);max-width:34ch}
-.ed-sub .stop{color:var(--grass);font-weight:700;font-style:normal;white-space:nowrap}   /* brand green + bold + upright, so it reads as the same green token as "Together" in the H1.
-   nowrap because the token is three words now ("you all made") and the 34ch measure was breaking it
-   across two lines, which reads as two green things rather than one phrase. It is 12 characters
-   against a 34ch measure, so it can always be pushed whole onto the next line. */
-/* the beats' lead-in ("How show-and-tell works:"). It was defined at --fs-lede for a tagline it
-   never got used for; as a lead-in it must sit a rank UNDER the sub, or the card has two lede-sized
-   lines in a row and the second one reads as a competing headline. Body size, head face, 700 — a
-   label on the small print, not a claim. */
-.ed-lead{margin:clamp(1.3rem,2.8vw,2rem) 0 clamp(.6rem,1.3vw,.85rem);
-  font-family:var(--f-head);font-weight:700;font-size:var(--fs-body);line-height:1.3;color:var(--ink)}
-.ed-lead+.beats{margin-top:0}   /* the lead-in owns the gap; .beats' own top margin would double it */
+.ed-sub .stop{color:var(--grass);font-weight:700;font-style:normal}   /* brand green + bold + upright, so it reads as the same green token as "Together" in the H1.
+   NO nowrap. It was there for a 12-character token ("you made together") that could always be pushed
+   whole onto the next line; the token is "monthly show-and-tell with deadlines" now, which is 36
+   characters against a 34ch measure — nowrap on that does not keep it on one line, it forces one
+   overlong line and blows the measure out sideways. A green phrase that wraps still reads as one
+   phrase because it is the only green on the line; a green phrase that breaks the column does not. */
+/* .ed-lead (the beats' lead-in, "How it works:") and its .ed-lead+.beats gap reset are GONE with the
+   markup — the sub ends in a colon now, so the list needs no label. .beats' own top margin, which the
+   reset used to cancel, is what opens the gap under the sub again. Kept as a note rather than left as
+   dead rules: if a lead-in ever comes back it needs the margin reset back with it. */
 .beats{list-style:none;margin:clamp(1.2rem,2.6vw,1.8rem) 0 0;padding:0;display:flex;flex-direction:column;
   gap:clamp(.55rem,1.3vw,.85rem);counter-reset:beat}
 .beats li{font-family:var(--f-body);font-weight:300;font-size:var(--fs-body);
   line-height:1.42;color:var(--ink);position:relative;padding-left:2em}
+/* THE DYMO TAPE. The beat numbers are embossed label-maker tape stuck in the margin. They were 13px
+   of faint grey set flush left, which is a footnote marker — the loop is the point of this card and
+   its numbering was the quietest ink on it.
+   IT COSTS THE LIST NOTHING VERTICALLY. ::before is position:absolute, so the strip is out of flow
+   entirely and the li box is still sized by its sentence alone. That is the whole reason the numeral
+   could go from .72em to 1.12em without the fold growing a pixel — verified, the beats block is the
+   same height before and after.
+   Every length here is in the ::before's OWN em (font-size is set on this rule), so the strip is
+   locked to the numeral and scales with it, not with the body copy.
+   Geometry, against a 44.6px beat pitch (li 31px + .beats gap 13.6px) at desktop: the strip is
+   1.42em ≈ 30px tall, so consecutive labels nearly touch and never collide. It is 2.2em ≈ 46px wide
+   against 2em ≈ 37.5px of padding, so it hangs LEFT into the margin (left:-.52em) rather than
+   growing right into the sentence — the gutter is empty and the text is not. At 390px the same ems
+   land at 42px wide against 34px of padding and still clear the text by 2px.
+   EMBOSS = HARD SHADOWS, NO BLUR. On real tape the character is pressed up out of the plastic and
+   the stressed plastic goes white, so: white above the glyph (light catches the raised face), black
+   below it (the face casts down onto the tape), and one more black step under that for the depth of
+   the press. The strip's own 1px/2px offset shadow is what lifts it off the paper. Any blur here
+   turns embossed plastic into a soft-shadowed sticker, which is the opposite of the effect.
+   IT IS DRAWN, NOT RENDERED. A first pass built the strip as literal plastic — border-radius, a
+   light-to-dark gradient down the face, an inset white hairline for gloss, a white text-shadow over
+   every glyph for the specular hit. That is cartoon skeuomorphism and it broke the page: NOTHING
+   here is a photograph of an object, everything is a drawn mark. So the strip is flat colour with
+   no gradient and no gloss, and its corners come off url(#roughsm) instead of a radius — hand-cut,
+   never a vector rounded-rect. The filter carries the numeral and the drop shadow with it, so
+   strip, digits and shadow are one drawn thing rather than a sticker composited on top.
+   ROUGH BUT NOT BOILING — it takes the filter and NOT the boil animation, and that pairing is
+   deliberate. The boil is the page's marker hand still moving; a strip of tape is a thing that was
+   stuck down once and then stayed there. Holding it still is what makes it read as an object ON the
+   page instead of another mark drawn on it, and it is also what keeps three high-contrast red
+   rectangles from flickering in the reader's periphery for the whole session. A second pass did
+   boil them on --boil-paper and it was worse in exactly that way.
+   The only relief left is a single hard dark offset under the numeral: that reads as the character
+   pressed up out of the tape, and it is the one shadow that survives without implying a light
+   source. No highlight above it — a white edge is gloss by another name.
+   Courier Prime (--f-display), not the sans: label-maker characters are monospaced, and this is the
+   brand's monospace. It is the one sanctioned use outside the h1 — the tape is a mechanical object
+   stamping fixed-width characters, which is exactly what the face is.
+   RED, because Dymo tape is red. --coral-ink, not --colorado: this is a colour carrying text, and
+   oats numerals on bright Colorado measure 3.05:1, which fails AA outright. --coral-ink is the
+   already-sanctioned deepened Colorado (it is what letters.drex.style uses) and the same numerals
+   clear at 4.87:1. It is also the truer object — real label tape is a deep red, not a coral.
+   It joins the page's existing red hand (the pointer off beat 03, the deck's "real zines — tap to
+   flip" caption), so the tape is not a new colour on the card, it is the marginalia colour showing
+   up as an object. */
 .beats li::before{counter-increment:beat;content:counter(beat,decimal-leading-zero);
-  position:absolute;left:0;top:.14em;font-family:var(--f-head);font-size:.72em;font-weight:700;
-  letter-spacing:.04em;color:var(--ink-faint)}
+  position:absolute;left:-.62em;top:-.08em;
+  display:grid;place-items:center;box-sizing:border-box;
+  width:2.05em;height:1.38em;
+  font-family:var(--f-display);font-size:1.1em;font-weight:700;letter-spacing:.02em;
+  color:var(--oats);
+  background:var(--coral-ink);
+  text-shadow:0 1.5px 0 rgba(0,0,0,.38);
+  box-shadow:2px 2.5px 0 rgba(40,26,10,.32);
+  filter:url(#roughsm);
+  transform:rotate(var(--dymo-r,-1.7deg))}
+/* hand-applied labels are not all at one angle — vary the tilt per strip so the three read as three
+   separate pieces of tape rather than one printed column */
+.beats li:nth-child(1)::before{--dymo-r:-2.3deg}
+.beats li:nth-child(2)::before{--dymo-r:1.5deg}
+.beats li:nth-child(3)::before{--dymo-r:-1.1deg}
 .beats .hl{white-space:nowrap;font-weight:600}
+/* the closing line ("Repeat = portfolio.") is a summation, not a fourth step, so it gets no numeral.
+   It KEEPS the 2em padding — dropping the indent as well would break the list's left rail and the
+   line would read as a stray paragraph that had fallen out of the list. counter-increment stays off
+   too, not just the content: the number is gone visually either way, but leaving the counter alone
+   means anything added after it numbers correctly. */
+.beats li.beat-out::before{content:none;counter-increment:none}
 /* THE POINTER off beat 03, landing ON the front zine. Red, because red is this page's marginalia hand
    (the deck's own "real zines — tap to flip →" caption, the loopback arrow in #how) — green would read
    as a fourth highlight and yellow as a fifth.
@@ -3775,6 +3860,10 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
 }
 @media(prefers-reduced-motion:reduce){
   .ed-stamp{transition:none}
+  /* the boil is motion. The rough edge itself stays — it is the drawn look, not the animation —
+     so the filter is left alone and only the redraw stops. (The margin tape needs no rule here:
+     it never boiled in the first place.) */
+  .ed-stamp::before{animation:none}
 }
 
 /* =====================================================================

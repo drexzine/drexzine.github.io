@@ -22,14 +22,17 @@
 <title>drex. — Group challenge in, group magazine out.</title>
 <!-- The description does the EXPLAINING the title no longer has room for, and it opens with
      the fold's sub verbatim so the two cannot drift apart.
-     "monthly" is GONE and should not come back without evidence: it lived only in these
-     three meta tags and was never supported anywhere in the page body, which says "one
-     prompt, one due date". Every remaining clause is checkable on the page — small club
-     (the fold), a standing hour (#how, "The magic is the hour"), a zine everyone's in and
-     the portfolio (beat 03). 156 characters, inside the SERP cut. -->
-<meta name="description" content="Your club takes a challenge and ends up with a magazine you made together. A small club, a standing hour, a zine everyone's in — a portfolio that stacks up." />
+     "monthly" is BACK, and only because the body earns it now: the fold's sub says "monthly
+     show-and-tell" in so many words. It was struck once before for exactly the opposite
+     reason — it lived in these three meta tags and nowhere in the page — so if the sub ever
+     drops the cadence again, this drops it too.
+     The tail is the beats, compressed: beat 03's object is shortened to "put your work in a
+     zine" purely for length, and the closing line rides along verbatim because "Repeat =
+     portfolio." is the one clause that survives being read cold in a search result.
+     155 characters, inside the SERP cut. -->
+<meta name="description" content="Join or create a small club for monthly show-and-tell with deadlines: set a challenge, help each other finish, put your work in a zine. Repeat = portfolio." />
 <meta property="og:title" content="drex. — Group challenge in, group magazine out." />
-<meta property="og:description" content="Your club takes a challenge and ends up with a magazine you made together. A small club, a standing hour, a zine everyone's in — a portfolio that stacks up." />
+<meta property="og:description" content="Join or create a small club for monthly show-and-tell with deadlines: set a challenge, help each other finish, put your work in a zine. Repeat = portfolio." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://drex.style" />
 <meta property="og:image" content="https://drex.style/assets/og.png" />
@@ -41,7 +44,7 @@
 <meta property="og:image:alt" content="drex. — Together, you become ___. A challenge in, a magazine out. Oats-cream type on a grass-green card: the last word of the headline is an empty hand-drawn blank with a full stop after it, and a yellow pencil rests just past the end of the line." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="drex. — Group challenge in, group magazine out." />
-<meta name="twitter:description" content="Your club takes a challenge and ends up with a magazine you made together. A small club, a standing hour, a zine everyone's in — a portfolio that stacks up." />
+<meta name="twitter:description" content="Join or create a small club for monthly show-and-tell with deadlines: set a challenge, help each other finish, put your work in a zine. Repeat = portfolio." />
 <meta name="twitter:image" content="https://drex.style/assets/og.png" />
 <meta name="theme-color" content="#FEF6E4" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7438 6955'%3E%3Cg fill='%231CAB5B'%3E%3Cpath d='M3940.792,1923.474c0,-237.327 876.575,-942.689 1916.579,-954.143c144.631,-1.593 160.411,78.319 137.9,189.4c-30.08,148.427 -98.327,433.131 -98.327,433.131c0,0 65.273,764.946 -24.815,794.112c-90.088,29.167 -290.952,-256.255 -825.803,-386.398c-752.956,-183.213 -1105.535,77.059 -1105.535,-76.102Z'/%3E%3Cpath d='M3904.129,2226.95c9.277,-48.947 42.212,-89.528 87.203,-107.447c243.766,-86.69 1260.521,-180.52 2114.804,662.836c42.289,41.921 54.919,106.632 31.665,162.246c-102.058,276.752 -340.779,1190.09 53.749,2858.265c38.355,162.175 -103.782,235.401 -233.086,138.553c-532.234,-398.637 -1304.501,-567.736 -1930.825,-724.558c-48.189,-11.629 -86.868,-48.709 -101.742,-97.538c-70.176,-252.215 -255.758,-1651.265 -21.766,-2892.358Z'/%3E%3Cpath d='M3496.708,1923.474c0,-237.327 -876.575,-942.689 -1916.579,-954.143c-144.631,-1.593 -160.411,78.319 -137.9,189.4c30.08,148.427 98.327,433.131 98.327,433.131c0,0 -65.273,764.946 24.815,794.112c90.088,29.167 290.952,-256.255 825.803,-386.398c752.956,-183.213 1105.535,77.059 1105.535,-76.102Z'/%3E%3Cpath d='M3533.371,2226.95c-9.277,-48.947 -42.212,-89.528 -87.203,-107.447c-243.766,-86.69 -1260.521,-180.52 -2114.804,662.836c-42.289,41.921 -54.919,106.632 -31.665,162.246c102.058,276.752 340.779,1190.09 -53.749,2858.265c-38.355,162.175 103.782,235.401 233.086,138.553c532.234,-398.637 1304.501,-567.736 1930.825,-724.558c48.189,-11.629 86.868,-48.709 101.742,-97.538c70.176,-252.215 255.758,-1651.265 21.766,-2892.358Z'/%3E%3C/g%3E%3C/svg%3E" />
@@ -85,7 +88,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=6" />
+<link rel="stylesheet" href="app-post-beta.css?v=7" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -370,29 +373,39 @@
                      The rotator is aria-hidden in the MARKUP (not from JS, so it holds with JS off) and
                      .rot-a11y carries the word a screen reader reads: "Together, you become creators." -->
                 <h1 class="ed-cat"><span class="stop">Together</span>, you become <span class="rot-a11y">creators.</span><span class="hl-rot lit" id="rot-word" aria-hidden="true"><b class="rw"><span class="mark">creators</span>.</b></span></h1>
-                <!-- The sub answers the question the blank provokes ("become one HOW?") and carries the
-                     whole mechanism the 33-character H1 no longer has room to state: a challenge goes in,
-                     a magazine comes out, and everyone is in it. The green token moves here from
-                     "portfolio" because collaboration is the claim this fold is making.
-                     THE SUB IS THE ONLY COMPREHENSION LINE IN THIS FOLD. That is the constraint to
-                     hold on to before rewriting it. The old H1 ("Show-and-tell with the same group
-                     until you become a ___") carried the mechanism itself, which left the sub free to
-                     be warm. This H1 is pure promise with no object in it, so everything a stranger
-                     needs — what the thing IS, what you DO, what you GET — has to live here.
-                     Hence the arc: takes a challenge -> ends up with a magazine. The causality is the
-                     point. "Show-and-tell with a magazine your whole club made" was warmer and said
-                     what you get, but never said what you do or why a magazine exists at all.
-                     Three earlier drafts died here and the reasons are worth keeping:
+                <!-- The sub answers the question the blank provokes ("become one HOW?"). It no longer
+                     tries to carry the whole mechanism — it carries the OFFER, and hands the mechanism
+                     to the beats with a colon. That colon is the load-bearing punctuation in this fold:
+                     it makes the sub and the numbered list one sentence, which is what let "How it
+                     works:" (a lead-in with nothing left to introduce) come out entirely.
+                     Four jobs, in the order a stranger asks for them:
+                       - "Join or create" — the first real question is "do I need to bring people?",
+                         and this answers it before it is asked. Both doors, join first: arriving alone
+                         is the commoner case and the one the old sub silently excluded by opening on
+                         "Your club", which presumed a club the visitor does not have yet.
+                       - "a small club" — plain. It is the SETTING, not the offer: "small" is a good
+                         promise (a handful of people who will notice you missed, not a feed) but it
+                         is not the thing nobody else is selling. It held the green token for one
+                         draft and gave it back.
+                       - "monthly show-and-tell with deadlines" — THE GREEN TOKEN, all six words of
+                         it. This is the product in one phrase and the whole phrase is the claim: a
+                         cadence (monthly), a thing a stranger can already picture (show-and-tell),
+                         and the means to enforce it (deadlines). Split across a green "club" and a
+                         bold "deadlines" it read as two small emphases; whole, it is the one line a
+                         group chat or a Discord cannot say back to you. The bold on "deadlines" came
+                         out with the split — green + 700 upright is already the strongest mark this
+                         paragraph has, and a bold inside it just fights the token it sits in.
+                         The colon stays OUTSIDE the green: it belongs to the sentence, and it is the
+                         hinge into the beats, not part of the claim.
+                     Earlier drafts died here and the reasons are worth keeping:
                        - "a magazine you all made" reads as each of you making one of your OWN, because
-                         "all" DISTRIBUTES. "made together" cannot; that is why it is safe.
+                         "all" DISTRIBUTES. "made together" cannot; that is why it was safe.
                        - "Every challenge ends in one magazine, with all of you in it" was accurate and
                          completely dead — a spec sentence, with the disambiguating "one" doing grammar
                          work while the line did no emotional work at all.
                        - "A challenge. A magazine. A tiny group." was the best-sounding of them and
-                         collided head-on with beat 01, "A challenge", one line below it.
-                     Collaboration rides on the SUBJECT, not on a numeral: a club is singular, so a
-                     club ends up with one magazine. That is what lets the line skip "all" and "one". -->
-                <p class="ed-sub">Your club takes a <b>challenge</b> and ends up with a magazine <span class="stop">you made together</span>.</p>
+                         collided head-on with beat 01, one line below it. -->
+                <p class="ed-sub">Join or create a small club for <span class="stop">monthly show-and-tell with deadlines</span>:</p>
               </div>
 
               <!-- ZONE 2 - the standfirst. ONE paragraph now. The "where circles meet" line used to
@@ -406,38 +419,63 @@
                      and this is the three-line answer to "yes but what happens, exactly." It is set
                      one rank under the sub on purpose — it introduces the small print, it isn't a
                      second headline. -->
-                <!-- "How show-and-tell works:" lost its antecedent when the H1 stopped saying
-                     show-and-tell, and a lead-in that refers to a phrase nowhere above it reads as a
-                     paste-up error. "How it works:" points at the sub, which is where the loop is now. -->
-                <p class="ed-lead">How it works:</p>
+                <!-- THE LEAD-IN IS GONE. It was "How show-and-tell works:", then "How it works:", and
+                     it died when the sub started ending in a colon: a label announcing a list that the
+                     line above it is already pointing at is one rank of hierarchy doing nothing. The
+                     sub + the beats now read as a single sentence, which is also what closes the gap
+                     the lead-in used to open between the promise and the mechanism. -->
                 <!-- The beats carry the things the sub cannot. The loop Sue describes is
                      "you help each other finish your own answer, THEN the answers become one magazine
                      you make together, AND you show it to each other and to the world" — that is three
                      clauses, and no 34ch sub can hold three clauses without becoming the 86-character
-                     run-on the fold already rejected once. So the sub keeps the single strongest idea
-                     (one magazine, all of you in it) and the beats take the other two.
+                     run-on the fold already rejected once. So the sub keeps the offer and the beats
+                     take the mechanism, whole.
+                     THEY ARE VERBS NOW, and that is the change. They used to be nouns with appositive
+                     tails ("A challenge — one prompt, one due date"), which is a spec sheet: four
+                     things that EXIST. In the imperative they are four things you DO, the reader is
+                     the subject of every one of them, and each line survives on its own half-width —
+                     which is what lets the whole loop be skimmed in the two seconds this fold gets.
+                     The dashes went with the nouns. A verb phrase that needs a gloss after an em-dash
+                     is a verb phrase that has not been chosen well enough.
                      Beat 02 was "check in with your club", which described attendance rather than help
                      — the weakest line on the card, and the natural home for the mutual-finishing that
                      is the actual reason the hour exists.
-                     Beat 03 DEFINES THE WORD FIRST. "Zine" is the page's one piece of unavoidable
-                     jargon, and a stranger's mental image of it is a photocopied paper thing — which
-                     is wrong in the way that matters, because what they actually get is a URL. It is
-                     checkable: the exported issue is one <body> with overflow-y:auto and a scroll
-                     listener, no pagination, and the live viewer literally says "unfolding the zine…
-                     keep going". So: a scrollable online magazine.
+                     Beat 03 DOES NOT SAY "ZINE" AT ALL, and that is deliberate — the word is gone from
+                     the fold. It was the page's one piece of unavoidable jargon, and a stranger's
+                     mental image of it is a photocopied paper thing, which is wrong in the way that
+                     matters: what they actually get is a URL. Earlier drafts fixed that by glossing it
+                     ("your zine — a scrollable online magazine"), which costs a whole clause to undo a
+                     word the fold chose to use. Cheaper to not use the word: "a scrollable magazine"
+                     needs no gloss, because "scrollable" already says it is a screen and "magazine" is
+                     the picture a stranger has. Both words are checkable — the exported issue is one
+                     <body> with overflow-y:auto and a scroll listener, no pagination, and the live
+                     viewer literally says "unfolding the zine… keep going".
+                     THE HIGHLIGHT MOVED WITH IT: the marker is on "scrollable magazine", both words.
+                     It used to sit on the bare noun, which meant the highlighter was pointing at the
+                     jargon; now it is on the promise. "online" is dropped — three highlighted words is
+                     a banner, not a mark, and "scrollable" already carries the screen.
                      Then it names what is IN it, in the deck card's own words: a card is
-                     a photograph plus a green band headed WHAT WE LEARNED, and the beat now reads
-                     "everyone's work and what they learned" — the same two things, so the list and the
+                     a photograph plus a green band headed WHAT WE LEARNED, and the beat reads
+                     "their work and what they learned" — the same two things, so the list and the
                      picture beside it describe one object instead of two.
+                     BEAT 03 IS THE ONE BEAT WITH A SUBJECT, and it is "everyone", not "you". 01 and 02
+                     are imperatives aimed at the reader because they are things the reader does; 03 is
+                     the only beat whose output belongs to the whole club, and an imperative there
+                     ("put everyone's work…") quietly made the reader the one doing the assembling —
+                     which is both wrong about the product and smaller than the truth. "Everyone puts"
+                     is the collective doing it. The break in the imperative run is the point, not a
+                     slip: it is the line where the loop stops being your work and becomes the group's.
                      NOT "everyone's photos": the Penmans make dropcaps and Claire makes drawings, and
                      narrowing beat 03 to photography is the exact trap the rotator's word list exists to
                      avoid. Not "reflection answers" either — that is internal product vocabulary a cold
                      reader has never seen.
-                     It briefly carried "then show it to the world", from when show-and-tell had left the
-                     card entirely; the sub says show-and-tell again, so that is a duplicate now. -->
+                     The definition ("a scrollable online magazine") is now compressed into the beat's
+                     own last three words — "in a scrollable zine" — so the word is glossed by the
+                     adjective sitting on it rather than by a colon and a second clause. The portfolio
+                     claim moved OUT of here and became the closing line. -->
                 <ul class="beats">
-                  <li><span class="hl hl-y">A challenge</span> &mdash; one prompt, one due date.</li>
-                  <li><span class="hl hl-y">Time together</span> &mdash; you help each other finish.</li>
+                  <li>set a <span class="hl hl-y">challenge</span></li>
+                  <li>help each other <span class="hl hl-y">finish</span></li>
                   <!-- THE POINTER. Beat 03 names an object the reader has never seen, and the object is
                        sitting right there in column 2 — so the beat reaches over and LANDS ON IT. The
                        head sits on the front zine, not in the gutter beside it: a stub arrow ending in
@@ -456,12 +494,14 @@
                        "tap to flip". Under 641px .ed-inner is one column (app-post-beta.css) and the
                        deck sits BELOW this text — there is nothing to the right to point at, so the
                        arrow is display:none and the JS bails on it. -->
-                  <li><span class="hl hl-gd">Your zine</span> &mdash; a scrollable online magazine: everyone&rsquo;s work, and what they learned. It builds everyone&rsquo;s portfolio.<i class="beat-anchor" aria-hidden="true"></i><svg class="beat-point" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg></li>
-                  <!-- 04 has no object and no dash, on purpose: 01-03 are the things that happen, and
-                       this is the fact that they happen AGAIN. It is the shortest line on the card and
-                       the only one with a bang. Yellow, not green — it hands the reader back to 01,
-                       it isn't a second payoff. -->
-                  <li><span class="hl hl-y">Repeat!</span></li>
+                  <li>everyone puts their work and what they learned into a <span class="hl hl-gd">scrollable magazine</span><i class="beat-anchor" aria-hidden="true"></i><svg class="beat-point" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg></li>
+                  <!-- The last line is NOT numbered (.beats li.beat-out drops the counter but keeps the
+                       2em indent, so the text still hangs on the list's left rail). 01-03 are the things
+                       you DO; this is what doing them repeatedly adds up to, and numbering it 04 filed
+                       the payoff as a fourth chore. The "=" does the work a sentence would have needed
+                       three clauses for: loop in, portfolio out. Yellow, not green — it hands the reader
+                       back to 01, and green is already spent on the zine one line up. -->
+                  <li class="beat-out"><span class="hl hl-y">Repeat</span> = portfolio.</li>
                 </ul>
               </div>
 
@@ -2110,7 +2150,7 @@
   });
 })();
 </script>
-<script type="module" src="app-post-beta.js?v=6"></script>
+<script type="module" src="app-post-beta.js?v=7"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign
