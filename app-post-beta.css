@@ -4343,14 +4343,14 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
 .hero-card-deck .pola .zrefl small{display:block;font-family:var(--f-head);font-weight:700;
   text-transform:uppercase;font-size:calc(var(--pw) * .029);letter-spacing:.11em;
   opacity:.7;margin-top:4px}
-/* the FRONT card wears the "tap to flip through" cue. JS marks it .dt.
+/* the FRONT card wears the "tap to browse" cue. JS marks it .dt.
    ABOVE the deck, not below it. Below, the cue fell off the bottom of the polaroid and onto whatever
    the collage happened to be showing there — which is a wall of dark photographs, so 13.5px of
    coral hand-lettering on a night shot was simply unreadable. Above the deck is the hero card's own
    cream paper, every time: the deck sits in column 2 with align-self:start, so the space over it is
    the sheet, not the collage. Same reason the size goes to 14.5px — it is the one instruction in
    this fold that tells you the pictures are tappable, and it was the quietest thing on the card. */
-.hero-card-deck .pola.dt::after{content:"real zines\00a0\2014\00a0tap to flip\00a0\2192";position:absolute;left:50%;top:-26px;
+.hero-card-deck .pola.dt::after{content:"real zines\00a0\2014\00a0tap to browse\00a0\2192";position:absolute;left:50%;top:-26px;
   transform:translateX(-50%) rotate(-3deg);white-space:nowrap;font-family:var(--f-hand);font-size:14.5px;
   font-weight:700;line-height:1;color:var(--coral-ink)}
 .hcd-hint{display:none}
@@ -5043,3 +5043,353 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
   .board .bd-line{scroll-behavior:auto}
   .bd-modal{animation:none}
 }
+
+/* ===================================================================
+   #showtell — "See a show-and-tell."  (sits directly under the hero)
+   A 4-step documentary of one real club, on a DUE-DATE SPINE: the
+   sequence is carried by TIME, not by drawn arrows (arrow chains were
+   prototyped for the hero beats and rejected as over-complicated). A
+   red dateline runs down the left and every step is pinned at the date
+   it happened, which makes "set a due date" structural instead of
+   merely stated — the deadline IS the spine.
+
+   COLOUR: four accents, one job each, nothing decorative.
+     Colorado    — TIME. The rail, the dates, the knots, the DUE tab.
+     Happy       — CIRCLE TIME. The bead chain, and nothing else.
+     Lazuli-deep — THE WORK. Step headlines + the handwritten print
+                   captions + the play chip. Blue has to land in BOTH
+                   columns or it reads as an accident rather than a
+                   layer. Always the DEEPENED token: plain --lazuli is
+                   ~3.4:1 on Oats and fails AA below heading size.
+     Grass-deep  — WHAT CAME OUT. The zine's caption + the loop line,
+                   following the site's .zpola.is-zine .zpola-cap rule.
+   =================================================================== */
+.showtell{padding:clamp(2.2rem,5.5vw,3.6rem) 0 clamp(1.6rem,4vw,2.6rem);position:relative}
+.showtell .head{margin-bottom:clamp(1.6rem,3.6vw,2.3rem);text-align:center}
+.showtell .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:.98;
+  letter-spacing:-.02em;font-size:clamp(1.7rem,4.6vw,2.6rem);margin:.25rem 0 0;color:var(--ink)}
+.showtell .head h2 .stop{color:var(--grass-deep)}
+/* NO GREY TEXT IN THIS SECTION. --ink-soft/.85 and --ink-faint/.80 are the
+   page's quieter text levels, but here they made the deck, the month labels
+   and the step index all read as washed-out grey against Oats. Everything
+   textual is solid --ink (which is the same #414D57 as --sambas), so the
+   hierarchy is carried by size, weight and the accent colours instead of by
+   fading things out. Side benefit: 4.77-5.42:1 becomes ~9:1. */
+.sht-sub{font-family:var(--f-body);font-size:var(--fs-body);line-height:1.5;color:var(--ink);
+  max-width:46ch;margin:.7rem auto 0}
+.sht-sub b{color:var(--ink);font-weight:600}
+
+/* ---------- the dateline ---------- */
+.dd{--rail:7.6rem;list-style:none;margin:0 auto;padding:0;max-width:772px;position:relative}
+/* one hand-inked red rule, drawn once, behind every row. It feathers out at the
+   bottom (the mask idiom .tape uses for its adhesive ends — a mask, not a
+   gradient fill) so the timeline reads as continuing, not terminating. */
+.dd-rail{position:absolute;left:var(--rail);top:.9rem;bottom:.6rem;width:4px;z-index:0;
+  background:var(--colorado);filter:url(#roughsm);
+  -webkit-mask-image:linear-gradient(180deg,#000 0,#000 calc(100% - 38px),transparent 100%);
+  mask-image:linear-gradient(180deg,#000 0,#000 calc(100% - 38px),transparent 100%)}
+
+.dd-row{position:relative;display:grid;grid-template-columns:var(--rail) 1fr;align-items:start;
+  padding-bottom:clamp(1.1rem,2.4vw,1.7rem)}
+/* THE SPINE IS DRAWN TO SCALE. Even row spacing made every gap look like the
+   same amount of time, wasting the one thing a timeline does that a numbered
+   list can't. The standing stretch is the long one; build -> due is the
+   tightest gap on the page, so "four weeks, then two days" is felt rather than
+   read. Exact proportion is unreachable — a row can't be shorter than its
+   print (~190px floor) — so the target is directionally true. */
+.dd-row.is-standing{padding-bottom:clamp(4.4rem,11vw,8.4rem)}
+.dd-row.is-build{padding-bottom:clamp(.4rem,1vw,.8rem)}
+.dd-row.is-due{padding-bottom:clamp(1.4rem,3vw,2.1rem)}
+
+/* the date, hard against the rail */
+.dd-date{grid-column:1;text-align:right;padding-right:1.5rem;position:relative;z-index:1}
+.dd-mon{display:block;font-family:var(--f-mono);font-weight:500;text-transform:uppercase;
+  letter-spacing:.16em;font-size:var(--fs-label);color:var(--ink);line-height:1}
+.dd-mon.is-every{color:var(--colorado)}
+.dd-day{display:block;font-family:var(--f-display);font-weight:700;line-height:.92;
+  font-size:clamp(2rem,4.4vw,2.9rem);color:var(--ink);letter-spacing:-.03em}
+/* THE KNOTS OUTRANK THE BEADS. At 15px against the beads' 14px they read as the
+   same kind of mark, so a labelled date carried no more weight than the rhythm
+   running between them. The knots go up; the Happy beads stay exactly where
+   they are. Dates are the structural beats, circle time is the pulse. */
+.dd-knot{position:absolute;right:-12px;top:.45rem;width:21px;height:21px;border-radius:50%;
+  background:var(--paper);border:4.2px solid var(--colorado);filter:url(#roughsm);z-index:2}
+
+/* ---- THE STANDING ROW ----------------------------------------------------
+   Circle time is the one beat here that is NOT a date. It's a slot that keeps
+   coming round, so a single knot on one date quietly lied — it read as a
+   one-off meeting between two deadlines. So it stops being a POINT and becomes
+   a SPAN: the date block loses its numeral for EVERY / WED, and a bead chain
+   runs the height of the row. Both signals sit in the left column where the
+   eye is already scanning dates, so the glance survives.
+   BEAD PITCH IS LOAD-BEARING: at ~30px they read as a dotted line (texture,
+   "ongoing"); at 88px they read as separate EVENTS, which is the point.
+   The chain STOPS at the deadline. An earlier cut ran it past to close the
+   loop, but a bead means "circle time" — beads after the zine ships promise
+   more meetings, when the thing that comes next is the next CHALLENGE. The
+   loop closes on a KNOT instead (same coral knot the dates use, because the
+   next challenge going up is a date event exactly like row 01). */
+.dd-repeat{position:absolute;left:calc(var(--rail) - 6px);top:2.4rem;bottom:.3rem;width:16px;z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='88'%3E%3Ccircle cx='8' cy='44' r='6' fill='%23F1DD01' stroke='%23414D57' stroke-width='2.6'/%3E%3C/svg%3E");
+  background-repeat:repeat-y;background-position:center top}
+
+/* ---------- the payload ----------
+   A GRID, not a flex row: flex let the text keep its measure and shoved the
+   print to the far margin, opening a dead lane down the middle. */
+.dd-body{grid-column:2;padding-left:clamp(1.1rem,2.6vw,2rem);align-items:start;
+  display:grid;grid-template-columns:minmax(0,1fr) clamp(160px,24vw,224px);gap:clamp(1rem,2.4vw,1.6rem)}
+/* the prints STEP UP toward the payoff — four identical prints gave the
+   published zine no more weight than a screenshot of a calendar */
+.dd-row.is-build .dd-body{grid-template-columns:minmax(0,1fr) clamp(148px,20vw,192px)}
+.dd-row.is-due .dd-body{grid-template-columns:minmax(0,1fr) clamp(186px,30vw,278px)}
+
+.dd-text{min-width:0;padding-top:.15rem}
+/* the index is just an index — it stays quiet. Colouring it put the emphasis
+   on the least meaningful thing in the row, and it sat a centimetre from
+   Colorado dates on a Colorado rail, so the whole left half was one red wash
+   and "01" competed with "JUL 15" instead of indexing it. */
+.dd-step{display:block;font-family:var(--f-mono);font-weight:500;text-transform:uppercase;
+  letter-spacing:.13em;font-size:var(--fs-label);color:var(--ink);margin-bottom:.35rem}
+/* the headline carries the blue: it's the actual story ("The challenge goes
+   up", "It ships"). Three ranks, three treatments — Colorado date = WHEN,
+   Lazuli headline = WHAT, solid ink body = the detail. No underline, heading
+   weight, editorial context: this must not read as a link. */
+.dd-text h3{margin:0 0 .3rem;font-family:var(--f-head);font-weight:700;font-size:var(--fs-3);
+  line-height:1.1;color:var(--lazuli-deep)}
+/* "together" is the payload of beat 03, so it gets Grass — and that is not a
+   free choice: grass is reserved page-wide as the "people are here" signal
+   (app-post-beta.css:126), which is precisely what this word means. Colour
+   carries the emphasis instead of caps, so the headline stays inside the type
+   system while still landing the one word the whole product turns on. */
+.dd-together{color:var(--grass-deep)}
+.dd-text p{margin:0;font-family:var(--f-body);font-size:var(--fs-body);line-height:1.5;
+  color:var(--ink);max-width:32ch}          /* solid ink, not --ink-soft: ~9:1 instead of 5.4:1 */
+.dd-text p b{font-weight:600}
+
+/* ---------- the print hung off the rail ---------- */
+.dd-print{position:relative;width:100%;margin:0;   /* a bare <figure> carries the UA's 1em/40px margin */
+  background:var(--paper);border:2.6px solid var(--ink);border-radius:4px;
+  box-shadow:7px 7px 0 0 var(--ink);padding:7px 7px 0;transform:rotate(var(--r,-1.6deg))}
+.dd-print .ph{display:block;position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;
+  background:#212c30;border:1.5px solid rgba(65,77,87,.3)}
+.dd-print .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--op,top center)}
+/* the app screenshots are landscape and want their top edge; the reel thumb is
+   PORTRAIT (600x720) and the payload — hands on the phone, placing a page — sits
+   at the very bottom, so a top crop keeps the houseplant and loses the editor. */
+.dd-row.is-build .dd-print .ph img{--op:50% 100%}
+/* and the dymo defaults to bottom-LEFT, which is exactly where the phone is in
+   that crop — the label would sit on top of the editor. Send it right. */
+.dd-row.is-build .dd-dymo{left:auto;right:9px}
+/* the video pin reuses the page's own delegated .bd-open lightbox, so it has to
+   survive being a <button> */
+.dd-print button.ph{padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;-webkit-appearance:none;appearance:none}
+.dd-print .ph.is-vid::after{content:"";position:absolute;inset:0;z-index:2;background:rgba(15,21,24,.28)}
+.dd-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;pointer-events:none}
+/* the play chip is the one thing here you can actually DO, so it carries the
+   blue too — Oats on Lazuli-deep clears AA. The near-black dymo read as chrome
+   rather than an invitation. */
+.dd-dymo{position:absolute;left:9px;bottom:9px;z-index:3;pointer-events:none;
+  font-family:var(--f-mono);font-weight:600;text-transform:uppercase;letter-spacing:.14em;
+  font-size:.6rem;line-height:1;color:var(--oats);background:var(--lazuli-deep);
+  border:2px solid var(--ink);padding:.34em .6em .3em;border-radius:4px;transform:rotate(-3deg);
+  box-shadow:2px 2px 0 0 var(--ink)}
+/* the handwritten captions are the other half of the blue layer: index down the
+   left, captions down the right, one annotation voice over the evidence. The
+   finished zine is the exception and goes Grass — blue is the work in progress,
+   green is the thing that came out of it. */
+.dd-print figcaption{display:block;font-family:var(--f-hand);text-align:center;font-size:.98rem;
+  line-height:1;color:var(--lazuli-deep);padding:.4rem .2rem .5rem}
+.dd-row.is-due .dd-print figcaption{color:var(--grass-deep)}
+
+/* ---- the standing row's print is a PAD, not a sheet ----------------------
+   The spine said "every week" while the media column still showed exactly one
+   meeting, so the two halves of the row disagreed. Two sheets peek out behind
+   it — the same "pad underneath" idiom #how's tear-off calendar uses to mean
+   "this happens again next week, and the week after". They peek UP-LEFT and
+   stay near the print's own angle: the registration shadow falls down-right,
+   and sheets fanned the other way read as a misregistered print.
+   They are SIBLINGS in a wrapper, not ::before/::after on the print, because
+   .dd-print is rotated — a transform makes a stacking context, so a z-index:-1
+   pseudo would paint behind its own parent's paper and vanish. */
+.dd-stack{position:relative}
+.dd-stack .dd-print{position:relative;z-index:1}
+.dd-sheet{position:absolute;inset:0;z-index:0;background:var(--paper);
+  border:2.6px solid var(--ink);border-radius:4px}
+.dd-sheet:nth-of-type(1){transform:rotate(.3deg) translate(-6px,-7px)}
+.dd-sheet:nth-of-type(2){transform:rotate(-1.9deg) translate(-11px,-13px)}
+
+/* the DUE row: the date the whole spine has been counting toward */
+.dd-row.is-due .dd-day{color:var(--colorado)}
+.dd-due-tab{display:inline-block;margin-top:.4rem;font-family:var(--f-mono);font-weight:600;
+  text-transform:uppercase;letter-spacing:.16em;font-size:.7rem;line-height:1;color:var(--oats);
+  background:var(--colorado);border:2px solid var(--ink);padding:.42em .6em .36em;
+  border-radius:3px;transform:rotate(-2.4deg);box-shadow:3px 3px 0 0 var(--ink)}
+.dd-row.is-due .dd-print{--r:2.2deg}
+
+/* the tail: the spine doesn't stop at shipped */
+.dd-after{position:relative;display:grid;grid-template-columns:var(--rail) 1fr;align-items:center;
+  padding-top:clamp(2.4rem,5vw,3.6rem)}
+.dd-after .dd-knot{top:-.15rem}
+.dd-forever{margin:0;font-family:var(--f-hand);font-size:1.22rem;line-height:1.15;
+  color:var(--grass-deep);padding-left:clamp(1.1rem,2.6vw,2rem);transform:rotate(-.9deg)}
+
+/* ---- KEEP THE MARGINALIA OFF THE DATES --------------------------------------
+   balanceMarginalia() auto-injects gutter scraps into every `main > section`
+   to hit a density target, and the left rails are `left:max(10px, calc(50vw -
+   601px))` — so on anything under ~1222px they clamp to 10px from the viewport
+   edge. Every other section has whitespace there; this one has the dateline,
+   so injected sparkles landed straight on "JUL 15" and "EVERY / Wed".
+   Only the LEFT rails are suppressed, and only once they've clamped inboard:
+   right-rail scraps fall on the prints, which is the house style (scraps over
+   photos is the whole aesthetic) — scraps over TEXT is not. Above this width
+   the rails sit in the true gutter and the section keeps its marginalia.
+   The precedent is #zine, excluded from injection outright for the same
+   reason ("anything injected there lands ON the artwork"). */
+@media(max-width:1000px){
+  #showtell .cg-collage .cg-gl,
+  #showtell .cg-collage .cg-gl2,
+  /* same reason as #showtell: the left rails clamp to 10px below ~1222px,
+     which is exactly where this section's panels sit. Scraps over photos is
+     house style; scraps over the panel captions is not. */
+  #portfolio .cg-collage .cg-gl,
+  #portfolio .cg-collage .cg-gl2{display:none}
+}
+
+@media(max-width:720px){
+  .dd{--rail:3.4rem}
+  .dd-date{padding-right:.85rem}
+  .dd-day{font-size:1.55rem}
+  .dd-row.is-standing .dd-day{font-size:1.15rem}   /* "Wed" is 3 chars against a 3.4rem column */
+  .dd-mon{font-size:.62rem;letter-spacing:.1em}
+  .dd-knot{right:-10px;top:.3rem;width:18px;height:18px;border-width:3.6px}
+  .dd-repeat{top:2rem}
+  /* the per-row .is-build / .is-due column overrides are MORE SPECIFIC than a
+     bare .dd-body, so they must be reset BY NAME or those two rows keep their
+     desktop split and squeeze the text into a ~150px ribbon */
+  .dd-body,
+  .dd-row.is-build .dd-body,
+  .dd-row.is-due .dd-body{grid-template-columns:minmax(0,1fr);padding-left:1rem;gap:.9rem}
+  /* the tilt and the 7px registration shadow both live outside the box, so a
+     full-bleed print runs off the right edge of a 390px screen */
+  .dd-print{width:min(100% - 14px,300px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .dd-print{transition:none}
+}
+
+
+/* =====================================================================
+   #portfolio — "It all ends up on a wall."  (sits under the show-and-tell)
+   Lifted from _shotgun-portfolio/H-body.html (variant H).
+   ===================================================================== */
+/* =====================================================================
+   VARIANT H — BOTH WALLS SCROLL
+   No frame, no mat, no cork container. The screenshot is ALREADY a photo
+   of a corkboard, so wrapping it in another one says it twice and turns
+   the panel into one beige mass. All it needs is the page's own torn edge
+   and a drop shadow, and it reads as a board hanging there by itself.
+   HOW THE WOBBLE IS APPLIED: on an empty backing slab, NOT on the media and
+   not on a wrapper that contains it. feDisplacementMap displaces every pixel
+   of whatever it filters, so filtering the screenshot — or any box holding it
+   — ripples the app's own UI text into a smear. Cropping first does not spare
+   it. See the .pw-media rule below for the full trick.
+   MEDIA IS NOW REAL, both pulled from production (both pages are public
+   logged-out, so what a visitor clicks through to is what they just watched):
+   · left  — a 19s screen recording of 1.44 MB's wall: scroll down past the
+     zines through the whole photo roll, back up to the zines, click one, and
+     the reader unfolds it. Recorded 4:5 to match .pw-media exactly.
+   · right — Photo Phloor's table, the club's own masonry of pinned photos.
+   The old stills had a pale gutter down the right edge; these are captured at
+   the content width and chopped, so the fringe is the only edge you see.
+   ===================================================================== */
+.pw{padding:clamp(2rem,5vw,3.2rem) 0 clamp(1.8rem,4.4vw,2.8rem);position:relative}
+.pw .head{margin-bottom:clamp(1.8rem,4vw,2.6rem);text-align:center}
+.pw .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:.98;
+  letter-spacing:-.02em;font-size:clamp(1.7rem,4.6vw,2.6rem);margin:.25rem 0 0;color:var(--ink)}
+.pw .head h2 .stop{color:var(--grass-deep)}
+.pw-sub{font-family:var(--f-body);font-size:var(--fs-body);line-height:1.5;color:var(--ink);
+  max-width:48ch;margin:.7rem auto 0}
+.pw-sub b{font-weight:600}
+
+/* the pair. Generous gap: with no frames, the gap is the only thing
+   separating two boards, so it has to do that job alone. */
+.pw-pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.4rem,4vw,3rem);
+  max-width:1000px;margin:0 auto;align-items:start}
+.pw-col{min-width:0;margin-inline:auto;width:100%}
+
+.pw-a{display:block;color:inherit;text-decoration:none;position:relative;
+  transform:rotate(var(--r,-1.1deg));transition:transform .17s ease}
+.pw-a:hover,.pw-a:focus-visible{transform:rotate(0) translateY(-4px)}
+.pw-a:focus-visible{outline:3px solid var(--lazuli);outline-offset:8px;border-radius:4px}
+
+/* THE BOARD ITSELF.
+   The wobble goes on an EMPTY BACKING SLAB, never on the media. feDisplacement-
+   Map displaces every pixel of whatever it filters, so filtering the screenshot
+   (or any wrapper containing it) ripples the UI text inside — the app's own
+   type comes out smeared. Filtering a blank slab and floating the crisp photo
+   on top is the same idiom .craftboard::before already uses.
+   The slab is the cork tan the app's wall is painted in (rgb(224,201,160),
+   sampled off the screenshots' own top corner rather than guessed). That match is the whole trick: the photo's
+   own edge is that tan too, so the straight rectangle dissolves into the torn
+   fringe and you read ONE wobbly board rather than a photo on a mat.
+   -13px so the fringe is wide enough for scale-12 displacement to chew into;
+   any tighter and it reads as a border. */
+.pw-media{display:block;position:relative;width:100%;aspect-ratio:4/5}
+.pw-media::before{content:"";position:absolute;inset:-13px;z-index:0;
+  background:rgb(224,201,160);
+  filter:url(#torn);box-shadow:11px 12px 0 0 rgba(40,26,10,.68)}
+/* CENTRED, not top-anchored: the panel's 4:5 box rarely matches the source, so
+   a top crop threw away the middle of the wall. `center` keeps the y-middle in
+   frame at every width. */
+.pw-media img,.pw-media video{position:absolute;inset:0;z-index:1;width:100%;height:100%;
+  object-fit:cover;object-position:center center;display:block}
+/* the lite tier drops SVG filters page-wide; keep the shadow so it still lifts */
+html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
+
+/* 2.1rem, not .9: the backing slab hangs 13px BELOW the media box and throws a
+   12px shadow under that, so a normal caption gap puts the label inside the
+   shadow. The label has to clear both. */
+/* REDUCED MOTION. Two 10-13s panels moving on their own is exactly what this
+   setting exists for, so each video carries a still twin and the pair swap.
+   Done in CSS because `autoplay` is a static attribute — there is no way to
+   honour the preference once the element is in the document. */
+/* specificity matters here: `.pw-media img,.pw-media video{display:block}` above
+   is 0,1,1 and beat a bare `.pw-still{display:none}` (0,1,0), so the still stayed
+   visible, absolutely positioned over the video, and the panel looked frozen.
+   Both selectors below are qualified so they actually win. */
+.pw-media img.pw-still{display:none}
+@media (prefers-reduced-motion: reduce){
+  .pw-media video.pw-vid{display:none}
+  .pw-media img.pw-still{display:block}
+}
+
+.pw-name{display:flex;align-items:baseline;justify-content:center;gap:.4rem;flex-wrap:wrap;
+  margin:2.1rem .1rem 0;font-family:var(--f-hand);font-size:1.16rem;line-height:1.15;
+  text-align:center}
+.pw-col.is-mine .pw-name{color:var(--lazuli-deep)}
+.pw-col.is-club .pw-name{color:var(--grass-deep)}
+.arr{display:inline-block;font-family:var(--f-body);font-size:.92em;transition:transform .17s ease}
+.pw-a:hover .arr{transform:translateX(3px)}
+
+.pw-what{margin:.4rem .2rem 0;font-family:var(--f-body);font-size:.95rem;line-height:1.45;
+  color:var(--ink);text-align:center}
+.pw-what b{font-weight:600}
+
+@media (max-width:760px){
+  .pw-pair{grid-template-columns:1fr;gap:clamp(1.8rem,7vw,2.4rem);max-width:380px}
+  .pw-media{aspect-ratio:4/3}
+}
+@media (prefers-reduced-motion:reduce){.pw-a,.arr{transition:none}}
+
+/* the reader-demo stamp is a BUTTON now (it opens the reader clip in the shared
+   lightbox), so it has to shed the UA button styling and pick up affordances —
+   same rough-edge stamp, but it reads and behaves as something you can press. */
+.soon-stamp.is-live{background:none;font:inherit;font-family:var(--f-mono);font-weight:500;
+  font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;
+  -webkit-appearance:none;appearance:none;display:inline-flex;align-items:center;gap:.45em;
+  transition:transform .16s ease,opacity .16s ease}
+.soon-stamp.is-live:hover,.soon-stamp.is-live:focus-visible{opacity:1;transform:rotate(-5deg) scale(1.05)}
+.soon-stamp.is-live:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
+.soon-stamp.is-live .arr{transition:transform .16s ease}
+.soon-stamp.is-live:hover .arr{transform:translateX(2px)}
+@media(prefers-reduced-motion:reduce){.soon-stamp.is-live,.soon-stamp.is-live .arr{transition:none}}

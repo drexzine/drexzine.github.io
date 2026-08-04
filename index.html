@@ -88,7 +88,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=7" />
+<link rel="stylesheet" href="app-post-beta.css?v=10" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -637,6 +637,237 @@
     <svg viewBox="0 0 24 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4 L12 12 L21 4"/></svg>
   </div>
 
+  <!-- ============ SHOW-AND-TELL — one real club, start to finish, on a DUE-DATE
+       SPINE. The hero states the loop; this is the only place on the page that
+       SHOWS it, with the club's own screens and a clip of the editor. Sequence
+       is carried by the dateline, never by drawn arrows (arrow chains were
+       prototyped for the hero beats and rejected as over-complicated).
+       Colour has one job each — Colorado = time, Happy = circle time,
+       Lazuli = the work, Grass = what came out. See app-post-beta.css #showtell.
+       The video pin is a plain .bd-open button: the lightbox at the bottom of
+       #inside is bound to `document`, so pins ABOVE that script still open. ==== -->
+  <section class="showtell" id="showtell" aria-label="One real club, from challenge to published zine">
+    <div class="wrap">
+
+      <div class="head">
+        <span class="eyebrow">certified fun</span>
+        <h2 class="slab">See a <span class="ul">show-and-tell</span><span class="stop">.</span></h2>
+        <p class="sht-sub">One real club &mdash; <b>Photo Phloor</b> &mdash; from a blank page to a published zine. Four weeks.</p>
+      </div>
+
+      <ol class="dd">
+        <span class="dd-rail" aria-hidden="true"></span>
+
+        <li class="dd-row">
+          <div class="dd-date"><span class="dd-mon">Jul</span><span class="dd-day">15</span><span class="dd-knot" aria-hidden="true"></span></div>
+          <div class="dd-body">
+            <div class="dd-text">
+              <span class="dd-step">01</span>
+              <h3>The challenge goes up</h3>
+              <p>Someone sets it, and <b>puts a date on it</b>. That date is the whole trick.</p>
+            </div>
+            <figure class="dd-print" style="--r:-2deg">
+              <span class="ph"><img src="assets/app/circle.jpg" alt="The club&rsquo;s page in Drex: the challenge &ldquo;Chinatown Story&rdquo;, with a stamp reading 24 days left, due Wed Aug 12." loading="lazy" width="760" height="570" /></span>
+              <figcaption>&ldquo;Chinatown Story&rdquo;</figcaption>
+            </figure>
+          </div>
+        </li>
+
+        <!-- THE STANDING ROW. Circle time is the one beat that is not a date — it's a
+             slot that keeps coming round — so it's a SPAN, not a point: EVERY / WED
+             instead of a numeral, plus the bead chain down the rail. The print is a
+             PAD (two sheets behind) so the media column agrees with the spine. -->
+        <li class="dd-row is-standing">
+          <span class="dd-repeat" aria-hidden="true"></span>
+          <div class="dd-date">
+            <span class="dd-mon is-every">every</span>
+            <span class="dd-day">Wed</span>
+            <span class="dd-knot" aria-hidden="true"></span>
+          </div>
+          <div class="dd-body">
+            <div class="dd-text">
+              <span class="dd-step">02</span>
+              <h3>Circle time comes round</h3>
+              <!-- "together" was here too; it moved to beat 03's headline, where it's the
+                   payload. Said twice, it lands nowhere. -->
+              <p>Not a one-off. A <b>standing hour</b> in everyone&rsquo;s calendar &mdash; <b>online or in person</b> &mdash; where the work actually happens.</p>
+            </div>
+            <div class="dd-stack">
+              <span class="dd-sheet" aria-hidden="true"></span>
+              <span class="dd-sheet" aria-hidden="true"></span>
+              <figure class="dd-print" style="--r:1.7deg">
+                <span class="ph"><img src="assets/app/circletime.jpg" alt="Circle time in the app: the door&rsquo;s open, you&rsquo;re first in." loading="lazy" width="760" height="570" /></span>
+                <figcaption>12:00pm, every time</figcaption>
+              </figure>
+            </div>
+          </div>
+        </li>
+
+        <li class="dd-row is-build">
+          <div class="dd-date"><span class="dd-mon">Aug</span><span class="dd-day">10</span><span class="dd-knot" aria-hidden="true"></span></div>
+          <div class="dd-body">
+            <div class="dd-text">
+              <span class="dd-step">03</span>
+              <h3>Make the scrollable magazine &mdash; <span class="dd-together">together</span></h3>
+              <p>Everyone&rsquo;s work, and what they learned, in <b>one issue</b>.</p>
+            </div>
+            <figure class="dd-print" style="--r:-1.3deg">
+              <!-- the REEL, not book-cafe.mp4: that clip is the reader (it's captioned "flip
+                   through other clubs' zines" in the two other places it's used), so pointing
+                   a pin captioned "the editor" at it showed the wrong half of the app. -->
+              <button type="button" class="ph is-vid bd-open" data-embed="https://www.instagram.com/reel/DaEIcmkSW4o/embed/" data-link="https://www.instagram.com/reel/DaEIcmkSW4o/" data-cap="a zine, made by hand" aria-label="Watch a zine get made &mdash; opens the reel">
+                <img src="assets/editor-reel-thumb.jpg" alt="A maker at a cafe table, phone in hand, placing pages in the zine editor" loading="lazy" width="600" height="720" />
+                <span class="dd-play play-badge" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"></circle><path d="M20 16 L33 24 L20 32 Z"></path></svg></span>
+                <span class="dd-dymo">play</span>
+              </button>
+              <figcaption>the editor</figcaption>
+            </figure>
+          </div>
+        </li>
+
+        <li class="dd-row is-due">
+          <div class="dd-date"><span class="dd-mon">Aug</span><span class="dd-day">12</span><span class="dd-due-tab">due</span><span class="dd-knot" aria-hidden="true"></span></div>
+          <div class="dd-body">
+            <div class="dd-text">
+              <span class="dd-step">04</span>
+              <h3>It ships: submissions close</h3>
+              <p>The deadline <b>is</b> a circle time. You all show up, it goes out to the world &mdash; and into <b>your portfolio</b>.</p>
+            </div>
+            <figure class="dd-print">
+              <span class="ph"><img src="assets/app/zine.jpg" alt="The published zine: Silk Road 001, a full-bleed photograph with a maker&rsquo;s quote." loading="lazy" width="880" height="660" /></span>
+              <figcaption>issue 001</figcaption>
+            </figure>
+          </div>
+        </li>
+
+        <!-- the loop closes on a KNOT, not more beads: a bead means "circle time", so
+             beads past the deadline would promise more meetings, when what actually
+             comes next is the next CHALLENGE — a date event, exactly like row 01. -->
+        <li class="dd-after">
+          <div class="dd-date"><span class="dd-mon">then</span><span class="dd-knot" aria-hidden="true"></span></div>
+          <p class="dd-forever">&hellip;and the next challenge goes up.</p>
+        </li>
+      </ol>
+
+    </div>
+  </section>
+
+  <!-- ============ YOUR PORTFOLIO — the payoff the show-and-tell spine ends on
+       ("it goes out to the world — and into YOUR PORTFOLIO"), so it sits directly
+       under it. Both panels are real pages on app.drex.style, public logged-out,
+       and both are LINKS to the thing they show. The wobbly edge is a torn backing
+       slab, never a filter on the media — see #portfolio in app-post-beta.css.
+       Videos are preload="none" and start on intersection (portfolioVids below). ==== -->
+  <section class="pw" id="portfolio" aria-label="Your portfolio: a real maker's wall and a real club's wall">
+    <div class="wrap">
+
+      <div class="head">
+        <span class="eyebrow" style="color:var(--colorado)">your portfolio</span>
+        <h2 class="slab">It all ends up on a <span class="ul">wall</span><span class="stop">.</span></h2>
+        <p class="pw-sub">Yours, and the club&rsquo;s. Both of these are real &mdash; go and look.</p>
+      </div>
+
+      <div class="pw-pair">
+
+        <div class="pw-col is-mine">
+          <a class="pw-a" style="--r:-1.3deg" href="https://app.drex.style/u/144mb" target="_blank" rel="noopener" aria-label="Open 1.44 MB's wall on Drex — a real maker's portfolio">
+            <span class="pw-media">
+              <video class="pw-vid" width="800" height="1020" muted loop playsinline preload="none"
+                     poster="assets/demo/wall-tour-poster.jpg"
+                     aria-label="A walk through 1.44 MB's wall: scrolling past the photo roll, then opening the Penmanship zine Dropcaps — the stack fans out and the reader unfolds it.">
+                <source src="assets/demo/wall-tour.webm" type="video/webm" />
+                <source src="assets/demo/wall-tour.mp4" type="video/mp4" />
+              </video>
+              <img class="pw-still" src="assets/demo/wall-tour-poster.jpg" alt="1.44 MB's wall on Drex: their pick photo pinned under a handwritten caption, the clubs they edit, and the zines they made." loading="lazy" width="800" height="1020" />
+            </span>
+            <span class="pw-name">1.44&nbsp;MB&rsquo;s wall <span class="arr">&rarr;</span></span>
+          </a>
+          <p class="pw-what"><b>A maker&rsquo;s wall.</b> Their pick, their roll, every zine they were in.</p>
+        </div>
+
+        <div class="pw-col is-club">
+          <a class="pw-a" style="--r:1.2deg" href="https://app.drex.style/circles/photo-phloor" target="_blank" rel="noopener" aria-label="Open Photo Phloor's wall on Drex — a real club">
+            <span class="pw-media">
+              <video class="pw-vid" width="800" height="1020" muted loop playsinline preload="none"
+                     poster="assets/demo/club-tour-poster.jpg"
+                     aria-label="A scroll down Photo Phloor's wall: the shelf of issues, then the table of photographs the club has pinned up.">
+                <source src="assets/demo/club-tour.webm" type="video/webm" />
+                <source src="assets/demo/club-tour.mp4" type="video/mp4" />
+              </video>
+              <img class="pw-still" src="assets/app/club-table.jpg" alt="Photo Phloor's wall on Drex: the table, a corkboard of night photographs pinned up by the club's makers." loading="lazy" width="982" height="1250" />
+            </span>
+            <span class="pw-name">Photo Phloor&rsquo;s wall <span class="arr">&rarr;</span></span>
+          </a>
+          <p class="pw-what"><b>The club&rsquo;s wall.</b> The table &mdash; everything the club has pinned up.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY NOT A GROUP CHAT — the objection everyone arrives with.
+       A chat has no deadline, no challenge, and nothing to show at the end; those
+       three absences are the whole product, so we name them side by side. ============ -->
+  <section class="versus" id="why-not-chat">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="slab">Why not a <span class="ul">group chat</span><span class="stop">?</span></h2>
+        <p class="vs-sub">Nobody quits. The date just stops being the date.</p>
+      </div>
+
+      <!-- SHOW the dead chat instead of describing it. The joke writes itself: three messages of
+           enthusiasm, then an eleven-month silence, then someone asking if anyone's still alive.
+           Nobody needs a bullet list to recognise their own group chat. -->
+      <div class="vs-pair">
+
+        <figure class="vs-card vs-chat">
+          <span class="vs-tab vs-tab-sad">the group chat</span>
+          <div class="chatmock" role="img" aria-label="A group chat: three excited messages in January, then eleven months of silence, then one message asking if the chat is still alive.">
+            <span class="ch-day">JAN 4</span>
+            <p class="bub them">found this sick technique 🔥</p>
+            <p class="bub them">omg we should <em>totally</em> do this</p>
+            <p class="bub me">yes!! this weekend??</p>
+            <span class="ch-gap"><i></i>eleven months later<i></i></span>
+            <span class="ch-day">DEC 2</span>
+            <p class="bub them">is this chat still alive lol</p>
+            <span class="ch-typing" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <figcaption class="cap">4,000 messages. Nothing made.</figcaption>
+        </figure>
+
+        <figure class="vs-card vs-circle">
+          <span class="vs-tab vs-tab-glad">a club</span>
+          <div class="circlemock">
+            <div class="cm-note">
+              <span class="cm-pin" aria-hidden="true"></span>
+              <span class="cm-kick">the challenge</span>
+              <p class="cm-do">Shoot a roll you'd normally be scared to.</p>
+              <span class="cm-due">due friday</span>
+            </div>
+            <span class="cm-arrow" aria-hidden="true">
+              <svg viewBox="0 0 60 26" fill="none" stroke="var(--grass-deep)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13 H50" filter="url(#roughsm)"/><path d="M42 5 L52 13 L42 21" filter="url(#roughsm)"/></svg>
+            </span>
+            <!-- MEDIA PLACEHOLDER: swap this block for a real photo of a finished zine being held
+                 in someone's hands (ideally one of the Photo Phloor / XChange issues). A hand
+                 holding the artifact is the single most persuasive image on this page. -->
+            <div class="cm-out">
+              <span class="cm-outline" aria-hidden="true"></span>
+              <svg class="cm-zine" viewBox="0 0 64 78" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round">
+                <rect x="4" y="4" width="52" height="66" rx="2" fill="var(--schoolbus)"/>
+                <rect x="9" y="9" width="42" height="30" rx="1" fill="var(--paper)"/>
+                <path d="M13 47 h34 M13 55 h26 M13 63 h30" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+              </svg>
+              <b>one issue, everyone's name in it</b>
+            </div>
+          </div>
+          <figcaption class="cap">A challenge, a date, a finished thing.</figcaption>
+        </figure>
+
+      </div>
+
+    </div>
+  </section>
+
   <!-- ============ GIFTS — answers the question the hero provokes ("learn WHAT?").
        Deliberately paradigm-breaking range: a skater and a calligrapher belong to
        the same idea. Self-recognition is the conversion event here. ============ -->
@@ -677,90 +908,6 @@
   </section>
 
   <!-- ============ LOOK INSIDE THE APP — clothesline of real screens; tap to open ============ -->
-  <!-- Reuses .zpola / .ph / .play-badge / .soon-stamp / .is-vid / .is-ghost / .zpola-cap; only .bd-* is new.
-       Pin 1 = the real reel (opens the IG embed). Pins 2-3 open a self-hosted webm screen-recording.
-       Pins 4-5 are the existing ghost/"coming soon" idiom. The strip owns its own horizontal scroll. -->
-  <section class="board" id="inside" aria-label="A look inside the Drex app">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">not a mockup &mdash; the actual app</span>
-        <h2 class="slab">Look <span class="ul">inside</span> the app<span class="stop">.</span></h2>
-        <p class="bd-sub">Real screens &mdash; what a club actually touches.</p>
-      </div>
-
-      <div class="bd-scroller">
-      <div class="bd-line" role="group" aria-label="Screens from the app — scroll sideways to see all six" tabindex="0">
-        <div class="bd-track">
-          <span class="bd-string" aria-hidden="true"></span>
-
-          <!-- 1 · VIDEO — the real reel -->
-          <div class="bd-peg" style="--r:-2.2deg;--c:var(--colorado)">
-            <span class="bd-clip" aria-hidden="true"></span>
-            <button type="button" class="zpola is-vid bd-open" data-embed="https://www.instagram.com/reel/DaEIcmkSW4o/embed/" data-link="https://www.instagram.com/reel/DaEIcmkSW4o/" data-cap="a zine, made by hand" aria-label="Watch a zine get made — opens the reel">
-              <span class="ph"><img src="assets/editor-reel-thumb.jpg" alt="A maker at a cafe table, phone in hand, placing pages in the zine editor" loading="lazy" width="600" height="720"><span class="play-badge" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"></circle><path d="M20 16 L33 24 L20 32 Z"></path></svg></span></span>
-              <span class="zpola-cap">watch a zine get made <span class="arr">&rarr;</span></span>
-            </button>
-          </div>
-
-          <!-- 2 · Personal Wall / Magazine — real @144mb wall (webm) -->
-          <div class="bd-peg" style="--r:1.8deg;--c:var(--schoolbus)">
-            <span class="bd-clip" aria-hidden="true"></span>
-            <button type="button" class="zpola bd-open" data-full="assets/app/wall.jpg" data-cap="your wall &mdash; your portfolio. proof you didn&rsquo;t do it alone." aria-label="Your wall — your portfolio. Proof you didn't do it alone. Opens a larger view.">
-              <span class="ph"><img src="assets/app/wall.jpg" alt="A maker's wall on Drex — a corkboard portfolio: bio, Lv.5 Legend, and six circles they edit" loading="lazy" width="600" height="750"></span>
-              <span class="zpola-cap">your wall &mdash; your portfolio. proof you didn&rsquo;t do it alone.</span>
-            </button>
-          </div>
-
-          <!-- 3 · A real Circle — XChange (webm) -->
-          <div class="bd-peg" style="--r:-1.4deg;--c:var(--lazuli)">
-            <span class="bd-clip" aria-hidden="true"></span>
-            <button type="button" class="zpola bd-open" data-full="assets/app/circle.jpg" data-cap="a real club &mdash; mid-issue" aria-label="Inside a real club. Opens a larger view.">
-              <span class="ph"><img src="assets/app/circle.jpg" alt="A club's home on Drex — the current challenge, a deadline, the makers, and the next Circle Time" loading="lazy" width="600" height="750"></span>
-              <span class="zpola-cap">a real club &mdash; mid-issue</span>
-            </button>
-          </div>
-
-          <!-- 4 · The Hour — the gather lobby / orb (real) -->
-          <div class="bd-peg" style="--r:2.4deg;--c:var(--schoolbus)">
-            <span class="bd-clip" aria-hidden="true"></span>
-            <button type="button" class="zpola bd-open" data-full="assets/app/circletime.jpg" data-cap="The Hour &mdash; the door's open" aria-label="The Hour — the door's open. Opens a larger view.">
-              <span class="ph"><img src="assets/app/circletime.jpg" alt="The Hour on Drex — the orb, 'the door's open, you're first in; we'll light up the moment another maker arrives'" loading="lazy" width="880" height="1160"></span>
-              <span class="zpola-cap">The Hour &mdash; the door's open</span>
-            </button>
-          </div>
-
-          <!-- 5 · The finished zine (real) -->
-          <div class="bd-peg" style="--r:-2deg;--c:var(--colorado)">
-            <span class="bd-clip" aria-hidden="true"></span>
-            <button type="button" class="zpola bd-open" data-full="assets/app/zine.jpg" data-cap="read a finished zine" aria-label="A finished, published zine. Opens a larger view.">
-              <span class="ph"><img src="assets/app/zine.jpg" alt="A published Drex zine — 'Silk Road 001', a runway editorial made by 11 makers" loading="lazy" width="880" height="1400"></span>
-              <span class="zpola-cap">read a finished zine</span>
-            </button>
-          </div>
-
-          <!-- 6 · VIDEO — the book of issues, flipped to another club's zine -->
-          <div class="bd-peg" style="--r:1.6deg;--c:var(--lazuli)">
-            <span class="bd-clip" aria-hidden="true"></span>
-            <button type="button" class="zpola is-vid bd-open" data-video="assets/demo/book-cafe.mp4" data-poster="assets/demo/book-cafe-poster.jpg" data-cap="flip through other clubs&rsquo; zines" aria-label="Flip through other clubs' zines — plays a screen recording from the app">
-              <span class="ph"><img src="assets/demo/book-cafe-thumb.jpg" alt="The book of issues in the Drex app, flipped open to another club's zine — &ldquo;Drawing at the Cafe&rdquo;" loading="lazy" width="600" height="720"><span class="play-badge" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"></circle><path d="M20 16 L33 24 L20 32 Z"></path></svg></span></span>
-              <span class="zpola-cap">flip through other clubs&rsquo; zines <span class="arr">&rarr;</span></span>
-            </button>
-          </div>
-
-        </div>
-      </div>
-        <!-- always-on arrows: hand-drawn sharpie chevrons on torn-paper chips (brand doodle idiom),
-             unmissable "this scrolls" affordance + tap to page. JS toggles .is-on per edge. -->
-        <button type="button" class="bd-arrow bd-arrow-prev" aria-label="Previous screens">
-          <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M16.5 4.5 C13 8 10 11 8.5 13 C10 15 13 18 16.5 21.5"/></svg>
-        </button>
-        <button type="button" class="bd-arrow bd-arrow-next" aria-label="More screens">
-          <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M9.5 4.5 C13 8 16 11 17.5 13 C16 15 13 18 9.5 21.5"/></svg>
-        </button>
-      </div>
-
-    </div>
-  </section>
 
   <!-- #inside strip: always-on paper arrows. Each arrow shows only when there's more that way
        (next hidden at the end, prev hidden at the start), and pages the strip by ~1.2 cards. -->
@@ -1712,8 +1859,15 @@
                 <path d="M460 150 v56" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>
               </g>
             </svg>
-            <div class="belt-ui" aria-hidden="true">
-              <span class="soon-stamp">Reader demo &mdash; soon</span>
+            <!-- was a dead "Reader demo — soon" stamp. The demo isn't soon, it exists:
+                 this reuses the SAME clip and the same delegated .bd-open lightbox as the
+                 "flip through other clubs' zines" pins, so the stamp keeps its look and
+                 becomes the thing it was promising. No aria-hidden now — it's a control. -->
+            <div class="belt-ui">
+              <button type="button" class="soon-stamp is-live bd-open"
+                      data-video="assets/demo/book-cafe.mp4" data-poster="assets/demo/book-cafe-poster.jpg"
+                      data-cap="flip through other clubs&rsquo; zines"
+                      aria-label="Watch the reader &mdash; flipping through other clubs&rsquo; zines">Reader demo <span class="arr">&rarr;</span></button>
             </div>
           </div>
         </figure>
@@ -1721,68 +1875,6 @@
     </div>
   </section>
 
-  <!-- ============ WHY NOT A GROUP CHAT — the objection everyone arrives with.
-       A chat has no deadline, no challenge, and nothing to show at the end; those
-       three absences are the whole product, so we name them side by side. ============ -->
-  <section class="versus" id="why-not-chat">
-    <div class="wrap">
-      <div class="head">
-        <h2 class="slab">Why not a <span class="ul">group chat</span><span class="stop">?</span></h2>
-        <p class="vs-sub">Nobody quits. The date just stops being the date.</p>
-      </div>
-
-      <!-- SHOW the dead chat instead of describing it. The joke writes itself: three messages of
-           enthusiasm, then an eleven-month silence, then someone asking if anyone's still alive.
-           Nobody needs a bullet list to recognise their own group chat. -->
-      <div class="vs-pair">
-
-        <figure class="vs-card vs-chat">
-          <span class="vs-tab vs-tab-sad">the group chat</span>
-          <div class="chatmock" role="img" aria-label="A group chat: three excited messages in January, then eleven months of silence, then one message asking if the chat is still alive.">
-            <span class="ch-day">JAN 4</span>
-            <p class="bub them">found this sick technique 🔥</p>
-            <p class="bub them">omg we should <em>totally</em> do this</p>
-            <p class="bub me">yes!! this weekend??</p>
-            <span class="ch-gap"><i></i>eleven months later<i></i></span>
-            <span class="ch-day">DEC 2</span>
-            <p class="bub them">is this chat still alive lol</p>
-            <span class="ch-typing" aria-hidden="true"><i></i><i></i><i></i></span>
-          </div>
-          <figcaption class="cap">4,000 messages. Nothing made.</figcaption>
-        </figure>
-
-        <figure class="vs-card vs-circle">
-          <span class="vs-tab vs-tab-glad">a club</span>
-          <div class="circlemock">
-            <div class="cm-note">
-              <span class="cm-pin" aria-hidden="true"></span>
-              <span class="cm-kick">the challenge</span>
-              <p class="cm-do">Shoot a roll you'd normally be scared to.</p>
-              <span class="cm-due">due friday</span>
-            </div>
-            <span class="cm-arrow" aria-hidden="true">
-              <svg viewBox="0 0 60 26" fill="none" stroke="var(--grass-deep)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13 H50" filter="url(#roughsm)"/><path d="M42 5 L52 13 L42 21" filter="url(#roughsm)"/></svg>
-            </span>
-            <!-- MEDIA PLACEHOLDER: swap this block for a real photo of a finished zine being held
-                 in someone's hands (ideally one of the Photo Phloor / XChange issues). A hand
-                 holding the artifact is the single most persuasive image on this page. -->
-            <div class="cm-out">
-              <span class="cm-outline" aria-hidden="true"></span>
-              <svg class="cm-zine" viewBox="0 0 64 78" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round">
-                <rect x="4" y="4" width="52" height="66" rx="2" fill="var(--schoolbus)"/>
-                <rect x="9" y="9" width="42" height="30" rx="1" fill="var(--paper)"/>
-                <path d="M13 47 h34 M13 55 h26 M13 63 h30" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
-              </svg>
-              <b>one issue, everyone's name in it</b>
-            </div>
-          </div>
-          <figcaption class="cap">A challenge, a date, a finished thing.</figcaption>
-        </figure>
-
-      </div>
-
-    </div>
-  </section>
 
   <!-- ============ ORGANIZERS — the highest-value visitor on this page and, until now,
        the one it ignored. Someone who already runs a dying collective arrives with the
@@ -1966,6 +2058,91 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Reuses .zpola / .ph / .play-badge / .soon-stamp / .is-vid / .is-ghost / .zpola-cap; only .bd-* is new.
+       Pin 1 = the real reel (opens the IG embed). Pins 2-3 open a self-hosted webm screen-recording.
+       Pins 4-5 are the existing ghost/"coming soon" idiom. The strip owns its own horizontal scroll. -->
+  <section class="board" id="inside" aria-label="A look inside the Drex app">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">not a mockup &mdash; the actual app</span>
+        <h2 class="slab">Look <span class="ul">inside</span> the app<span class="stop">.</span></h2>
+        <p class="bd-sub">Real screens &mdash; what a club actually touches.</p>
+      </div>
+
+      <div class="bd-scroller">
+      <div class="bd-line" role="group" aria-label="Screens from the app — scroll sideways to see all six" tabindex="0">
+        <div class="bd-track">
+          <span class="bd-string" aria-hidden="true"></span>
+
+          <!-- 1 · VIDEO — the real reel -->
+          <div class="bd-peg" style="--r:-2.2deg;--c:var(--colorado)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola is-vid bd-open" data-embed="https://www.instagram.com/reel/DaEIcmkSW4o/embed/" data-link="https://www.instagram.com/reel/DaEIcmkSW4o/" data-cap="a zine, made by hand" aria-label="Watch a zine get made — opens the reel">
+              <span class="ph"><img src="assets/editor-reel-thumb.jpg" alt="A maker at a cafe table, phone in hand, placing pages in the zine editor" loading="lazy" width="600" height="720"><span class="play-badge" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"></circle><path d="M20 16 L33 24 L20 32 Z"></path></svg></span></span>
+              <span class="zpola-cap">watch a zine get made <span class="arr">&rarr;</span></span>
+            </button>
+          </div>
+
+          <!-- 2 · Personal Wall / Magazine — real @144mb wall (webm) -->
+          <div class="bd-peg" style="--r:1.8deg;--c:var(--schoolbus)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola bd-open" data-full="assets/app/wall.jpg" data-cap="your wall &mdash; your portfolio. proof you didn&rsquo;t do it alone." aria-label="Your wall — your portfolio. Proof you didn't do it alone. Opens a larger view.">
+              <span class="ph"><img src="assets/app/wall.jpg" alt="A maker's wall on Drex — a corkboard portfolio: bio, Lv.5 Legend, and six circles they edit" loading="lazy" width="600" height="750"></span>
+              <span class="zpola-cap">your wall &mdash; your portfolio. proof you didn&rsquo;t do it alone.</span>
+            </button>
+          </div>
+
+          <!-- 3 · A real Circle — XChange (webm) -->
+          <div class="bd-peg" style="--r:-1.4deg;--c:var(--lazuli)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola bd-open" data-full="assets/app/circle.jpg" data-cap="a real club &mdash; mid-issue" aria-label="Inside a real club. Opens a larger view.">
+              <span class="ph"><img src="assets/app/circle.jpg" alt="A club's home on Drex — the current challenge, a deadline, the makers, and the next Circle Time" loading="lazy" width="600" height="750"></span>
+              <span class="zpola-cap">a real club &mdash; mid-issue</span>
+            </button>
+          </div>
+
+          <!-- 4 · The Hour — the gather lobby / orb (real) -->
+          <div class="bd-peg" style="--r:2.4deg;--c:var(--schoolbus)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola bd-open" data-full="assets/app/circletime.jpg" data-cap="The Hour &mdash; the door's open" aria-label="The Hour — the door's open. Opens a larger view.">
+              <span class="ph"><img src="assets/app/circletime.jpg" alt="The Hour on Drex — the orb, 'the door's open, you're first in; we'll light up the moment another maker arrives'" loading="lazy" width="880" height="1160"></span>
+              <span class="zpola-cap">The Hour &mdash; the door's open</span>
+            </button>
+          </div>
+
+          <!-- 5 · The finished zine (real) -->
+          <div class="bd-peg" style="--r:-2deg;--c:var(--colorado)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola bd-open" data-full="assets/app/zine.jpg" data-cap="read a finished zine" aria-label="A finished, published zine. Opens a larger view.">
+              <span class="ph"><img src="assets/app/zine.jpg" alt="A published Drex zine — 'Silk Road 001', a runway editorial made by 11 makers" loading="lazy" width="880" height="1400"></span>
+              <span class="zpola-cap">read a finished zine</span>
+            </button>
+          </div>
+
+          <!-- 6 · VIDEO — the book of issues, flipped to another club's zine -->
+          <div class="bd-peg" style="--r:1.6deg;--c:var(--lazuli)">
+            <span class="bd-clip" aria-hidden="true"></span>
+            <button type="button" class="zpola is-vid bd-open" data-video="assets/demo/book-cafe.mp4" data-poster="assets/demo/book-cafe-poster.jpg" data-cap="flip through other clubs&rsquo; zines" aria-label="Flip through other clubs' zines — plays a screen recording from the app">
+              <span class="ph"><img src="assets/demo/book-cafe-thumb.jpg" alt="The book of issues in the Drex app, flipped open to another club's zine — &ldquo;Drawing at the Cafe&rdquo;" loading="lazy" width="600" height="720"><span class="play-badge" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"></circle><path d="M20 16 L33 24 L20 32 Z"></path></svg></span></span>
+              <span class="zpola-cap">flip through other clubs&rsquo; zines <span class="arr">&rarr;</span></span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+        <!-- always-on arrows: hand-drawn sharpie chevrons on torn-paper chips (brand doodle idiom),
+             unmissable "this scrolls" affordance + tap to page. JS toggles .is-on per edge. -->
+        <button type="button" class="bd-arrow bd-arrow-prev" aria-label="Previous screens">
+          <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M16.5 4.5 C13 8 10 11 8.5 13 C10 15 13 18 16.5 21.5"/></svg>
+        </button>
+        <button type="button" class="bd-arrow bd-arrow-next" aria-label="More screens">
+          <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M9.5 4.5 C13 8 16 11 17.5 13 C16 15 13 18 9.5 21.5"/></svg>
+        </button>
+      </div>
+
     </div>
   </section>
 
@@ -2167,5 +2344,26 @@
 </script>
 <script data-goatcounter="https://drex.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+
+  <script>
+  /* #portfolio videos: preload="none" + play-on-intersection. Two looping panels
+     are ~2.7MB and decode continuously; eager autoplay would spend both on every
+     visitor whether or not they ever scroll this far. */
+  (function(){
+    var vids = document.querySelectorAll('#portfolio video');
+    if (!vids.length) return;
+    if (!('IntersectionObserver' in window)) {            // no observer: just play
+      [].forEach.call(vids, function(v){ v.play().catch(function(){}); }); return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        var v = e.target;
+        if (e.isIntersecting) { v.preload = 'auto'; v.play().catch(function(){}); }
+        else { v.pause(); }
+      });
+    }, { rootMargin: '200px 0px' });
+    [].forEach.call(vids, function(v){ io.observe(v); });
+  })();
+  </script>
 </body>
 </html>
