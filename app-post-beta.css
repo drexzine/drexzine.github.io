@@ -5255,6 +5255,24 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 /* the video pin reuses the page's own delegated .bd-open lightbox, so it has to
    survive being a <button> */
 .dd-print button.ph{padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;-webkit-appearance:none;appearance:none}
+/* Two of the four prints are anchors now (the circle board in 01, the published issue in 04), so
+   they need the same neutering the button got — an <a> brings colour and an underline that would
+   land on the 1px of frame the <img> does not cover. The lift on hover is the whole affordance:
+   these prints look identical to the two that are NOT clickable, so without it the only signal
+   is the cursor. It is a translate, not a scale — .dd-print is already rotated by --r, and a
+   scale on a rotated box resamples the photo edges. */
+.dd-print a.ph{text-decoration:none;color:inherit;cursor:pointer;
+  transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .18s ease}
+.dd-print a.ph:hover{transform:translate(-2px,-3px);box-shadow:5px 7px 0 -1px rgba(65,77,87,.28)}
+.dd-print a.ph:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.dd-print a.ph{transition:none}.dd-print a.ph:hover{transform:none}}
+/* the club's name in the deck. Grass-deep + underline is the page's inline-link convention
+   (.reel-credit and the two label links above it), and it is the one word in that sentence a
+   reader can act on — it opens the actual circle. */
+.sht-club{color:var(--grass-deep);text-decoration:underline;text-decoration-thickness:1.5px;
+  text-underline-offset:3px;text-decoration-color:rgba(12,110,57,.45)}
+.sht-club:hover{text-decoration-color:var(--grass-deep)}
+.sht-club:focus-visible{outline:3px solid var(--lazuli);outline-offset:2px;border-radius:3px}
 .dd-print .ph.is-vid::after{content:"";position:absolute;inset:0;z-index:2;background:rgba(15,21,24,.28)}
 .dd-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;pointer-events:none}
 /* the play chip is the one thing here you can actually DO, so it carries the

@@ -105,7 +105,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=14" />
+<link rel="stylesheet" href="app-post-beta.css?v=15" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -767,7 +767,7 @@
              The arc stays "blank page to a zine" and NOT the wall, however tempting — this timeline
              ends at the zine shipping, and the wall is the payoff of the NEXT section. An empty wall
              filling with pinned photos describes what comes after this, not what is drawn below. -->
-        <p class="sht-sub">A few photographers who became friends, and a blank page that became a zine. <b>Photo Phloor</b>. Four weeks.</p>
+        <p class="sht-sub">A few photographers who became friends, and a blank page that became a zine. <b><a class="sht-club" href="https://app.drex.style/circles/photo-phloor" target="_blank" rel="noopener">Photo Phloor</a></b>. Four weeks.</p>
       </div>
 
       <ol class="dd">
@@ -781,8 +781,19 @@
               <h3>The challenge goes up</h3>
               <p>Someone sets it, and <b>puts a date on it</b>. That date is the whole trick.</p>
             </div>
+            <!-- RESHOT, and now a link. The old capture predated the circle masthead redesign — it
+                 still showed the purple NEXT CIRCLE TIME pad, a "24 DAYS LEFT" stamp and "7 WORKERS",
+                 none of which exist in the app any more, so the one print whose whole job is "this is
+                 the actual product" was the most out-of-date thing on the page. This is the live
+                 board: the CIRCLE TIME — LIVE NOW bar, the crest, the challenge, both resource chips.
+                 It links to the circle itself, which is the same promise #proof makes about the walls
+                 — go and look. Verified public and signed-out in a cold profile with zero cookies,
+                 the same bar the Beans card in the hero had to clear.
+                 RESHOOT IT rather than edit it if the app changes again, and reshoot at 752x564 CSS
+                 px from a 1200-wide viewport at scale 2: .dd-print .ph is aspect-ratio 4/3 with
+                 object-fit:cover, so an off-ratio capture gets its sides cropped away. -->
             <figure class="dd-print" style="--r:-2deg">
-              <span class="ph"><img src="assets/app/circle.jpg" alt="The club&rsquo;s page in Drex: the challenge &ldquo;Chinatown Story&rdquo;, with a stamp reading 24 days left, due Wed Aug 12." loading="lazy" width="760" height="570" /></span>
+              <a class="ph" href="https://app.drex.style/circles/photo-phloor" target="_blank" rel="noopener" aria-label="Photo Phloor&rsquo;s circle on Drex, with the challenge &ldquo;Chinatown Story&rdquo; on the board &mdash; opens the club"><img src="assets/app/circle.jpg" alt="Photo Phloor&rsquo;s circle in Drex: a live circle-time bar across the top, the editor @144mb, and the challenge &ldquo;Chinatown Story &mdash; make a story out of the Chinatown photo walk&rdquo; with two pinned resources and two people already submitted." loading="lazy" width="1128" height="846" /></a>
               <figcaption>&ldquo;Chinatown Story&rdquo;</figcaption>
             </figure>
           </div>
@@ -811,8 +822,17 @@
               <span class="dd-sheet" aria-hidden="true"></span>
               <span class="dd-sheet" aria-hidden="true"></span>
               <figure class="dd-print" style="--r:1.7deg">
-                <span class="ph"><img src="assets/app/circletime.jpg" alt="Circle time in the app: the door&rsquo;s open, you&rsquo;re first in." loading="lazy" width="760" height="570" /></span>
-                <figcaption>12:00pm, every time</figcaption>
+                <!-- A PHOTOGRAPH, not the app screen it replaced. This beat is the only one whose
+                     claim is about PEOPLE ("online or in person — where the work actually happens"),
+                     and it was illustrated with a screenshot of the online half, which proved the
+                     half nobody doubts. Beat 01 is already a screen and beat 03 is already the
+                     editor, so the section had three interfaces and no humans in it — under a deck
+                     that now says "photographers who became friends" and an eyebrow that says "make
+                     and keep friends". This is the club on the Chinatown photo walk, and it is
+                     checkable: the circle page in beat 01 lists "QIPAO SHOP WE WENT TO" as one of
+                     its two resources, and that is the shop. -->
+                <span class="ph"><img src="assets/app/circletime-walk.jpg" alt="Photo Phloor on the Chinatown photo walk: five of them talking and shooting among the racks of red qipao in the shop they pinned to the circle." loading="lazy" width="640" height="480" /></span>
+                <figcaption>in person, this week</figcaption>
               </figure>
             </div>
           </div>
@@ -848,9 +868,18 @@
               <h3>It ships: submissions close</h3>
               <p>The deadline <b>is</b> a circle time. You all show up, it goes out to the world &mdash; and into <b>your portfolio</b>.</p>
             </div>
+            <!-- THE CLUB'S OWN ISSUE, and openable. This print used to be Silk Road 001 — XChange
+                 Models' zine — so the one beat that says "it ships" showed a DIFFERENT club's output
+                 than the three beats above it. It is Photo Phloor's published issue now, and the
+                 whole row is a link: the deck promises a real club and this is where a reader can
+                 check the claim, the same way #proof sends them to the walls.
+                 The crop is deliberate and must stay above the pull-quote in the middle of that
+                 spread — the quote is signed, and no maker's name goes in visible copy or alt on
+                 this page. Reshoot the top of the book only, and hide the CIRCLE TIME — LIVE NOW
+                 badge first: it is live state, it lands on the title, and it dates the capture. -->
             <figure class="dd-print">
-              <span class="ph"><img src="assets/app/zine.jpg" alt="The published zine: Silk Road 001, a full-bleed photograph with a maker&rsquo;s quote." loading="lazy" width="880" height="660" /></span>
-              <figcaption>issue 001</figcaption>
+              <a class="ph" href="https://app.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856" target="_blank" rel="noopener" aria-label="Read [ 3 A M, 2 0 0 1 ], the published issue from Photo Phloor &mdash; opens the zine"><img src="assets/app/zine-3am.jpg" alt="The published issue [ 3 A M, 2 0 0 1 ] from Photo Phloor: two night photographs pinned to the page &mdash; an empty lit stairwell and a glass-block window &mdash; one captioned &ldquo;Wow&rdquo;." loading="lazy" width="1000" height="750" /></a>
+              <figcaption>&ldquo;[ 3 A M, 2 0 0 1 ]&rdquo;</figcaption>
             </figure>
           </div>
         </li>
@@ -2300,7 +2329,10 @@
           <div class="bd-peg" style="--r:-1.4deg;--c:var(--lazuli)">
             <span class="bd-clip" aria-hidden="true"></span>
             <button type="button" class="zpola bd-open" data-full="assets/app/circle.jpg" data-cap="a real club &mdash; mid-issue" aria-label="Inside a real club. Opens a larger view.">
-              <span class="ph"><img src="assets/app/circle.jpg" alt="A club's home on Drex — the current challenge, a deadline, the makers, and the next Circle Time" loading="lazy" width="600" height="750"></span>
+              <!-- alt rewritten with the asset: circle.jpg was reshot for #showtell against the new
+                   circle masthead, and the old wording described furniture the redesign removed —
+                   the deadline stamp and the "next Circle Time" pad are both gone. -->
+              <span class="ph"><img src="assets/app/circle.jpg" alt="A club's home on Drex — a live circle-time bar across the top, the editor, the current challenge, the resources the club pinned to it, and who has submitted so far" loading="lazy" width="1128" height="846"></span>
               <span class="zpola-cap">a real club &mdash; mid-issue</span>
             </button>
           </div>
