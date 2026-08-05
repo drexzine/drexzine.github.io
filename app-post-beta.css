@@ -1857,7 +1857,7 @@ footer .legal .snd:focus-visible{outline:2px solid var(--oats);outline-offset:2p
    whole job is "look here" — and everything that is merely hand-MADE sits still:
 
      BOILS   .ul::after            underlines, "the heart of squigglevision"  (10)
-             .hl::before           highlighter swipes                          (6)
+             .hl::before           highlighter swipes                         (10)
              .hl-rot .mark::before the H1 blank's marker — the fold's moment    (1)
              .cut-hook-line        the only copy readable while sealed          (1)
              .sc-down              the scroll cue                               (1)
@@ -1868,6 +1868,12 @@ footer .legal .snd:focus-visible{outline:2px solid var(--oats);outline-offset:2p
    THEY ALL KEEP filter:url(#...). Losing the animation costs nothing in stillness — a
    static SVG filter rasterises once and is cached, so the hand-drawn EDGE, which is what
    carries the style, is untouched on all 129 of them. Only the motion was removed.
+
+   The swipes went 6 → 10 when the hero sub's tagline got its mark: four of those ten are
+   the ONE stroke over "clubs for regular show-and-tells", drawn per word because the phrase
+   wraps (see .ed-sub .stop .hl). They share the keyframes and start together, so they boil
+   in sync and the reader sees one wobbling band, not four. Count it as one against the
+   budget below; it is one mark.
 
    Before adding boil to anything: it is an attention device, and attention does not
    scale. If everything wobbles, nothing is being pointed at — and the FPS governor
@@ -3747,18 +3753,53 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
 /* the hero subtitle: handles the "do I need a group?" question right under the headline */
 .ed-sub{margin:clamp(.7rem,1.7vw,1.15rem) 0 0;font-family:var(--f-body);font-style:italic;font-weight:400;
   font-size:var(--fs-lede);line-height:1.4;color:var(--ink);max-width:34ch}
-/* LAZULI, not grass — and --lazuli-deep, not --lazuli. The token used to echo the H1's green
-   "Together", which meant the fold's two strongest marks were the same colour saying different
-   things; blue separates the OFFER (this line) from the brand voice (the headline), and the
-   headline keeps the green to itself. Deep, because this is colour carrying text: bright Lazuli
-   on Oats measures 3.11:1 and fails AA outright, --lazuli-deep clears at 5.21:1. Same rule that
-   sent the margin tape to --coral-ink. */
-.ed-sub .stop{color:var(--lazuli-deep);font-weight:700;font-style:normal}   /* bold + upright, so it reads as one token.
-   NO nowrap. It was there for a 12-character token ("you made together") that could always be pushed
-   whole onto the next line; the token is "monthly show-and-tell with deadlines" now, which is 36
-   characters against a 34ch measure — nowrap on that does not keep it on one line, it forces one
-   overlong line and blows the measure out sideways. A green phrase that wraps still reads as one
-   phrase because it is the only green on the line; a green phrase that breaks the column does not. */
+/* THE TAGLINE, MARKED. This line is the tagline uncompressed, and it used to be carried by
+   --lazuli-deep at 700 — coloured text, the same device the beats' three blue swatches use one
+   line below it. That was the whole problem: four blues in eight lines folded the tagline INTO
+   the loop's list instead of standing it above the list, and blue's job in this fold ("what you
+   personally walk away with" — challenge, finish, portfolio) is not what this line says.
+   GRASS, and grass as a MARK rather than as ink. Three reasons it is not the other three:
+     - Blue is the beats'. A fourth blue makes the tagline a fourth beat.
+     - Yellow is spent, twice and deliberately: the H1's swiped word (the fold's moment, and the
+       only boil-animated marker at that weight) sits one line ABOVE this, and "scrollable
+       magazine" one line below. A third yellow between them empties all three. Oats is a cream
+       paper besides, so yellow is the weakest separation from the ground available.
+     - Red is the deadline's, and reads as an alert anywhere else.
+   Green was the page's one unspent marker colour (.hl-g was defined and used nowhere), it is
+   the brand green, and the page's own grammar already says green is where the PEOPLE are —
+   which is exactly what "clubs" means. The old note here worried that green would echo the H1's
+   "Together" and put the fold's two strongest marks in one colour saying different things; that
+   was written when the token still CONTAINED the word "together". It says clubs now, the H1 and
+   this line are the same claim at two altitudes, and the devices differ anyway — green ink up
+   there, green marker behind black ink down here. They rhyme; they no longer collide.
+   Ink goes back to --ink and the 700 comes off: a swatch, a colour and a bold weight are three
+   shouts for one phrase, and the marked beats below carry no bold either. Upright roman stays.
+   It is what holds the phrase together as ONE token inside an italic line, and unlike a colour
+   it survives being cut in half by a wrap. */
+.ed-sub .stop{font-weight:400;font-style:normal}
+/* ...and the wrap is the whole engineering problem. .hl::before is ONE absolutely-positioned box,
+   so on a phrase that breaks across lines it paints a single rectangle over everything in between:
+   a redaction, not a highlight. This phrase ALWAYS breaks — measured at 860/700/480/380px it comes
+   back as two fragments, and at 480 it breaks inside "show-and-tells" at a hyphen. Nor can the fill
+   move to the element's own background with box-decoration-break:clone, which would give one box per
+   line for free: backgrounds take no filter and no transform, so the swatch would come out straight,
+   level and vector-edged — the one thing this page never draws.
+   So the stroke is drawn per WORD, and the words abut. Each word is short enough never to break
+   (nowrap also stops the hyphen split), and a highlighter laid down word by word is what a real one
+   looks like up close. Inner bleeds trim to ~.12em a side against a ~.25em word space so neighbours
+   MEET without overlapping — multiply doubles density on an overlap and prints a dark seam at every
+   gap. The run's two ends keep .hl's full overshoot: that is the swipe entering and leaving. */
+.ed-sub .stop .hl{white-space:nowrap}
+/* .50, not .hl-g's .42. The beats are marked at .42 and this line has to outrank them, not match
+   them — at .42 the stroke came out mint and read as a fourth beat that had wandered up a line.
+   .50 is as far as the swatch can go: --ink over grass-on-oats measures 4.70:1 there, 4.59 at .52,
+   and 4.44 at .55, which is under the floor. The sub is --fs-lede (19px at the small end), so it is
+   NORMAL text and owes the full 4.5 — it does not get the 3:1 large-text discount at every width.
+   It lands on hl-y's .50 as a side effect, which is right: yellow and green are the fold's two
+   headline-rank marks and the three blue beat marks sit a step under both. */
+.ed-sub .stop .hl::before{left:-.12em;right:-.13em;opacity:.5}
+.ed-sub .stop .hl:first-child::before{left:-.19em}
+.ed-sub .stop .hl:last-child::before{right:-.24em}
 /* .ed-lead (the beats' lead-in, "How it works:") and its .ed-lead+.beats gap reset are GONE with the
    markup — the sub ends in a colon now, so the list needs no label. .beats' own top margin, which the
    reset used to cancel, is what opens the gap under the sub again. Kept as a note rather than left as
@@ -5081,6 +5122,15 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 .showtell .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:.98;
   letter-spacing:-.02em;font-size:clamp(1.7rem,4.6vw,2.6rem);margin:.25rem 0 0;color:var(--ink)}
 .showtell .head h2 .stop{color:var(--grass-deep)}
+/* The marked half of the eyebrow goes to --ink, and this line is the whole reason the mark works.
+   .hl only paints a background; the text underneath keeps inheriting, and the eyebrow inherits
+   Colorado — so the first cut put red on yellow and measured 2.59:1, WORSE than the 3.07:1 it had
+   on bare paper. The highlight was making the words harder to read, which is the exact opposite of
+   why it was added. Ink on the swatch is 6.80:1, better than plain Colorado (3.07) and better than
+   deepening to --coral-ink (4.84), so this is the one treatment that both emphasises the payload
+   and fixes the legibility. Same construction .dm-eyebrow .hl already uses. If the swatch colour
+   ever changes, re-check this pair — a mark whose text you did not recolour is a mark that dims. */
+.showtell .head .eyebrow .hl{color:var(--ink)}
 /* NO GREY TEXT IN THIS SECTION. --ink-soft/.85 and --ink-faint/.80 are the
    page's quieter text levels, but here they made the deck, the month labels
    and the step index all read as washed-out grey against Oats. Everything
@@ -5126,6 +5176,16 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    they are. Dates are the structural beats, circle time is the pulse. */
 .dd-knot{position:absolute;right:-12px;top:.45rem;width:21px;height:21px;border-radius:50%;
   background:var(--paper);border:4.2px solid var(--colorado);filter:url(#roughsm);z-index:2}
+/* ...except the standing row's, which is circle time and therefore Happy, not Colorado. A coral
+   knot there said "date event" on the one row that is explicitly NOT a date — the same lie the
+   bead chain was invented to stop telling, still being told by the biggest mark in the column.
+   It is built as a BEAD, not as a recoloured knot: fill Happy, stroke --ink, exactly the two
+   colours of .dd-repeat's SVG (fill %23F1DD01, stroke %23414D57). That is not a style choice,
+   it is the only construction that stays visible — Happy on Oats is ~1.8:1, so a yellow RING on
+   paper (the naive recolour, border-color:var(--happy)) all but disappears, while a yellow disc
+   outlined in ink is the same object the chain below it is made of. The knot reads as the head
+   of the chain, which is what it is. */
+.dd-row.is-standing .dd-knot{background:var(--happy);border-color:var(--ink)}
 
 /* ---- THE STANDING ROW ----------------------------------------------------
    Circle time is the one beat here that is NOT a date. It's a slot that keeps

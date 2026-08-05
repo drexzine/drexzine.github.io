@@ -105,7 +105,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=11" />
+<link rel="stylesheet" href="app-post-beta.css?v=14" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -454,7 +454,15 @@
                          work while the line did no emotional work at all.
                        - "A challenge. A magazine. A tiny group." was the best-sounding of them and
                          collided head-on with beat 01, one line below it. -->
-                <p class="ed-sub">Join or create a small club for <span class="stop">regular show-and-tells with deadlines</span>:</p>
+                <!-- ONE marker stroke, four spans. The green swatch cannot be a single .hl on the
+                     whole phrase: .hl::before is one absolutely-positioned box and this phrase always
+                     wraps, which turns that box into a redaction bar spanning the break. Per-word
+                     spans give one swatch per word, so the stroke breaks wherever the line does and
+                     each piece is still tilted, rough-edged and hand-swiped. They abut into one
+                     continuous band (see .ed-sub .stop .hl in the stylesheet for the bleed trim).
+                     If a word is ever added or removed here, it needs its own span or it drops out
+                     of the stroke and leaves a hole. -->
+                <p class="ed-sub">Join or create <span class="stop"><span class="hl hl-g">clubs</span> <span class="hl hl-g">for</span> <span class="hl hl-g">regular</span> <span class="hl hl-g">show-and-tells</span></span>:</p>
               </div>
 
               <!-- ZONE 2 - the standfirst. ONE paragraph now. The "where circles meet" line used to
@@ -534,7 +542,7 @@
                      adjective sitting on it rather than by a colon and a second clause. The portfolio
                      claim moved OUT of here and became the closing line. -->
                 <ul class="beats">
-                  <li>set a <span class="hl hl-b">challenge</span></li>
+			<li>set a <span class="hl hl-b">challenge</span> and a <span class="hl hl-b">deadline</span></li>
                   <li>help each other <span class="hl hl-b">finish</span></li>
                   <!-- THE POINTER. Beat 03 names an object the reader has never seen, and the object is
                        sitting right there in column 2 — so the beat reaches over and LANDS ON IT. The
@@ -726,7 +734,22 @@
     <div class="wrap">
 
       <div class="head">
-        <span class="eyebrow">certified fun</span>
+        <!-- "certified fun" was a wry claim with nothing under it. Four words, and "make and keep"
+             governs BOTH nouns — that is the whole reason this beats the longer draft it replaced
+             ("make and keep friends. and work.", where the tail was just a punchline).
+               - "keep" is the load-bearing word. Everyone sells "make friends"; nobody sells keeping
+                 them, and keeping is the entire point of a club that meets AGAIN. It delivers the
+                 same-people idea as an outcome, where the other candidate ("regulars") made the
+                 reader infer it.
+               - "keep work" is not decoration either — it is the portfolio claim the page makes
+                 everywhere else (Repeat = portfolio, the published zine, work on two walls).
+             The "+" is not a stray software mark on a hand-made page: the hero already writes
+             "Repeat = portfolio." in this same marginalia voice, so operator-shorthand is native
+             here, and a colorado "+" is drawn in the collage scraps. Do NOT space it out to
+             "friends + work" — tight, it reads as one compound noun (the two things you leave with);
+             spaced, it becomes a sum of two separate items and the line goes limp. Lowercase, no
+             full stop: it is a label now, not the two-beat joke it used to be. -->
+        <span class="eyebrow">make and keep <span class="hl hl-y">friends+work</span></span>
         <h2 class="slab">See a <span class="ul">show-and-tell</span><span class="stop">.</span></h2>
         <p class="sht-sub">One real club &mdash; <b>Photo Phloor</b> &mdash; from a blank page to a published zine. Four weeks.</p>
       </div>
