@@ -840,7 +840,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .lg-earn{max-width:26ch;margin:clamp(1.7rem,4vw,2.6rem) auto 0;text-align:center;font-family:var(--f-hand);font-size:clamp(1.25rem,2.7vw,1.75rem);line-height:1.2;color:var(--sambas)}
 .lg-earn b{color:var(--grass-deep)}
 /* moved zine proof (featured pair) + small book examples inside #long-game */
-.longgame .zine-pair.lg-feature{display:flex;justify-content:center;margin:clamp(1.6rem,4vw,2.6rem) auto 0}
+.zine-pair.lg-feature{display:flex;justify-content:center;margin:clamp(1.6rem,4vw,2.6rem) auto 0}
 .lg-books{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:clamp(1.2rem,3.5vw,2.4rem);margin:clamp(1.4rem,3.5vw,2.4rem) auto 0}
 .lg-books .zpola.zbook{width:clamp(92px,12vw,120px);margin:0}
 .lg-books .zpola{transition:transform .18s ease, box-shadow .18s ease}
@@ -4721,7 +4721,7 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
    border-only ::before/::after layers so photos + type never smear.
    (Replaced the old .mg/.fac "long page" block; that CSS is now dead.)
    ========================================================================= */
-.dk{max-width:900px;margin:0 auto;padding:clamp(.5rem,2vw,1.3rem) 1.25rem clamp(2.4rem,5.5vw,3.8rem)}
+.dk{max-width:960px;margin:0 auto;padding:clamp(.5rem,2vw,1.3rem) 1.25rem clamp(2.4rem,5.5vw,3.8rem)}
 .dk-head{text-align:center;max-width:60ch;margin:0 auto clamp(1rem,2.4vw,1.6rem)}
 .dk-head .eyebrow{color:var(--colorado);margin-bottom:.3rem}
 .dk-head h2{font-family:var(--f-head);font-weight:700;font-size:var(--fs-2);line-height:1.03;
@@ -4731,9 +4731,16 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
   color:var(--ink-soft);max-width:54ch;margin:0 auto}
 
 /* the heap stage */
-.deck{position:relative;width:min(640px,96vw);height:clamp(400px,62vw,470px);margin:1.4rem auto 0}
+/* Widened + heightened so the heap can spread. The six cards are 2.26x the OLD 640x470 stage,
+   which capped mean per-card visibility at 44% no matter how they were arranged — the shipped
+   heap was already at 93% of that ceiling, so it wasn't overlapping too much, it was distributing
+   the overlap badly (two of six cards showed 0% of their name). 780x560 with smaller cards takes
+   the ratio to 1.15x. The 3.2rem top margin is NOT cosmetic: the cards are rotated, so their
+   bounding boxes reach ~16px (desktop) to 28px (390px) higher than the deck box, and at 1.4rem
+   the top-left card landed on top of the section heading. */
+.deck{position:relative;width:min(780px,96vw);height:clamp(440px,72vw,560px);margin:3.2rem auto 0}
 
-.pc{--w:clamp(272px,70vw,428px);position:absolute;left:50%;top:50%;
+.pc{--w:clamp(240px,58vw,368px);position:absolute;left:50%;top:50%;
   width:var(--w);aspect-ratio:1.62/1;
   margin-left:calc(var(--w) / -2);
   display:grid;grid-template-columns:44% 56%;
@@ -4820,7 +4827,7 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 /* phones: give the heap headroom so it doesn't sit on the controls, and add
    a solid backer behind the controls row so it always reads clearly */
 @media(max-width:620px){
-  .deck{height:470px}
+  .deck{height:500px}
   .dk-controls{margin-top:1.7rem}
   .dk-controls::before{content:"";position:absolute;inset:-8px -16px;z-index:-1;background:var(--oats)}
 }
