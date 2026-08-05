@@ -105,7 +105,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=15" />
+<link rel="stylesheet" href="app-post-beta.css?v=16" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -857,16 +857,25 @@
               <h3>Make the scrollable magazine &mdash; <span class="dd-together">together</span></h3>
               <p>Everyone&rsquo;s work, and what they learned, in <b>one issue</b>.</p>
             </div>
+            <!-- THE ISSUE COMING TOGETHER, which is what this beat's sentence actually says:
+                 "everyone's work, and what they learned, in one issue". This screen is exactly
+                 that pair — a submitted photograph AND the maker's written answer under it — so
+                 the print finally shows the claim instead of showing the tool that makes it.
+                 It also completes the cycle: 01 sets the Chinatown challenge, 02 is the club on
+                 the Chinatown walk, and this is what came back from it. Before, the section set a
+                 Chinatown challenge and then never showed one Chinatown thing again.
+                 The editor reel that was here is NOT lost — it plays in two other places on this
+                 page — and it was the weaker of the two by this beat's own copy, because it showed
+                 the editor rather than what goes into the issue.
+                 It links to the circle, not to a zine: the Chinatown issue is due Aug 12 and does
+                 not exist yet, so there is nothing to open but the club making it. Beat 04 keeps
+                 the published, openable issue; this row must never claim to be one.
+                 PORTRAIT, and that is why .dd-row.is-build .dd-print .ph carries its own
+                 aspect-ratio in the stylesheet — the 4/3 default would crop away either the
+                 photograph or the answer, and the pairing IS the point. -->
             <figure class="dd-print" style="--r:-1.3deg">
-              <!-- the REEL, not book-cafe.mp4: that clip is the reader (it's captioned "flip
-                   through other clubs' zines" in the two other places it's used), so pointing
-                   a pin captioned "the editor" at it showed the wrong half of the app. -->
-              <button type="button" class="ph is-vid bd-open" data-embed="https://www.instagram.com/reel/DaEIcmkSW4o/embed/" data-link="https://www.instagram.com/reel/DaEIcmkSW4o/" data-cap="a zine, made by hand" aria-label="Watch a zine get made &mdash; opens the reel">
-                <img src="assets/editor-reel-thumb.jpg" alt="A maker at a cafe table, phone in hand, placing pages in the zine editor" loading="lazy" width="600" height="720" />
-                <span class="dd-play play-badge" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"></circle><path d="M20 16 L33 24 L20 32 Z"></path></svg></span>
-                <span class="dd-dymo">play</span>
-              </button>
-              <figcaption>the editor</figcaption>
+              <a class="ph" href="https://app.drex.style/circles/photo-phloor" target="_blank" rel="noopener" aria-label="Photo Phloor&rsquo;s circle, where the Chinatown issue is being put together &mdash; opens the club"><img src="assets/app/issue-chinatown.jpg" alt="A submission in the issue: a photograph captioned &ldquo;friend (the apprentice) shows qipao&rdquo; of a woman in a red qipao in a bridal shop, and under it the maker&rsquo;s written answer about the master and the apprentice of a Chinatown bridal shop who have made qipaos for forty years." loading="lazy" width="796" height="990" /></a>
+              <figcaption>&ldquo;Chinatown Story&rdquo;, so far</figcaption>
             </figure>
           </div>
         </li>

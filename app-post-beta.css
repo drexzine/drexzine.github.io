@@ -5248,7 +5248,13 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 /* the app screenshots are landscape and want their top edge; the reel thumb is
    PORTRAIT (600x720) and the payload — hands on the phone, placing a page — sits
    at the very bottom, so a top crop keeps the houseplant and loses the editor. */
-.dd-row.is-build .dd-print .ph img{--op:50% 100%}
+/* ...and beat 03 is PORTRAIT rather than cropped, since the reel thumb gave way to a submission
+   screen whose whole content is a pair: the photograph on top, the maker's written answer under
+   it. A 4/3 box with object-fit:cover keeps roughly half a 4:5 source, so any crop here throws
+   away one half of the pair and the print stops making the beat's point ("everyone's work, AND
+   what they learned"). The box takes the image's own ratio instead, so nothing is cut and the
+   old bottom-anchored --op (which existed to rescue the portrait reel thumb) is not needed. */
+.dd-row.is-build .dd-print .ph{aspect-ratio:796/990}
 /* and the dymo defaults to bottom-LEFT, which is exactly where the phone is in
    that crop — the label would sit on top of the editor. Send it right. */
 .dd-row.is-build .dd-dymo{left:auto;right:9px}
