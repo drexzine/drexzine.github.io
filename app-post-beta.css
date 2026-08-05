@@ -1677,12 +1677,17 @@ footer::before{content:"";position:absolute;left:0;right:0;top:-15px;height:30px
 footer .top{display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap}
 footer .ft-word{width:clamp(150px,24vw,240px);display:block}
 footer .ft-word svg{display:block;width:100%;height:auto}
-/* 20ch, not the old 13: the tagline is now "Group challenge in, group magazine out." and its
-   longest clause ("Group challenge in,") is 19ch on its own. The clauses are nbsp-bound in the
-   markup, so at 13ch they had nowhere to go and the line either overflowed the column or broke
-   into four ragged lines; 20ch lets it sit as two clean clauses split at its own comma.
-   Re-measure if the tagline changes again — this cap tracks the longest clause, not the line. */
-footer .tagline{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.5rem,3.4vw,2.3rem);color:var(--oats);max-width:20ch;margin:.8rem 0 0;line-height:1.05}
+/* 18ch, down from 20: the tagline is now "Clubs for regular show-and-tells." and its longest
+   line is "Clubs for regular" at 17ch, so the cap sits one ch above it and the line splits at
+   its own caesura into two even lines. THE CAP TRACKS THE LONGEST LINE, NOT THE WHOLE STRING —
+   re-measure if the tagline changes again. (The predecessor was "Group challenge in, group
+   magazine out.", whose longest clause was 19ch; at the 13ch cap before THAT one it either
+   overflowed the column or broke into four ragged lines.)
+   .nb welds "show-and-tells." — its hyphens are CSS break opportunities, and nbsp cannot stop
+   a hyphen break, only nowrap can. It is a guard, not a fix: at 320px the column is 252px and
+   the noun 210px, so 42px of headroom. See the markup comment in index.html. */
+footer .tagline{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.5rem,3.4vw,2.3rem);color:var(--oats);max-width:18ch;margin:.8rem 0 0;line-height:1.05}
+footer .tagline .nb{white-space:nowrap}
 footer .links{display:flex;flex-direction:column;gap:.35rem}
 footer .links a{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--oats);
   display:inline-flex;align-items:center;min-height:44px;                       /* >=44px tap target */
