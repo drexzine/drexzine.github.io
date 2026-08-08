@@ -9,8 +9,20 @@
        browse goto file://$PWD/_shotgun-og/r6-A.html
        browse wait --networkidle
        browse screenshot --selector ".card" assets/og.png
-     The kicker is THE TAGLINE and has to match index.html's <title>, the og:title, the
-     footer .tagline, and the og:image:alt that describes this card. -->
+
+     RE-CUT 2026-08-08, tracking the fold. The page's H1 became "Show-and-tell with
+     deadlines." and the blank moved down to the sub, so the card follows it line for line:
+     the headline is the H1, and the kicker is the sub WITH ITS BLANK still drawn as a rule
+     and a full stop. The card's whole device has always been that blank; demoting it with
+     the sentence it ends is cheaper than inventing a second one.
+     THE KICKER IS NO LONGER THE TAGLINE, and that is the one rule this file used to state
+     in its own header. It could not survive the rewrite: the tagline is "Clubs for regular
+     show-and-tells." and the headline above it now says "Show-and-tell with deadlines.",
+     so keeping both put the same noun on the card twice in eleven words. The tagline is
+     still in four slots (title, og:title, twitter:title, the footer signature) and og:title
+     renders directly beside this image in every preview that shows one, so the card does
+     not have to say it a fifth time. What the kicker has to match now is index.html's SUB.
+     If either moves, move the other. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Patrick+Hand&display=swap">
@@ -29,16 +41,28 @@ letter-spacing:-.02em}
 text-transform:uppercase}
 
 .card{background:var(--grass)}
-.h{position:absolute;left:92px;top:84px;color:var(--oats);font-size:116px;
-line-height:1.02}
-.stop{position:absolute;left:652px;top:302px;color:var(--oats);font-size:116px}
-.kick{position:absolute;left:96px;top:470px;color:var(--oats);font-size:50px}
+/* 104px, not the 116px the old two-word headline was set at: this sentence's longer line
+   ("with deadlines.", 15 characters) is 15 x .6em of Courier Prime = 9em, which is 1044px at
+   116 and would leave 64px of card to the right of it. At 104 it is 936px and the right
+   margin is a proper 172. Monospace, so this is exact and re-derivable: the ceiling is
+   (1200 - left - margin) / 9. */
+.h{position:absolute;left:92px;top:78px;color:var(--oats);font-size:104px;line-height:1.04}
+/* the sub, carrying the blank. Flex on the baseline row so the rule and the stop stay welded
+   to the end of "doing" no matter what the hand face measures — nothing here is hard-placed
+   by eye except the row's own top. */
+.kick{position:absolute;left:96px;color:var(--oats);font-size:50px;line-height:1.16}
+.kick.k1{top:366px}
+.kick.k2{top:424px;display:flex;align-items:flex-end;gap:18px}
+.kick .blank{display:block;width:250px;height:26px;margin-bottom:14px}
 </style></head><body><div class="card">
-  <div class="h pitch">Together,<br>you become</div>
-  <svg class="dd" viewBox="0 0 520 26" preserveAspectRatio="none" style="left:96px;top:372px;width:560px;height:29px"><path d="M8 15 C130 7 268 21 386 12 C444 8 484 14 512 10" fill="none" stroke="var(--oats)" stroke-width="13" stroke-linecap="round"/></svg>
-  <div class="stop pitch">.</div>
-  <svg class="dd" viewBox="0 0 160 44" style="left:628px;top:402px;width:170px;transform:rotate(-22deg)"><path d="M40 8 L150 14 C156 15 156 29 150 30 L40 36 Z" fill="var(--schoolbus)"/><path d="M40 8 L14 20 L40 36 Z" fill="#414D57" opacity=".28"/><path d="M22 17 L4 22 L22 27 Z" fill="#414D57"/><path d="M118 11 L118 33" stroke="#414D57" stroke-width="5" opacity=".3"/></svg>
-  <svg class="dd" viewBox="0 0 100 100" style="left:776px;top:130px;width:66px;height:66px;transform:rotate(-12deg)"><path d="M50 3 C55 35 65 45 97 50 C65 55 55 65 50 97 C45 65 35 55 3 50 C35 45 45 35 50 3Z" fill="var(--happy)"/></svg>
-  <div class="kick birdie">Clubs for regular show-and-tells.</div>
-  <div class="lg" style="left:868.9px;top:473.8px;width:294.2px"><svg viewBox="0 0 14696 6730" fill="var(--oats)" role="img" aria-label="drex" style="display:block;width:100%;height:auto"><path d="M5478.999,2905.779c0,0 421.063,-37.36 425.9,108.343l-343.709,1707.337c-61.242,136.313 -436.173,134.324 -442.946,-22.416l360.754,-1793.265Z"/><path d="M5041.89,2951.676c63.511,-60.841 526.771,-49.633 526.771,-49.633l-102.739,405.414c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M3924.681,1958.721c63.511,-60.841 530.662,-50.446 530.662,-50.446l-106.63,406.227c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M5726.866,3417.607c0,0 256.489,-511.828 914.019,-511.828l-313.821,549.187c0,0 -52.304,-37.36 -119.551,-37.36c-40.411,0 -354.324,251.272 -556.659,579.075l76.013,-579.075Z"/><ellipse cx="6634.347" cy="3332.931" rx="430.57" ry="427.151"/><path d="M4268.545,3833.937c-54.051,587.803 -422.164,984.658 -1012.447,984.658c-466.996,0 -803.233,-354.917 -803.233,-919.048c0,-545.451 486.888,-993.767 1032.339,-993.767c668.793,0 813.229,603.128 783.342,928.157Zm-643.455,-498.703c-234.497,-17.38 -499.751,191.996 -499.751,524.336c0,438.408 306.192,521.14 448.316,514.446c142.124,-6.694 404.43,-206.606 404.43,-554.612c0,-284.788 -150.331,-469.149 -352.995,-484.17Z"/><path d="M4388.096,1908.276c0,0 411.204,-11.208 424.724,108.343c0,19.142 -451.623,2260.261 -451.623,2260.261c15.69,59.775 224.905,-302.557 315.685,-313.821c110.397,-13.699 320.176,120.344 320.176,210.008c-0,122.494 -381.069,648.499 -765.873,648.499c-140.399,0 -328.765,-47.802 -392.277,-174.825l549.187,-2738.465Z"/><path d="M8385.582,2902.043c497.354,57.086 817.745,422.164 739.722,818.177c-90.045,457.032 -844.694,445.003 -1082.497,417.708c-230.119,-26.413 -368.235,-100.848 -422.572,-20.593c0,0 -107.744,106.625 251.184,223.032c419.614,136.089 691.752,-83.334 866.656,-96.072c140.311,-10.219 217.565,170.071 168.209,286.302c-66.995,157.772 -494.323,338.135 -1028.793,276.789c-285.793,-32.803 -922.08,-269.802 -773.345,-1004.975c130.759,-646.322 784.083,-957.454 1281.437,-900.368Zm-212.016,404.392c-264.608,50.886 -442.712,200.115 -438.042,342.082c4.67,141.967 311.61,175.439 541.715,149.439c165.317,-18.68 362.389,-47.848 366.125,-257.062c3.213,-179.919 -275.528,-271.818 -469.798,-234.459Z"/><path d="M9206.516,4052.426c-70.533,107.48 -90.728,764.251 662.245,766.169c771.79,1.966 1183.203,-1911.019 149.439,-1912.816c-257.116,-0.447 -637.291,99.928 -646.668,437.503c-3.838,138.152 129.653,198.923 237.929,188.041c127.279,-12.792 188.555,-176.528 452.832,-176.528c264.278,0 131.209,448.7 79.402,619.471c-101.286,333.868 -336.519,428.184 -390.245,405.158c-60.791,-26.053 81.561,-246.308 11.513,-333.868c-61.401,-76.751 -475.858,-115.932 -556.447,6.87Z"/><path d="M11593.807,3675.684c70.533,-107.48 91.02,-767.987 -661.952,-769.905c-771.79,-1.966 -1183.496,1911.019 -149.731,1912.816c257.116,0.447 637.291,-96.192 646.668,-433.767c3.838,-138.152 -129.653,-198.923 -237.929,-188.041c-127.279,12.792 -188.555,176.528 -452.832,176.528c-264.278,0 -131.209,-448.7 -79.402,-619.471c101.286,-333.868 336.519,-428.184 390.245,-405.158c60.791,26.053 -81.561,246.308 -11.513,333.868c61.401,76.751 475.858,115.932 556.447,-6.87Z"/><path d="M11830.971,4385.014c61.784,-59.74 306.841,-59.74 367.586,0c60.745,59.74 58.668,298.701 -3.115,358.441c-61.784,59.74 -306.841,59.74 -367.586,0c-60.745,-59.74 -58.668,-298.701 3.115,-358.441Z"/></svg></div>
+  <div class="h pitch">Show-and-tell<br>with deadlines.</div>
+  <!-- the star sits off the end of the headline's first line, clear of both lines' type -->
+  <svg class="dd" viewBox="0 0 100 100" style="left:930px;top:96px;width:66px;height:66px;transform:rotate(-12deg)"><path d="M50 3 C55 35 65 45 97 50 C65 55 55 65 50 97 C45 65 35 55 3 50 C35 45 45 35 50 3Z" fill="var(--happy)"/></svg>
+  <div class="kick birdie k1">Join or create a club for</div>
+  <div class="kick birdie k2"><span>regularly doing</span><svg class="blank" viewBox="0 0 250 26" preserveAspectRatio="none"><path d="M6 15 C74 8 148 20 200 12 C222 9 236 14 244 11" fill="none" stroke="var(--oats)" stroke-width="9" stroke-linecap="round"/></svg><span>.</span></div>
+  <!-- the pencil rests just past the stop, pointing back at the blank it just wrote — measured,
+       not eyeballed: the stop's right edge lands at x=668 and the wordmark starts at x=869, so
+       170px of pencil at 680 clears both ends of the gap even with the -22deg rotation. -->
+  <svg class="dd" viewBox="0 0 160 44" style="left:680px;top:428px;width:170px;transform:rotate(-22deg)"><path d="M40 8 L150 14 C156 15 156 29 150 30 L40 36 Z" fill="var(--schoolbus)"/><path d="M40 8 L14 20 L40 36 Z" fill="#414D57" opacity=".28"/><path d="M22 17 L4 22 L22 27 Z" fill="#414D57"/><path d="M118 11 L118 33" stroke="#414D57" stroke-width="5" opacity=".3"/></svg>
+<div class="lg" style="left:868.9px;top:473.8px;width:294.2px"><svg viewBox="0 0 14696 6730" fill="var(--oats)" role="img" aria-label="drex" style="display:block;width:100%;height:auto"><path d="M5478.999,2905.779c0,0 421.063,-37.36 425.9,108.343l-343.709,1707.337c-61.242,136.313 -436.173,134.324 -442.946,-22.416l360.754,-1793.265Z"/><path d="M5041.89,2951.676c63.511,-60.841 526.771,-49.633 526.771,-49.633l-102.739,405.414c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M3924.681,1958.721c63.511,-60.841 530.662,-50.446 530.662,-50.446l-106.63,406.227c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M5726.866,3417.607c0,0 256.489,-511.828 914.019,-511.828l-313.821,549.187c0,0 -52.304,-37.36 -119.551,-37.36c-40.411,0 -354.324,251.272 -556.659,579.075l76.013,-579.075Z"/><ellipse cx="6634.347" cy="3332.931" rx="430.57" ry="427.151"/><path d="M4268.545,3833.937c-54.051,587.803 -422.164,984.658 -1012.447,984.658c-466.996,0 -803.233,-354.917 -803.233,-919.048c0,-545.451 486.888,-993.767 1032.339,-993.767c668.793,0 813.229,603.128 783.342,928.157Zm-643.455,-498.703c-234.497,-17.38 -499.751,191.996 -499.751,524.336c0,438.408 306.192,521.14 448.316,514.446c142.124,-6.694 404.43,-206.606 404.43,-554.612c0,-284.788 -150.331,-469.149 -352.995,-484.17Z"/><path d="M4388.096,1908.276c0,0 411.204,-11.208 424.724,108.343c0,19.142 -451.623,2260.261 -451.623,2260.261c15.69,59.775 224.905,-302.557 315.685,-313.821c110.397,-13.699 320.176,120.344 320.176,210.008c-0,122.494 -381.069,648.499 -765.873,648.499c-140.399,0 -328.765,-47.802 -392.277,-174.825l549.187,-2738.465Z"/><path d="M8385.582,2902.043c497.354,57.086 817.745,422.164 739.722,818.177c-90.045,457.032 -844.694,445.003 -1082.497,417.708c-230.119,-26.413 -368.235,-100.848 -422.572,-20.593c0,0 -107.744,106.625 251.184,223.032c419.614,136.089 691.752,-83.334 866.656,-96.072c140.311,-10.219 217.565,170.071 168.209,286.302c-66.995,157.772 -494.323,338.135 -1028.793,276.789c-285.793,-32.803 -922.08,-269.802 -773.345,-1004.975c130.759,-646.322 784.083,-957.454 1281.437,-900.368Zm-212.016,404.392c-264.608,50.886 -442.712,200.115 -438.042,342.082c4.67,141.967 311.61,175.439 541.715,149.439c165.317,-18.68 362.389,-47.848 366.125,-257.062c3.213,-179.919 -275.528,-271.818 -469.798,-234.459Z"/><path d="M9206.516,4052.426c-70.533,107.48 -90.728,764.251 662.245,766.169c771.79,1.966 1183.203,-1911.019 149.439,-1912.816c-257.116,-0.447 -637.291,99.928 -646.668,437.503c-3.838,138.152 129.653,198.923 237.929,188.041c127.279,-12.792 188.555,-176.528 452.832,-176.528c264.278,0 131.209,448.7 79.402,619.471c-101.286,333.868 -336.519,428.184 -390.245,405.158c-60.791,-26.053 81.561,-246.308 11.513,-333.868c-61.401,-76.751 -475.858,-115.932 -556.447,6.87Z"/><path d="M11593.807,3675.684c70.533,-107.48 91.02,-767.987 -661.952,-769.905c-771.79,-1.966 -1183.496,1911.019 -149.731,1912.816c257.116,0.447 637.291,-96.192 646.668,-433.767c3.838,-138.152 -129.653,-198.923 -237.929,-188.041c-127.279,12.792 -188.555,176.528 -452.832,176.528c-264.278,0 -131.209,-448.7 -79.402,-619.471c101.286,-333.868 336.519,-428.184 390.245,-405.158c60.791,26.053 -81.561,246.308 -11.513,333.868c61.401,76.751 475.858,115.932 556.447,-6.87Z"/><path d="M11830.971,4385.014c61.784,-59.74 306.841,-59.74 367.586,0c60.745,59.74 58.668,298.701 -3.115,358.441c-61.784,59.74 -306.841,59.74 -367.586,0c-60.745,-59.74 -58.668,-298.701 3.115,-358.441Z"/></svg></div>
 </div></body></html>
