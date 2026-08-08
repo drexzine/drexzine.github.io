@@ -330,42 +330,54 @@ function initQuotes() {
   }
 }
 
-/* "…you become ____" — the blank at the end of the hero HEADLINE deletes its word a
+/* "…for regularly doing ____" — the blank at the end of the hero SUB deletes its word a
    letter at a time, types the next one in its place, then swipes the marker across it once it
-   lands. "creators" leads, highlighted, and is the word in the served HTML — the claim in the
+   lands. "your thing" leads, highlighted, and is the word in the served HTML — the claim in the
    abstract, so it's what a crawler, a no-JS visitor and a reduced-motion visitor read. The
-   craft nouns after it are the same claim made concrete. PLURAL, all of them: the sentence is
-   "Together, you become ___" — no article, and the "you" is the whole group, not one person.
+   craft nouns after it are the same claim made concrete.
+   THEY ARE ACTIVITIES, NOT PEOPLE (2026-08-08). The blank used to end "Together, you become
+   ___" and took plural agent nouns (photographers, carpenters); the verb in front of it is
+   "doing" now, so it takes the name of the work instead. Each one has to survive being read
+   straight off that verb — "doing photography", "doing tattoos", "doing flowers" are all things
+   people say; "doing baking" is not, which is why the baker's entry is a loaf and not the craft.
    Only .mark's text ever changes. The full stop lives after it inside the same run so it
-   slides along with the typing, and ONE hidden ghost — the longest word, carrying its own
-   stop — holds the slot open so the line can't reflow while the word is short. */
+   slides along with the typing, and hidden ghosts — one per word, each carrying its own stop —
+   hold the slot open so the line can't reflow while the word is short. */
 function initHeroRotate() {
   const w = document.getElementById('rot-word');
   if (!w) return;
-  const WORDS = ['creators', 'photographers', 'carpenters', 'tattooists',
-                 'models', 'bakers', 'painters', 'florists'];
-  // no motion or sound crafts here (animators, dancers, drummers, DJs): the payoff of the
+  const WORDS = ['your thing', 'photography', 'carpentry', 'tattoos',
+                 'portraits', 'sourdough', 'painting', 'flowers'];
+  // no motion or sound crafts here (animation, dance, drumming, DJing): the payoff of the
   // loop is a PRINTED zine, and a craft that can't sit still on a page can't land in one.
-  // A vowel-initial noun is fine now that the article is gone, but the width is not: every
-  // word here is paid for in the ghost track (app-post-beta.css:3634), which is as wide as
-  // the LONGEST of them. Nothing longer than "photographers." without re-deriving that block.
+  // Width is cheap again now that the blank sets at --fs-lede in the sub instead of at display
+  // size in the H1 — the old list was capped at "photographers." because 14 unbreakable
+  // characters of ghost was 98% of the mobile measure at headline size (app-post-beta.css:3717).
+  // It still can't exceed the sub's own measure (34ch, 23ch under 480px): the slot is nowrap and
+  // the card is overflow-clipped, so an over-long word is guillotined rather than wrapped.
   const mark = w.querySelector('.mark');
   if (!mark) return;
-  // reduced motion: the blank stays filled in, lit, with "creators" — and gets NO sizer. Nothing
-  // ever types here, so a slot held open to "photographers." would just be a hole in the headline
-  // after the word. The width lock exists to stop the line reflowing mid-type; there is no
+  // reduced motion: the blank stays filled in, lit, with "your thing" — and gets NO sizers.
+  // Nothing ever types here, so a slot held open to the widest word would just be a hole in the
+  // sentence after it. The width lock exists to stop the line reflowing mid-type; there is no
   // mid-type. (This has to come before the ghost, not after it.)
   if (Stage.reduce) return;
-  // the sizer: hidden, full-length, never touched. Only the WIDEST word has ever mattered — the
-  // ghosts share one inline-grid cell — and the slot lives in the page's only <h1> now, so this
-  // is one hidden noun a rendering crawler reads inside the headline instead of eight.
-  // Longest-by-characters is exact here: the display face is monospace (Courier Prime), and
-  // "photographers." is three characters clear of the field in any face anyway.
-  const g = document.createElement('b');
-  g.className = 'rw ghost';
-  g.setAttribute('aria-hidden', 'true');
-  g.textContent = WORDS.reduce((a, b) => (b.length > a.length ? b : a)) + '.';   // the stop counts
-  w.appendChild(g);
+  // the sizers: hidden, full-length, never touched. They share one inline-grid cell, so the
+  // track ends up as wide as the widest of them and nothing has to be measured.
+  // ONE PER WORD, not one longest word. While the blank sat in the H1 a single ghost was worth
+  // it — eight hidden nouns inside the page's only <h1> is what a rendering crawler reads as the
+  // headline — and longest-by-characters was exact there, because the display face is monospace
+  // (Courier Prime). Neither holds in the sub: the face is Bitter, where "your thing" and
+  // "photography" are the same 11 characters and nothing like the same width, and hidden words
+  // in a paragraph cost nothing. Guessing the widest glyph run by eye is how the line starts
+  // twitching once per cycle; let the grid do it.
+  WORDS.forEach((word) => {
+    const g = document.createElement('b');
+    g.className = 'rw ghost';
+    g.setAttribute('aria-hidden', 'true');
+    g.textContent = word + '.';       // the stop counts — it is in the live run too
+    w.appendChild(g);
+  });
 
   let i = 0, t = 0, started = false;
   const HOLD = 2000;          // how long a finished word sits there before the marker lifts
@@ -399,7 +411,7 @@ function initHeroRotate() {
     t = setTimeout(cycle, HOLD);
   });
   // begin only once the envelope is open (or immediately if it never sealed) — otherwise the
-  // whole show plays out inside a card nobody has cut open yet, and "creators" is long gone.
+  // whole show plays out inside a card nobody has cut open yet, and "your thing" is long gone.
   const root = document.documentElement;
   if (!root.classList.contains('sealed') || root.classList.contains('revealed')) start();
   else {

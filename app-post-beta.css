@@ -3715,88 +3715,82 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
   .hero-card h1.ed-cat{font-size:min(var(--fs-display),6.1cqw)}
 }
 @media(max-width:880px){
-  /* the ONLY size that keeps 8.232em of unbreakable blank inside the sheet: at 360px the inner
-     column is 290px, so the ceiling is 35.2px and --fs-display's own floor (38px) already misses
-     it by more than a letter — and under 521px the H1 also gives up 40px to the corner ring
-     (below), which takes the ceiling to 30.3px at 360 and 25.5px at 320. 7.9vw = 28.4px / 25.3px:
-     clears both, with the measure released so the sentence uses the full sheet instead of the
-     13ch column that was cut for "small circle."
-     PLURAL: the ghost went from "photographer." to "photographers." — one character, .588em, and
-     8.2vw stopped clearing 320px by a quarter of a pixel. Hence 7.9. The blank is guillotined,
-     not scrolled, so this ceiling has to be re-derived every time the word list's longest entry
-     changes; it is the only thing in the page that pays for that character.
+  /* THE BINDING TOKEN IS THE SENTENCE'S OWN SECOND LINE NOW, NOT THE BLANK (2026-08-08).
+     This ceiling used to be derived from the rotator's ghost track — "photographers." at 8.232em,
+     unbreakable, 98% of the mobile measure — which meant it moved when the WORD LIST changed and
+     not when the copy did. The blank is in the sub now. What is left to protect is the headline's
+     own two lines, and the longer of them is "with deadlines.": 15 characters at .588em = 8.82em,
+     against a measured 211px of column at 320px and 276px at 390px (the H1's box minus the 40px
+     the corner ring takes — see padding-right below).
+     7.4vw, measured, not derived: 23.7px at 320 and 28.9px at 390, which sets the sentence as two
+     display lines at every width in this branch (320/360/390/430/520/560 all check out, with the
+     tightest — 320px — clearing by 5px). 7.9vw, the ghost's old number, is 3px OVER at 390 and
+     breaks "with deadlines." apart, which leaves "with" alone on a line of display type.
+     The blank's departure did buy headroom here and this spends only part of it, on purpose: the
+     rest would go straight back into a third line. If this number ever moves, re-derive it against
+     that 8.82em, not against the word list — and check 320 first, it is always the binding width.
      min(), not clamp(): a rem FLOOR would be the one term of a clamp that doesn't track the
-     viewport, so a reader running a 20px or 24px browser default font would push the headline
-     back through the ceiling this whole rule exists to hold — and the blank doesn't wrap or
-     scroll, it gets clipped. The ceiling is the invariant; the floor is not.
-     POST-BETA: this ceiling does not track the sentence, which got 21 characters shorter. It is set
-     by the ghost track, "photographers." at 8.232em, which is unbreakable — so it moves when the
-     WORD LIST changes and not when the copy around it does. Shortening the copy buys headline size
-     on desktop (above) and buys nothing at all here. Do not "match" the two. */
-  .hero-card h1.ed-cat{font-size:min(2.6rem,7.9vw);max-width:none;line-height:1.15;
+     viewport, so a reader running a 20px or 24px browser default font would push the headline back
+     through the ceiling this whole rule exists to hold. The ceiling is the invariant; the floor is
+     not. A miss here wraps rather than clips (the H1 is ordinary text again now that the
+     unbreakable slot has gone), so the failure mode is a third line, not a guillotined word. */
+  .hero-card h1.ed-cat{font-size:min(2.6rem,7.4vw);max-width:none;line-height:1.15;
     /* the amber Circle ring sits in the card's top-right corner and zone 1's FIRST line now runs
        the full sheet — reserve its column. This lived at max-width:520px when it was protecting a
        one-line eyebrow; the H1 is display type across the whole under-881 branch, and between 521
        and 575 the ring was landing on the "h" of "with". */
     padding-right:40px}
 }
-/* the blank is the headline's last word, so it takes the headline's face, slant and weight.
-   .hl-rot .rw (app.css:2643) hard-sets font-style:normal + 600 + --ink, which was a deliberate
-   contrast against the ITALIC body sub it used to live in; inside an italic display headline the
-   same rule renders one upright word in a slanted line and reads as a paste-up error. */
-.hero-card h1.ed-cat .hl-rot .rw{font:inherit;letter-spacing:inherit;color:inherit}
-/* the swatch was tuned against the sub: .96em of marker inside a 1.4 line box. In the headline the
-   line box is 1.13-1.15em, so at those proportions the mark touches the lines above and below and
-   reads as a redaction bar. Pull it in — it hugs the word, and only the word. */
-.hero-card h1.ed-cat .hl-rot .mark::before{left:-.1em;right:-.05em;top:.17em;bottom:.02em}
+/* "Show-and-tell" IS ONE WORD and must break as one. Browsers break after a hyphen by default, so
+   at 390px the headline came out "Show-and-" / "tell with" / "deadlines." — three lines, and the
+   first of them ending in a dangling hyphen that reads as a typesetting accident on a page whose
+   whole argument is that a person made it. The compound is the subject of the sentence; a nowrap
+   here costs nothing (7.644em against a ~250px column at the narrowest width, see above) and buys
+   the two-line set at every width. It rides .stop, which is also what carries the brand green. */
+.hero-card h1.ed-cat .stop{white-space:nowrap}
+/* THE TWO H1-ROTATOR OVERRIDES ARE GONE (2026-08-08), with the blank they were written for.
+   They were `.hero-card h1.ed-cat .hl-rot .rw{font:inherit…}` (the blank taking the headline's
+   italic display face, since .hl-rot .rw hard-sets upright/600/--ink for the body sub) and
+   `.hero-card h1.ed-cat .hl-rot .mark::before{left:-.1em;right:-.05em;top:.17em;bottom:.02em}`
+   (the swatch pulled in, because .96em of marker inside a 1.13 line box touches the lines above
+   and below and reads as a redaction bar). The blank is back in .ed-sub, where the base rules at
+   :2694 were tuned in the first place — upright inside an italic line is the contrast, not a
+   paste-up error, and a 1.4 line box has the air the swatch wants. If a blank ever returns to
+   the headline, both rules have to come back with it. */
 
 /* the hero subtitle: handles the "do I need a group?" question right under the headline */
 .ed-sub{margin:clamp(.7rem,1.7vw,1.15rem) 0 0;font-family:var(--f-body);font-style:italic;font-weight:400;
   font-size:var(--fs-lede);line-height:1.4;color:var(--ink);max-width:34ch}
-/* THE TAGLINE, MARKED. This line is the tagline uncompressed, and it used to be carried by
-   --lazuli-deep at 700 — coloured text, the same device the beats' three blue swatches use one
-   line below it. That was the whole problem: four blues in eight lines folded the tagline INTO
-   the loop's list instead of standing it above the list, and blue's job in this fold ("what you
-   personally walk away with" — challenge, finish, portfolio) is not what this line says.
-   GRASS, and grass as a MARK rather than as ink. Three reasons it is not the other three:
-     - Blue is the beats'. A fourth blue makes the tagline a fourth beat.
-     - Yellow is spent, twice and deliberately: the H1's swiped word (the fold's moment, and the
-       only boil-animated marker at that weight) sits one line ABOVE this, and "scrollable
-       magazine" one line below. A third yellow between them empties all three. Oats is a cream
-       paper besides, so yellow is the weakest separation from the ground available.
-     - Red is the deadline's, and reads as an alert anywhere else.
-   Green was the page's one unspent marker colour (.hl-g was defined and used nowhere), it is
-   the brand green, and the page's own grammar already says green is where the PEOPLE are —
-   which is exactly what "clubs" means. The old note here worried that green would echo the H1's
-   "Together" and put the fold's two strongest marks in one colour saying different things; that
-   was written when the token still CONTAINED the word "together". It says clubs now, the H1 and
-   this line are the same claim at two altitudes, and the devices differ anyway — green ink up
-   there, green marker behind black ink down here. They rhyme; they no longer collide.
-   Ink goes back to --ink and the 700 comes off: a swatch, a colour and a bold weight are three
-   shouts for one phrase, and the marked beats below carry no bold either. Upright roman stays.
-   It is what holds the phrase together as ONE token inside an italic line, and unlike a colour
-   it survives being cut in half by a wrap. */
+/* THE GREEN TOKEN IS UNUSED AS OF 2026-08-08. These rules marked "clubs for regular
+   show-and-tells" — the tagline uncompressed, laid down as a grass swatch inside the italic sub.
+   That phrase is now split across the H1 ("Show-and-tell with deadlines.") and this line ("Join
+   or create a club…"), so there is no longer one phrase for one stroke to hold together, and the
+   sub carries a single mark instead: the yellow swipe on the blank at the end of it. Two markers
+   in one italic sentence empty each other.
+   KEPT, not deleted, because the reasoning cost more than the bytes and a token will come back:
+     - GRASS, and grass as a MARK rather than as ink. Blue is the beats' colour (a fourth blue
+       makes the tagline a fourth beat). Yellow is spent on the blank's swipe. Red is the
+       deadline's, and reads as an alert anywhere else. Green is the brand green, and the page's
+       grammar already says green is where the PEOPLE are.
+     - PER WORD, and the words abut. .hl::before is ONE absolutely-positioned box, so on a phrase
+       that breaks across lines it paints a single rectangle over everything in between: a
+       redaction, not a highlight. That phrase always broke. Nor can the fill move to the
+       element's own background with box-decoration-break:clone, which would give one box per line
+       for free: backgrounds take no filter and no transform, so the swatch would come out
+       straight, level and vector-edged — the one thing this page never draws. Inner bleeds trim
+       to ~.12em a side against a ~.25em word space so neighbours MEET without overlapping;
+       multiply doubles density on an overlap and prints a dark seam at every gap. The run's two
+       ends keep .hl's full overshoot: that is the swipe entering and leaving.
+     - .50 opacity, not .hl-g's .42. The beats are marked at .42 and a headline-rank line has to
+       outrank them, not match them. .50 is as far as the swatch can go: --ink over grass-on-oats
+       measures 4.70:1 there, 4.59 at .52, 4.44 at .55 — under the floor. The sub is --fs-lede
+       (19px at the small end), so it is NORMAL text and owes the full 4.5 at every width.
+     - Upright roman inside the italic line is what holds a phrase together as ONE token, and
+       unlike a colour it survives being cut in half by a wrap. No bold: a swatch, a colour and a
+       bold weight are three shouts for one phrase.
+   If a token returns here, mark it word by word or it will paint a redaction bar. */
 .ed-sub .stop{font-weight:400;font-style:normal}
-/* ...and the wrap is the whole engineering problem. .hl::before is ONE absolutely-positioned box,
-   so on a phrase that breaks across lines it paints a single rectangle over everything in between:
-   a redaction, not a highlight. This phrase ALWAYS breaks — measured at 860/700/480/380px it comes
-   back as two fragments, and at 480 it breaks inside "show-and-tells" at a hyphen. Nor can the fill
-   move to the element's own background with box-decoration-break:clone, which would give one box per
-   line for free: backgrounds take no filter and no transform, so the swatch would come out straight,
-   level and vector-edged — the one thing this page never draws.
-   So the stroke is drawn per WORD, and the words abut. Each word is short enough never to break
-   (nowrap also stops the hyphen split), and a highlighter laid down word by word is what a real one
-   looks like up close. Inner bleeds trim to ~.12em a side against a ~.25em word space so neighbours
-   MEET without overlapping — multiply doubles density on an overlap and prints a dark seam at every
-   gap. The run's two ends keep .hl's full overshoot: that is the swipe entering and leaving. */
 .ed-sub .stop .hl{white-space:nowrap}
-/* .50, not .hl-g's .42. The beats are marked at .42 and this line has to outrank them, not match
-   them — at .42 the stroke came out mint and read as a fourth beat that had wandered up a line.
-   .50 is as far as the swatch can go: --ink over grass-on-oats measures 4.70:1 there, 4.59 at .52,
-   and 4.44 at .55, which is under the floor. The sub is --fs-lede (19px at the small end), so it is
-   NORMAL text and owes the full 4.5 — it does not get the 3:1 large-text discount at every width.
-   It lands on hl-y's .50 as a side effect, which is right: yellow and green are the fold's two
-   headline-rank marks and the three blue beat marks sit a step under both. */
 .ed-sub .stop .hl::before{left:-.12em;right:-.13em;opacity:.5}
 .ed-sub .stop .hl:first-child::before{left:-.19em}
 .ed-sub .stop .hl:last-child::before{right:-.24em}

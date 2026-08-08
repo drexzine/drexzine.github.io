@@ -3,10 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<!-- TITLE carries the CATEGORY, not the promise. The fold's H1 is a fill-in-the-blank
-     ("Together, you become ___.") and a blank cannot survive this slot: a browser tab shows
-     ~28 characters, so the "___" never renders, and in a search result an underscore run
-     reads as broken templating rather than as a device.
+<!-- TITLE carries the CATEGORY, not the promise — and as of 2026-08-08 the H1 does too, so
+     these two are finally the same sentence at two lengths ("Show-and-tell with deadlines."
+     is the tagline with the means of enforcement bolted on). The blank moved down to the
+     fold's SUB with that rewrite, which keeps this slot safe from it either way: a browser
+     tab shows ~28 characters, so a "___" never renders, and in a search result an underscore
+     run reads as broken templating rather than as a device.
 
      THE TAGLINE (Sue, 2026-08-04, and it is the SAME line in every slot it appears in —
      title, OG title, OG card kicker, footer signature):
@@ -18,8 +20,10 @@
      "together" was adjacent, the "A" cut wherever one was) because the "A" cut could be
      misread as a single-player prompt app. THAT RULE IS DEAD. The new line has no variants
      and needs none: "Clubs" is plural and collective in the first word, so there is nothing
-     left for a "group" prefix to disambiguate, and it sits under the H1's "Together" without
-     stacking two collective words in a row.
+     left for a "group" prefix to disambiguate.
+     (It used to sit under an H1 that opened on "Together", and the note here was about not
+     stacking two collective words in a row. The H1 IS this line now, plus "with deadlines" —
+     so the pair to keep from drifting is title-and-headline, not title-and-subtext.)
      What it buys: it answers Marcus's cold question — "is it a website, an app, a club, a
      magazine, or a service?" — outright, which the transaction line never did. Noun (clubs),
      cadence (regular), and a thing a stranger can already picture (show-and-tells), in five
@@ -29,8 +33,11 @@
      places too, this line has to buy it back.
      33 characters, brand first, so the truncated tab still reads "drex. — Clubs for r…". -->
 <title>drex. — Clubs for regular show-and-tells.</title>
-<!-- The description does the EXPLAINING the title no longer has room for, and it opens with
-     the fold's sub verbatim so the two cannot drift apart.
+<!-- The description does the EXPLAINING the title no longer has room for. It opens on the
+     fold's own two lines run together — the H1's claim ("show-and-tells with deadlines")
+     inside the sub's opening ("Join or create a…") — because the sub itself now ends in the
+     blank and a blank cannot be quoted here. That is the drift to watch: this line has to
+     track what the FOLD says, and it can no longer do it by copying one line verbatim.
      The cadence word is "regular", not "monthly", and it tracks the sub — which is the rule
      this slot has always run on: the cadence lives here only for as long as the body says it
      in so many words. "monthly" was struck 2026-08-04 because IT IS A PROMISE NOTHING ELSE ON
@@ -55,8 +62,12 @@
 <meta property="og:image" content="https://drex.style/assets/og.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<!-- The alt describes the card that is actually there. It has to name the BLANK as a blank:
-     a reader who cannot see the image gets no sentence at all otherwise, since the card's
+<!-- The alt describes the card that is actually there — assets/og.png, which is a rendering
+     of og-card.html and still carries the OLD headline ("Together, you become ___."). The
+     page's H1 changed on 2026-08-08 and the image did NOT: this alt stays true to the pixels
+     until the card is re-rendered, at which point both this line and og-card.html's headline
+     have to move to "Show-and-tell with deadlines." It has to name the BLANK as a blank: a
+     reader who cannot see the image gets no sentence at all otherwise, since the card's
      headline deliberately stops mid-thought. -->
 <meta property="og:image:alt" content="drex. — Together, you become ___. Clubs for regular show-and-tells. Oats-cream type on a grass-green card: the last word of the headline is an empty hand-drawn blank with a full stop after it, and a yellow pencil rests just past the end of the line." />
 <meta name="twitter:card" content="summary_large_image" />
@@ -81,13 +92,15 @@
      them touching each other. Renaming would collide.
 
      What this page changed against the cut it replaced:
-       1. THE FOLD. H1 is "Together, you become ___." — 31 characters against a
-          documented ~52 ceiling, so it sets larger than any headline the card has
-          carried. "Together" leads because the collaboration is the product, not a
-          trailing prepositional phrase. The blank ENDS the sentence: the rotator's
-          full stop lives inside the slot so it travels with the typing (009ff07),
-          which means the blank can only ever be a sentence's last word. The sub
-          carries the mechanism, and is the ONLY comprehension line in the fold.
+       1. THE FOLD. H1 is "Show-and-tell with deadlines." (2026-08-08) — the product
+          in four words, and the tagline at headline rank. It replaced "Together, you
+          become ___.", which was a good promise spending the page's biggest type on
+          an abstraction while the differentiator arrived in small italic below it.
+          The blank went down to the sub with the promise ("Join or create a club for
+          regularly doing ___."), which is the only other place it can live: the
+          rotator's full stop lives inside the slot so it travels with the typing
+          (009ff07), which means the blank can only ever be a sentence's last word.
+          The sub is still the ONLY comprehension line in the fold.
        2. THE DECK. Six cards, each a real photograph out of a real issue, with the
           challenge on Dymo tape and the maker's own answer in handwriting below —
           both live HTML, at ~46% larger. The covers it replaced were screenshots of
@@ -105,7 +118,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=16" />
+<link rel="stylesheet" href="app-post-beta.css?v=17" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -376,93 +389,68 @@
             <span class="tape" style="left:12%;top:-14px"></span>
             <div class="inner ed-inner">
 
-              <!-- ZONE 1 - THE TRANSFORMATION IS THE HEADLINE, AND "TOGETHER" LEADS IT.
-                   The fielded cut put the mechanism in the H1 ("Show-and-tell with the same group
-                   until you become a ___", 52 characters) and paid for it twice: the headline had to
-                   be set smaller at every width (see app-post-beta.css:3592) and the collaboration —
-                   the actual product — arrived last, as a trailing prepositional phrase nobody reads.
-                   This inverts it. "Together" is the first word on the page because being in it with
-                   other people is the offer; the blank is the promise; the mechanism drops to the sub.
-                   31 characters, so the H1 sets larger here than it ever has.
-                   No article, and the blank is PLURAL ("…you become carpenters."): the "you" is the
-                   group, not one visitor, so the sentence has to promise a thing they all become
-                   together. "you become a carpenter" said the group was a means to a private end.
+              <!-- ZONE 1 — THE HEADLINE IS THE PRODUCT, IN FOUR WORDS (2026-08-08).
+                   "Show-and-tell with deadlines." 29 characters: a thing a stranger can already
+                   picture, plus the one thing that makes it happen. Nothing else.
+                   It replaces "Together, you become ___." — a good promise that spent the page's
+                   largest type on an abstraction and handed the mechanism to the sub, which meant
+                   the differentiator (the deadline) arrived in small italic below the fold's
+                   loudest line. This inverts it: the mechanism IS the headline, and the promise
+                   ("a club for regularly doing ___") moves down one rank to the sub, where the
+                   blank keeps doing its work at a size the line can afford.
+                   It is also the tagline at headline rank — "Clubs for regular show-and-tells."
+                   plus the means of enforcement — so the title, the OG card kicker, the footer
+                   signature and the H1 are now one sentence at four lengths.
+                   "Show-and-tell" carries the brand green (.hero h1 .stop, app-post-beta.css:186):
+                   on this page green is where the PEOPLE are, and the show-and-tell is the hour
+                   they are in a room together. "deadlines" stays ink. Red is the deadline's colour
+                   everywhere else here, but at display size on a cream card it reads as an alarm,
+                   and the word does not need help — it is the only hard noun in the fold.
                    Nothing shares the headline's optical field: no eyebrow, no hairline, no deck. -->
               <div class="ed-head">
-                <!-- The blank is a fill-in-the-blank the visitor watches get typed in: the word deletes
-                     itself and the next one is typed in its place, and the marker swipes across each
-                     word once it's finished. It lives in the H1 now, not the sub — it is the last
-                     word of the headline's sentence, so it is set at the headline's size and slant.
-                     The full stop is INSIDE the slot, right after the typed text, so it slides along
-                     with every keystroke the way it would if someone were writing the sentence. The
-                     slot still can't resize: JS stacks a hidden ghost of the LONGEST word (with its
-                     full stop) in the same inline-grid cell, so the track is permanently as wide as
-                     "photographers." — the fixed width is invisible, it only stops the line reflowing.
-                     One ghost, not eight: this is the page's only H1, and eight hidden nouns inside
-                     it is what a rendering crawler reads as the headline.
-                     The rotator is aria-hidden in the MARKUP (not from JS, so it holds with JS off) and
-                     .rot-a11y carries the word a screen reader reads: "Together, you become creators." -->
-                <h1 class="ed-cat"><span class="stop">Together</span>, you become <span class="rot-a11y">creators.</span><span class="hl-rot lit" id="rot-word" aria-hidden="true"><b class="rw"><span class="mark">creators</span>.</b></span></h1>
-                <!-- The sub answers the question the blank provokes ("become one HOW?"). It no longer
-                     tries to carry the whole mechanism — it carries the OFFER, and hands the mechanism
-                     to the beats with a colon. That colon is the load-bearing punctuation in this fold:
-                     it makes the sub and the numbered list one sentence, which is what let "How it
-                     works:" (a lead-in with nothing left to introduce) come out entirely.
-                     Four jobs, in the order a stranger asks for them:
-                       - "Join or create" — the first real question is "do I need to bring people?",
-                         and this answers it before it is asked. Both doors, join first: arriving alone
-                         is the commoner case and the one the old sub silently excluded by opening on
-                         "Your club", which presumed a club the visitor does not have yet.
-                       - "a small club" — plain. It is the SETTING, not the offer: "small" is a good
-                         promise (a handful of people who will notice you missed, not a feed) but it
-                         is not the thing nobody else is selling. It held the green token for one
-                         draft and gave it back.
-                       - "regular show-and-tells with deadlines" — THE GREEN TOKEN, all five words of
-                         it. This is the product in one phrase and the whole phrase is the claim: a
-                         cadence (regular), a thing a stranger can already picture (show-and-tells),
-                         and the means to enforce it (deadlines). Split across a green "club" and a
-                         bold "deadlines" it read as two small emphases; whole, it is the one line a
-                         group chat or a Discord cannot say back to you.
-                         IT IS THE TAGLINE, UNCOMPRESSED — "Clubs for regular show-and-tells." plus
-                         the two things a five-word line had no room for (both doors, and the means
-                         of enforcement). Keep them the same sentence at two lengths.
-                         "monthly" was the word here until 2026-08-04, and what struck it was not
-                         vagueness — it is the CLEARER word, and it is a promise the product does
-                         not make. The date belongs to the club: "Someone sets it, and puts a date
-                         on it" (#showtell), "your Host sets one, with a deadline" (#inside). A
-                         fortnightly club is using drex as designed, and "monthly" tells them this
-                         page is not about them. "Regular" claims only what is true of every club.
-                         The ambiguity to watch is "regular = ordinary" ("a regular coffee"), and
-                         it is a real sense of the word — but that sense attaches to THINGS and
-                         PEOPLE, while the recurrence sense attaches to EVENTS ("regular meetings",
-                         "regular check-ins"). This is a plural event noun, so the recurrence
-                         reading is the one the grammar hands you, and the plural says it a second
-                         time on its own. If that ever stops feeling safe, the fix is NOT to swap
-                         in "recurring" (a calendar-app word, wrong for a page drawn by hand).
-                         PLURAL, and that is the other half: "show-and-tells" puts the recurrence
-                         inside the noun, so the cadence word stops being the only thing carrying
-                         it and the phrase survives even read past. The bold on "deadlines" came
-                         out with the split — green + 700 upright is already the strongest mark this
-                         paragraph has, and a bold inside it just fights the token it sits in.
-                         The colon stays OUTSIDE the green: it belongs to the sentence, and it is the
-                         hinge into the beats, not part of the claim.
-                     Earlier drafts died here and the reasons are worth keeping:
-                       - "a magazine you all made" reads as each of you making one of your OWN, because
-                         "all" DISTRIBUTES. "made together" cannot; that is why it was safe.
-                       - "Every challenge ends in one magazine, with all of you in it" was accurate and
-                         completely dead — a spec sentence, with the disambiguating "one" doing grammar
-                         work while the line did no emotional work at all.
-                       - "A challenge. A magazine. A tiny group." was the best-sounding of them and
-                         collided head-on with beat 01, one line below it. -->
-                <!-- ONE marker stroke, four spans. The green swatch cannot be a single .hl on the
-                     whole phrase: .hl::before is one absolutely-positioned box and this phrase always
-                     wraps, which turns that box into a redaction bar spanning the break. Per-word
-                     spans give one swatch per word, so the stroke breaks wherever the line does and
-                     each piece is still tilted, rough-edged and hand-swiped. They abut into one
-                     continuous band (see .ed-sub .stop .hl in the stylesheet for the bleed trim).
-                     If a word is ever added or removed here, it needs its own span or it drops out
-                     of the stroke and leaves a hole. -->
-                <p class="ed-sub">Join or create <span class="stop"><span class="hl hl-g">clubs</span> <span class="hl hl-g">for</span> <span class="hl hl-g">regular</span> <span class="hl hl-g">show-and-tells</span></span>:</p>
+              <h1 class="ed-cat"><span class="stop">Show-and-tell</span> with deadlines.</h1>
+              <!-- The sub answers the two questions the headline provokes, in the order a stranger
+                   asks them: "do I need to bring people?" and "show-and-tell of WHAT?"
+                     - "Join or create" — both doors, join first. Arriving alone is the commoner
+                       case and the one an opening like "Your club" silently excluded.
+                     - "a club" — the setting, plain. Singular now: the visitor joins ONE.
+                     - "regularly doing ___" — the cadence, then the blank. "Regular", not
+                       "monthly": the date belongs to the club ("Someone sets it, and puts a date
+                       on it" — #showtell; "your Host sets one, with a deadline" — #inside), so a
+                       fortnightly club is using drex exactly as designed and "monthly" would tell
+                       that club this page is not about them.
+                   THE BLANK LIVES HERE NOW. It was the last word of the H1; it is the last word of
+                   this sentence instead, which is the only other place it can be — the rotator's
+                   full stop sits INSIDE the slot so it slides along with every keystroke, the way
+                   it would if someone were writing the line, and that makes the blank permanently
+                   a sentence's final word. Back at body size it also stops costing the H1 a type
+                   ramp: the old headline was capped at 7.9vw on phones purely to keep an unbreakable
+                   8.2em ghost track inside the sheet (see app-post-beta.css:3717).
+                   The word deletes itself a letter at a time, the next is typed in its place, and
+                   the marker swipes across each one once it lands. "your thing" leads and is the
+                   word in the served HTML — the claim in the abstract, so it is what a crawler, a
+                   no-JS visitor and a reduced-motion visitor read. The crafts after it are the same
+                   claim made concrete, and they are ACTIVITIES, not people ("…doing photography."),
+                   because the verb in front of them changed with the sentence.
+                   The slot cannot resize, or the line would reflow once per word and the card would
+                   grow and shrink under it: JS stacks hidden ghosts of the word list in the same
+                   inline-grid cell, so the track is permanently as wide as the widest word carrying
+                   its own stop. The rotator is aria-hidden in the MARKUP (not from JS, so it holds
+                   with JS off) and .rot-a11y carries the sentence a screen reader reads:
+                   "Join or create a club for regularly doing your thing."
+                   TWO THINGS THIS LINE GAVE UP, both on purpose:
+                     - THE GREEN TOKEN. It marked "clubs for regular show-and-tells" — a phrase now
+                       split between the H1 and this line, so there is nothing left to draw one
+                       stroke around. And the yellow swipe on the blank is the only mark an italic
+                       sub can carry: two markers in one sentence empty each other. The .ed-sub
+                       .stop per-word rules stay in the stylesheet for whenever a token returns.
+                     - THE COLON. The sub used to end in one, which is what let the beats' lead-in
+                       ("How it works:") come out entirely — the sub and the list read as a single
+                       sentence. A sentence ending in the blank has to end in the blank's full stop,
+                       so the beats now stand on their own under a closed line. Watch this: if the
+                       list starts reading as unintroduced, the fix is a lead-in coming BACK, not a
+                       colon after the blank. -->
+              <p class="ed-sub">Join or create a club for regularly doing <span class="rot-a11y">your thing.</span><span class="hl-rot lit" id="rot-word" aria-hidden="true"><b class="rw"><span class="mark">your thing</span>.</b></span></p>
               </div>
 
               <!-- ZONE 2 - the standfirst. ONE paragraph now. The "where circles meet" line used to
@@ -683,7 +671,7 @@
         <!-- pre-cut comprehension anchor: the only readable copy while the envelope is
              sealed. Belonging/communion is the #1 message, so this leads with the FEELING
              (your people, the standing hour) — kept deliberately distinct from the post-cut
-             H1 ("Together, you become ___.") so the cut reveals a
+             H1 ("Show-and-tell with deadlines.") so the cut reveals a
              fresh line instead of repeating one. It sets that line up now rather than dodging it:
              "the people you keep meaning to make things with" IS "the same group", named from the
              visitor's side of the cut. Emotion teases; the mechanism pays off on it. Shows under
@@ -2589,7 +2577,7 @@
   });
 })();
 </script>
-<script type="module" src="app-post-beta.js?v=7"></script>
+<script type="module" src="app-post-beta.js?v=8"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign
