@@ -75,6 +75,135 @@
 <meta name="twitter:description" content="Join or create a small club for regular show-and-tells with deadlines: set a challenge, help each other finish, put your work in a zine. Repeat = portfolio." />
 <meta name="twitter:image" content="https://drex.style/assets/og.png" />
 <meta name="theme-color" content="#FEF6E4" />
+
+<!-- ============ STRUCTURED DATA (JSON-LD) ============
+     Invisible to readers, and the browser never executes it — application/ld+json is a data
+     block. This is the ONE place on the page that gets to be plain and boring: the rest of the
+     copy is deliberately oblique ("The magic is the hour", "Pick a door"), and a machine trying
+     to answer "what is drex.style" has to reconstruct the product out of fragments. Here it is
+     said once, straight, for crawlers.
+
+     Every FAQ answer below is backed by copy that is VISIBLY on the page, and the source is
+     named on each one. An answer that exists ONLY here is the textbook way to get the markup
+     discounted as spam — so if you cut a section, cut its question with it.
+
+     This is now a FOURTH copy of the product description (the others: <title>, the meta/OG
+     description above, and the og:image:alt at line 72 that mirrors the card). They move
+     together or they rot. Nothing here states price or launch timing on purpose: the page
+     doesn't either, and inventing it is exactly the fabrication this markup gets penalised for.
+
+     sameAs is Instagram alone — there is no LinkedIn or Crunchbase to point at (confirmed
+     2026-08-08). "logo" is what a knowledge panel pulls, so it gets the MARK (the zine
+     butterflies), not the og card: assets/logo.png, 512x512, transparent, grass #1CAB5B,
+     rendered from drex-pitch-deck/assets/drex-mark.svg — the same four paths inlined as the
+     favicon below. Per the brand bible's logo law it is never tilted, recoloured or outlined;
+     re-render at a bigger size rather than editing it. "image" stays the 1200x630 og.png.
+
+     Validate at validator.schema.org after ANY edit. One trailing comma silently kills the
+     entire block, not just the field it's in. ============ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://drex.style/#org",
+      "name": "Drex",
+      "alternateName": "drex.",
+      "url": "https://drex.style",
+      "description": "Drex runs small clubs for regular show-and-tells with deadlines: a host sets a challenge, the club helps each other finish, and the work goes into a zine everyone is named in.",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://drex.style/assets/logo.png",
+        "width": 512,
+        "height": 512
+      },
+      "image": "https://drex.style/assets/og.png",
+      "founder": {
+        "@type": "Person",
+        "name": "Chielo Mbaezue",
+        "jobTitle": "CEO & Co-founder"
+      },
+      "sameAs": [
+        "https://instagram.com/drexclubs"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://drex.style/#website",
+      "url": "https://drex.style",
+      "name": "drex.",
+      "alternateName": "Drex",
+      "publisher": { "@id": "https://drex.style/#org" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://drex.style/#faq",
+      "isPartOf": { "@id": "https://drex.style/#website" },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Drex?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Drex is where you join or create a small club for regular show-and-tells with deadlines. A host sets a challenge with a due date, the club meets for a recurring hour, everyone works in their own time, and the finished work ships as one zine with everyone's name in it. Repeat, and it adds up to a portfolio."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why not just use a group chat?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In a group chat nobody quits — the date just stops being the date. Four thousand messages later, nothing has been made. A club has a challenge, a date, and a finished thing at the end: one issue with everyone's name in it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does a Drex club work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Four beats, on repeat. The challenge goes up with a deadline. Circle time comes round — the club's recurring hour together. Everyone makes the scrollable magazine together. Then it ships: submissions close on the due date and the issue is published."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the hour?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The hour is the club's recurring meeting — the one where you have got people. It is where you practice, observe, ask, and get seen. The challenge and the deadline are the frame; the hour is why the work actually happens."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What kinds of clubs are on Drex?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Baristas, models, photographers, letterers. Real clubs on Drex include Beans, a cafe crew in San Francisco; XChange Models; Photo Phloor; and SF Penmans, a penmanship club. Any craft you can show and tell."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to have a group already, or can I join on my own?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Either. You can bring an existing group in as a club, or grab a spot on the waitlist on your own."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What do you actually end up with?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A zine — a scrollable magazine the club makes together, published as an issue with every member's name in it. The issues stack up on the club's wall, and issue after issue with the same people is what turns into a body of work."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7438 6955'%3E%3Cg fill='%231CAB5B'%3E%3Cpath d='M3940.792,1923.474c0,-237.327 876.575,-942.689 1916.579,-954.143c144.631,-1.593 160.411,78.319 137.9,189.4c-30.08,148.427 -98.327,433.131 -98.327,433.131c0,0 65.273,764.946 -24.815,794.112c-90.088,29.167 -290.952,-256.255 -825.803,-386.398c-752.956,-183.213 -1105.535,77.059 -1105.535,-76.102Z'/%3E%3Cpath d='M3904.129,2226.95c9.277,-48.947 42.212,-89.528 87.203,-107.447c243.766,-86.69 1260.521,-180.52 2114.804,662.836c42.289,41.921 54.919,106.632 31.665,162.246c-102.058,276.752 -340.779,1190.09 53.749,2858.265c38.355,162.175 -103.782,235.401 -233.086,138.553c-532.234,-398.637 -1304.501,-567.736 -1930.825,-724.558c-48.189,-11.629 -86.868,-48.709 -101.742,-97.538c-70.176,-252.215 -255.758,-1651.265 -21.766,-2892.358Z'/%3E%3Cpath d='M3496.708,1923.474c0,-237.327 -876.575,-942.689 -1916.579,-954.143c-144.631,-1.593 -160.411,78.319 -137.9,189.4c30.08,148.427 98.327,433.131 98.327,433.131c0,0 -65.273,764.946 24.815,794.112c90.088,29.167 290.952,-256.255 825.803,-386.398c752.956,-183.213 1105.535,77.059 1105.535,-76.102Z'/%3E%3Cpath d='M3533.371,2226.95c-9.277,-48.947 -42.212,-89.528 -87.203,-107.447c-243.766,-86.69 -1260.521,-180.52 -2114.804,662.836c-42.289,41.921 -54.919,106.632 -31.665,162.246c102.058,276.752 340.779,1190.09 -53.749,2858.265c-38.355,162.175 103.782,235.401 233.086,138.553c532.234,-398.637 1304.501,-567.736 1930.825,-724.558c48.189,-11.629 86.868,-48.709 101.742,-97.538c70.176,-252.215 255.758,-1651.265 21.766,-2892.358Z'/%3E%3C/g%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
