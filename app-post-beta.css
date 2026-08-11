@@ -3748,15 +3748,21 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    here costs nothing (7.644em against a ~250px column at the narrowest width, see above) and buys
    the two-line set at every width. It rides .stop, which is also what carries the brand green. */
 .hero-card h1.ed-cat .stop{white-space:nowrap}
-/* THE TWO H1-ROTATOR OVERRIDES ARE GONE (2026-08-08), with the blank they were written for.
-   They were `.hero-card h1.ed-cat .hl-rot .rw{font:inherit…}` (the blank taking the headline's
-   italic display face, since .hl-rot .rw hard-sets upright/600/--ink for the body sub) and
-   `.hero-card h1.ed-cat .hl-rot .mark::before{left:-.1em;right:-.05em;top:.17em;bottom:.02em}`
-   (the swatch pulled in, because .96em of marker inside a 1.13 line box touches the lines above
-   and below and reads as a redaction bar). The blank is back in .ed-sub, where the base rules at
-   :2694 were tuned in the first place — upright inside an italic line is the contrast, not a
-   paste-up error, and a 1.4 line box has the air the swatch wants. If a blank ever returns to
-   the headline, both rules have to come back with it. */
+/* THE TWO H1-ROTATOR OVERRIDES ARE BACK (2026-08-10). The blank returned to the headline — it now
+   sets on its OWN LINE above "Show-and-tell with deadlines." (.rot-line), which is what makes the
+   placement survivable this time: a leading blank on a shared line shoves the fixed words sideways
+   every time the word length changes, and its ghost slot leaves a hole mid-headline when the word
+   is short. On its own line the slot's width reaches nothing, and at display size it measures one
+   craft noun instead of the whole headline — which is what evicted it in 2026-08-08 (14 unbreakable
+   characters of ghost was 98% of the mobile measure).
+   Rule 1: the run takes the headline's italic display face, since .hl-rot .rw hard-sets
+   upright/600/--ink for the body sub.
+   Rule 2: the swatch pulled in, because .96em of marker inside a 1.13 line box touches the lines
+   above and below and reads as a redaction bar. */
+.hero-card h1.ed-cat .hl-rot .rw{font:inherit;font-weight:inherit;color:inherit}
+.hero-card h1.ed-cat .hl-rot .mark::before{left:-.1em;right:-.05em;top:.17em;bottom:.02em}
+/* The blank owns a whole line, so its width can never reach the fixed headline below it. */
+.hero-card h1.ed-cat .rot-line{display:block}
 
 /* the hero subtitle: handles the "do I need a group?" question right under the headline */
 .ed-sub{margin:clamp(.7rem,1.7vw,1.15rem) 0 0;font-family:var(--f-body);font-style:italic;font-weight:400;
@@ -4321,7 +4327,7 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
   padding:calc(var(--pw) * .017) calc(var(--pw) * .032);text-indent:.05em;
   text-shadow:0 1px 0 rgba(93,18,22,.55)}
 .hero-card-deck .pola .zchal::before{content:"";position:absolute;inset:0;z-index:-1;
-  background:var(--coral-ink);border-radius:5px;box-shadow:2px 2px 0 0 rgba(65,77,87,.4);
+  background:var(--coral-ink);border-radius:0;box-shadow:2px 2px 0 0 rgba(65,77,87,.4);   /* square: embossed label tape is guillotine-cut, and #roughsm below supplies the hand-cut edge. A radius here read as a printed sticker. */
   filter:url(#roughsm)}
 /* THE CRAFT CHIP. The deck used to name its category in words — the old .zcat said "photography",
    "drawing", "photo essay", "game design" inside the yellow sticky note — and that information was
@@ -4392,7 +4398,7 @@ html[data-tier="lite"] .mast .brand::after{animation:none}
    this fold that tells you the pictures are tappable, and it was the quietest thing on the card. */
 .hero-card-deck .pola.dt::after{content:"real zines\00a0\2014\00a0tap to browse\00a0\2192";position:absolute;left:50%;top:-26px;
   transform:translateX(-50%) rotate(-3deg);white-space:nowrap;font-family:var(--f-hand);font-size:14.5px;
-  font-weight:700;line-height:1;color:var(--coral-ink)}
+  font-weight:700;line-height:1;color:var(--lazuli)}   /* lazuli by request 2026-08-10. NOTE: 14.5px bold on oats is 3.15:1, under the 4.5:1 this size needs; coral-ink was 4.91:1. Bump to >=18.7px bold, or darken the blue, if this ever has to pass an audit. */
 .hcd-hint{display:none}
 
 /* ===== CHALLENGE LIGHTBOX ===== tapping the hero deck (too small to fan out in place) opens this:
@@ -4441,7 +4447,7 @@ html.modal-open{overflow:hidden}
   font-size:10.5px;letter-spacing:.05em;line-height:1.42;padding:4px 8px;text-indent:.05em;
   text-shadow:0 1px 0 rgba(93,18,22,.55)}
 .dm-grid .pola .zchal::before{content:"";position:absolute;inset:0;z-index:-1;
-  background:var(--coral-ink);border-radius:3px;box-shadow:2px 2px 0 0 rgba(65,77,87,.4);
+  background:var(--coral-ink);border-radius:0;box-shadow:2px 2px 0 0 rgba(65,77,87,.4);   /* square — see .hero-card-deck .pola .zchal::before */
   filter:url(#roughsm)}
 .dm-grid .pola .zcraft{position:absolute;z-index:4;right:9px;bottom:58px;
   width:34px;height:34px;display:flex;align-items:center;justify-content:center;
@@ -5483,3 +5489,61 @@ html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
 .soon-stamp.is-live .arr{transition:transform .16s ease}
 .soon-stamp.is-live:hover .arr{transform:translateX(2px)}
 @media(prefers-reduced-motion:reduce){.soon-stamp.is-live,.soon-stamp.is-live .arr{transition:none}}
+
+/* ============================================================================
+   THE FOLD'S CLOSING RUN (2026-08-10). The numbered beats are gone from the markup.
+   They carried the mechanism as three imperatives; the sub carries it as one sentence now
+   ("…answers its own CHALLENGES with a magazine"), and #showtell below picks up the deadline
+   and the together-ness the list used to own. What replaced the list is three drawn marks —
+   people, then occasions, then artifacts.
+   The .beats rules above are kept deliberately: the dymo-tape numeral treatment they document
+   is the same object .chal-tape now wears, and the markup may come back.
+   ========================================================================= */
+
+/* "CHALLENGES" IS THE TAPE, not a word about it. Same coral, same Courier Prime caps, same emboss
+   and the same -1.6deg as the strips on the cards it names (:4309) — so the word and the object
+   read as one thing and no second pointer is needed to link them.
+   Pale-on-coral-ink is the 5.20:1 pairing already sanctioned for these glyphs; --colorado is
+   3.30:1 and fails, and lazuli would be 3.15:1 — worse. Do not recolour this to match a highlight.
+   inline-block is required in order to rotate, so unlike the beat numerals (which were absolutely
+   positioned and cost the line nothing) this one does push the sub's line box around. That is the
+   price of putting tape inside a sentence, and it is why the tilt is small. */
+.chal-tape{display:inline-block;background:var(--coral-ink);color:#FFF8EC;
+  font-family:var(--f-mono);font-style:normal;font-weight:700;text-transform:uppercase;
+  font-size:.76em;letter-spacing:.05em;padding:.12em .4em .16em;
+  transform:rotate(-1.6deg);box-shadow:2px 2.5px 0 rgba(40,26,10,.32);
+  text-shadow:0 1.5px 0 rgba(0,0,0,.38);filter:url(#roughsm)}
+
+/* THE POINTER'S TAIL MOVED HERE. .beat-anchor + .beat-point used to live at the end of beat 03;
+   with the list gone they sit at the end of the sub, whose last word is "magazine." — the same
+   word the arrow's head lands on the zine to explain. initBeatPointer() takes svg.parentElement
+   as its coordinate space, so this rule is what makes the maths work. */
+.ed-sub{position:relative}
+
+/* THE THREE DOODLE BULLETS. Marks, not icons: scribbled heads, tally strokes, a fan of covers,
+   all flat fills through #roughsm. The middle mark depicts OCCASIONS and the last depicts
+   ARTIFACTS, which is what stops "many show-and-tells" and "one portfolio" drawing the same
+   picture twice.
+   NOT display:flex on the li. Bullet 3 is four children ("One ", <b>, <span>, ".") and flex makes
+   each an item, discarding the whitespace between them — "Onebeautifulportfolio". The doodle is
+   position:absolute anyway, so it rides the line box out of flow exactly as the dymo numerals did
+   and never needed flex to centre. */
+.sum-doodles{list-style:none;margin:clamp(1.15rem,2.5vw,1.7rem) 0 0;padding:0;
+  display:flex;flex-direction:column;gap:clamp(.62rem,1.4vw,.95rem)}
+.sum-doodles li{position:relative;padding-left:3.3em;
+  font-family:var(--f-body);font-size:var(--fs-body);line-height:1.42;color:var(--ink)}
+.sum-doodles .dood{position:absolute;left:0;top:50%;width:2.6em;height:2.05em;
+  transform:translateY(-50%) rotate(var(--dr,-2deg))}
+.sum-doodles .dood svg{display:block;width:100%;height:100%;overflow:visible}
+
+/* THE DECK LIFT, for the narrow two-column range only. Every margin-top at :4192-4215 was tuned
+   against a left column of headline + sub + BEATS; the beats left and the rotator added a
+   display-size line on top, so the old numbers are parked against a layout that no longer exists.
+   At >=900px alignDeckToHeadline() measures it instead and writes an inline margin-top — see
+   app-post-beta.js. These two are the no-JS fallback and the sub-900 case. */
+.hero-card-deck{margin-top:clamp(-4.2rem,-5vw,-3rem)}
+/* DO NOT set margin-right:0 here to "tuck the deck into the container". Tried 2026-08-10: the deck
+   is ~327px against a column that is narrower than that at most widths, so pulling it flush to the
+   container's right edge drives its LEFT edge into column 1 and it lands on the headline and the
+   sub. The negative margin-right at :4205 is not decoration — spilling into the gutter is what
+   keeps the deck clear of the copy. Top-right is achieved by that spill plus alignDeckToHeadline(). */

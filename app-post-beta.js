@@ -150,7 +150,8 @@ function boot() {
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
   initHowGag();                     // tap "every week" → the words stop, the ring spins instead
   initHeroRotate();                 // hero "week" gets retyped: month, 2nd Friday, other week…
-  initBeatPointer();                // beat 03's marker arrow, drawn from the sentence onto the front zine
+  alignDeckToHeadline();            // deck top meets headline top — must run BEFORE the arrow measures
+  initBeatPointer();                // the sub's marker arrow, drawn from "magazine." onto the front zine
   initMakerPhotos();                // polaroids adopt assets/makers/<handle>.jpg if present
   // Hovering a card/polaroid grows its hard shadow under a live SVG filter —
   // a burst of quick re-rasters of a big sheet. That's a known, brief,
@@ -346,8 +347,13 @@ function initQuotes() {
 function initHeroRotate() {
   const w = document.getElementById('rot-word');
   if (!w) return;
-  const WORDS = ['your thing', 'photography', 'carpentry', 'tattoos',
-                 'portraits', 'sourdough', 'painting', 'flowers'];
+  // THEY ARE NOUN ADJUNCTS NOW (2026-08-10), because the blank moved into the headline and reads
+  // straight into it: "photography show-and-tell". That is a different grammar from the sub's
+  // "regularly doing ___", which took plurals — "tattoos show-and-tell" is not English, so the
+  // craft names went to gerund/-y forms. "your thing" cannot work in this frame at all and is gone;
+  // the served HTML carries the first word instead.
+  const WORDS = ['photography', 'carpentry', 'tattooing', 'portraiture',
+                 'sourdough', 'painting', 'floristry'];
   // no motion or sound crafts here (animation, dance, drumming, DJing): the payoff of the
   // loop is a PRINTED zine, and a craft that can't sit still on a page can't land in one.
   // Width is cheap again now that the blank sets at --fs-lede in the sub instead of at display
@@ -375,7 +381,7 @@ function initHeroRotate() {
     const g = document.createElement('b');
     g.className = 'rw ghost';
     g.setAttribute('aria-hidden', 'true');
-    g.textContent = word + '.';       // the stop counts — it is in the live run too
+    g.textContent = word;             // no stop in this frame — the word runs into the headline
     w.appendChild(g);
   });
 
@@ -419,6 +425,67 @@ function initHeroRotate() {
       if (root.classList.contains('revealed')) { mo.disconnect(); start(); }
     });
     mo.observe(root, { attributes: true, attributeFilter: ['class'] });
+  }
+}
+
+/* THE DECK'S TOP MEETS THE HEADLINE'S TOP. Measured, not a clamp: the deck's margin-tops at
+   app-post-beta.css:4192-4215 were hand-tuned against a left column of headline + sub + beats, and
+   both ends of that have since moved (the beats are gone, the rotator added a display-size line on
+   top). Any static number would be right at one width and wrong at the rest, which is the same
+   reason the pointer below is drawn rather than authored.
+   It aligns to .stop — the "Show-and-tell" run — deliberately, NOT to the top of the <h1>. The
+   rotating craft word sits on its own line above it, so the h1's top is the blank's top; the
+   headline a reader means is the big fixed line under it.
+   >=900px only. Below that, column 2 is too narrow for the deck to sit clear of the copy and the
+   stylesheet's own lifts are tuned for those cases. Resetting the inline value before measuring is
+   what keeps this idempotent across resizes. */
+function alignDeckToHeadline() {
+  const deck = document.getElementById('heroCardDeck');
+  const target = document.querySelector('.ed-cat .stop');
+  if (!deck || !target) return;
+  const wide = window.matchMedia('(min-width:900px)');
+  // IT HAS TO ITERATE. The deck is grid-row:2/4, so its own margin feeds back into the row heights
+  // and moving the deck moves the headline it is being measured against — one pass always lands a
+  // few px out. The correction shrinks geometrically, so a handful of passes converges; the epsilon
+  // and the cap are there so this can never spin.
+  const apply = () => {
+    deck.style.marginTop = '';                       // measure against the stylesheet, never against ourselves
+    if (!wide.matches) return;
+    let m = parseFloat(getComputedStyle(deck).marginTop) || 0;
+    for (let i = 0; i < 5; i++) {
+      const delta = target.getBoundingClientRect().top - deck.getBoundingClientRect().top;
+      if (Math.abs(delta) < 0.5) break;
+      m += delta;
+      deck.style.marginTop = m + 'px';
+    }
+  };
+  apply();
+  // the pointer redraws off its own resize listener, registered after this one, so it always reads
+  // the deck AFTER this has moved it. Do not reorder the two init calls.
+  window.addEventListener('resize', () => requestAnimationFrame(apply), { passive: true });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(apply);
+  // …and again when the envelope opens. This one is NOT a ResizeObserver: cutting the seal moves
+  // the hero card without changing its border-box size, so a size observer never fires, and the
+  // deck sits ~6px out from the moment the page is actually looked at. The root class flip is the
+  // deterministic signal — the same one initBeatPointer()'s caller gates on.
+  const root = document.documentElement;
+  new MutationObserver(() => requestAnimationFrame(apply))
+    .observe(root, { attributes: true, attributeFilter: ['class'] });
+  // …and once more when the card STOPS moving. The reveal is a transition, so the class flip above
+  // fires while the card is still travelling and measures a layout that is about to change — which
+  // is worth ~6px, the whole tolerance. transitionend bubbles, so one listener covers the card and
+  // everything in it. The pointer never needed this because a ResizeObserver ticks all the way
+  // through a size animation; a class mutation only fires once, at the start.
+  document.addEventListener('transitionend', (e) => {
+    if (e.target instanceof Element && e.target.closest('.hero-card')) requestAnimationFrame(apply);
+  }, { passive: true });
+  // the sub is the other end of the fold that reflows (the tape wraps at some widths), and the
+  // deck's own art loads late. Both change size, so these two are genuinely ResizeObserver work.
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver(() => requestAnimationFrame(apply));
+    ro.observe(deck);
+    const sub = document.querySelector('.ed-sub');
+    if (sub) ro.observe(sub);
   }
 }
 
