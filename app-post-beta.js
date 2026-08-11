@@ -352,8 +352,13 @@ function initHeroRotate() {
   // "regularly doing ___", which took plurals — "tattoos show-and-tell" is not English, so the
   // craft names went to gerund/-y forms. "your thing" cannot work in this frame at all and is gone;
   // the served HTML carries the first word instead.
-  const WORDS = ['photography', 'carpentry', 'tattooing', 'portraiture',
-                 'sourdough', 'painting', 'floristry'];
+  // CAPITALISED, and .stop's "show-and-tell" is lowercase to match: the blank and the headline are
+  // ONE sentence ("Carpentry show-and-tell with deadlines."), so the craft noun is its first word
+  // and the capital belongs there. It read as a lowercase fragment followed by a second, separately
+  // capitalised sentence before. Keep every entry capitalised or the headline loses its capital
+  // once per cycle.
+  const WORDS = ['Photography', 'Carpentry', 'Tattooing', 'Portraiture',
+                 'Sourdough', 'Painting', 'Floristry'];
   // no motion or sound crafts here (animation, dance, drumming, DJing): the payoff of the
   // loop is a PRINTED zine, and a craft that can't sit still on a page can't land in one.
   // Width is cheap again now that the blank sets at --fs-lede in the sub instead of at display
