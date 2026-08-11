@@ -5536,12 +5536,14 @@ html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
   transform:translateY(-50%) rotate(var(--dr,-2deg))}
 .sum-doodles .dood svg{display:block;width:100%;height:100%;overflow:visible}
 
-/* THE DECK LIFT, for the narrow two-column range only. Every margin-top at :4192-4215 was tuned
-   against a left column of headline + sub + BEATS; the beats left and the rotator added a
-   display-size line on top, so the old numbers are parked against a layout that no longer exists.
-   At >=900px alignDeckToHeadline() measures it instead and writes an inline margin-top — see
-   app-post-beta.js. These two are the no-JS fallback and the sub-900 case. */
-.hero-card-deck{margin-top:clamp(-4.2rem,-5vw,-3rem)}
+/* NO UNSCOPED DECK LIFT HERE. A bare `.hero-card-deck{margin-top:...}` at the end of this file
+   outranks EVERY tuned value at :4192-4215, including the single-column one — which lifted the
+   deck onto the CTAs on mobile (shipped briefly in c7bc862, fixed here). The three cases are
+   already handled and none of them wants a global override:
+     <500px   one column, deck below the copy — :4192's own margin
+     500-899  :4214's lift beside the subtitle
+     >=900px  alignDeckToHeadline() measures it and writes an inline margin-top
+   If a lift is ever needed again, scope it to a media query. */
 /* DO NOT set margin-right:0 here to "tuck the deck into the container". Tried 2026-08-10: the deck
    is ~327px against a column that is narrower than that at most widths, so pulling it flush to the
    container's right edge drives its LEFT edge into column 1 and it lands on the headline and the
