@@ -6637,3 +6637,150 @@ html[data-tier="lite"] .sl-box path{animation:boil-rough var(--boil-ink) step-en
 @media (prefers-reduced-motion:reduce){
   html[data-tier="lite"] .sl-box path,.sl-box path{animation:none}
 }
+
+/* ============================================================================
+   THE CTA, CLEANED UP (2026-08-13)
+   It had four colours fighting in one small object: a grass fill, a black
+   border, a happy highlighter BLOCK behind the craft word, and a colorado
+   squiggle under that. The highlighter and the squiggle are PAPER marks — they
+   work where the page is a sheet, and on a saturated fill they read as stickers
+   stuck to a button rather than as marks made on paper. So the marks come off
+   the fill and the colour does the same job flatly: the craft word is happy
+   TEXT on the grass, which is the one pairing in this palette with both real
+   contrast and no idiom clash. Three colours total, and the button is one
+   gesture instead of a collage of four.
+   ============================================================================ */
+.start-line .sl-slot::before{display:none !important}     /* the highlighter block */
+.start-line .sl-squig{display:none}                        /* the colorado squiggle */
+.sl-live{color:var(--happy)}
+.sl-lead{color:var(--oats); opacity:.92}
+/* the craft word is the loud half of the line, so it gets the weight and the
+   colour and the lead gets neither — hierarchy inside a two-line button. */
+.sl-slot{font-size:1.06em; letter-spacing:.005em}
+.start-line{padding:.95rem 1.25rem 1.05rem}
+
+/* THE BUTTON IS THE DRAWN SHAPE, NOT A DIV WITH A DRAWING BEHIND IT.
+   The 6px ink border was invisible because the SVG sat at z-index:-2 and the
+   element's own background-color painted straight over it — so what shipped was
+   a hard-edged CSS rectangle with a drawing hidden underneath. Worse, that made
+   the button the only object in the fold with mathematically straight sides.
+   The path now carries the FILL as well as the stroke, the CSS background is
+   gone, and the text rides above it. One drawn object: wobbly grass shape,
+   thick ink outline, both boiling together, exactly like every other paper
+   thing on this page. */
+.start-line{background:none; box-shadow:none}
+.sl-box{position:absolute; inset:0; z-index:0; overflow:visible}
+.sl-box path{
+  fill:var(--grass-deep);
+  stroke:var(--ink); stroke-width:6;
+  stroke-linejoin:round; stroke-linecap:round;
+  filter:url(#rough);
+  animation:boil-rough var(--boil-ink) step-end infinite;
+}
+/* the hard offset shadow moves to a second, lower copy of the same shape so the
+   shadow is drawn too, rather than a crisp CSS rectangle under a wobbly one. */
+.start-line::after{
+  content:""; position:absolute; z-index:-1;
+  left:5px; top:6px; right:-5px; bottom:-6px;
+  background:var(--ink);
+  filter:url(#rough);
+}
+.sl-lead,.sl-slot,.sl-arr{position:relative; z-index:1}
+.start-line:hover{transform:translate(2px,2px)}
+.start-line:hover::after{left:3px; top:4px; right:-3px; bottom:-4px}
+html[data-tier="lite"] .sl-box path{animation:boil-rough var(--boil-ink) step-end infinite}
+@media (prefers-reduced-motion:reduce){.sl-box path{animation:none}}
+
+/* SCRAP THE HAND-ROLLED SHAPE. Two attempts at an SVG button both failed for the
+   same reason: a path drawn in a 200x60 viewBox and stretched with
+   preserveAspectRatio="none" has its wobble squashed flat in one axis, so it
+   comes out looking like a straight rectangle that someone nudged. And the
+   separate ink slab behind it read as a border, not an offset shadow.
+   Use the page's own proven pattern instead — the one .ed-coupon and
+   .card-stack .cs are built on: a ::before that carries the background, the
+   border AND the hard offset shadow, with the filter on it. One pseudo-element
+   gets displaced as a unit, so the fill, the outline and the shadow all wobble
+   together and stay in register. Boiled on the ink cadence. */
+.sl-box{display:none}
+.start-line::after{content:none}
+.start-line{background:none; box-shadow:none; position:relative; isolation:isolate}
+.start-line::before{
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:var(--grass-deep);
+  border:3.4px solid var(--ink);
+  border-radius:3px;
+  box-shadow:6px 7px 0 0 var(--ink);
+  filter:url(#rough);
+  animation:boil-rough var(--boil-ink) step-end infinite;
+}
+.start-line:hover::before{box-shadow:3px 4px 0 0 var(--ink)}
+.start-line:hover{transform:translate(3px,3px)}
+html[data-tier="lite"] .start-line::before{animation:boil-rough var(--boil-ink) step-end infinite}
+@media (prefers-reduced-motion:reduce){.start-line::before{animation:none}}
+
+/* ============================================================================
+   THE PLATE IS THE ZINE (2026-08-13)
+
+   The variants all failed the same way and it was my brief: they made the CARD
+   the magazine — a spine wrapped round the sheet, sheets fanned behind the whole
+   thing — when the magazine is the PLATE inside it. Fanned rectangles behind a
+   photo is also, precisely, a polaroid stack, which is why that read landed.
+
+   What actually makes the issues further down this page read as zines is not a
+   torn edge floating over them. It is `.lg-pick img`: a 3px ink border printed
+   ON the artwork plus a hard offset shadow. A trim edge and a shadow. That is
+   the whole trick, and the hero plate had neither — it had a filtered outline
+   hovering above a clip.
+
+   So: the trim goes on the frame itself, the leaves go UNDER THE PLATE ONLY
+   (never under the card), and they sit at the fore-edge and the foot the way
+   they do in the real component.
+   ============================================================================ */
+.zc-plate::after{content:none}                  /* the floating filtered outline */
+.zc-frame{
+  border:3px solid var(--ink);                  /* the trim, printed on the artwork */
+  box-shadow:5px 7px 0 0 rgba(20,24,28,.16);    /* hard, zero blur, like .lg-pick */
+  border-radius:2px;
+}
+/* THE PAGES. Three leaves behind the plate, at the fore-edge and the foot only —
+   a bound book shows no paper at its spine. Each is a hair narrower and lower
+   than the last, with its own torn seed so no two trims tear alike, and only the
+   deepest carries a shadow: a shadow per leaf stacks into a smear instead of
+   reading as sheets. Lifted from .card-stack .cs::before (:3193) — paper fill,
+   ink border, hard zero-blur offset, #torn — including the asymmetric inset,
+   which is the part that does the work. */
+.zc-sheet{
+  position:absolute; z-index:-1;
+  background:var(--paper);
+  border:2.4px solid var(--ink);
+  border-radius:0 3px 3px 0;
+  box-shadow:none;
+  transform:none;
+}
+.zc-sheet::before{content:none}
+.zc-sheet-2{inset:6px -7px -9px 12px;  filter:url(#torn2)}
+.zc-sheet-3{inset:12px -13px -17px 24px; filter:url(#torn3); box-shadow:6px 7px 0 0 rgba(20,24,28,.13)}
+.zc-sheet-4{inset:18px -19px -25px 36px; filter:url(#torn); box-shadow:7px 8px 0 0 rgba(20,24,28,.10)}
+.zc-sheet-3{box-shadow:none}
+
+/* THE LEAVES WERE BEING SHREDDED. #torn runs feTurbulence at scale 12, which is
+   tuned for a big sheet of paper where a 12px wander reads as a deckle edge. On
+   a 2.4px trim it eats the border and leaves lace. #roughsm (scale ~2.5) is the
+   right instrument at this size — the same one the Dymo strip uses, for the same
+   reason. A cut page edge is nearly straight anyway; it is the SLIGHT wander
+   that sells it, not a ragged one. */
+.zc-sheet-2{filter:url(#roughsm)}
+.zc-sheet-3{filter:url(#roughsm2)}
+.zc-sheet-4{filter:url(#roughsm3)}
+/* pull the stack in: the leaves were reaching past the plate far enough to look
+   like separate cards behind it rather than pages inside it. A real fore-edge
+   shows a few millimetres, not a centimetre. */
+.zc-sheet-2{inset:5px -5px -7px 10px}
+.zc-sheet-3{inset:10px -10px -13px 20px}
+.zc-sheet-4{inset:15px -15px -19px 30px}
+/* the caption clears the foot of the stack instead of sitting on it */
+.zc-cap{margin-top:1.9rem}
+@media (max-width:899px){ .zc-cap{margin-top:1.6rem} }
+/* 360px lost the button again when the caption moved down to clear the stack —
+   the shortest phone pays for it out of the picture, not out of the offer. */
+@media (max-width:380px){ .zc-frame{height:min(31vh,17rem)} .zc-cap{margin-top:1.3rem} }
