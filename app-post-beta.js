@@ -149,7 +149,8 @@ function boot() {
   initFirecrackerCta(audio);        // ported from the wall: "Join a Circle" click → firecracker → green door
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
   initHowGag();                     // tap "every week" → the words stop, the ring spins instead
-  initHeroRotate();                 // hero "week" gets retyped: month, 2nd Friday, other week…
+  initHeroRotate();                 // no-ops since 2026-08-11: the H1 has no #rot-word any more
+  initZineCarousel();               // the fold's picture: four real issues, scrolling, one at a time
   alignDeckToHeadline();            // deck top meets headline top — must run BEFORE the arrow measures
   initBeatPointer();                // the sub's marker arrow, drawn from "magazine." onto the front zine
   initMakerPhotos();                // polaroids adopt assets/makers/<handle>.jpg if present
@@ -448,6 +449,12 @@ function alignDeckToHeadline() {
   const deck = document.getElementById('heroCardDeck');
   const target = document.querySelector('.ed-cat .stop');
   if (!deck || !target) return;
+  // THE DECK LEFT THE HERO (2026-08-11). The fold's visual slot is the zine carousel now;
+  // the polaroid deck moved down beside the summary band. Aligning it to the headline it no
+  // longer sits next to would push a margin of several hundred px into a section halfway
+  // down the page, so this self-disables wherever the deck is not a hero child. Move the
+  // deck back into .hero and the alignment resumes with no other change.
+  if (!deck.closest('.hero')) return;
   const wide = window.matchMedia('(min-width:900px)');
   // IT HAS TO ITERATE. The deck is grid-row:2/4, so its own margin feeds back into the row heights
   // and moving the deck moves the headline it is being measured against — one pass always lands a
@@ -506,6 +513,10 @@ function initBeatPointer() {
   const anchor = document.querySelector('.beat-anchor');
   const deck = document.getElementById('heroCardDeck');
   if (!svg || !anchor || !deck) return;
+  // Same reason as alignDeckToHeadline: this arrow is drawn from the sub to the deck's front
+  // card, and the deck is no longer in the fold. Left live it would draw a stroke from the
+  // hero copy to a card most of a page further down.
+  if (!deck.closest('.hero')) return;
   const li = svg.parentElement;
   // the front card of the stack, which is the one the arrow must land on: it is the .pola the deck
   // paints on top, and the deck's z-order is authored high-to-low in the markup, so it's the first.
@@ -2613,4 +2624,259 @@ function initHamburgerJoy(audio) {
 
   window.__drexHb = { flop, reset, tear, open: () => { setState('open'); setPull(OPEN); },
     setPull, get pull(){return pull;}, get state(){return hb.dataset.state;} };
+}
+
+/* THE ISSUE PLATE (2026-08-12) — nine real published issues in the fold.
+
+   This only decides WHICH issue is showing. The pan itself is CSS (@keyframes
+   zc-reel); what JS contributes is --travel and --reel per issue, computed from
+   that strip's own pixel height, which is how nine strips of nine different
+   heights all drift at the SAME px/sec. Only the distance, and therefore the
+   time, differ: the three strongest issues travel about twice as far and so hold
+   the frame about 2.5x longer.
+
+   It also keeps the two coverlines pointed at the issue on screen. That is the
+   whole reason those labels can say "this issue" and "this club" — a cold reader
+   put it plainly: the CTAs did not look associated with the picture. Same for
+   the craft noun in the page-level action: it names the craft you can SEE, which
+   is the range the deleted H1 rotator used to merely claim.
+
+   Manual navigation ENDS the rotation for the visit. Fighting a reader who has
+   taken control is the worst thing a carousel can do. */
+function initZineCarousel() {
+  var root = document.getElementById('zineCarousel');
+  if (!root) return;
+  var frame = document.getElementById('zcFrame');
+  var layers = [].slice.call(root.querySelectorAll('.zl'));
+  if (layers.length < 2) return;
+
+  // dwell in seconds, and the craft/club/caption each issue carries.
+  var D = [
+    {d:18, craft:'modeling',          club:'XChange Models',     tape:'come as your heritage',        lead:'Eleven models.',
+     z:'https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23', c:'https://app.drex.style/clubs/xchange-models'},
+    {d:18, craft:'night photography', club:'Photo Phloor',       tape:'take night photos of the unseen', lead:'A photography collective.',
+     z:'https://app.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856', c:'https://app.drex.style/clubs/photo-phloor'},
+    {d:18, craft:'getting dressed',   club:'Drexzine',           tape:'wear something to the office', lead:'Our own club.',
+     z:'https://app.drex.style/z/d5a5a957-84cc-40bf-bafa-87f4b6dc600c', c:'https://app.drex.style/clubs/drex'},
+    {d:7,  craft:'penmanship',        club:'SF Penmans',         tape:'do a penmanship study',        lead:'A penmanship club.',
+     z:'https://app.drex.style/z/6940b4c7-337b-4b6c-9de8-9dccdeeba566', c:'https://app.drex.style/clubs/pen'},
+    {d:7,  craft:'coffee',            club:'Beans',              tape:'make your favorite coffee drink', lead:'Four baristas.',
+     z:'https://app.drex.style/z/f362cc90-3b98-4c9e-80af-494105edb9e5', c:'https://app.drex.style/clubs/beans'},
+    {d:7,  craft:'photography',       club:'The Web Dissonance', tape:'photograph your shadow',       lead:'Two members.',
+     z:'https://app.drex.style/z/ccb40394-ef02-4522-92c2-14f432cc8b16', c:'https://app.drex.style/clubs/web-dissonance'},
+    {d:7,  craft:'penmanship',        club:'SF Penmans',         tape:'make a dropcap',               lead:'A penmanship club.',
+     z:'https://app.drex.style/z/6f886428-a9eb-40b0-9cbf-60f4ae677992', c:'https://app.drex.style/clubs/pen'},
+    {d:7,  craft:'drawing',           club:'Drexzine',           tape:'make a doodle at the cafe',    lead:'Our own club.',
+     z:'https://app.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41', c:'https://app.drex.style/clubs/drex'},
+    {d:7,  craft:'cut-outs',          club:'Drexzine',           tape:'make a dress-up game',         lead:'Our own club.',
+     z:'https://app.drex.style/z/5b548352-9124-4b25-bcaa-9c06322d30bb', c:'https://app.drex.style/clubs/drex'}
+  ];
+
+  var chal  = document.getElementById('zcChal');
+  var cap   = document.getElementById('zcCap');
+  var craft = document.getElementById('zcCraft');
+  var read  = document.getElementById('ctaIssue');
+  var join  = document.getElementById('ctaClub');
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  var i = 0, timer = null, manual = false, held = false;
+
+  // Warm the next strip while the current one plays: the others are lazy and sit
+  // at opacity 0, so the browser is entitled to defer them — and does. Without
+  // this the crossfade lands on an image with no bytes and the frame flashes.
+  function warm(n) {
+    var img = layers[(n + layers.length) % layers.length].querySelector('img');
+    if (!img || img.dataset.warm) return;
+    img.dataset.warm = '1';
+    img.loading = 'eager';
+    if (img.decode) img.decode().catch(function () {});
+  }
+
+  function show(n) {
+    i = (n + layers.length) % layers.length;
+    var d = D[i], img = layers[i].querySelector('img');
+
+    for (var k = 0; k < layers.length; k++) {
+      var on = (k === i);
+      layers[k].classList.toggle('is-on', on);
+      // only the visible picture is exposed, or all nine alts are announced.
+      if (on) layers[k].removeAttribute('aria-hidden');
+      else    layers[k].setAttribute('aria-hidden', 'true');
+    }
+
+    // CONSTANT PACE. Travel is what the strip has left below the window; the
+    // duration is that distance at a fixed px/sec, so a tall strip simply takes
+    // longer. Short strips would otherwise finish early and sit dead, so their
+    // pace eases down rather than stopping — never a jerk.
+    if (img && !still.matches) {
+      var PPS = 95;                       // pixels per second, the SAME for all nine
+      var box = frame ? frame.clientHeight : 300;
+      var full = img.getBoundingClientRect().height || (img.height || 0);
+      var room = Math.max(0, full - box);            // how far this strip COULD travel
+      // The dwell buys the distance; it does not compress it. Capping duration at
+      // the dwell (the first cut of this) made a 4,400px strip cross in 18s — 244px
+      // a second, a blur. So the DISTANCE is what the dwell limits, and the
+      // duration follows from it at a fixed pace. The three strongest issues get
+      // 18s and so travel ~2.5x as far as the six at 7s, at identical speed.
+      var travel = Math.min(room, d.d * PPS);
+      var secs = travel > 40 ? travel / PPS : d.d;   // nothing to pan: just hold
+      img.style.setProperty('--travel', travel.toFixed(0) + 'px');
+      img.style.setProperty('--reel', secs.toFixed(1) + 's');
+    }
+
+    if (chal){
+      chal.textContent = d.tape;
+      fitTape();
+    }
+    if (cap)   cap.innerHTML = '<b>' + d.lead + '</b> This is what came out.';
+    typeCraft(d.craft);
+    if (read)  read.href = d.z;
+    if (join) {
+      join.href = d.c;
+      // the club NAME goes to assistive tech only: the visible label stays
+      // "Join this club" so speech-input users can still say what they see.
+      join.setAttribute('aria-label', 'Join this club: ' + d.club);
+    }
+    warm(i + 1);
+    if (manual) warm(i - 1);      // once they can go back, warm backwards too
+  }
+
+
+  /* ---- THE CRAFT WORD IS TYPED, NOT SWAPPED ------------------------------
+     Lifted from initHeroRotate, which has been dead code since the H1 rotator
+     was removed. A word that simply swaps reads as a data field; a word being
+     deleted a letter at a time and rewritten reads as somebody deciding what
+     their club is for — which is the whole claim of the line it sits in.
+     It opens on "your thing": that is the abstract claim, it is what ships in
+     the served HTML for a crawler or a no-JS visitor, and it is what a
+     reduced-motion visitor keeps.
+     The slot is held open by a hidden ghost of the longest word, so the line
+     cannot reflow once per keystroke. */
+  var GHOSTS_BUILT = false;
+  function buildGhosts(){
+    var slot = document.getElementById('craftSlot');
+    // the ghosts belong to the SLOT, not to the live word. Appended inside
+    // .sl-live they lay out inline in a row and stretch the line to ~1000px,
+    // dragging the marker swipe across the whole card with them.
+    if (GHOSTS_BUILT || !slot) return;
+    GHOSTS_BUILT = true;
+    var seen = {};
+    var words = ['your thing'];
+    for (var k = 0; k < D.length; k++) if (!seen[D[k].craft]) { seen[D[k].craft] = 1; words.push(D[k].craft); }
+    for (var w = 0; w < words.length; w++){
+      var g = document.createElement('i');
+      g.className = 'sl-ghost'; g.setAttribute('aria-hidden','true');
+      g.textContent = words[w];
+      slot.appendChild(g);
+    }
+  }
+
+
+  /* Run once the hero is on screen: either the envelope is already open, or we
+     wait for the class the reveal adds. The observer disconnects itself, and a
+     belt-and-braces timeout covers the case where the class never lands. */
+  function whenRevealed(fn){
+    var d = document.documentElement;
+    var open = function(){ return !d.classList.contains('sealed') || d.classList.contains('revealed'); };
+    if (open()) { fn(); return; }
+    var done = false;
+    var fire = function(){ if (done) return; done = true; try { mo.disconnect(); } catch (e) {} fn(); };
+    var mo = new MutationObserver(function(){ if (open()) fire(); });
+    mo.observe(d, { attributes: true, attributeFilter: ['class'] });
+    setTimeout(fire, 9000);
+  }
+
+  var typing = null, firstPaint = true;
+  /* THE OPENING BEAT. "your thing" is the claim in the abstract, and it is what
+     ships in the served HTML — a crawler, a no-JS visitor and a reduced-motion
+     visitor all keep it. On a live page it has to be READ before it is replaced,
+     so the first issue does not type: the word holds, underlined, for a beat long
+     enough to finish the sentence out loud, and only then does it delete itself
+     and start naming the craft in the picture. Typing it away immediately would
+     mean nobody ever sees the general claim, which is the one that includes
+     whoever is reading. */
+  var OPENING_HOLD = 4600;
+  function typeCraft(word){
+    if (!craft) return;
+    buildGhosts();
+    if (still.matches) { craft.textContent = word; return; }   // no motion: just set it
+    if (firstPaint){
+      firstPaint = false;
+      // The clock starts when the hero is actually LOOKED AT, not when the script
+      // runs. The envelope seals the page until it is dragged (or until the 6s
+      // failsafe), so a timer started at DOMContentLoaded spends its whole hold
+      // behind the cut and the reader arrives after the word has already changed.
+      whenRevealed(function(){ setTimeout(function(){ typeCraft(word); }, OPENING_HOLD); });
+      return;
+    }
+    clearInterval(typing);
+    craft.classList.add('is-typing');
+    var cur = craft.textContent;
+    typing = setInterval(function(){
+      if (cur.length && word.indexOf(cur) !== 0){              // delete back to a shared stem
+        cur = cur.slice(0, -1);
+      } else if (cur.length < word.length){                    // then write the rest
+        cur = word.slice(0, cur.length + 1);
+      } else {
+        clearInterval(typing); typing = null;
+        craft.classList.remove('is-typing');
+        return;
+      }
+      craft.textContent = cur;
+    }, 38);
+  }
+
+
+  /* THE TAPE IS SET TO FIT, PER STRING. The nine challenges run 14 to 31
+     characters, so one fixed size is either too small for "make a dropcap" or
+     too wide for "take night photos of the unseen". A real label maker punches
+     the same size letters and the strip just gets longer — but a strip longer
+     than the cover would have to wrap or clip, and tape does neither. So the
+     type is measured and scaled to the widest that still fits on ONE line,
+     which keeps every challenge as legible as its length allows.
+     Measured against scrollWidth with nowrap, so this is the true text width
+     rather than the clipped box. */
+  function fitTape(){
+    if (!chal || !frame) return;
+    var MAXPX = 15.5, MINPX = 9.5;
+    var avail = frame.clientWidth - 76;        // clear the nav mark on the right
+    chal.style.fontSize = MAXPX + 'px';
+    var w = chal.scrollWidth;
+    if (w > avail){
+      var px = Math.max(MINPX, MAXPX * (avail / w));
+      chal.style.fontSize = px.toFixed(2) + 'px';
+    }
+  }
+  window.addEventListener('resize', function(){ fitTape(); });
+
+  function stop() { clearInterval(timer); timer = null; }
+  function start() {
+    if (timer || manual || held || still.matches || document.hidden) return;
+    timer = setInterval(function () { show(i + 1); }, D[i].d * 1000);
+  }
+  function step(n) {                       // manual: ends the rotation for good
+    manual = true; stop(); show(i + n);
+  }
+
+  var prev = document.getElementById('zcPrev');
+  var next = document.getElementById('zcNext');
+  if (prev) prev.addEventListener('click', function () { step(-1); });
+  if (next) next.addEventListener('click', function () { step(1); });
+
+  root.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft')  { step(-1); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { step(1);  e.preventDefault(); }
+  });
+
+  ['pointerenter', 'focusin'].forEach(function (e) {
+    root.addEventListener(e, function () { held = true; if (frame) frame.classList.add('is-held'); stop(); });
+  });
+  ['pointerleave', 'focusout'].forEach(function (e) {
+    root.addEventListener(e, function () { held = false; if (frame) frame.classList.remove('is-held'); start(); });
+  });
+  document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+  if (still.addEventListener) still.addEventListener('change', function () { stop(); show(0); start(); });
+
+  show(0);
+  start();
 }

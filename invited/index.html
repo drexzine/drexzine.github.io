@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Already invited? &middot; Drex</title>
+<meta name="description" content="Someone invited you to a Drex club. Here is what happens next: open the link in your email, and that one tap signs you in and puts you in the club. No password." />
+<link rel="stylesheet" href="../app-post-beta.css?v=21" />
+<!-- ============================================================================
+     /invited/ (2026-08-11)
+
+     WHY THIS PAGE EXISTS. Six simulated cold readers were run against drex.style.
+     The most common real arrival — someone whose friend texted them "join this
+     with us" — had nowhere to go. Every door on the landing page pointed at a
+     waitlist for strangers, so an already-invited person queued behind people who
+     had not been invited at all. That reader's verdict was "ask friend first",
+     which is a conversion lost to a missing sentence.
+
+     EVERY CLAIM HERE IS TRUE TODAY, and that is the point of the page:
+       - the invite email is a magic link; opening it signs you in AND redeems
+         club membership in the same tap. There is no password to choose.
+       - there is no billing code anywhere in the product, so it costs nothing.
+       - new accounts are invite-only at the auth layer, which is exactly why an
+         invited person needs their own door and cannot be sent to the waitlist.
+     If any of those stops being true, this page is the first thing to change.
+
+     DELIBERATELY NOT HERE: a sign-in form. This page does not authenticate
+     anyone and must never look like it does — a fake-looking login on a marketing
+     domain is how people get phished, and the real link lands on the app.
+     ============================================================================ -->
+</head>
+<body class="page-invited">
+
+<main class="invited-wrap">
+
+  <p class="invited-eyebrow"><a href="../">drex.</a></p>
+
+  <h1 class="invited-h1">Someone put you in a club.</h1>
+
+  <p class="invited-lede">Here&rsquo;s the whole thing, in four lines.</p>
+
+  <ol class="invited-steps">
+    <li><b>Check your email.</b> Your invite is already there, from whoever added you.</li>
+    <li><b>Open the link in it.</b> That one tap signs you in and puts you in the club. There&rsquo;s no password to make up.</li>
+    <li><b>You&rsquo;ll land on your club.</b> A challenge, a deadline, and the people you know.</li>
+    <li><b>Make your thing before the date.</b> When it passes, your host publishes the issue with everyone&rsquo;s work in it.</li>
+  </ol>
+
+  <h2 class="invited-h2">Lost the email?</h2>
+  <p>Ask whoever invited you to send it again &mdash; they can re-issue it from inside the club. Invite links expire, so the freshest one is always the one that works.</p>
+
+  <h2 class="invited-h2">A few things people ask first</h2>
+  <dl class="invited-faq">
+    <dt>Does it cost anything?</dt>
+    <dd>No. There&rsquo;s no way to pay us yet.</dd>
+
+    <dt>Do I need to install something?</dt>
+    <dd>No. It&rsquo;s a website. It works on your phone.</dd>
+
+    <dt>What if I don&rsquo;t make anything in time?</dt>
+    <dd>The club keeps going, and so do you. When the deadline passes the pages close, and your host publishes the issue with whoever showed up.</dd>
+
+    <dt>Who sees my work?</dt>
+    <dd>Your club, in the issue you all make together. Sharing an issue more widely than that is a decision someone has to make on purpose.</dd>
+  </dl>
+
+  <p class="invited-back"><a href="../">&larr; What Drex is, if you&rsquo;re not sure yet</a></p>
+
+</main>
+
+<style>
+  /* Scoped to this page. The landing stylesheet is loaded for its fonts, colour
+     tokens and paper background; everything below is layout this page alone needs. */
+  .invited-wrap{max-width:38rem;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) clamp(1.2rem,5vw,2rem) 5rem}
+  .invited-eyebrow{margin:0 0 clamp(1.6rem,4vw,2.6rem)}
+  .invited-eyebrow a{font-family:var(--f-display);font-weight:700;font-size:1.5rem;text-decoration:none;color:var(--grass-deep,#0C6E39)}
+  .invited-h1{font-family:var(--f-display);font-weight:700;font-size:clamp(1.9rem,6vw,2.9rem);line-height:1.08;letter-spacing:-.02em;margin:0 0 .6rem;text-wrap:balance}
+  .invited-lede{font-family:var(--f-body);font-style:italic;font-size:1.1rem;margin:0 0 2rem;color:var(--ink-soft,#55606a)}
+  .invited-h2{font-family:var(--f-display);font-weight:700;font-size:1.25rem;margin:2.6rem 0 .5rem}
+  .invited-steps{font-family:var(--f-body);font-size:1.05rem;line-height:1.5;padding-left:1.3rem;margin:0}
+  .invited-steps li{margin:0 0 .9rem}
+  .invited-faq{font-family:var(--f-body);font-size:1.02rem;line-height:1.5;margin:0}
+  .invited-faq dt{font-weight:700;margin:1.1rem 0 .2rem}
+  .invited-faq dd{margin:0;color:var(--ink-soft,#55606a)}
+  .invited-back{margin:3rem 0 0;font-family:var(--f-body)}
+  .invited-back a{color:var(--ink-soft,#55606a)}
+  @media (prefers-reduced-motion:no-preference){.invited-wrap{scroll-behavior:smooth}}
+</style>
+
+</body>
+</html>

@@ -5549,3 +5549,847 @@ html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
    container's right edge drives its LEFT edge into column 1 and it lands on the headline and the
    sub. The negative margin-right at :4205 is not decoration — spilling into the gutter is what
    keeps the deck clear of the copy. Top-right is achieved by that spill plus alignDeckToHeadline(). */
+
+/* ============================================================================
+   FOLD v4 (2026-08-11) — the artifact-first hero.
+   The H1 is now two beats: what you make, then the promise that it gets made.
+   Both live inside the same <h1> so the sentence is one heading to a screen
+   reader and one optical block on the page; .ed-finish is the second beat and
+   is set as a block so it always takes its own line regardless of measure.
+   Specificity note: plain `.ed-cat` is (0,1,0) and loses to `.hero-card h1`
+   (0,1,1) — see the v3 block at :3691 — so every rule here is written on
+   `.hero-card h1.ed-cat …` to clear it. Do not "simplify" these selectors.
+   ============================================================================ */
+.hero-card h1.ed-cat .ed-finish{
+  display:block;
+  font-size:.58em;
+  line-height:1.08;
+  margin-top:.34em;
+  letter-spacing:-.014em;
+  color:var(--ink);
+}
+/* The spine: the one mechanism claim in the fold, and the only sentence here the
+   backend enforces (submissions take a terminal 423 at the deadline). Set quiet
+   and small on purpose — it is the fine print that happens to be the product. */
+.ed-spine{
+  margin:clamp(.5rem,1.2vw,.8rem) 0 0;
+  font-family:var(--f-body);
+  font-style:normal;
+  font-size:calc(var(--fs-lede) * .82);
+  line-height:1.45;
+  color:var(--ink-soft,#55606a);
+  max-width:38ch;
+}
+@media (max-width:880px){
+  .ed-spine{max-width:none}
+}
+
+/* The fold's fine print: category, price, door. Three facts the page had never
+   stated and that every cold reader blocked on. Set small and quiet — it is not
+   a selling line, it is the removal of three reasons to leave. */
+.ed-fine{
+  margin:clamp(.7rem,1.6vw,1rem) 0 0;
+  font-family:var(--f-body);
+  font-style:normal;
+  font-size:.82rem;
+  line-height:1.45;
+  color:var(--ink-soft,#55606a);
+  max-width:40ch;
+}
+
+/* THE SUMMARY BAND (2026-08-11). Was three fragments inside the hero card; now its
+   own strip directly under the fold. .sum-doodles was never scoped to the hero, so
+   the marks, the rotations and the highlight all carry over untouched — this rule
+   only supplies the band's own measure and rhythm. On wide screens the three run
+   across; under 760px they stack, because each line is a separate claim and a
+   two-up wrap would imply a pairing that isn't there. */
+.summary-band{
+  max-width:var(--mw,74rem);
+  margin:clamp(1.6rem,4vw,3rem) auto 0;
+  padding:0 clamp(1.2rem,5vw,2.4rem);
+}
+.summary-band .sum-doodles{
+  margin:0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:clamp(1rem,3.5vw,3rem);
+  justify-content:center;
+  font-size:clamp(1rem,1.35vw,1.18rem);
+}
+.summary-band .sum-doodles li{flex:0 1 auto}
+@media (max-width:760px){
+  .summary-band .sum-doodles{flex-direction:column;align-items:flex-start;gap:.85rem}
+}
+
+/* CTA BLOCK, four distinct doors (2026-08-11). The old labels were two words each
+   ("Join as a group") and fitted the coupon's nowrap row at flex-basis 12rem. The
+   new ones name a destination and are longer, so at that basis every door wrapped
+   one word per line. Give the column a real basis, let the row fold, and pull the
+   deck-clearance padding back to what the shorter measure now needs. */
+.ed-coupon{flex-wrap:wrap}
+.ed-links{flex:1 1 17rem;min-width:14rem}
+@media (min-width:881px){
+  .ed-foot{padding-right:10%}
+}
+
+
+/* .ed-body is empty now that the summary bullets moved below the fold, but it was still
+   claiming grid row 2 — and because .zc spans rows 2/4, the grid stretched the empty row to
+   make up the carousel's height, opening ~200px of dead paper between the sub and the coupon.
+   Collapse it, and pin the coupon to the top of its row so the copy column reads as one block. */
+.hero-card .ed-body:empty{display:none}
+.hero-card .ed-foot{align-self:start}
+
+/* ============================================================================
+   THE ISSUE PLATE (2026-08-12) — nine real issues in the fold's picture slot.
+
+   It sits in the slot the polaroid deck used to hold, so it inherits the deck's
+   grid placement: grid-column 2 / grid-row 2/4 (see :4177), spanning the body
+   row AND the coupon row so column 1 can flow copy -> action continuously with
+   the picture alongside. Those rules were written on the deck's own class, so
+   the slot had to be re-claimed here rather than inherited.
+
+   HOUSE RULES OBSERVED THROUGHOUT:
+     - no gradients, no gloss, no blurred shadows. Every shadow here is a HARD
+       zero-blur offset, the way this stylesheet's other 103 shadows are.
+     - no vector-perfect edges. Every rectangle carries #torn / #roughsm on a
+       ::before that holds the background, NEVER on an element holding text —
+       a displacement filter chews letterforms (see the note at :4245).
+     - static rough edges, no boil. The boil is an animated SVG filter and it is
+       the most expensive thing per element on the page; the FPS governor latches
+       tier=lite at 34ms and starts killing animations that matter more.
+     - nothing is underlined with a straight black rule. Marks are drawn.
+   ============================================================================ */
+.hero-card .zc{
+  grid-column:2; grid-row:2/4; align-self:start; justify-self:start;
+  position:relative; width:min(100%,var(--zc-w,25rem));
+  display:flex; flex-direction:column; gap:.6rem;
+}
+/* The plate: the picture, tilted, on a torn paper slab. The tilt lives here and
+   NOT on the caption under it — a caption that leans stops being readable and
+   starts being decoration. */
+.zc-plate{position:relative; transform:rotate(-.7deg)}
+.zc-plate::before{
+  content:""; position:absolute; z-index:0; inset:11px -10px -12px 9px;
+  background:var(--ink); opacity:.15; filter:url(#tornbig);
+}
+.zc-frame{
+  position:relative; z-index:1; overflow:hidden;
+  height:var(--zc-h,min(46vh,25rem));
+  border:3px solid var(--ink);
+  background:var(--ink);           /* any seam mid-dissolve is ink, never paper */
+}
+/* A torn strip of tape over the top edge — a mark, no text inside it. */
+.zc-tape{
+  position:absolute; z-index:3; top:-13px; right:11%;
+  width:clamp(58px,15%,96px); height:26px; transform:rotate(3.4deg);
+}
+.zc-tape::before{
+  content:""; position:absolute; inset:0;
+  background:var(--oats); box-shadow:2px 2px 0 0 rgba(65,77,87,.22);
+  filter:url(#torn2);
+}
+
+/* ---- the nine layers. Only the active one is opaque, so the swap is a
+        crossfade between two OPAQUE pictures and the frame never goes
+        see-through. The pan is declared ONLY on the active layer, so adding
+        the class starts it at frame zero for free. --travel and --reel are
+        handed in per issue by JS from the strip's own height, which is what
+        holds the px/sec constant across nine strips of nine heights. ---- */
+.zl{position:absolute; inset:0; opacity:0; transition:opacity .55s linear; overflow:hidden}
+.zl.is-on{opacity:1; z-index:1}
+.zl img{display:block; width:100%; height:auto}
+.zl.is-on img{animation:zc-reel var(--reel,9s) linear both; will-change:transform}
+@keyframes zc-reel{
+  0%,3%{transform:translateY(0)}
+  100% {transform:translateY(calc(var(--travel,240px) * -1))}
+}
+.zc-frame.is-held .zl.is-on img{animation-play-state:paused}
+
+/* ---- the challenge, on Dymo tape. House component: app-post-beta.css:4245.
+        Coral, not --colorado. #FFF8EC letters — plastic whitens where it is
+        stretched and never goes pure white. ONE tinted shadow, because a black
+        seat plus a white lip is a 3D bevel and this page does cartoon-analog,
+        not photoreal. Hard 2px offset, zero blur. One line, always: real tape
+        has no second row. ---- */
+.zc-chal{
+  position:absolute; z-index:4; top:11px; left:11px; isolation:isolate;
+  max-width:calc(100% - 5.5rem);
+  padding:.2em .46em .17em;
+  font-family:var(--f-head); font-weight:700; font-size:clamp(.62rem,1.5cqw,.8rem);
+  text-transform:uppercase; letter-spacing:.05em; white-space:nowrap;
+  overflow:hidden; text-overflow:ellipsis;
+  color:#FFF8EC; text-shadow:0 1px 0 rgba(93,18,22,.55);
+  transform:rotate(-1.5deg); transform-origin:left center;
+}
+.zc-chal::before{
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:var(--coral-ink); box-shadow:2px 2px 0 0 rgba(65,77,87,.42);
+  filter:url(#roughsm);
+}
+/* the count hangs off the tape as marginalia, on older paper so the pair reads
+   as label-plus-annotation rather than as two labels. */
+.zc-count{
+  position:absolute; z-index:4; top:calc(11px + 2.1em); left:1.55rem;
+  padding:.26em .46em .22em;
+  font-family:var(--f-head); font-weight:700; font-size:.62rem;
+  letter-spacing:.1em; color:var(--ink-soft,rgba(65,77,87,.85));
+  transform:rotate(1.7deg);
+}
+.zc-count::before{content:""; position:absolute; inset:0; background:var(--oats); filter:url(#torn3)}
+.zc-count i{position:relative; z-index:1; font-style:normal}
+
+/* ---- prev / next: drawn marks. Two strokes a hair out of register, the way a
+        two-colour print misses — that misregistration is what keeps them
+        legible on any photograph with no plate behind them. The button itself
+        is invisible and 44px+, running the frame's height above the plank. ---- */
+.zc-nav{
+  position:absolute; z-index:5; top:0; bottom:var(--zc-strip,3.2rem);
+  width:clamp(44px,10%,56px);
+  display:flex; align-items:center; justify-content:center;
+  margin:0; padding:0; border:0; background:none; cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.zc-prev{left:0} .zc-next{right:0}
+.zc-nav svg{width:20px; height:30px; filter:url(#roughsm); transition:transform .16s ease-out}
+.zn-ink{fill:none; stroke:var(--ink); stroke-width:5.4; stroke-linecap:round; stroke-linejoin:round}
+.zn-lit{fill:none; stroke:var(--oats); stroke-width:2.3; stroke-linecap:round; stroke-linejoin:round}
+.zc-prev:hover svg{transform:translateX(-3px)}
+.zc-next:hover svg{transform:translateX(3px)}
+.zc-nav:hover .zn-lit{stroke:var(--happy)}
+.zc-nav:focus-visible{outline:3px solid var(--colorado); outline-offset:-5px}
+
+/* ---- the coverlines. Printed across the frame's bottom edge, inside its clip,
+        above every layer. NOT part of the carousel: one plank, one pair of
+        links, whose hrefs are rewritten as the picture changes — so they never
+        blink, re-measure, or move under a pointer. ---- */
+.zc-cover{
+  position:absolute; z-index:6; left:0; right:0; bottom:0;
+  display:flex; gap:3px;                 /* the 3px reveals the plank as a divider */
+  background:var(--ink); border-top:3px solid var(--ink);
+}
+.zcl{
+  position:relative; flex:1 1 0; min-width:0;
+  display:flex; align-items:center; justify-content:center;
+  min-height:var(--zc-strip,3.2rem); padding:.5em .4em;
+  font-family:var(--f-head); font-weight:700; font-size:clamp(.66rem,1.6cqw,.82rem);
+  text-transform:uppercase; letter-spacing:.14em; text-indent:.14em;
+  text-decoration:none; white-space:nowrap;
+}
+.zcl::before{content:""; position:absolute; inset:-2px; filter:url(#roughsm)}
+.zcl span{position:relative; z-index:1}
+.zcl-read{color:var(--ink)}          .zcl-read::before{background:var(--happy)}
+.zcl-join{color:var(--oats)}         .zcl-join::before{background:var(--grass-deep)}
+.zcl:hover::before,.zcl:focus-visible::before{filter:url(#rough)}
+.zcl:focus-visible{outline:3px solid var(--colorado); outline-offset:-6px}
+
+.zc-cap{
+  margin:0; font-family:var(--f-body); font-size:.9rem; line-height:1.45;
+  color:var(--ink-soft,rgba(65,77,87,.85)); max-width:34ch; min-height:2.6em;
+}
+.zc-cap b{font-weight:600; color:var(--grass-deep)}   /* the people, in green */
+
+/* ---- THE PAGE-LEVEL ACTION. Marker swipe + drawn arrow. Explicitly NOT a
+        straight rule: the swipe is --happy pushed through #squig, so its edge
+        wobbles like a real marker, and the arrow is two hand-drawn strokes. ---- */
+.ed-start{margin:clamp(.8rem,2vw,1.2rem) 0 0}
+.start-line{
+  display:inline-flex; align-items:center; gap:.5rem;
+  min-height:44px; padding:.3rem .1rem;
+  font-family:var(--f-head); font-weight:700;
+  font-size:clamp(.95rem,1.05rem + .2vw,1.16rem);
+  color:var(--ink); text-decoration:none;
+}
+.sl-mark{position:relative; z-index:0}
+.sl-mark::before{
+  content:""; position:absolute; z-index:-1;
+  left:-.22em; right:-.22em; top:.52em; bottom:-.04em;
+  background:var(--happy); filter:url(#squig);
+}
+/* the slot is pre-sized to the longest craft by a hidden ghost, so the arrow
+   after it can never jump; the live word sits LEFT, hard against "for", because
+   centring a short word in a long slot opens a hole mid-phrase. */
+.sl-slot{position:relative; display:inline-block; white-space:nowrap}
+.sl-ghost{visibility:hidden; font-style:normal}
+.sl-live{position:absolute; left:0; top:0; font-style:normal}
+.sl-arr{flex:none; width:34px; height:14px; overflow:visible}
+.sl-arr path{fill:none; stroke:var(--coral-ink); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; filter:url(#roughsm)}
+.start-line:hover .sl-arr{transform:translateX(3px)}
+.start-line:focus-visible{outline:3px solid var(--colorado); outline-offset:3px}
+
+/* the coupon lost its stamp, so it loses the cut-out framing that existed to
+   hold one. The scissors go with it. */
+.ed-coupon.is-quiet::before{content:none}
+.ed-coupon.is-quiet .ed-snip{display:none}
+.ed-coupon.is-quiet{display:block; padding:0}
+
+@media (max-width:899px){
+  .hero-card .zc{grid-column:1; grid-row:auto; justify-self:stretch; width:100%;
+                 --zc-h:min(52vh,22rem); margin-top:clamp(1rem,4vw,1.6rem)}
+  .zc-plate{transform:none}
+}
+@media (max-width:400px){
+  .zc-cover{flex-direction:column}
+  .zc-nav{bottom:calc(var(--zc-strip,3.2rem) * 2)}
+}
+@media (prefers-reduced-motion:reduce){
+  .zl{transition:none}
+  .zl img{animation:none !important; transform:none !important}
+  .zc-plate,.zc-chal,.zc-count,.zc-tape{transform:none}
+  .zc-nav svg,.sl-arr{transition:none}
+}
+
+/* PLATE PROPORTION. The approved cut is LANDSCAPE at the column's full width —
+   the portrait cut was built and rejected. Column 2 of the hero grid is narrow
+   (it was sized for a 300px polaroid deck), so the plate takes the same liberty
+   the deck always did and SPILLS past the card's right edge into the gutter;
+   see the note at :4177, that overflow is deliberate and load-bearing here too.
+   aspect-ratio rather than a fixed height, so the frame can never go portrait
+   at any width — which is what "the landscape frame is deliberate" has to mean
+   mechanically, not just as a comment. */
+.hero-card .zc{--zc-w:clamp(19rem,34vw,27.5rem)}
+.zc-frame{height:auto; aspect-ratio:1.62/1; min-height:11rem}
+@media (max-width:899px){
+  .hero-card .zc{--zc-w:100%}
+  .zc-frame{aspect-ratio:1.45/1}
+}
+/* the coverline pair has to hold two tracked-caps labels without clipping at
+   the narrowest desktop plate; drop the tracking a touch and let them shrink
+   before they ever truncate. */
+.zcl{letter-spacing:.09em; text-indent:.09em; font-size:clamp(.6rem,1.45cqw,.78rem)}
+.zc-frame{container-type:inline-size}
+/* the count is marginalia, not a badge: give it room and stop it clipping. */
+.zc-count{white-space:nowrap}
+
+/* The width has to ESCAPE the column, not fit it. `width:min(100%,--zc-w)` was
+   resolving to 100% of a 289px grid track, which is how the plate came out a
+   portrait sliver. Column 2 was sized for a 300px polaroid deck and the deck
+   handled this by overflowing it — same move, stated explicitly. */
+@media (min-width:900px){
+  .hero-card .zc{width:var(--zc-w); max-width:none}
+}
+
+/* The counter's " of 9" was painting UNDER its own paper: ::before is a
+   positioned box and the bare text nodes beside <i> are not, so the pseudo won
+   the paint order. Isolate the element and push the pseudo behind everything,
+   rather than chasing each text node with a wrapper. */
+.zc-count{isolation:isolate}
+.zc-count::before{z-index:-1}
+
+/* The copy column is shorter than the plate beside it, and .ed-foot carried a
+   2–3.5rem top margin from when it held a stamped coupon. With the two issue
+   actions now printed on the picture, that margin is just a hole between the
+   sub and the one line left. Close it, and let the column sit against the top
+   of its row so the fold reads as one block rather than two ends. */
+@media (min-width:900px){
+  .hero-card .ed-foot{margin-top:clamp(1rem,2.2vw,1.6rem)}
+  .hero-card .ed-inner{align-content:start}
+}
+
+/* MOBILE ORDER. Source order is head → body → foot → plate, because the plate
+   took the slot the polaroid deck held and the deck lived after the coupon.
+   That is right for the desktop grid and wrong for a single column: the reader
+   met both CTAs before ever seeing the thing they act on. Grid `order` fixes it
+   without moving the markup, so the desktop placement is untouched.
+   H1 → sub → picture → caption → the one action → fine print. */
+@media (max-width:899px){
+  .hero-card .zc{order:1}
+  .hero-card .ed-foot{order:2}
+}
+
+/* The craft line wraps on a phone, and a single absolutely-positioned swipe
+   behind a two-line inline box is a yellow BLOCK, not a marker stroke. Split it:
+   the lead and the craft each carry their own swipe, so the mark follows the
+   words the way a real marker would, and the line breaks in ONE chosen place —
+   after "for", so the craft noun keeps its own line and never breaks mid-phrase. */
+@media (max-width:560px){
+  .start-line{flex-wrap:wrap; row-gap:.15rem}
+  .sl-mark{display:contents}
+  .sl-mark::before{display:none}
+  .sl-lead,.sl-slot{position:relative; z-index:0; font-style:normal}
+  .sl-lead::before,.sl-slot::before{
+    content:""; position:absolute; z-index:-1;
+    left:-.24em; right:-.24em; top:.52em; bottom:-.04em;
+    background:var(--happy); filter:url(#squig);
+  }
+}
+
+/* `order` is ignored by an explicitly-placed grid item, and .ed-foot carries
+   grid-row:3 from :3573. Release both to auto-placement at phone widths so the
+   order above can actually apply. Desktop placement is untouched. */
+@media (max-width:899px){
+  .hero-card .ed-foot{grid-row:auto; grid-column:1/-1}
+  .hero-card .zc{grid-row:auto; grid-column:1/-1}
+}
+
+/* ============================================================================
+   THE FOLD, SECOND CUT (2026-08-12) — a real two-column hero.
+
+   What was wrong with the first port: the plate started at the SUB's row, so it
+   floated in the lower right with the headline sailing over the top of it and a
+   pocket of dead paper under the copy. Two columns that start at different
+   heights are not two columns, they are one column with something stuck beside
+   it. The plate now starts where the headline starts and runs the full height
+   of the card, so the fold is genuinely two columns sharing the width — copy
+   left, the object right, both hanging from the same line.
+   ============================================================================ */
+@media (min-width:900px){
+  .hero-card .zc{
+    grid-row:1/4;            /* from the headline's row, not the sub's */
+    align-self:stretch;
+    --zc-w:clamp(20rem,32vw,26rem);
+    padding-top:.35rem;      /* optical: the frame's rule sits on the H1's cap-line */
+  }
+  /* TWICE THE HEIGHT. A zine is a tall object and the landscape window was
+     reading as a banner crop of one. Portrait-ish, and tall enough that the pan
+     has somewhere to go. */
+  .zc-frame{aspect-ratio:auto; height:clamp(21rem,52vh,31rem)}
+  /* the copy column stops fighting the plate for vertical room */
+  .hero-card .ed-head{align-self:start}
+}
+
+/* ---- THE STACK. Sheets of older issues behind the live one. Same idea the
+        polaroid deck taught this page: a leaning pile of paper means there are
+        more. Torn edges, hard zero-blur offsets, no gradients. ---- */
+.zc-sheet{
+  position:absolute; z-index:0; inset:0;
+  background:var(--oats);
+  box-shadow:2px 2px 0 0 rgba(65,77,87,.20);
+}
+.zc-sheet::before{content:""; position:absolute; inset:0; background:var(--oats); filter:url(#torn)}
+.zc-sheet-2{transform:rotate(1.6deg) translate(7px,5px)}
+.zc-sheet-3{transform:rotate(-2.4deg) translate(-6px,10px); opacity:.72}
+.zc-plate::before{inset:14px -12px -14px 11px}   /* the ink slab clears the stack */
+
+/* ---- the typed craft word ------------------------------------------------
+        The slot is held open by hidden ghosts of every word (built by JS), so
+        the line cannot reflow once per keystroke. The live word is absolutely
+        positioned over them, hard left against "for". ---- */
+.sl-slot{position:relative; display:inline-grid; white-space:nowrap; vertical-align:baseline}
+.sl-slot > i{grid-area:1/1; font-style:normal}
+.sl-ghost{visibility:hidden}
+.sl-live{position:relative}
+/* the caret, while it is typing */
+.sl-live.is-typing::after{
+  content:""; display:inline-block; width:.075em; height:1em;
+  margin-left:.06em; vertical-align:-.14em;
+  background:var(--coral-ink); animation:sl-blink .9s steps(1,end) infinite;
+}
+@keyframes sl-blink{50%{opacity:0}}
+/* the squiggle is drawn under the WHOLE phrase, sized to it, and it is the
+   reason there is no straight rule anywhere near this line. */
+.sl-squig{
+  position:absolute; left:0; right:2.6rem; bottom:-.15rem;
+  width:auto; height:8px; overflow:visible; pointer-events:none;
+}
+.sl-squig path{
+  fill:none; stroke:var(--coral-ink); stroke-width:2.1;
+  stroke-linecap:round; stroke-linejoin:round; filter:url(#roughsm);
+}
+.start-line{position:relative; padding-bottom:.5rem}
+/* the swipe stops at the words and no longer runs under the arrow */
+.sl-mark::before{right:-.1em}
+
+/* ---- THE BAND BELOW THE FOLD. Was a flex row of three fragments beside a
+        deck, both fighting for the same optical centre. Now a real two-column
+        band on the same measure as the hero above it, the bullets set as a
+        list with one rhythm, the deck given its own column and its own air. --- */
+.summary-band{
+  max-width:var(--mw,74rem);
+  margin-inline:auto;
+  padding:clamp(1.8rem,4vw,3rem) clamp(1.2rem,5vw,2.4rem) 0;
+  align-items:center;
+  column-gap:clamp(1.5rem,5vw,4rem);
+}
+@media (min-width:900px){
+  .summary-band{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}
+  .summary-band .sum-doodles{
+    flex-direction:column; align-items:flex-start;
+    gap:clamp(.7rem,1.6vw,1.15rem);
+    font-size:clamp(1.02rem,1.35vw,1.22rem);
+  }
+  .summary-band .sum-doodles li{padding-left:3.6em}
+  .band-deck{min-height:0; display:flex; justify-content:center; align-items:center}
+}
+
+/* EXPLICIT PLACEMENT FOR ALL FOUR ITEMS. Giving .zc grid-row:1/4 left .ed-head
+   auto-placed, and once a grid has explicitly-placed items occupying the early
+   rows the auto cursor can advance past them — the headline ended up BELOW the
+   coupon. Nothing here is auto any more, so the reading order and the visual
+   order are the same thing by construction. */
+@media (min-width:900px){
+  .hero-card .ed-inner{grid-template-columns:minmax(0,1fr) auto}
+  .hero-card .ed-head{grid-column:1; grid-row:1}
+  .hero-card .ed-body{grid-column:1; grid-row:2}
+  .hero-card .ed-foot{grid-column:1; grid-row:3; align-self:end}
+  .hero-card .zc     {grid-column:2; grid-row:1/4}
+}
+
+/* COLUMN PROPORTION. `auto` sized column 2 to the plate's own width and left the
+   copy whatever remained (~324px), which is under the H1's measure — so the
+   headline wrapped to four lines and its last word slid under the plate. Two
+   real tracks with a stated ratio instead, and the plate sized from ITS track
+   rather than the other way round. The copy keeps the larger share: it is the
+   thing being read, the picture is the thing being recognised. */
+@media (min-width:900px){
+  .hero-card .ed-inner{grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr)}
+  .hero-card .zc{width:100%; max-width:none; --zc-w:auto}
+  .hero-card h1.ed-cat{max-width:none}     /* the track is the measure now */
+  .zc-frame{height:clamp(19rem,46vh,27rem)}
+}
+@media (min-width:1180px){
+  .hero-card .ed-inner{grid-template-columns:minmax(0,1fr) minmax(0,.86fr)}
+}
+/* the caption belongs to the plate, so it clears the stack's overhang */
+.zc-cap{margin-top:.35rem}
+
+/* "with your friends." is one nowrap span (:3750) so it overflows the H1's box
+   instead of widening it — which is why the last word slid under the plate and
+   why measuring the H1 rect showed no overlap. In a two-column fold the phrase
+   has to be allowed to break. */
+@media (min-width:900px){
+  .hero-card h1.ed-cat .stop{white-space:normal}
+  .hero-card h1.ed-cat{text-wrap:balance; hyphens:none}
+}
+
+/* THE SQUIGGLE MARKS THE VARIABLE, NOT THE SENTENCE. Under the whole phrase it
+   marked nothing; under the craft word alone it borrows the affordance everyone
+   already knows — the wavy red line under the word that is in question. That is
+   also why the word itself stays ink: the squiggle has already said "this part
+   is yours", and spending coral twice on one idea is what makes a fold noisy.
+   Coral is doing enough work on this page already (the Dymo tape). */
+.sl-squig{left:auto; right:auto; bottom:-.42rem; width:100%; height:7px}
+.sl-slot{position:relative; padding-bottom:.1em}
+.start-line{padding-bottom:.65rem}
+
+/* The squiggle sizes to the WORD, not to the reserved slot. The slot is held
+   open by ghosts of the longest craft, so a 100%-wide mark under it trailed
+   past a short word like "modeling" and stopped pointing at anything. */
+.sl-live{display:inline-block; position:relative}
+.sl-live > span{position:relative}
+.sl-squig{position:absolute; left:0; width:100%; bottom:-.34rem; height:7px}
+
+/* The craft line hangs under the sub rather than sinking to the card's floor.
+   At align-self:end it landed on the same baseline as the plate's caption, and
+   two unrelated sentences sharing a baseline across a gutter read as one row. */
+@media (min-width:900px){
+  .hero-card .ed-foot{align-self:start; margin-top:clamp(1.1rem,2.4vw,1.9rem)}
+}
+
+/* ONE SWIPE PER PART, AT EVERY WIDTH. A single absolutely-positioned mark behind
+   the whole phrase is only a marker stroke while the phrase is one line; the
+   moment it wraps — which it does in a two-column fold — the mark becomes a
+   yellow BLOCK spanning the bounding box, and here it ran clear across the card
+   and under the plate's caption. So the lead and the live word each carry their
+   own swipe. It also fixes a second bug for free: the slot is held open by
+   ghosts of the longest craft, so a swipe on the SLOT would trail past a short
+   word; on the live word it always ends where the word ends. */
+.sl-mark::before{display:none !important}
+.sl-lead,.sl-live{position:relative; z-index:0}
+.sl-lead::before,.sl-live::before{
+  content:""; position:absolute; z-index:-1;
+  left:-.2em; right:-.2em; top:.5em; bottom:-.02em;
+  background:var(--happy); filter:url(#squig);
+}
+.start-line{flex-wrap:wrap; row-gap:.15rem; align-items:baseline}
+.sl-arr{align-self:center}
+
+/* Grid items stretch by default, so the live word filled the cell the ghosts
+   hold open and dragged its swipe and squiggle out to the width of the longest
+   craft. Shrink it to its own text; the slot still reserves the full width, so
+   nothing after it moves. */
+.sl-slot > i{justify-self:start}
+
+/* The band's `display:grid` lived in the carousel block that was deleted when
+   the four-issue version was replaced, so the section silently fell back to
+   block and stacked the deck above the bullets with a hole between them.
+   Restated here, with the decorative collage taken out of the flow — it is a
+   background, and as a grid item it was claiming a third cell. */
+.summary-band{display:grid; position:relative}
+.summary-band > .cg-collage{position:absolute; inset:0; z-index:0; pointer-events:none}
+.summary-band > .band-deck,.summary-band > .sum-doodles{position:relative; z-index:1}
+@media (min-width:900px){
+  .summary-band{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); align-items:center}
+  .summary-band > .sum-doodles{grid-column:1; grid-row:1}
+  .summary-band > .band-deck  {grid-column:2; grid-row:1}
+}
+
+/* THE MARK BUDGET. "show-and-tell" is the borrowed-category word — the one that
+   makes a stranger understand the product without decoding anything — so it
+   earns the swipe. That would have been the THIRD yellow mark in a 320px column
+   (the craft line carried two), and three marks in one column is not emphasis,
+   it is noise. So the lead of the craft line goes plain and the swipe stays only
+   on the craft word, which is the part that changes and the part being offered. */
+.sl-lead::before{display:none}
+
+/* THE PLATE GROWS WITH THE VIEWPORT. Sized purely by its grid track it stalled
+   at ~320px and a 1600px screen showed the same small picture as a 1024px one.
+   Past 1100px it takes the liberty the polaroid deck always took here and spills
+   past the card's right edge into the gutter (see :4177) — deliberate, and the
+   reason the fold reads as an object laid ON the page rather than boxed in it. */
+@media (min-width:1100px){
+  .hero-card .zc{width:clamp(22rem,26vw,29rem); max-width:none}
+}
+
+/* ============================================================================
+   FOLD, THIRD CUT (2026-08-12) — colour, the marked box, and a fold that holds
+   still while it types.
+   ============================================================================ */
+
+/* ---- WARM INK, NOT GREY. --ink-soft is rgba(65,77,87,.85): a desaturated
+        blue-grey that goes muddy on cream. Mixing the ink toward the PAPER
+        instead of toward transparency keeps the same lightness but carries the
+        cream with it, so the small type reads as faded ink on a warm sheet
+        rather than as grey text. Fallback first for anything without
+        color-mix(). ---- */
+.zc-cap,.ed-fine,.zc-count{color:rgba(88,74,60,.92)}
+@supports (color:color-mix(in srgb,red,blue)){
+  .zc-cap,.ed-fine,.zc-count{color:color-mix(in srgb, var(--ink) 74%, #8A6A47)}
+}
+
+/* ---- THE SUB'S TWO MECHANISMS.
+        "challenge" takes the Dymo strip: the same object that sits on the
+        picture forty pixels away, so the sentence and the artifact teach each
+        other — the word names the thing, the tape on the cover IS one. It is set
+        a size smaller than the cover's strip so the instance stays louder than
+        the noun. Same house spec: coral (not --colorado), #FFF8EC letters, one
+        tinted shadow, hard 2px zero-blur offset, #roughsm on the ::before that
+        carries the background and never on the element holding the text.
+        "deadline" takes lazuli, because the other mechanism needs to be told
+        apart from the first at a glance and coral is now spent. Lazuli is
+        already this page's second accent (.hl-b on "portfolio" in the band
+        below), so this is an existing colour doing an existing job, not a new
+        one. It is an underline rather than a fill: a filled highlight beside a
+        filled tape would make the line a ransom note. ---- */
+.sub-chal{
+  position:relative; isolation:isolate; display:inline-block;
+  margin:0 .06em; padding:.1em .34em .06em;
+  font-family:var(--f-head); font-weight:700; font-style:normal;
+  font-size:.72em; text-transform:uppercase; letter-spacing:.045em;
+  color:#FFF8EC; text-shadow:0 1px 0 rgba(93,18,22,.55);
+  transform:rotate(-1.2deg); vertical-align:.06em;
+}
+.sub-chal::before{
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:var(--coral-ink); box-shadow:2px 2px 0 0 rgba(65,77,87,.34);
+  filter:url(#roughsm);
+}
+.sub-dead{position:relative; font-style:italic}
+.sub-dead::after{
+  content:""; position:absolute; left:-.06em; right:-.06em; bottom:-.16em; height:5px;
+  background:var(--lazuli); opacity:.55; filter:url(#squig);
+}
+
+/* ---- THE H1 IN TWO-COLUMN MODE. At the shared display size the column only
+        fits two words a line, which turns a four-word headline into a four-line
+        block and starves the sub of the space under it. A size down buys three
+        words a line without touching the single-column ramp. ---- */
+@media (min-width:900px){
+  .hero-card h1.ed-cat{font-size:clamp(2rem,2.55vw,3rem); line-height:1.08}
+}
+@media (min-width:1280px){
+  .hero-card h1.ed-cat{font-size:clamp(2.3rem,2.5vw,3.25rem)}
+}
+
+/* ---- THE CRAFT LINE IS A MARKED BOX, AND IT DOES NOT MOVE.
+        Two rows, always: the lead, then the word on its own line. A word
+        deleting from "night photography" to "coffee" used to unwrap the line
+        from two rows to one and the whole column jumped; with the rows fixed the
+        box is the same height at every frame of the animation.
+        The border is drawn, not a rule: a 2.6px ink box pushed through #squig,
+        so it reads as something ringed in marker on the sheet. That ring plus
+        the arrow is the clickable affordance — this is the only thing in the
+        copy column with a boundary around it. ---- */
+.ed-start{margin-top:clamp(1.2rem,2.6vw,1.9rem)}
+.start-line{
+  position:relative; display:grid;
+  grid-template-columns:1fr auto; grid-template-rows:auto auto;
+  align-items:center; gap:.1rem .6rem;
+  padding:.7rem .95rem .8rem; min-height:0;
+  text-decoration:none; cursor:pointer;
+}
+.start-line::before{                 /* the marker ring */
+  content:""; position:absolute; inset:0; z-index:-2;
+  border:2.6px solid var(--ink); border-radius:3px;
+  filter:url(#squig);
+  transition:border-color .18s ease-out;
+}
+.sl-lead{grid-column:1; grid-row:1; font-style:normal; white-space:nowrap}
+.sl-slot{grid-column:1; grid-row:2; justify-self:start}
+.sl-arr{grid-column:2; grid-row:1/3; align-self:center; width:36px; height:15px}
+/* the swipe stays only on the word that changes */
+.sl-lead::before{display:none !important}
+.sl-live::before{
+  content:""; position:absolute; z-index:-1;
+  left:-.18em; right:-.18em; top:.48em; bottom:-.02em;
+  background:var(--happy); filter:url(#squig);
+}
+.start-line:hover::before{border-color:var(--coral-ink)}
+.start-line:hover .sl-arr path{stroke:var(--coral-ink)}
+.start-line:focus-visible{outline:3px solid var(--lazuli); outline-offset:4px}
+
+/* ============================================================================
+   DRAWN EDGES ON THE PLATE, AND A BOILING BUTTON (2026-08-12)
+   ============================================================================ */
+
+/* THE FRAME'S EDGE WAS A STRAIGHT VECTOR BORDER. `border:3px solid` on .zc-frame
+   is the one perfectly ruled rectangle left in the fold, and it could not be
+   filtered in place: .zc-frame is overflow:hidden (it is the clip the strip pans
+   inside), and clipping a displacement filter hands the straight edge straight
+   back — the same trap the Dymo note at :4245 documents.
+   So the ruled border comes off and the edge is redrawn ABOVE the clip, on the
+   plate, which is not clipped. It boils on the paper cadence, the slow one:
+   this is a big rectangle and the fast ink cadence on a shape this size reads as
+   a shimmer rather than as a hand. */
+.zc-frame{border:0}
+.zc-plate::after{
+  content:""; position:absolute; inset:0; z-index:4; pointer-events:none;
+  border:3.4px solid var(--ink);
+  filter:url(#torn);
+  animation:boil-torn var(--boil-paper) step-end infinite;
+}
+/* the tape and the nav marks must stay ABOVE the drawn edge */
+.zc-tape{z-index:6}
+.zc-nav{z-index:7}
+.zc-cover{z-index:5}
+
+/* THE PAGE-LEVEL ACTION, IN LAZULI, WITH SQUIGGLEVISION.
+   Lazuli rather than green on purpose: green is the JOIN THIS CLUB block sitting
+   six inches away on the cover, and the whole reason this line is drawn instead
+   of filled is that it is a DIFFERENT kind of action — it acts on the reader,
+   not on the issue in the frame. Giving it the same green would make it that
+   block's twin. Lazuli is otherwise unspent in this fold apart from the thin
+   deadline underline, so it reads as its own thing while still rhyming.
+   --lazuli-deep, not --lazuli: #2496C9 on cream is thin for a 2.6px stroke.
+   The ring boils on the INK cadence — it is a line, and lines are what
+   squigglevision is for (see the note at :1892). */
+.start-line::before{
+  border-color:var(--lazuli-deep);
+  filter:url(#rough);
+  animation:boil-rough var(--boil-ink) step-end infinite;
+}
+.sl-arr path{stroke:var(--lazuli-deep)}
+.start-line{color:var(--ink)}
+.start-line:hover::before{border-color:var(--coral-ink)}
+.start-line:hover .sl-arr path{stroke:var(--coral-ink)}
+
+/* The FPS governor latches html[data-tier="lite"] when the average frame passes
+   34ms and then strips animation from things that matter more than these two
+   (the H1's marker among them). Two boiling elements is a small budget, but they
+   are the first to go, exactly like the page's other boil users. */
+html[data-tier="lite"] .zc-plate::after{animation:none}
+html[data-tier="lite"] .start-line::before{animation:none}
+@media (prefers-reduced-motion:reduce){
+  .zc-plate::after,.start-line::before{animation:none}
+}
+
+/* ============================================================================
+   THE BUTTON IS DRAWN, NOT BORDERED (2026-08-12)
+   A CSS border pushed through a displacement filter wobbles by a pixel or two
+   and reads as a slightly bad rectangle, not as a hand — the shape underneath is
+   still mathematically a rectangle and the eye knows it. The page's own squiggly
+   boxes are PATHS, so this is a path: a rounded rect drawn with the wobble in
+   the path data itself, stretched with preserveAspectRatio="none" and
+   vector-effect="non-scaling-stroke" so the stroke stays even at any box size,
+   then boiled on the ink cadence like every other line on the page.
+   ============================================================================ */
+.start-line::before{content:none}          /* the bordered box is retired */
+.sl-box{
+  position:absolute; inset:0; z-index:-2;
+  width:100%; height:100%; overflow:visible; pointer-events:none;
+}
+.sl-box path{
+  fill:none; stroke:var(--lazuli-deep); stroke-width:2.6;
+  stroke-linecap:round; stroke-linejoin:round;
+  filter:url(#rough);
+  animation:boil-rough var(--boil-ink) step-end infinite;
+}
+.start-line:hover .sl-box path{stroke:var(--coral-ink)}
+html[data-tier="lite"] .sl-box path{animation:none}
+@media (prefers-reduced-motion:reduce){.sl-box path{animation:none}}
+
+/* ---- THE MARKS STOP RESIZING PER KEYSTROKE. Both the swipe and the squiggle
+        were sized to the LIVE word, so every letter added or deleted redrew them
+        a few pixels wider or narrower — twelve times a second, right next to the
+        eye. That is the jitter. They sit on the SLOT instead, which the ghosts
+        hold at a fixed width, so they are struck once and never move again. A
+        marker stroke that overshoots the word is what a real one does anyway. */
+.sl-live::before{display:none !important}
+.sl-slot{position:relative; z-index:0}
+.sl-slot::before{
+  content:""; position:absolute; z-index:-1;
+  left:-.18em; right:-.18em; top:.48em; bottom:-.02em;
+  background:var(--happy); filter:url(#squig);
+}
+.sl-squig{position:absolute; left:0; width:100%; bottom:-.42rem; height:7px}
+.sl-live{position:static}
+
+/* THE BAND, FLIPPED. The stack goes LEFT and the three claims RIGHT. Reading
+   order is the argument: you meet the pile of issues first — the evidence — and
+   the claims sit to its right as the caption on it. It also puts the stack
+   directly under the hero's copy column and the claims under the hero's plate,
+   so the two bands counterweight each other instead of stacking two pictures
+   down the same edge of the page.
+   The bullets get a hanging indent and one rhythm so they read as a list rather
+   than three stray fragments. */
+@media (min-width:900px){
+  .summary-band{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr)}
+  .summary-band > .band-deck  {grid-column:1; grid-row:1; justify-content:center}
+  .summary-band > .sum-doodles{grid-column:2; grid-row:1; padding-left:clamp(.5rem,2vw,2rem)}
+  .summary-band > .sum-doodles li{
+    padding-left:3.5em; line-height:1.35;
+  }
+}
+
+/* ROOM FOR THE SQUIGGLE. The box was padded for the type, not for the marks
+   under it: the red squiggle sits ~7px below the word's box and the bottom
+   padding was only .8rem, so the mark crowded the drawn edge and read as a
+   printing error rather than as a correction under the word. */
+.start-line{padding:.85rem 1.15rem 1.15rem}
+
+/* THE ANNOTATION. Hand-lettered, off-square, in the ring's own lazuli — the
+   page's existing marginalia voice ("real zines — tap to browse", "drag to
+   cut", "scroll down!"), so it reads as something written beside the button
+   rather than as a second label on it. aria-hidden: the link's own text and
+   href already say where it goes, and a screen reader should not hear the
+   destination twice. */
+.start-note{
+  display:inline-block;
+  margin:.5rem 0 0 1.3rem;
+  font-family:var(--f-hand,"Caveat",cursive);
+  font-size:clamp(.95rem,1.15vw,1.12rem);
+  line-height:1;
+  color:var(--lazuli-deep);
+  transform:rotate(-2.2deg);
+}
+
+/* The counter is gone — a "3 of 9" badge on a magazine cover is interface, not
+   print, and the arrows already say there are more. The tape gets the width it
+   was reserving, and its size is set per-string by fitTape() so it is always the
+   largest that still fits one line; the clamp here is only the pre-JS value. */
+.zc-count{display:none}
+.zc-chal{max-width:calc(100% - 4.2rem); text-overflow:clip}
+
+/* ---- PHONE: THE PICTURE HAS TO STAY A PICTURE ----------------------------
+   Two faults compounded here. The coverline plank stacked below 400px, so two
+   48px rows ate half a 234px frame and what was left of the zine was a letterbox
+   band. And the frame's aspect ratio was inherited from the desktop landscape
+   cut, which is the wrong shape for a column that is now full-bleed.
+   So: the plank only stacks when the labels genuinely cannot sit side by side
+   (below 340px, where they shrink first), and the frame is given real height on
+   a phone — taller than wide, which is what a magazine is anyway. */
+@media (max-width:899px){
+  .zc-frame{aspect-ratio:auto; height:clamp(19rem,46vh,25rem)}
+  .zcl{font-size:clamp(.58rem,3vw,.76rem); letter-spacing:.07em; text-indent:.07em}
+}
+@media (max-width:400px) and (min-width:341px){
+  .zc-cover{flex-direction:row}
+  .zc-nav{bottom:var(--zc-strip,3.2rem)}
+}
+@media (max-width:340px){
+  .zc-cover{flex-direction:column}
+  .zc-nav{bottom:calc(var(--zc-strip,3.2rem) * 2)}
+}
+/* the sub was breaking with the tape stranded alone at the end of a line */
+.ed-sub{text-wrap:balance}
+.sub-lead{white-space:nowrap}
