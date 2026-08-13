@@ -2654,6 +2654,10 @@ function initZineCarousel() {
   var D = [
     {d:18, craft:'modeling',          club:'XChange Models',     tape:'come as your heritage',        lead:'Eleven models.',
      z:'https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23', c:'https://app.drex.style/clubs/xchange-models'},
+    // second on purpose: the one moving layer, so a reader who stays for one
+    // change sees a zine being MADE rather than a second finished one.
+    {d:22, craft:'drawing',           club:'Drexzine',           tape:'make a doodle at the cafe',    lead:'Our own club.',
+     z:'https://app.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41', c:'https://app.drex.style/clubs/drex'},
     {d:18, craft:'night photography', club:'Photo Phloor',       tape:'take night photos of the unseen', lead:'A photography collective.',
      z:'https://app.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856', c:'https://app.drex.style/clubs/photo-phloor'},
     {d:18, craft:'getting dressed',   club:'Drexzine',           tape:'wear something to the office', lead:'Our own club.',
@@ -2666,8 +2670,6 @@ function initZineCarousel() {
      z:'https://app.drex.style/z/ccb40394-ef02-4522-92c2-14f432cc8b16', c:'https://app.drex.style/clubs/web-dissonance'},
     {d:7,  craft:'penmanship',        club:'SF Penmans',         tape:'make a dropcap',               lead:'A penmanship club.',
      z:'https://app.drex.style/z/6f886428-a9eb-40b0-9cbf-60f4ae677992', c:'https://app.drex.style/clubs/pen'},
-    {d:7,  craft:'drawing',           club:'Drexzine',           tape:'make a doodle at the cafe',    lead:'Our own club.',
-     z:'https://app.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41', c:'https://app.drex.style/clubs/drex'},
     {d:7,  craft:'cut-outs',          club:'Drexzine',           tape:'make a dress-up game',         lead:'Our own club.',
      z:'https://app.drex.style/z/5b548352-9124-4b25-bcaa-9c06322d30bb', c:'https://app.drex.style/clubs/drex'}
   ];

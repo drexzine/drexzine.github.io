@@ -6542,3 +6542,60 @@ html[data-tier="lite"] .sl-box path{animation:none}
 /* 360x740 was still 6px short — the shortest phone in common use gets one more
    step off the picture rather than losing the button. */
 @media (max-width:380px){ .zc-frame{height:min(33vh,18rem)} }
+
+/* ============================================================================
+   PHONE: THE PLATE KEEPS ITS PROPORTION (2026-08-12)
+   Full-bleed and magazine-shaped cannot both be true on a phone: 100vw at 3:4 is
+   520px tall on a 390px screen, which leaves nothing for the credit or the
+   button. The last cut kept the width and threw the ratio away, so the issue
+   arrived letterboxed — a magazine that is not magazine-shaped.
+   Proportion wins. The plate is sized from its HEIGHT and takes whatever width
+   that ratio gives it, centred, with equal margins either side. That also
+   settles the original complaint about the old layout, which was never that the
+   plate was narrow — it was that it started far from the left and touched the
+   right. Equal margins is the fix for asymmetry; full-bleed was only one way of
+   getting there, and it cost the shape.
+   ============================================================================ */
+@media (max-width:899px){
+  .hero-card .zc{
+    width:100%;
+    margin-left:0; margin-right:0;
+    justify-items:center;
+  }
+  .zc-plate{width:max-content; max-width:100%; margin-inline:auto}
+  .zc-frame{
+    aspect-ratio:3/4; height:min(46vh,24rem); width:auto;
+    max-width:calc(100vw - 2.4rem);
+  }
+  .zc-cap{
+    max-width:34ch; margin-inline:auto; padding-inline:0;
+    text-align:left;
+  }
+  /* one rhythm down the column instead of four values chosen one at a time */
+  .hero-card .ed-head{margin-bottom:0}
+  .hero-card .ed-sub{margin-top:.55rem}
+  .hero-card .zc{margin-top:clamp(1rem,3.4vw,1.5rem)}
+  .zc-cap{margin-top:.55rem}
+  .hero-card .ed-start{margin-top:clamp(1rem,3vw,1.5rem)}
+  .hero-card .ed-fine{margin-top:.7rem}
+}
+
+/* ---- THE CREDIT STAYS INSIDE THE MARGINS. The plate deliberately spills past
+        the card's right edge into the gutter, and the caption under it was
+        inheriting that width — so "Our own club." ran into the gutter and, on
+        the widest screens, off the sheet entirely. A credit is a sentence and
+        sentences keep the page's margins; only the picture is allowed to spill. */
+.zc-cap{max-width:min(100%,34ch)}
+@media (min-width:900px){
+  .zc-cap{max-width:min(30ch, calc(100% - 3rem))}
+}
+
+/* The boil was running but invisible: a 2.2px stroke displaced by 4px inside a
+   viewBox stretched with preserveAspectRatio="none" smooths most of the wobble
+   back out. So the WOBBLE IS IN THE PATH now — the rectangle was never straight
+   to begin with — and the boil only has to move it, which is what
+   squigglevision actually is. Heavier stroke so the movement reads at all. */
+.sl-box path{stroke-width:3; filter:url(#rough)}
+/* the plate gives back height so the button clears the fold on a phone */
+@media (max-width:899px){ .zc-frame{height:min(38vh,21rem)} }
+@media (max-width:380px){ .zc-frame{height:min(34vh,18rem)} }
