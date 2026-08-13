@@ -6393,3 +6393,44 @@ html[data-tier="lite"] .sl-box path{animation:none}
 /* the sub was breaking with the tape stranded alone at the end of a line */
 .ed-sub{text-wrap:balance}
 .sub-lead{white-space:nowrap}
+
+/* ---- THE TAPE IS THE HOUSE WASHI, NOT A HAND-ROLLED ONE. The local one was a
+        flat --oats rectangle through #torn2, which on a cream card is a pale
+        blob with no read at all — invisible on paper, wrong on a photograph.
+        .tape (:92) is the page's own component and it is translucent for a
+        reason: real washi varies in opacity along the strip, which is the one
+        place a gradient is honest here. .b is the lazuli colourway, so the tape
+        rhymes with the ring on the button below it. Only position is local. ---- */
+.zc-tape{
+  top:-14px; right:11%; left:auto;
+  width:clamp(58px,15%,104px); height:28px;
+  transform:rotate(3.4deg);
+}
+.zc-tape::before{content:none}
+
+/* ---- PHONE: THE PLATE GOES FULL-BLEED. It was inset from the left by the
+        card's padding but ran to the right edge, so it read as a picture that
+        had slipped rather than one that was placed. Edge to edge instead: the
+        issue crosses the whole screen and the copy keeps its margins, which is
+        what a magazine spread does. html{overflow-x:clip} already guards the
+        100vw. The caption is pulled back to the copy's measure, because it is a
+        sentence and sentences keep their margins. ---- */
+@media (max-width:899px){
+  .hero-card .zc{
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    margin-right:calc(50% - 50vw);
+  }
+  .zc-plate::before{inset:0}          /* no slab overhang once it is full width */
+  .zc-cap{padding-inline:clamp(1rem,5vw,1.6rem)}
+  .zc-tape{right:8%}
+}
+
+/* ---- PHONE: THE BUTTON WRAPS ITS WORDS. As a block-level grid it stretched to
+        the column and the arrow was stranded an inch from the text it belongs
+        to. Shrink-to-fit, so the drawn ring is around the words rather than
+        around the column. ---- */
+@media (max-width:899px){
+  .ed-start{text-align:left}
+  .start-line{display:inline-grid; width:auto; max-width:100%}
+}

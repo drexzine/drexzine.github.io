@@ -2849,6 +2849,24 @@ function initZineCarousel() {
   }
   window.addEventListener('resize', function(){ fitTape(); });
 
+
+  /* FULL-BLEED, MEASURED. On a phone the plate runs edge to edge, and the CSS
+     breakout (margin-left:calc(50% - 50vw)) assumes its containing block is
+     centred in the viewport. This card is not — it sits a few px off and carries
+     a rotation — so the picture landed ~12px right, overhanging one edge and
+     leaving a gap at the other. Measure the actual left edge and take it out.
+     Runs only where the breakout applies; above 900px the plate is a column. */
+  function bleed(){
+    var el = root;
+    if (!el) return;
+    if (window.innerWidth >= 900){ el.style.marginLeft = ''; el.style.marginRight = ''; return; }
+    el.style.marginLeft = '';
+    var base = parseFloat(getComputedStyle(el).marginLeft) || 0;
+    var off = el.getBoundingClientRect().left;
+    if (Math.abs(off) > 0.5) el.style.marginLeft = (base - off) + 'px';
+  }
+  window.addEventListener('resize', bleed);
+
   function stop() { clearInterval(timer); timer = null; }
   function start() {
     if (timer || manual || held || still.matches || document.hidden) return;
@@ -2878,5 +2896,7 @@ function initZineCarousel() {
   if (still.addEventListener) still.addEventListener('change', function () { stop(); show(0); start(); });
 
   show(0);
+  bleed();
+  whenRevealed(bleed);   // the card settles when the envelope lifts
   start();
 }
