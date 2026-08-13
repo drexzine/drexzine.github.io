@@ -2708,8 +2708,14 @@ function initZineCarousel() {
     if (vid){
       vid.preload = 'auto';
       try { vid.currentTime = 0; var pr = vid.play(); if (pr && pr.catch) pr.catch(function(){}); } catch (e) {}
-      // the reel is the video's own length; nothing pans on this layer
-      dwellMs = Math.max(4000, (vid.duration || 24) * 1000);
+      // A VIDEO HANDS OFF WHEN IT ENDS, IT DOES NOT LOOP. The <video> carried
+      // loop, so it restarted and played its opening again while a clock ran
+      // somewhere else — two clocks that could not agree, and the reader watched
+      // the same shot twice. The 'ended' listener below advances the carousel;
+      // this timer is only a safety net for the case where autoplay is refused
+      // and 'ended' therefore never fires, so it is deliberately longer than the
+      // clip rather than equal to it.
+      dwellMs = Math.max(6000, ((vid.duration || 24) + 3) * 1000);
     }
 
     for (var k = 0; k < layers.length; k++) {
@@ -2898,7 +2904,13 @@ function initZineCarousel() {
     // those used to freeze the reel, and a picture that stops the moment you look
     // at it reads as broken rather than as considerate.
     if (timer || manual || still.matches) return;
-    timer = setTimeout(function () { show(i + 1); }, dwellMs);
+    // RE-ARMS ITSELF. This was a setInterval and became a setTimeout when the
+    // dwell started varying per issue — but a timeout fires once, and the
+    // callback did not schedule the next one, so the carousel advanced exactly
+    // one issue and then sat there. Clearing the handle first matters too:
+    // start() bails while `timer` is truthy, so a stale id would block every
+    // future arm even after the callback had run.
+    timer = setTimeout(function () { timer = null; show(i + 1); start(); }, dwellMs);
   }
   function step(n) {                       // manual: ends the rotation for good
     manual = true; stop(); show(i + n);
@@ -2915,6 +2927,23 @@ function initZineCarousel() {
   });
 
   if (still.addEventListener) still.addEventListener('change', function () { stop(); show(0); start(); });
+
+
+  // Each video layer advances the carousel the moment it finishes. Guarded on
+  // is-on so a stray end event from a layer nobody is looking at cannot skip
+  // ahead, and on manual so it never fights a reader who took the arrows.
+  for (var vv = 0; vv < layers.length; vv++){
+    (function(layer){
+      var v = layer.querySelector('video');
+      if (!v) return;
+      v.addEventListener('ended', function(){
+        if (manual || !layer.classList.contains('is-on')) return;
+        stop();
+        show(i + 1);
+        start();
+      });
+    })(layers[vv]);
+  }
 
   show(0);
   bleed();

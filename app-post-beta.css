@@ -6599,3 +6599,41 @@ html[data-tier="lite"] .sl-box path{animation:none}
 /* the plate gives back height so the button clears the fold on a phone */
 @media (max-width:899px){ .zc-frame{height:min(38vh,21rem)} }
 @media (max-width:380px){ .zc-frame{height:min(34vh,18rem)} }
+
+/* THE CTA'S BORDER: THICK, BLACK, AND BOILING. The oats stroke on grass was too
+   close in value to read as a drawn edge from any distance — it looked like a
+   fill with a lighter fill around it. Sambas at 6px is the page's own ink weight
+   for a hard-edged object, and against the grass it reads as a line somebody
+   drew around the button rather than as the button's own boundary.
+   The wobble is in the path; #rough only has to move it, cycling seed 2 -> 12 ->
+   26 every half second, which is the same cadence the page's underlines run at
+   (:1892). It is still the first thing dropped at tier=lite and under
+   reduced-motion — a boiling SVG filter is the most expensive thing per element
+   here, and the H1's marker matters more than this does. */
+.sl-box path{
+  stroke:var(--ink);
+  stroke-width:6;
+  stroke-linejoin:round;
+  stroke-linecap:round;
+  filter:url(#rough);
+  animation:boil-rough var(--boil-ink) step-end infinite;
+}
+.sl-box{overflow:visible}
+.start-line{box-shadow:none; padding:1rem 1.3rem 1.25rem}
+.start-line:hover{transform:translate(2px,2px)}
+.start-line:hover .sl-box path{stroke:var(--ink)}
+.start-line:focus-visible{outline:3px solid var(--lazuli); outline-offset:5px}
+html[data-tier="lite"] .sl-box path{animation:none}
+@media (prefers-reduced-motion:reduce){.sl-box path{animation:none}}
+
+/* EXEMPT FROM LITE, ON PURPOSE. The FPS governor latches data-tier="lite" at
+   34ms frames and this rule's own guard was then switching the boil off — which
+   is right for twelve deck cards and wrong for this. It is ONE path stepping
+   between three filter seeds twice a second: the cost is a rounding error next
+   to the nine layers and the video above it, and it is the primary call to
+   action, the one element on the fold whose job is to look alive. Reduced motion
+   still stops it, because that is a stated preference rather than a measurement. */
+html[data-tier="lite"] .sl-box path{animation:boil-rough var(--boil-ink) step-end infinite}
+@media (prefers-reduced-motion:reduce){
+  html[data-tier="lite"] .sl-box path,.sl-box path{animation:none}
+}
