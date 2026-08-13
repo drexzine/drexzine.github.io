@@ -4305,7 +4305,7 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 .pc-post{position:absolute;top:9px;right:9px;width:76px;height:52px;color:var(--key,var(--ink));z-index:4;pointer-events:none}
 
 /* RIGHT — the written message */
-.pc-msg{position:relative;padding:14px 15px 13px 16px;display:flex;flex-direction:column;min-width:0}
+.pc-msg{position:relative;padding:14px 15px 13px 16px;display:flex;flex-direction:column;min-width:0;background-color:var(--oats);}
 .pc-type{position:relative;isolation:isolate;align-self:flex-start;font-family:var(--f-head);font-weight:700;
   text-transform:uppercase;letter-spacing:.06em;font-size:10px;color:var(--oats);padding:.16em .5em}
 .pc-type::before{content:"";position:absolute;inset:-1px;z-index:-1;background:var(--key,var(--ink));

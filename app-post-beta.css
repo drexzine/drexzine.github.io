@@ -4824,7 +4824,7 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 .pc-name.on-yellow{color:var(--ink)}
 
 /* the postage stamp + postmark */
-.pc-post{position:absolute;top:9px;right:9px;width:76px;height:52px;color:var(--key,var(--ink));z-index:4;pointer-events:none}
+.pc-post{position:absolute;top:9px;right:9px;width:140px;height:100px;color:var(--key,var(--ink));z-index:4;pointer-events:none}
 
 /* RIGHT — the written message */
 .pc-msg{position:relative;padding:14px 15px 13px 16px;display:flex;flex-direction:column;min-width:0}
@@ -7218,3 +7218,60 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
    picture is cropped into whatever that gives it. */
 .deck.smear .pc-img{position:relative; height:auto; min-height:0; align-self:stretch}
 .deck.smear .pc-img > img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+
+/* ============================================================================
+   THE POSTCARD SMEAR — AUTHORITATIVE BLOCK (2026-08-13)
+   Everything above this about .deck.smear was an accumulation of patches that
+   fought each other. Measured, the cards were 0.73 (portrait, image stacked
+   ABOVE) on a phone and 2.7-2.9 (letterbox) on desktop — never once a postcard.
+   The mistake was letting CONTENT decide the height and hoping a ratio would
+   stick. It cannot: the two are the same constraint.
+   So the card IS 3:2, at every width, and the TYPE scales with the card instead.
+   Container queries make that honest — every size below is a share of the card's
+   own width (cqw), so a 360px postcard and a 640px postcard are the same design
+   at two sizes, not two different layouts.
+   ============================================================================ */
+.deck.smear{
+  width:min(100%, 40rem);            /* not full-bleed; a postcard is held, not hung */
+  margin-inline:auto;
+  padding-block:clamp(.5rem,2vw,1.5rem);
+}
+.deck.smear .pc{
+  container-type:inline-size;
+  display:grid !important;
+  grid-template-columns:34% 1fr !important;   /* the image is the LEFT THIRD, always */
+  aspect-ratio:3/2 !important;                 /* a real 6x4 postcard, at every width */
+  min-height:0 !important;
+  width:100%; max-width:none;
+  overflow:hidden;
+  margin-inline:auto;
+  transform:rotate(var(--sr,0deg));
+}
+/* room to breathe: a real gap between cards, with only a slight kiss of overlap */
+.deck.smear .pc + .pc{margin-top:clamp(1.4rem,3.2vw,2.6rem) !important}
+.deck.smear .pc:nth-child(odd){margin-left:clamp(-1.2rem,-1.6vw,-.4rem)}
+.deck.smear .pc:nth-child(even){margin-right:clamp(-1.2rem,-1.6vw,-.4rem)}
+
+.deck.smear .pc-img{position:relative; height:100%; min-height:0; overflow:hidden}
+.deck.smear .pc-img > img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+
+/* TYPE AS A SHARE OF THE CARD. cqw, so the written side holds the same rhythm
+   whether the card is 360px or 640px wide, and nothing has to be hidden or
+   truncated at the small end. */
+.deck.smear .pc-msg{
+  display:flex; flex-direction:column; gap:.5cqw;
+  padding:5cqw 5.5cqw; overflow:hidden; min-width:0;
+  background-color: var(--oats) !important;
+}
+.deck.smear .pc-type{font-size:2.6cqw; letter-spacing:.08em}
+.deck.smear .pc-title{font-size:6.4cqw; line-height:1.06; margin:.6cqw 0 0}
+.deck.smear .pc-slug{font-size:3cqw; margin:.8cqw 0 0}
+.deck.smear .pc-msg blockquote,
+.deck.smear .pc-quote{font-size:3.1cqw; line-height:1.36; margin:1.6cqw 0 0}
+.deck.smear .pc-cite{font-size:2.5cqw}
+.deck.smear .pc-cta{margin-top:auto; padding-top:1.4cqw}
+.deck.smear .pc-cta .btn{font-size:2.7cqw; padding:1.6cqw 2.6cqw}
+.deck.smear .pc-cta .pc-ig{font-size:2.6cqw}
+.deck.smear .pc-post,.deck.smear .pc-a{transform:scale(.72); transform-origin:top right}
+.deck.smear .pc-play{font-size:2.6cqw}
+.deck.smear .pc-name{font-size:2.4cqw}

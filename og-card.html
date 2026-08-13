@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Patrick+Hand&display=swap">
+<style>
+:root{--oats:#FEF6E4;--grass:#1CAB5B;--sambas:#414D57;--colorado:#F75458;--lazuli:#2496C9;--schoolbus:#ECAF21;--happy:#F1DD01;--ink:#2f2110}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1200px;height:630px}
+.card{position:relative;width:1200px;height:630px;overflow:hidden;background:var(--grass)}
+
+.msg{position:absolute;left:96px;top:0;height:630px;width:640px;display:flex;flex-direction:column;justify-content:center}
+
+/* Eyebrow — small colorado torn tag, oats text, clearly subordinate */
+.a-eyebrow{align-self:flex-start;font-family:"Courier Prime",monospace;font-style:italic;font-weight:700;color:var(--oats);font-size:31px;line-height:1.1;letter-spacing:-.02em;background:var(--colorado);padding:9px 18px 11px;box-shadow:5px 5px 0 rgba(0,0,0,.22);transform:rotate(-1.6deg);clip-path:polygon(0 6%,4% 0,22% 5%,40% 0,60% 6%,80% 0,97% 5%,100% 0,100% 92%,97% 100%,78% 95%,58% 100%,38% 95%,18% 100%,3% 96%,0 100%)}
+
+/* Headline — dominant oats, Courier Prime italic 700 */
+.a-head{font-family:"Courier Prime",monospace;font-style:italic;font-weight:700;color:var(--oats);font-size:92px;line-height:.94;letter-spacing:-.02em;margin-top:30px}
+
+/* Payoff — Patrick Hand, oats, schoolbus flat marker block behind "portfolio." */
+.a-hello{font-family:"Patrick Hand",cursive;color:var(--oats);font-size:56px;line-height:1;margin-top:40px}
+.a-hello .hl{position:relative;display:inline-block;color:var(--ink);padding:0 8px}
+.a-hello .hl::before{content:"";position:absolute;left:0;right:0;top:6%;bottom:6%;background:var(--schoolbus);transform:rotate(-2.4deg);z-index:-1}
+
+/* Polaroid — oats paper card floats the unmodified green mark on the green ground */
+.polaroid{position:absolute;right:82px;top:135px;width:360px;height:360px;background:var(--oats);border-radius:10px;box-shadow:8px 8px 0 rgba(0,0,0,.25);transform:rotate(2.2deg);display:flex;align-items:center;justify-content:center}
+.a-mark{display:block;height:300px}
+
+/* Doodle star accent near the polaroid */
+.a-star{position:absolute;right:392px;top:112px;width:56px;height:56px;transform:rotate(-8deg)}
+</style></head><body><div class="card">
+<div class="msg">
+  <p class="a-eyebrow">Tiny creative clubs with show-and-tell deadlines.</p>
+  <h1 class="a-head">A club for whatever you make.</h1>
+  <p class="a-hello">Hello, <span class="hl">portfolio.</span></p>
+</div>
+<svg class="a-star" viewBox="0 0 100 100"><path d="M50 3 C55 35,65 45,97 50 C65 55,55 65,50 97 C45 65,35 55,3 50 C35 45,45 35,50 3Z" fill="#F1DD01"/></svg>
+<div class="polaroid">
+<span class="a-mark"><svg viewBox="0 0 7438 6955" fill="#1CAB5B" role="img" aria-label="drex" style="display:block;height:100%;width:auto"><path d="M3940.792,1923.474c0,-237.327 876.575,-942.689 1916.579,-954.143c144.631,-1.593 160.411,78.319 137.9,189.4c-30.08,148.427 -98.327,433.131 -98.327,433.131c0,0 65.273,764.946 -24.815,794.112c-90.088,29.167 -290.952,-256.255 -825.803,-386.398c-752.956,-183.213 -1105.535,77.059 -1105.535,-76.102Z" style=""/><path d="M3904.129,2226.95c9.277,-48.947 42.212,-89.528 87.203,-107.447c243.766,-86.69 1260.521,-180.52 2114.804,662.836c42.289,41.921 54.919,106.632 31.665,162.246c-102.058,276.752 -340.779,1190.09 53.749,2858.265c38.355,162.175 -103.782,235.401 -233.086,138.553c-532.234,-398.637 -1304.501,-567.736 -1930.825,-724.558c-48.189,-11.629 -86.868,-48.709 -101.742,-97.538c-70.176,-252.215 -255.758,-1651.265 -21.766,-2892.358Z"/><path d="M3496.708,1923.474c0,-237.327 -876.575,-942.689 -1916.579,-954.143c-144.631,-1.593 -160.411,78.319 -137.9,189.4c30.08,148.427 98.327,433.131 98.327,433.131c0,0 -65.273,764.946 24.815,794.112c90.088,29.167 290.952,-256.255 825.803,-386.398c752.956,-183.213 1105.535,77.059 1105.535,-76.102Z" style=""/><path d="M3533.371,2226.95c-9.277,-48.947 -42.212,-89.528 -87.203,-107.447c-243.766,-86.69 -1260.521,-180.52 -2114.804,662.836c-42.289,41.921 -54.919,106.632 -31.665,162.246c102.058,276.752 340.779,1190.09 -53.749,2858.265c-38.355,162.175 103.782,235.401 233.086,138.553c532.234,-398.637 1304.501,-567.736 1930.825,-724.558c48.189,-11.629 86.868,-48.709 101.742,-97.538c70.176,-252.215 255.758,-1651.265 21.766,-2892.358Z"/></svg></span>
+</div>
+</div></body></html>
