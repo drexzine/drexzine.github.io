@@ -7018,3 +7018,43 @@ html[data-tier="lite"] .start-line::before{animation:boil-rough var(--boil-ink) 
 .sl-live{color:var(--happy) !important; font-weight:700}
 .sl-live.is-typing::after{background:var(--happy)}
 .sl-slot{padding:0; margin-left:0; min-width:6ch}
+
+/* ============================================================================
+   HANDWRITING, NOT A TERMINAL (2026-08-13)
+   The blinking block caret made the blank read as a text field being typed into.
+   The idiom on this page is a hand filling in a form, so the letters appear and
+   erase with nothing following them — the same way the marker swipes and the
+   drawn arrows imply a hand without drawing one.
+   ============================================================================ */
+.sl-live.is-typing::after{content:none !important}
+
+/* ---- THE SWIPES SIT UNDER THE WORDS, NOT THROUGH THEM. At bottom:-.1em with a
+        .42em band the mark climbed into the lower third of the letterforms and
+        struck through the descenders. A highlighter drawn under a line of
+        handwriting sits BELOW the baseline and just touches it. ---- */
+.sub-mark::after{
+  bottom:-.22em; height:.3em;
+  left:-.1em; right:-.1em;
+}
+
+/* ---- THE CARD DOES NOT BOIL. Only the call to action does. Every paper object
+        wobbling at once turned the fold into a page-wide shimmer and stole the
+        one place motion actually means something — the button. The card, the
+        zine's trim and its leaves keep their hand-drawn EDGES (the filters stay)
+        and simply hold still, which is what paper does. ---- */
+.hero-card>.sheet,
+.zc-frame,
+.zc-sheet-2,.zc-sheet-3,.zc-sheet-4,
+.zc-cover::before,
+.sub-mark::after{animation:none !important}
+
+/* THE SUB GOES TO 600, NOT 700. It now sits on three saturated marks and regular
+   italic Bitter was starting to look thin against them. Bold would be the wrong
+   fix: at one phi under the H1 a 700 italic serif stops reading as a subordinate
+   line and becomes a second headline, and it thickens into the swipes rather
+   than resting on them. 500 buys presence without buying rank. */
+/* 600, not 500: the Google Fonts link ships Bitter italic at 400 and 600 only
+   (ital,wght@1,400;1,600), and CSS weight matching sends an unavailable 500
+   DOWN to 400 first — so `font-weight:500` was silently rendering as regular
+   and changing nothing. 600 is a real cut of the face, not a synthesised one. */
+.hero-card .ed-sub{font-weight:600}
