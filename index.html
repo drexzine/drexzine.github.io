@@ -248,7 +248,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=44" />
+<link rel="stylesheet" href="app-post-beta.css?v=49" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -758,8 +758,17 @@
                          loading="lazy" decoding="async" alt="Dropcaps, by SF Penmans &mdash; pages of the real issue.">
                   </div>
                   <div class="zl" aria-hidden="true">
-                    <img src="assets/zines/hero/cafe.jpg" width="620" height="2922"
-                         loading="lazy" decoding="async" alt="Drawing at the Cafe &mdash; pages of the real issue.">
+                    <!-- THE ONE MOVING ONE. Every other layer is a captured scroll of a finished
+                         issue; this is a screen recording of one being MADE — Claire drawing at
+                         the cafe, the editor with the challenge on it, then the page she ended up
+                         with. It is the only thing in the fold that shows the act rather than the
+                         artifact, which is the half of the product a still cannot argue.
+                         432x766, 24s, silent, H.264 crf30 faststart: 764KB, which is smaller than
+                         two of the JPEG strips beside it. preload="none" so it costs nothing until
+                         its turn; the poster covers the gap before the first frame decodes. -->
+                    <video class="zc-vid" src="assets/zines/hero/cafe.mp4" poster="assets/zines/hero/cafe-poster.jpg"
+                           width="432" height="766" muted playsinline loop preload="none"
+                           aria-label="Drawing at the Cafe being made — the challenge, the photo going in, and the finished page."></video>
                   </div>
                   <div class="zl" aria-hidden="true">
                     <img src="assets/zines/hero/interactive.jpg" width="620" height="1719"
@@ -2785,7 +2794,7 @@
   });
 })();
 </script>
-<script type="module" src="app-post-beta.js?v=23"></script>
+<script type="module" src="app-post-beta.js?v=25"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign

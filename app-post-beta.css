@@ -6434,3 +6434,111 @@ html[data-tier="lite"] .sl-box path{animation:none}
   .ed-start{text-align:left}
   .start-line{display:inline-grid; width:auto; max-width:100%}
 }
+
+/* ============================================================================
+   FOLD, FINAL PASS (2026-08-12) — against the brand bible, not against taste.
+   Palette budget from the guidelines (p.27): Grass 25 / Oats 25 / Sambas 20 /
+   Colorado 10 / Lazuli 10 / SchoolBus 5 / Happy 5. Grass is the DOMINANT colour
+   and this fold was barely spending it, while grey — which is not in the palette
+   at all — was carrying the caption and the fine print. Both corrected here.
+   Flat colour and solid offset shadows only; no gradients, no blur.
+   ============================================================================ */
+
+/* ---- 1. NO MORE GREY. It is not a brand colour and on cream it goes muddy.
+        Lazuli-deep instead: in the palette, inside its 10% budget, and it holds
+        5.5:1 on oats where plain lazuli manages only 3.1:1 and would fail on
+        type this size. ---- */
+.zc-cap,.ed-fine{color:var(--lazuli-deep)}
+@supports (color:color-mix(in srgb,red,blue)){
+  .zc-cap,.ed-fine{color:var(--lazuli-deep)}
+}
+.ed-fine a{color:var(--grass-deep)}
+
+/* ---- 2. THE PLATE IS A MAGAZINE, SO IT IS SHAPED LIKE ONE. 2:3 portrait at
+        every width — the same proportion as the issue inside it, so the pages
+        arrive at the size they were laid out for instead of letterboxed. ---- */
+.zc-frame{aspect-ratio:2/3; height:auto}
+@media (min-width:900px){ .zc-frame{aspect-ratio:2/3; height:auto} }
+@media (max-width:899px){ .zc-frame{aspect-ratio:3/4; height:auto} }
+
+/* ---- 3. THE CAPTION BELONGS TO THE PICTURE. It was floating a full line below
+        with the same gap that separates unrelated blocks, so by proximity it
+        read as page furniture rather than as this issue's credit. Tight to the
+        plate, left edge flush with it, and its measure capped to the plate's
+        width so it can never run wider than the thing it describes. ---- */
+.zc{gap:0}
+.zc-cap{
+  margin:.55rem 0 0; padding:0;
+  max-width:100%; min-height:0;
+  font-size:.875rem; line-height:1.4;
+}
+.zc-cap b{color:var(--grass-deep); font-weight:600}
+@media (max-width:899px){
+  .zc-cap{padding-inline:clamp(1rem,5vw,1.6rem); margin-top:.6rem}
+}
+
+/* ---- 4. THE CTA IS A BUTTON. It was a drawn outline on the same cream as the
+        sheet, which is a diagram of a button rather than one. Grass is the
+        brand's dominant colour and its 25% share was going unspent; a filled
+        grass-deep card with a HARD offset shadow (the bible's only permitted
+        shadow) reads as a physical thing you can press, from across the room.
+        The craft word keeps its happy swipe and its colorado squiggle — both
+        sit on the dark green at full strength, which is why the fill is
+        grass-DEEP and not grass. ---- */
+.start-line{
+  background:var(--grass-deep);
+  color:var(--oats);
+  box-shadow:5px 5px 0 0 var(--ink);
+  padding:.9rem 1.2rem 1.15rem;
+  transition:transform .12s ease-out, box-shadow .12s ease-out;
+}
+.sl-box path{stroke:var(--oats); stroke-width:2.2}
+.sl-arr path{stroke:var(--oats)}
+.sl-lead{color:var(--oats)}
+.sl-live{color:var(--ink)}                 /* on the happy swipe, so it stays ink */
+.start-line:hover{transform:translate(2px,2px); box-shadow:3px 3px 0 0 var(--ink)}
+.start-line:hover .sl-box path{stroke:var(--happy)}
+.start-line:hover .sl-arr path{stroke:var(--happy)}
+.start-note{color:var(--grass-deep)}
+
+/* ---- 5. WHITESPACE. One scale for the whole column instead of four values
+        picked one at a time: the sub hangs off the headline, the button clears
+        the sub by a full step, and the fine print sits close under the button
+        because it annotates it. ---- */
+.hero-card .ed-sub{margin-top:clamp(.7rem,1.5vw,1.05rem)}
+.hero-card .ed-start{margin-top:clamp(1.4rem,3vw,2.2rem)}
+.hero-card .ed-fine{margin-top:clamp(.7rem,1.6vw,1.1rem); max-width:34ch}
+.start-note{margin:.55rem 0 0 .4rem}
+
+/* The video layer fills the frame the same way a strip does. object-fit:cover
+   because the recording is 9:16 and the plate is 2:3 — cropping the sides of a
+   phone capture loses nothing, letterboxing it would put bars inside a magazine. */
+.zc-vid{display:block; width:100%; height:100%; object-fit:cover; background:var(--ink)}
+
+/* PHONE: THE PLATE TAKES A SHARE OF THE SCREEN, NOT ALL OF IT. Full-bleed at a
+   3:4 ratio meant a 390px-wide phone got a 520px-tall picture, which pushed the
+   caption, the button and the fine print entirely below the fold — the reader
+   met the object and none of the offer. Height is a share of the viewport now,
+   so the whole fold lands on one screen at every phone size; the picture is
+   still edge to edge, just not floor to ceiling. */
+@media (max-width:899px){
+  .zc-frame{aspect-ratio:auto; height:min(44vh,23rem)}
+  /* the fixed scroll cue was landing on top of the coverlines once the plate
+     went full width; the arrow is a nicety and the plank is a control. */
+  .scroll-cue{display:none}
+}
+
+/* The whole offer has to land on one phone screen: picture, credit, and the one
+   button. At 44vh the button sat 70px below the fold on a 740px phone, which
+   means a reader could see the thing and never see the door. The picture gives
+   back the height and the gaps tighten with it. */
+@media (max-width:899px){
+  .zc-frame{height:min(37vh,20rem)}
+  .hero-card .ed-start{margin-top:clamp(.9rem,2.4vw,1.3rem)}
+  .hero-card .ed-sub{margin-top:.6rem}
+  .start-line{padding:.75rem 1rem .95rem}
+  .start-note{margin-top:.4rem}
+}
+/* 360x740 was still 6px short — the shortest phone in common use gets one more
+   step off the picture rather than losing the button. */
+@media (max-width:380px){ .zc-frame{height:min(33vh,18rem)} }

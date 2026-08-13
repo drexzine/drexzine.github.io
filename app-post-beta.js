@@ -2679,14 +2679,14 @@ function initZineCarousel() {
   var join  = document.getElementById('ctaClub');
   var still = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  var i = 0, timer = null, manual = false, held = false;
+  var i = 0, timer = null, manual = false, dwellMs = 9000;
 
   // Warm the next strip while the current one plays: the others are lazy and sit
   // at opacity 0, so the browser is entitled to defer them — and does. Without
   // this the crossfade lands on an image with no bytes and the frame flashes.
   function warm(n) {
     var img = layers[(n + layers.length) % layers.length].querySelector('img');
-    if (!img || img.dataset.warm) return;
+    if (!img || img.dataset.warm) return;   // video layers warm themselves on their turn
     img.dataset.warm = '1';
     img.loading = 'eager';
     if (img.decode) img.decode().catch(function () {});
@@ -2695,6 +2695,20 @@ function initZineCarousel() {
   function show(n) {
     i = (n + layers.length) % layers.length;
     var d = D[i], img = layers[i].querySelector('img');
+    var vid = layers[i].querySelector('video');
+
+    // Every layer that is NOT the one on screen gets paused and rewound, so a
+    // video never plays to an empty room or resumes mid-sentence on its next turn.
+    for (var v = 0; v < layers.length; v++){
+      var ov = layers[v].querySelector('video');
+      if (ov && v !== i){ try { ov.pause(); ov.currentTime = 0; } catch (e) {} }
+    }
+    if (vid){
+      vid.preload = 'auto';
+      try { vid.currentTime = 0; var pr = vid.play(); if (pr && pr.catch) pr.catch(function(){}); } catch (e) {}
+      // the reel is the video's own length; nothing pans on this layer
+      dwellMs = Math.max(4000, (vid.duration || 24) * 1000);
+    }
 
     for (var k = 0; k < layers.length; k++) {
       var on = (k === i);
@@ -2709,17 +2723,23 @@ function initZineCarousel() {
     // longer. Short strips would otherwise finish early and sit dead, so their
     // pace eases down rather than stopping — never a jerk.
     if (img && !still.matches) {
-      var PPS = 95;                       // pixels per second, the SAME for all nine
+      // THE WHOLE ISSUE, ONE PACE, NO STOPPING. Earlier cuts capped the travel by
+      // the dwell, so a 5,000px issue showed its first third and cut away. The
+      // distance is the whole strip now and the DWELL follows from it: a long
+      // issue simply stays longer. One speed for all nine, so nothing appears to
+      // speed up or slow down as the carousel moves between them.
+      var PPS = 165;                      // px per second, identical for every issue
       var box = frame ? frame.clientHeight : 300;
       var full = img.getBoundingClientRect().height || (img.height || 0);
-      var room = Math.max(0, full - box);            // how far this strip COULD travel
+      var room = Math.max(0, full - box);
       // The dwell buys the distance; it does not compress it. Capping duration at
       // the dwell (the first cut of this) made a 4,400px strip cross in 18s — 244px
       // a second, a blur. So the DISTANCE is what the dwell limits, and the
       // duration follows from it at a fixed pace. The three strongest issues get
       // 18s and so travel ~2.5x as far as the six at 7s, at identical speed.
-      var travel = Math.min(room, d.d * PPS);
-      var secs = travel > 40 ? travel / PPS : d.d;   // nothing to pan: just hold
+      var travel = room;                             // all of it
+      var secs = travel > 40 ? travel / PPS : 6;
+      dwellMs = Math.max(4000, secs * 1000);         // the timer follows the reel
       img.style.setProperty('--travel', travel.toFixed(0) + 'px');
       img.style.setProperty('--reel', secs.toFixed(1) + 's');
     }
@@ -2806,7 +2826,10 @@ function initZineCarousel() {
       // runs. The envelope seals the page until it is dragged (or until the 6s
       // failsafe), so a timer started at DOMContentLoaded spends its whole hold
       // behind the cut and the reader arrives after the word has already changed.
-      whenRevealed(function(){ setTimeout(function(){ typeCraft(word); }, OPENING_HOLD); });
+      // types whatever is on screen WHEN THE HOLD ENDS, not the word captured when
+      // it started — otherwise using the arrows during the opening beat lets a stale
+      // craft land after them and the word stops matching the picture.
+      whenRevealed(function(){ setTimeout(function(){ typeCraft(D[i].craft); }, OPENING_HOLD); });
       return;
     }
     clearInterval(typing);
@@ -2867,10 +2890,13 @@ function initZineCarousel() {
   }
   window.addEventListener('resize', bleed);
 
-  function stop() { clearInterval(timer); timer = null; }
+  function stop() { clearTimeout(timer); timer = null; }
   function start() {
-    if (timer || manual || held || still.matches || document.hidden) return;
-    timer = setInterval(function () { show(i + 1); }, D[i].d * 1000);
+    // Deliberately does NOT test hover, focus or document.hidden. Every one of
+    // those used to freeze the reel, and a picture that stops the moment you look
+    // at it reads as broken rather than as considerate.
+    if (timer || manual || still.matches) return;
+    timer = setTimeout(function () { show(i + 1); }, dwellMs);
   }
   function step(n) {                       // manual: ends the rotation for good
     manual = true; stop(); show(i + n);
@@ -2886,13 +2912,6 @@ function initZineCarousel() {
     if (e.key === 'ArrowRight') { step(1);  e.preventDefault(); }
   });
 
-  ['pointerenter', 'focusin'].forEach(function (e) {
-    root.addEventListener(e, function () { held = true; if (frame) frame.classList.add('is-held'); stop(); });
-  });
-  ['pointerleave', 'focusout'].forEach(function (e) {
-    root.addEventListener(e, function () { held = false; if (frame) frame.classList.remove('is-held'); start(); });
-  });
-  document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
   if (still.addEventListener) still.addEventListener('change', function () { stop(); show(0); start(); });
 
   show(0);
