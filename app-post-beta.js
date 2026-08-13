@@ -42,9 +42,16 @@ const Stage = (() => {
   function observe(el, fn) { if (!el) return; ioCbs.set(el, fn); io.observe(el); }
 
   /* ---- FPS governor: latch html[data-tier=lite] under load -------- */
-  let frames = [], lastT = 0, demoted = false, fpsPausedUntil = 0;
+  let frames = [], lastT = 0, demoted = false, fpsPausedUntil = 0, goodRun = 0;
+  // WARM-UP GRACE. The governor used to start sampling on the very first frame,
+  // which is exactly when the browser is decoding the hero: nine zine strips and
+  // a video. Those frames are always slow and they are not what "sustained load"
+  // means — so the page routinely latched lite during its own load and spent the
+  // whole visit with squigglevision off. Nothing is judged for the first 3.5s.
+  const FPS_WARMUP = 3500;
   function pauseFps(ms) { fpsPausedUntil = Math.max(fpsPausedUntil, lastT + ms); }  // skip sampling across a known stall
   function fpsSample(t) {
+    if (t < FPS_WARMUP) { lastT = t; frames = []; return; }        // still painting the fold
     if (t < fpsPausedUntil) { lastT = t; frames = []; return; }   // inside a deliberate pause (e.g. domToCanvas)
     if (lastT) {
       const d = t - lastT;
@@ -56,9 +63,21 @@ const Stage = (() => {
       else {
         frames.push(d);
         if (frames.length > 8) frames.shift();
-        if (!demoted && frames.length === 8) {
+        if (frames.length === 8) {
           const avg = frames.reduce((a, b) => a + b, 0) / frames.length;
-          if (avg > 34) { demoted = true; document.documentElement.dataset.tier = 'lite'; } // ~<29fps
+          if (!demoted && avg > 34) {                              // ~<29fps
+            demoted = true; goodRun = 0;
+            document.documentElement.dataset.tier = 'lite';
+          } else if (demoted) {
+            // AND IT CAN COME BACK. Demotion used to be permanent: one bad
+            // window — a scroll during an image decode, a background tab
+            // returning — and the hand-drawn edges stopped moving for the rest
+            // of the visit with no way back. Six clean windows (~48 frames
+            // comfortably under budget) undo it. The threshold to recover is
+            // stricter than the one to demote, so it cannot oscillate.
+            if (avg < 24) { if (++goodRun >= 6) { demoted = false; goodRun = 0; delete document.documentElement.dataset.tier; } }
+            else goodRun = 0;
+          }
         }
       }
     }
@@ -150,7 +169,8 @@ function boot() {
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
   initHowGag();                     // tap "every week" → the words stop, the ring spins instead
   initHeroRotate();                 // no-ops since 2026-08-11: the H1 has no #rot-word any more
-  initZineCarousel();               // the fold's picture: four real issues, scrolling, one at a time
+  initZineCarousel();               // the fold's picture: nine real issues, one at a time
+  initDomainSlot();                 // the yellow blank in the CTA, on its own clock
   alignDeckToHeadline();            // deck top meets headline top — must run BEFORE the arrow measures
   initBeatPointer();                // the sub's marker arrow, drawn from "magazine." onto the front zine
   initMakerPhotos();                // polaroids adopt assets/makers/<handle>.jpg if present
@@ -2652,25 +2672,25 @@ function initZineCarousel() {
 
   // dwell in seconds, and the craft/club/caption each issue carries.
   var D = [
-    {d:18, craft:'modeling',          club:'XChange Models',     tape:'come as your heritage',        lead:'Eleven models.',
+    {d:18, craft:'modeling',          club:'XChange Models',     tape:'come as your heritage',        lead:'Eleven models reflect on their performance.',
      z:'https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23', c:'https://app.drex.style/clubs/xchange-models'},
     // second on purpose: the one moving layer, so a reader who stays for one
     // change sees a zine being MADE rather than a second finished one.
-    {d:22, craft:'drawing',           club:'Drexzine',           tape:'make a doodle at the cafe',    lead:'Our own club.',
+    {d:22, craft:'drawing',           club:'Drexzine',           tape:'make a doodle at the cafe',    lead:'Drawing between coffees.',
      z:'https://app.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41', c:'https://app.drex.style/clubs/drex'},
-    {d:18, craft:'night photography', club:'Photo Phloor',       tape:'take night photos of the unseen', lead:'A photography collective.',
+    {d:18, craft:'night photography', club:'Photo Phloor',       tape:'take night photos of the unseen', lead:'A collective shoots after dark.',
      z:'https://app.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856', c:'https://app.drex.style/clubs/photo-phloor'},
-    {d:18, craft:'getting dressed',   club:'Drexzine',           tape:'wear something to the office', lead:'Our own club.',
+    {d:18, craft:'getting dressed',   club:'Drexzine',           tape:'wear something to the office', lead:'Sharing our fashion.',
      z:'https://app.drex.style/z/d5a5a957-84cc-40bf-bafa-87f4b6dc600c', c:'https://app.drex.style/clubs/drex'},
-    {d:7,  craft:'penmanship',        club:'SF Penmans',         tape:'do a penmanship study',        lead:'A penmanship club.',
+    {d:7,  craft:'penmanship',        club:'SF Penmans',         tape:'do a penmanship study',        lead:'Penmans show their flourish.',
      z:'https://app.drex.style/z/6940b4c7-337b-4b6c-9de8-9dccdeeba566', c:'https://app.drex.style/clubs/pen'},
-    {d:7,  craft:'coffee',            club:'Beans',              tape:'make your favorite coffee drink', lead:'Four baristas.',
+    {d:7,  craft:'coffee',            club:'Beans',              tape:'make your favorite coffee drink', lead:'Baristas practice their craft.',
      z:'https://app.drex.style/z/f362cc90-3b98-4c9e-80af-494105edb9e5', c:'https://app.drex.style/clubs/beans'},
-    {d:7,  craft:'photography',       club:'The Web Dissonance', tape:'photograph your shadow',       lead:'Two members.',
+    {d:7,  craft:'photography',       club:'The Web Dissonance', tape:'photograph your shadow',       lead:'Two members chase a shadow.',
      z:'https://app.drex.style/z/ccb40394-ef02-4522-92c2-14f432cc8b16', c:'https://app.drex.style/clubs/web-dissonance'},
-    {d:7,  craft:'penmanship',        club:'SF Penmans',         tape:'make a dropcap',               lead:'A penmanship club.',
+    {d:7,  craft:'penmanship',        club:'SF Penmans',         tape:'make a dropcap',               lead:'Penmans draw a single letter.',
      z:'https://app.drex.style/z/6f886428-a9eb-40b0-9cbf-60f4ae677992', c:'https://app.drex.style/clubs/pen'},
-    {d:7,  craft:'cut-outs',          club:'Drexzine',           tape:'make a dress-up game',         lead:'Our own club.',
+    {d:7,  craft:'cut-outs',          club:'Drexzine',           tape:'make a dress-up game',         lead:'Cutting out a dress-up game.',
      z:'https://app.drex.style/z/5b548352-9124-4b25-bcaa-9c06322d30bb', c:'https://app.drex.style/clubs/drex'}
   ];
 
@@ -2756,8 +2776,7 @@ function initZineCarousel() {
       chal.textContent = d.tape;
       fitTape();
     }
-    if (cap)   cap.innerHTML = '<b>' + d.lead + '</b> This is what came out.';
-    typeCraft(d.craft);
+    if (cap)   cap.innerHTML = '<b>' + d.lead + '</b>';
     if (read)  read.href = d.z;
     if (join) {
       join.href = d.c;
@@ -2770,107 +2789,20 @@ function initZineCarousel() {
   }
 
 
-  /* ---- THE CRAFT WORD IS TYPED, NOT SWAPPED ------------------------------
-     Lifted from initHeroRotate, which has been dead code since the H1 rotator
-     was removed. A word that simply swaps reads as a data field; a word being
-     deleted a letter at a time and rewritten reads as somebody deciding what
-     their club is for — which is the whole claim of the line it sits in.
-     It opens on "your thing": that is the abstract claim, it is what ships in
-     the served HTML for a crawler or a no-JS visitor, and it is what a
-     reduced-motion visitor keeps.
-     The slot is held open by a hidden ghost of the longest word, so the line
-     cannot reflow once per keystroke. */
-  var GHOSTS_BUILT = false;
-  function buildGhosts(){
-    var slot = document.getElementById('craftSlot');
-    // the ghosts belong to the SLOT, not to the live word. Appended inside
-    // .sl-live they lay out inline in a row and stretch the line to ~1000px,
-    // dragging the marker swipe across the whole card with them.
-    if (GHOSTS_BUILT || !slot) return;
-    GHOSTS_BUILT = true;
-    var seen = {};
-    var words = ['your thing'];
-    for (var k = 0; k < D.length; k++) if (!seen[D[k].craft]) { seen[D[k].craft] = 1; words.push(D[k].craft); }
-    for (var w = 0; w < words.length; w++){
-      var g = document.createElement('i');
-      g.className = 'sl-ghost'; g.setAttribute('aria-hidden','true');
-      g.textContent = words[w];
-      slot.appendChild(g);
-    }
-  }
-
-
-  /* Run once the hero is on screen: either the envelope is already open, or we
-     wait for the class the reveal adds. The observer disconnects itself, and a
-     belt-and-braces timeout covers the case where the class never lands. */
-  function whenRevealed(fn){
-    var d = document.documentElement;
-    var open = function(){ return !d.classList.contains('sealed') || d.classList.contains('revealed'); };
-    if (open()) { fn(); return; }
-    var done = false;
-    var fire = function(){ if (done) return; done = true; try { mo.disconnect(); } catch (e) {} fn(); };
-    var mo = new MutationObserver(function(){ if (open()) fire(); });
-    mo.observe(d, { attributes: true, attributeFilter: ['class'] });
-    setTimeout(fire, 9000);
-  }
-
-  var typing = null, firstPaint = true;
-  /* THE OPENING BEAT. "your thing" is the claim in the abstract, and it is what
-     ships in the served HTML — a crawler, a no-JS visitor and a reduced-motion
-     visitor all keep it. On a live page it has to be READ before it is replaced,
-     so the first issue does not type: the word holds, underlined, for a beat long
-     enough to finish the sentence out loud, and only then does it delete itself
-     and start naming the craft in the picture. Typing it away immediately would
-     mean nobody ever sees the general claim, which is the one that includes
-     whoever is reading. */
-  var OPENING_HOLD = 4600;
-  function typeCraft(word){
-    if (!craft) return;
-    buildGhosts();
-    if (still.matches) { craft.textContent = word; return; }   // no motion: just set it
-    if (firstPaint){
-      firstPaint = false;
-      // The clock starts when the hero is actually LOOKED AT, not when the script
-      // runs. The envelope seals the page until it is dragged (or until the 6s
-      // failsafe), so a timer started at DOMContentLoaded spends its whole hold
-      // behind the cut and the reader arrives after the word has already changed.
-      // types whatever is on screen WHEN THE HOLD ENDS, not the word captured when
-      // it started — otherwise using the arrows during the opening beat lets a stale
-      // craft land after them and the word stops matching the picture.
-      whenRevealed(function(){ setTimeout(function(){ typeCraft(D[i].craft); }, OPENING_HOLD); });
-      return;
-    }
-    clearInterval(typing);
-    craft.classList.add('is-typing');
-    var cur = craft.textContent;
-    typing = setInterval(function(){
-      if (cur.length && word.indexOf(cur) !== 0){              // delete back to a shared stem
-        cur = cur.slice(0, -1);
-      } else if (cur.length < word.length){                    // then write the rest
-        cur = word.slice(0, cur.length + 1);
-      } else {
-        clearInterval(typing); typing = null;
-        craft.classList.remove('is-typing');
-        return;
-      }
-      craft.textContent = cur;
-    }, 38);
-  }
-
 
   /* THE TAPE IS SET TO FIT, PER STRING. The nine challenges run 14 to 31
      characters, so one fixed size is either too small for "make a dropcap" or
      too wide for "take night photos of the unseen". A real label maker punches
-     the same size letters and the strip just gets longer — but a strip longer
+     the same size letters and the strip just gets longer, but a strip longer
      than the cover would have to wrap or clip, and tape does neither. So the
-     type is measured and scaled to the widest that still fits on ONE line,
-     which keeps every challenge as legible as its length allows.
-     Measured against scrollWidth with nowrap, so this is the true text width
-     rather than the clipped box. */
+     type is measured and scaled to the widest that still fits ONE line.
+     (This function was lost in an edit that removed the block around it; its
+     absence threw inside show(), which killed the caption AND every init after
+     the carousel in boot. Keep it defined before show() ever runs.) */
   function fitTape(){
     if (!chal || !frame) return;
     var MAXPX = 15.5, MINPX = 9.5;
-    var avail = frame.clientWidth - 76;        // clear the nav mark on the right
+    var avail = frame.clientWidth - 76;
     chal.style.fontSize = MAXPX + 'px';
     var w = chal.scrollWidth;
     if (w > avail){
@@ -2881,20 +2813,17 @@ function initZineCarousel() {
   window.addEventListener('resize', function(){ fitTape(); });
 
 
-  /* FULL-BLEED, MEASURED. On a phone the plate runs edge to edge, and the CSS
-     breakout (margin-left:calc(50% - 50vw)) assumes its containing block is
-     centred in the viewport. This card is not — it sits a few px off and carries
-     a rotation — so the picture landed ~12px right, overhanging one edge and
-     leaving a gap at the other. Measure the actual left edge and take it out.
-     Runs only where the breakout applies; above 900px the plate is a column. */
+  /* FULL-BLEED IS RETIRED. The plate used to run edge to edge on a phone and this
+     measured the real left offset to correct for the card not being centred. Then
+     proportion won over bleed — a 100vw plate at 3:4 is 520px tall on a 390px
+     screen and leaves no room for the credit or the button — so the plate is
+     centred in the card now with equal margins. This is kept as a CLEAR, not a
+     delete: it strips any inline margin a previous state left behind, so the
+     caption inside it can never inherit a viewport-edge offset again. */
   function bleed(){
-    var el = root;
-    if (!el) return;
-    if (window.innerWidth >= 900){ el.style.marginLeft = ''; el.style.marginRight = ''; return; }
-    el.style.marginLeft = '';
-    var base = parseFloat(getComputedStyle(el).marginLeft) || 0;
-    var off = el.getBoundingClientRect().left;
-    if (Math.abs(off) > 0.5) el.style.marginLeft = (base - off) + 'px';
+    if (!root) return;
+    root.style.marginLeft = '';
+    root.style.marginRight = '';
   }
   window.addEventListener('resize', bleed);
 
@@ -2949,4 +2878,87 @@ function initZineCarousel() {
   bleed();
   whenRevealed(bleed);   // the card settles when the envelope lifts
   start();
+}
+
+/* THE DOMAIN SLOT (2026-08-13) — the yellow blank in the call to action.
+
+   It runs on its OWN list and its OWN clock, deliberately decoupled from the
+   zine carousel. Tied to the carousel it could only ever name crafts we happen
+   to have published issues for, and it changed at the carousel's pace, which is
+   slow enough that most visitors saw exactly one word. On its own it can say
+   knitting, baking, model trains — none of which are in the pictures — and say
+   them often enough to register as "whatever yours is".
+
+   It opens on "your thing" and returns there periodically: that is the claim in
+   the abstract, it is what ships in the served HTML for a crawler or a no-JS
+   visitor, and it is the only entry that includes the person reading before the
+   list starts naming other people's crafts.
+
+   The word is deleted a letter at a time and the next typed in its place. A word
+   that swaps reads as a data field; a word being written reads as somebody
+   deciding. The slot is held open by hidden ghosts of every entry so the button
+   cannot change width mid-keystroke. */
+function initDomainSlot() {
+  var live = document.getElementById('zcCraft');
+  var slot = document.getElementById('craftSlot');
+  if (!live || !slot) return;
+
+  var WORDS = ['your thing', 'ceramics', 'knitting', 'film photography', 'baking',
+               'poetry', 'woodworking', 'zines', 'tattoo flash', 'your thing',
+               'screenprinting', 'sourdough', 'model trains', 'embroidery', 'game dev'];
+
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (still.matches) return;                 // holds "your thing", never moves
+
+  // the ghosts set the width to the longest entry, so nothing after the slot moves
+  for (var g = 0; g < WORDS.length; g++) {
+    var ghost = document.createElement('i');
+    ghost.className = 'sl-ghost';
+    ghost.setAttribute('aria-hidden', 'true');
+    ghost.textContent = WORDS[g];
+    slot.appendChild(ghost);
+  }
+
+  var i = 0, typing = null;
+  // FAST, AND DELIBERATELY NOT TIED TO THE CAROUSEL. The point of this blank is
+  // that it names anything creative, so it has to get through several examples
+  // while somebody is still looking at the fold. At the carousel's pace most
+  // visitors saw one word and learned nothing.
+  var HOLD = 1150;          // read it, then move
+  var FIRST_HOLD = 3200;    // "your thing" is the claim; it still gets read properly
+
+  function write(word, done) {
+    clearInterval(typing);
+    live.classList.add('is-typing');
+    var cur = live.textContent;
+    typing = setInterval(function () {
+      if (cur.length && word.indexOf(cur) !== 0) cur = cur.slice(0, -1);   // back to a shared stem
+      else if (cur.length < word.length) cur = word.slice(0, cur.length + 1);
+      else { clearInterval(typing); typing = null; live.classList.remove('is-typing'); done(); return; }
+      live.textContent = cur;
+    }, 28);
+  }
+
+  function next() {
+    i = (i + 1) % WORDS.length;
+    write(WORDS[i], function () {
+      setTimeout(next, WORDS[i] === 'your thing' ? FIRST_HOLD : HOLD);
+    });
+  }
+
+  // starts once the envelope is open, or the whole first hold is spent behind the cut
+  whenRevealed(function () { setTimeout(next, FIRST_HOLD); });
+}
+
+/* Run once the hero is actually on screen: either the envelope is already open,
+   or wait for the class the reveal adds. Shared by the domain slot. */
+function whenRevealed(fn) {
+  var d = document.documentElement;
+  var open = function () { return !d.classList.contains('sealed') || d.classList.contains('revealed'); };
+  if (open()) { fn(); return; }
+  var done = false;
+  var fire = function () { if (done) return; done = true; try { mo.disconnect(); } catch (e) {} fn(); };
+  var mo = new MutationObserver(function () { if (open()) fire(); });
+  mo.observe(d, { attributes: true, attributeFilter: ['class'] });
+  setTimeout(fire, 9000);
 }

@@ -164,7 +164,7 @@
           "name": "How does a Drex club work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Four beats, on repeat. The challenge goes up with a deadline. Circle time comes round — the club's recurring hour together. Everyone makes the scrollable magazine together. Then it ships: submissions close on the due date and the issue is published."
+            "text": "Four beats, on repeat. The challenge goes up with a deadline. Club hour comes round — the club's recurring hour together. Everyone makes the scrollable magazine together. Then it ships: submissions close on the due date and the issue is published."
           }
         },
         {
@@ -248,7 +248,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=60" />
+<link rel="stylesheet" href="app-post-beta.css?v=70" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -543,7 +543,7 @@
                    .stop keeps the brand green, now on "with your friends": on this page green is
                    where the PEOPLE are, and in this headline that is the phrase carrying them. -->
               <div class="ed-head">
-              <h1 class="ed-cat">Make an online magazine <span class="stop">with your friends</span>.</h1>
+              <h1 class="ed-cat">Small clubs <span class="stop">show-and-tell</span> with scrollable maga<span class="zine">zine</span>s.</h1>
               <!-- The sub answers the two questions the headline provokes, in the order a stranger
                    asks them: "do I need to bring people?" and "show-and-tell of WHAT?"
                      - "Join or create" — both doors, join first. Arriving alone is the commoner
@@ -585,7 +585,7 @@
                        so the beats now stand on their own under a closed line. Watch this: if the
                        list starts reading as unintroduced, the fix is a lead-in coming BACK, not a
                        colon after the blank. -->
-              <p class="ed-sub">It&rsquo;s like show-and-tell with <span class="sub-lead">a <span class="sub-chal">challenge</span></span> and a <span class="sub-dead">deadline</span>.<i class="beat-anchor" aria-hidden="true"></i><svg class="beat-point" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg></p>
+              <p class="ed-sub">A <span class="sub-mark m-happy"><span class="sub-chal">challenge</span></span>, a <span class="sub-mark m-lazuli">deadline</span>, a new <span class="sub-mark m-grass"><span class="zine">zine</span></span>. Repeat.<i class="beat-anchor" aria-hidden="true"></i><svg class="beat-point" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg></p>
               
               </div>
 
@@ -634,25 +634,24 @@
                        #squig) with a hand-drawn arrow. A straight black underline is the one thing
                        this page never does. -->
                   <p class="ed-start">
+                    <!-- The note moved ABOVE the button and centred on it. Off to the side it
+                         read as a stray annotation about the page; directly over the thing it
+                         describes, it is what you read a beat before you press. -->
+                    <span class="start-note" aria-hidden="true">join waitlist!</span>
                     <a class="start-line" href="https://letters.drex.style/join-online/">
-                      <svg class="sl-box" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M5 8c14-2 28-3.4 42-2.6 16 .9 32 1.4 48 .6 15-.7 30-1.6 45-.4 12 1 24 1.4 36 2.8 3 .4 4.2 1.8 4 4.4-.8 9-.4 18 .2 27 .3 4.4-.2 8.8-1 13-.4 2.2-1.8 3.2-4.2 3.4-16 1.3-32 2.1-48 1.7-18-.4-36-1.2-54-.6-14 .5-28 1.3-42 .2-6-.5-12-.9-18-2-2.6-.5-3.6-2-3.4-4.6.7-9.6.4-19.2-.2-28.8-.2-3 .2-6 1-8.8.5-1.8 1.8-2.8 3.6-3z"/></svg>
-                      <!-- TWO LINES, ALWAYS. The craft word sits on its own line whatever its
-                           length, which is what stops the box changing height while a long word
-                           deletes back to a short one — the line used to reflow from two lines to
-                           one mid-delete and the whole column jumped. The slot is also held open
-                           horizontally by hidden ghosts of every craft, so nothing moves in either
-                           axis while it types. -->
-                      <i class="sl-lead">Join or start a club for</i>
-                      <span class="sl-slot" id="craftSlot"><i class="sl-live"><span id="zcCraft">your thing</span></i><svg class="sl-squig" viewBox="0 0 120 8" preserveAspectRatio="none" aria-hidden="true"><path d="M1 5.2c7-3.4 13-3.4 20 0s13 3.4 20 0 13-3.4 20 0 13 3.4 20 0 13-3.4 20 0 13 3.4 18 .4"/></svg></span>
+                      <span class="sl-l1">Join or start a club for</span>
+                      <!-- ITS OWN ROTATOR, ON PURPOSE. The word used to track the issue in the
+                           frame, which meant it only ever named crafts we happen to have zines
+                           for — and it changed at the carousel's pace, which is slow enough that
+                           most visitors saw one word. It runs on its own list and its own clock
+                           now, so it can say knitting and baking and model trains, none of which
+                           are in the pictures, and it can say them often enough to be noticed.
+                           It opens on "your thing": the claim in the abstract, the version a
+                           crawler and a no-JS visitor keep, and the one that includes whoever is
+                           reading before it starts naming other people's crafts. -->
+                      <span class="sl-slot" id="craftSlot"><i class="sl-live" id="zcCraft">your thing</i></span>
                       <svg class="sl-arr" viewBox="0 0 34 14" aria-hidden="true"><path d="M1.5 7.6c8.4-1.5 17.6-2 30-1.2"/><path d="M25.6 1.9c2.4 1.9 4.2 3.4 5.9 4.5-2 1.2-3.9 2.6-5.6 4.6"/></svg>
                     </a>
-                    <!-- What actually happens when you press it. Every cold reader
-                         resented finding out only after the click that every door on
-                         this page led to a waitlist; saying it in the page's own
-                         annotation voice — hand-lettered, off-square, the same idiom as
-                         "real zines — tap to browse" — costs two words and removes the
-                         nasty surprise. Lazuli to match the ring it belongs to. -->
-                    <span class="start-note" aria-hidden="true">join waitlist!</span>
                   </p>
 
                 </div>
@@ -913,7 +912,7 @@
        SHOWS it, with the club's own screens and a clip of the editor. Sequence
        is carried by the dateline, never by drawn arrows (arrow chains were
        prototyped for the hero beats and rejected as over-complicated).
-       Colour has one job each — Colorado = time, Happy = circle time,
+       Colour has one job each — Colorado = time, Happy = club hour,
        Lazuli = the work, Grass = what came out. See app-post-beta.css #showtell.
        The video pin is a plain .bd-open button: the lightbox at the bottom of
        #inside is bound to `document`, so pins ABOVE that script still open. ==== -->
@@ -969,10 +968,10 @@
               <p>Someone sets it, and <b>puts a date on it</b>. That date is the whole trick.</p>
             </div>
             <!-- RESHOT, and now a link. The old capture predated the circle masthead redesign — it
-                 still showed the purple NEXT CIRCLE TIME pad, a "24 DAYS LEFT" stamp and "7 WORKERS",
+                 still showed the purple NEXT CLUB HOUR pad, a "24 DAYS LEFT" stamp and "7 WORKERS",
                  none of which exist in the app any more, so the one print whose whole job is "this is
                  the actual product" was the most out-of-date thing on the page. This is the live
-                 board: the CIRCLE TIME — LIVE NOW bar, the crest, the challenge, both resource chips.
+                 board: the CLUB HOUR — LIVE NOW bar, the crest, the challenge, both resource chips.
                  It links to the circle itself, which is the same promise #proof makes about the walls
                  — go and look. Verified public and signed-out in a cold profile with zero cookies,
                  the same bar the Beans card in the hero had to clear.
@@ -997,7 +996,7 @@
           </div>
         </li>
 
-        <!-- THE STANDING ROW. Circle time is the one beat that is not a date — it's a
+        <!-- THE STANDING ROW. Club hour is the one beat that is not a date — it's a
              slot that keeps coming round — so it's a SPAN, not a point: EVERY / WED
              instead of a numeral, plus the bead chain down the rail. The print is a
              PAD (two sheets behind) so the media column agrees with the spine. -->
@@ -1011,7 +1010,7 @@
           <div class="dd-body">
             <div class="dd-text">
               <span class="dd-step">02</span>
-              <h3>Circle time comes round</h3>
+              <h3>Club hour comes round</h3>
               <!-- "together" was here too; it moved to beat 03's headline, where it's the
                    payload. Said twice, it lands nowhere. -->
               <p>Not a one-off. A <b>standing hour</b> in everyone&rsquo;s calendar &mdash; <b>online or in person</b> &mdash; where the work actually happens.</p>
@@ -1073,7 +1072,7 @@
             <div class="dd-text">
               <span class="dd-step">04</span>
               <h3>It ships: submissions close</h3>
-              <p>The deadline <b>is</b> a circle time. You all show up, it goes out to the world &mdash; and into <b>your portfolio</b>.</p>
+              <p>The deadline <b>is</b> a club hour. You all show up, it goes out to the world &mdash; and into <b>your portfolio</b>.</p>
             </div>
             <!-- THE CLUB'S OWN ISSUE, and openable. This print used to be Silk Road 001 — XChange
                  Models' zine — so the one beat that says "it ships" showed a DIFFERENT club's output
@@ -1082,7 +1081,7 @@
                  check the claim, the same way #proof sends them to the walls.
                  The crop is deliberate and must stay above the pull-quote in the middle of that
                  spread — the quote is signed, and no maker's name goes in visible copy or alt on
-                 this page. Reshoot the top of the book only, and hide the CIRCLE TIME — LIVE NOW
+                 this page. Reshoot the top of the book only, and hide the CLUB HOUR — LIVE NOW
                  badge first: it is live state, it lands on the title, and it dates the capture. -->
             <figure class="dd-print">
               <a class="ph" href="https://app.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856" target="_blank" rel="noopener" aria-label="Read [ 3 A M, 2 0 0 1 ], the published issue from Photo Phloor &mdash; opens the zine"><img src="assets/app/zine-3am.jpg" alt="The published issue [ 3 A M, 2 0 0 1 ] from Photo Phloor: two night photographs pinned to the page &mdash; an empty lit stairwell and a glass-block window &mdash; one captioned &ldquo;Wow&rdquo;." loading="lazy" width="1000" height="750" /></a>
@@ -1091,7 +1090,7 @@
           </div>
         </li>
 
-        <!-- the loop closes on a KNOT, not more beads: a bead means "circle time", so
+        <!-- the loop closes on a KNOT, not more beads: a bead means "club hour", so
              beads past the deadline would promise more meetings, when what actually
              comes next is the next CHALLENGE — a date event, exactly like row 01. -->
         <li class="dd-after">
@@ -2305,7 +2304,7 @@
           <ul class="pins">
             <li class="pinit pinpola" style="--r:-3deg">
               <span class="pin" aria-hidden="true"></span>
-              <span class="pinshot" style="background-image:url(assets/app/circletime.jpg)" role="img" aria-label="The Circle Time screen: you're first in, the door's open."></span>
+              <span class="pinshot" style="background-image:url(assets/app/circletime.jpg)" role="img" aria-label="The Club Hour screen: you're first in, the door's open."></span>
               <b>The hour</b><i>your standing time, together</i>
             </li>
             <li class="pinit" style="--r:2deg">
@@ -2558,7 +2557,7 @@
             <button type="button" class="zpola bd-open" data-full="assets/app/circle.jpg" data-cap="a real club &mdash; mid-issue" aria-label="Inside a real club. Opens a larger view.">
               <!-- alt rewritten with the asset: circle.jpg was reshot for #showtell against the new
                    circle masthead, and the old wording described furniture the redesign removed —
-                   the deadline stamp and the "next Circle Time" pad are both gone. -->
+                   the deadline stamp and the "next Club Hour" pad are both gone. -->
               <span class="ph"><img src="assets/app/circle.jpg" alt="A club's home on Drex — a live circle-time bar across the top, the editor, the current challenge, the resources the club pinned to it, and who has submitted so far" loading="lazy" width="1128" height="846"></span>
               <span class="zpola-cap">a real club &mdash; mid-issue</span>
             </button>
@@ -2693,7 +2692,7 @@
       <div class="links">
         <a href="#circle">Clubs</a>
         <a href="https://instagram.com/drexclubs">Instagram</a>
-        <a href="https://letters.drex.style/">Circle Letters</a>
+        <a href="https://letters.drex.style/">Club Letters</a>
         <a href="#demo">The Demo</a>
         <a href="mailto:hi@drex.style">hi@drex.style</a>
       </div>
@@ -2796,7 +2795,7 @@
   });
 })();
 </script>
-<script type="module" src="app-post-beta.js?v=28"></script>
+<script type="module" src="app-post-beta.js?v=37"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign

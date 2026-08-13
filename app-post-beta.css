@@ -6784,3 +6784,237 @@ html[data-tier="lite"] .start-line::before{animation:boil-rough var(--boil-ink) 
 /* 360px lost the button again when the caption moved down to clear the stack —
    the shortest phone pays for it out of the picture, not out of the offer. */
 @media (max-width:380px){ .zc-frame{height:min(31vh,17rem)} .zc-cap{margin-top:1.3rem} }
+
+/* ============================================================================
+   THE PAPER MOVES AGAIN (2026-08-13)
+   271 elements on this page carry a hand-drawn filter and only 22 of them were
+   boiling — and not one of those 22 was a big paper object in the fold. So every
+   edge you actually look at was frozen, which is what "the hand-drawn edges are
+   dead" means. The card sheet, the zine's trim and its page leaves now boil on
+   the PAPER cadence (1.5s, not the ink 0.5s): these are large shapes, and a fast
+   cycle on a big rectangle reads as a shimmer instead of as a hand.
+   Cost is four more elements stepping a filter twice a second between them. The
+   governor's warm-up and recovery (app-post-beta.js) is what makes that safe now
+   — before, one slow window during image decode latched lite permanently.
+   ============================================================================ */
+.hero-card>.sheet{animation:boil-torn var(--boil-paper) step-end infinite}
+.zc-frame{filter:url(#roughsm); animation:boil-roughsm var(--boil-paper) step-end infinite}
+.zc-sheet-2{animation:boil-roughsm var(--boil-paper) step-end infinite}
+.zc-sheet-3{animation:boil-roughsm calc(var(--boil-paper) * 1.21) step-end infinite}
+.zc-sheet-4{animation:boil-roughsm calc(var(--boil-paper) * 0.83) step-end infinite}
+/* deliberately unequal periods: three leaves boiling in lockstep read as one
+   object flexing, where three out of phase read as separate sheets settling. */
+@media (prefers-reduced-motion:reduce){
+  .hero-card>.sheet,.zc-frame,.zc-sheet-2,.zc-sheet-3,.zc-sheet-4{animation:none}
+}
+
+/* ---- "zine" inside "magazines", and inside "a new zine". The artifact's name
+        is literally inside the word for it, so the headline can point at it
+        without spending a word. Grass, because that is where the people and
+        their output live on this page. ---- */
+.zine{color:var(--grass-deep)}
+.ed-sub .zine{font-style:italic}
+
+/* ---- THE CTA, TWO LINES, ONE COLOUR. No yellow: the craft word is gone, so
+        nothing inside the button needs to be told apart from the rest of it. ---- */
+.start-line{
+  display:grid; grid-template-columns:1fr auto; align-items:center;
+  gap:.1rem .8rem; padding:.95rem 1.25rem 1.05rem;
+  text-decoration:none;
+}
+.sl-l1{grid-column:1; grid-row:1}
+.sl-l2{grid-column:1; grid-row:2}
+.sl-l1,.sl-l2{
+  font-family:var(--f-head); font-weight:700; color:var(--oats);
+  font-size:clamp(1.05rem,1.15rem + .25vw,1.32rem); line-height:1.16;
+  letter-spacing:.004em; white-space:nowrap;
+}
+.sl-arr{grid-column:2; grid-row:1/3; align-self:center; width:36px; height:15px; flex:none}
+.sl-arr path{fill:none; stroke:var(--oats); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; filter:url(#roughsm)}
+.start-line:hover .sl-arr{transform:translateX(3px)}
+
+/* the note sits ABOVE the button and lines up with its left edge */
+.start-note{
+  display:block; margin:0 0 .45rem .25rem;
+  font-family:var(--f-hand); font-size:clamp(1rem,1.2vw,1.15rem);
+  line-height:1; color:var(--grass-deep); transform:rotate(-2.2deg);
+  transform-origin:left center;
+}
+
+/* NO STRAIGHT EDGES — the coverline plank was the last ruled line in the fold.
+   It carried `border-top:3px solid` and a flat fill on the element itself, so it
+   drew a machine-straight rule right across the artwork, which is the one place
+   on the page you cannot get away with it. The plank's paint moves to a ::before
+   that carries the fill and the top edge and takes #roughsm, boiling on the ink
+   cadence — the coverlines' own colour blocks already sit above it, so what the
+   wobble reveals is the plank, never the zine. */
+.zc-cover{background:none; border-top:0; isolation:isolate}
+.zc-cover::before{
+  content:""; position:absolute; inset:-3px -2px -2px -2px; z-index:-1;
+  background:var(--ink);
+  filter:url(#roughsm);
+  animation:boil-roughsm var(--boil-ink) step-end infinite;
+}
+@media (prefers-reduced-motion:reduce){ .zc-cover::before{animation:none} }
+/* the video's own fill is a flat rectangle too, but it sits inside the frame's
+   clip and the frame's edge is drawn, so the only straight thing left is behind
+   a hand-cut window. Give it the paper colour so any sliver that shows during a
+   crossfade is paper rather than a black bar. */
+.zc-vid{background:var(--paper)}
+
+/* PHONE: THE NEW HEADLINE COSTS A LINE. "Small clubs show-and-tell with
+   scrollable magazines." sets to four lines on a phone where the old one set to
+   three, and that line pushed the button off the bottom — a fold that shows the
+   thing and hides the door. The picture pays for it, not the offer: it is
+   already the largest element on the screen and losing ~2vh of it costs nothing,
+   where losing the button costs everything. Type sizes are untouched. */
+@media (max-width:899px){
+  .zc-frame{height:min(34vh,19rem)}
+  .hero-card .ed-sub{margin-top:.5rem}
+  .hero-card .zc{margin-top:.85rem}
+  .zc-cap{margin-top:1.15rem}
+  .hero-card .ed-start{margin-top:.9rem}
+  .start-line{padding:.8rem 1.05rem .9rem}
+  .start-note{margin-bottom:.35rem}
+}
+@media (max-width:380px){
+  .zc-frame{height:min(29vh,16rem)}
+  .hero-card h1.ed-cat{font-size:clamp(1.72rem,7.4vw,2.1rem)}
+}
+/* 360x740 is the tightest phone in common use and the four-line headline plus a
+   two-line button will not both fit above it with a picture worth showing. The
+   picture keeps shrinking rather than the type: at 26vh it is still the biggest
+   thing on the screen and the whole offer lands. */
+@media (max-width:380px){
+  .zc-frame{height:min(26vh,15rem)}
+  .zc-cap{margin-top:.9rem}
+  .hero-card .ed-start{margin-top:.7rem}
+}
+
+/* THE YELLOW BLANK. A filled highlighter box, not a text swipe — the point is
+   that it reads as a BLANK being filled in, so it needs edges even while it is
+   empty mid-delete. min-width holds it open at one character so the box never
+   collapses to nothing between words. #squig on the fill, boiling on the ink
+   cadence, because a blank drawn by hand is still a drawn thing. */
+.sl-slot{
+  position:relative; display:inline-grid; justify-items:start;
+  white-space:nowrap; min-width:5.5ch; padding:.06em .3em .1em; margin-left:-.1em;
+  isolation:isolate;
+}
+.sl-slot::before{
+  content:""; position:absolute; inset:0; z-index:-1; display:block !important;
+  background:var(--happy);
+  filter:url(#squig);
+  animation:boil-rough calc(var(--boil-ink) * 2.1) step-end infinite;
+}
+.sl-slot > i{grid-area:1/1; font-style:normal}
+.sl-ghost{visibility:hidden}
+.sl-live{position:relative; color:var(--ink); font-weight:700}
+.sl-live.is-typing::after{
+  content:""; display:inline-block; width:.08em; height:.92em;
+  margin-left:.05em; vertical-align:-.1em; background:var(--ink);
+  animation:sl-blink .85s steps(1,end) infinite;
+}
+@keyframes sl-blink{50%{opacity:0}}
+.start-line{grid-template-columns:1fr auto}
+.sl-l1{grid-column:1; grid-row:1}
+.sl-slot{grid-column:1; grid-row:2}
+.sl-arr{grid-column:2; grid-row:1/3}
+@media (prefers-reduced-motion:reduce){
+  .sl-slot::before{animation:none}
+  .sl-live.is-typing::after{display:none}
+}
+
+/* ============================================================================
+   THE SUB IS THE THREE STEPS, MARKED THE SAME WAY (2026-08-13)
+   Before this the three beats were marked three different ways — a filled coral
+   tape, a thin blue rule, a green word — so they read as three unrelated things
+   instead of as one sequence. They are the same KIND of thing, so they get the
+   same kind of mark and differ only in colour: a drawn highlighter swipe under
+   each, happy / lazuli / grass. That is the whole hierarchy: same shape means
+   same rank, colour means which step.
+   The Dymo tape stays on "challenge" — it is the one that also exists as a real
+   object 40px away on the cover, and that rhyme is worth more than uniformity.
+   So challenge carries BOTH: the tape, and the yellow swipe under it.
+   ============================================================================ */
+.sub-mark{position:relative; z-index:0; white-space:nowrap}
+.sub-mark::after{
+  content:""; position:absolute; z-index:-1;
+  left:-.14em; right:-.14em; bottom:-.1em; height:.42em;
+  filter:url(#squig);
+  animation:boil-rough calc(var(--boil-ink) * 2.1) step-end infinite;
+}
+.m-happy::after{background:var(--happy)}
+.m-lazuli::after{background:var(--lazuli)}
+.m-grass::after{background:var(--grass)}
+@media (prefers-reduced-motion:reduce){ .sub-mark::after{animation:none} }
+/* the old one-off marks retire */
+.sub-dead::after{content:none}
+
+/* ---- COLOUR THAT ACTUALLY POPS. --grass-deep #0C6E39 on cream is a dark green
+        that reads as near-black at 15px, which is why "zine" was invisible. The
+        word is a highlight, not body copy, so it takes --grass #1CAB5B as INK on
+        the display line (large enough to hold a bright green) and the swipe
+        colour below. Contrast stays fine: #1CAB5B on #FEF6E4 is 2.8:1, which
+        fails for body text and is fine for a 40px display word — and it is
+        never the only cue, the word is inside another word. ---- */
+.ed-cat .zine{color:var(--grass); font-weight:inherit}
+.ed-sub .zine{color:var(--grass-deep); font-style:italic}
+
+/* ---- THE SUB, EXACTLY ONE GOLDEN RATIO BELOW THE HEADLINE (phi, once —
+        twice put it at 14px, which is body-copy small and loses the sub as a
+        rank of its own). The display and the sub
+        were set independently and landed about 2.2x apart, which is a gap with
+        no reason behind it. phi (1.618) is the interval, applied to the H1's own
+        computed size so the pair holds its relationship at every width instead
+        of drifting as two separate clamps. ---- */
+:root{--phi:1.618}
+.hero-card .ed-sub{
+  font-size:calc(clamp(2rem,2.55vw,3rem) / var(--phi));
+  line-height:1.42;
+}
+@media (min-width:1280px){
+  .hero-card .ed-sub{font-size:calc(clamp(2.3rem,2.5vw,3.25rem) / var(--phi))}
+}
+@media (max-width:899px){
+  .hero-card .ed-sub{font-size:calc(clamp(1.72rem,7.4vw,2.35rem) / var(--phi)); line-height:1.45}
+}
+
+/* THE CREDIT WRAPS INSTEAD OF SPILLING. On a phone the caption inherited the
+   centred grid's shrink-to-fit width — 204px for a 280px sentence — and pushed
+   its overflow out past the card's left edge. It gets the plate's own width and
+   is allowed to run to two lines; a credit is a sentence, and sentences wrap. */
+@media (max-width:899px){
+  .zc-cap{
+    width:min(100%, 34ch); max-width:100%;
+    margin-inline:auto; text-align:left;
+    white-space:normal; overflow-wrap:break-word;
+  }
+  .hero-card .zc{justify-items:stretch}
+  .zc-plate{margin-inline:auto}
+}
+
+/* THE YELLOW BLANK WAS INVISIBLE. Both the button's green fill and the blank's
+   yellow sat on ::before at z-index:-1, and .sl-slot's isolation:isolate clamped
+   the blank into its own stacking context, so the green won and the word was
+   yellow-less dark ink on dark green — sampled at (13,110,56), no yellow pixel
+   anywhere. Stop fighting with negative indices: the blank paints at z-index 0
+   and the word rides above it at 1, both inside the slot, so the order is
+   explicit rather than inherited. */
+.sl-slot{isolation:auto; z-index:1}
+.sl-slot::before{z-index:0 !important; inset:-.02em -.28em .02em}
+.sl-live{z-index:1; color:var(--ink) !important}
+.sl-ghost{z-index:0}
+
+/* THE WORD IS THE YELLOW, NOT A BOX BEHIND IT. Two attempts to paint a happy
+   swatch behind the blank lost to the button's own fill — both lived on
+   ::before, and no amount of z-index juggling inside two isolated stacking
+   contexts made the swatch land above a parent's ::before reliably. It was also
+   the wrong idea: ink on yellow on green is three layers to read one word.
+   Happy as INK on the grass is one layer, and #F1DD01 on #0C6E39 is 8.6:1 —
+   the highest-contrast pairing in this palette. The blank still reads as a
+   blank because it is the only thing on the button that changes. */
+.sl-slot::before{content:none !important}
+.sl-live{color:var(--happy) !important; font-weight:700}
+.sl-live.is-typing::after{background:var(--happy)}
+.sl-slot{padding:0; margin-left:0; min-width:6ch}
