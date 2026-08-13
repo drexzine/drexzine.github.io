@@ -7058,3 +7058,163 @@ html[data-tier="lite"] .start-line::before{animation:boil-rough var(--boil-ink) 
    DOWN to 400 first — so `font-weight:500` was silently rendering as regular
    and changing nothing. 600 is a real cut of the face, not a synthesised one. */
 .hero-card .ed-sub{font-weight:600}
+
+/* THE CTA'S BOIL WAS TOO VIOLENT. #rough runs feTurbulence at scale 4, which is
+   tuned for a thin ink line — applied to a filled rectangle that also carries a
+   6px offset shadow it displaces the SHADOW too, so the shadow jumped a few px
+   in a different direction every 500ms and the corners chewed. It read as broken
+   rather than as drawn.
+   #roughsm (scale ~2.5) on the paper cadence is the right instrument for an
+   object this size: the outline still wanders, the shadow stays put, and the
+   wobble reads as a hand rather than as interference. */
+.start-line::before{
+  filter:url(#roughsm);
+  animation:boil-roughsm var(--boil-paper) step-end infinite;
+}
+html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-paper) step-end infinite}
+@media (prefers-reduced-motion:reduce){ .start-line::before{animation:none} }
+
+/* ============================================================================
+   THE SUMMARY BAND, CENTRED (2026-08-13)
+   The rotating zine deck that sat beside these claims is gone, so the band is a
+   single centred column instead of a two-up grid fighting for an optical centre.
+   Two lists, the same grammar and the same drawn marks: what a club adds up to,
+   then what Drex hands them to get there. Matched so they read as a pair rather
+   than as a promise with a features table stapled under it.
+   ============================================================================ */
+.summary-band{
+  display:block;
+  max-width:var(--mw,74rem);
+  margin-inline:auto;
+  padding:clamp(2.6rem,6vw,4.6rem) clamp(1.2rem,5vw,2.4rem) clamp(1rem,3vw,2rem);
+  text-align:center;
+}
+.summary-band .sum-doodles{
+  display:grid; gap:clamp(.9rem,2.2vw,1.35rem);
+  justify-content:center; justify-items:start;
+  width:max-content; max-width:100%;
+  margin:0 auto;
+  font-size:clamp(1.05rem,1.4vw,1.28rem);
+  text-align:left;
+}
+.summary-band .sum-doodles li{padding-left:3.5em; line-height:1.32}
+/* the second list is the quieter of the two: same marks, same rhythm, a step
+   down in size and colour so the pair reads as claim-then-mechanism. */
+.summary-band .sum-tools{
+  margin-top:clamp(1.8rem,4vw,3rem);
+  font-size:clamp(.98rem,1.2vw,1.12rem);
+  color:var(--lazuli-deep);
+}
+.summary-band .sum-tools li{max-width:34ch}
+@media (max-width:620px){
+  .summary-band .sum-doodles{width:100%; }
+  .summary-band .sum-doodles li{padding-left:3.2em}
+}
+
+/* ---- THE POSTCARD SMEAR. Was a shuffleable pile with arrows and a tablist;
+        now the postcards simply run down the page. Near the column's full width
+        so each one is actually readable, held to a postcard's proportion, and
+        each takes its own small rotation with a negative top margin so they
+        overlap the way a handful dropped on a table would. No controls: there is
+        nothing to operate, you just scroll past them. ---- */
+.deck.smear{
+  display:block; position:static;
+  width:min(100%, 46rem); margin-inline:auto;
+  padding:0; height:auto; perspective:none;
+}
+.deck.smear .pc{
+  position:relative; inset:auto;
+  display:grid; grid-template-columns:1.05fr 1fr;
+  width:100%; max-width:none; height:auto;
+  margin:0 auto;
+  transform:rotate(var(--sr,0deg));
+  cursor:default;
+}
+.deck.smear .pc + .pc{margin-top:clamp(-2.4rem,-3vw,-1.2rem)}
+.deck.smear .pc:nth-child(1){--sr:-1.4deg; z-index:6}
+.deck.smear .pc:nth-child(2){--sr:1.1deg;  z-index:5}
+.deck.smear .pc:nth-child(3){--sr:-.8deg;  z-index:4}
+.deck.smear .pc:nth-child(4){--sr:1.6deg;  z-index:3}
+.deck.smear .pc:nth-child(5){--sr:-1.1deg; z-index:2}
+.deck.smear .pc:nth-child(6){--sr:.9deg;   z-index:1}
+.deck.smear .pc-img{aspect-ratio:auto}
+.deck.smear .pc-img img{width:100%; height:100%; object-fit:cover}
+@media (max-width:700px){
+  .deck.smear .pc{grid-template-columns:1fr}
+  .deck.smear .pc + .pc{margin-top:clamp(-1.6rem,-2.6vw,-.8rem)}
+}
+
+/* POSTCARD PROPORTION. Without a ratio the cards took their height from the
+   artwork — 720x1965 zine spreads — so each one ran a page and a half tall and
+   the smear read as a column of posters. A postcard is 6x4, so the card is 3:2
+   and the artwork is cropped to fill its half rather than setting the height.
+   Wider too: near the column's full measure, per "nearly full viewport width". */
+.deck.smear{width:min(100%, 58rem)}
+.deck.smear .pc{aspect-ratio:3/2; overflow:hidden}
+.deck.smear .pc-img{height:100%; overflow:hidden}
+.deck.smear .pc-img img{width:100%; height:100%; object-fit:cover; object-position:center top}
+.deck.smear .pc-msg{overflow:hidden; display:flex; flex-direction:column}
+.deck.smear .pc + .pc{margin-top:clamp(-3.2rem,-4vw,-1.6rem)}
+@media (max-width:700px){
+  /* stacked, the two halves cannot both live inside 3:2 — the card grows to fit
+     and the artwork keeps the proportion instead. */
+  .deck.smear .pc{aspect-ratio:auto}
+  .deck.smear .pc-img{aspect-ratio:3/2; height:auto}
+}
+
+/* BOTH LISTS SHARE ONE LEFT EDGE. Each was width:max-content centred on its own,
+   so the shorter list sat 70px inboard of the longer one and the pair read as two
+   unrelated blocks. One inline-block wrapper is centred; the lists align to it. */
+.summary-band{display:block}
+.sum-stack{display:inline-block; text-align:left; max-width:100%}
+.summary-band .sum-doodles{width:auto; margin:0; justify-items:start}
+
+/* THE STACK FALLS FORWARD, NOT BACKWARD. With the first card on top each card
+   covered the NEXT one's title — the overlap landed exactly where the heading
+   sits. Reversed, every card overlaps the empty bottom of the one before it,
+   which is the only part of a postcard that can afford to be hidden. */
+.deck.smear .pc:nth-child(1){z-index:1}
+.deck.smear .pc:nth-child(2){z-index:2}
+.deck.smear .pc:nth-child(3){z-index:3}
+.deck.smear .pc:nth-child(4){z-index:4}
+.deck.smear .pc:nth-child(5){z-index:5}
+.deck.smear .pc:nth-child(6){z-index:6}
+.deck.smear .pc + .pc{margin-top:clamp(-2.2rem,-2.6vw,-1.1rem)}
+/* the `margin:0` reset above also zeroed the gap between the two lists, so the
+   second ran straight into the first. Restate it after the reset. */
+.summary-band .sum-tools{margin-top:clamp(2rem,4.5vw,3.4rem)}
+
+/* A POSTCARD'S IMAGE TAKES THE LEFT THIRD. At 1.05fr/1fr the halves were even,
+   which is a photo card, not a postcard — on a postcard the picture is the
+   smaller panel and the written side is the larger one. 34/66, and the message
+   side gets its content pinned to the top with the action at the foot so the
+   two-thirds does not read as empty paper. */
+.deck.smear .pc{grid-template-columns:34% 1fr}
+.deck.smear .pc-msg{
+  justify-content:flex-start;
+  padding:clamp(1rem,2.4vw,1.7rem) clamp(1.1rem,2.6vw,1.9rem);
+  gap:.35rem;
+}
+.deck.smear .pc-msg .pc-cta{margin-top:auto}
+@media (max-width:700px){
+  .deck.smear .pc{grid-template-columns:1fr}
+}
+
+/* HEIGHT COMES FROM THE CONTENT, WITH A POSTCARD FLOOR. A hard 3:2 at the
+   column's full width is 613px tall, and the written side only has ~250px in it,
+   so every card carried 350px of void that read as a layout bug rather than as a
+   postcard's blank writing area. A minimum keeps the landscape proportion when
+   the text is short; past that the card grows to fit rather than stranding it. */
+.deck.smear .pc{aspect-ratio:auto; min-height:clamp(15rem,26vw,20rem)}
+.deck.smear .pc-img{height:auto; min-height:100%}
+.deck.smear .pc-msg{padding-block:clamp(1.1rem,2.4vw,1.6rem)}
+.deck.smear .pc-msg .pc-cta{margin-top:clamp(1rem,2.4vw,1.6rem)}
+@media (max-width:700px){
+  .deck.smear .pc{min-height:0}
+}
+/* The artwork must never ADD height — these are 720x1965 zine spreads, so a
+   min-height on the image column let the tallest one set the card. The panel is
+   a window: the message side alone decides how tall a postcard is, and the
+   picture is cropped into whatever that gives it. */
+.deck.smear .pc-img{position:relative; height:auto; min-height:0; align-self:stretch}
+.deck.smear .pc-img > img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}

@@ -2672,25 +2672,23 @@ function initZineCarousel() {
 
   // dwell in seconds, and the craft/club/caption each issue carries.
   var D = [
-    {d:18, craft:'modeling',          club:'XChange Models',     tape:'come as your heritage',        lead:'Eleven models reflect on their performance.',
-     z:'https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23', c:'https://app.drex.style/clubs/xchange-models'},
-    // second on purpose: the one moving layer, so a reader who stays for one
-    // change sees a zine being MADE rather than a second finished one.
-    {d:22, craft:'drawing',           club:'Drexzine',           tape:'make a doodle at the cafe',    lead:'Drawing between coffees.',
+{d:22, craft:'drawing',           club:'Drexzine',           tape:'make a doodle at the cafe',    lead:'Drawing between coffees.',
      z:'https://app.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41', c:'https://app.drex.style/clubs/drex'},
-    {d:18, craft:'night photography', club:'Photo Phloor',       tape:'take night photos of the unseen', lead:'A collective shoots after dark.',
+{d:18, craft:'modeling',          club:'XChange Models',     tape:'come as your heritage',        lead:'Eleven models reflect on their performance.',
+     z:'https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23', c:'https://app.drex.style/clubs/xchange-models'},
+{d:18, craft:'night photography', club:'Photo Phloor',       tape:'take night photos of the unseen', lead:'A collective shoots after dark.',
      z:'https://app.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856', c:'https://app.drex.style/clubs/photo-phloor'},
-    {d:18, craft:'getting dressed',   club:'Drexzine',           tape:'wear something to the office', lead:'Sharing our fashion.',
+{d:18, craft:'getting dressed',   club:'Drexzine',           tape:'wear something to the office', lead:'Sharing our fashion.',
      z:'https://app.drex.style/z/d5a5a957-84cc-40bf-bafa-87f4b6dc600c', c:'https://app.drex.style/clubs/drex'},
-    {d:7,  craft:'penmanship',        club:'SF Penmans',         tape:'do a penmanship study',        lead:'Penmans show their flourish.',
+{d:7,  craft:'penmanship',        club:'SF Penmans',         tape:'do a penmanship study',        lead:'Penmans show their flourish.',
      z:'https://app.drex.style/z/6940b4c7-337b-4b6c-9de8-9dccdeeba566', c:'https://app.drex.style/clubs/pen'},
-    {d:7,  craft:'coffee',            club:'Beans',              tape:'make your favorite coffee drink', lead:'Baristas practice their craft.',
+{d:7,  craft:'coffee',            club:'Beans',              tape:'make your favorite coffee drink', lead:'Baristas practice their craft.',
      z:'https://app.drex.style/z/f362cc90-3b98-4c9e-80af-494105edb9e5', c:'https://app.drex.style/clubs/beans'},
-    {d:7,  craft:'photography',       club:'The Web Dissonance', tape:'photograph your shadow',       lead:'Two members chase a shadow.',
+{d:7,  craft:'photography',       club:'The Web Dissonance', tape:'photograph your shadow',       lead:'Two members chase a shadow.',
      z:'https://app.drex.style/z/ccb40394-ef02-4522-92c2-14f432cc8b16', c:'https://app.drex.style/clubs/web-dissonance'},
-    {d:7,  craft:'penmanship',        club:'SF Penmans',         tape:'make a dropcap',               lead:'Penmans draw a single letter.',
+{d:7,  craft:'penmanship',        club:'SF Penmans',         tape:'make a dropcap',               lead:'Penmans draw a single letter.',
      z:'https://app.drex.style/z/6f886428-a9eb-40b0-9cbf-60f4ae677992', c:'https://app.drex.style/clubs/pen'},
-    {d:7,  craft:'cut-outs',          club:'Drexzine',           tape:'make a dress-up game',         lead:'Cutting out a dress-up game.',
+{d:7,  craft:'cut-outs',          club:'Drexzine',           tape:'make a dress-up game',         lead:'Cutting out a dress-up game.',
      z:'https://app.drex.style/z/5b548352-9124-4b25-bcaa-9c06322d30bb', c:'https://app.drex.style/clubs/drex'}
   ];
 
@@ -2866,10 +2864,15 @@ function initZineCarousel() {
       var v = layer.querySelector('video');
       if (!v) return;
       v.addEventListener('ended', function(){
-        if (manual || !layer.classList.contains('is-on')) return;
+        // NOT guarded on `manual`. Taking the arrows stops the AUTO-rotate, and it
+        // should — nobody wants a carousel moving under them while they read. But a
+        // video that has played to its last frame is not a tick of that timer, it is
+        // the end of the thing itself, and leaving it frozen on a dead frame is the
+        // one state with nothing to look at. So the end of a clip always hands off.
+        if (!layer.classList.contains('is-on')) return;
         stop();
         show(i + 1);
-        start();
+        start();          // no-op while manual; the next handoff still comes from 'ended'
       });
     })(layers[vv]);
   }
