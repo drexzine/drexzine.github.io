@@ -2768,7 +2768,21 @@ function initZineCarousel() {
       // a second, a blur. So the DISTANCE is what the dwell limits, and the
       // duration follows from it at a fixed pace. The three strongest issues get
       // 18s and so travel ~2.5x as far as the six at 7s, at identical speed.
-      var travel = room;                             // all of it
+      // AND `d` IS THE CAP IT WAS ALWAYS MEANT TO BE (2026-08-17). The data array
+      // calls its first field "dwell in seconds" and the comment above still says
+      // "the three strongest issues get 18s" — but nothing read it. `travel = room`
+      // meant the pan crossed the WHOLE strip whatever its length, so the two
+      // 5,800px issues sat on screen for 32.1 SECONDS each, and their last stretch
+      // is a colophon that barely changes: the reel looked stuck at the bottom of
+      // the scroll waiting for a timer.
+      // The fix is the one this block's own note already describes — the dwell
+      // limits the DISTANCE, and the duration follows from it at a fixed pace.
+      // Capping seconds instead would raise the speed to ~290px/s, which is the
+      // blur that got rejected the first time. So: same 165px/s for every issue,
+      // and each issue shows as much of itself as its authored dwell buys.
+      //   d:18 → 2,970px   d:7 → 1,155px   (a shorter strip still just ends)
+      var MAX_SECS = d.d || 18;
+      var travel = Math.min(room, PPS * MAX_SECS);
       var secs = travel > 40 ? travel / PPS : 6;
       dwellMs = Math.max(4000, secs * 1000);         // the timer follows the reel
       img.style.setProperty('--travel', travel.toFixed(0) + 'px');
