@@ -531,35 +531,40 @@ function alignDeckToHeadline() {
 function initBeatPointer() {
   const svg = document.querySelector('.beat-point');
   const anchor = document.querySelector('.beat-anchor');
-  const deck = document.getElementById('heroCardDeck');
-  if (!svg || !anchor || !deck) return;
-  // Same reason as alignDeckToHeadline: this arrow is drawn from the sub to the deck's front
-  // card, and the deck is no longer in the fold. Left live it would draw a stroke from the
-  // hero copy to a card most of a page further down.
-  if (!deck.closest('.hero')) return;
+  // IT POINTS AT THE DOOR NOW (2026-08-17). This arrow was built to run from the
+  // end of the sub onto the deck's front polaroid; the deck left the fold, the
+  // #heroCardDeck lookup started returning null, and the function has been a
+  // no-op ever since — an empty <svg> sitting in the markup.
+  // The tag on the magazine is the page's only call to action between here and
+  // the footer, and nothing in the copy pointed at it. This is the page's own
+  // device for exactly that, already written, already tuned, and it beats the
+  // alternative that prompted it: a burst of radiating "tada" marks around the
+  // tag. That tag already carries a green fill, a hard shadow, a tilt,
+  // squigglevision and a two-frame glitter — a sixth emphasis device on one
+  // object is noise, and a burst reads as REVEAL, which is a beat this page
+  // already spends on the cut. An arrow adds direction instead of decoration.
+  const target = document.querySelector('.zc-tag');
+  if (!svg || !anchor || !target) return;
   const li = svg.parentElement;
-  // the front card of the stack, which is the one the arrow must land on: it is the .pola the deck
-  // paints on top, and the deck's z-order is authored high-to-low in the markup, so it's the first.
-  const front = deck.querySelector('.pola');
-  if (!front) return;
 
   const PAD = 26;        // slack around the box so the stroke's round caps and the head never clip
   const GAP = 7;         // air between the full stop and where the tail starts
-  const INTO = .26;      // how far ONTO the photo the head lands, as a fraction of its width
-  const DOWN = .55;      // …and how far down it: clear of the red challenge band and the green one
+  const INTO = -.03;     // the head stops just SHORT of the tag: it points at the door, it does not
+                         // land on it — a head inside the paper would sit on the eyebrow line
+  const DOWN = .34;      // and it aims at the upper third, clear of the glitter on the top corner
 
   const draw = () => {
     // display:none under 641px (one column: the deck is below this text, not beside it). Nothing to
     // point at, and the rects would be nonsense, so don't write a path at all.
     if (getComputedStyle(svg).display === 'none') return;
     const a = anchor.getBoundingClientRect();
-    const p = front.getBoundingClientRect();
+    const p = target.getBoundingClientRect();
     const box = li.getBoundingClientRect();
     if (!p.width) return;
     const x0 = a.right - box.left + GAP, y0 = (a.top + a.bottom) / 2 - box.top;
     const x1 = p.left - box.left + p.width * INTO, y1 = p.top - box.top + p.height * DOWN;
     const run = x1 - x0;
-    if (run < 40) { svg.style.visibility = 'hidden'; return; }   // deck too close to bother
+    if (run < 40) { svg.style.visibility = 'hidden'; return; }   // target too close to bother
     svg.style.visibility = '';
     // the svg's own box: the union of both ends plus PAD. Local coords are offset by that origin.
     const ox = Math.min(x0, x1) - PAD, oy = Math.min(y0, y1) - PAD;
@@ -599,7 +604,7 @@ function initBeatPointer() {
   // rises through the slit), so redraw off the boxes themselves rather than guessing when to look.
   if (window.ResizeObserver) {
     const ro = new ResizeObserver(() => requestAnimationFrame(draw));
-    ro.observe(li); ro.observe(deck);
+    ro.observe(li); ro.observe(target);
   }
   window.addEventListener('resize', () => requestAnimationFrame(draw), { passive: true });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
