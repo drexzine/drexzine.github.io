@@ -2699,7 +2699,7 @@ function initZineCarousel() {
   var join  = document.getElementById('ctaClub');
   var still = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  var i = 0, timer = null, manual = false, dwellMs = 9000;
+  var i = 0, timer = null, manual = false, dwellMs = 9000, holdOnce = 0;
 
   // Warm the next strip while the current one plays: the others are lazy and sit
   // at opacity 0, so the browser is entitled to defer them — and does. Without
@@ -2774,13 +2774,20 @@ function initZineCarousel() {
       chal.textContent = d.tape;
       fitTape();
     }
-    if (cap)   cap.innerHTML = '<b>' + d.lead + '</b>';
+    // Plain text, not <b>: the lead sits under a heading link on the note now, so
+    // bolding it puts two emphases in a three-line block and the eye has nowhere
+    // to land. (It was bold when it was a standalone caption under the plate.)
+    if (cap)   cap.textContent = d.lead;
     if (read)  read.href = d.z;
     if (join) {
       join.href = d.c;
-      // the club NAME goes to assistive tech only: the visible label stays
-      // "Join this club" so speech-input users can still say what they see.
-      join.setAttribute('aria-label', 'Join this club: ' + d.club);
+      // The club's name IS the visible link text now (it reads "in SF Penmans"
+      // on the note), so the aria-label that used to carry it is not just
+      // redundant, it would OVERRIDE the visible string and leave speech-input
+      // users saying a label nobody can see. Clear any that survives from the
+      // markup and let the text speak for itself.
+      join.textContent = d.club;
+      join.removeAttribute('aria-label');
     }
     warm(i + 1);
     if (manual) warm(i - 1);      // once they can go back, warm backwards too
@@ -2830,17 +2837,27 @@ function initZineCarousel() {
     // Deliberately does NOT test hover, focus or document.hidden. Every one of
     // those used to freeze the reel, and a picture that stops the moment you look
     // at it reads as broken rather than as considerate.
-    if (timer || manual || still.matches) return;
+    // AND IT NO LONGER TESTS `manual`. Taking the arrows used to set manual=true
+    // for the rest of the page's life, so one tap on a chevron killed the
+    // rotation permanently and the fold sat on a single issue forever — which is
+    // a broken carousel, not a considerate one. A reader who steps now gets a
+    // LONGER dwell on the issue they chose (COURTESY below) and then the
+    // rotation carries on. `manual` survives only to warm the previous strip.
+    if (timer || still.matches) return;
     // RE-ARMS ITSELF. This was a setInterval and became a setTimeout when the
     // dwell started varying per issue — but a timeout fires once, and the
     // callback did not schedule the next one, so the carousel advanced exactly
     // one issue and then sat there. Clearing the handle first matters too:
     // start() bails while `timer` is truthy, so a stale id would block every
     // future arm even after the callback had run.
-    timer = setTimeout(function () { timer = null; show(i + 1); start(); }, dwellMs);
+    var wait = Math.max(dwellMs, holdOnce);   // a stepped-to issue gets the courtesy dwell
+    holdOnce = 0;
+    timer = setTimeout(function () { timer = null; show(i + 1); start(); }, wait);
   }
-  function step(n) {                       // manual: ends the rotation for good
-    manual = true; stop(); show(i + n);
+  var COURTESY = 20000;                    // how long a hand-picked issue is left alone
+  function step(n) {                       // manual: PAUSES the rotation, never ends it
+    manual = true;                         // (only so warm() starts warming backwards too)
+    stop(); show(i + n); holdOnce = COURTESY; start();
   }
 
   var prev = document.getElementById('zcPrev');
@@ -2955,6 +2972,54 @@ function initDomainSlot() {
 
 /* Run once the hero is actually on screen: either the envelope is already open,
    or wait for the class the reveal adds. Shared by the domain slot. */
+/* THE SHEET STOPS UNDER THE COPY (2026-08-17). The card's painted paper is a
+   separate element from its layout box — .paper>.sheet is an absolutely
+   positioned span carrying the torn filter and the hard registration shadow — so
+   the paper can END below the last line of copy while the box keeps its height
+   and the magazine in column 2 goes on past it, floating on the collage. That is
+   the whole layering effect: the zine lies over the note's bottom edge.
+   Measured, not guessed: the copy's height changes with the viewport, the font
+   load and the sub's wrap. offsetTop/offsetHeight, NOT getBoundingClientRect —
+   the card is rotated -0.8deg, and a rotated element's bounding box is ~5px
+   taller than the element, which would leave a visible lip of paper.
+   .card-clip is overflow:visible once revealed (:213), so nothing below the
+   paper is clipped. While SEALED it is not: the card is translated down into the
+   pocket and the clip is on, which is correct — there is nothing to see yet. */
+function fitSheet() {
+  var card  = document.querySelector('.hero-card');
+  if (!card) return;
+  var sheet = card.querySelector(':scope > .sheet');
+  var last  = card.querySelector('.ed-sub');   // the last line written on the note
+  var inner = card.querySelector('.inner');
+  if (!sheet || !last || !inner) return;
+  // .hero-card is .paper, i.e. position:relative, so it is the offsetParent and
+  // these are already in the card's own unrotated coordinate space.
+  var pad = parseFloat(getComputedStyle(inner).paddingBottom) || 24;
+  var h = last.offsetTop + last.offsetHeight + pad;
+  // THE MAGAZINE HAS TO LAP THE PAPER, NOT START WHERE IT STOPS. Beside the copy
+  // (two columns) the plate begins level with the headline and the sub-based
+  // height already gives it 300px of paper to lie across. Stacked on a phone the
+  // plate begins BELOW the sub, so that same height ended the note exactly where
+  // the cover began and the two objects sat edge to edge with no overlap at all.
+  // Carrying the paper 76px past the plate's top edge is what makes it read as
+  // one thing lying on another at every width.
+  // offsetTop is relative to the nearest POSITIONED ancestor, and .zc is
+  // position:relative — so plate.offsetTop reads 0 and the max() below silently
+  // did nothing. Walk the offsetParent chain up to the card instead.
+  var plate = card.querySelector('.zc-plate');
+  if (plate) {
+    var y = 0, n = plate;
+    while (n && n !== card) { y += n.offsetTop; n = n.offsetParent; }
+    if (n === card) h = Math.max(h, y + 76);
+  }
+  card.style.setProperty('--sheet-h', Math.round(h) + 'px');
+}
+whenRevealed(fitSheet);
+addEventListener('resize', fitSheet);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitSheet).catch(function(){});
+// the sub's marks and the fine print settle a beat after the reveal choreography
+setTimeout(fitSheet, 1400);
+
 function whenRevealed(fn) {
   var d = document.documentElement;
   var open = function () { return !d.classList.contains('sealed') || d.classList.contains('revealed'); };

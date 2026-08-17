@@ -7275,3 +7275,482 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
 .deck.smear .pc-post,.deck.smear .pc-a{transform:scale(.72); transform-origin:top right}
 .deck.smear .pc-play{font-size:2.6cqw}
 .deck.smear .pc-name{font-size:2.4cqw}
+
+/* ============================================================================
+   THE SUMMARY BAND GOES TWO-UP (2026-08-17). Stacked, the two lists read as one
+   six-item list — and item 4 broke the grammar of items 1-3, so the seam landed
+   as a stumble rather than as a change of subject. Side by side, each list gets
+   a hand-written lede that names what it answers, and the pair reads as claim
+   and mechanism instead of promise-plus-features-table.
+   The stack is inline-grid so the band's text-align:center still centres it as
+   one block; each column keeps its own left edge inside its track. Under 820px
+   the columns fall back into one column — two 34ch measures do not fit a phone —
+   and there the ledes are the only thing keeping the lists apart, which is why
+   the row gap is generous.
+   ============================================================================ */
+.sum-stack{
+  display:inline-grid; text-align:left;
+  gap:clamp(2rem,5vw,3rem);
+  justify-content:center; align-items:start;
+}
+.summary-band .sum-lede{
+  margin:0 0 clamp(.7rem,1.6vw,1rem);
+  font-family:var(--f-hand);
+  font-size:clamp(1.12rem,1.5vw,1.34rem);
+  line-height:1.15;
+  /* --coral-ink, not --colorado: this is a colour carrying text at body size, and
+     Colorado on oats measures 3.05:1. Coral-ink is the sanctioned deepened Colorado
+     and it is the same red the marks below are drawn in. */
+  color:var(--coral-ink);
+  transform:rotate(-1deg);
+  transform-origin:left center;
+}
+/* the second list is the quieter of the two: same marks, same measure, the same
+   size now that the columns carry the hierarchy — only the colour steps back. */
+.summary-band .sum-tools{
+  margin-top:0;
+  font-size:clamp(1.05rem,1.4vw,1.28rem);
+  color:var(--lazuli-deep);
+}
+.summary-band .sum-tools li{max-width:34ch}   /* 34ch, not 30: at 30 the first line broke
+                                                  after "make the" and the column read ragged */
+@media (min-width:820px){
+  .sum-stack{
+    grid-template-columns:auto auto;
+    column-gap:clamp(2.6rem,6vw,5.5rem);
+  }
+  /* the columns' first lines have to sit on the same baseline, and the ledes are
+     hand-set at a different size to the lists, so nothing else guarantees it. */
+  .summary-band .sum-col{align-self:start}
+}
+/* the lists were centred inside their own track by the single-stack rule at
+   :7092 — invisible while each track was max-content, but on a phone the track
+   stretches and the short list floats off the lede's left edge. */
+.sum-stack .sum-doodles{justify-content:start; justify-items:start}
+
+/* ============================================================================
+   THE ZINE FRAME'S DRAWN EDGE GOES BRAND GREEN (2026-08-17). It was ink, which
+   made the biggest object in the fold the same colour as the type around it —
+   the plate read as a hole cut in the card rather than as the product sitting on
+   it. --grass is the logo green (the same value .hero h1 .stop takes, and the
+   masthead lockup), so the frame now says the brand at the one size on the page
+   where a colour can be read from across a room.
+   --grass-deep, NOT --grass. The green a visitor actually reads as "drex" is the
+   masthead ticket's fill (:4092), and that is grass-deep #0C6E39. Bright grass
+   is the accent that marks a WORD inside a line ("maga(zine)"); at 5px around a
+   400px object it read as lime tape rather than as the brand. Grass-deep is also
+   the only one of the two that survives being laid over nine different covers,
+   half of which are night shots.
+
+   AND IT IS A DRAWN EDGE, WHICH MEANS IT CANNOT LIVE ON .zc-frame. The frame is
+   overflow:hidden — it is the clip the strip pans inside — and clipping a
+   displacement filter hands the straight edge straight back (the trap the note
+   at :6235 documents). So the ruled trim comes off the frame and the edge is
+   redrawn on the plate, which is not clipped: .zc-plate::after is exactly the
+   frame's box at inset:0, so it lands ON the artwork's edge rather than hovering
+   outside it, which was the 2026-08-13 objection to the outline it replaces.
+   It does NOT boil. Every drawn object in this card keeps its filtered edge and
+   holds still — see :7040, where the card's parts are pinned and only the call
+   to action moves. A 400px rectangle re-seeding twice a second is a shimmer, not
+   a hand.
+   The hard offset shadow stays ink: a green shadow reads as a glow rather than
+   as paper lifted off the card. The leaves behind the plate stay ink too — they
+   are PAPER seen edge-on, not the cover.
+   ======================================================================= */
+.zc-frame{border:0}
+.zc-plate::after{
+  content:"";                         /* back on — this is the trim now */
+  border:5px solid var(--grass-deep); /* thicker: it is the object's outline, not a hairline */
+  filter:url(#torn);
+  animation:none;                     /* drawn, not boiling — see :7040 */
+}
+
+/* THE CAPTION IS CENTRED UNDER THE PLATE. It is a caption — the one line naming
+   what the object above it is — and a caption hangs under the middle of its
+   object, not off its left corner. It was set left inside the single-column
+   block at :6566 where it was sharing an edge with the copy above it; the plate
+   is centred in its own track, so the line under it should be too. */
+.zc-cap{text-align:center; margin-inline:auto}
+
+/* the highlighter band on "Every month." must not break across lines — see the
+   note in the markup: .hl::before is one absolute rectangle, so a wrapped phrase
+   gets one slab covering both lines instead of a swipe per line. */
+.ed-sub .hl{white-space:nowrap}
+
+/* ============================================================================
+   THE LEAVES GO GREEN TOO (2026-08-17). With a 5px grass-deep trim on the plate
+   the three page edges behind it were the last ink lines on the object, and an
+   ink edge next to a green one reads as an unfinished recolour rather than as
+   two different materials. They keep everything else: the paper fill, the
+   asymmetric fore-edge insets, their own #roughsm seeds (so no two tear alike)
+   and their stillness. Thinner than the trim by design — a page edge is not a
+   cover, and matching the 5px would turn the stack into four equal rectangles.
+   ============================================================================ */
+.zc-sheet{border-color:var(--grass-deep); border-width:2.8px}
+
+/* ============================================================================
+   THE POST-IT ON THE PLATE (2026-08-17)
+   The page already has this object twice (.how-fn at :1358, .reveal-name at
+   :663): happy yellow, ink border, hard offset ink shadow, a hand-cut edge and
+   a peeled corner. Same construction here, so it reads as the same pad.
+   IT IS NOT FULLY CONTAINED. It is pinned to the plate's bottom-left corner and
+   hangs outside it on two sides — that overhang is the whole point (a note is
+   stuck ON something, it is not a panel inside it), and it is also what makes
+   this immune to the bug it replaces: the note's width comes from its own text,
+   not from the frame, so it cannot clip when the frame shrinks on a small phone.
+   z-index clears the frame (1), the drawn trim (4) and the cover (5) but stays
+   under the nav (7): the note laps over the picture's corner, and nothing about
+   the note should be able to swallow a chevron.
+   ============================================================================ */
+.zc-note{
+  position:absolute; z-index:6;
+  left:-14px; bottom:-26px;
+  width:min(21ch, 78%);
+  padding:.7rem .85rem .8rem;
+  transform:rotate(-2.4deg);
+  isolation:isolate;
+}
+.zc-note::before{                       /* the paper */
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:var(--happy);
+  border:2.6px solid var(--ink); border-radius:4px;
+  box-shadow:4px 5px 0 0 var(--ink);
+  filter:url(#roughsm2);
+}
+.zc-note::after{                        /* the peeled corner, same as .how-fn's */
+  content:""; position:absolute; right:1px; bottom:1px; z-index:0;
+  width:22px; height:22px;
+  background:linear-gradient(135deg, transparent 47%, rgba(65,77,87,.22) 47%, var(--schoolbus) 50%);
+  filter:url(#roughsm);
+}
+/* the heading link. Lowercase and hand-set, because it is written ON a note —
+   the uppercase mono of the old plank was chrome, and chrome is what this
+   element exists to get rid of. */
+.zc-note-read{
+  display:inline-block; margin:0 0 .28rem;
+  font-family:var(--f-hand); font-size:clamp(1.02rem,1.35vw,1.18rem); line-height:1.1;
+  color:var(--grass-deep); text-decoration:underline;
+  text-decoration-thickness:1.6px; text-underline-offset:2.5px;
+  text-decoration-color:rgba(12,110,57,.5);
+}
+.zc-note-read:hover,.zc-note-read:focus-visible{text-decoration-color:var(--grass-deep)}
+.zc-note-lead{
+  margin:0; font-family:var(--f-body); font-weight:400;
+  font-size:clamp(.82rem,1.02vw,.92rem); line-height:1.34; color:var(--ink);
+}
+.zc-note-by{
+  margin:.3rem 0 0; font-family:var(--f-body); font-style:italic;
+  font-size:clamp(.76rem,.95vw,.85rem); line-height:1.3; color:rgba(65,77,87,.82);
+}
+.zc-note-club{color:var(--ink); text-decoration:underline;
+  text-decoration-thickness:1.4px; text-underline-offset:2px;
+  text-decoration-color:rgba(65,77,87,.45)}
+.zc-note-club:hover,.zc-note-club:focus-visible{text-decoration-color:var(--ink)}
+/* on a phone the plate is centred in its own track and there is no margin to
+   hang into on the left, so the note tucks back under the corner instead of
+   past it. Still overlapping, still not contained — just not off the card. */
+@media (max-width:899px){
+  .zc-note{left:-6px; bottom:-22px; width:min(22ch, 84%)}
+}
+@media (max-width:380px){
+  .zc-note{left:0; bottom:-18px; width:min(21ch, 92%); padding:.6rem .7rem .68rem}
+}
+
+/* ============================================================================
+   THE ZINE IS 100% OF ITS COLUMN (2026-08-17), AND IT KEEPS ITS PROPORTION.
+   The plate was sized off the VIEWPORT — height:min(46vh,25rem) and a stack of
+   per-breakpoint clamps — with width falling out of the aspect ratio. Two things
+   went wrong with that, at opposite ends:
+     - on desktop it rendered 387px wide inside a 313px track, so it overflowed
+       the grid AND the card: the plate's right edge sat ~28px PAST the card's
+       torn edge, which is why the leaves looked like they were falling off it.
+       The card has 63px of padding there; the object was ignoring all of it.
+     - on a phone it went the other way. Height-driven at 31-46vh, the plate came
+       out ~132-215px wide inside a ~315px card — a thumbnail with dead margin
+       either side, and the labels that used to live on it clipped mid-word.
+   Width-driven fixes both: the plate takes the full width its container gives it
+   (which is the container's padding, honoured, at every width) and the height
+   follows from the ratio. The ratio itself does not change — 2/3 is the shape
+   that reads as a magazine rather than as a photo, and it is the one thing here
+   worth pinning.
+   These are unprefixed .zc-frame / .zc-plate rules at the end of the sheet, so
+   they beat every earlier breakpoint's height without !important: media queries
+   add no specificity, only source order decides.
+   ============================================================================ */
+.zc-frame{
+  width:100%; height:auto; max-width:none;
+  aspect-ratio:2/3;                 /* magazine, not photo — do not flatten this */
+}
+.zc-plate{width:100%; max-width:100%; margin-inline:auto}
+/* …and the TRACK is what "its container" means. .zc carried an authored width
+   (clamp(22rem,26vw,29rem) at :6131) with max-width:none, i.e. it was told to
+   ignore the grid — which is how a 374px object ended up in a 313px column and
+   28px past the card's edge. It takes the column now, and the column is squared
+   up to 1:1 so the plate does not simply shrink by the difference: the copy can
+   spare the ~26px and the proof cannot. */
+.hero-card .zc{width:100%; max-width:100%}
+@media (min-width:900px){
+  .hero-card .ed-inner{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+}
+
+/* ============================================================================
+   THE SUB COMES BACK DOWN TO 400 (2026-08-17). It went to 600 when it was three
+   short beats ("A challenge, a deadline, a new zine. Repeat.") and regular
+   italic looked thin against three saturated marks. It is a full sentence now,
+   running three lines and carrying FOUR marks — tape, two swipes and a
+   highlighter band — and at 600 that block was reading louder than the headline
+   above it: 22.7/600 with all the colour beats 36.8/700 with one green word, and
+   the fold's hierarchy inverted.
+   400 puts the emphasis back where it was drawn. It also buys a line: the
+   narrower italic sets the same sentence in three lines instead of four.
+   ============================================================================ */
+.hero-card .ed-sub{font-weight:400}
+
+/* ---- "group" IS THE ONLY CUE NOW, SO IT HAS TO CLEAR AA. :6957 sanctions the
+        bright --grass #1CAB5B (2.78:1 on oats) for a display word explicitly
+        BECAUSE it was never the only cue — it marked "zine" INSIDE "magazines",
+        so the word was legible as part of a black one either way. On "group" it
+        is a standalone word, and 2.78 is under the 3.0 floor for large text.
+        #159C53 is 3.30:1: two steps deeper, still unmistakably the logo green,
+        and it does not go near --grass-deep, which at this size reads as a dark
+        word rather than a green one (the reason :186 rejected it). ---- */
+.hero-card h1.ed-cat .stop{color:#159C53}
+
+/* ============================================================================
+   THE NOTE ENDS, THE MAGAZINE CARRIES ON (2026-08-17)
+   The painted paper stops under the last line of copy and the plate runs past
+   it, so the fold reads as a torn note with a magazine lying across its bottom
+   edge instead of as one big rectangle with everything inside it.
+   Only the PAINT moves. .hero-card keeps its box, its grid and its padding; what
+   changes is where .sheet stops — and .sheet is where the torn edge, the ruled
+   lines, the pink margin and the hard registration shadow all live, so all four
+   terminate together on one line and the shadow draws the new bottom edge for
+   free. --sheet-h is written by fitSheet() in app-post-beta.js.
+   The fallback is 100%: with JS off, or before the measure lands, the card is
+   exactly the card it was.
+   ============================================================================ */
+.hero-card>.sheet{bottom:auto; height:var(--sheet-h,100%)}
+.hero-card .holes{bottom:auto; height:var(--sheet-h,100%)}
+
+/* ============================================================================
+   THE JOIN TAG. A filled-green paper scrap tacked to the plate, opposite the
+   post-it. Construction is the page's sticky-note grammar (hand-cut edge, hard
+   ink shadow, a tilt) with the fill and ink swapped, so it reads as the same
+   pad in the brand colour rather than as a button someone dropped on a photo.
+   The tilt is POSITIVE where the post-it's is negative: two scraps at the same
+   angle look like a layout, two at opposing angles look thrown down.
+   ============================================================================ */
+.zc-tag{
+  position:absolute; z-index:7;
+  right:-20px; bottom:64px;
+  width:min(19ch, 66%);
+  display:block; padding:.6rem .8rem .65rem;
+  transform:rotate(2.6deg);
+  text-decoration:none; color:var(--oats);
+  isolation:isolate;
+  transition:transform .18s cubic-bezier(.2,.8,.3,1);
+}
+.zc-tag::before{
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:var(--grass-deep);
+  border:2.6px solid var(--ink); border-radius:4px;
+  box-shadow:4px 5px 0 0 var(--ink);
+  filter:url(#roughsm2);
+}
+.zc-tag:hover,.zc-tag:focus-visible{transform:rotate(2.6deg) translate(-1px,-2px)}
+.zc-tag:focus-visible{outline:3px solid var(--lazuli); outline-offset:6px}
+.zc-tag-note{
+  display:block; margin-bottom:.12rem;
+  font-family:var(--f-hand); font-size:clamp(.82rem,1.02vw,.92rem); line-height:1.15;
+  color:rgba(254,246,228,.82);
+}
+.zc-tag-line{
+  display:flex; align-items:center; gap:.4rem;
+  font-family:var(--f-head); font-weight:700;
+  font-size:clamp(1rem,1.3vw,1.14rem); line-height:1.12; letter-spacing:-.005em;
+}
+.zc-tag-arr{width:26px; height:11px; flex:0 0 auto; color:var(--happy)}
+@media (prefers-reduced-motion:reduce){ .zc-tag{transition:none} }
+/* ON A PHONE IT GOES TO THE TOP. At the foot of a full-width cover the tag lands
+   where the button it replaces used to sit — under the fold on every phone we
+   measured. At the top of the plate it is the first thing past the copy. */
+@media (max-width:899px){
+  .zc-tag{right:-10px; bottom:auto; top:44px; width:min(20ch,68%)}
+}
+@media (max-width:380px){
+  .zc-tag{right:-4px; top:38px; width:min(19ch,74%); padding:.52rem .68rem .58rem}
+}
+
+/* the tag is a coupon again: the action, then the terms it qualifies. Same paper,
+   one object. .zc-tag is the paper; the anchor inside it is the door. */
+.zc-tag-cta{display:block; text-decoration:none; color:inherit}
+.zc-tag-fine{
+  margin:.42rem 0 0; padding-top:.36rem;
+  border-top:1.5px dashed rgba(254,246,228,.4);   /* the coupon's perforation */
+  font-family:var(--f-body); font-size:.72rem; line-height:1.35;
+  color:rgba(254,246,228,.86);
+}
+.zc-tag-fine a{color:var(--happy); text-decoration:underline; text-underline-offset:2px;
+  text-decoration-thickness:1.3px; text-decoration-color:rgba(241,221,1,.55)}
+.zc-tag-fine a:hover,.zc-tag-fine a:focus-visible{text-decoration-color:var(--happy)}
+.zc-tag{width:min(24ch, 74%)}                     /* wider now that it carries the terms */
+.zc-tag-cta:focus-visible{outline:3px solid var(--lazuli); outline-offset:5px; border-radius:3px}
+.zc-tag:hover,.zc-tag:focus-within{transform:rotate(2.6deg) translate(-1px,-2px)}
+@media (max-width:899px){ .zc-tag{width:min(25ch,80%)} }
+@media (max-width:380px){ .zc-tag{width:min(24ch,88%)} }
+
+/* ============================================================================
+   THE TICKET LAPS THE CORNER (2026-08-17)
+   The masthead and the card were two objects stacked in a column with 24px of
+   air between them, which is the one piece of ordinary page layout left in a
+   fold made of thrown-down paper. The ticket now sits at an angle across the
+   note's top-left corner, the way a ticket actually gets stapled to a page, and
+   the card rises to meet it.
+   WHAT IT BUYS: ~46px of fold, which is not decoration on a phone — it is the
+   difference between the magazine's first inch being visible and not.
+   WHAT IT MUST NOT DO: cover a word. The ticket lands in the card's top padding,
+   above the headline's cap-height and to the right of the punched holes, so the
+   only thing under it is paper. Re-measure this if the card's inner padding or
+   the display size changes — the clearance is real but it is not large.
+   The washi tape moves to the right shoulder: it was pinned at left:12%, which
+   is exactly where the ticket now is, and two paper objects at the same corner
+   read as a pile-up rather than as a composition.
+   ============================================================================ */
+.hero{padding-top:clamp(4.4rem,6.2vw,5.2rem)}
+.mast .brand{transform:rotate(-2.6deg) translateY(7px)}
+.hero-card .tape{left:auto; right:15%}
+@media (max-width:899px){
+  /* the burger is top-right and the plate's own tape is just under it, so on a
+     phone the card's tape goes back to the left of centre where the ticket is
+     narrower and there is still room beside it. */
+  .hero-card .tape{left:52%; right:auto}
+  .mast .brand{transform:rotate(-2.2deg) translateY(5px)}
+}
+
+/* the phone tag clears the challenge strip on the cover instead of sitting on
+   top of it, and gives a little more of the artwork back. */
+@media (max-width:899px){
+  .zc-tag{top:76px; width:min(23ch,72%)}
+}
+@media (max-width:380px){
+  .zc-tag{top:68px; width:min(22ch,80%)}
+}
+/* the tape's position moved out of an inline style on the span (which outranked
+   every rule) and into here, where it can respond. */
+.hero-card .tape{top:-14px}
+/* PHONE CLEARANCE. At the tablet/desktop ramp the ticket lands 36px above the
+   headline's box; on a phone the same numbers put it 4px away, because the card
+   loses padding faster than the ticket loses size. 12px back — the ticket still
+   laps the corner, the headline still has air over it. */
+@media (max-width:899px){ .hero{padding-top:clamp(5rem,15vw,6rem)} }
+
+/* ---- NO ch CAPS ON THE CARD'S COPY. The headline carried max-width:26ch and the
+        sub 23ch, from when the copy ran the full width of the card and needed a
+        measure of its own. It has not for a long time: the copy lives in one
+        track of a two-column grid, and on a phone it is the card's own padding
+        that sets the line. A ch cap on top of that is a second, invisible margin
+        that only ever fires at the widths where it happens to be narrower than
+        the column — i.e. arbitrarily. The track is the measure. ---- */
+.hero-card h1.ed-cat,
+.hero-card .ed-sub{max-width:none}
+
+/* ---- THE HEAP STOPS BEING GUILLOTINED. .hero-pile:4177 was clipped on BOTH axes
+        to stop its photos running off the right edge on a phone — and the same
+        rule cut every photo at the bottom of the hero on one dead-straight
+        horizontal line, across nine polaroids at once, which is the one edge on
+        this page that no hand could have made. `clip visible` keeps the x-axis
+        fix exactly as it was and lets the pile finish where its photos finish.
+        (Below 881px the pile is display:none anyway, so the y-axis costs the
+        phone nothing.) ---- */
+.hero-pile{overflow:clip visible}
+
+/* ---- THE ONE THING THAT MOVES. :7040 sets the rule — the card's paper objects
+        keep their drawn edges and hold still, and only the call to action boils.
+        The green slab that used to be the call to action did; the tag that
+        replaced it did not, which quietly retired the page's only piece of
+        squigglevision. It boils on the INK cadence: it is a small object with a
+        drawn edge, and .5s is what the rest of the page's marker strokes use. ---- */
+.zc-tag::before{animation:boil-roughsm var(--boil-ink) step-end infinite}
+
+/* the glitter. Two drawings of the same doodle, swapped on a step — no fades, no
+   scaling, no gradients: a two-frame animation, the way a flipbook does it. */
+.zc-tag-spark{
+  position:absolute; z-index:2; top:-15px; right:-13px;
+  width:30px; height:30px; color:var(--happy); pointer-events:none;
+  filter:drop-shadow(1px 1px 0 rgba(65,77,87,.5));
+}
+.zc-tag-spark svg{display:block;width:100%;height:100%;overflow:visible}
+.zc-tag-spark .sp-b{opacity:0}
+.zc-tag-spark .sp-a{animation:sparkA 1.1s step-end infinite}
+.zc-tag-spark .sp-b{animation:sparkB 1.1s step-end infinite}
+@keyframes sparkA{0%{opacity:1}50%{opacity:0}}
+@keyframes sparkB{0%{opacity:0}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){
+  .zc-tag::before{animation:none}
+  .zc-tag-spark .sp-a,.zc-tag-spark .sp-b{animation:none}
+  .zc-tag-spark .sp-a{opacity:1}
+}
+html[data-tier="lite"] .zc-tag::before,
+html[data-tier="lite"] .zc-tag-spark .sp-a,
+html[data-tier="lite"] .zc-tag-spark .sp-b{animation:none}
+/* …AND WHAT SPILLS PAST THE HERO SLIDES UNDER THE PAGE. Freeing the y-axis fixed
+   the guillotine and immediately created a worse problem: the pile's lowest
+   photos ran 170px into the summary band and sat on its type. So the hero grows
+   a strip of the page's own paper below its bottom edge, torn along the top, and
+   the photos disappear beneath it — which is what a photo does when it slides
+   under the next sheet, and is the same move the whole page is built on.
+   Z-ORDER IS THE TRICK: the strip is inside .hero at z-index 2, so it covers the
+   pile (z-index 1) that shares its stacking context — and the summary band is a
+   LATER sibling section, so its type paints over the strip and is untouched.
+   The strip carries the body's own ruled background so the page's lines run
+   through it unbroken. */
+.hero{position:relative}
+.hero::after{
+  content:""; position:absolute; z-index:2; left:0; right:0; top:100%;
+  height:230px; pointer-events:none;
+  background:var(--paper) repeating-linear-gradient(0deg, transparent 0 27px, rgba(65,77,87,.07) 27px 28px);
+  filter:url(#torn);
+}
+@media (max-width:880px){ .hero::after{content:none} }   /* the pile is display:none here */
+
+/* ---- THE STRIP HAS TO BE TALLER THAN THE SPILL. At 230px it just moved the
+        guillotine: the pile's photos scale with the viewport, so past ~1600px
+        they reached BELOW the strip and got cut on its bottom edge instead of on
+        the pile's. The strip is paper on paper — it is invisible everywhere it
+        is not covering a photo — so there is no cost to making it as tall as the
+        hero itself, which is always more than the pile can overhang. ---- */
+.hero::after{height:100%}
+
+/* ---- REAL SQUIGGLEVISION ON THE DOOR. The boil was on .zc-tag::before, i.e. on
+        the paper only, through the #roughsm family (scale 3) — technically
+        animating, visually nothing: a 2.6px border wandering three pixels reads
+        as still. Squigglevision is the whole DRAWING moving, so the filter goes
+        on the tag itself, letters included, on the #rough family (scale 4) at the
+        ink cadence. That is the same instrument and the same clock the marker
+        underlines use, and it is the reason this is the one object in the fold
+        allowed to move (:7040).
+        The paper keeps its own edge underneath: ::before drops back to a plain
+        filter so the two are not displaced twice. ---- */
+.zc-tag{filter:url(#rough); animation:boil-rough var(--boil-ink) step-end infinite}
+.zc-tag::before{filter:none; animation:none}
+@media (prefers-reduced-motion:reduce){ .zc-tag{animation:none} }
+html[data-tier="lite"] .zc-tag{animation:none}
+
+/* ---- THE GLITTER SWAPS PLACES. Two stars, a big one and a small one at opposite
+        corners; on the second frame the whole doodle turns 90° so they trade
+        corners, and the drawing under it changes too — so it is a real two-frame
+        animation (a different hand-drawn star, in a different place) rather than
+        one shape rotating. ---- */
+.zc-tag-spark svg{animation:sparkTurn 1.1s step-end infinite; transform-origin:50% 50%}
+@keyframes sparkTurn{0%{transform:rotate(0deg)}50%{transform:rotate(90deg)}}
+@media (prefers-reduced-motion:reduce){ .zc-tag-spark svg{animation:none} }
+html[data-tier="lite"] .zc-tag-spark svg{animation:none}
+
+/* ---- THE COLLAGE BLEEDS TO THE VIEWPORT. The pile lives inside .hero .wrap,
+        which is a max-width column (1300px), so past ~1500px the photos stopped
+        dead on a vertical line either side and the heap became a rectangle
+        floating in the middle of the page — the same guillotine as the bottom
+        edge, turned 90°. It is a background, not content: it takes the window.
+        Safe against sideways scroll on two counts — html and body are both
+        overflow-x:clip, and the pile clips its own x-axis anyway (:4177). ---- */
+.hero-pile{left:calc(50% - 50vw); right:calc(50% - 50vw); width:auto}

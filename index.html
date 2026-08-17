@@ -248,7 +248,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=83" />
+<link rel="stylesheet" href="app-post-beta.css?v=99" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -515,7 +515,10 @@
             <!-- the punched edge: this is a page torn out of a notebook, which is exactly what a
                  Circle produces. Holes sit outside the pink margin rule, like real filler paper. -->
             <span class="holes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-            <span class="tape" style="left:12%;top:-14px"></span>
+            <!-- position lives in the stylesheet now (.hero-card .tape): the ticket laps this
+                 corner, so the tape has to move responsively and an inline left/top beat every
+                 rule that tried to move it. -->
+            <span class="tape"></span>
             <div class="inner ed-inner">
 
               <!-- ZONE 1 — THE HEADLINE NAMES THE ARTIFACT, THEN THE PROMISE (2026-08-11).
@@ -543,7 +546,25 @@
                    .stop keeps the brand green, now on "with your friends": on this page green is
                    where the PEOPLE are, and in this headline that is the phrase carrying them. -->
               <div class="ed-head">
-              <h1 class="ed-cat">Small clubs <span class="stop">show-and-tell</span> with scrollable maga<span class="zine">zine</span>s.</h1>
+              <!-- 2026-08-17 — THE WANT FIRST, THE MECHANISM SECOND. The headline this replaces
+                   (and the note above it, which documents that one) named
+                   the setting ("Small clubs") and the artifact, in that order, and a stranger
+                   had to care about clubs before the line could land. This one opens on the
+                   thing the reader already wants and has already failed at.
+                     - "Finally" is the whole line. It concedes the reader has tried this before
+                       and it did not happen — the same move "and actually finish it" was making,
+                       one word instead of four, and up in the headline where it does the work.
+                     - "make things" is deliberately the widest verb on the page. The clubs are
+                       baristas, models, letterers and photographers; anything narrower picks one
+                       of them and tells the other three the page is not about them. The range is
+                       proved by the spreads below, not claimed here.
+                     - "with a group" is the part no shared folder or notes app can say back.
+                   The setting and the artifact are not lost — they are the first six words of the
+                   sub, which is one line down and reads as the same breath.
+                   .stop keeps the brand green on the PEOPLE word, which is the rule this page has
+                   followed through every headline it has had ("with your friends", then
+                   "show-and-tell", now "group"). -->
+              <h1 class="ed-cat">Finally make things with a <span class="stop">group</span>.</h1>
               <!-- The sub answers the two questions the headline provokes, in the order a stranger
                    asks them: "do I need to bring people?" and "show-and-tell of WHAT?"
                      - "Join or create" — both doors, join first. Arriving alone is the commoner
@@ -585,85 +606,51 @@
                        so the beats now stand on their own under a closed line. Watch this: if the
                        list starts reading as unintroduced, the fix is a lead-in coming BACK, not a
                        colon after the blank. -->
-              <p class="ed-sub">A <span class="sub-mark m-happy"><span class="sub-chal">challenge</span></span>, a <span class="sub-mark m-lazuli">deadline</span>, a new <span class="sub-mark m-grass"><span class="zine">zine</span></span>. Repeat.<i class="beat-anchor" aria-hidden="true"></i><svg class="beat-point" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg></p>
+              <!-- 2026-08-17 — the sub now carries the mechanism the headline handed off: the
+                   setting, the loop and the artifact, in the order a stranger asks for them.
+                   THE THREE MARKS ARE THE SAME THREE MARKS, on the same three beats of the loop:
+                     - the Dymo tape stays on "challenge", and keeps its yellow swipe under it.
+                       It is the one mark that also exists as a real object 40px away on the
+                       cover, and that rhyme is the reason it is tape and not a swipe.
+                     - the lazuli swipe moves from "deadline" to "show-and-tell" — the same beat
+                       (the occasion the date is set for), named the way the rest of the page
+                       names it.
+                     - the grass swipe stays on the artifact, and keeps the zine-inside-magazine
+                       trick: "maga<zine>" is the brand word hiding in the ordinary one.
+                   "Every month." takes .hl — the real highlighter band (happy, multiply, tipped,
+                   rough-filtered), not a .sub-mark swipe. Inside the hero card .hl::before is
+                   wired to the reveal: it is held at scale 0 until the envelope hits .lit-hl, so
+                   the marker swipes across this phrase as the LAST beat of the cut, on the
+                   marker sound. That is the reason to use this class and not a fourth swipe.
+                   nbsp + nowrap because .hl::before is ONE absolutely-positioned rectangle: let
+                   the phrase wrap and the band spans both lines as a single slab (the same trap
+                   the .ed-cat note at :3684 documents).
+                   NOTE ON "Every month.": every other cadence claim on this page is deliberately
+                   abstract ("regular"), because the date belongs to the club — see the head of
+                   this file, where "monthly" was struck on 2026-08-04 for exactly this reason.
+                   This line is now the one place the page names a period. If a fortnightly or
+                   weekly club should not be told the page is not about them, the fix is one
+                   phrase here ("Again and again." / "Every few weeks."), nothing else. -->
+              <p class="ed-sub">Small clubs set a <span class="sub-mark m-happy"><span class="sub-chal">challenge</span></span>, then <span class="sub-mark m-lazuli">show-and-tell</span> with a scrollable <span class="sub-mark m-grass">maga<span class="zine">zine</span></span>. <span class="hl">Every&nbsp;month.</span><i class="beat-anchor" aria-hidden="true"></i><svg class="beat-point" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg></p>
               
               </div>
 
-              <!-- ZONE 2 - the standfirst. ONE paragraph now. The "where circles meet" line used to
-                   be its own block set BIGGER than the lede (rank 3 outranking rank 2); it is four
-                   words inside the sentence instead, which is where it always belonged. Marcus,
-                   cold, asked "is it a website, an app, a club, a magazine, or a service?" - this
-                   names the software, then the loop, then the one thing a stranger can picture. -->
-              <div class="ed-body">
-                <!-- ZONE 2 — the sub, then the closing run. The numbered beats that used to sit
-                     between them are GONE (2026-08-10): the sub states the loop in one sentence and
-                     #showtell below carries the deadline and the together-ness the list owned. A
-                     numbered procedure is an onboarding pattern, and a stranger who is not sold yet
-                     does not want steps — the deck of real zines does the persuading. What replaced
-                     it is .sum-doodles: three drawn marks, people then occasions then artifacts. -->
-              </div>
-
-              <!-- ZONE 3 - the CTA, printed as a coupon and cut from the page. The terms live INSIDE
-                   it: price and cadence are the first things a wary buyer looks for, and they were
-                   set at 10px in sub-AA grey, which is not restraint, it is hiding them. -->
-              <div class="ed-foot">
-                <!-- The sub-links live INSIDE the coupon, floating to the right of the button, so the
-                     whole CTA is one compact cut-out block (button + links) instead of stacked rows. -->
-                <div class="ed-coupon is-quiet">
-                  <span class="ed-snip" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                      <circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8 7.5 20 16M8 16.5 20 8"/>
-                    </svg>
-                  </span>
-                  <!-- FOUR DOORS, FOUR DESTINATIONS (2026-08-11). The previous block had four CTAs
-                       and its own comment conceded they all resolved to letters.drex.style/join-online/.
-                       Six cold readers each clocked that independently; one called it "three ways in,
-                       and it's one queue". Every link below now goes somewhere different, and the
-                       LOUDEST one is the only door that delivers exactly what it says to a signed-out
-                       stranger: the Beans issue is public, ungated, verified 200 with no cookie.
-                       The proof is free; the product is invite-only. Lead with the free thing. -->
-                  <!-- THE ONE PAGE-LEVEL ACTION. "Read this issue" and "Join this club" now live
-                       ON the picture as coverlines, because they act on the issue you are looking
-                       at — a cold reader put it plainly: "the CTAs don't look associated with the
-                       video at all". This line is the only action that acts on the READER, so it
-                       is styled as a different KIND of thing: a marked-up line of text, no button
-                       chrome, no box. The craft noun tracks the carousel, which is what brings
-                       back the range the deleted H1 rotator used to claim — except grounded, so
-                       it can never show "carpentry" to someone who came for photographs.
-                       NO PLAIN RULE UNDER IT: the mark is the house marker swipe (--happy through
-                       #squig) with a hand-drawn arrow. A straight black underline is the one thing
-                       this page never does. -->
-                  <p class="ed-start">
-                    <!-- The note moved ABOVE the button and centred on it. Off to the side it
-                         read as a stray annotation about the page; directly over the thing it
-                         describes, it is what you read a beat before you press. -->
-                    <span class="start-note" aria-hidden="true">join waitlist!</span>
-                    <a class="start-line" href="https://letters.drex.style/join-online/">
-                      <span class="sl-l1">Join or start a club for</span>
-                      <!-- ITS OWN ROTATOR, ON PURPOSE. The word used to track the issue in the
-                           frame, which meant it only ever named crafts we happen to have zines
-                           for — and it changed at the carousel's pace, which is slow enough that
-                           most visitors saw one word. It runs on its own list and its own clock
-                           now, so it can say knitting and baking and model trains, none of which
-                           are in the pictures, and it can say them often enough to be noticed.
-                           It opens on "your thing": the claim in the abstract, the version a
-                           crawler and a no-JS visitor keep, and the one that includes whoever is
-                           reading before it starts naming other people's crafts. -->
-                      <span class="sl-slot" id="craftSlot"><i class="sl-live" id="zcCraft">your thing</i></span>
-                      <svg class="sl-arr" viewBox="0 0 34 14" aria-hidden="true"><path d="M1.5 7.6c8.4-1.5 17.6-2 30-1.2"/><path d="M25.6 1.9c2.4 1.9 4.2 3.4 5.9 4.5-2 1.2-3.9 2.6-5.6 4.6"/></svg>
-                    </a>
-                  </p>
-
-                </div>
-                <!-- The three facts the page had never stated, all verified against the repo:
-                     there is no billing code of any kind, so "no way to pay us yet" is literal;
-                     it is a website, not an install; new accounts are invite-only at the auth
-                     layer. Stating the price honestly disarms the skeptic faster than "Free".
-                     It sits OUTSIDE .ed-coupon on purpose — the coupon is a nowrap flex row and a
-                     fourth child in it steals width from .ed-links, which wraps the door labels
-                     one word per line. This is fine print under the cut-out, not part of it. -->
-                <p class="ed-fine">A website &mdash; nothing to install. It&rsquo;s free; there&rsquo;s no way to pay us yet. New accounts are invite-only while we&rsquo;re small. <a href="invited/">Already invited?</a></p>
-              </div>
+              <!-- ZONE 2 AND ZONE 3 ARE GONE (2026-08-17). .ed-body had been an empty div
+                   since the numbered beats came out on 2026-08-10, and .ed-foot emptied when the
+                   coupon moved onto the magazine. Two empty grid rows were still collecting a gap
+                   each — 107px of dead air between the sub and whatever came next, measured, which
+                   read as something missing rather than as breathing room. Deleted, so the copy
+                   column is exactly what is written on the note: the headline and the sub.
+                   THE DOOR AND ITS TERMS now live on .zc-tag, tacked to the magazine in column 2:
+                     - the green slab was the only software chrome in a fold made of paper, and it
+                       was the loudest object in it.
+                     - its label was a typewriter rotator, caught mid-word or empty in 23% of
+                       frames sampled every 200ms for 12s ("woodworki", "zi", "tattoo fl").
+                     - stacked under the copy it pushed itself below the fold once the plate went
+                       full-width (+107px at 390x844, +254px at 375x667).
+                   WHAT WENT WITH IT, knowingly: "Join or start a club for <craft>". The tag's
+                   small line ("start a club for your thing") carries the claim as static text;
+                   the rotating craft noun does not come back. -->
 
               <!-- THE WELL. This is column 2 of .ed-inner, and it must live INSIDE the grid to be
                    one: as a sibling of .inner it was just a block under the card and grid-column:2
@@ -804,13 +791,79 @@
                       </svg>
                     </button>
 
-                    <div class="zc-cover">
-                      <a class="zcl zcl-read" id="ctaIssue" href="https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23"><span>Read this issue</span></a>
-                      <a class="zcl zcl-join" id="ctaClub" href="https://app.drex.style/clubs/xchange-models"><span>Join this club</span></a>
-                    </div>
+                  </div>
+
+                  <!-- THE POST-IT (2026-08-17). It replaces the plank of two buttons that used
+                       to be bolted across the foot of the cover, and the caption that sat under
+                       the plate. Three things were wrong with the plank:
+                         - JOIN THIS CLUB was a second green call to action six inches from the
+                           real one, and on a phone the reader met it FIRST. The plate's job is
+                           proof; the card already has a primary action.
+                         - both labels were laid on the artwork, so the picture had a chrome bar
+                           across it — the one thing that stops a screenshot reading as a zine.
+                         - below 380px the frame shrinks to ~132px and the two labels clipped
+                           mid-word ("D THIS ISSUE" / "IN THIS CL"). A note that hangs off the
+                           plate is not bound by the frame's width, so that failure cannot recur.
+                       It is the page's existing sticky note (.how-fn / .reveal-name): happy
+                       yellow, ink border, hard offset shadow, hand-cut edge, a peeled corner,
+                       and a slight rotation against the plate's own. It is deliberately NOT
+                       fully contained — it laps over the plate's bottom-left corner and hangs
+                       outside it, the way a note actually gets stuck to something.
+                       The club is now a LINK INSIDE THE SENTENCE rather than a button: same
+                       destination, and it reads as an attribution ("in SF Penmans"), which is
+                       what it always was. Both hrefs and both strings are still written per
+                       issue by the carousel (#ctaIssue, #zcCap, #ctaClub). -->
+                  <div class="zc-note">
+                    <a class="zc-note-read" id="ctaIssue" href="https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23">read this issue</a>
+                    <p class="zc-note-lead" id="zcCap" aria-live="polite">Eleven models reflect on their performance.</p>
+                    <p class="zc-note-by">in <a class="zc-note-club" id="ctaClub" href="https://app.drex.style/clubs/xchange-models">XChange Models</a></p>
+                  </div>
+
+                  <!-- THE DOOR, TACKED TO THE MAGAZINE (2026-08-17). This is the page's only
+                       call to action between the fold and the footer, and it is now a paper
+                       object on the object it is selling rather than a green slab under the
+                       copy. Same family as the post-it opposite it — hand-cut edge, hard
+                       registration shadow, tilted — but FILLED GREEN, not yellow: two yellow
+                       papers on one plate read as twins, and green is what this page has always
+                       meant by "the way in".
+                       NOT bottom-right, which is where the three page leaves fan out (they run
+                       15px right and 19px below the plate) and that stack is the only thing
+                       saying "there are more of these". It hangs off the right edge above the
+                       fan instead, and on a phone it moves to the TOP of the plate — at the
+                       foot of a 473px-tall cover it would land exactly where the button it
+                       replaces used to sit, which is under the fold.
+                       The small line is doing the work the retired rotator did: it is the only
+                       place left that says you can START one, and that it can be anything. It
+                       is static — the rotator was caught mid-word 23% of the time. -->
+                  <div class="zc-tag">
+                    <!-- A GLITTER MARK, DRAWN TWICE. Two four-point stars in the same place, one
+                         hidden at a time on a step animation — the two-frame trick the rest of the
+                         page's boil uses, applied to a doodle instead of an edge. It is the only
+                         thing in the fold that moves once the cut is over, which is the point:
+                         motion is reserved for the call to action (see the note at :7040). -->
+                    <span class="zc-tag-spark" aria-hidden="true">
+                      <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                        <g class="sp-a"><path d="M13 2.6c.9 5.4 4.1 8.5 9.6 9.4-5.5.9-8.7 4-9.6 9.4-.9-5.4-4.1-8.5-9.6-9.4 5.5-.9 8.7-4 9.6-9.4Z"/><path d="M21.4 18.4c.4 2.2 1.6 3.4 3.8 3.8-2.2.4-3.4 1.6-3.8 3.8-.4-2.2-1.6-3.4-3.8-3.8 2.2-.4 3.4-1.6 3.8-3.8Z"/></g>
+                        <g class="sp-b"><path d="M13.4 3.4c.7 5.6 3.8 8.8 9.2 9.8-5.4 1.1-8.4 4.3-9.2 9.6-1.1-5.3-4.3-8.4-9.8-9.2 5.4-1.1 8.6-4.4 9.8-10.2Z"/><path d="M4.6 17.6c.3 2.3 1.5 3.6 3.7 4.1-2.2.3-3.4 1.5-3.9 3.7-.3-2.2-1.4-3.4-3.6-3.9 2.2-.4 3.4-1.6 3.8-3.9Z"/></g>
+                      </svg>
+                    </span>
+                    <a class="zc-tag-cta" href="https://letters.drex.style/join-online/">
+                      <span class="zc-tag-note">start a club for your thing</span>
+                      <span class="zc-tag-line">Join the waitlist<svg class="zc-tag-arr" viewBox="0 0 34 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 7.6c8.4-1.5 17.6-2 30-1.2"/><path d="M25.6 1.9c2.4 1.9 4.2 3.4 5.9 4.5-2 1.2-3.9 2.6-5.6 4.6"/></svg></span>
+                    </a>
+                    <!-- THE TERMS COME WITH THE DOOR. They were the coupon's own fine print and
+                         they belong wherever the door is: price and access are the first two
+                         things a wary reader looks for, and they are useless a column away from
+                         the thing they qualify. Keeping them in the card was ALSO what killed
+                         the layering — the copy column ended within 5px of the plate's foot, so
+                         the paper had nothing to stop above. Out of the card, the note ends
+                         under the sub and the magazine lies across its bottom edge, which was
+                         the whole point.
+                         A <div>, not an <a>: "Already invited?" is a second destination, and a
+                         link inside a link is not a thing. The action is its own anchor. -->
+                    <p class="zc-tag-fine">It&rsquo;s free &mdash; no way to pay us yet. Invite-only while we&rsquo;re small. <a href="invited/">Already&nbsp;invited?</a></p>
                   </div>
                 </div>
-                <p class="zc-cap" id="zcCap" aria-live="polite"><b>Eleven models.</b> This is what came out.</p>
               </div>
 
             </div>
@@ -868,19 +921,43 @@
        the part the headline deliberately does not carry.
        Order is people, then occasions, then artifacts. Do not reorder: it is the
        loop in miniature and the last item is the only one that pays off. ============ -->
-  <section class="summary-band" aria-label="What a club adds up to">
+  <section class="summary-band" aria-label="What a club adds up to, and the tools we hand you">
     
 <div class="sum-stack">
-<ul class="sum-doodles"><li style="--dr:-3deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke-width="2.2"><circle cx="11" cy="10" r="4.6" stroke="#C9343A"/><path d="M2.6 30c0-6.9 3.8-10.4 8.4-10.4s8.4 3.5 8.4 10.4" stroke="#C9343A"/><circle cx="23" cy="7.6" r="4.9" stroke="#0C6E39"/><path d="M13.8 30c0-7.6 4.1-11.4 9.2-11.4s9.2 3.8 9.2 11.4" stroke="#0C6E39"/><circle cx="34.6" cy="10.6" r="4.4" stroke="#2496C9"/><path d="M26.6 30c0-6.6 3.6-9.9 8-9.9s8 3.3 8 9.9" stroke="#2496C9"/></g></svg></span>Same group.</li><li style="--dr:2.2deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke-width="2.6"><path d="M8 6.5 6.8 26" stroke="#0C6E39"/><path d="M15.5 5.8 14.6 25.6" stroke="#0C6E39"/><path d="M23 6.4 22.4 26.2" stroke="#0C6E39"/><path d="M30.6 5.6 30 25.4" stroke="#0C6E39"/><path d="M3.4 24.6C13 20.2 27 12.4 35.6 7.2" stroke="#C9343A"/></g></svg></span>Many show-and-tells.</li><li style="--dr:-1.4deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke="#414D57" stroke-width="1.9"><g transform="rotate(-13 18 17)"><rect x="7" y="5.5" width="15" height="21" rx="1.4" fill="#ECAF21"/></g><g transform="rotate(-2 22 17)"><rect x="14" y="4.5" width="15" height="21" rx="1.4" fill="#1CAB5B"/></g><g transform="rotate(11 26 17)"><rect x="21" y="5.5" width="15" height="21" rx="1.4" fill="#F75458"/></g></g></svg></span>One beautiful <span class="hl hl-b">portfolio</span>.</li></ul>
+    <!-- TWO COLUMNS, NOT ONE STACK. The lists answer different questions — what a
+         club adds up to, and what we hand you to get there — and stacked they read
+         as one six-item list where item 4 contradicts the grammar of item 3. Side
+         by side with a lede each, the pair is legible at a glance. Under 820px
+         they stack again (two columns of 34ch does not fit a phone), and the ledes
+         are what keeps the stacked version from collapsing back into one list. -->
+    <div class="sum-col">
+      <p class="sum-lede" id="sum-lede-adds">What a club adds up&nbsp;to:</p>
+<ul class="sum-doodles" aria-labelledby="sum-lede-adds"><li style="--dr:-3deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke-width="2.2"><circle cx="11" cy="10" r="4.6" stroke="#C9343A"/><path d="M2.6 30c0-6.9 3.8-10.4 8.4-10.4s8.4 3.5 8.4 10.4" stroke="#C9343A"/><circle cx="23" cy="7.6" r="4.9" stroke="#0C6E39"/><path d="M13.8 30c0-7.6 4.1-11.4 9.2-11.4s9.2 3.8 9.2 11.4" stroke="#0C6E39"/><circle cx="34.6" cy="10.6" r="4.4" stroke="#2496C9"/><path d="M26.6 30c0-6.6 3.6-9.9 8-9.9s8 3.3 8 9.9" stroke="#2496C9"/></g></svg></span>Same group.</li><li style="--dr:2.2deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke-width="2.6"><path d="M8 6.5 6.8 26" stroke="#0C6E39"/><path d="M15.5 5.8 14.6 25.6" stroke="#0C6E39"/><path d="M23 6.4 22.4 26.2" stroke="#0C6E39"/><path d="M30.6 5.6 30 25.4" stroke="#0C6E39"/><path d="M3.4 24.6C13 20.2 27 12.4 35.6 7.2" stroke="#C9343A"/></g></svg></span>Many show-and-tells.</li><li style="--dr:-1.4deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke="#414D57" stroke-width="1.9"><g transform="rotate(-13 18 17)"><rect x="7" y="5.5" width="15" height="21" rx="1.4" fill="#ECAF21"/></g><g transform="rotate(-2 22 17)"><rect x="14" y="4.5" width="15" height="21" rx="1.4" fill="#1CAB5B"/></g><g transform="rotate(11 26 17)"><rect x="21" y="5.5" width="15" height="21" rx="1.4" fill="#F75458"/></g></g></svg></span>One beautiful <span class="hl hl-b">portfolio</span>.</li></ul>
+    </div>
+
     <!-- A SECOND LIST, SAME GRAMMAR, DIFFERENT SUBJECT. The first three are what a
          club ADDS UP TO; these three are what Drex actually hands them to get
          there. Same drawn marks, same rhythm, so they read as a matched pair of
-         lists rather than as a features table bolted under a promise. -->
-    <ul class="sum-doodles sum-tools">
-      <li style="--dr:2.4deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke-width="2.3"><path d="M6 25.5c3.4-6.2 7.2-10 11.4-11.4" stroke="#0C6E39"/><path d="M17.4 14.1c-1.6-2.3-3.6-3.6-6-4" stroke="#0C6E39"/><path d="M22 6.5c4.6.4 8.4 2.6 11.4 6.6s4.4 8.2 4.2 12.4" stroke="#C9343A"/><path d="M33.4 13.1c.2-2.4 1-4.3 2.4-5.7" stroke="#C9343A"/></g></svg></span>Tools for helping each other make the deadline.</li>
-      <li style="--dr:-1.8deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke="#414D57" stroke-width="1.9"><g transform="rotate(-8 14 16)"><rect x="4" y="6" width="17" height="21" rx="1.3" fill="#F1DD01"/></g><g transform="rotate(7 28 16)"><rect x="21" y="5" width="17" height="21" rx="1.3" fill="#1CAB5B"/></g><path d="M20.5 15.5h3.4" stroke="#C9343A" stroke-width="2.4"/></g></svg></span>Making the zine together.</li>
-      <li style="--dr:1.5deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke-width="2.2"><circle cx="21" cy="16" r="8.4" stroke="#2496C9"/><path d="M12.6 16h16.8M21 7.6c2.6 2.6 3.9 5.4 3.9 8.4s-1.3 5.8-3.9 8.4M21 7.6c-2.6 2.6-3.9 5.4-3.9 8.4s1.3 5.8 3.9 8.4" stroke="#2496C9"/><path d="M33 25.5l6.5 4.5" stroke="#C9343A"/></g></svg></span>Tools for showing the world &mdash; and seeing what the world has made.</li>
-    </ul>
+         lists rather than as a features table bolted under a promise.
+         THE LEDE CARRIES "TOOLS FOR". Two of the three lines used to open with
+         "Tools for" and the middle one didn't, so the list read as broken
+         parallelism with a features label repeated twice. Hoisted into the lede,
+         it governs all three and every line can start on its own verb.
+         THE MARKS ARE REDRAWN. The old three were the weakest on the page: an
+         unreadable pair of arrows, a two-card stack that was the SAME drawing as
+         the portfolio mark directly above it, and a globe with a detached
+         magnifier handle that read as a stray tick. Now: speech bubbles (each
+         other), an OPEN zine with the spine showing (unmistakably not the closed
+         stack above), and a globe with an exchange arrow going out and coming
+         back — which is the two-way claim the line actually makes. -->
+    <div class="sum-col sum-col-tools">
+      <p class="sum-lede" id="sum-lede-tools">We give you tools&nbsp;to:</p>
+      <ul class="sum-doodles sum-tools" aria-labelledby="sum-lede-tools">
+        <li style="--dr:2.4deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke-width="2.2"><rect x="3.5" y="4.5" width="18" height="13" rx="3.6" stroke="#0C6E39"/><path d="M10 17.5 8.2 23.4 14.6 17.5" stroke="#0C6E39"/><rect x="23.5" y="13" width="17" height="12.5" rx="3.4" stroke="#C9343A"/><path d="M34.6 25.5 36.4 30.4 30.2 25.5" stroke="#C9343A"/></g></svg></span>Help each other make the deadline.</li>
+        <li style="--dr:-1.8deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke="#414D57" stroke-width="1.9"><path d="M3.5 9.5c5.6-3 11.7-3.4 17.6-2.4v18.6c-5.9-1-12-.6-17.6 2.4z" fill="#F1DD01"/><path d="M40.5 9.5c-5.6-3-11.7-3.4-17.6-2.4v18.6c5.9-1 12-.6 17.6 2.4z" fill="#1CAB5B"/><path d="M22 7.1v18.6"/></g></svg></span>Make the zine together.</li>
+        <li style="--dr:1.5deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke-width="2.2"><circle cx="14.5" cy="16" r="8.4" stroke="#2496C9"/><path d="M6.1 16h16.8M14.5 7.6c2.6 2.6 3.9 5.4 3.9 8.4s-1.3 5.8-3.9 8.4M14.5 7.6c-2.6 2.6-3.9 5.4-3.9 8.4s1.3 5.8 3.9 8.4" stroke="#2496C9"/><path d="M27.5 11h13.4M37.1 7.6 41.2 11 37.1 14.4" stroke="#C9343A" stroke-width="2.5"/><path d="M41 22H27.6M31.4 18.6 27.3 22 31.4 25.4" stroke="#0C6E39" stroke-width="2.5"/></g></svg></span>Show the world &mdash; and see what the world has made.</li>
+      </ul>
+    </div>
     </div>
   </section>
 
@@ -2568,7 +2645,7 @@
   });
 })();
 </script>
-<script type="module" src="app-post-beta.js?v=38"></script>
+<script type="module" src="app-post-beta.js?v=44"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign
