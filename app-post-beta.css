@@ -7756,3 +7756,117 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
         Safe against sideways scroll on two counts — html and body are both
         overflow-x:clip, and the pile clips its own x-axis anyway (:4177). ---- */
 .hero-pile{left:calc(50% - 50vw); right:calc(50% - 50vw); width:auto}
+
+/* ============================================================================
+   THE PICTURE PANEL IS HALF THE POSTCARD, AND EVERY PHOTO AIMS ITSELF (2026-08-18).
+
+   TWO BUGS, ONE CAUSE. The panel was 34% of a card locked to aspect-ratio:3/2,
+   which makes the picture's own box 0.34 x 1.5 = a 0.51 ratio — far taller and
+   narrower than ANY of the five photographs in it (0.37, 0.71, 0.80, 0.82, 1.33).
+   So every card was cropping hard, and all five were cropping from the same
+   anchor (object-position:center top, :7155/:7256). The damage was visible:
+     - phloor-chair.jpg is LANDSCAPE (1.33). Into a 0.51 box that discards 62% of
+       the width, and the chair — the entire subject — lost an arm to the panel edge.
+     - penmans' lettering came out cut off on both sides on every line, so a page
+       of careful hand-lettering read as broken text.
+     - beans lost the bottom of the cup, which is the half of that photo that says
+       "cafe".
+   38% -> a 0.58 panel, and that is as far as this card can go. Half was tried first
+   and it does frame the photographs best (0.75), but the postcard is locked to
+   aspect-ratio:3/2 with overflow:hidden, so the written side has a FIXED height
+   budget and every point of width taken from it costs lines. Measured, at 390px:
+   the Beans card (the only one carrying a pull-quote) overflows its own box by 12px
+   at the shipped 34%, by 49px at 44%, and by 64px at 50% — its "VIEW ZINE" button
+   clipped off the bottom edge. Silk starts overflowing at 40%.
+   So 38% plus a tightened message side is the honest ceiling: it clears the crop
+   damage, and it also fixes the 12px Beans overflow that was already shipping.
+   THE REAL FIX FOR FRAMING IS --pc-focus, NOT THE WIDTH. Aiming each photograph is
+   what keeps its subject in the box; the extra 4 points of panel just means there is
+   less to aim. If the pull-quote ever leaves the Beans card, or the 3:2 becomes a
+   min-height instead of a hard ratio, 44% opens up and the note above still holds.
+
+   WHAT THIS TRADES. The 34% was a deliberate call (see :7186) — "on a postcard
+   the picture is the smaller panel and the written side is the larger one." That
+   is true of a real 6x4, and it is the one argument against this change. It lost
+   because the two-thirds was not spending its width: Photo Phloor and SF Penmans
+   both carried a title, a slug, a button and then ~40% of the card as empty cream.
+   A postcard whose message side is half empty is not reading as a postcard either.
+   38% keeps that true — the picture is still comfortably the smaller panel — while
+   giving the photographs enough box to hold their subjects. Do not go back to 34%:
+   that is the ratio that cost the chair an arm.
+
+   AIM, DON'T CENTRE. --pc-focus is authored per photograph, inline in the markup
+   next to the picture it belongs to, because the right anchor is a fact about the
+   PICTURE and belongs where a person editing that picture will see it. It is an
+   object-position, so it is a proportion, not a pixel offset: the same value holds
+   at 360px and at 1400px, which is what makes the subject stay framed responsively
+   instead of only at the width it was eyeballed on. The default stays center-top so
+   a new card with no focus authored behaves exactly as every card did before.
+   ============================================================================ */
+/* NOT AT ≤700px AS ONE COLUMN. The obvious companion edit — restate the
+   `grid-template-columns:1fr` that :7143/:7200 ask for on narrow screens — is a
+   trap, and it looks like a fix right up until you render it. Those two rules have
+   never actually applied: :7242 carries `34% 1fr !important` with no media query,
+   so it has been winning at EVERY width, and the postcards have always been two
+   columns on a phone. Give the ≤700px rule teeth and the card stacks, but the card
+   also carries `aspect-ratio:3/2 !important` from the same block — so the picture
+   row gets no height to fill and collapses to a small box in the top-left corner
+   instead of becoming a full-width band. Making the stack work means unpicking the
+   3:2, which is the one thing that block says is true "at every width".
+   So: two columns everywhere, on purpose. A 6x4 postcard does not stack, and at
+   356px the halves are 178px each, which the cqw type scale already handles. */
+.deck.smear .pc{grid-template-columns:38% 1fr !important}
+.deck.smear .pc-img > img{object-position:var(--pc-focus,50% 0%)}
+
+/* ---- AND THE PANEL TAKES ITS TRACK, WHICH ON A PHONE IT NEVER HAS.
+        :7162 gives .pc-img `aspect-ratio:3/2; height:auto` under 700px, and :7219
+        gives it `align-self:stretch`. Stretch wins the height (243px, from the
+        card's own 3:2), and then the aspect-ratio runs BACKWARDS off that height to
+        compute a width: 243 x 1.5 = 364px, inside a 178px track. An explicit width
+        is allowed to overflow its track, so it does — the picture covers the whole
+        postcard and the written side sits on top of the photograph.
+        This is not new and it is not the 50% edit: at the old 34% the panel measured
+        the same 356px, because a track it ignores is a track of any size. Every
+        postcard has shipped this way on every phone. `aspect-ratio:auto` hands the
+        width back to the grid, and the height still comes from stretch, so the panel
+        is 178x243 at 390px — the same 0.75 box as the desktop, which is the whole
+        point of aiming the photographs by proportion. ---- */
+.deck.smear .pc-img{aspect-ratio:auto !important}
+
+/* ---- THE STAMP STOPS SITTING ON THE CLUB'S NAME. .pc-post is authored as a hard
+        140x100px box (:4827) with a scale(.72) patch under 700px (:7275), so it is
+        the one element on the card that is NOT a share of the card — 21% of a 652px
+        postcard and 29% of a 356px one. The title is cqw-sized, so on a phone the
+        two land in the same place and every club's name runs 92px underneath the
+        stamp: "SF Penma[ns]", "Our Favor[ite] Drinks". Measured identical at 34%,
+        44% and 50%, so this is not the panel width — it is the fixed px box, and it
+        has been shipping on every phone.
+        18cqw with the aspect held keeps the stamp the same size it reads as on
+        desktop and shrinks it honestly everywhere else, and the two lines that share
+        its band reserve its width, so the name can never run under it again. The
+        titles wrap to two lines on a phone, which "Our Favorite Drinks" already did
+        on desktop, and the card has the height for it. ---- */
+.deck.smear .pc-post{
+  width:14cqw !important; height:auto !important; aspect-ratio:1.4 !important;
+  transform:none !important;
+}
+/* the chip takes a MARGIN, not padding: .pc-type carries its own background, so
+   padding stretches the pill into a bar across the card. The title takes padding
+   because it has no background to stretch. 12cqw, not 16: the stamp is 14cqw inset
+   9px from the CARD's edge, and .pc-msg already contributes its own right padding,
+   so the reserve only has to cover the difference. */
+.deck.smear .pc-type{margin-right:12cqw}
+.deck.smear .pc-title{padding-right:12cqw}
+
+/* ---- THE WRITTEN SIDE GETS ITS LINES BACK. The card's height is fixed by the 3:2,
+        so the message side cannot grow — it can only clip, which is what took the
+        Beans "VIEW ZINE" button off the bottom of the card (by 12px at the shipped
+        34%, before any of this). Four small trims, all still proportional: a shorter
+        gap above the pull-quote, a hair off its size and leading, a shorter lead-in
+        to the button, and a slightly shallower block padding. Together they buy back
+        ~50px at 390px, which is what makes 38% fit where 34% did not. ---- */
+.deck.smear .pc-msg{padding:4.4cqw 5cqw}
+.deck.smear .pc-msg blockquote,
+.deck.smear .pc-quote{margin-top:.9cqw; font-size:2.8cqw; line-height:1.28}
+.deck.smear .pc-slug{margin-top:.5cqw}
+.deck.smear .pc-cta{padding-top:.9cqw}
