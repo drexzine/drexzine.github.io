@@ -7870,3 +7870,19 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
 .deck.smear .pc-quote{margin-top:.9cqw; font-size:2.8cqw; line-height:1.28}
 .deck.smear .pc-slug{margin-top:.5cqw}
 .deck.smear .pc-cta{padding-top:.9cqw}
+
+/* ---- THE PULL-QUOTE RENDERS AT THE SIZE IT RESERVES. :7275 groups .pc-a with
+        .pc-post and hands both a `scale(.72)`, which makes sense for the stamp and
+        none at all for a blockquote: transform does not affect layout, so the quote
+        has been reserving a full-size box and painting at 72% inside it. Two
+        consequences — it reads smaller than anything around it, and ~28% of the
+        vertical space it holds on the Beans card (the only card with a quote, and the
+        one that overflows first) is paying for nothing.
+        Un-scaled at 2.2cqw the quote lands at the same visual size it had before this
+        block existed, its box is finally honest, and the Beans card gets ~5px back.
+        Not enough to buy 44% — that is still +32px, the height budget is spent on the
+        title and the button, not the quote — but it is the correct size either way,
+        and it undoes the ~10% shrink my own 2.8cqw rule above caused by landing on
+        top of the scale. ---- */
+.deck.smear .pc-a{transform:none; font-size:2.2cqw; line-height:1.34}
+.deck.smear .pc-cite{font-size:2cqw}

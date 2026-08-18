@@ -1274,18 +1274,34 @@ function initEnvelope(audio) {
       if (f >= 1 || done) stop();
     });
   }
-  idleTimer = setTimeout(autoCut, 5000);                      // ~5s of no interaction, then open it
+  /* 1.6s, not 5s (2026-08-18). The sealed hero is the ONLY thing on screen until this
+     fires, and the only copy on it is one handwritten line — the headline and the loop
+     are in the clipped pocket, out of sight. Every published instrument for "can a
+     stranger tell what this is" is a FIVE SECOND test, so a 5s idle spent the entire
+     measurement window on a blank sheet and delivered the pitch exactly as the test
+     ended. 1.6s still shows the seal, the scissors nudge and the prompt bob — the
+     theatre is the first beat, not the whole first act — and anyone reaching for the
+     scissors reaches in the first second, which disarms this on pointerdown anyway.
+     End to end the fold is readable at ~2.4s instead of ~6.5s: this timer, then the
+     720ms sweep, then complete()'s rise. Do not raise it back without re-running the
+     five-second test; do not drop it under the grace window below or the scroll-intent
+     path stops being reachable at all. */
+  idleTimer = setTimeout(autoCut, 1600);
   seam.addEventListener('pointerdown', () => {                // a deliberate grab disarms the idle timer
     autoArmed = true; clearTimeout(idleTimer);
   }, { once: true });
   // First scroll INTENT also opens it — but only AFTER a grace window. A load-time scroll restoration
   // or a stray wheel/touch tick the instant the page arrives was snapping the seal open immediately;
   // arming these late means only a scroll the visitor makes AFTER seeing the sealed page counts.
+  // 600ms, down from 1400 (2026-08-18): the guard only has to outlast scroll restoration
+  // and a stray wheel tick at arrival, which are first-frames events, and at a 1.6s idle a
+  // 1400ms grace left this path a 200ms window — i.e. deleted it. 600 keeps the guard and
+  // gives a visitor who lands and immediately scrolls a real 1s window to open it early.
   setTimeout(function(){
     if (autoArmed || done || cutting) return;
     ['wheel', 'touchmove', 'scroll'].forEach((ev) =>
       addEventListener(ev, autoCut, { once: true, passive: true }));   // even when a sealed page can't scroll
-  }, 1400);
+  }, 600);
   (window.__drexCrit = window.__drexCrit || {}).autoCut = autoCut;   // QA hook
 
   /* ---- QA hooks ---- */
