@@ -248,7 +248,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=99" />
+<link rel="stylesheet" href="app-post-beta.css?v=100" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -631,7 +631,50 @@
                    This line is now the one place the page names a period. If a fortnightly or
                    weekly club should not be told the page is not about them, the fix is one
                    phrase here ("Again and again." / "Every few weeks."), nothing else. -->
-              <p class="ed-sub">Small clubs set a <span class="sub-mark m-happy"><span class="sub-chal">challenge</span></span>, then <span class="sub-mark m-lazuli">show-and-tell</span> with a scrollable <span class="sub-mark m-grass">maga<span class="zine">zine</span></span>. <span class="hl">Every&nbsp;month.</span><i class="beat-anchor" aria-hidden="true"></i><svg class="beat-point" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg></p>
+              <!-- 2026-08-18 — THE LOOP COMES BACK UNDER THE NEW HEADLINE. The line above this
+                   note documents the sentence this replaces; it was written when the H1 still
+                   named the setting and the artifact ("Small clubs show-and-tell with scrollable
+                   magazines."), so the sub had to pick that cargo up. The H1 stopped naming them
+                   on 2026-08-17 and the sub inherited all of it at once — setting, challenge,
+                   occasion, artifact, cadence — which made it a summary of the page rather than
+                   the hook under a headline. Two things it cost, both restored here:
+                     - THE LOOP. "A challenge, a deadline, a new magazine. Repeat." is the product,
+                       and nothing else on the page states it in four beats. A compound sentence
+                       ASSERTS a cadence ("Every month."); a list that ends in "Repeat." SHOWS a
+                       cycle, which is the claim, and it is the one thing a shared folder cannot
+                       say back.
+                     - THE CADENCE STAYS ABSTRACT. "Every month." was the page's only named period,
+                       against the rule set at the head of this file on 2026-08-04 (the date belongs
+                       to the club — a fortnightly club was being told this page is not about them).
+                       "Repeat." is the same promise with no number in it.
+                   "magazine", not "zine": the H1 is "make things" now, so this line is the fold's
+                   only chance to name what gets made, and it should name it in a word a stranger
+                   already owns. The maga<zine> trick survives intact.
+                   WHERE "show-and-tell" WENT. It is not on the fold any more, and it does not need
+                   to be: it is the <title>, the OG title, the tagline in the footer, the H2 of the
+                   section directly below this card ("See a show-and-tell."), and a summary bullet.
+                   It was in the sub only while the H1 had stopped saying it, and the H1 had stopped
+                   saying it for one day. If it must come back to the fold, the shape is a fourth
+                   beat ("A challenge, a deadline, a show-and-tell, a new magazine. Repeat.") —
+                   NOT a fourth mark, which the note below already explains would empty the others.
+                   THE MARKS, and why "Repeat." takes the band and not a fourth swipe:
+                     - the three swipes are the three steps, same shape, colour = which step
+                       (happy / lazuli / grass — see the block comment at app-post-beta.css:6930).
+                       The Dymo tape stays on "challenge" for the rhyme with the real tape 40px
+                       away on the cover, so that beat carries both tape and swipe.
+                     - "Repeat." is not a step, it is the instruction, so it takes a different
+                       device: .hl, the real highlighter band. Its colour is --happy, the same
+                       yellow as beat one — which is exactly where "Repeat." sends you.
+                     - it keeps the reveal beat the old line held: inside the hero card
+                       .hl::before is pinned at scale 0 until the envelope hits .lit-hl
+                       (app-post-beta.css:265), so the marker swipes across the word as the LAST
+                       beat of the cut, on the marker sound. One word, so the nowrap trap the old
+                       note describes cannot bite — but .ed-sub .hl still carries it.
+                   The .beat-anchor and the empty .beat-point svg stay pinned to the end of the
+                   sentence: that arrow runs from the last line of this copy to the tag on the
+                   magazine (app-post-beta.js:531), and its tail rides whatever the final full stop
+                   is. -->
+              <p class="ed-sub">A <span class="sub-mark m-happy"><span class="sub-chal">challenge</span></span>, a <span class="sub-mark m-lazuli">deadline</span>, a new <span class="sub-mark m-grass">maga<span class="zine">zine</span></span>. <span class="hl">Repeat.</span><i class="beat-anchor" aria-hidden="true"></i><svg class="beat-point" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg></p>
               
               </div>
 

@@ -7372,9 +7372,11 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
    is centred in its own track, so the line under it should be too. */
 .zc-cap{text-align:center; margin-inline:auto}
 
-/* the highlighter band on "Every month." must not break across lines — see the
-   note in the markup: .hl::before is one absolute rectangle, so a wrapped phrase
-   gets one slab covering both lines instead of a swipe per line. */
+/* the highlighter band in the sub must not break across lines — see the note in
+   the markup: .hl::before is one absolute rectangle, so a wrapped phrase gets one
+   slab covering both lines instead of a swipe per line. It is on the single word
+   "Repeat." as of 2026-08-18, which cannot wrap; the rule stays because the phrase
+   it guards has been two words before ("Every month.") and will be again. */
 .ed-sub .hl{white-space:nowrap}
 
 /* ============================================================================
