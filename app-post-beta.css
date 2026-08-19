@@ -3748,6 +3748,11 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    here costs nothing (7.644em against a ~250px column at the narrowest width, see above) and buys
    the two-line set at every width. It rides .stop, which is also what carries the brand green. */
 .hero-card h1.ed-cat .stop{white-space:nowrap}
+/* ...and the same for .nb, which the headline now uses to keep "show-and-tell."
+   whole. The footer tagline has wanted this since 2026-08-04 but its rule is
+   scoped `footer .tagline .nb` (:1690), so the class looked available in the H1
+   and silently did nothing — the compound broke as "show-" / "and-tell." */
+.hero-card h1.ed-cat .nb{white-space:nowrap}
 /* THE TWO H1-ROTATOR OVERRIDES ARE BACK (2026-08-10). The blank returned to the headline — it now
    sets on its OWN LINE above "Show-and-tell with deadlines." (.rot-line), which is what makes the
    placement survivable this time: a leading blank on a shared line shoves the fixed words sideways
