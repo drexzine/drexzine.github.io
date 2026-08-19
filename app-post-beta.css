@@ -6185,15 +6185,49 @@ html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
   background:var(--lazuli); opacity:.55; filter:url(#squig);
 }
 
-/* ---- THE H1 IN TWO-COLUMN MODE. At the shared display size the column only
-        fits two words a line, which turns a four-word headline into a four-line
-        block and starves the sub of the space under it. A size down buys three
-        words a line without touching the single-column ramp. ---- */
+/* ---- THE H1 IN TWO-COLUMN MODE — SIZED FROM THE COLUMN, NOT THE VIEWPORT
+        (2026-08-19). The two rules that lived here were `clamp(...vw...)` ramps,
+        and the thing they ramped against is the one number in this layout that
+        STOPS MOVING: `.hero-card` hits its max-width at ~838px around 1300px of
+        viewport, so from there up the copy track is a fixed ~341px while the
+        vw term kept climbing. Measured on the live page: 1280 -> 36.8px in a
+        336px column (four lines), 1600 -> 40px, 1920 -> 48px in the SAME 341px
+        column, which is five lines of display type stacked over a two-line sub.
+        The headline was growing into a column that does not grow.
+
+        So it is a share of the card instead. `.hero-card` is already a
+        container (:3510), and the copy track is a near-constant slice of it at
+        every width in this branch — measured 0.405-0.415 from 900 to 1920, both
+        grid ratios (1.08/.92 under 1180, 1/.86 above) included. One number
+        covers the whole branch.
+
+        WHERE 3.6 COMES FROM. Courier Prime is monospace at a 0.6em advance and
+        this H1 carries -.012em tracking, so a character is .588em wide and the
+        three-line set the headline wants -- "Make magazines / with your club /
+        for show-and-tell." -- is bounded by its longest line at 18 characters =
+        10.584em. Eighteen characters fill the column exactly at 1/10.584 = 9.45%
+        of it, which is 3.85cqw once multiplied by the 0.407 column-to-card
+        ratio. THAT NUMBER DOES NOT HOLD, and the reason is the `text-wrap:
+        balance` on this H1 (:6057). Balance is not a greedy fill: Chrome
+        binary-searches a narrower ideal measure and will spend a line to even
+        the rag out, so a break that greedily fits with 3% to spare still comes
+        back as four lines. Measured at 3.78cqw: 1920/1440/1100/1000/950/900 set
+        to three lines and 1280/1180 set to FOUR, which is the same
+        width-dependent lottery the vw ramp was, just with a smaller prize.
+        3.6cqw buys ~7% slack on the binding line instead of ~3%, and at that
+        margin all eight widths sampled from 900 to 1920 come back with the
+        identical three-line break. Under about 3.7 it is stable; over it, it is
+        not. Do not creep this number back up to "recover" the points.
+        If the copy line ever changes, re-derive against the new longest line's
+        character count AND re-sample the branch -- the greedy arithmetic only
+        tells you the ceiling, balance tells you the answer. If .ed-inner's
+        track ratio changes, re-measure the 0.407.
+
+        min(), not clamp(): the 2rem is a ceiling for a card that outgrows its
+        max-width, and a rem FLOOR would be the one term that does not track the
+        card, which is the failure this rule exists to remove. ---- */
 @media (min-width:900px){
-  .hero-card h1.ed-cat{font-size:clamp(2rem,2.55vw,3rem); line-height:1.08}
-}
-@media (min-width:1280px){
-  .hero-card h1.ed-cat{font-size:clamp(2.3rem,2.5vw,3.25rem)}
+  .hero-card h1.ed-cat{font-size:min(2rem, 3.6cqw); line-height:1.08}
 }
 
 /* ---- THE CRAFT LINE IS A MARKED BOX, AND IT DOES NOT MOVE.
