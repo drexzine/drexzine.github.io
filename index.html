@@ -248,7 +248,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=111" />
+<link rel="stylesheet" href="app-post-beta.css?v=118" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -593,7 +593,50 @@
                    .stop stays on "club" — green is where the PEOPLE are, and it is the only green
                    word in the line. .nb keeps "show-and-tell." off a line break the way the footer
                    tagline does; the H1's nowrap rule is at app-post-beta.css:3750. -->
-              <h1 class="ed-cat">Make magazines with your <span class="stop">club</span> for <span class="nb">show-and-tell.</span></h1>
+              <!-- 2026-08-20 — TWO SENTENCES: WHAT HAPPENS, THEN WHAT YOU GET.
+                   The line above this note documents "Make magazines with your club for
+                   show-and-tell." — one sentence carrying artifact + people + purpose. It read as
+                   a description of a service. This one reads as a transaction, and the full stop
+                   in the middle is what does it: the first sentence is the obligation, the second
+                   is the payoff, and the reader gets the second one for free.
+                     - "Your group takes a challenge." — the group is already yours. The old line
+                       said "with your club", which is the same claim in a subordinate clause; as
+                       a SUBJECT it stops being a feature of the product and starts being a fact
+                       about the reader. "takes", not "gets" or "picks": a challenge is accepted.
+                     - "You get a magazine." — the artifact, in the flattest verb English has.
+                       Still "magazine" and not "zine", for the reason the 2026-08-18 note gives:
+                       the fold is the last place a stranger who does not own the word is reading.
+                   WHAT IT GIVES UP, both knowingly:
+                     - "show-and-tell." It was on the fold for three days. It is still the
+                       <title>, the OG title, the footer tagline and the H2 of the section
+                       directly below this card, so a reader meets it about 400px down. If it has
+                       to come back, it is the purpose clause on sentence one ("Your group takes a
+                       challenge for show-and-tell.") and NOT a third sentence.
+                     - THE PRODUCT NOUN. "group" is not "club", and the page teaches "club"
+                       everywhere else. This is the one line that does not, on purpose: a stranger
+                       arrives with a group (a band, four baristas, a group chat) and leaves with
+                       a club. Watch this — if "club" starts reading as jargon further down the
+                       page, it is because the fold stopped teaching it, and the fix is one word
+                       here.
+                   2026-08-20, LATER THE SAME DAY — THREE COLOURED NOUNS, NOT ONE.
+                   The paragraph this replaces argued the page's long-standing rule: exactly one
+                   coloured word per headline, and it goes on the PEOPLE word (".stop stays on the
+                   people word, which is the rule this headline has followed through every version
+                   it has had"). That rule was written for headlines with one noun worth marking.
+                   This one is a transaction between three — who, input, output — and colouring
+                   only the first says the other two are subordinate. So: group blue, challenge
+                   red, magazine green, and the full argument (which colour, why, and the measured
+                   contrast on each) is the block at app-post-beta.css:7600.
+                   The one to know without opening that file: "challenge" is --coral-ink because
+                   it is the SAME RED as the CHALLENGE tape in the sub one line below. Same word,
+                   same colour, twice — the H1 names the beat, the sub hands you the job.
+                   THE maga<zine> TRICK STILL DOES NOT APPLY here, and now for a second reason:
+                   the word carries a solid green of its own, so there is nothing for a second
+                   green inside it to contrast against.
+                   .nb rides "a magazine." to keep the article with its noun — without it the
+                   payoff sentence can drop "magazine." alone onto a third line at the narrow
+                   widths, which is a widow on the most important word in the fold. -->
+              <h1 class="ed-cat"><span class="sen">Your <span class="hd-who">group</span> takes a <span class="hd-chal">challenge</span>.</span> <span class="sen">You get <span class="nb">a <span class="hd-out">magazine</span>.</span></span></h1>
               <!-- The sub answers the two questions the headline provokes, in the order a stranger
                    asks them: "do I need to bring people?" and "show-and-tell of WHAT?"
                      - "Join or create" — both doors, join first. Arriving alone is the commoner
@@ -703,7 +746,55 @@
                    sentence: that arrow runs from the last line of this copy to the tag on the
                    magazine (app-post-beta.js:531), and its tail rides whatever the final full stop
                    is. -->
-              <p class="ed-sub">A <span class="sub-mark m-happy"><span class="sub-chal">challenge</span></span>, a <span class="sub-mark m-lazuli">deadline</span>, a new <span class="sub-mark m-grass">issue</span>. <span class="hl">Repeat.</span><i class="beat-anchor" aria-hidden="true"></i><svg class="beat-point" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg></p>
+              <!-- 2026-08-20 — THE SUB IS THE DIVISION OF LABOUR NOW, NOT THE LOOP.
+                   The notes above document "A challenge, a deadline, a new issue. Repeat." — the
+                   product in four beats. The headline took two of those beats (challenge,
+                   magazine) into itself, so restating them here made the fold stutter. This line
+                   answers the question the new headline provokes instead: "what do I actually
+                   have to DO?"
+                     - "Set the challenge and the deadline." — the entire job. Two nouns, one
+                       verb, and it is honestly the whole of the work drex asks of a person.
+                     - "Then do the fun parts." — what is left, and by implication what drex is
+                       for: the chasing, the collecting, the laying out and the publishing are
+                       not on that list. It is the only sentence on the fold that says what the
+                       software does by saying what the reader does not have to.
+                   WHAT IT GIVES UP: "Repeat." — the cycle, stated as an instruction, which the
+                   2026-08-18 note calls the one thing a shared folder cannot say back. The
+                   recurrence now lives only in the plural of the beats below and in #showtell's
+                   spine. If the fold starts reading as a one-off project tool, that word coming
+                   back is the fix ("Then do the fun parts. Repeat."), and it takes .hl off "the
+                   fun parts" with it — see the note on the marks below.
+                   THE MARKS CHANGE KIND, and this sentence is the one the CSS was built for.
+                   app-post-beta.css:6160 specifies a coral Dymo tape on "challenge" and a lazuli
+                   squiggle UNDERLINE on "deadline", in those words, with the reason spelled out:
+                   "a filled highlight beside a filled tape would make the line a ransom note."
+                   .sub-dead has been sitting unused in the stylesheet ever since the sentence it
+                   was written for left. It comes back here.
+                     - .sub-chal (tape, coral) on "challenge" — the one mark that also exists as a
+                       real object 40px away on the cover, which is why it is tape and not a swipe.
+                     - "deadline" IS DELIBERATELY UNMARKED. It carried a lazuli .sub-dead
+                       underline for about an hour today and it came back out: on this page an
+                       underlined word inside running copy is a link (every inline link on the
+                       page is underlined and nothing else is), and blue is now the H1's colour
+                       for "group". The full argument is at app-post-beta.css:6991. Neither
+                       remaining mark ranks its noun — the tape is a rhyme with a real object on
+                       the cover and .hl is the reveal beat — so an unmarked "deadline" is not
+                       being called the lesser half of the job.
+                     - .hl on "the fun parts." — the real highlighter band, and it keeps the beat
+                       "Repeat." held: inside the hero card .hl::before is pinned at scale 0 until
+                       the envelope hits .lit-hl (app-post-beta.css:265), so the marker swipes
+                       across the payoff clause as the LAST beat of the cut, on the marker sound.
+                       .ed-sub .hl already carries white-space:nowrap (:7419), which it needs —
+                       .hl::before is ONE absolutely-positioned rectangle, and a phrase allowed to
+                       wrap gets a single slab spanning both lines.
+                   .sub-mark / .m-happy / .m-lazuli / .m-grass are unused as of this line: they
+                   were three swipes for the three beats of a loop this sentence no longer lists.
+                   The rules stay in the stylesheet for whenever the loop comes back.
+                   The .beat-anchor and the empty .beat-point svg stay pinned to the end of the
+                   sentence — that arrow runs from the last line of this copy to the tag on the
+                   magazine (app-post-beta.js:531), and its tail rides whatever the final full
+                   stop is. -->
+              <p class="ed-sub">Set the <span class="sub-chal">challenge</span> and the <span class="sub-dead">deadline</span>. Then do <span class="hl">the fun parts.</span><i class="beat-anchor" aria-hidden="true"></i><svg class="beat-point" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg></p>
               
               </div>
 
@@ -2717,7 +2808,7 @@
   });
 })();
 </script>
-<script type="module" src="app-post-beta.js?v=47"></script>
+<script type="module" src="app-post-beta.js?v=48"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign

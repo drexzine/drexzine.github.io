@@ -3753,6 +3753,39 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
    scoped `footer .tagline .nb` (:1690), so the class looked available in the H1
    and silently did nothing — the compound broke as "show-" / "and-tell." */
 .hero-card h1.ed-cat .nb{white-space:nowrap}
+/* 2026-08-20 — ONE SENTENCE PER BLOCK, AT EVERY WIDTH.
+   The headline is two sentences and the break between them is the whole device:
+   sentence one is the obligation, sentence two is the payoff. Left to wrap on its
+   own it set as "Your group takes / a challenge. You / get a magazine." — the full
+   stop lands mid-line and "You" dangles off the end of one, so the two sentences
+   read as one run-on with a stop in the middle. display:block puts the break where
+   the punctuation already is.
+   This was gated to >=760px on the theory that `text-wrap:balance` (:6057) would
+   handle the single-column case; measured at 390x844 it produced the same dangling
+   "You" — balance optimises the RAG, and it cannot see a full stop. The gate came
+   off.
+   AND THE H1's `text-wrap:balance` (:6057) HAS TO COME OFF WITH IT — it does not
+   compose with blocks. Balance minimises the LONGEST line, and it will spend an
+   extra line to do it: measured at 375x667 it set sentence one as "Your group /
+   takes / a challenge." (three lines, max 12ch) in preference to "Your group takes
+   / a challenge." (two lines, max 16ch), stranding the verb alone on a line. That
+   was the right trade when the H1 was one long sentence with no structure of its
+   own; a two-sentence headline already has its structure, and balance fights it.
+   SO THE TWO STRATEGIES SPLIT BY WIDTH, and each one is measured:
+     - >=760px, the copy column is ~339px and each sentence fits in two lines.
+       `balance` sets "Your group takes / a challenge." — an even pair. `pretty`
+       wraps greedily and leaves the article dangling ("Your group takes a /
+       challenge."), which is worse for the same three total lines.
+     - <760px the column is ~302px at 375x667, and sentence one needs three lines
+       whatever happens. Balance spends the room evening them out and strands the
+       verb ("Your group / takes / a challenge."); `pretty` fills greedily and
+       keeps the verb with its object ("Your group / takes a / challenge."). Same
+       five lines, better rag.
+   Both are per-block, so neither can move the break BETWEEN the sentences. */
+.hero-card h1.ed-cat .sen{display:block; text-wrap:pretty}
+@media (min-width:760px){
+  .hero-card h1.ed-cat .sen{text-wrap:balance}
+}
 /* THE TWO H1-ROTATOR OVERRIDES ARE BACK (2026-08-10). The blank returned to the headline — it now
    sets on its OWN LINE above "Show-and-tell with deadlines." (.rot-line), which is what makes the
    placement survivable this time: a leading blank on a shared line shoves the fixed words sideways
@@ -6987,7 +7020,29 @@ html[data-tier="lite"] .start-line::before{animation:boil-rough var(--boil-ink) 
 .m-lazuli::after{background:var(--lazuli)}
 .m-grass::after{background:var(--grass)}
 @media (prefers-reduced-motion:reduce){ .sub-mark::after{animation:none} }
-/* the old one-off marks retire */
+/* 2026-08-20 — .sub-dead STAYS RETIRED, and this is the third time it has been
+   asked. It was restored earlier today on the reasoning that the new sub ("Set
+   the challenge and the deadline.") is exactly the sentence :6160 specced the
+   tape/underline pair for. That reasoning was about the SENTENCE and it ignored
+   the PAGE. Two things kill it:
+     - AN UNDERLINED WORD MID-SENTENCE IS A LINK HERE. Not by convention in the
+       abstract — measured on this page. Every inline link inside running copy
+       is underlined ("read this issue", "Beans", "Already invited?", "Photo
+       Phloor", "read the ledger"); the only links that are NOT underlined are
+       the standalone arrow CTAs, which read as rows rather than as words in a
+       sentence. A lazuli underline under "deadline" is the most link-shaped
+       thing the page can draw, and it is not clickable.
+     - THE BLUE IS SPOKEN FOR AS OF TODAY. The H1 above it puts "group" in
+       #2190C2 (:7600). Lazuli #2496C9 on "deadline" 20px below is the same blue
+       to any eye, assigned to a different idea, which breaks the colour system
+       the headline just established.
+   So the sub keeps two marks, and NEITHER of them ranks a noun: the tape on
+   "challenge" is a rhyme with the real Dymo tape 40px away on the cover, and
+   .hl on "the fun parts." is the reveal beat. "deadline" being unmarked does
+   not make it the lesser half of the job — nothing in the line claims it does.
+   The H1 carries the colour system now; the sub does not need a second one.
+   If .sub-dead is ever wanted again, it needs a mark that is not an underline
+   and not blue. */
 .sub-dead::after{content:none}
 
 /* ---- COLOUR THAT ACTUALLY POPS. --grass-deep #0C6E39 on cream is a dark green
@@ -7547,14 +7602,55 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
    ============================================================================ */
 .hero-card .ed-sub{font-weight:400}
 
-/* ---- "group" IS THE ONLY CUE NOW, SO IT HAS TO CLEAR AA. :6957 sanctions the
-        bright --grass #1CAB5B (2.78:1 on oats) for a display word explicitly
-        BECAUSE it was never the only cue — it marked "zine" INSIDE "magazines",
-        so the word was legible as part of a black one either way. On "group" it
-        is a standalone word, and 2.78 is under the 3.0 floor for large text.
-        #159C53 is 3.30:1: two steps deeper, still unmistakably the logo green,
-        and it does not go near --grass-deep, which at this size reads as a dark
-        word rather than a green one (the reason :186 rejected it). ---- */
+/* ============================================================================
+   THE HEADLINE IS THREE COLOURED NOUNS NOW (2026-08-20)
+   "Your GROUP takes a CHALLENGE. You get a MAGAZINE." — the who, the input and
+   the output, each in its own colour. Until today the line had exactly one
+   coloured word and the rule was "green is where the PEOPLE are"; it held
+   through "with your friends", "show-and-tell" and "club". It does not survive
+   a headline whose whole shape is a transaction between three nouns: colouring
+   one of the three says the other two are subordinate, and they are not.
+   THE COLOURS ARE NOT NEW, AND TWO OF THEM RHYME DOWNWARD.
+     - CHALLENGE takes --coral-ink, which is the exact red of the Dymo tape on
+       "CHALLENGE" in the sub 40px below. Same word, same red, twice: the H1
+       states the beat and the sub hands you the job, and the colour is what
+       says they are the same thing. That rhyme is the reason this is the red
+       one and not, say, the output.
+     - GROUP takes lazuli, this page's second accent, which the sub spends on
+       "deadline" and the band below on "portfolio". Blue is the page's colour
+       for the OTHER mechanism, and the group is what makes drex not a folder.
+     - MAGAZINE keeps the green. It is the payoff and green is the payoff
+       colour everywhere else on this page (the waitlist tag, the grass swipe,
+       the brand mark).
+   EVERY ONE OF THE THREE IS A STANDALONE WORD, SO EVERY ONE HAS TO CLEAR AA ON
+   ITS OWN — 3.0:1 is the floor for large text, and each of these is the only
+   cue on its word. The measured ratios on --oats #FEF6E4:
+     - #159C53 green   3.30:1  (unchanged; the note this block replaces has the
+                                argument — bright --grass #1CAB5B is 2.78 and
+                                was only ever sanctioned INSIDE a black word,
+                                and --grass-deep reads as dark, not as green.)
+     - #2190C2 blue    3.35:1  the same move applied to lazuli. Bare --lazuli
+                                #2496C9 is 3.11 — over the floor, but by 0.11,
+                                which is not a margin. --lazuli-deep #1C6F94 is
+                                5.20 and goes navy at display size, exactly the
+                                way --grass-deep goes dark. #2190C2 is two steps
+                                down from lazuli and still plainly lazuli.
+     - --coral-ink #C9343A 4.84:1  no adjustment needed, and it is already the
+                                house rule for coral CARRYING TEXT rather than
+                                sitting behind it (:3895, :7382, and the tape
+                                itself at :6177). --colorado #F75458 is 3.07 and
+                                is the fill colour, not the ink colour.
+   Specificity: `.ed-cat` alone is (0,1,0) and loses to `.hero-card h1` — see
+   the note at :3692. All three are written `.hero-card h1.ed-cat …`.
+   ============================================================================ */
+.hero-card h1.ed-cat .hd-who{color:#2190C2}
+.hero-card h1.ed-cat .hd-chal{color:var(--coral-ink)}
+.hero-card h1.ed-cat .hd-out{color:#159C53}
+/* .stop is out of the H1 as of the block above — .hd-out carries the green now,
+   under a name that says which of the three it is. The rule is kept, not
+   deleted: `.stop` is still live in the footer tagline and in the .ed-sub
+   rules at :3836, and this one costs nothing while the class is absent from
+   the headline. */
 .hero-card h1.ed-cat .stop{color:#159C53}
 
 /* ============================================================================

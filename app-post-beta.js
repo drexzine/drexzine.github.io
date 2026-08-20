@@ -459,15 +459,19 @@ function initHeroRotate() {
    both ends of that have since moved (the beats are gone, the rotator added a display-size line on
    top). Any static number would be right at one width and wrong at the rest, which is the same
    reason the pointer below is drawn rather than authored.
-   It aligns to .stop — the "Show-and-tell" run — deliberately, NOT to the top of the <h1>. The
-   rotating craft word sits on its own line above it, so the h1's top is the blank's top; the
-   headline a reader means is the big fixed line under it.
+   It aligns to the headline's first sentence block (.sen), deliberately, NOT to the top of the
+   <h1>. This used to read `.ed-cat .stop` — the green run — which worked while there was exactly
+   one coloured word and a rotator line sitting above it: the h1's top was the blank's top, and
+   .stop was the top of the big fixed line under it. The rotator is gone and the H1 has three
+   coloured words as of 2026-08-20 (app-post-beta.css:7600), so .stop is no longer in the headline
+   and no single coloured word is "the" headline any more. .sen is the first line of the sentence
+   a reader starts on, which is what this was always reaching for.
    >=900px only. Below that, column 2 is too narrow for the deck to sit clear of the copy and the
    stylesheet's own lifts are tuned for those cases. Resetting the inline value before measuring is
    what keeps this idempotent across resizes. */
 function alignDeckToHeadline() {
   const deck = document.getElementById('heroCardDeck');
-  const target = document.querySelector('.ed-cat .stop');
+  const target = document.querySelector('.ed-cat .sen') || document.querySelector('.ed-cat');
   if (!deck || !target) return;
   // THE DECK LEFT THE HERO (2026-08-11). The fold's visual slot is the zine carousel now;
   // the polaroid deck moved down beside the summary band. Aligning it to the headline it no
