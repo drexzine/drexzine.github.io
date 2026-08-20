@@ -636,7 +636,64 @@
                    .nb rides "a magazine." to keep the article with its noun — without it the
                    payoff sentence can drop "magazine." alone onto a third line at the narrow
                    widths, which is a widow on the most important word in the fold. -->
-              <h1 class="ed-cat"><span class="sen">Your <span class="hd-who">group</span> takes a <span class="hd-chal">challenge</span>.</span> <span class="sen">You get <span class="nb">a <span class="hd-out">magazine</span>.</span></span></h1>
+              <!-- 2026-08-20, LATER STILL — ONE SENTENCE, ONE SUBJECT.
+                   The two-sentence version above ("Your group takes a challenge. You get a
+                   magazine.") shifted subject mid-line: the GROUP acts, then YOU are handed the
+                   payoff. It reads fine at speed because nobody parses a headline that hard, but
+                   it does not track — you were never named as a member of the group, so the
+                   second sentence arrives from nowhere. And "get" is the flattest verb English
+                   has, which was the argument FOR it; the cost is that "you get a magazine" sits
+                   one register away from "you get a free tote", i.e. an incentive rather than a
+                   thing the club made.
+                   One subject, two verbs, a comma: the group takes, the group makes. The causal
+                   chain is now literally true, and "makes" gives the artifact back to the people
+                   who made it.
+                   WHAT IT GIVES UP: the second person. The fold no longer speaks to the reader in
+                   the headline — it describes a group. That is deliberate and it is covered one
+                   line down: the sub opens "Join or create a club", which is the reader being
+                   addressed AND the door being held open. If the sub ever stops using "you"/an
+                   imperative, this line has to buy the pronoun back, because a fold with no
+                   second person anywhere is a brochure.
+                   The comma is load-bearing, not decorative: it is the beat the full stop used to
+                   give, staging the payoff instead of running the two verbs together.
+                   ONE .sen NOW, NOT TWO. .sen is display:block (app-post-beta.css:3785), so it
+                   was one block per SENTENCE and there is only one sentence left. Wrapping each
+                   half in its own .sen was tried first and forced a hard break at the comma: four
+                   lines at 1280 ("Your group takes / a challenge, / then makes / a magazine."),
+                   135px, a line taller than the two-sentence version it replaced, and it pushed
+                   the sub down onto the next rule. As one block, text-wrap:balance settles it at
+                   three lines and 99px — the SAME height the old H1 had, so the fold's vertical
+                   rhythm is untouched — and it breaks "Your group takes / a challenge, then /
+                   makes a magazine.", which lands "then" at the end of line two. That is the
+                   better hinge anyway: the line ends on the turn and the next one delivers.
+                   Three coloured nouns and the .nb are unchanged, and their arguments above still
+                   hold verbatim: who / input / output, and the article stays welded to
+                   "magazine." so the payoff word cannot widow.
+                   "SETS", NOT "TAKES" — and the note above this one, which argues "'takes', not
+                   'gets' or 'picks': a challenge is accepted", is SUPERSEDED on that point.
+                   "takes a challenge" implies a challenge that existed before the club got to it,
+                   i.e. a supply. There is no supply. The page says three times that the club
+                   writes its own: the sub one line down ("Set the challenge and the deadline"),
+                   #showtell ("Someone sets it, and puts a date on it") and #inside ("your Host
+                   sets one, with a deadline"). The idiom that makes "takes" harmless is "takes ON
+                   a challenge"; without the "on", bare-transitive take reads as taking one from a
+                   set. That is a positioning bug, not a pedantic one: it casts the club as a
+                   participant in someone else's programme, and the autonomy is the product.
+                   THE ECHO WITH THE SUB IS DELIBERATE, NOT A STUTTER. "Your group sets a
+                   challenge" then "Set the challenge" is the same move the colour note above
+                   already blesses for the NOUN — H1 names the beat, sub hands you the job — now
+                   extended to the verb. What it costs is that the sub's first clause stops being
+                   news, and the sub's real payload is "and the deadline". If the fold ever reads
+                   flat, THAT clause is the thing to rewrite, not this line.
+                   "does a challenge" was considered and rejected: the sub ends "Then DO the fun
+                   parts", so it is the same weak verb twice one line apart doing two unrelated
+                   jobs, and "do a challenge" carries the one-off-stunt sense (ice bucket, TikTok)
+                   when the product is a recurring brief.
+                   MEASURED, because one character moved the wrap: at 375px "sets" is four lines /
+                   128px and "takes" is five / 160px, the fifth of which orphans "makes" alone.
+                   Desktop is 99px either way. So the short verb also buys 32px above the fold on
+                   the narrowest screen and kills a one-word line. -->
+              <h1 class="ed-cat"><span class="sen">Your <span class="hd-who">group</span> sets a <span class="hd-chal">challenge</span>, then makes <span class="nb">a <span class="hd-out">magazine</span>.</span></span></h1>
               <!-- The sub answers the two questions the headline provokes, in the order a stranger
                    asks them: "do I need to bring people?" and "show-and-tell of WHAT?"
                      - "Join or create" — both doors, join first. Arriving alone is the commoner
