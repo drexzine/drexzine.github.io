@@ -636,69 +636,56 @@
                    .nb rides "a magazine." to keep the article with its noun — without it the
                    payoff sentence can drop "magazine." alone onto a third line at the narrow
                    widths, which is a widow on the most important word in the fold. -->
-              <!-- 2026-08-20, LATER STILL — ONE SENTENCE, ONE SUBJECT.
-                   The two-sentence version above ("Your group takes a challenge. You get a
-                   magazine.") shifted subject mid-line: the GROUP acts, then YOU are handed the
-                   payoff. It reads fine at speed because nobody parses a headline that hard, but
-                   it does not track — you were never named as a member of the group, so the
-                   second sentence arrives from nowhere. And "get" is the flattest verb English
-                   has, which was the argument FOR it; the cost is that "you get a magazine" sits
-                   one register away from "you get a free tote", i.e. an incentive rather than a
-                   thing the club made.
-                   One subject, two verbs, a comma: the group takes, the group makes. The causal
-                   chain is now literally true, and "makes" gives the artifact back to the people
-                   who made it.
-                   WHAT IT GIVES UP: the second person. The fold no longer speaks to the reader in
-                   the headline — it describes a group. That is deliberate and it is covered one
-                   line down: the sub opens "Join or create a club", which is the reader being
-                   addressed AND the door being held open. If the sub ever stops using "you"/an
-                   imperative, this line has to buy the pronoun back, because a fold with no
-                   second person anywhere is a brochure.
-                   The comma is load-bearing, not decorative: it is the beat the full stop used to
-                   give, staging the payoff instead of running the two verbs together.
-                   ONE .sen NOW, NOT TWO. .sen is display:block (app-post-beta.css:3785), so it
-                   was one block per SENTENCE and there is only one sentence left. Wrapping each
-                   half in its own .sen was tried first and forced a hard break at the comma: four
-                   lines at 1280 ("Your group takes / a challenge, / then makes / a magazine."),
-                   135px, a line taller than the two-sentence version it replaced, and it pushed
-                   the sub down onto the next rule. As one block, text-wrap:balance settles it at
-                   three lines and 99px — the SAME height the old H1 had, so the fold's vertical
-                   rhythm is untouched — and it breaks "Your group takes / a challenge, then /
-                   makes a magazine.", which lands "then" at the end of line two. That is the
-                   better hinge anyway: the line ends on the turn and the next one delivers.
-                   Three coloured nouns and the .nb are unchanged, and their arguments above still
-                   hold verbatim: who / input / output, and the article stays welded to
-                   "magazine." so the payoff word cannot widow.
-                   "DOES", NOT "TAKES" — and the note above this one, which argues "'takes', not
-                   'gets' or 'picks': a challenge is accepted", is SUPERSEDED on that point.
-                   Two things are wrong with "takes a challenge", and they are the same thing seen
-                   twice. MEANING: it implies a challenge that existed before the club got to it,
-                   i.e. a supply, and there is no supply — the page says three times that the club
-                   writes its own (the sub one line down, "Set the challenge and the deadline";
-                   #showtell, "Someone sets it, and puts a date on it"; #inside, "your Host sets
-                   one, with a deadline"). FLUENCY: the idiom is "take ON a challenge", and
-                   without the "on" the bare collocation is not one people actually use, so it
-                   costs the reader a beat on the first line of the page. "do a challenge" is what
-                   people say, so it costs nothing.
-                   "sets" was here for one commit and is the other defensible answer: it is the
-                   most literally true, since the club really does author the thing. It went
-                   because it is the sub's verb ("SET the challenge"), and putting it in both
-                   leaves the sub's opening clause with no news in it — the sub's real payload is
-                   the DEADLINE. "does" stays out of the sub's way and lets it keep its job.
-                   WHAT "does" COSTS, knowingly: it is the emptiest verb in English, so it takes
-                   no position on who authors the challenge — the sub answers that one line later.
-                   And "do a challenge" carries a faint one-off-stunt sense (ice bucket, TikTok)
-                   when the product is a recurring brief; the cadence has to come from #showtell
-                   and the sub, because this line no longer even gestures at it. Watch for the
-                   second echo too: the sub ends "Then DO the fun parts", so "do" now appears in
-                   both lines. It reads as register rather than repetition today because the two
-                   are doing different jobs, but if the sub is ever rewritten, that is the word to
-                   keep an eye on.
-                   MEASURED, because one character moves the wrap: at 375px "does" is four lines /
-                   128px and "takes" is five / 160px, the fifth of which orphans "makes" alone.
-                   Desktop is 99px either way. So the short verb also buys 32px above the fold on
-                   the narrowest screen and kills a one-word line. -->
-              <h1 class="ed-cat"><span class="sen">Your <span class="hd-who">group</span> does a <span class="hd-chal">challenge</span>, then makes <span class="nb">a <span class="hd-out">magazine</span>.</span></span></h1>
+              <!-- 2026-08-20, LATER STILL — THE ONE-SENTENCE VERSION WAS TRIED AND REVERTED.
+                   For a few hours this line was "Your group does a challenge, then makes a
+                   magazine." — one subject, two verbs, a comma. It went out and came back. The
+                   argument for it was that the two-sentence version "shifts subject mid-line: the
+                   GROUP acts, then YOU are handed the payoff, and you were never named as a
+                   member of the group." THAT ARGUMENT IS WRONG, and it is the only reason the
+                   line changed. "Your" names you. Word one. The possessive establishes the reader
+                   as the group's owner, so "You get" pays off to a person the sentence has
+                   already introduced. There is no gap to fix.
+                   What the one-sentence version cost, seen rendered side by side at 750px:
+                     - THE VERB COLLIDED WITH THE SUB. "Your group does a challenge" over "Then do
+                       the fun parts" — two stressed forms of one verb in the fold's only two copy
+                       blocks, in two different senses (undertakes / performs). Reads as muddle,
+                       not as register. The two-sentence fold has four distinct verbs on it:
+                       takes-or-sets / get / Set / do.
+                     - "then" IS WEAKER THAN THE FULL STOP. Two sentences juxtaposed in a headline
+                       are read as CONSEQUENCE with no marker needed; "then" states mere SEQUENCE,
+                       first this and later that. It spends five characters saying something
+                       weaker than the punctuation already implied.
+                     - THE READER LEFT THE HEADLINE. One sentence in the third person has no "you"
+                       in it anywhere, and the fold's only second person became the sub.
+                   Geometry was never the argument either way: 99px at 1280 and 143px at 750,
+                   identical for both structures and for every verb tried. The one-sentence form
+                   wins ONLY at 375px (128px vs 160px, four lines vs five), and 32px of mobile
+                   fold is not worth the transaction, the reader, or the verb.
+                   "SETS", NOT "TAKES" — the note above, which argues "'takes', not 'gets' or
+                   'picks': a challenge is accepted", is SUPERSEDED on that point, and this is the
+                   one thing the detour was worth. Two problems with "takes", and they are the
+                   same problem twice. FLUENCY: the idiom is "take ON a challenge", and the bare
+                   collocation is not one people use, so it costs a beat on the first line of the
+                   page. MEANING: it implies a challenge that existed before the club got to it,
+                   i.e. a supply, and there is none — the club writes its own, which the page says
+                   three times (the sub; #showtell, "Someone sets it, and puts a date on it";
+                   #inside, "your Host sets one, with a deadline"). That misreading is not exotic;
+                   challenge-of-the-week feeds are a real adjacent product, so a reader can leave
+                   the fold with the wrong model of what drex is. "set a challenge" is a standard
+                   collocation AND it is true.
+                   "does a challenge" reads well in isolation and is the third candidate. It loses
+                   on the sub collision above, and because it takes no position on who authors the
+                   challenge, which is the whole job of this verb.
+                   TWO COSTS OF "sets", BOTH SMALLER THAN THEY LOOK:
+                     - sets/get is an exact rhyme. Measured, they do not land at line ends: the
+                       break is "Your group sets" / "a challenge." / "You get a magazine." at both
+                       750 and 1280, so they sit two lines apart and the jingle is muted.
+                     - The sub's first clause ("Set the challenge and the deadline") now restates
+                       the headline's verb. Its real payload is THE DEADLINE, and H1-statement to
+                       sub-imperative is the same state-then-command move the colour note above
+                       already blesses for the NOUN. If the fold ever reads flat, that clause is
+                       the thing to rewrite — NOT this line. -->
+              <h1 class="ed-cat"><span class="sen">Your <span class="hd-who">group</span> sets a <span class="hd-chal">challenge</span>.</span> <span class="sen">You get <span class="nb">a <span class="hd-out">magazine</span>.</span></span></h1>
               <!-- The sub answers the two questions the headline provokes, in the order a stranger
                    asks them: "do I need to bring people?" and "show-and-tell of WHAT?"
                      - "Join or create" — both doors, join first. Arriving alone is the commoner
