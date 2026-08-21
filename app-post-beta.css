@@ -5728,12 +5728,12 @@ html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
   filter:url(#torn2);
 }
 
-/* ---- the nine layers. Only the active one is opaque, so the swap is a
+/* ---- the ten layers. Only the active one is opaque, so the swap is a
         crossfade between two OPAQUE pictures and the frame never goes
         see-through. The pan is declared ONLY on the active layer, so adding
         the class starts it at frame zero for free. --travel and --reel are
         handed in per issue by JS from the strip's own height, which is what
-        holds the px/sec constant across nine strips of nine heights. ---- */
+        holds the px/sec constant across eight strips of eight heights. ---- */
 .zl{position:absolute; inset:0; opacity:0; transition:opacity .55s linear; overflow:hidden}
 .zl.is-on{opacity:1; z-index:1}
 .zl img{display:block; width:100%; height:auto}
@@ -6702,7 +6702,7 @@ html[data-tier="lite"] .sl-box path{animation:none}
    34ms frames and this rule's own guard was then switching the boil off — which
    is right for twelve deck cards and wrong for this. It is ONE path stepping
    between three filter seeds twice a second: the cost is a rounding error next
-   to the nine layers and the video above it, and it is the primary call to
+   to the ten layers, two of them video, and it is the primary call to
    action, the one element on the fold whose job is to look alive. Reduced motion
    still stops it, because that is a stated preference rather than a measurement. */
 html[data-tier="lite"] .sl-box path{animation:boil-rough var(--boil-ink) step-end infinite}
@@ -7433,7 +7433,7 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
    masthead ticket's fill (:4092), and that is grass-deep #0C6E39. Bright grass
    is the accent that marks a WORD inside a line ("maga(zine)"); at 5px around a
    400px object it read as lime tape rather than as the brand. Grass-deep is also
-   the only one of the two that survives being laid over nine different covers,
+   the only one of the two that survives being laid over ten different covers,
    half of which are night shots.
 
    AND IT IS A DRAWN EDGE, WHICH MEANS IT CANNOT LIVE ON .zc-frame. The frame is

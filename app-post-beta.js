@@ -2671,11 +2671,12 @@ function initHamburgerJoy(audio) {
     setPull, get pull(){return pull;}, get state(){return hb.dataset.state;} };
 }
 
-/* THE ISSUE PLATE (2026-08-12) — nine real published issues in the fold.
+/* THE ISSUE PLATE (2026-08-12) — ten real published issues in the fold, two of
+   them moving. (2026-08-20: the Zine Machine take joined the head of the deck.)
 
    This only decides WHICH issue is showing. The pan itself is CSS (@keyframes
    zc-reel); what JS contributes is --travel and --reel per issue, computed from
-   that strip's own pixel height, which is how nine strips of nine different
+   that strip's own pixel height, which is how eight strips of eight different
    heights all drift at the SAME px/sec. Only the distance, and therefore the
    time, differ: the three strongest issues travel about twice as far and so hold
    the frame about 2.5x longer.
@@ -2697,6 +2698,8 @@ function initZineCarousel() {
 
   // dwell in seconds, and the craft/club/caption each issue carries.
   var D = [
+{d:18, craft:'zine-making',       club:'Zine Machine',       tape:'make a paper zine about your hobby',  lead:'Eight makers cut paper zines by hand.',
+     z:'https://app.drex.style/z/09e16cfb-3c15-4a98-a8d2-427ced250f2e', c:'https://app.drex.style/clubs/zine-machine'},
 {d:22, craft:'drawing',           club:'Drexzine',           tape:'make a doodle at the cafe',    lead:'Drawing between coffees.',
      z:'https://app.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41', c:'https://app.drex.style/clubs/drex'},
 {d:18, craft:'modeling',          club:'XChange Models',     tape:'come as your heritage',        lead:'Eleven models reflect on their performance.',
@@ -2726,6 +2729,35 @@ function initZineCarousel() {
 
   var i = 0, timer = null, manual = false, dwellMs = 9000, holdOnce = 0;
 
+  /* THE CLIP WAITS FOR THE READER, AND NOTHING ELSE STARTS IT.
+     whenRevealed() gives up after 9 seconds and fires anyway. That is right for a
+     layout settle, which must never be stranded behind a cut that failed — and
+     wrong for a video, because a reader who spends fifteen seconds playing with
+     the burger would then meet a 77-second take already a third of the way in,
+     past the card that names the club and the challenge.
+     So this gate has no clock on it. It does not need one: the envelope carries
+     its own failsafe in the served HTML (un-seal after 6s if app.js never armed
+     it), and that un-seal satisfies the same predicate, so a broken cut still
+     releases the queue. The only case left waiting is a cut that IS working, and
+     there the correct behaviour is to wait for the hand that opens it. */
+  var queued = [], gate = null;
+  function isOpen(){
+    var c = document.documentElement.classList;
+    return !c.contains('sealed') || c.contains('revealed');
+  }
+  function whenOpen(fn){
+    if (isOpen()) { fn(); return; }
+    queued.push(fn);
+    if (gate) return;
+    gate = new MutationObserver(function(){
+      if (!isOpen()) return;
+      gate.disconnect(); gate = null;
+      var q = queued.slice(); queued.length = 0;
+      for (var k = 0; k < q.length; k++) q[k]();
+    });
+    gate.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  }
+
   // Warm the next strip while the current one plays: the others are lazy and sit
   // at opacity 0, so the browser is entitled to defer them — and does. Without
   // this the crossfade lands on an image with no bytes and the frame flashes.
@@ -2749,8 +2781,24 @@ function initZineCarousel() {
       if (ov && v !== i){ try { ov.pause(); ov.currentTime = 0; } catch (e) {} }
     }
     if (vid){
+      // BUFFER NOW, PLAY WHEN THE ENVELOPE LIFTS. preload goes to 'auto' straight
+      // away so the bytes are on their way while the reader is still pulling the
+      // burger — but layer 0 is shown at BOOT, and the hero is sealed at boot, so
+      // playing here meant the clip ran to nobody behind the cut. A 22s screen
+      // recording survived that; a 77s take that OPENS on a title card naming the
+      // club and the challenge does not. whenOpen (above) fires synchronously once
+      // the page is open, so every later turn of the carousel is unaffected.
       vid.preload = 'auto';
-      try { vid.currentTime = 0; var pr = vid.play(); if (pr && pr.catch) pr.catch(function(){}); } catch (e) {}
+      // The guard is the INDEX, not the is-on class: the class is toggled further
+      // down this same function, so a synchronous whenOpen (every turn after the
+      // first, when the page is already open) would read the previous layer's
+      // classes and skip the play it was called to make.
+      (function(mine){
+        whenOpen(function(){
+          if (i !== mine) return;                                  // its turn passed while sealed
+          try { vid.currentTime = 0; var pr = vid.play(); if (pr && pr.catch) pr.catch(function(){}); } catch (e) {}
+        });
+      })(i);
       // A VIDEO HANDS OFF WHEN IT ENDS, IT DOES NOT LOOP. The <video> carried
       // loop, so it restarted and played its opening again while a clock ran
       // somewhere else — two clocks that could not agree, and the reader watched
@@ -2758,13 +2806,21 @@ function initZineCarousel() {
       // this timer is only a safety net for the case where autoplay is refused
       // and 'ended' therefore never fires, so it is deliberately longer than the
       // clip rather than equal to it.
+      // AND IT HAS TO KNOW HOW LONG THE CLIP ACTUALLY IS. At the moment a layer is
+      // shown, its metadata is not loaded yet (preload was 'none' one line ago), so
+      // vid.duration is NaN and this falls back to 24 — a net 27s wide. Any clip
+      // LONGER than that was cut off mid-sentence by the net that exists to catch a
+      // clip which never started. The 24 stays, because that IS the right dwell for
+      // a video that is not playing; the 'loadedmetadata' handler at the foot of
+      // this function widens the net to the real duration the instant the browser
+      // knows it, which only ever happens when the video is in fact working.
       dwellMs = Math.max(6000, ((vid.duration || 24) + 3) * 1000);
     }
 
     for (var k = 0; k < layers.length; k++) {
       var on = (k === i);
       layers[k].classList.toggle('is-on', on);
-      // only the visible picture is exposed, or all nine alts are announced.
+      // only the visible picture is exposed, or all ten alts are announced.
       if (on) layers[k].removeAttribute('aria-hidden');
       else    layers[k].setAttribute('aria-hidden', 'true');
     }
@@ -2777,7 +2833,7 @@ function initZineCarousel() {
       // THE WHOLE ISSUE, ONE PACE, NO STOPPING. Earlier cuts capped the travel by
       // the dwell, so a 5,000px issue showed its first third and cut away. The
       // distance is the whole strip now and the DWELL follows from it: a long
-      // issue simply stays longer. One speed for all nine, so nothing appears to
+      // issue simply stays longer. One speed for every strip, so nothing appears to
       // speed up or slow down as the carousel moves between them.
       var PPS = 165;                      // px per second, identical for every issue
       var box = frame ? frame.clientHeight : 300;
@@ -2834,7 +2890,7 @@ function initZineCarousel() {
 
 
 
-  /* THE TAPE IS SET TO FIT, PER STRING. The nine challenges run 14 to 31
+  /* THE TAPE IS SET TO FIT, PER STRING. The ten challenges run 14 to 37
      characters, so one fixed size is either too small for "make a dropcap" or
      too wide for "take night photos of the unseen". A real label maker punches
      the same size letters and the strip just gets longer, but a strip longer
@@ -2919,6 +2975,16 @@ function initZineCarousel() {
     (function(layer){
       var v = layer.querySelector('video');
       if (!v) return;
+      // The real duration, the moment it is known. Guarded on is-on so a layer
+      // nobody is looking at cannot rewrite the live dwell, and it only re-arms a
+      // clock that is ALREADY running — at boot the first arm is still waiting on
+      // the envelope below, and this must not jump that queue.
+      v.addEventListener('loadedmetadata', function(){
+        if (!layer.classList.contains('is-on')) return;
+        if (!v.duration || !isFinite(v.duration)) return;
+        dwellMs = Math.max(6000, (v.duration + 3) * 1000);
+        if (timer){ stop(); start(); }
+      });
       v.addEventListener('ended', function(){
         // NOT guarded on `manual`. Taking the arrows stops the AUTO-rotate, and it
         // should — nobody wants a carousel moving under them while they read. But a
@@ -2936,7 +3002,10 @@ function initZineCarousel() {
   show(0);
   bleed();
   whenRevealed(bleed);   // the card settles when the envelope lifts
-  start();
+  // The clock starts with the reader, not with the parser. show(0) above defers
+  // layer 0's video to the same gate, so arming here would run a timer against a
+  // clip that has not begun — and on a long clip the timer would win.
+  whenOpen(start);
 }
 
 /* THE DOMAIN SLOT (2026-08-13) — the yellow blank in the call to action.

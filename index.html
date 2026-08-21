@@ -248,7 +248,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=118" />
+<link rel="stylesheet" href="app-post-beta.css?v=119" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -893,7 +893,7 @@
                    CARDS 2/4 AND 3/5 SHARE A CHALLENGE ON PURPOSE — do not "fix" this. Two makers in
                    the same club took the same prompt and came back with different pictures and
                    different answers. One challenge, many answers, is the argument for the club. -->
-              <!-- ============ THE ISSUE PLATE — nine real published issues ============
+              <!-- ============ THE ISSUE PLATE — ten real published issues ============
                    Replaces the polaroid deck in the fold's visual slot. Six simulated cold
                    readers could not say what this software WAS until ~85% down the page; a
                    sentence about a thing nobody has seen has to be decoded, the thing itself
@@ -906,11 +906,11 @@
                    segments (a full-page grab of a 16,000px zine gets clamped to a sliver).
 
                    THE COVERLINES ARE NOT PART OF THE CAROUSEL. One plank, one pair of links,
-                   welded to the frame's bottom edge above every layer — the nine pictures
+                   welded to the frame's bottom edge above every layer — the ten pictures
                    dissolve BEHIND a strip that never blinks or re-measures. Only their hrefs,
                    the tape, the caption, the counter and the craft noun are rewritten. That is
                    what earns the word "this" in "Read this issue".
-                   Legibility over nine different photographs is structural, not opacity: an
+                   Legibility over ten different photographs is structural, not opacity: an
                    opaque ink plank, opaque colour blocks on top. If a torn edge wanders, what
                    shows through is the plank, never the zine. ============ -->
               <div class="zc" id="zineCarousel">
@@ -927,11 +927,66 @@
                   <span class="tape b zc-tape" aria-hidden="true"></span>
                   <div class="zc-frame" id="zcFrame">
                   <div class="zl is-on" aria-hidden="true">
-                    <!-- THE ONE MOVING ONE. Every other layer is a captured scroll of a finished
-                         issue; this is a screen recording of one being MADE — Claire drawing at
-                         the cafe, the editor with the challenge on it, then the page she ended up
-                         with. It is the only thing in the fold that shows the act rather than the
-                         artifact, which is the half of the product a still cannot argue.
+                    <!-- THE WHOLE LOOP, IN ONE TAKE (2026-08-20). Zine Machine met at a
+                         table, got the challenge "make a paper zine" on the day, cut and glued
+                         paper
+                         for an afternoon, shot the results into the editor on a phone, and
+                         published issue "Making Zines!" with eight makers in it. Every
+                         other layer on this plate is the LAST frame of that loop; this is
+                         the loop itself, which is the one thing a screenshot of a finished
+                         zine structurally cannot argue.
+                         It leads the deck because a cold reader's first question is "what
+                         IS this", and 77 seconds of people making a thing answers it
+                         before any sentence on the page gets read.
+                         540x960 from a 2160x3840 / 154Mbps / 1.4GB master, at 2.6MB: mild
+                         hqdn3d first (handheld grain in a dim cafe was eating most of the
+                         bitrate and none of it survives the downscale anyway), 30fps off a
+                         60fps source so the decimation is a clean 2:1, silent, x264 veryslow
+                         crf37, faststart. The tags said bt2020 primaries on an smpte170m
+                         transfer -- a mistag, not real wide gamut: converting properly moved
+                         the brand green by under 2/255, so the encode re-tags to bt709 and
+                         does NOT transform, which is also what stops a browser desaturating
+                         it on the way to the display.
+                         ONE FILE, H.264, NO WEBM. VP9 and AV1 were both encoded and both came
+                         out LARGER than this at matching quality on this footage (libvpx crf50
+                         = 3.0MB, SVT-AV1 crf50 = 3.4MB, and SVT pads 540 to 544). The newer
+                         codecs win on clean synthetic frames; 77 seconds of noisy handheld
+                         room is where x264's psy tuning is still ahead. Do not re-add a second
+                         source without re-measuring -- it cost bytes both times.
+                         preload stays "none" here and the carousel promotes it to "auto"
+                         on its turn -- which is at boot, since this is layer 0, so it
+                         buffers behind the sealed envelope and is ready when it lifts.
+                         THE TAPE DOES NOT REPEAT THE CARD. This clip opens on its own red
+                         challenge slab reading MAKE A PAPER ZINE, so setting the dymo label
+                         to the same words printed the same string twice in the same red,
+                         forty pixels apart, which reads as a fault rather than a design. The
+                         label carries "make a paper zine about your hobby" -- the day's
+                         prompt and the ISSUE's prompt ("make a zine about your favorite
+                         hobby", the one on the /z page, which this clip shows on screen at
+                         ~60s) folded into one line. There were two prompts, one for the
+                         afternoon and one for the zine, and this is the sentence that is
+                         true of both.
+                         "favorite" WAS IN IT AND HAD TO COME OUT. At 41 characters the label
+                         hit fitTape's 9.5px floor and still overran a 360px frame by 34px,
+                         and .zc-chal is nowrap + overflow:hidden with text-overflow:CLIP
+                         under 900px -- so it cut mid-word to "...ABOUT YOUR FAVORITE HO" with
+                         the tape's own end severed by the frame edge. 34 characters clears
+                         every width without flooring, and reads LARGER than any string this
+                         label has carried at 360px. Measure before lengthening it.
+                         SILENT ON PURPOSE. The plate has no unmute affordance and autoplay
+                         with sound is refused everywhere, so an audio track would be ~2.4MB
+                         nobody can hear -- most of the file, for nothing. -->
+                    <video class="zc-vid" src="assets/zines/hero/zinemachine.mp4" poster="assets/zines/hero/zinemachine-poster.jpg"
+                           width="540" height="960" muted playsinline preload="none"
+                           aria-label="Zine Machine takes the challenge &ldquo;make a paper zine&rdquo; &mdash; the club cutting and gluing paper at a table, the pages going into the editor on a phone, and the issue they published."></video>
+                  </div>
+                  <div class="zl" aria-hidden="true">
+                    <!-- THE SECOND MOVING ONE. A screen recording of an issue being MADE —
+                         Claire drawing at the cafe, the editor with the challenge on it, then
+                         the page she ended up with. It used to be the only layer that showed
+                         the act rather than the artifact; the Zine Machine take above it now
+                         carries that job for the whole club, and this is the same argument at
+                         the scale of ONE person, which is the scale most readers are at.
                          432x766, 24s, silent, H.264 crf30 faststart: 764KB, which is smaller than
                          two of the JPEG strips beside it. preload="none" so it costs nothing until
                          its turn; the poster covers the gap before the first frame decodes. -->
@@ -2875,7 +2930,7 @@
   });
 })();
 </script>
-<script type="module" src="app-post-beta.js?v=48"></script>
+<script type="module" src="app-post-beta.js?v=50"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign
