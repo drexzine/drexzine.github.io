@@ -62,14 +62,19 @@ html{-webkit-text-size-adjust:100%;overflow-x:clip}
 body{
   margin:0;color:var(--ink);font-family:var(--f-body);font-weight:300;line-height:1.6;
   font-size:clamp(1rem,.97rem + .25vw,1.13rem);overflow-x:clip;-webkit-font-smoothing:antialiased;
-  /* the table: dot grid + faint notebook rules + paper grain over Oats */
+  /* the ground is one big RULED PAD, not a dotted desk (2026-08-24, second cut).
+     The first cut today removed the RULES and kept the dots — backwards, said
+     Sue: the collage wants to lie on ruled paper. The muddy "banding" was never
+     the rules themselves; it was the 23px DOT grid phase-drifting against the
+     34px rule pitch (incommensurate periods), which read as dirt on every empty
+     expanse. So the dots are what go. Rules stay, one clean hairline per 34px,
+     nudged to .10 so they read as intentional; grain stays. */
   background-color:var(--oats);
   background-image:
-    radial-gradient(rgba(65,77,87,.10) 1.1px, transparent 1.2px),
-    repeating-linear-gradient(0deg, transparent 0 33px, rgba(36,150,201,.09) 33px 34px),
+    repeating-linear-gradient(0deg, transparent 0 33px, rgba(36,150,201,.10) 33px 34px),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.45'/%3E%3C/svg%3E");
-  background-size:23px 23px, auto, 220px 220px;
-  background-blend-mode:normal, normal, multiply;
+  background-size:auto, 220px 220px;
+  background-blend-mode:normal, multiply;
 }
 a{color:inherit}
 .wrap{max-width:1150px;margin:0 auto;padding-inline:clamp(1rem,4.5vw,3.5rem)}
@@ -3009,6 +3014,24 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
       the one place on this page where a hard straight edge through a photograph reads as the
       point rather than as a bug. */
 .hero{position:relative;z-index:0}
+/* THE NEXT SHEET'S TORN TOP EDGE (2026-08-24). The pile's bottom photos used to
+   end on the clip line — one ruler-straight cut across every polaroid at once,
+   which read as a rendering bug (and in Firefox, whose displacement filters run
+   flatter than Chrome's, there was no visible tear at all — just photos ending).
+   This strip IS the next sheet: full-window, paper-filled, ink top edge, #torn
+   filter, sitting z-ABOVE the pile (1) and below the card (3), so the photos
+   visibly slide UNDER it. It also retires the vestigial post-cut dashes at the
+   fold's foot by lying over them. Hidden while sealed — the sealed page has its
+   own seam at viewport centre and this one would float mid-pocket. */
+.hero::after{
+  content:""; position:absolute; z-index:2; pointer-events:none;
+  left:calc(50% - 50vw); width:100vw;
+  top:calc(100% - 12px); height:58px;
+  background:var(--paper);
+  border-top:2.6px solid var(--ink);
+  filter:url(#torn);
+}
+html.sealed:not(.revealed) .hero::after{display:none}
 .hero+*,.hero~section{position:relative;z-index:1}
 @media(min-width:881px){ .hero-pile{inset:-12% -14% 4% -14%;overflow:clip} }
 
@@ -3712,7 +3735,11 @@ html.sealed:not(.revealed) .hero-pile{opacity:0;transform:translateY(34px) scale
      6.1cqw (~50px), which is what the fold is worth — this is the page's one headline and it had been
      paying, in points, for words that have since moved to the sub. Still min()'d against --fs-display
      so it can never outgrow the type scale's own 72px ceiling. */
-  .hero-card h1.ed-cat{font-size:min(var(--fs-display),6.1cqw)}
+  /* 2026-08-24: 6.1cqw was sized for the 31-character two-sentence headline.
+     "Clubs run their own magazine." binds on "Clubs run their " (15ch) and 6.1cqw
+     overflows it — see the re-derivation at the min-width:900 rule below; this
+     branch only exists to cover 881-899px, so it carries the same number. */
+  .hero-card h1.ed-cat{font-size:min(2.45rem,4.45cqw)}
 }
 @media(max-width:880px){
   /* THE BINDING TOKEN IS THE SENTENCE'S OWN SECOND LINE NOW, NOT THE BLANK (2026-08-08).
@@ -6259,8 +6286,17 @@ html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
         min(), not clamp(): the 2rem is a ceiling for a card that outgrows its
         max-width, and a rem FLOOR would be the one term that does not track the
         card, which is the failure this rule exists to remove. ---- */
+/* 2026-08-24: re-derived for "Clubs run their own magazine." per the method
+   above. Binding line "Clubs run their " is 15ch = 8.5em: greedy fill = 1/8.5
+   x the 0.407 column ratio = 4.79cqw, minus the ~7% slack balance demands =
+   4.45cqw. Ceiling scales with it: 2rem x 4.45/3.6 = 2.45rem. Sampled
+   900/1000/1100/1180/1280/1440/1680/1920 — identical two-line break at all
+   eight ("Clubs run their / own magazine."), 31-37px. Balance has two candidate
+   breaks and picks this one because the alternative ("Clubs run / their own
+   magazine.") has the longer longest line — "own magazine." is .nb, so the
+   payoff word can never widow. */
 @media (min-width:900px){
-  .hero-card h1.ed-cat{font-size:min(2rem, 3.6cqw); line-height:1.08}
+  .hero-card h1.ed-cat{font-size:min(2.45rem, 4.45cqw); line-height:1.08}
 }
 
 /* ---- THE CRAFT LINE IS A MARKED BOX, AND IT DOES NOT MOVE.
@@ -6578,6 +6614,14 @@ html[data-tier="lite"] .sl-box path{animation:none}
         the sub by a full step, and the fine print sits close under the button
         because it annotates it. ---- */
 .hero-card .ed-sub{margin-top:clamp(.7rem,1.5vw,1.05rem)}
+/* the fold's third line (2026-08-24). A full .ed-sub margin between lines two
+   and three read as three separate paragraphs; this gap says "same breath". */
+.hero-card .ed-sub-3{margin-top:clamp(.3rem,.7vw,.5rem)}
+/* .nb in the third line: like the H1's rule at :3755, the class is scoped
+   elsewhere (footer .tagline .nb, h1.ed-cat .nb) and silently does nothing here
+   without this. Chunking the line is the cross-browser rag fix — see the note
+   in index.html. */
+.hero-card .ed-sub .nb{white-space:nowrap}
 .hero-card .ed-start{margin-top:clamp(1.4rem,3vw,2.2rem)}
 .hero-card .ed-fine{margin-top:clamp(.7rem,1.6vw,1.1rem); max-width:34ch}
 .start-note{margin:.55rem 0 0 .4rem}
@@ -6951,7 +6995,13 @@ html[data-tier="lite"] .start-line::before{animation:boil-rough var(--boil-ink) 
 }
 @media (max-width:380px){
   .zc-frame{height:min(29vh,16rem)}
-  .hero-card h1.ed-cat{font-size:clamp(1.72rem,7.4vw,2.1rem)}
+  /* 2026-08-24: was clamp(1.72rem,7.4vw,2.1rem). The 1.72rem FLOOR was tuned for
+     the four-line headline, where wrapping was the intended behaviour; against
+     "Clubs run their / own magazine." it overflows the column at 320-380 and
+     orphans "their" on its own display line. min(), no floor, per the doctrine
+     at :3737 — the ceiling is the invariant. 7.3vw clears 320 (the binding
+     width) by 4px. */
+  .hero-card h1.ed-cat{font-size:min(2.1rem,7.3vw)}
 }
 /* 360x740 is the tightest phone in common use and the four-line headline plus a
    two-line button will not both fit above it with a picture worth showing. The
@@ -7765,12 +7815,18 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
 }
 
 /* the phone tag clears the challenge strip on the cover instead of sitting on
-   top of it, and gives a little more of the artwork back. */
+   top of it, and gives a little more of the artwork back.
+   2026-08-24: a fixed px top only cleared the strip at the width it was measured
+   at — at 390px the tag sat exactly on "The challenge:" of the Zine Machine
+   poster. The poster scales linearly with the plate, so the offset has to be a
+   PERCENTAGE of the plate to clear it at every width: the title band ends ~40%
+   down the cover, the yellow zc-note starts at ~81%, and the tag is ~26% tall —
+   47% is the slot that clears both. */
 @media (max-width:899px){
-  .zc-tag{top:76px; width:min(23ch,72%)}
+  .zc-tag{top:47%; width:min(23ch,72%)}
 }
 @media (max-width:380px){
-  .zc-tag{top:68px; width:min(22ch,80%)}
+  .zc-tag{top:47%; width:min(22ch,80%)}
 }
 /* the tape's position moved out of an inline style on the span (which outranked
    every rule) and into here, where it can respond. */
@@ -8021,3 +8077,65 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
         top of the scale. ---- */
 .deck.smear .pc-a{transform:none; font-size:2.2cqw; line-height:1.34}
 .deck.smear .pc-cite{font-size:2cqw}
+
+/* ============================================================================
+   THE R3 FOLD TREATMENT (2026-08-24) — ledger subs, coupon door, arrow-to-zine.
+   Designed via /design-shotgun (3 rounds) + /design-review; renders archived in
+   ~/.gstack/projects/drexzine-drexzine.github.io/designs/fold-type-20260824.
+   Placed at the FOOT of the file on purpose: these override the earlier .ed-sub
+   margin/size/voice rules by cascade order, no !important needed.
+
+   THE PHI LADDER. Brand bible p.36: "The ratio between each text size is based
+   on The Golden Ratio." Each rank derives from the H1's own size expression per
+   breakpoint, so the 1.618 intervals hold at every width. Line three floors at
+   .875rem — phi² off a 28.9px phone H1 is 11px, which is not typography.
+   FOUR RANKS, FOUR VOICES (brand p.33-36): Pitch display H1 / Pitch Sans
+   subhead (line two, upright — it carried Bitter italic for a day and two ranks
+   shared one voice) / Bitter italic intro-body (line three) / Birdie accent
+   (coupon note). The tape sits inside line two natively — same family.
+   ============================================================================ */
+.hero-card .ed-sub{position:relative;padding-left:0;margin-top:.7rem;
+  font-family:var(--f-head);font-weight:600;font-style:normal;line-height:1.38;
+  font-size:calc(min(2.45rem,4.45cqw)/1.618)}
+.hero-card .ed-sub .sub-dead{font-style:inherit}
+.hero-card .ed-sub-3{margin-top:.5rem;padding-left:1.5em;
+  font-family:var(--f-body);font-style:italic;font-weight:400;
+  font-size:max(.875rem,calc(min(2.45rem,4.45cqw)/1.618/1.618))}
+@media(max-width:880px){
+  .hero-card .ed-sub{font-size:calc(min(2.6rem,7.4vw)/1.618)}
+  .hero-card .ed-sub-3{font-size:max(.875rem,calc(min(2.6rem,7.4vw)/1.618/1.618))}
+}
+@media(max-width:380px){
+  .hero-card .ed-sub{font-size:calc(min(2.1rem,7.3vw)/1.618)}
+  .hero-card .ed-sub-3{font-size:max(.875rem,calc(min(2.1rem,7.3vw)/1.618/1.618))}
+}
+/* the check belongs to the PAYOFF line only (Sue: line two carries no glyph —
+   an unchecked mechanism, a checked outcome) */
+.hero-card .ed-sub-3::before{content:"";position:absolute;left:0;top:.24em;width:.95em;height:.95em;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M3 12 c3 2.5 5 4.5 6 6 3-6 7-11 10-14' fill='none' stroke='%23414D57' stroke-width='2.8' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/contain}
+.hero-card .ed-sub .hl{white-space:nowrap}
+/* the arrow rides above the plate's paint; aimArrow() sizes it so the tip stops
+   at the border (see the markup comment) */
+.hero-card .ed-sub-3{z-index:6}
+.ed-point{position:absolute;left:calc(100% - 1.1em);top:.35em;width:120px;height:40px;pointer-events:none;z-index:7}
+@media(max-width:899px){.ed-point{display:none}}
+/* the door leaves the zine — coupon under the copy; zc-tag markup retained dark */
+.zc-tag{display:none}
+.ed-cta{position:relative;isolation:isolate;display:inline-block;margin:1.15rem 0 0 0;
+  padding:.72rem 1.05rem .8rem;text-decoration:none;color:var(--ink);transform:rotate(-.8deg);
+  transition:transform .18s cubic-bezier(.2,.8,.3,1)}
+.ed-cta::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+  border:2.4px dashed var(--ink);border-radius:6px;box-shadow:5px 5px 0 0 var(--ink);
+  filter:url(#roughsm)}
+.ed-cta:hover,.ed-cta:focus-visible{transform:rotate(-.8deg) translate(-1px,-2px)}
+.ed-cta:focus-visible{outline:3px solid var(--lazuli);outline-offset:5px;border-radius:3px}
+/* note in --coral-ink, not Colorado: 4.84:1 on paper vs 3.07 (AA floor 4.5) */
+.ed-cta-note{display:block;font-family:var(--f-hand);font-size:1.02rem;color:var(--coral-ink,#C9343A);margin-bottom:.1rem}
+.ed-cta-line{display:block;font-family:var(--f-head);font-weight:700;font-size:1.42rem;
+  color:var(--grass-deep);letter-spacing:.01em}
+.ed-cta-arr{width:26px;height:11px;color:var(--happy);vertical-align:.02em}
+/* a muted-autoplay hero video with no affordance reads as a still when autoplay
+   is refused (research). Ink play chip, video slides only (:has guard). */
+.zc-frame:has(.zl.is-on video)::after{content:"";position:absolute;left:10px;bottom:10px;z-index:6;
+  width:34px;height:34px;border-radius:50%;pointer-events:none;
+  background:rgba(65,77,87,.82) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6.5 c2.8 1.6 5.2 3.4 7.6 5.5 -2.4 2.1-4.8 3.9-7.6 5.5z' fill='%23FEF6E4'/%3E%3C/svg%3E") no-repeat center/60%}

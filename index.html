@@ -50,14 +50,17 @@
      (The number has a home, and it is the worked example, not the claim: #showtell's sub says
      "Four weeks." about ONE named club. That is the split to keep — abstraction in the
      tagline, a real number in the example that can be checked.)
+     REWRITTEN 2026-08-24 with the three-line fold: it is now the H1 and line two verbatim,
+     with the approved "a few real friends, many show-and-tells, one beautiful portfolio."
+     close carried over — 142 characters, inside the SERP cut, no em dashes (head-string rule).
      REWRITTEN 2026-08-10 with the fold. It used to compress the three numbered beats, and those
      beats no longer exist. It is the fold's own two sentences now — the H1, the sub verbatim, and
      the closing run — so what a stranger reads in a search result is what they land on. "zine" is
      still deliberately absent: the word's mental image is a photocopied paper thing, and what they
      get is a URL. 157 characters, inside the SERP cut. -->
-<meta name="description" content="Show-and-tell with deadlines. Join or create a club that answers its own challenges with a magazine: a few real friends, many show-and-tells, one beautiful portfolio." />
+<meta name="description" content="Clubs run their own magazine. Each issue is a new challenge with a deadline: a few real friends, many show-and-tells, one beautiful portfolio." />
 <meta property="og:title" content="drex. Make magazines with your club for show-and-tell." />
-<meta property="og:description" content="Show-and-tell with deadlines. Join or create a club that answers its own challenges with a magazine: a few real friends, many show-and-tells, one beautiful portfolio." />
+<meta property="og:description" content="Clubs run their own magazine. Each issue is a new challenge with a deadline: a few real friends, many show-and-tells, one beautiful portfolio." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://drex.style" />
 <meta property="og:image" content="https://drex.style/assets/og.png" />
@@ -73,7 +76,7 @@
 <meta property="og:image:alt" content="drex. — Show-and-tell with deadlines. Join or create a club that answers its own challenges with a magazine. Oats-cream type on a grass-green card: “challenges” is set on a strip of red embossed label tape, and “magazine” sits under a yellow highlighter mark." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="drex. Make magazines with your club for show-and-tell." />
-<meta name="twitter:description" content="Show-and-tell with deadlines. Join or create a club that answers its own challenges with a magazine: a few real friends, many show-and-tells, one beautiful portfolio." />
+<meta name="twitter:description" content="Clubs run their own magazine. Each issue is a new challenge with a deadline: a few real friends, many show-and-tells, one beautiful portfolio." />
 <meta name="twitter:image" content="https://drex.style/assets/og.png" />
 <meta name="theme-color" content="#FEF6E4" />
 
@@ -248,7 +251,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=119" />
+<link rel="stylesheet" href="app-post-beta.css?v=124" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -506,6 +509,18 @@
           <figure class="hp" style="--r:-9deg;--t:34%;--l:-6%;--w:18%;z-index:2"><i style="background-image:url(assets/makers/fredy.jpg)"></i><figcaption>editorial</figcaption></figure>
           <figure class="hp" style="--r:11deg;--t:88%;--l:60%;--w:18%;z-index:3"><i style="background-image:url(assets/makers/miguel.jpg)"></i><figcaption>film</figcaption></figure>
           <figure class="hp" style="--r:-5deg;--t:92%;--l:24%;--w:17%;z-index:2"><i style="background-image:url(assets/makers/chiamakabrowneyes.jpg)"></i><figcaption>portraiture</figcaption></figure>
+          <!-- 2026-08-24 — THE RIGHT EDGE OF THE PILE, and why these two are LAST.
+               The pile spans the full window (:7921) with its x-axis clipped, and the left side
+               earns its "buried" read by STARTING tiles off the page (-6%, -2%). The right column
+               ended at 92-95%, so from ~1280px up, two bands of bare desk opened between the last
+               photo and the window edge — with the seam's .cut-rule dashes floating on them, which
+               read as a broken render, not a desk. These two run past 100% so the window edge cuts
+               them the way it cuts the left side. They sit LAST on purpose: the mobile heap caps
+               (nth-child(n+7) at :3058 and n+5 below 521px) hide trailing tiles, so the phone
+               composition is untouched. SF Penmans, a craft the pile covered zero times — same
+               argument that seated Beans at tile 3. Captions are what is IN FRAME, checkable. -->
+          <figure class="hp" style="--r:7deg;--t:28%;--l:88%;--w:19%;z-index:2"><i style="background-image:url(assets/zines/penmans-desk.jpg)"></i><figcaption>an illuminated b</figcaption></figure>
+          <figure class="hp" style="--r:-9deg;--t:70%;--l:81%;--w:20%;z-index:2"><i style="background-image:url(assets/zines/penmans-drill.jpg)"></i><figcaption>pen drills</figcaption></figure>
         </div>
 
         <!-- the card lives in a clipped pocket; sealed it is pushed down out of sight -->
@@ -683,7 +698,25 @@
                    the payoff word cannot widow. ONE .sen, because there is one sentence — .sen is
                    display:block (app-post-beta.css:3785), so two of them would force a hard break
                    mid-sentence and cost a line. -->
-              <h1 class="ed-cat"><span class="sen">Your <span class="hd-who">group</span> does a <span class="hd-chal">challenge</span>, then makes <span class="nb">a <span class="hd-out">magazine</span>.</span></span></h1>
+              <!-- 2026-08-24 (Sue) — THE FOLD IS THREE LINES: CATEGORY, MECHANISM, PAYOFF.
+                   "Clubs run their own magazine." — the artifact leads, and the recurrence
+                   moved INTO THE VERB: "run" is an ongoing concern, which is the job "Repeat."
+                   kept being cut for (08-18, 08-20 notes above). "their own" is load-bearing
+                   twice over: it forecloses the prompt-app misread the old tagline rule existed
+                   for, and it carries authorship — the club writes its own challenges — so the
+                   sub no longer has to (the 08-20 note's "do not let that clause go" is
+                   discharged here, not dropped).
+                   WHAT IT GIVES UP, knowingly: "Your". Third person, a statement about other
+                   people; "Your club runs its own magazine." was drafted and left on the table
+                   (it asserts the product noun before the page teaches it). If the fold starts
+                   reading as someone else's party, that swap is the fix — one word.
+                   TWO coloured nouns now, not three: "challenge" left the H1 for line two, and
+                   its red went with it (the sub's tape carries that beat — same word, same red,
+                   40px from the real tape on the cover). hd-chal is unused until a challenge
+                   word returns. .nb welds "own magazine." so the payoff word cannot widow; the
+                   type ramp was re-derived for the new binding line "Clubs run their " at
+                   app-post-beta.css:3715, :6263 (4.45cqw) and :6954 (no floor at <=380). -->
+              <h1 class="ed-cat"><span class="sen"><span class="hd-who">Clubs</span> run their <span class="nb">own <span class="hd-out">magazine</span>.</span></span></h1>
               <!-- The sub answers the two questions the headline provokes, in the order a stranger
                    asks them: "do I need to bring people?" and "show-and-tell of WHAT?"
                      - "Join or create" — both doors, join first. Arriving alone is the commoner
@@ -841,7 +874,74 @@
                    sentence — that arrow runs from the last line of this copy to the tag on the
                    magazine (app-post-beta.js:531), and its tail rides whatever the final full
                    stop is. -->
-              <p class="ed-sub">Set the <span class="sub-chal">challenge</span> and the <span class="sub-dead">deadline</span>. Then do <span class="hl">the fun parts.</span><i class="beat-anchor" aria-hidden="true"></i><svg class="beat-point" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg></p>
+              <!-- 2026-08-24 — LINE TWO IS THE MECHANISM: "Each issue is a new challenge
+                   with a deadline." "is", not "has": the issue is a unit of work, not a
+                   container of attributes — "has" reads as a spec sheet, the drift every note
+                   above fights. "Each" does the recurrence work abstractly (no named period,
+                   per the head-of-file rule). "creative" is deliberately absent: the bare word
+                   is what is on the Dymo tape 40px away on the cover, and the tape rhyme is
+                   the reason the mark is tape. Authorship lives in the H1's "their own" now —
+                   this line takes no position on who writes the challenge, and doesn't need
+                   to. "deadline" keeps .sub-dead (currently unmarked, argument at
+                   app-post-beta.css:6991 stands).
+                   The .beat-anchor moved DOWN to line three — the arrow to the magazine's tag
+                   rides the LAST full stop of the copy (app-post-beta.js:531), which is no
+                   longer this one. -->
+              <p class="ed-sub">Each issue is a new <span class="sub-chal">challenge</span> with a <span class="sub-dead">deadline</span>.</p>
+              <!-- LINE THREE IS THE LABEL AND THE PAYOFF: "Creative clubs with something to
+                   show." (Sue's line, 2026-08-24 — it replaced her own "A creative club with
+                   something to show for it." the same day; "Finally, something to show for it."
+                   was proposed and rejected before either.) What the trim buys:
+                     - THE RAG DOES THE RANKING. At full length lines two and three set at
+                       near-identical measure and read as peer bullets; a short line three under
+                       a long line two is the payoff shape, and no CSS could buy that.
+                     - It ENDS ON "show." — the show-and-tell verb is the fold's last word.
+                     - Plural "clubs" mirrors the H1's subject instead of restating it as
+                       "A creative club", which softens the club/club echo.
+                   What it gives up, knowingly: "for it" — the effort idiom (something to show
+                   FOR your work). "to show" is literal show-and-tell instead. If the payoff
+                   starts reading as thin, the idiom is the thing to bring back.
+                   .hl sits on "something to show." — three words, nowrap band (:7474), still
+                   the reveal beat (scale 0 until .lit-hl, :265), still the fold's last words.
+                   .ed-sub-3 (app-post-beta.css, by :6580) tightens the gap to line two so the
+                   three lines read as one breath, not three paragraphs. -->
+              <!-- .nb + .hl leave this line exactly one legal break point (between "with" and
+                   "something"), because the two chunks are each nowrap. This is not decoration:
+                   Chrome's text-wrap:balance sets the line as "Creative clubs with / something
+                   to show." but Firefox (Sue's browser) broke it as "Creative / clubs with
+                   something to show." — an orphaned first word on the fold. Deterministic
+                   chunks render identically in every engine; at full width the line still sets
+                   whole. -->
+              <!-- 2026-08-24, THE R3 TREATMENT (design-shotgun, 3 rounds + review; board
+                   renders in ~/.gstack/projects/.../designs/fold-type-20260824). The sub block
+                   is a LEDGER under the H1: line two is the composition's SUBHEAD (Pitch Sans
+                   voice, brand p.36 — four ranks, four voices), line three is the intro-body
+                   aside (Bitter italic) carrying the fold's only check. Sizes are a golden-
+                   ratio ladder off the H1's own expression per breakpoint — p.36 mandates phi —
+                   floored at .875rem so phi² can never go sub-legible on phones.
+                   THE ARROW (.ed-point) points "something to show." AT THE ZINE — the payoff
+                   phrase gestures at the evidence. It replaced .beat-anchor/.beat-point, whose
+                   arrow pointed at the CTA: an arrow at a button argues nothing. Its length is
+                   set by aimArrow() in app-post-beta.js so the tip stops AT the plate's border
+                   (never inside the picture — the cover is a carousel and a fixed drawing
+                   aimed into moving content has unstable meaning). Hidden under 900px: one
+                   column puts the plate directly below, adjacency does the pointing. -->
+              <p class="ed-sub ed-sub-3"><span class="nb">Creative clubs with</span> <span class="hl">something to show.</span><svg class="ed-point" viewBox="0 0 130 44" preserveAspectRatio="xMaxYMid meet" aria-hidden="true"><path d="M4 10 C40 26 78 30 116 24 M102 12 C107 17 112 21 119 23.5 C112 27 106 31.5 101 37" fill="none" stroke="#F75458" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
+              <!-- THE DOOR IS A COUPON UNDER THE COPY, NOT A TAG ON THE ZINE (2026-08-24).
+                   The zc-tag covered the demo video's mid-frame at phone widths and read as a
+                   sticker; research (F/Z-pattern eye-tracking) wants the primary CTA at the
+                   left rail's terminal — exactly here, after the three lines. The green-slab
+                   objection that evicted the door from this column in 08-17 ("software chrome
+                   in a fold of paper") doesn't apply: this is the page's own coupon idiom —
+                   paper, dashed cut-line, hard ink shadow. The old below-the-fold objection
+                   died with the four-line H1 (three-line copy is ~130px shorter; measured
+                   above the fold at 375x667). Fine print deliberately absent — the terms live
+                   on the join page; the fold was carrying too much text (Sue). The zc-tag
+                   markup stays in the plate, display:none'd, in case the door ever returns. -->
+              <a class="ed-cta" href="https://letters.drex.style/join-online/">
+                <span class="ed-cta-note">start a club for your thing</span>
+                <b class="ed-cta-line">Join the waitlist <svg class="ed-cta-arr" viewBox="0 0 26 11" aria-hidden="true"><path d="M1.5 6 C9 4.5 16 4.5 23 5.4 M19 1.8 C20.6 3.2 22.2 4.4 24.4 5.5 C22.1 6.4 20.3 7.6 18.7 9.2" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg></b>
+              </a>
               
               </div>
 
@@ -1037,7 +1137,13 @@
                          letters, ONE tinted shadow not a bevel, hard 2px zero-blur offset, and
                          #roughsm on the ::before that carries the background — never on the
                          element holding the text, or the displacement chews the letterforms. -->
-                    <span class="zc-chal" id="zcChal">come as your heritage</span>
+                    <!-- 2026-08-24 — the served strings here and in the zc-note below now belong to
+                         LAYER 0 (the Zine Machine video, .zl.is-on in this same markup). They were
+                         D[2]'s (XChange) — so a no-JS visitor, a crawler, and the first JS-less
+                         paint all showed "come as your heritage" over a poster reading "MAKE A
+                         PAPER ZINE". show(0) at boot overwrites these anyway (app-post-beta.js);
+                         the served copy just has to agree with the served picture. -->
+                    <span class="zc-chal" id="zcChal">make a paper zine about your hobby</span>
 
                     <!-- Drawn marks, not chrome. Two strokes a hair out of register, the way a
                          two-colour print misses — that is what makes them legible on any
@@ -1079,9 +1185,9 @@
                        what it always was. Both hrefs and both strings are still written per
                        issue by the carousel (#ctaIssue, #zcCap, #ctaClub). -->
                   <div class="zc-note">
-                    <a class="zc-note-read" id="ctaIssue" href="https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23">read this issue</a>
-                    <p class="zc-note-lead" id="zcCap" aria-live="polite">Eleven models reflect on their performance.</p>
-                    <p class="zc-note-by">in <a class="zc-note-club" id="ctaClub" href="https://app.drex.style/clubs/xchange-models">XChange Models</a></p>
+                    <a class="zc-note-read" id="ctaIssue" href="https://app.drex.style/z/09e16cfb-3c15-4a98-a8d2-427ced250f2e">scroll the magazine</a>
+                    <p class="zc-note-lead" id="zcCap" aria-live="polite">Eight makers cut paper zines by hand.</p>
+                    <p class="zc-note-by">in <a class="zc-note-club" id="ctaClub" href="https://app.drex.style/clubs/zine-machine">Zine Machine</a></p>
                   </div>
 
                   <!-- THE DOOR, TACKED TO THE MAGAZINE (2026-08-17). This is the page's only
@@ -2930,7 +3036,7 @@
   });
 })();
 </script>
-<script type="module" src="app-post-beta.js?v=50"></script>
+<script type="module" src="app-post-beta.js?v=52"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign

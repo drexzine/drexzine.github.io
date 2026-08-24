@@ -3097,7 +3097,12 @@ function fitSheet() {
   var card  = document.querySelector('.hero-card');
   if (!card) return;
   var sheet = card.querySelector(':scope > .sheet');
-  var last  = card.querySelector('.ed-sub');   // the last line written on the note
+  // the last thing written on the note. querySelector took the FIRST .ed-sub,
+  // which was fine while there was one; the 2026-08-24 fold has two plus the
+  // coupon, and measuring an earlier element left the rest hanging off the
+  // paper onto the collage. The coupon is the note's last object now.
+  var subs  = card.querySelectorAll('.ed-sub, .ed-cta');
+  var last  = subs[subs.length - 1];
   var inner = card.querySelector('.inner');
   if (!sheet || !last || !inner) return;
   // .hero-card is .paper, i.e. position:relative, so it is the offsetParent and
@@ -3124,6 +3129,26 @@ function fitSheet() {
 }
 whenRevealed(fitSheet);
 addEventListener('resize', fitSheet);
+/* THE ARROW STOPS AT THE PLATE'S BORDER (2026-08-24). .ed-point is drawn at a
+   130-unit nominal length; the real gap between line three's end and the plate
+   edge changes with viewport width, so a fixed length either invades the
+   picture at 1094 or falls short at 1680. Scale the drawing uniformly to the
+   measured gap (+14px so the tip touches the border), clamped so the arrowhead
+   stays hand-sized. Under 900px the CSS hides it — one column, the plate is
+   directly below and adjacency does the pointing. */
+function aimArrow(){
+  var svg = document.querySelector('.ed-point'), plate = document.querySelector('.zc-plate');
+  if (!svg || !plate) return;
+  var p = svg.parentElement.getBoundingClientRect(), z = plate.getBoundingClientRect();
+  if (z.left <= p.right) return;
+  var gap = Math.max(40, Math.min(190, z.left - p.right + 14));
+  svg.style.width  = gap + 'px';
+  svg.style.height = (40 * Math.max(.7, Math.min(1.15, gap / 130))) + 'px';
+}
+whenRevealed(aimArrow);
+addEventListener('resize', aimArrow);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(aimArrow).catch(function(){});
+setTimeout(aimArrow, 1500);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitSheet).catch(function(){});
 // the sub's marks and the fine print settle a beat after the reveal choreography
 setTimeout(fitSheet, 1400);
