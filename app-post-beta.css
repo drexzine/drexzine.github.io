@@ -7903,7 +7903,7 @@ html[data-tier="lite"] .zc-tag-spark .sp-b{animation:none}
    hairlines that seam is imperceptible; the tone step was not.) */
 .hero::after{
   content:""; position:absolute; z-index:2; left:0; right:0; top:100%;
-  height:230px; pointer-events:none;
+  height:var(--spill-h,230px); pointer-events:none;
   border-top:2.6px solid var(--ink);
   background-color:var(--oats);
   background-image:

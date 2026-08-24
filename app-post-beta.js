@@ -3108,7 +3108,16 @@ function fitSheet() {
   // .hero-card is .paper, i.e. position:relative, so it is the offsetParent and
   // these are already in the card's own unrotated coordinate space.
   var pad = parseFloat(getComputedStyle(inner).paddingBottom) || 24;
-  var h = last.offsetTop + last.offsetHeight + pad;
+  // under the COUPON the sheet needs real whitespace, not just the inner pad:
+  // the chip carries a 5px hard shadow and the tear was landing on it (Sue).
+  if (last.classList && last.classList.contains('ed-cta')) pad = Math.max(pad, 44);
+  // last.offsetTop alone undercounts: the copy sits inside .ed-head, which is
+  // POSITIONED, so offsetTop is relative to it and misses its ~52px offset —
+  // the inner pad was being silently eaten by exactly that amount. Walk the
+  // chain to the card, the same way the plate clause below already does.
+  var ly = 0, ln = last;
+  while (ln && ln !== card) { ly += ln.offsetTop; ln = ln.offsetParent; }
+  var h = (ln === card ? ly : last.offsetTop) + last.offsetHeight + pad;
   // THE MAGAZINE HAS TO LAP THE PAPER, NOT START WHERE IT STOPS. Beside the copy
   // (two columns) the plate begins level with the headline and the sub-based
   // height already gives it 300px of paper to lie across. Stacked on a phone the
@@ -3149,6 +3158,28 @@ whenRevealed(aimArrow);
 addEventListener('resize', aimArrow);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(aimArrow).catch(function(){});
 setTimeout(aimArrow, 1500);
+/* THE SPILL STRIP MEASURES THE PILE (2026-08-24). Its 230px was sized for the
+   170px overshoot measured at ~1280 — but the pile's photos are %-width of the
+   WINDOW, so the overshoot grows with viewport width (measured: 124px at 1280,
+   268px at 1990, plus ~52px of polaroid chin below each figure box) and the
+   fragments resurfaced in the summary band on wide screens. Measure the
+   deepest photo, cover it with margin, write --spill-h; the CSS falls back to
+   230px with JS off, which is correct at the widths a no-JS page will meet. */
+function coverSpill(){
+  var hero = document.querySelector('.hero');
+  if (!hero) return;
+  var hb = hero.getBoundingClientRect().bottom, deep = hb;
+  document.querySelectorAll('.hero-pile .hp').forEach(function(e){
+    var b = e.getBoundingClientRect().bottom;
+    if (b > deep) deep = b;
+  });
+  var h = Math.max(230, Math.round(deep - hb) + 64);   // +52 chin, +12 margin
+  hero.style.setProperty('--spill-h', h + 'px');
+}
+whenRevealed(coverSpill);
+addEventListener('resize', coverSpill);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(coverSpill).catch(function(){});
+setTimeout(coverSpill, 1500);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitSheet).catch(function(){});
 // the sub's marks and the fine print settle a beat after the reveal choreography
 setTimeout(fitSheet, 1400);
