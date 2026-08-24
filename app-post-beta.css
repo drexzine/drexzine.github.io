@@ -8136,6 +8136,12 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
 .ed-cta::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
   border:2.4px dashed var(--ink);border-radius:6px;box-shadow:5px 5px 0 0 var(--ink);
   filter:url(#roughsm)}
+/* the scissors are what make the dashed border read as a CUT LINE instead of an
+   unfinished box (Sue: "the cta just looks a little weird") — same glyph the
+   page's other coupons carry, sitting open-bladed on the top rule. */
+.ed-cta::after{content:"";position:absolute;top:-9px;left:16px;width:19px;height:19px;
+  transform:rotate(-8deg);pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23414D57' stroke-width='1.9'%3E%3Ccircle cx='6' cy='6' r='2.6'/%3E%3Ccircle cx='6' cy='18' r='2.6'/%3E%3Cpath d='M8 7.5 20 16M8 16.5 20 8'/%3E%3C/svg%3E") no-repeat center/contain}
 .ed-cta:hover,.ed-cta:focus-visible{transform:rotate(-.8deg) translate(-1px,-2px)}
 .ed-cta:focus-visible{outline:3px solid var(--lazuli);outline-offset:5px;border-radius:3px}
 /* note in --coral-ink, not Colorado: 4.84:1 on paper vs 3.07 (AA floor 4.5) */
