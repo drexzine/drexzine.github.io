@@ -8154,3 +8154,109 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
 .zc-frame:has(.zl.is-on video)::after{content:"";position:absolute;left:10px;bottom:10px;z-index:6;
   width:34px;height:34px;border-radius:50%;pointer-events:none;
   background:rgba(65,77,87,.82) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6.5 c2.8 1.6 5.2 3.4 7.6 5.5 -2.4 2.1-4.8 3.9-7.6 5.5z' fill='%23FEF6E4'/%3E%3C/svg%3E") no-repeat center/60%}
+
+/* ============================================================================
+   THE SUMMARY BAND GETS A HEAD (2026-08-26). It was the only section on the page
+   without one — the two columns arrived cold, directly under the hero, with
+   nothing naming what they were about. eyebrow / h2 / sub is the shape every
+   other section runs (.how, .kit, .longgame, .gifts, .doors), so this borrows
+   their exact ranks rather than inventing a fourth head style.
+   SIZE IS THE SMALL END of that family — clamp(1.7rem,4.6vw,2.6rem), the .gifts
+   value, not the .how/.doors 3rem. This head sits one screen under the H1 and a
+   full-size slab here would read as a second fold competing with it, which is
+   the precise reason these fragments were moved OUT of the hero in the first
+   place (see the markup note above the section).
+   The band is text-align:center and .sum-stack is an inline-grid centred inside
+   it, so the head needs no placement of its own — only a measure, so the sub
+   does not set the full 74rem and out-run the columns beneath it.
+   ============================================================================ */
+.summary-band .sum-head{
+  max-width:44rem;
+  margin:0 auto clamp(2rem,4.5vw,3.2rem);
+  text-align:center;
+}
+.summary-band .sum-head .eyebrow{margin-bottom:.15rem}
+.summary-band .sum-head h2{
+  font-family:var(--f-slab); font-style:italic; font-weight:700;
+  font-size:clamp(1.7rem,4.6vw,2.6rem);
+  line-height:1.02; letter-spacing:-.02em;
+  margin:.25rem 0 0; color:var(--ink);
+}
+.summary-band .sum-head h2 .stop{color:var(--grass-deep)}
+/* the sub is body voice, one rank under the ledes it introduces. 46ch keeps it
+   to two lines on a laptop; unbounded it sets as one long line and stops
+   reading as a paragraph under a headline. */
+.summary-band .sum-sub{
+  font-family:var(--f-body); font-size:var(--fs-body); line-height:1.5;
+  color:var(--ink); max-width:46ch;
+  margin:clamp(.7rem,1.6vw,1rem) auto 0;
+}
+
+/* ============================================================================
+   THE #seewhat STAGE (2026-08-26). A new beat under the summary band: the reader
+   capture that has sat in the repo since July, playing inline instead of hiding
+   behind #reader's drawn phone. #reader is untouched and keeps its own figure.
+   IT BORROWS .pw-media rather than inventing a frame — that is #portfolio's
+   treatment for real app capture (rough-filter border, no drawn device), and
+   this clip already carries the reader's own chrome. Only the ratio changes:
+   the wall/club tours are 4:5, this one is square.
+   .flip2 / .belt / .bz are NOT touched — that is #reader's drawn phone and it is
+   still on the page, still doing its job further down.
+   ============================================================================ */
+/* the section is a centred column: head over figure, nothing beside it. Without
+   this the .head inherits the page's left-aligned default and sits against a
+   centred figure, which is what the first render showed. */
+.seewhat{
+  max-width:var(--mw,74rem); margin-inline:auto;
+  padding:clamp(2.4rem,5.5vw,4rem) clamp(1.2rem,5vw,2.4rem) clamp(1.6rem,4vw,2.6rem);
+}
+.seewhat .head{max-width:44rem; margin:0 auto; text-align:center}
+.seewhat .head h2{
+  font-family:var(--f-slab); font-style:italic; font-weight:700;
+  font-size:clamp(1.6rem,4.2vw,2.4rem);
+  line-height:1.04; letter-spacing:-.02em;
+  margin:.25rem 0 0; color:var(--ink);
+}
+.seewhat .head h2 .stop{color:var(--grass-deep)}
+/* .nb is scoped per-place in this stylesheet (footer tagline :1695, the H1 :3776,
+   the fold sub :6618) rather than existing globally, so this headline needs its
+   own. Each sentence is a chunk, which leaves exactly one legal break — between
+   them — instead of letting the engine orphan "join them." onto its own line. */
+.seewhat .head h2 .nb{white-space:nowrap}
+/* ...but only where a whole sentence FITS. At 390 the chunk "See what people are
+   doing." wants 403px inside a 316px column and punched straight out of its box
+   (html{overflow-x:clip} hid it from the page scrollbar, which is exactly how a
+   bug like this survives a sweep). Below 560 the chunks are released and the
+   headline wraps naturally — the orphan this guards against is a desktop-measure
+   problem, and at phone measure every break is mid-clause anyway. */
+@media (max-width:559px){
+  .seewhat .head h2 .nb{white-space:normal}
+}
+.seewhat .rd-sub{
+  font-family:var(--f-body); font-size:var(--fs-body); line-height:1.5;
+  color:var(--ink); max-width:42ch; margin:clamp(.6rem,1.4vw,.9rem) auto 0;
+}
+.rd-stage{margin:clamp(1.6rem,4vw,2.6rem) auto 0; width:min(100%,26rem)}
+/* the button is the picture: strip the control chrome, keep the hit area and a
+   real focus ring (it opens a lightbox, so it has to be reachable by keyboard). */
+.rd-open{
+  display:block; width:100%; padding:0; border:0; background:none;
+  cursor:pointer; border-radius:4px;
+}
+.rd-open:focus-visible{outline:3px solid var(--lazuli); outline-offset:6px}
+.rd-media{aspect-ratio:1/1}
+/* the tilt is the page's, not the clip's — every other pinned object on this
+   page sits a degree or two off square. */
+.rd-open .rd-media{rotate:-1.1deg}
+.rd-open:hover .rd-media{rotate:0deg; transition:rotate .18s ease}
+.rd-cap{
+  margin:clamp(.7rem,1.8vw,1rem) 0 0; text-align:center;
+  font-family:var(--f-hand); font-size:clamp(1rem,1.3vw,1.16rem);
+  color:var(--lazuli-deep);
+}
+.rd-cap .arr{display:inline-block; transition:translate .18s ease}
+.rd-stage:hover .rd-cap .arr{translate:4px 0}
+@media (prefers-reduced-motion:reduce){
+  .rd-open:hover .rd-media{transition:none}
+  .rd-cap .arr,.rd-stage:hover .rd-cap .arr{transition:none; translate:0}
+}

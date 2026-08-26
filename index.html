@@ -251,7 +251,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=127" />
+<link rel="stylesheet" href="app-post-beta.css?v=131" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -1324,7 +1324,54 @@
        meta descriptions quote all three fragments verbatim; they were updated with
        this and have to stay in step. ============ -->
   <section class="summary-band" aria-label="What a club adds up to, and the tools we hand you">
-    
+
+    <!-- ==== THE HEAD, ADDED 2026-08-26. This was the ONLY section on the page with
+         no head: two lists and their ledes, arriving with nothing naming what they
+         are about. Every other section runs eyebrow / h2 / sub, and the band read
+         as an orphaned pair of columns because of it.
+         It also closes the gap the fold's new line three opened. Sue's thesis is
+         three clauses — "accountability buddies with something to show", "turn your
+         groups into little zines", "it even organizes the time, place, notifications,
+         deadlines for you" — and only the middle one was on the page. Every
+         scheduling beat elsewhere is framed as something a PERSON does ("Someone
+         sets it", "your Host sets one, with a deadline"); nothing said drex keeps
+         any of it. This sub is the only place the page makes that claim.
+         THE HEADING TAKES NO POSSESSION. Sue's draft opened "Turn your little
+         accountability groups into a magazine." Two edits, both with precedent
+         directly above:
+           - "your ... groups" presupposes the reader HAS one, which is the exact
+             exclusion the H1 comment records fixing ("Arriving alone is the commoner
+             case and the one an opening like 'Your club' silently excluded"). The
+             subject is the activity instead, so both doors stay open.
+           - "little" is affectionate in Sue's voice and diminishing in second person
+             to a stranger. Same register test that struck "creatives" at the
+             summary band's own first item.
+         "SHOWING UP", NOT "show-and-tell", and that was a render finding: the first
+         cut of this head used the page's spine word and put it THREE times in one
+         viewport — here, in "Many show-and-tells." four inches below, and in
+         #showtell's "See a show-and-tell." immediately after. The last of those is
+         load-bearing and cannot move, so this one did. "Showing up" is the better
+         line anyway: it is the accountability claim in plain English with none of
+         the fold's productivity register, it names the only input the reader has to
+         supply, and it still rhymes with the fold's "something to show!". The head
+         ends on the artifact, which is what this section's payoff is.
+         THE SUB CLAIMS SCHEDULING AND NOTHING ELSE. Sue's draft listed "time, place,
+         notifications, deadlines, collaboration, etc." — five nouns, and the two
+         columns four inches below ARE the features list, so the sub would be
+         previewing itself. It keeps only what the columns never say: the time, the
+         place, the date. "collaboration" is the abstract form of "Make the zine
+         together" one rank down and is dropped rather than said twice.
+         NOTIFICATIONS ARE DELIBERATELY ABSENT — the reminder work is a plan, not
+         something this repo can verify shipped, and this page's claims audit has
+         struck a promise before ("monthly", 2026-08-04) for exactly that. If
+         auto-reminders are live, "the reminders" is one clause and it is the most
+         persuasive item in the list. ==== -->
+    <div class="head sum-head">
+      <span class="eyebrow">the <span class="hl hl-y">whole idea</span></span>
+      <h2 class="slab">Turn showing up into a magazine<span class="stop">.</span></h2>
+      <p class="sum-sub">You bring the work. We keep the time, the place and the date, so the hour goes on making things instead of scheduling them.</p>
+    </div>
+
 <div class="sum-stack">
     <!-- TWO COLUMNS, NOT ONE STACK. The lists answer different questions — what a
          club adds up to, and what we hand you to get there — and stacked they read
@@ -1368,6 +1415,68 @@
     <span class="sc-down">scroll down!</span>
     <svg viewBox="0 0 24 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4 L12 12 L21 4"/></svg>
   </div>
+
+  <!-- ============ SEE WHAT PEOPLE ARE DOING (2026-08-26, Sue's ask) — the beat
+       after "Turn showing up into a magazine." The band says what a club turns
+       into; this shows a real one, made by strangers, and names the door out of it.
+       THE CLIP IS NOT NEW. assets/demo/book-cafe.mp4 has been in the repo since 22
+       July (8.5s, 720x720 — the real reader, a real issue, open at page 5 of 10)
+       and until now was reachable only by clicking a drawn phone down in #reader,
+       whose own markup note called that placeholder "highest value on the page ...
+       the entire discovery thesis lives here and it is currently an illustration
+       with SOON stamped on it." It plays inline here.
+       THIS IS A SEPARATE SECTION FROM #reader, NOT A MOVE OF IT. #reader keeps its
+       slot next to #bring, and the pair keeps its job: two doors, for the visitor
+       with no group and the visitor who arrives with one. This beat is not a door,
+       it is the evidence — you watch someone else's issue before anyone asks you
+       to decide anything.
+       KNOWN OVERLAP, worth a look before this ships twice: #reader's "Reader demo"
+       stamp opens THIS SAME CLIP in the .bd-open lightbox. Same footage, two
+       placements, one inline and one behind a click. If that reads as repetition,
+       the fix is to give #reader different footage or drop its stamp — not to
+       merge the sections.
+       THE FRAME IS .pw-media, #portfolio's treatment for real app capture (rough
+       filter border, no drawn device). The clip already carries the reader's own
+       chrome, so a drawn phone around it would frame a frame. Ratio overridden to
+       1/1; the wall and club tours are 4:5. ============ -->
+  <section class="seewhat" id="seewhat" aria-label="A real issue in the reader, from another club">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" style="color:var(--lazuli)">real clubs, real issues</span>
+        <!-- Sue's line: "see what people are doing — and join them." Set as TWO
+             sentences rather than an em-dash clause: every h2 on this page is one
+             short sentence or two ("The same people. Issue after issue."), and none
+             carries an em dash. "doing" holds the gerund rhyme with the band's
+             "showing up" directly above it.
+             .nb ON EACH SENTENCE, so the only legal break is BETWEEN them. Left to
+             wrap, Chrome set it "See what people are doing. Then / join them." and
+             orphaned the imperative onto its own line. Same deterministic-chunk fix
+             the fold uses, and for the same reason: a headline that breaks mid-clause
+             reads as a mistake in every engine, not just the one you tested. -->
+        <h2 class="slab"><span class="nb">See what people are <span class="ul">doing</span><span class="stop">.</span></span> <span class="nb">Then join them<span class="stop">.</span></span></h2>
+        <p class="rd-sub">Flip through what other clubs have made, then knock on a door.</p>
+      </div>
+
+      <figure class="rd-stage">
+        <button type="button" class="rd-open bd-open"
+                data-video="assets/demo/book-cafe.mp4" data-poster="assets/demo/book-cafe-poster.jpg"
+                data-cap="flip through other clubs&rsquo; zines"
+                aria-label="Watch the reader &mdash; flipping through other clubs&rsquo; zines">
+          <span class="pw-media rd-media">
+            <video class="rd-vid" width="720" height="720" muted loop playsinline preload="none"
+                   poster="assets/demo/book-cafe-poster.jpg"
+                   aria-label="The drex reader with a real issue open: Drawing at the Cafe, page 5 of 10, scrolling past a maker holding up their drawing.">
+              <source src="assets/demo/book-cafe.webm" type="video/webm" />
+              <source src="assets/demo/book-cafe.mp4" type="video/mp4" />
+            </video>
+            <img class="pw-still" src="assets/demo/book-cafe-poster.jpg" alt="The drex reader open on a real issue, Drawing at the Cafe, at page 5 of 10." loading="lazy" width="720" height="720" />
+          </span>
+        </button>
+        <figcaption class="rd-cap">flip through other clubs&rsquo; zines <span class="arr">&rarr;</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
 
   <!-- ============ SHOW-AND-TELL — one real club, start to finish, on a DUE-DATE
        SPINE. The hero states the loop; this is the only place on the page that
@@ -2268,6 +2377,7 @@
   })();
   </script>
 
+
   <!-- ============ THE READER — find your Circle by flipping through zines ============
        MOVED UP 2026-08-08, from between #long-game and #bring to here, straight after the
        proof run and straight before "why it works". It answers the biggest objection this
@@ -3063,11 +3173,13 @@
         async src="//gc.zgo.at/count.js"></script>
 
   <script>
-  /* #portfolio videos: preload="none" + play-on-intersection. Two looping panels
-     are ~2.7MB and decode continuously; eager autoplay would spend both on every
-     visitor whether or not they ever scroll this far. */
+  /* #portfolio and #reader videos: preload="none" + play-on-intersection. Three
+     looping panels are ~3MB and decode continuously; eager autoplay would spend all
+     of them on every visitor whether or not they ever scroll that far.
+     #seewhat joined this list 2026-08-26 — it plays the reader capture inline, on
+     the same contract, so it needs no driver of its own. */
   (function(){
-    var vids = document.querySelectorAll('#portfolio video');
+    var vids = document.querySelectorAll('#portfolio video, #seewhat video');
     if (!vids.length) return;
     if (!('IntersectionObserver' in window)) {            // no observer: just play
       [].forEach.call(vids, function(v){ v.play().catch(function(){}); }); return;
