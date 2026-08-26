@@ -5200,6 +5200,18 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
   max-width:46ch;margin:.7rem auto 0}
 .sht-sub b{color:var(--ink);font-weight:600}
 
+/* The exhibit label for the dated spine. "See a show-and-tell." was this section's
+   h2 until the ring moved in above it (2026-08-26); the claim took the headline slot
+   and the stage direction became what it always was — a caption on the exhibit.
+   It keeps the page's spine word in body copy: outside this line "show-and-tell"
+   survives only in the footer tagline. Slab italic at deck size so it reads as a
+   rank below the h2 and a rank above the dateline's own type, centred on the spine's
+   max-width, not the section's, so it sits over the thing it labels. */
+.sht-exhibit{font-family:var(--f-slab);font-style:italic;font-weight:700;color:var(--ink);
+  font-size:clamp(1.15rem,2.6vw,1.5rem);line-height:1.1;text-align:center;
+  max-width:772px;margin:clamp(1.9rem,4.4vw,2.9rem) auto clamp(.9rem,2.2vw,1.3rem)}
+.sht-exhibit .stop{color:var(--grass-deep)}
+
 /* ---------- the dateline ---------- */
 .dd{--rail:7.6rem;list-style:none;margin:0 auto;padding:0;max-width:772px;position:relative}
 /* one hand-inked red rule, drawn once, behind every row. It feathers out at the
