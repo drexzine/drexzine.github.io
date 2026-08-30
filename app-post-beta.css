@@ -1212,6 +1212,15 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
    which is a logged hard rule. Its own sheet under it via ::before + filter:url(#torn),
    so the edge is cut and not machined, and a hard offset shadow like every other sheet.
    Tilted the other way from the deck below it so the two do not read as one stack. */
+/* #seewhat had a heading, a video and no FACT - 13 rendered words for 717px of scroll.
+   This is the one the section was missing: the issues are public and browsable. */
+.sw-sub{margin:.6rem auto 0;max-width:34ch;text-align:center;color:var(--ink);
+  font-size:clamp(.95rem,1.9vw,1.1rem);line-height:1.4}
+
+/* the founders' closing question, in the margin voice, above the three doors. */
+.doors-ask{margin:.2rem 0 .1rem;color:var(--coral-ink);
+  font-size:clamp(1rem,2.2vw,1.28rem);line-height:1.2;transform:rotate(-1deg)}
+
 .mb-pull{position:relative;isolation:isolate;max-width:34rem;
   margin:0 auto clamp(1.4rem,3vw,2.2rem);padding:clamp(1rem,2.4vw,1.6rem) clamp(1.2rem,3vw,2rem);
   transform:rotate(.8deg);text-align:center}
@@ -5502,6 +5511,31 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
   border-radius:3px;transform:rotate(-2.4deg);box-shadow:3px 3px 0 0 var(--ink)}
 .dd-row.is-due .dd-print{--r:2.2deg}
 
+/* ---- THE ADDRESS SCRAP (.dd-anno) -------------------------------------------
+   One mark, in the gutter the copy cut opened. It exists because no picture on
+   this page ever showed that what a club ships is a WEB ADDRESS - the spine says
+   "it goes out" and "a link you can send anyone", and both are words.
+   THIS IS AN ANNOTATION, NOT MARGINALIA, and the difference is the whole point.
+   balanceMarginalia() never sees it (no .cg-scrap), and unlike the scraps it
+   injects by section HEIGHT, this one points at one specific thing and would be
+   simply wrong anywhere else on the page.
+   --f-slab, NOT --f-mono. --f-mono is "Space Grotesk" - a geometric sans, despite
+   the name (see the token comment at the top of this file). The page's typewriter
+   voice is Courier Prime = --f-slab, and an address is the one string on this page
+   that must read as typed.
+   THE SECOND MARK THAT WAS HERE IS GONE: a "their answer" label and arrow pointing
+   into the beat-03 print. It was built, rendered and cut - the thing it named is
+   ~8px in that screenshot, so it labelled something illegible, and beat 03's
+   sentence carries the meaning in words instead.
+   HIDDEN AT <=720px, the stack breakpoint, where the print widens and the text
+   column is no longer beside it.
+   -------------------------------------------------------------------------- */
+.dd-anno{position:absolute;pointer-events:none;z-index:4}
+.dd-anno svg{display:block;width:100%;height:auto;overflow:visible}
+.dd-anno-url{right:100%;margin-right:-6px;top:calc(100% - 66px);width:250px}
+.dd-anno-url text{font-family:var(--f-slab);font-weight:700;font-size:15px;letter-spacing:.01em;fill:var(--ink)}
+@media(max-width:720px){.dd-anno{display:none}}
+
 /* the tail: the spine doesn't stop at shipped */
 .dd-after{position:relative;display:grid;grid-template-columns:var(--rail) 1fr;align-items:center;
   padding-top:clamp(2.4rem,5vw,3.6rem)}
@@ -8500,6 +8534,69 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
 @media (prefers-reduced-motion:reduce){
   .rd-open:hover .rd-media{transition:none}
   .rd-cap .arr,.rd-stage:hover .rd-cap .arr{transition:none; translate:0}
+}
+
+/* ---- THE ARTIFACT BESIDE THE DOOR (2026-08-29) -----------------------------
+   .sw-pair turns this section from one centred square into two objects: the
+   printed issue on the left, the reader on the right. At 1440 the old layout
+   left ~340px of blank paper down each side, which is the entire budget this
+   spends.
+   THE COVER COLUMN IS THE WIDER ONE ON PURPOSE. The whole change exists to make
+   burnt-in type legible, and the source is only 600x750 - at 30rem it renders
+   at 0.8x, which is already upscaling territory. Do not shrink this column to
+   balance the grid, and do not enlarge it past the source either: a bigger box
+   needs a bigger scan. The remaining legibility problem is CONTRAST, not size
+   (two of the makers' answers are dark grey on a grey shirt) and it is fixed in
+   the JPEG, not here.
+   THE FRAME IS .lg-real's, NOT .pw-media's. .pw-media backs its media with a
+   cork-tan slab because it frames app screenshots whose own edge is that tan;
+   this is a photograph of paper, so it gets the page's paper treatment - an
+   empty ::before slab in --paper with an ink border and a hard offset shadow,
+   run through #torn, with the crisp image floated on top.
+   THE FILTER GOES ON THE SLAB AND NEVER ON THE PICTURE. feDisplacementMap
+   displaces every pixel of whatever it filters, and what it would chew here is
+   the masthead and the handwritten reflection question - the two things this
+   change exists to make legible. Same trick .pw-media and .craftboard use.
+   THE TAPE PINS IT: corner washi across the top-left, half on the sheet and
+   half on the page, the same construction as .lg-real .lg-shot::after. Tape in
+   an empty gutter pinning nothing is this page's known sin.
+   --tape-lazuli IS NOT DEFINED ANYWHERE, here or in .lg-real, which has shipped
+   on the fallback for months. The rgba() is load-bearing; keep both rules
+   spelled the same so defining the token later lands on both at once.
+   COUNTER-TILT +1.5deg against the reader's -1.1deg, so the two read as a pile
+   rather than as a two-column grid.
+   MOBILE TRIMS THE FRINGE, THE SHADOW AND THE TAPE - never the picture. At 390
+   the full-size -13px fringe plus the 9px shadow put the sheet's right edge past
+   the viewport, where html{overflow-x:clip} swallows it instead of scrolling: no
+   scrollbar appears, which is how that class of bug survives a sweep.
+   NOT INTERACTIVE ON PURPOSE - no hover, no transition, so there is nothing for
+   prefers-reduced-motion to turn off. See the markup note for why it is a figure
+   and not a second door.
+   -------------------------------------------------------------------------- */
+.sw-pair{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+  gap:clamp(2rem,4.5vw,4rem);align-items:center;
+  max-width:62rem;margin:clamp(1.8rem,4vw,2.8rem) auto 0}
+.sw-real{margin:0;width:100%;max-width:30rem;justify-self:center}
+.sw-pair .rd-stage{margin:0;width:100%;max-width:24rem;justify-self:center}
+.sw-shot{position:relative;display:block;transform:rotate(1.5deg)}
+.sw-shot::before{content:"";position:absolute;inset:-13px;z-index:0;
+  background:var(--paper);border:2.4px solid var(--ink);
+  box-shadow:9px 10px 0 0 var(--ink);filter:url(#torn)}
+.sw-shot img{position:relative;z-index:1;display:block;width:100%;height:auto}
+.sw-shot::after{content:"";position:absolute;z-index:2;
+  left:-24px;top:-15px;width:100px;height:24px;
+  background:var(--tape-lazuli,rgba(36,150,201,.42));
+  border-left:1px solid rgba(65,77,87,.18);border-right:1px solid rgba(65,77,87,.18);
+  transform:rotate(-34deg);filter:url(#torn)}
+/* the lite tier drops SVG filters page-wide; keep the shadow so the sheet lifts */
+html[data-tier="lite"] .sw-shot::before{filter:none;border-radius:3px}
+html[data-tier="lite"] .sw-shot::after{filter:none}
+@media (max-width:880px){
+  .sw-pair{grid-template-columns:1fr;gap:clamp(2.4rem,8vw,3.2rem);max-width:22rem}
+  .sw-real{max-width:22rem}
+  .sw-pair .rd-stage{max-width:20rem}
+  .sw-shot::before{inset:-9px;box-shadow:6px 7px 0 0 var(--ink)}
+  .sw-shot::after{left:-15px;top:-11px;width:72px;height:20px}
 }
 
 /* ===================================================================
