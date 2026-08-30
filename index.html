@@ -251,7 +251,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=132" />
+<link rel="stylesheet" href="app-post-beta.css?v=133" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -1381,7 +1381,7 @@
     <div class="head sum-head">
       <span class="eyebrow">the <span class="hl hl-y">whole idea</span></span>
       <h2 class="slab">Turn showing up into a magazine<span class="stop">.</span></h2>
-      <p class="sum-sub">You bring the work. <span class="hl hl-y">We do the nagging</span>: the hour, the place, the deadlines.</p>
+      <p class="sum-sub">You bring the work. <span class="hl hl-y">We do the nagging</span>: the hour, the place. The deadline closes itself.</p>
     </div>
 
 <div class="sum-stack">
@@ -1917,6 +1917,24 @@
        A chat has no deadline, no challenge, and nothing to show at the end; those
        three absences are the whole product, so we name them side by side. ============ -->
   <section class="versus" id="why-not-chat">
+    <!-- SECTION ILLUSTRATION — the abandoned bubble. This section's whole claim is
+         "4,000 messages. Nothing made.", i.e. the chat did not die, it just stopped
+         being where anything happens. So: a speech bubble nobody has spoken into
+         long enough for a spider has moved in. Drawn, not placed — the
+         strokes ink themselves in as it scrolls up. -->
+    <span class="si si-l" aria-hidden="true" style="--si-rot:-6deg;--si-w:116px;top:22%">
+      <svg viewBox="0 0 104 116" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <g filter="url(#roughsm)">
+          <path data-si-draw pathLength="1" d="M14 22 C14 13 20 8 29 8 L77 8 C86 8 92 13 92 22 L92 48 C92 57 86 62 77 62 L44 62 L28 78 L31 62 L29 62 C20 62 14 57 14 48 Z"
+                stroke="var(--ink)" stroke-width="3.4"/>
+          <path data-si-draw pathLength="1" d="M63 62 L63 88" stroke="var(--ink)" stroke-width="1.6"/>
+          <path data-si-draw pathLength="1" d="M56 92 L48 85 M55 98 L46 99 M57 104 L50 110 M70 92 L78 85 M71 98 L80 99 M69 104 L76 110"
+                stroke="var(--coral-ink)" stroke-width="1.9"/>
+          <ellipse cx="63" cy="98" rx="6.4" ry="5.6" fill="var(--coral-ink)"/>
+        </g>
+      </svg>
+    </span>
+
     <div class="wrap">
       <div class="head">
         <h2 class="slab">Why not a <span class="ul">group chat</span><span class="stop">?</span></h2>
@@ -2975,7 +2993,7 @@
   });
 })();
 </script>
-<script type="module" src="app-post-beta.js?v=54"></script>
+<script type="module" src="app-post-beta.js?v=55"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign

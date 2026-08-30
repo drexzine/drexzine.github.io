@@ -530,14 +530,14 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 
 /* ---------- three doors = littered postcards (.splay, NOT a grid) ---------- */
 .doors{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
-.doors .head{margin-bottom:clamp(2rem,5vw,3rem)}
+.doors .head{margin-bottom:clamp(2rem,5vw,3rem);text-align:center}
 .doors .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);
   line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
 .splay{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(1.6rem,3vw,2.6rem);align-items:flex-start}
 .card{position:relative;width:min(318px,100%)}
 .card .inner{padding:clamp(1.6rem,2.6vw,2.1rem);display:flex;flex-direction:column;min-height:250px}
 .card.big{width:min(410px,100%)}  /* the Circle is the primary door — unmistakably dominant */
-.card.big .inner{min-height:312px}
+.card.big .inner{min-height:0}
 .card h3{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.7rem,2.7vw,2.3rem);
   line-height:1;margin:.3rem 0 0;color:var(--ink)}
 .card.big h3{font-size:clamp(2.1rem,3.2vw,2.9rem)}
@@ -564,7 +564,10 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
 .how .head h2 .stop{color:var(--grass-deep)}
 .how-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.05rem,1.8vw,1.3rem);color:rgba(65,77,87,.85);max-width:42ch;margin:.85rem auto 0}
-/* the loop = a Circle: 5 stations around a hand-drawn ring, arrow looping back to Gather */
+/* the loop = the club's cycle: FOUR stations around a hand-drawn ring, arrow looping back to
+   the Challenge. (It said five, and "Gather" — both are pre-2026-08 names. See the note at
+   .how .step:nth-child(1) below: Practice was folded into the clock face, and the stations are
+   Challenge / Club Hour / Your own time / Show & tell, which is what the markup's h3s say.) */
 /* container-query units keep the WHOLE diagram one scalable unit → the circle holds its
    proportions at every width (never overlaps), instead of collapsing to a linear stack */
 /* the ring and its footnote share a stage, so the note can be parked in the dead margin beside the
@@ -572,42 +575,45 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .how-stage{position:relative;width:min(560px,94vw);margin:0 auto;padding-top:clamp(.6rem,2.6vw,1.7rem)}
 .how-loop{position:relative;width:100%;aspect-ratio:1;container-type:inline-size}
 .how-ring{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible}
-.how-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-5deg);z-index:1;
-  font-family:var(--f-hand);font-size:5.6cqw;line-height:1.02;text-align:center;color:var(--colorado);opacity:.85;
-  animation:how-spin 18s linear infinite}
-@keyframes how-spin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){.how-center{animation:none;transform:translate(-50%,-50%) rotate(-5deg)}}
+/* REJECTED 2026-08-29 — .how-center, the "every week" scrawl in the ring's middle, and its
+   @keyframes how-spin. No page that loads this sheet has the markup; the rules were carried
+   forward when this file was split out of app.css and have styled nothing since.
+   NOT RESTORED, and the reason is DUPLICATION, not collision: node 02's own caption already
+   reads "the same hour every week" two inches away (R-2 — a second line beside a first line
+   restates it), and the recurrence is now said by the ring TURNING. See .how-ring{animation:
+   how-turn} below, whose comment records that swap.
+   FOR THE RECORD, because it is the plausible-sounding reason and it is FALSE: the thought
+   balloon does NOT reach the centre. Measured at 1440 — its top edge sits about 123px BELOW
+   the ring's centre, so a restored two-line scrawl would have cleared it comfortably. */
 .how-loopback{display:none}   /* desktop: the ring shows the loop; this is the mobile-only loop-back cue */
 .how .flow{list-style:none;margin:0;padding:0;position:absolute;inset:0;z-index:2}
 /* width tuned so a side station (centre at 86%/14% on the ring) + its note stays inside the 100cqw box at every size */
 .how .step{position:absolute;width:24cqw;transform:translate(-50%,-50%);text-align:center}
-/* each station sits on a STICKY NOTE → the loop threads BEHIND it (contrast + no ring-through-icon) */
-.how .step::before{content:"";position:absolute;inset:-2.3cqw -1.7cqw;z-index:-1;background:var(--happy);
-  border:.35cqw solid var(--ink);border-radius:.7cqw;box-shadow:.72cqw .72cqw 0 0 var(--ink);filter:url(#roughsm)}
-.how .step:nth-child(even)::before{filter:url(#roughsm2)}   /* vary the hand-cut edge per note */
-/* the folded-up sticky corner */
-@media(min-width:341px){
-  .how .step::after{content:"";position:absolute;z-index:-1;right:-1.7cqw;bottom:-2.3cqw;width:0;height:0;
-    border-left:3.6cqw solid transparent;border-bottom:3.6cqw solid var(--schoolbus);filter:url(#roughsm)}
-  /* the three OBJECT nodes have no sticky note under them — so they get no folded corner either,
-     or it floats in the ring like a stray scrap. */
-  .how .step.is-clock::after,.how .step.is-globe::after,.how .step.is-think::after{display:none}
-}
-/* tap "every week": the words stop — and the ring takes over the spinning.
-   .flow sits above the center (z2 vs z1) — let clicks fall through it except on the notes. */
-.how .flow{pointer-events:none}
-.how .step{pointer-events:auto}
-.how-center{cursor:pointer;pointer-events:auto;padding:1.2cqw}
-.how-loop.spin-swap .how-center{animation:none}
-.how-loop.spin-swap .how-ring{transform-origin:50% 50%;animation:how-spin-ring 16s linear infinite}
-@keyframes how-spin-ring{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){.how-loop.spin-swap .how-ring{animation:none}}
+/* DELETED 2026-08-29 — the STICKY NOTE ground under each station, its nth-child(even) hand-cut
+   edge variant, and the folded-up corner that hung off it. Four comments described this
+   treatment and none of it had rendered for a long time: every station on every page is one of
+   is-cal / is-clock / is-think / is-globe, and each of those four sets ::before{display:none}
+   further down this file. The reason is in their own comments — "no sticky ground under the
+   object", "the balloon IS the ground". All four stations became OBJECTS (calendar, clock,
+   thought balloon, globe), so the note under them had nothing left to do.
+   NOT RESTORED: a paper note behind a drawn object is paper-on-paper. If a fifth, note-shaped
+   station is ever added, this is the rule to write again — not to un-delete. */
+/* DELETED 2026-08-29 — the tap-the-centre gag ("the words stop, the ring turns instead"), with
+   .spin-swap, @keyframes how-spin-ring, and the pointer-events pair that existed only to let a
+   click reach .how-center. It described a gesture no visitor could perform: the class was
+   toggled by initHowGag(), which looked for .how-center and returned early because there isn't
+   one. On the rebuilt page the .how ring holds no anchors, buttons or [tabindex] at all, so the
+   pointer-events juggling had no remaining job. (Four of the seven pages that load this sheet
+   DO carry a link inside .how — .reveal-name's research link — but it is a SIBLING of .flow,
+   never a descendant, so .how .flow{pointer-events:none} never reached it either way.)
+   The ring turns unconditionally — see .how-ring{animation:how-turn} below. initHowGag() is
+   deleted from app-post-beta.js with this. */
 /* Four nodes, not five: Practice was already one of the four words on the clock face, so as a step
    it counted itself twice. Four lands on a clean compass at R=38 on the ring. */
-.how .step:nth-child(1){top:12%;left:50%}      /* Challenge   — top (in the ring's gap) */
-.how .step:nth-child(2){top:50%;left:88%}      /* Circle Time — right */
-.how .step:nth-child(3){top:88%;left:50%}      /* Reflect     — bottom */
-.how .step:nth-child(4){top:50%;left:12%}      /* Show & tell — left */
+.how .step:nth-child(1){top:8%;left:50%}       /* Challenge      — top (in the ring's gap) */
+.how .step:nth-child(2){top:50%;left:88%}      /* Club Hour      — right */
+.how .step:nth-child(3){top:88%;left:50%}      /* Your own time  — bottom */
+.how .step:nth-child(4){top:56%;left:12%}      /* Show & tell — left */
 .how .step .n{font-family:var(--f-mono);font-weight:600;font-size:2.05cqw;letter-spacing:.14em;
   text-transform:uppercase;color:var(--ink);display:block;margin-bottom:1cqw}
 .how .step .ico{width:10cqw;height:10cqw;margin:0 auto 1.3cqw;display:block}
@@ -618,21 +624,39 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .how .step h3{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:4.3cqw;
   line-height:1;margin:0;color:var(--ink)}
 .how .step p{font-family:var(--f-hand);font-size:3.3cqw;line-height:1.15;margin:.8cqw 0 0;color:var(--sambas)}
-/* very small screens only: a legible circle can't hold 5 text stations below ~340px,
-   so fall back to the unwound vertical stack with down-arrows */
-@media(max-width:340px){
+/* small screens only: a legible circle can't hold four text stations in the width, so below
+   560px — the media query on the very next line; this comment used to say ~340px, which was
+   never the breakpoint — fall back to the unwound vertical stack. Sequence is carried by the
+   numbers 01..04, by the vertical order itself, and by .how-loopback, the red "back to the
+   start" arrow hugging the stack. */
+@media(max-width:560px){
   .how-loop{display:flex;align-items:stretch;justify-content:center;gap:6px;width:auto;aspect-ratio:auto;margin-top:.4rem}
-  .how-ring,.how-center{display:none}
+  .how-ring{display:none}
   .how .flow{position:static;display:grid;grid-template-columns:1fr;gap:clamp(1.6rem,6vw,2.2rem);width:12.5rem;max-width:66vw;margin:0}
   .how .step{position:relative;transform:none;width:auto}
-  .how .step::before{display:none}   /* notes are a circle-only treatment; the stack stays clean */
   .how .flow .step:nth-child(1),.how .flow .step:nth-child(2),.how .flow .step:nth-child(3),.how .flow .step:nth-child(4),.how .flow .step:nth-child(5){top:auto;left:auto}  /* unset the circular coords so the stack centers */
   .how .step .ico{width:50px;height:50px}
   .how .step p{font-size:1.02rem}
-  .how .step:not(:last-child)::after{content:"";position:absolute;left:50%;bottom:calc(-0.5 * clamp(1.6rem,6vw,2.2rem) - 7px);
-    transform:translateX(-50%) rotate(90deg);width:24px;height:15px;background:no-repeat center/contain
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='20' viewBox='0 0 30 20' fill='none' stroke='%23414D57' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10 H24'/%3E%3Cpath d='M17 4 L26 10 L17 16'/%3E%3C/svg%3E");opacity:.5}
-  /* loop-back: a real curved arrow hugging the stack, Share (bottom) → Gather (top) */
+  /* the three per-node width/size overrides live OUTSIDE this block and outspecify
+     `.how .step{width:auto}` above, so the stack must unset them explicitly or nodes
+     02 and 03 stay at 81px and 68px with 8px type. */
+  .how .step.is-key,.how .step.is-think,.how .step.is-cal{width:auto}
+  .how .step.is-think h3,.how .step.is-globe h3{font-size:1.18rem}
+  .how .step.is-think p{font-size:1.02rem;max-width:none}
+  .how .step.is-clock .ico{width:66px;height:66px;margin:0 auto .3rem}
+  .how .step.is-globe .ico,.how .step.is-cal .ico{width:auto;max-width:120px}
+  /* REJECTED 2026-08-29 — the down-arrow connectors between stacked stations. They had not
+     drawn for anybody: is-clock/is-globe/is-think are killed by the folded-corner block's
+     ::after rule and is-cal/is-think again downpage. Measured: zero of four stations draw an
+     arrow at 390px, and exactly one does at 330px — under the clock, where the min-width:341px
+     guard lapses.
+     THE OBVIOUS REPAIR DOES NOT WORK, and this is the part worth keeping: scoping this rule up
+     to out-specify the kills changes nothing, because the cascade resolves per PROPERTY and
+     this rule never declares `display`. Restoring the arrow needs a new rule with an explicit
+     display, not a specificity bump.
+     NOT RESTORED: the stack already carries sequence three ways — 01..04, vertical order, and
+     the red .how-loopback arrow. A fourth cue is not craft. */
+  /* loop-back: a real curved arrow hugging the stack, Show & tell (bottom) → Challenge (top) */
   .how-loopback{display:block;order:-1;flex:none;align-self:stretch;position:relative}
   .how-loopback .lb-arrow{height:100%;width:auto;display:block;overflow:visible}
   .how-loopback span{position:absolute;top:50%;right:-2px;transform:translateY(-50%) rotate(-90deg);transform-origin:center;
@@ -974,7 +998,7 @@ html[data-tier="lite"] .craftboard::before{filter:none;animation:none}
 /* ---------- why not a group chat = the objection, answered side by side ----------
    The chat column is deliberately the drab one (desaturated, tilted the "wrong"
    way); the Circle column carries the grass accent. The kicker is the payload. */
-.versus{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
+.versus{position:relative;padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
 .versus .head{margin-bottom:clamp(1.8rem,4.5vw,2.6rem);text-align:center}
 .versus .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);
   line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
@@ -1034,7 +1058,7 @@ html[data-tier="lite"] .craftboard::before{filter:none;animation:none}
 .cm-arrow svg{width:64px;height:28px;display:block}
 /* the cards carry a hard offset shadow, so a bare figcaption collides with it */
 .vs-card .cap{display:block;font-family:var(--f-hand);font-size:1.08rem;color:var(--sambas);
-  text-align:center;margin:1.35rem auto 0;transform:rotate(-1deg);max-width:26ch}
+  text-align:center;margin:1.35rem auto 0;transform:rotate(-1deg);max-width:24ch;text-wrap:balance}
 .vs-card.vs-circle .cap{color:var(--grass-deep)}
 .cm-out{display:flex;flex-direction:column;align-items:center;gap:.35rem;text-align:center}
 .cm-zine{width:clamp(56px,7vw,70px);height:auto;filter:drop-shadow(3px 4px 0 rgba(65,77,87,.55))}
@@ -1165,6 +1189,90 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
 .mb-challenge{margin:.15rem 0 .55rem;font-family:var(--f-hand);line-height:1.2;
   font-size:clamp(1.3rem,2.8vw,1.7rem);color:#2C1D0B}
 .mb-k-q{color:var(--lazuli-deep);margin-bottom:.25rem}
+/* The board is six answers to ONE question and never said so. This names the
+   mechanism, which also tells a reader where the quotes came from - they are
+   reflection answers, not solicited testimonials. Annotation weight on purpose:
+   it frames the question below it, it must not compete with it. */
+/* 2026-08-29 CONTRAST. Colorado on a Happy band measured 2.66:1 - under even the
+   3:1 large-text floor, and against DESIGN.md's "both yellows are 5% accents,
+   dark-ink text only". The band keeps its colour; the word on it goes to ink. 6.98:1. */
+.eyebrow .hl-y{color:var(--ink)}
+
+/* C1/C12/C16. The maker handles were set in their card's accent at 7-8px: School Bus
+   on cream measured 1.82:1, Colorado 3.07, Lazuli 3.11. School Bus as TEXT is a
+   written violation, not just a WCAG one. The accent stays as the pin and the card
+   edge - which is where an accent belongs - and the name becomes readable. */
+
+/* A1. The pile's lead card did not cover the next card's caption, so two makers'
+   handles were legible at once, in two different accent colours, under one photo.
+   Intermittent because the deck rotates every 3.2s, which is how it survived review. */
+#mbDeck .mpol:not(.lead) .mv-strip b{visibility:hidden}
+
+/* THE PULL QUOTE. A torn scrap pinned to the kraft board - not bare text on cork,
+   which is a logged hard rule. Its own sheet under it via ::before + filter:url(#torn),
+   so the edge is cut and not machined, and a hard offset shadow like every other sheet.
+   Tilted the other way from the deck below it so the two do not read as one stack. */
+.mb-pull{position:relative;isolation:isolate;max-width:34rem;
+  margin:0 auto clamp(1.4rem,3vw,2.2rem);padding:clamp(1rem,2.4vw,1.6rem) clamp(1.2rem,3vw,2rem);
+  transform:rotate(.8deg);text-align:center}
+.mb-pull::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
+  border:2.6px solid var(--ink);border-radius:5px;box-shadow:7px 8px 0 0 var(--ink);
+  filter:url(#torn)}
+html[data-tier="lite"] .mb-pull::before{filter:none}
+.mb-pull blockquote{margin:0;font-family:var(--f-hand);color:var(--ink);
+  font-size:clamp(1.25rem,3.2vw,1.9rem);line-height:1.18;text-wrap:balance}
+.mb-pull figcaption{margin-top:.5rem;font-family:var(--f-mono);letter-spacing:.08em;
+  font-size:clamp(.62rem,1.3vw,.72rem);color:var(--ink);opacity:.72}
+@media(max-width:520px){.mb-pull{transform:rotate(.5deg)}}
+
+.mb-frame{margin:0 auto .5rem;max-width:48ch;line-height:1.35;
+  font-size:clamp(.82rem,1.5vw,.95rem);color:#5A3E1C}
+
+/* KURTIS - the one person on the page shown moving from newcomer to host.
+   2026-08-29 REWRITTEN. The first version was a machined rectangle: border on the box
+   itself plus border-radius:6px. Two house rules broken at once - NO STRAIGHT EDGES and
+   ALWAYS HAND-DRAWN - and a critic caught it: everything else on this page depicts a
+   THING (a calendar, a shelf, a cork board, a group chat) while the most emotional beat
+   on the page was rendered as a card that depicts a card.
+   Now built the way every other sheet here is: the paper is a ::before carrying the
+   fill, the ink border and the hard offset shadow, run through filter:url(#torn) so the
+   edge is cut rather than machined. Content sits at z-index 1 so the filter never
+   touches the type. The photo is taped down, not framed. */
+.lg-real{position:relative;isolation:isolate;
+  display:grid;grid-template-columns:clamp(120px,18vw,168px) 1fr;
+  gap:clamp(.9rem,2vw,1.4rem);align-items:center;
+  max-width:44rem;margin:clamp(1.6rem,3.5vw,2.6rem) auto clamp(.8rem,1.6vw,1.1rem);
+  padding:clamp(1rem,2.2vw,1.5rem);
+  transform:rotate(-.5deg);transition:transform .18s ease}
+.lg-real::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:var(--paper);border:2.6px solid var(--ink);border-radius:5px;
+  box-shadow:7px 8px 0 0 var(--ink);filter:url(#torn)}
+.lg-real:hover{transform:rotate(0)}
+html[data-tier="lite"] .lg-real::before{filter:none}
+
+/* the photo is a taped-down print: its own torn sheet under it, a strip of washi across
+   the top-left corner holding it to the page. Tape that pins something, which is the
+   only thing tape is allowed to do here. */
+.lg-real figure,.lg-real .lg-shot{position:relative}
+.lg-real img{display:block;position:relative;z-index:1;width:100%;height:auto;
+  transform:rotate(1.4deg)}
+.lg-real .lg-shot::before{content:"";position:absolute;inset:-6px;z-index:0;
+  background:var(--paper);border:2.2px solid var(--ink);
+  box-shadow:4px 5px 0 0 var(--ink);filter:url(#torn);transform:rotate(1.4deg)}
+.lg-real .lg-shot::after{content:"";position:absolute;z-index:2;
+  left:-14px;top:-9px;width:56px;height:20px;
+  background:var(--tape-lazuli,rgba(36,150,201,.42));
+  border-left:1px solid rgba(65,77,87,.18);border-right:1px solid rgba(65,77,87,.18);
+  transform:rotate(-24deg);filter:url(#torn)}
+.lg-real figcaption{margin:0;position:relative;z-index:1}
+.lg-real-q{margin:0 0 .35rem;font-family:var(--f-hand);line-height:1.15;
+  font-size:clamp(1.15rem,2.4vw,1.5rem);color:var(--ink)}
+.lg-real-a{margin:0;font-size:clamp(.9rem,1.7vw,1.02rem);line-height:1.42;color:var(--ink)}
+@media(max-width:720px){
+  .lg-real{grid-template-columns:1fr;justify-items:center;text-align:center;max-width:22rem}
+  .lg-real img{max-width:190px}
+}
+@media(prefers-reduced-motion:reduce){.lg-real{transition:none}}
 
 .mb-grid{columns:4;column-gap:clamp(.7rem,1.4vw,1.1rem)}
 @media(max-width:1080px){.mb-grid{columns:3}}
@@ -1207,8 +1315,14 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
 .mv-strip q{display:block;font-family:var(--f-hand);font-size:1rem;line-height:1.2;color:var(--ink);
   quotes:'\201C' '\201D'}
 .mpol.lead .mv-strip q{font-size:1.22rem;line-height:1.18}
-.mv-strip b{display:block;margin-top:.35rem;font-family:var(--f-mono);font-weight:400;font-size:.54rem;
-  letter-spacing:.08em;color:var(--c,var(--colorado))}
+/* 2026-08-29 CONTRAST. The handle used to take its card's accent as its TEXT colour at
+   .54rem (8.6px): School Bus measured 1.82:1 on cream, Colorado 3.07, Lazuli 3.11 - all
+   under AA, and School Bus as text breaks DESIGN.md outright ("both yellows are 5%
+   accents, dark-ink text only"). The accent stays where an accent belongs - the pin and
+   the card edge, both still var(--c) - and the name itself goes to ink at a size you can
+   actually read. 8.2:1. */
+.mv-strip b{display:block;margin-top:.35rem;font-family:var(--f-mono);font-weight:400;font-size:.72rem;
+  letter-spacing:.08em;color:var(--ink)}
 
 /* the echo sits BELOW the cycling deck. It was getting covered as the stack fanned downward, so it
    now clears the deck's footprint and rides above it (z-index) as insurance against a stray card. */
@@ -1234,7 +1348,7 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
 /* The Circle card sits on a yellow sticky note — the group chat is a cold slab of paper, the Circle
    is the warm thing somebody stuck on the wall. Cheapest possible way to make the good column FEEL
    good, and it brands the moment in schoolbus yellow. */
-.vs-card.vs-circle .circlemock::before{background:var(--happy)}
+.vs-card.vs-circle .circlemock::before{background:var(--schoolbus)}
 .vs-card.vs-circle .cm-note::before{background:var(--paper)}
 /* the curled corner + the shadow that says "stuck on, not printed" */
 .vs-card.vs-circle .circlemock{position:relative}
@@ -1246,20 +1360,14 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
 .vs-card.vs-circle .cap{color:var(--grass-deep)}
 
 
-/* CIRCLE TIME is the heart of the loop, so it gets to be the biggest note on the ring — and it
-   carries Chielo's four "people resources" inline. Inline, not stacked: four words wrapping on one
-   line reads as a PROPERTY of the hour; four bullets on four lines reads as a to-do list and blows
-   the ring's geometry. If this node lands, the page needs no separate section explaining it. */
-/* 30cqw pushed the node outside the ring at the 3 o'clock position. 26 keeps it emphasised and
-   inside the circle; the happy-yellow ground does the rest of the work. */
+/* CLUB HOUR is the heart of the loop, so it gets to be the biggest station on the ring.
+   30cqw pushed the node outside the ring at the 3 o'clock position; 26 keeps it emphasised and
+   inside the circle.
+   The four "people resources" — practice / observe / ask / be seen — are NOT set here any more.
+   They live in the clock's own quadrants. The markup's note on that SVG records why, in its own
+   words: "Said twice, legible zero times", and, separately, "The red line is deleted." The
+   .mechs rules that used to print them under the node went with it. */
 .how .step.is-key{width:26cqw;z-index:3}
-.how .step.is-key::before{inset:-2.6cqw -2cqw;background:var(--happy)}
-.how .step .mechs{margin:.45rem 0 0;padding-top:.45rem;position:relative;
-  font-family:var(--f-hand);font-size:2.6cqw;letter-spacing:.01em;line-height:1.25;
-  color:var(--ink);text-transform:lowercase;text-wrap:balance}
-/* a hand-drawn rule, because nothing here is drawn with a ruler */
-.how .step .mechs::before{content:"";position:absolute;top:0;left:12%;right:12%;height:2.2px;
-  background:var(--colorado);opacity:.4;border-radius:2px;filter:url(#rough)}
 .how .step p b{color:var(--ink)}
 
 
@@ -1267,7 +1375,6 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
    four notes and one OBJECT says "this one is different" without a word of copy. The hour is
    quartered into the four ways you use it. Hands sweep, because a clock that doesn't move is a
    drawing of a clock. */
-.how .step.is-clock::before{display:none}          /* no sticky ground under the object */
 .how .step.is-clock .ico{width:100%;height:auto;margin:0 auto .3rem}
 .ctclock{width:clamp(104px,20cqw,168px);height:auto;display:block;margin:0 auto;overflow:visible;
   filter:drop-shadow(4px 5px 0 rgba(65,77,87,.55))}
@@ -1278,14 +1385,17 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
 @media(prefers-reduced-motion:reduce){.ct-min,.ct-hr{animation:none}}
 /* the name goes ABOVE the object: you read the label, then look at the thing it names. */
 .how .step.is-clock h3,.how .step.is-globe h3,.how .step.is-cal h3{margin:0 0 .4cqw}
-.how .step.is-globe h3{font-size:3.9cqw;white-space:nowrap}
+/* This node is pinned at the ring's edge, so it can never exceed .how .step's 24cqw and an
+   overflowing line has nowhere to go but through node 01's answer. At 3.6cqw (the balloon
+   node's size) "Who sees it?" clears by ~10px at 560, ~7px at 390. Lengthen this heading
+   and the nowrap comes off with it. */
+.how .step.is-globe h3{font-size:3.6cqw;white-space:nowrap}
 
 
 /* SHOW & TELL IS A GLOBE. Two objects in a ring of notes: the CLOCK at 02 (the hour, small, your
    people) and the GLOBE at 05 (the world, big, everyone else). That pairing IS the thesis —
    make small, show and tell big — built into the loop instead of bolted on as a stunt.
    The paper plane was already the Show icon; now it orbits. */
-.how .step.is-globe::before{display:none}
 .how .step.is-globe .ico{width:100%;height:auto;margin:0 auto .3rem}
 .ctglobe{width:clamp(104px,20cqw,168px);height:auto;display:block;margin:0 auto;overflow:visible;
   filter:drop-shadow(4px 5px 0 rgba(65,77,87,.55))}
@@ -1313,7 +1423,8 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
    balloon, not the other way round. The tail bubbles live inside the same SVG, so they scale and
    boil with it instead of drifting around as absolutely-positioned divs. */
 .how .step.is-think{position:relative;width:22cqw}
-.how .step.is-think::before,.how .step.is-think::after{display:none}   /* the balloon IS the ground */
+/* no ::before/::after kill needed: the balloon IS this station's ground, and the sticky note
+   that used to sit under every station is deleted (see the .how .step::before block above). */
 .thoughtb{position:absolute;left:50%;top:50%;
   /* the viewBox is 180 tall but the BALLOON only occupies the top 140 — its centre is 20 units
      above the SVG's centre, so the whole thing shifts DOWN to put the balloon (not the tail) around
@@ -1341,7 +1452,16 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
    a tear-off desk calendar IS the thing — it carries the day, the fact that a fresh page comes
    every week, and the challenge scrawled on it, without a word of prose. Now all four nodes are
    objects: CALENDAR, CLOCK, THOUGHT BALLOON, GLOBE. */
-.how .step.is-cal::before,.how .step.is-cal::after{display:none}
+/* no ::before/::after kill needed: the pad IS this station's ground, and the sticky note that
+   used to sit under every station is deleted (see the .how .step::before block above). */
+/* 24cqw is the SIDE stations' budget: at 14% and 86% anything wider spills out of the box.
+   Node 01 sits at the top, where ~79px of ring margin goes unused on each side, so it paid
+   that tax for nothing and wrapped its question onto three ragged lines. 32cqw gives it two,
+   and shortens its answer line with it; at 560px it clears the clock by 50px, the globe by
+   56px. COUPLED to node 04: widening node 01 moves it toward node 04's overflow path, so a
+   long node-04 heading collides worse after this. Never take this without keeping node 04's
+   heading short. Ring layout only — below 341px the ring unwinds and every station is auto. */
+@media(min-width:561px){ .how .step.is-cal{width:32cqw} }
 .how .step.is-cal .ico{width:100%;height:auto;margin:0 auto .3rem}
 .ctcal{width:clamp(96px,18cqw,152px);height:auto;display:block;margin:0 auto;overflow:visible;
   filter:drop-shadow(4px 5px 0 rgba(65,77,87,.55));transform:rotate(-2deg)}
@@ -1354,80 +1474,19 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
 @media(prefers-reduced-motion:reduce){.ctcal>path,.ctcal>g>path,.ctcal>g>circle{animation:none}}
 .cal-day{font-family:var(--f-mono);font-weight:600;font-size:15px;letter-spacing:2px;fill:var(--oats)}
 
-/* THE FOOTNOTE IS A STICKY NOTE. It's the only thing on the ring that isn't part of the ring, so it
-   gets the ring's discarded furniture: the yellow note the Practice step used to sit on. On desktop
-   it's parked in the empty margin beside the clock it annotates (the ring is 560px inside a 1150px
-   column — that margin is dead space). On phone there is no margin, so it just falls in underneath. */
-/* z-index at ALL widths: the thought balloon hangs well below the ring's box (it's a 46cqw object on
-   a node parked at 88%), so when the note falls into flow underneath it, the balloon was painting
-   straight over it. The clearance below is sized to the balloon's overhang, not to taste. */
-.how-fn{position:relative;z-index:4;display:flex;align-items:flex-start;gap:.5rem;
-  margin:clamp(5rem,13vw,6.5rem) auto 0;max-width:32ch;padding:.9rem 1rem;
-  transform:rotate(-1.4deg)}
-.how-fn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--happy);
-  border:2.6px solid var(--ink);border-radius:4px;box-shadow:4px 4px 0 0 var(--ink);
-  filter:url(#roughsm2)}
-/* the folded-up sticky corner. It has to peel up from INSIDE the note's own square — hung off the
-   outside edge it just looked like a triangle sitting on the drop shadow. Same construction as the
-   Circle card downpage: a diagonal split with a shadow on the fold line. */
-.how-fn::after{content:"";position:absolute;right:1px;bottom:1px;z-index:0;width:26px;height:26px;
-  background:linear-gradient(135deg, transparent 47%, rgba(65,77,87,.22) 47%, var(--schoolbus) 50%);
-  filter:url(#roughsm)}
-/* the arrow back to the asterisk it answers. Desktop only — on phone the note sits directly
-   underneath, so an arrow pointing sideways into nothing would be a lie. */
-.fn-link{display:none}
-/* The note only gets parked in the margin when there IS a margin. The ring is 560px inside a 1150px
-   column, so the gutter is ~295px a side — the note needs ~258px of it. Below ~1180px viewport the
-   column narrows, the gutter closes, and the note would hang off the page: so it drops back into
-   flow under the ring and the yarn (which would then point at nothing) goes away with it.
-   The yarn's box is stage-relative: at every width where it's visible the stage is a rigid 560px,
-   the clock sits at 74.1%/34% and the note's left edge at 104.8%, so these percentages hold. */
-@media(min-width:1180px){
-  .fn-link{display:block;position:absolute;left:92%;top:52%;width:16%;height:14%;
-    overflow:visible;filter:url(#rough);
-    z-index:5;pointer-events:none}
-}
-.fn-star{font-family:var(--f-slab);font-weight:700;color:var(--colorado);
-  font-size:clamp(2.2rem,4vw,3rem);line-height:.62;flex:none;
-  filter:url(#rough)}
-.fn-body{font-family:var(--f-hand);font-size:clamp(1rem,1.4vw,1.14rem);line-height:1.22;
-  color:var(--ink);padding-top:.1rem}
-/* no highlighter on a highlighter-coloured note — the note IS the emphasis. The punch line
-   picks up the asterisk's red instead. */
-.fn-body b{font-weight:400;color:var(--coral-ink)}
-/* the marker on the clock's own word */
-.how .step .mechs sup{font-size:1.2em;line-height:0;vertical-align:baseline;color:var(--colorado)}
-@media(min-width:1180px){
-  .how-fn{position:absolute;right:-46%;top:52%;width:41%;max-width:none;margin:0;z-index:4}
-}
+/* DELETED 2026-08-29 — THE FOOTNOTE STICKY NOTE (.how-fn, .fn-star, .fn-body, .fn-link) and its
+   desktop pointing arrow. The markup was cut long ago; about 45 lines of CSS and four explaining
+   comments stayed, describing a yellow note parked in the ring's dead margin that no page has
+   rendered since. The asterisk it answered lived in .mechs, deleted with it. The two markup
+   comments in index-next.html that narrated this note and its yarn are rewritten in the same
+   pass, so the HTML no longer documents it either. */
 
 
-/* THE STACKED-LAYOUT YARN. Below 1180px the note drops beneath the ring, so the string runs from
-   the CLOCK'S MECHANISM LINE — the "practice* · observe · ask · be seen" the asterisk actually lives
-   in — diagonally down into the note's top-left... er, top-right corner.
-   Every number here is derived, because eyeballing it at one width is what kept breaking it:
-     · the note is centred and min(32ch, stage) wide, so only the note knows where its corner is —
-       hence the tie hangs off the NOTE (bottom:100%).
-     · the mechanism line's right edge sits at stage.left + 1.01 * ring, so its offset from the
-       note's right edge is (.51 * ring - noteWidth/2). That's the `right`/`width` calc below:
-       50% of .how-fn IS noteWidth/2, so CSS can express it exactly.
-     · the drop is the note's own top margin (same clamp, so they can't drift) + 20% of the ring
-       (mechanism line down to the ring's bottom edge).
-   Cord stretches (preserveAspectRatio:none + non-scaling-stroke keeps an even thickness); the knots
-   are CSS circles, so they stay round however the box distorts. */
-.fn-tie{display:none}
-@media(max-width:1179px){
-  .fn-tie{display:block;position:absolute;bottom:100%;z-index:1;pointer-events:none;
-    right:calc(50% - .51 * min(560px,94vw) + 20px);
-    width:max(8px, .51 * min(560px,94vw) - 50% - 6px);
-    height:calc(clamp(5rem,13vw,6.5rem) + .2 * min(560px,94vw));
-    filter:url(#rough)}
-  .fn-tie svg{width:100%;height:100%;display:block;overflow:visible}
-  .fn-tie::before,.fn-tie::after{content:"";position:absolute;width:9px;height:9px;
-    margin-left:-4.5px;border-radius:50%;background:var(--lazuli);border:1.6px solid var(--ink)}
-  .fn-tie::before{top:-4px;left:90%}                       /* knot on the mechanism line */
-  .fn-tie::after{bottom:-5px;left:15%;width:8px;height:8px;margin-left:-4px}   /* knot on the note */
-}
+/* DELETED 2026-08-29 — THE STACKED-LAYOUT YARN (.fn-tie), 26 lines under a 13-line comment that
+   derived its geometry from "the CLOCK'S MECHANISM LINE" (.mechs) and "the NOTE" (.how-fn).
+   NEITHER OBJECT EXISTS. This is the clearest case of the defect this pass is here to fix: a
+   long, careful, entirely accurate explanation of how object A is tied to object B, where A and
+   B were both deleted and only the string between them was left in the file. */
 
 /* THE LOOP TURNS. The ring is the one thing on the page that is literally a cycle, so let it cycle:
    the arrow track rotates slowly, forever. Yellow (happy) rather than colorado — the red was
@@ -1635,6 +1694,7 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
 .note-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(1.6rem,4vw,2.8rem);align-items:center}  /* minmax(0,…) stops the single mobile column blowing out to text max-content */
 @media(min-width:760px){.note-grid{grid-template-columns:1fr auto}}
 .note .eyebrow{color:var(--colorado)}
+.note h2 .stop{color:var(--grass-deep)}
 .note-punch{font-family:var(--f-slab);font-style:italic;font-weight:700;
   font-size:clamp(1.05rem,1.9vw,1.28rem);line-height:1.25;color:var(--ink)}
 .note-body{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.2rem,2.1vw,1.6rem);line-height:1.5;color:var(--ink);max-width:min(36ch,100%);margin:.9rem 0 0}
@@ -2788,14 +2848,25 @@ html.sealed .envelope.lit-hl .hero-card .hl-rot.lit .mark::before{transform:rota
    under every h2 on the page). Hierarchy is carried by FAMILY first, size second. Restore both
    and it holds even at 25% zoom.
 
-   These rules come last on purpose: they match the per-section selectors' specificity and win on
-   source order, so the ~11 legacy `.x .head h2` blocks above are neutralised in one place rather
-   than edited in eleven. Delete those blocks when convenient; nothing here depends on them.
+   These rules were written to "come last on purpose", matching the per-section selectors'
+   specificity and winning on source order. THEY DO NOT COME LAST — corrected 2026-08-29.
+   FIVE `.x .head h2` blocks sit BELOW this point and beat it: .showtell, .pw, .summary-band and
+   .seewhat (all four now set from these same tokens in place, each carrying a note saying why it
+   cannot simply be listed here), plus .board, which is left in the display face on purpose —
+   it lives only on the tracked archive pages, which are not being redesigned. That is why four
+   section heads went on rendering in Courier Prime italic while seven rendered in Space Grotesk:
+   one heading rank, two typefaces.
+   ANY NEW SECTION ADDED BELOW THIS BLOCK MUST SET THE TOKENS IN PLACE, OR MOVE THIS BLOCK DOWN.
+   Pruned from the list: `.kit .head h2` and `.proof .head h2`, which match no element on any of
+   the seven pages that load this sheet (#proof's section carries class `dk`, and .dk-head h2
+   sets --f-head on its own account). `.gifts` and `.team` are KEPT and are not dead: .gifts is
+   live on index-old.html, and .team is live on index.html — the published page — plus four
+   archives.
    ===================================================================== */
 .how .head h2,.zines .head h2,.versus .head h2,.doors .head h2,
-.kit .head h2,.longgame .head h2,.gifts .head h2,.team .head h2,
-.proof .head h2,
-.bring .head h2,.bring h2{
+.longgame .head h2,.gifts .head h2,.team .head h2,
+.bring .head h2,.bring h2,
+.note h2{
   font-family:var(--f-head);font-style:normal;font-weight:700;
   letter-spacing:-.015em;line-height:1.06;text-wrap:balance;
   /* margin-inline:auto is NOT optional: the .head containers are text-align:center, so a
@@ -2804,11 +2875,44 @@ html.sealed .envelope.lit-hl .hero-card .hl-rot.lit .mark::before{transform:rota
   color:var(--ink);max-width:24ch;margin-inline:auto;
   font-size:var(--fs-2);                    /* TIER B — the supporting cast */
 }
-/* TIER A — the spine of the pitch: what it is → what you make → how you find people →
-   why not a group chat. Someone who reads only these four heads has the whole product.
-   ID selectors (1,1,1) outrank the class rules above (0,2,1), so this is the only place tier
-   lives. To promote a section, add its id here. That's the whole mechanism. */
+/* TIER A — the spine of the pitch. ID selectors (1,1,1) outrank the class rules above (0,2,1),
+   so this is the only place tier lives. To promote a section, add its id here.
+   READ THIS BEFORE TRUSTING THE LIST (2026-08-29). Three of the four ids below no longer match
+   anything on the rebuilt page. #zine exists on NO page in this repo; #how and #reader survive
+   only on the tracked archives. So on index.html and index-next.html this rule promotes exactly
+   ONE head — #why-not-chat — and the sentence that used to sit here ("someone who reads only
+   these four heads has the whole product") has not been true for some time. The list is left
+   standing rather than tidied, because tidying it would make the mechanism look maintained when
+   the real question is unanswered.
+   REJECTED 2026-08-29 — re-pointing tier at #showtell and #seewhat, the sections that inherited
+   #how's and #reader's jobs. It is the obvious repair and it is wrong twice: the h1 measures
+   37px while --fs-1 is 44px, so promoting two more heads WIDENS the size inversion this block's
+   own header condemns; and #seewhat is the thinnest section on the page (13 rendered words by
+   measure.py), so it would take the loudest heading on it. Tier is an ordering decision about
+   the pitch, and it needs the h1's size settled first. Both are founder calls, not lint. */
 #how .head h2,#zine .head h2,#reader .head h2,#why-not-chat .head h2{font-size:var(--fs-1)}
+
+/* The founder's note joined the system above (2026-08-29) because the section had rendered with no
+   h2 at ALL — 63 words of unbroken letter with nothing for a skimmer to catch. Two corrections, and
+   only two, because a letter is not a section head:
+     · margin-inline:0 — the system block centres its 24ch box, which is right inside a
+       text-align:center .head and wrong here: .note-body is left-aligned, so an auto-centred
+       heading floats a visible indent to the right of the paragraph it introduces.
+     · 26ch, not 24 — at 24ch the twelve words set to three lines and orphaned "Tuesday night.";
+       the whole value of the line is that last concrete image, and it cannot arrive alone.
+   NOT changed: family, weight, size. It was tried in --f-slab italic (the letter's own voice) and
+   that was the wrong instinct — it came out in the typewriter face, matching the reflection
+   question two sections up, so the page's most personal heading read as machine output. */
+.note h2{margin-inline:0;max-width:30ch;margin-top:.45rem}
+/* .ul is an ABSOLUTELY POSITIONED ::after on an inline box, so a marker underline that wraps
+   comes apart: the bar draws across one line and leaves a stray tick under the other. The first
+   draft underlined "nowhere to take it", which broke over two lines and did exactly that. Two
+   fixes, and both are needed — underline a SHORT phrase, and forbid it from breaking. Same class,
+   same trap, anywhere else it is used on a heading that wraps. */
+.note h2 .ul,.bring h2 .ul{white-space:nowrap}
+/* .ul draws an absolutely-positioned ::after, so a marker underline that wraps splits
+   into a bar on one line and a stray tick under the other. Any .ul inside a heading
+   that can wrap needs this. */
 
 /* h3s. `.card.big h3` used to sit at clamp(2.1rem,3.2vw,2.9rem) — 41px — which made the word
    "Instagram" outrank six section headings and the h1. An h3 never outranks an h2. */
@@ -2818,7 +2922,7 @@ html.sealed .envelope.lit-hl .hero-card .hl-rot.lit .mark::before{transform:rota
 }
 /* The loop's ring nodes keep their container-query sizes (cqw): the ring is a self-contained
    illustration and must scale as one object, not on the page's rem ladder. Family only. */
-.how .step h3{font-family:var(--f-head);font-style:normal;font-weight:700}
+.how .step h3{font-family:var(--f-head);font-style:normal;font-weight:700;text-wrap:balance}
 
 /* =====================================================================
    THE HERO — "Most creative groups never finish anything. Yours will."
@@ -5178,8 +5282,13 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    =================================================================== */
 .showtell{padding:clamp(2.2rem,5.5vw,3.6rem) 0 clamp(1.6rem,4vw,2.6rem);position:relative}
 .showtell .head{margin-bottom:clamp(1.6rem,3.6vw,2.3rem);text-align:center}
-.showtell .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:.98;
-  letter-spacing:-.02em;font-size:clamp(1.7rem,4.6vw,2.6rem);margin:.25rem 0 0;color:var(--ink)}
+/* THE HEADING SYSTEM, applied here rather than in its own block upfile, because this rule sits
+   BELOW that block and would otherwise win on source order — which is how this head stayed in
+   the h1's Courier Prime italic while seven of its eleven peers were in Space Grotesk. TIER B:
+   size from --fs-2, family/measure from the same tokens the system block uses. */
+.showtell .head h2{font-family:var(--f-head);font-style:normal;font-weight:700;
+  letter-spacing:-.015em;line-height:1.06;text-wrap:balance;
+  font-size:var(--fs-2);margin:.25rem 0 0;color:var(--ink);max-width:24ch;margin-inline:auto}
 .showtell .head h2 .stop{color:var(--grass-deep)}
 /* The marked half of the eyebrow goes to --ink, and this line is the whole reason the mark works.
    .hl only paints a background; the text underneath keeps inheriting, and the eyebrow inherits
@@ -5410,8 +5519,11 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    right-rail scraps fall on the prints, which is the house style (scraps over
    photos is the whole aesthetic) — scraps over TEXT is not. Above this width
    the rails sit in the true gutter and the section keeps its marginalia.
-   The precedent is #zine, excluded from injection outright for the same
-   reason ("anything injected there lands ON the artwork"). */
+   The precedent is fillGutters()'s own width guard in app-post-beta.js: it skips any section
+   narrower than the viewport, because the viewport-anchored rails only find a real gutter in a
+   full-bleed one. (It replaced a `sec.id === 'zine'` name guard, whose dead twins are still in
+   this file: `#zine .wrap`, `#zine .cg-collage{display:none}` and `#zine .head h2`. All three
+   match nothing on any of the seven pages that load this sheet.) */
 @media(max-width:1000px){
   #showtell .cg-collage .cg-gl,
   #showtell .cg-collage .cg-gl2,
@@ -5471,8 +5583,13 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    ===================================================================== */
 .pw{padding:clamp(2rem,5vw,3.2rem) 0 clamp(1.8rem,4.4vw,2.8rem);position:relative}
 .pw .head{margin-bottom:clamp(1.8rem,4vw,2.6rem);text-align:center}
-.pw .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:.98;
-  letter-spacing:-.02em;font-size:clamp(1.7rem,4.6vw,2.6rem);margin:.25rem 0 0;color:var(--ink)}
+/* THE HEADING SYSTEM, applied here rather than in its own block upfile, because this rule sits
+   BELOW that block and would otherwise win on source order — which is how this head stayed in
+   the h1's Courier Prime italic while seven of its eleven peers were in Space Grotesk. TIER B:
+   size from --fs-2, family/measure from the same tokens the system block uses. */
+.pw .head h2{font-family:var(--f-head);font-style:normal;font-weight:700;
+  letter-spacing:-.015em;line-height:1.06;text-wrap:balance;
+  font-size:var(--fs-2);margin:.25rem 0 0;color:var(--ink);max-width:24ch;margin-inline:auto}
 .pw .head h2 .stop{color:var(--grass-deep)}
 .pw-sub{font-family:var(--f-body);font-size:var(--fs-body);line-height:1.5;color:var(--ink);
   max-width:48ch;margin:.7rem auto 0}
@@ -5512,6 +5629,24 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
   object-fit:cover;object-position:center center;display:block}
 /* the lite tier drops SVG filters page-wide; keep the shadow so it still lifts */
 html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
+
+/* THE MAKER PANEL IS TOP-ANCHORED, and it is the only one.
+   Its at-rest frame (assets/app/wall-144mb.jpg) is the TOP of that wall - the name
+   "1.44 MB", the face, the bio, the club crests - because that is the only frame that
+   says WHOSE wall this is, and the club panel's poster already does the same job
+   (club-tour-poster.jpg opens on the PHOTO PHLOOR masthead). The source is 1078x1500
+   (0.719) inside a 0.8 box, so the `center` default above threw the masthead off the
+   top edge and put a headless middle of the wall back on screen - the exact frame the
+   swap was made to get rid of.
+   REJECTED: cropping the file to 4:5 and leaving the CSS alone. The panel is 4:3 on
+   mobile (the max-width:760px block below), where a pre-cropped 4:5 still gets
+   centre-cropped a second time and loses the name again. Anchoring survives both boxes.
+   Scoped to img AND video because `poster` paints through the video element's own
+   object-fit. The clip is 720x918 (0.784), so this costs it 18px off the bottom instead
+   of 9px off each edge - invisible, and it keeps the poster and the first frame
+   agreeing about where the top of the wall is. */
+.pw-col.is-mine .pw-media img,
+.pw-col.is-mine .pw-media video{object-position:center top}
 
 /* 2.1rem, not .9: the backing slab hangs 13px BELOW the media box and throws a
    12px shadow under that, so a normal caption gap puts the label inside the
@@ -7244,7 +7379,11 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
   justify-content:center; justify-items:start;
   width:max-content; max-width:100%;
   margin:0 auto;
-  font-size:clamp(1.05rem,1.4vw,1.28rem);
+  /* NO font-size HERE (2026-08-29). .sum-doodles li carries its own
+     font-size:var(--fs-body), and an element's own declaration beats an inherited
+     one, so the clamp that used to sit on this line never rendered a pixel: with it
+     in force the li measured 19px = --fs-body, not the 1.28rem it asks for. Same for
+     the one further down. Size the LI or nothing happens. */
   text-align:left;
 }
 .summary-band .sum-doodles li{padding-left:3.5em; line-height:1.32}
@@ -7358,7 +7497,7 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
 .deck.smear .pc{aspect-ratio:auto; min-height:clamp(15rem,26vw,20rem)}
 .deck.smear .pc-img{height:auto; min-height:100%}
 .deck.smear .pc-msg{padding-block:clamp(1.1rem,2.4vw,1.6rem)}
-.deck.smear .pc-msg .pc-cta{margin-top:clamp(1rem,2.4vw,1.6rem)}
+.deck.smear .pc-msg .pc-cta{margin-top:auto; padding-top:clamp(1rem,2.4vw,1.6rem)}
 @media (max-width:700px){
   .deck.smear .pc{min-height:0}
 }
@@ -7455,19 +7594,24 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
   transform:rotate(-1deg);
   transform-origin:left center;
 }
-/* the second list is the quieter of the two: same marks, same measure, the same
-   size now that the columns carry the hierarchy — only the colour steps back. */
-.summary-band .sum-tools{
-  margin-top:0;
-  font-size:clamp(1.05rem,1.4vw,1.28rem);
-  color:var(--lazuli-deep);
-}
-.summary-band .sum-tools li{max-width:34ch}   /* 34ch, not 30: at 30 the first line broke
-                                                  after "make the" and the column read ragged */
+/* the second list ("We give you tools to:") was deleted 2026-08-29 — see the note in
+   index-next.html. Its rules went with it. Three more dead .sum-tools declarations
+   survive at :7259, :7264 and :7341; harmless, worth a sweep by whoever is next here. */
 @media (min-width:820px){
-  .sum-stack{
+  /* ONE TRACK NOW (2026-08-29): the second list was deleted, so the stack holds a single
+     .sum-col. A second `auto` track collapses to zero width but KEEPS its column-gap, and
+     that phantom gap shoves the block off the band's centre. */
+  .sum-stack:not(:has(.sum-col + .sum-col)){
+    grid-template-columns:auto;
+  }
+  /* ...and TWO tracks when there really are two columns. The original two-column
+     template lived in the deleted second list's block and went with it, so index.html
+     — which still carries both .sum-cols — was left with a bare inline-grid and
+     auto-flow:row, i.e. the two lists stacked into the single run the deleted comment
+     existed to prevent. Caught only by rendering the two files side by side.
+     Scoped by :has() so index-next.html, which has one column, is untouched. */
+  .sum-stack:has(.sum-col + .sum-col){
     grid-template-columns:auto auto;
-    column-gap:clamp(2.6rem,6vw,5.5rem);
   }
   /* the columns' first lines have to sit on the same baseline, and the ledes are
      hand-set at a different size to the lists, so nothing else guarantees it. */
@@ -7542,9 +7686,13 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
 
 /* ============================================================================
    THE POST-IT ON THE PLATE (2026-08-17)
-   The page already has this object twice (.how-fn at :1358, .reveal-name at
-   :663): happy yellow, ink border, hard offset ink shadow, a hand-cut edge and
-   a peeled corner. Same construction here, so it reads as the same pad.
+   The page already had this object twice: .reveal-name, and the ring's footnote
+   note. Happy yellow, ink border, hard offset ink shadow, a hand-cut edge and
+   a peeled corner. Same construction here, so it reads as the same pad. (The
+   ring's footnote is gone as of 2026-08-29 — its markup had been cut long
+   before and the CSS was finally deleted with it, so .zc-note and .reveal-name
+   are the two that remain. Line numbers deliberately not quoted: the two this
+   comment carried were both already stale.)
    IT IS NOT FULLY CONTAINED. It is pinned to the plate's bottom-left corner and
    hangs outside it on two sides — that overhang is the whole point (a note is
    stuck ON something, it is not a panel inside it), and it is also what makes
@@ -7569,7 +7717,7 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
   box-shadow:4px 5px 0 0 var(--ink);
   filter:url(#roughsm2);
 }
-.zc-note::after{                        /* the peeled corner, same as .how-fn's */
+.zc-note::after{                        /* the peeled corner */
   content:""; position:absolute; right:1px; bottom:1px; z-index:0;
   width:22px; height:22px;
   background:linear-gradient(135deg, transparent 47%, rgba(65,77,87,.22) 47%, var(--schoolbus) 50%);
@@ -7810,14 +7958,25 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
    read as a pile-up rather than as a composition.
    ============================================================================ */
 .hero{padding-top:clamp(4.4rem,6.2vw,5.2rem)}
-.mast .brand{transform:rotate(-2.6deg) translateY(7px)}
+/* 2026-08-29 LOGO LAW. The rotation was on .brand, which is the wordmark SVG's own
+   ancestor, so the MARK was tilted -2.6deg. Brand book F2: "Our logos should always be
+   upright and never rotated", and this file's own note at :4201 already said "the logo
+   itself stays clean - upright, one solid colour, no filter, no tilt, no shadow."
+   The intent was always to tilt the TICKET. The ticket is ::before (the outlined card)
+   and ::after (its solid shadow) - separate boxes - so the tilt moves onto them and the
+   wordmark stands upright on tilted paper, which is what the object should do anyway. */
+.mast .brand{transform:translateY(7px)}
+.mast .brand::before{transform:rotate(-2.6deg)}
+.mast .brand::after{transform:translate(4px,5px) rotate(-2.6deg)}
 .hero-card .tape{left:auto; right:15%}
 @media (max-width:899px){
   /* the burger is top-right and the plate's own tape is just under it, so on a
      phone the card's tape goes back to the left of centre where the ticket is
      narrower and there is still room beside it. */
   .hero-card .tape{left:52%; right:auto}
-  .mast .brand{transform:rotate(-2.2deg) translateY(5px)}
+  .mast .brand{transform:translateY(5px)}
+  .mast .brand::before{transform:rotate(-2.2deg)}
+  .mast .brand::after{transform:translate(4px,5px) rotate(-2.2deg)}
 }
 
 /* the phone tag clears the challenge strip on the cover instead of sitting on
@@ -8188,11 +8347,14 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
   text-align:center;
 }
 .summary-band .sum-head .eyebrow{margin-bottom:.15rem}
+/* the heading system (its block sits upfile), applied here because this rule is below it — see
+   the note on .showtell .head h2. TIER B: the band has no id, so it cannot ride the id-selector
+   tier mechanism even if promoted, and the h1 a screen above is already saying what this is. */
 .summary-band .sum-head h2{
-  font-family:var(--f-slab); font-style:italic; font-weight:700;
-  font-size:clamp(1.7rem,4.6vw,2.6rem);
-  line-height:1.02; letter-spacing:-.02em;
-  margin:.25rem 0 0; color:var(--ink);
+  font-family:var(--f-head); font-style:normal; font-weight:700;
+  font-size:var(--fs-2);
+  line-height:1.06; letter-spacing:-.015em; text-wrap:balance;
+  margin:.25rem 0 0; color:var(--ink); max-width:24ch; margin-inline:auto;
 }
 .summary-band .sum-head h2 .stop{color:var(--grass-deep)}
 /* the sub is body voice, one rank under the ledes it introduces. 46ch keeps it
@@ -8202,6 +8364,65 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
   font-family:var(--f-body); font-size:var(--fs-body); line-height:1.5;
   color:var(--ink); max-width:46ch;
   margin:clamp(.7rem,1.6vw,1rem) auto 0;
+}
+
+/* ============================================================================
+   THE BAND WENT HOLLOW WHEN IT LOST ITS SECOND COLUMN (2026-08-29). The deletion
+   was right (see the note in index-next.html); the layout was never re-cut for it.
+   Measured at 1280: a 302px list centred under a 704px head inside an 1184px band,
+   403px of empty paper either side, 519px of height carrying 42 words. 302 against
+   704 is the awkward middle: wider than a caption, narrower than a column. It looks
+   stranded.
+
+   WHAT ACTUALLY SHORTENS THE BAND IS THE TWO GAP CUTS, NOT THE TYPE RANK. Measured
+   at 1280, each declaration isolated against the same 522px base: font-size +
+   line-height alone makes the band TALLER (543, +21); the gap reduction brings it to
+   532; the two whitespace deletions below (.sum-head margin-bottom, -21, and the
+   band's own padding-bottom, -32) are the whole of the -42. Do not credit the rank
+   change with closing the hollow — it buys MASS, which is the other half of the
+   problem, and it costs height to do it.
+
+   REJECTED -- TWO-UP AGAIN, head left / list right. It does close the hole (band
+   519 -> 326, both tracks carrying content) and it is tempting because the tracks
+   are still in this file. It is wrong twice. (1) All fourteen section heads on this
+   page are text-align:center; this would be the only one that is not. (2) The
+   margins are NOT empty. .cg-gl/.cg-gr pin marginalia to left:calc(50vw - 601px),
+   and fillGutters() in app-post-beta.js injects scraps onto those rails at RANDOM
+   vertical bands, at a density proportional to section HEIGHT. Left-setting the head
+   puts type on that rail: at 900px a scrap landed across the "T" of "Turn". Those
+   collisions are a dice roll per load and cannot be fixed from a rule in here.
+
+   REJECTED -- giving .sum-stack the head's 44rem measure so the two boxes share an
+   edge. The boxes align but their contents do not (head centred, list left-set), so
+   the entire void moves to one side and the list looks like it fell off the left.
+   Worse than the symmetry it replaced.
+
+   SO THE RANK CHANGE IS FOR MASS. The three fragments are this section's payload and
+   they were set at var(--fs-body) -- 19px, the same size as the sub that explains
+   them. The ladder ran 41.6 / 25.6 / 21.4 / 19 / 19, with the payoff sharing the
+   bottom rung with the explainer. 1280 list 302 -> 358px. 1440: 307 -> 395. 900:
+   287 -> 323. No word moves outward onto the marginalia rail.
+
+   SCOPED >=900px. Below that the band is not hollow -- at 390 the head fills the
+   column and the list sits under it -- and 24px claims would wrap. Phone untouched.
+   ============================================================================ */
+@media (min-width:900px){
+  /* the LI, not the UL -- see the note at .summary-band .sum-doodles above. */
+  .summary-band .sum-doodles li{
+    font-size:clamp(1.26rem,1.75vw,1.55rem);
+    line-height:1.3;
+  }
+  /* the absolute gap comes DOWN as the type goes up. At 19px the rows needed 21.6px
+     to separate; at 24.8px that same gap pulls them apart into three loose lines
+     instead of one list. */
+  .summary-band .sum-doodles{gap:clamp(.7rem,1.6vw,1rem)}
+  /* the lede labels the list, it does not open a new section: bring it up under the
+     sub so head and list read as ONE block rather than two centred ones. -21px. */
+  .summary-band .sum-head{margin-bottom:clamp(1.15rem,2.6vw,1.9rem)}
+  /* .seewhat already opens with 64px of its own padding; the band's 32 stacked on
+     top was the gap that left the list sitting alone before the next beat arrived.
+     -32px. */
+  .summary-band{padding-bottom:0}
 }
 
 /* ============================================================================
@@ -8223,11 +8444,13 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
   padding:clamp(2.4rem,5.5vw,4rem) clamp(1.2rem,5vw,2.4rem) clamp(1.6rem,4vw,2.6rem);
 }
 .seewhat .head{max-width:44rem; margin:0 auto; text-align:center}
+/* the heading system (its block sits upfile), applied here because this rule is below it — see
+   the note on .showtell .head h2. TIER B. The .nb nowrap rules below still own the line breaks. */
 .seewhat .head h2{
-  font-family:var(--f-slab); font-style:italic; font-weight:700;
-  font-size:clamp(1.6rem,4.2vw,2.4rem);
-  line-height:1.04; letter-spacing:-.02em;
-  margin:.25rem 0 0; color:var(--ink);
+  font-family:var(--f-head); font-style:normal; font-weight:700;
+  font-size:var(--fs-2);
+  line-height:1.06; letter-spacing:-.015em; text-wrap:balance;
+  margin:.25rem 0 0; color:var(--ink); max-width:24ch; margin-inline:auto;
 }
 .seewhat .head h2 .stop{color:var(--grass-deep)}
 /* .nb is scoped per-place in this stylesheet (footer tagline :1695, the H1 :3776,
@@ -8249,11 +8472,17 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
   color:var(--ink); max-width:42ch; margin:clamp(.6rem,1.4vw,.9rem) auto 0;
 }
 .rd-stage{margin:clamp(1.6rem,4vw,2.6rem) auto 0; width:min(100%,26rem)}
-/* the button is the picture: strip the control chrome, keep the hit area and a
-   real focus ring (it opens a lightbox, so it has to be reachable by keyboard). */
+/* the picture is the whole hit area: strip the control chrome, keep it and a real focus ring.
+   It is an <a> to a real published issue as of 2026-08-29 (it used to be a <button> opening a
+   lightbox that replayed the clip already looping inside it) — keyboard-reachable either way.
+   text-decoration:none and color:inherit are NOT decorative: an <a> brings both, and this repo
+   has already been bitten once — see .dd-print a.ph upfile, where the underline landed on the
+   1px of frame the <img> did not cover. It does not paint here today, because the anchor holds
+   no text node and its only child (.pw-media) is display:block — but that is one markup change
+   away from being false, so it is neutered at the source instead of relied upon. */
 .rd-open{
   display:block; width:100%; padding:0; border:0; background:none;
-  cursor:pointer; border-radius:4px;
+  cursor:pointer; border-radius:4px; text-decoration:none; color:inherit;
 }
 .rd-open:focus-visible{outline:3px solid var(--lazuli); outline-offset:6px}
 .rd-media{aspect-ratio:1/1}
@@ -8262,7 +8491,7 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
 .rd-open .rd-media{rotate:-1.1deg}
 .rd-open:hover .rd-media{rotate:0deg; transition:rotate .18s ease}
 .rd-cap{
-  margin:clamp(.7rem,1.8vw,1rem) 0 0; text-align:center;
+  margin:clamp(2.1rem,3.4vw,2.5rem) 0 0; text-align:center;
   font-family:var(--f-hand); font-size:clamp(1rem,1.3vw,1.16rem);
   color:var(--lazuli-deep);
 }
@@ -8271,4 +8500,38 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
 @media (prefers-reduced-motion:reduce){
   .rd-open:hover .rd-media{transition:none}
   .rd-cap .arr,.rd-stage:hover .rd-cap .arr{transition:none; translate:0}
+}
+
+/* ===================================================================
+   SECTION ILLUSTRATIONS (si-*) — one drawn mark per section, in the
+   outer margin, that says what THAT section is about.
+
+   DELIBERATELY DETACHED from the collage/marginalia system. Nothing here
+   reads or writes a .cg-* class, and the balancer in app-post-beta.js
+   never sees these: they carry no .cg-scrap, so its per-section count and
+   its top-up maths are unaffected. Two layers, no shared state.
+
+   It draws itself on the way in — stroke-dashoffset on pathLength=1, so
+   the mark is inked as you reach it rather than faded in. That is the
+   whole point: a marker doodle should look drawn, not placed.
+
+   ONLY ABOVE 1300px. Below that the page has no margin left to write in
+   (.wrap is 1150 + up to 3.5rem padding), and the edge-clip invariant
+   says a mark that gets cut at the viewport edge is worse than no mark.
+   left/right land ~5px clear of the text column at both 1300 and 1600. */
+.si{position:absolute;z-index:1;pointer-events:none;display:none;
+  opacity:0;transform:translateY(12px) rotate(var(--si-rot,0deg));
+  transition:opacity .45s ease, transform .75s cubic-bezier(.26,1.36,.44,1)}
+.si svg{display:block;width:var(--si-w,96px);height:auto;overflow:visible}
+.si-l{left:max(12px, calc(50vw - 658px))}
+.si-r{right:max(12px, calc(50vw - 658px))}
+@media(min-width:1340px){.si{display:block}}
+.si.si-in{opacity:1;transform:translateY(0) rotate(var(--si-rot,0deg))}
+/* the ink going down. pathLength=1 normalises every path so one duration
+   fits them all regardless of how long the real geometry is. */
+.si [data-si-draw]{stroke-dasharray:1;stroke-dashoffset:1;
+  transition:stroke-dashoffset 1.05s cubic-bezier(.62,.02,.34,1) .12s}
+.si.si-in [data-si-draw]{stroke-dashoffset:0}
+@media(prefers-reduced-motion:reduce){
+  .si,.si [data-si-draw]{transition:none}
 }

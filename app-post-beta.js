@@ -167,7 +167,6 @@ function boot() {
   initAttentionCta();               // ported: hero CTA idle "look at me" loop
   initFirecrackerCta(audio);        // ported from the wall: "Join a Circle" click → firecracker → green door
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
-  initHowGag();                     // tap "every week" → the words stop, the ring spins instead
   initHeroRotate();                 // no-ops since 2026-08-11: the H1 has no #rot-word any more
   initZineCarousel();               // the fold's picture: nine real issues, one at a time
   initDomainSlot();                 // the yellow blank in the CTA, on its own clock
@@ -204,6 +203,11 @@ function boot() {
 
    Placement is cheap because the gutter rails are viewport-anchored in CSS
    (left: calc(50vw - 601px)), so we only choose a vertical band and a side.
+   AMENDED 2026-08-29 — that anchoring is also the module's one limit, and the
+   top-up rule below is no longer unconditional: a section NARROWER than the
+   viewport resolves those offsets against its own box and drops scraps inside
+   the reading column, so such sections are now skipped and stay bare. Bare
+   gutters in three sections beat marginalia sitting on the words in one.
    Injected scraps use the same .cg-scrap markup, so initCollage() gives them
    parallax, the wobble and the scroll entrance for free.
    =================================================================== */
@@ -214,18 +218,32 @@ const CG_POOL = [
   (c) => `<svg width="104" height="30" viewBox="0 0 104 30" fill="none" stroke="var(--${c})" stroke-width="9" stroke-linecap="round"><g class="cg-wob" opacity=".75"><path d="M8 20 C30 8 58 26 82 14 C92 9 100 12 104 16"/></g></svg>`,
   // curved arrow
   (c) => `<svg width="48" height="34" viewBox="0 0 48 34" fill="none" stroke="var(--${c})" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M6 24 C16 6 38 6 44 22"/><path d="M44 22 L34 22 M44 22 L42 10"/></g></svg>`,
-  // confetti dots
-  (c) => `<svg width="34" height="26" viewBox="0 0 34 26" fill="none"><g class="cg-wob"><circle cx="6" cy="14" r="3.2" fill="var(--lazuli)"/><circle cx="17" cy="7" r="2.6" fill="var(--colorado)"/><circle cx="27" cy="17" r="3" fill="var(--schoolbus)"/></g></svg>`,
+  // confetti dots. Takes no ink on purpose: the three dots are a fixed tricolour, and the
+  // signature now says so — it used to accept an ink and silently discard it.
+  () => `<svg width="34" height="26" viewBox="0 0 34 26" fill="none"><g class="cg-wob"><circle cx="6" cy="14" r="3.2" fill="var(--lazuli)"/><circle cx="17" cy="7" r="2.6" fill="var(--colorado)"/><circle cx="27" cy="17" r="3" fill="var(--schoolbus)"/></g></svg>`,
   // plus
   (c) => `<svg width="38" height="38" viewBox="0 0 38 38" fill="none" stroke="var(--${c})" stroke-width="2.8" stroke-linecap="round"><g class="cg-wob"><path d="M19 6 L19 32 M6 19 L32 19"/></g></svg>`,
   // heart
   (c) => `<svg width="44" height="40" viewBox="0 0 44 40" fill="none" stroke="var(--${c})" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M22 36 C10 26 3 18 5 11 C7 4 16 3 22 10 C28 3 37 4 39 11 C41 18 34 26 22 36 Z"/></g></svg>`,
   // curl / squiggle
   (c) => `<svg width="46" height="46" viewBox="0 0 46 46" fill="none" stroke="var(--${c})" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob"><path d="M23 23 C23 18 30 18 30 24 C30 32 17 32 16 23 C15 12 32 11 35 23 C38 37 17 41 11 28"/></g></svg>`,
-  // torn tape
-  (c) => `<svg width="60" height="26" viewBox="0 0 60 26"><g class="cg-wob"><path class="cg-torn" d="M3 5 L56 3 L58 21 L5 23 Z" fill="var(--${c})" opacity=".75"/></g></svg>`,
+  // REJECTED 2026-08-29 — a torn WASHI TAPE strip in the generated pool. DESIGN.md gives tape
+  // exactly one job ("pinning a sheet at a corner, sparingly"), and this generator has no sheet
+  // to pin: it drops marks into EMPTY gutters, so 1 draw in 8 came out a fastener holding
+  // nothing — measured 5–6 strips per load, re-rolled on every page view. Two of twelve sampled
+  // strips came out in Happy #F1DD01, against DESIGN.md's "never a yellow tape".
+  // The hand-placed .tape spans in the markup all sit on a card's top edge, straddling it —
+  // they pin a sheet, which is the job. Those stay. The pool is 7 shapes now.
 ];
-const CG_INKS = ['colorado', 'lazuli', 'schoolbus', 'grass', 'happy'];
+// Happy #F1DD01 is deliberately NOT in this list (2026-08-29). DESIGN.md's Never row for Happy
+// reads "decoration, tape, pins, confetti, badges — anything else kills the beacon", and a
+// randomly-inked gutter scrap is decoration by definition. Measured before this: 8–13 Happy-inked
+// generated doodles per page view, re-rolled on every load. School Bus is the decoration yellow;
+// Happy means live-and-present.
+// NOT SWEPT, on purpose: five hand-placed .cg-scrap in the markup still use var(--happy),
+// including the hero sparkle. Those are a person's placed choice rather than a dice roll, and
+// changing them is a founder call. Flagged here so the next pass does not do it by reflex.
+const CG_INKS = ['colorado', 'lazuli', 'schoolbus', 'grass'];
 
 function balanceMarginalia() {
   // While sealed, `main > section:not(.hero)` is display:none — every section measures 0 and
@@ -253,10 +271,26 @@ function fillGutters() {
   sections.forEach((sec) => {
     // the hero is choreographed with the envelope cut — never touch it
     if (sec.id === 'hero') return;
-    // #zine runs a WIDER track (1500px) than the 1150px column the gutter rails are pinned to
-    // (left: calc(50vw - 601px)), so anything injected there lands ON the artwork — scraps were
-    // appearing inside the maker polaroids. Its own hand-placed collage is enough.
-    if (sec.id === 'zine') return;
+    // The gutter rails are VIEWPORT-anchored (left: calc(50vw - 601px)), so they only find a
+    // gutter when the section they are injected into is FULL-BLEED. In a narrower section that
+    // offset resolves against the SECTION's box and drops scraps INSIDE the reading column.
+    // Measured at 1440 with per-text-node Range rects, over five loads: #proof is 960px wide and
+    // put 1–4 scraps per load on its own words — across "Silk Road", "Baristas", "Penmans",
+    // "Beans" — and it was the ONLY section that ever did. .summary-band and #seewhat (1184px)
+    // never collided at this width, but rail their scraps 128px inboard of the page gutter for
+    // the same structural reason, so they are skipped too rather than left to collide at some
+    // other width. (Scraps over PHOTOS are house style and are not counted here; the stylesheet
+    // says so itself, further down.) The module's own contract is "never over text" and "hug
+    // the 1150px content column"; this is what keeps that true.
+    // REJECTED: the `sec.id === 'zine'` name guard this replaces. No page this script is served
+    // with has an element with id="zine" — the section is `.zines`, no id — so it had been
+    // guarding nothing for as long as it existed, and a name guard rots silently the next time a
+    // section is renamed. Measure the box instead; geometry cannot go stale.
+    // REJECTED: full-bleeding the injected layer instead, so a narrow section keeps marginalia
+    // out in the page gutter (left:-rect.left, right:-(clientWidth-rect.right)). Correct on load,
+    // wrong after a resize: every other offset in this function is %- or vw-based and re-solves
+    // itself, those two would be frozen pixels, so a rotation walks the layer sideways.
+    if (Math.round(sec.getBoundingClientRect().width) < document.documentElement.clientWidth) return;
 
     const h = sec.offsetHeight;
     if (!h) return;
@@ -278,8 +312,21 @@ function fillGutters() {
       const band = ((i + 0.5) / need) * 100;
       const top = Math.max(2, Math.min(94, band + rnd(-5, 5)));
       const rail = RAILS[i % 2] + (Math.random() < 0.3 ? '2' : '');
+      // cg-drop-lg — below 1200px the rails clamp to max(10px, ...), there is no gutter left to
+      // sit in, and an injected scrap parks on top of the content. Measured at 390px before
+      // this, across four loads: 44 visible scraps, 37 of them injected, 10–13 overlapping live
+      // glyphs — including the band's own h2, "Turn showing up into a magazine.", the one line
+      // that has to survive first contact on a phone.
+      // KNOWN COST, stated because it is a design decision and not a lint fix: below 1200px the
+      // generated marginalia now goes to ZERO, and only the hero's hand-placed pieces remain
+      // (7 scraps, 4 of them the .cg-mob burst). Nine sections have no hand-placed scraps at
+      // all, so on a phone they are bare. That is the right trade against scraps sitting on the
+      // words, but it is a trade, and it wants a founder's eye.
+      // KNOWN GAP: the class fires at max-width:1199px while .cg-gl/.cg-gr clamp at 1222px and
+      // .cg-gl2/.cg-gr2 at 1134px. The 1200–1221px band is therefore still uncovered — measured
+      // at 1210px, 33 injected scraps, the nearest 4px from the viewport edge.
       const s = document.createElement('span');
-      s.className = `cg-scrap cg-s${1 + (i % 5)} ${RAILS.includes(rail) ? rail : RAILS[i % 2]}`;
+      s.className = `cg-scrap cg-drop-lg cg-s${1 + (i % 5)} ${RAILS.includes(rail) ? rail : RAILS[i % 2]}`;
       s.dataset.cgParallax = String(Math.round(rnd(4, 7)));
       s.style.setProperty('--cg-rot', `${rnd(-12, 12).toFixed(1)}deg`);
       s.style.setProperty('--cg-w', `${Math.round(rnd(38, 84))}px`);
@@ -612,15 +659,6 @@ function initBeatPointer() {
   }
   window.addEventListener('resize', () => requestAnimationFrame(draw), { passive: true });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
-}
-
-/* tap the loop's center: "every week" freezes and the ring itself starts to turn.
-   Pure toggle — a class swap; CSS owns both animations. Inert under reduced-motion. */
-function initHowGag() {
-  const loop = document.querySelector('.how-loop');
-  const c = loop && loop.querySelector('.how-center');
-  if (!c) return;
-  c.addEventListener('click', () => loop.classList.toggle('spin-swap'));
 }
 
 if (document.readyState !== 'loading') boot();
@@ -2380,8 +2418,8 @@ function initFinale() {
   window.__drexFinale = () => { try { window.dispatchEvent(new Event('drexfx:cleared')); } catch (_) {} };
 }
 
-const FINALE_VALUES = ['Communion', 'Reverence', 'Conviction', 'Self-awareness',
-  'Cultivation', 'Generativity', 'zine', 'Drex', 'made with reverence'];
+const FINALE_VALUES = ['ceramics', 'knitting', 'sourdough', 'model trains',
+  'screenprinting', 'embroidery', 'zine', 'Drex', 'made by hand'];
 
 function buildReward() {
   let root = document.getElementById('finale-reward');
@@ -3194,3 +3232,28 @@ function whenRevealed(fn) {
   mo.observe(d, { attributes: true, attributeFilter: ['class'] });
   setTimeout(fire, 9000);
 }
+
+/* ===================================================================
+   SECTION ILLUSTRATIONS — its own observer, on purpose.
+
+   initCollage() snapshots .cg-scrap at boot and owns that list; hanging
+   these off it would put a second kind of thing inside the collage's
+   bookkeeping and inside the balancer's per-section counts. They are a
+   separate layer, so they get a separate five lines.
+   =================================================================== */
+function initSectionIllos(){
+  var els = Array.prototype.slice.call(document.querySelectorAll('.si'));
+  if (!els.length) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) {
+    els.forEach(function(el){ el.classList.add('si-in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('si-in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.2 });
+  els.forEach(function(el){ io.observe(el); });
+}
+initSectionIllos();
