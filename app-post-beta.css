@@ -719,7 +719,27 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   /* the three per-node width/size overrides live OUTSIDE this block and outspecify
      `.how .step{width:auto}` above, so the stack must unset them explicitly or nodes
      02 and 03 stay at 81px and 68px with 8px type. */
-  .how .step.is-key,.how .step.is-think,.how .step.is-cal{width:auto}
+  /* 2026-08-31 SPECIFICITY TRAP, the same one this file documents twice for font-size
+     and missed for width. This rule is (0,3,0), and so are .how .step.is-key{width:26cqw}
+     at :1557 and .how .step.is-think{width:22cqw} at :1612 - which come LATER, so they
+     won. is-clock was never listed at all. Result in the stack: stations 02 and 03
+     measured 78.2px and 66.2px, text escaped the drawn thought-balloon, the "03" numeral
+     sat behind the cloud's scallop, and the red loop-back spine ran THROUGH the body type
+     of two stations. .how .flow .step (0,4,0) is the escape the h3 and p rules in this
+     same block already use. */
+  .how .flow .step.is-key,
+  .how .flow .step.is-clock,
+  .how .flow .step.is-think,
+  .how .flow .step.is-cal,
+  .how .flow .step.is-globe{width:auto}
+  .how .flow .step.is-clock .ico{width:100%;margin:0 auto .3rem}
+  /* the balloon is sized off the RING (46cqw, dropped 4.6cqw so its BODY and not its tail
+     centres on the text). There is no ring in the stack, so pin it to the station and keep
+     the ratio. width:auto alone over-corrects: at 560 the 46cqw balloon bulges into the
+     line above and the heading below. */
+  .how .flow .step.is-think{--tb:min(100%,11rem);padding-block:1.5rem 2.6rem}
+  .how .flow .step.is-think .thoughtb{width:var(--tb);
+    transform:translate(-50%,-50%) translateY(calc(var(--tb) * .1))}
   /* 2026-08-31: this asked for 1.18rem on two of the four stations and never got it — both
      per-node rules sat further down the file and outranked it, so the stack ran at their cqw
      sizes and the h3s came out SMALLER than the .how .step p beneath them (15.76 vs 16.32 at
@@ -1842,6 +1862,11 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 .zpola .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
 .zpola-cap{display:block;font-family:var(--f-hand);text-align:center;font-size:1rem;color:var(--ink);padding:.42rem .2rem .55rem;line-height:1}
 .zpola.is-zine .zpola-cap{color:var(--grass-deep)}
+/* ...except in #proof, where the pair was moved to (see the note in index-next.html) and
+   the ground is painted --gnd-fill #0C6E39, which IS --grass-deep. The caption was drawn
+   in its own background colour: contrast 1.00, visible only through antialiasing. It is
+   the door's only affordance, and the markup says so in as many words. */
+#proof .zpola.is-zine .zpola-cap{color:var(--oats)}
 .zpola .ph .bot-ico{width:clamp(38px,6vw,50px);height:clamp(38px,6vw,50px)}
 .zpola .ph .bot-ico svg{width:100%;height:100%;display:block;overflow:visible}
 .zpola .ph .soon-stamp{font-size:.58rem;padding:.2em .45em}
@@ -5149,6 +5174,11 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 .dk{max-width:960px;margin:0 auto;padding:clamp(var(--s-3),4vw,var(--s-5)) 1.25rem clamp(var(--s-4),5vw,var(--s-6))}
 .dk-head{text-align:center;max-width:60ch;margin:0 auto clamp(1rem,2.4vw,1.6rem)}
 .dk-head .eyebrow{color:var(--colorado);margin-bottom:.3rem}
+/* 1.03 was set for a one-line head. The .ul mark hangs ~.05em below its line box, and
+   this is the only .ul on the page with a line underneath it - measured gap to the next
+   line box was negative at 320, 360, 390 AND 430, so the mark struck through "photographers".
+   It only looked clean at 430 because line two is short and centred out from under it. */
+@media(max-width:560px){ .dk-head h2{line-height:1.22} }
 .dk-head h2{font-family:var(--f-head);font-weight:700;font-size:var(--fs-2);line-height:1.03;
   letter-spacing:-.01em;color:var(--ink);margin:.1rem 0 .5rem}
 .dk-head h2 .stop{color:var(--grass-deep)}
@@ -9075,3 +9105,11 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
 #proof.gnd .dk-head h2 .stop{color:var(--happy)}
 #proof.gnd .dk-head h2 .ul::after{background:var(--oats)}
 #proof.gnd .gifts-foot{color:var(--happy)}
+
+
+/* 2026-08-31. The doors' arc scrap is positioned left:42% with a fixed 104px width, so it
+   tracks the viewport while the centred eyebrow does not: at 900 it sits above "three ways
+   in" and points down beside it, and at 320 its head lands ON TOP of the word "in".
+   It is also the only one of the section's five scraps without cg-drop-sm - the other four
+   already vanish here, so the section keeps exactly one mark and that one collides. */
+@media(max-width:560px){ .doors .cg-collage .cg-scrap.cg-s3{display:none} }
