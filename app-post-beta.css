@@ -1168,9 +1168,15 @@ html[data-tier="lite"] .craftboard::before{filter:none;animation:none}
 
 /* ---------- THE MAKER BOARD = vicarious experience, pinned ----------
    A polaroid is a photo plus a caption strip; the strip is where the handwritten quote lives.
-   All eleven makers visible at once: the repetition is the argument, and no one waits 6s to read
-   the second quote. Masonry columns so nothing orphans and it reflows 4 -> 3 -> 2 -> 1. */
-.makerboard{position:relative;isolation:isolate;margin:clamp(2rem,4.4vw,3rem) auto 0;
+   All six makers visible at once: the repetition is the argument, and no one waits 3.2s to read
+   the second quote. A pinned scatter, not columns; it reflows 3 -> 3 -> 2 -> 1. */
+/* z-index:1 puts the whole board ABOVE .cg-collage (z-index:0), so a marginalia scrap that
+   lands on it goes BEHIND it instead of across somebody's sentence. Reproduced before this:
+   a red tick struck clean through @angela's quote, eight inches above a link to the original.
+   That is also what the drawing means - the doodles are on the page, the board is an object
+   hanging on it. Only scraps INSIDE the board's box are affected; the gutter marginalia either
+   side is untouched. Needed because the board now carries six captions where it carried one. */
+.makerboard{position:relative;isolation:isolate;z-index:1;margin:clamp(2rem,4.4vw,3rem) auto 0;
   padding:clamp(1.8rem,3vw,2.6rem) clamp(1.2rem,2.4vw,2rem)}
 .makerboard::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:8px;
   background:var(--cork-fill);
@@ -1203,10 +1209,13 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
    written violation, not just a WCAG one. The accent stays as the pin and the card
    edge - which is where an accent belongs - and the name becomes readable. */
 
-/* A1. The pile's lead card did not cover the next card's caption, so two makers'
-   handles were legible at once, in two different accent colours, under one photo.
-   Intermittent because the deck rotates every 3.2s, which is how it survived review. */
-#mbDeck .mpol:not(.lead) .mv-strip b{visibility:hidden}
+/* A1 IS DISCHARGED BY ITS OWN CAUSE, 2026-08-30. The rule that lived here hid every
+   handle except .lead's, to stop two names being legible at once while the deck stacked
+   the cards on top of each other. It also meant that whenever .lead was NOT the card on
+   top - which was five loops out of six, since .lead started at --i:1 - the quote a
+   reader saw had no name under it at all. With all six pinned side by side there is no
+   stack, every name is legible, and every name is NEEDED: an unattributed quote is a
+   testimonial, a name and a face is a person. Deck gone, rule gone. */
 
 /* THE PULL QUOTE. A torn scrap pinned to the kraft board - not bare text on cork,
    which is a logged hard rule. Its own sheet under it via ::before + filter:url(#torn),
@@ -1232,7 +1241,16 @@ html[data-tier="lite"] .mb-pull::before{filter:none}
   font-size:clamp(1.25rem,3.2vw,1.9rem);line-height:1.18;text-wrap:balance}
 .mb-pull figcaption{margin-top:.5rem;font-family:var(--f-mono);letter-spacing:.08em;
   font-size:clamp(.62rem,1.3vw,.72rem);color:var(--ink);opacity:.72}
-@media(max-width:520px){.mb-pull{transform:rotate(.5deg)}}
+/* THE BRIEF'S TWO TACKS. Its markup note calls it "a challenge brief pinned to a club
+   board" and says "nothing on cork should be unpinned text" - and it hung on a drop
+   shadow while all six answers below it carried a tack. Two, not one: a 34rem notice
+   pinned in the middle spins. Sambas so the brief reads as the thing the HOST put up and
+   the coloured tacks stay the makers'. */
+.mb-pull .mv-pin{top:-9px}
+.mb-pull .mv-pin.p-l{left:11%}
+.mb-pull .mv-pin.p-r{left:auto;right:11%;margin-left:0;margin-right:-7px}
+@media(max-width:520px){.mb-pull{transform:rotate(.5deg)}
+  .mb-pull .mv-pin.p-l{left:14%} .mb-pull .mv-pin.p-r{right:14%}}
 
 .mb-frame{margin:0 auto .5rem;max-width:48ch;line-height:1.35;
   font-size:clamp(.82rem,1.5vw,.95rem);color:#5A3E1C}
@@ -1283,19 +1301,90 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 }
 @media(prefers-reduced-motion:reduce){.lg-real{transition:none}}
 
-.mb-grid{columns:4;column-gap:clamp(.7rem,1.4vw,1.1rem)}
-@media(max-width:1080px){.mb-grid{columns:3}}
-@media(max-width:760px){.mb-grid{columns:2}}
-@media(max-width:460px){.mb-grid{columns:1}}
+/* THE BOARD IS A PINNED SCATTER, NOT A GRID (2026-08-30). Six people pinned six answers
+   to one board: two loose rows, the second shifted sideways and tucked up under the first
+   so the corners overlap, every card on its own angle and its own tack. It replaces a deck
+   that dealt ONE card at a time on a 3.2s loop - which meant five of the six people were
+   invisible at any moment, the board was ~60% bare cork at 1440, and (because the
+   handle-hiding rule above only spared .lead, and .lead was rarely the card on top) the
+   quote a reader actually saw usually had no name under it at all. The section's own markup
+   already said what it wanted: "every voice is visible at once and the repetition IS the
+   argument". Percentage widths, not masonry columns, so the row breaks are deterministic.
+   REJECTED: keeping the deck and adding the missing .mb-hint ("tap to see them all"), the
+   affordance its CSS expects and the DOM never had. It spends rendered words teaching a
+   gesture, and the thing behind the gesture is the thing the section is for.
+   THE ROW-TWO SHIFT HAS TO BE PAID FOR IN CARD WIDTH, and this is the one arithmetic in
+   the block that will bite whoever edits it: row two is 3*cw + 2*gap + OFFSET wide, so if
+   the offset is bigger than the slack, card six wraps to a row of its own and the board
+   grows 350px (measured at 1024: 1383px instead of 1009px). Above 1081 the cards are capped
+   at 248px, so row two is a constant 852px in an inner width that is never less than 932.
+   Below it the cards are percentages, and the condition is
+   offset <= 3*(the px subtracted from 33.333%) - 2*gap; here 34 <= 78 - 32.
+   Re-check that line if you touch cw, gap or the offset. */
+.mb-grid{display:flex;flex-wrap:wrap;justify-content:center;
+  column-gap:var(--mb-gap,26px);row-gap:0;
+  --mb-gap:26px;--mb-off:56px;--mb-cw:min(calc(33.333% - 26px),248px)}
+@media(max-width:1080px){.mb-grid{--mb-gap:16px;--mb-off:34px;--mb-cw:calc(33.333% - 26px)}}
+@media(max-width:760px){.mb-grid{--mb-gap:18px;--mb-off:0px;--mb-cw:calc(50% - 12px)}}
+@media(max-width:460px){.mb-grid{--mb-gap:0px;--mb-off:0px;--mb-cw:min(88%,290px)}}
 
-.mpol{position:relative;isolation:isolate;break-inside:avoid;margin:0 0 clamp(.7rem,1.4vw,1.1rem);
-  padding:8px 8px 0;transform:rotate(var(--r,0deg));transition:transform .18s ease}
+/* THE LIP IS LOAD-BEARING, not styling. A real polaroid's bottom border is deeper than its
+   sides, and here that deeper edge is exactly what the row below is allowed to eat: the
+   tuck is 18px and the lip is 22px, so the pile overlaps and no handle is ever clipped.
+   Measured clearance from the deepest handle (@tergel's - .lead sets a bigger quote, so its
+   strip is the tallest) to the card tucking under it: 4px at 1440, rising as the cards
+   narrow. At lip 18 it measured 0px. Change one and you must re-measure the other. */
+.mpol{position:relative;isolation:isolate;flex:0 0 var(--mb-cw);width:var(--mb-cw);
+  margin:0;padding:8px 8px 22px;
+  transform:translateY(var(--y,0px)) rotate(var(--r,0deg));transition:transform .18s ease}
+
+/* THE HANG IS A COLUMN RHYTHM, NOT A PER-CARD WHIM, and that is a correctness rule and not
+   a taste one: the tuck below is a fixed 18px, so if the card above hung LOWER than the
+   card tucking under it, the difference would come out of the lip and land on a handle.
+   Every column hangs at one height, so the overlap is 18px everywhere and the ragged look
+   comes from the rotations, which cost nothing. Single-column hangs flat for the same
+   reason - there, the card above is a different column. --r and --c stay in the markup
+   because they ARE per-card: this photo hangs at this angle, on this tack. */
+.mb-grid .mpol:nth-child(3n+1){--y:10px}
+.mb-grid .mpol:nth-child(3n+2){--y:0px}
+.mb-grid .mpol:nth-child(3n+3){--y:8px}
+
+/* Z RISES WITH DOM ORDER, so the row that tucks UP is always the row in FRONT. It has to
+   be: a tack sits at the very top of its card, and the card above would swallow it. That is
+   exactly what the first cut of this board did - three photos pinned and three floating, on
+   a board whose entire subject is that somebody put them there. */
+.mb-grid .mpol:nth-child(1){z-index:1} .mb-grid .mpol:nth-child(2){z-index:2}
+.mb-grid .mpol:nth-child(3){z-index:3} .mb-grid .mpol:nth-child(4){z-index:4}
+.mb-grid .mpol:nth-child(5){z-index:5} .mb-grid .mpol:nth-child(6){z-index:6}
+
+/* Row two also sits OFF-COLUMN, or the six read as a table of six rather than as six things
+   somebody pinned up one at a time. */
+.mb-grid .mpol:nth-child(4){margin-left:var(--mb-off)}
+.mb-grid .mpol:nth-child(n+4){margin-top:-18px}
+@media(max-width:760px){
+  /* two columns, so the hang has to be a TWO-column rhythm or a card comes down onto a
+     name. The columns here are 1/3/5 and 2/4/6, not 1/4 and 2/5. */
+  .mb-grid .mpol:nth-child(2n+1){--y:10px}
+  .mb-grid .mpol:nth-child(2n){--y:0px}
+  .mb-grid .mpol:nth-child(n+3){margin-top:-18px}
+}
+@media(max-width:460px){
+  /* :nth-child(n) and not a bare .mpol - THE TRAP IN THIS BLOCK. The 3n hang rules above
+     carry one more pseudo-class than a plain descendant selector, so they win inside a
+     media query too: a media query does not raise specificity. Written as .mb-grid .mpol
+     this line lost, and every single-column handle clipped. */
+  .mb-grid .mpol:nth-child(n){--y:0px}
+  /* single column, so the card below tucks under the card DIRECTLY above and the lip is the
+     only thing between it and a handle. 8px, not 18: measured clearance from the handle's
+     own descender line to the next card's edge is 9px at 8, and -1px at 18. */
+  .mb-grid .mpol:nth-child(n+2){margin-top:-8px}
+}
 .mpol::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
   border:2.4px solid var(--ink);border-radius:3px;box-shadow:4px 5px 0 0 rgba(40,26,10,.5);
   filter:url(#roughsm)}
 .mpol:nth-child(even)::before{animation-delay:-.6s}
 .mpol:nth-child(3n)::before{animation-delay:-1.2s}
-.mpol:hover{transform:rotate(0) translateY(-6px) scale(1.03);z-index:9}
+.mpol:hover{transform:translateY(calc(var(--y,0px) - 7px)) rotate(0deg) scale(1.03);z-index:40}
 .mpol:hover::before{box-shadow:7px 9px 0 0 rgba(40,26,10,.55)}
 .mv-pin{position:absolute;top:-8px;left:50%;margin-left:-7px;width:15px;height:15px;border-radius:50%;
   background:var(--c,var(--colorado));border:2.2px solid var(--ink);z-index:2;
@@ -1340,18 +1429,11 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 .mb-echo a{color:#0C6E39;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 @media(prefers-reduced-motion:reduce){.mpol{transition:none}}
 
-/* B · makerboard as a CYCLING DECK (saves the tall 11-tile grid). JS adds .mb-stack by default
-   (the deck); tapping removes it -> the columns grid (splay). Hover pauses the cycle. */
-.mb-hint{display:none;text-align:center;font-family:var(--f-hand);color:#5A3E1C;font-size:1.02rem;
-  margin:0 0 clamp(.9rem,1.8vw,1.3rem)}
-.makerboard.decked .mb-hint{display:block}
-.mb-grid.mb-stack{columns:auto;position:relative;height:clamp(392px,50vw,470px);
-  max-width:min(330px,88%);margin:0 auto}
-.mb-grid.mb-stack .mpol{position:absolute;left:50%;top:0;width:min(300px,82vw);
-  margin:0 0 0 calc(min(300px,82vw) / -2);
-  transform:translate(calc(var(--i,0)*5px),calc(var(--i,0)*8px)) rotate(var(--r)) scale(calc(1 - var(--i,0)*.03));
-  z-index:calc(40 - var(--i,0));transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .4s}
-.mb-grid.mb-stack .mpol:hover{transform:translate(calc(var(--i,0)*5px),calc(var(--i,0)*8px)) rotate(var(--r)) scale(calc(1 - var(--i,0)*.03))}
+/* B · the makerboard CYCLING DECK's CSS was deleted 2026-08-30 with the JS that drove it -
+   .mb-hint, .makerboard.decked, .mb-grid.mb-stack and its absolute .mpol rules. See "THE
+   BOARD IS A PINNED SCATTER" above and the record in index-next.html where the script was.
+   Note for anyone tempted to restore it: .mb-hint was styled here and NEVER existed in the
+   DOM, so the deck shipped with no affordance at all. */
 
 
 /* The Circle card sits on a yellow sticky note — the group chat is a cold slab of paper, the Circle
@@ -8632,3 +8714,231 @@ html[data-tier="lite"] .sw-shot::after{filter:none}
 @media(prefers-reduced-motion:reduce){
   .si,.si [data-si-draw]{transition:none}
 }
+
+/* =================================================================================
+   CONSTRUCTION PAPER — grounded sections (2026-08-30)
+   ---------------------------------------------------------------------------------
+   WHY: Oats was 77.4% of painted pixels (measured on a full-page 1440 capture;
+   LOOP-FINDINGS Z-3 recorded 79.9% with a different extractor) against the brand
+   book's 25% target and its 45% ceiling. The book names THREE backgrounds — Grass,
+   Oats, Sambas — of which this page used exactly one. Warm cream is also now an
+   AI-default surface in its own right, so the palette was camouflaging this page
+   rather than differentiating it.
+   Separately it was breaking the house's own no-paper-on-paper rule at scale: every
+   object in #proof and #why-not-chat is a CREAM sheet with an ink keyline and a hard
+   offset shadow, sitting on a CREAM page. A registration shadow needs something to
+   fall on.
+
+   MERGE NOTE, 2026-08-30 — THE SUMMARY BAND IS DELIBERATELY NOT GROUNDED, AND THIS IS
+   THE ONE DECISION IN THIS BLOCK THAT WAS MADE BY MERGING RATHER THAN BY EITHER PASS.
+   The ground pass proposed THREE sheets - band, #why-not-chat, #proof - spaced roughly
+   5,000px apart, and that spacing was load-bearing in its own argument: it declined to
+   ground #founder because that would have put "a third green in the last 2,000px".
+   The reorder pass then moved #why-not-chat to beat two, immediately ABOVE the band.
+   Merged as written, the page's first two screens below a cream hero would have been a
+   slate sheet and a green sheet stacked with nothing between them - measured at 1440,
+   1,974px of continuous saturated ground starting 720px down. At that size two sheets
+   stop reading as sheets ON a pad and start reading as a dark page, which is the one
+   thing this idiom cannot afford in the first two screens, and it also destroys the
+   band's own job: after the problem, the reader coming back to cream IS the relief.
+   So the merged page grounds TWO: #why-not-chat (slate, beat two, the problem) and
+   #proof (green, ~70% down, it worked). Colour still carries the argument and the two
+   sheets are still ~7,000px apart.
+   WHAT THIS COSTS, stated: O-3 (the band went hollow when its second column was deleted)
+   is NOT fixed by this pass, and the cream-pixel number lands higher than the ground
+   pass's 58.1%. Both are real losses and neither is worth a dark first fold.
+   The band-specific rules below are kept, inert, so restoring it is one class attribute
+   in the markup - but read the paragraph above before you do, and look at the top of the
+   page at 1440 rather than at the pixel percentage.
+
+   THE MATERIAL, not a coloured div: each ground is a SHEET laid on the ruled pad —
+   flat saturated fill, a fibre speckle in the surface, a hand-torn edge through the
+   page's own #tornbig / #tornbig2 (different seeds, so no two tears repeat), and one
+   hard SOLID offset shadow where it lifts off the page. No gradients, no blur.
+
+   WHICH SECTIONS, and why these: both are sections whose every photograph is already
+   mounted on its own torn cream/kraft mat (.pc-card, .sw-shot::before, .snap::before,
+   .pw-media::before). NO PHOTOGRAPH ON THIS PAGE TOUCHES THE GROUND, so the "which
+   images survive a saturated field" question does not arise here — what meets the
+   ground is cream, at 5.91:1 or 8.05:1.
+   NOT GROUNDED, and do not re-propose without new evidence: #seewhat, because its
+   lead object beans-cover.jpg has an edge luminance of 0.232 — 2.33:1 on Sambas and
+   1.71:1 on grass-deep, but 3.32:1 on the cream it already has, so every saturated
+   ground makes it read WORSE; #long-game, because penmans-drill.jpg is 1.51:1 on
+   Sambas and 1.11:1 on grass-deep; .doors, because it sits directly on the grass-deep
+   footer. #founder is the best remaining candidate (every word is already on a cream
+   sheet) but it needs a bright ground and its two washi tapes swapped to .tape b.
+
+   COLOUR CARRIES THE ARGUMENT, and it is the only thing in this change that does —
+   the change is word-neutral by construction:
+     #why-not-chat  SAMBAS      the problem (the group chat is the colour of the void)
+     #proof         GRASS-DEEP  it worked
+   Slate where the page says a thing does not work, green where it says one does.
+
+   MEASURED (WCAG AA, computed not eyeballed):
+     Oats #FEF6E4 on Sambas #414D57 .......... 8.05:1   AAA
+     Oats #FEF6E4 on grass-deep #0C6E39 ...... 5.91:1   AA at every size
+     Happy #F1DD01 on grass-deep ............. 4.56:1   AA body
+     Happy #F1DD01 on Sambas ................. 6.22:1   AA body
+     ink #414D57 on Happy #F1DD01 ............ 6.22:1   AA body (the yellow strip)
+     ink #414D57 on Oats ..................... 8.40:1   AA body (the cream strip)
+     School Bus #ECAF21 on Sambas ............ 4.42:1   the club card's sticky note
+   REJECTED: bright Grass #1CAB5B as a ground. It is the truest construction-paper
+   green and it carries NO text at any size — Oats on it is 2.78:1 and ink on it is
+   2.90:1, both below even the 3:1 large-text floor. grass-deep is the sanctioned
+   deepened stock and is already the token the footer and the primary button use.
+   REJECTED: a mid-tone ground (Happy / Lazuli / Colorado). The book allows them
+   sparingly; none of them carries body text, and both of these sections have text
+   sitting directly on the ground.
+   ================================================================================= */
+.gnd{position:relative}
+.gnd::before{
+  content:"";position:absolute;z-index:-1;
+  /* the tear is a ±14px displacement, so the sheet is run 40px PAST the viewport on
+     both sides — the x-tear happens off-screen and only the top and bottom edges
+     read as torn. html/body already carry overflow-x:clip, so nothing scrolls
+     (verified: scrollWidth === clientWidth at 390 and 1440). */
+  left:calc(50% - 50vw - 40px);right:calc(50% - 50vw - 40px);
+  /* THE TEAR HAS TO CREST OUTSIDE THE TEXT. A ±14px displacement on a box that is exactly the
+     section's border-box will bite into the first and last line, so the sheet is run past the
+     section by a per-section bleed; the neighbours' own padding absorbs it. */
+  top:calc(-8px - var(--gnd-bleed-t,0px));bottom:calc(-8px - var(--gnd-bleed-b,0px));
+  background-color:var(--gnd-fill);
+  background-image:var(--gnd-fibre);
+  background-size:168px 168px;
+  background-blend-mode:soft-light;
+  box-shadow:0 13px 0 0 rgba(30,38,45,.30);   /* hard, solid, offset — the sheet lifts off the pad */
+  filter:url(#tornbig);
+}
+/* WIDE VIEWPORTS GET A SHEET WITH EDGES, narrow ones get a band. Below 1240px there is
+   no margin to spare — .wrap's own inline padding is already inside 50px of the viewport
+   edge, and a ±14px tear at 34px would chew into the first character. Above it there is
+   145px of slack, so the sheet pulls in, all four edges tear, and the registration shadow
+   can go down AND right like every other sheet on this page. */
+@media (min-width:1240px){
+  .gnd::before{left:calc(50% - 50vw + 34px);right:calc(50% - 50vw + 34px);
+    box-shadow:12px 15px 0 0 rgba(30,38,45,.28)}
+}
+/* no two tears the same */
+#proof.gnd::before{filter:url(#tornbig2)}
+
+/* Bleeds, measured against the NEXT section's first baseline rather than guessed.
+   #why-not-chat needs none: .versus's own padding is 24px/32px at 390 and 48px/56px at
+   1440, and the tear only needs 22px of clearance. The band's rules are kept for the
+   restore path described in the MERGE NOTE above. */
+.summary-band.gnd{--gnd-bleed-b:6px}
+#proof.gnd{--gnd-bleed-t:16px}
+@media (min-width:900px){
+  .summary-band.gnd{--gnd-bleed-b:34px}
+  #proof.gnd{--gnd-bleed-t:26px}
+}
+
+.gnd--grass{
+  --gnd-fill:#0C6E39;
+  --gnd-fibre:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='168' height='168'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.62' numOctaves='3' seed='5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.42'/%3E%3C/svg%3E");
+}
+.gnd--slate{
+  --gnd-fill:#414D57;
+  --gnd-fibre:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='168' height='168'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.58' numOctaves='3' seed='21'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.46'/%3E%3C/svg%3E");
+}
+/* the lite tier drops SVG filters page-wide; the id selector on #proof's tear outranks a
+   plain .gnd rule, so it is named here too. The sheet survives as flat colour. */
+html[data-tier="lite"] .gnd::before,
+html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
+
+/* ---- the highlighter on a coloured ground ----
+   .hl is a translucent MULTIPLY swipe painted by a positioned ::before, and on a sheet both
+   halves of that break:
+   (a) multiply(Happy, grass-deep) is #0B5F00, so the ink word under it disappears;
+   (b) THE ::before CANNOT FOLLOW A WRAPPED INLINE. Measured at 390: a wrapped .hl's ::before
+       collapses to 7.33px wide — a sliver of yellow with the whole clause set in ink beside
+       it. That bug is PRE-EXISTING and invisible on cream, where the uncovered word is still
+       ink-on-Oats at 8.4:1. On a sheet it is an unreadable line, so the ground has to fix it,
+       not inherit it.
+       Note for the next instrument-writer: a contrast audit that resolves an element's
+       background by walking ancestors for a painted ::before CANNOT SEE THIS. It reports the
+       word as covered. This was caught by looking at a 390px render.
+   The swipe therefore stops being a positioned pseudo-element and becomes a background on the
+   inline itself with box-decoration-break:clone, which paints EVERY line fragment. It also
+   stops animating: .hl.draw scales the band from 0 on scroll-in, and a word that is only
+   legible once an animation has fired is not legible.
+   THE COST, stated: this loses filter:url(#rough) and the -.9deg/-5deg tilt, because on the
+   inline itself a filter would distort the text and a rotation would tilt it. A machined edge
+   in an ALWAYS-HAND-DRAWN idiom is a real loss, taken because the alternative is an
+   illegible line — and because an opaque band on coloured stock reads as TAPE, and tape is
+   honestly rectangular where a marker swipe is not. The sheet carries the wobble. */
+.gnd .hl::before{display:none}
+.gnd .hl{
+  --hl-strip:var(--happy);            /* fallback: a bare .hl still gets a strip, never ink on colour */
+  background:var(--hl-strip);
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+  padding:.08em .2em .1em;border-radius:3px 2px 4px 2px;
+  box-shadow:1.5px 1.5px 0 0 rgba(30,38,45,.22);
+}
+.gnd .hl,.gnd .hl b,.gnd .eyebrow .hl-y{color:var(--ink)}
+.gnd .hl-y{--hl-strip:var(--happy)}
+.gnd .hl-b{--hl-strip:var(--oats)}
+
+/* ---- 1 · THE SUMMARY BAND — kept inert unless the band is re-grounded (see MERGE NOTE) ---- */
+.summary-band.gnd .sum-head .eyebrow{color:var(--happy)}
+.summary-band.gnd .sum-head h2{color:var(--oats)}
+.summary-band.gnd .sum-head h2 .stop{color:var(--happy)}
+.summary-band.gnd .sum-sub,
+.summary-band.gnd .sum-sub b{color:var(--oats)}
+.summary-band.gnd .sum-lede{color:var(--happy)}
+.summary-band.gnd .sum-doodles li,
+.summary-band.gnd .sum-doodles li b{color:var(--oats)}
+/* THE MARKS PRINT IN ONE PLATE. Inline stroke="" presentation attributes, which any CSS rule
+   outranks. Their inline hexes are #0C6E39 (the ground itself, 1.00:1), #414D57 (1.36:1) and
+   #C9343A (1.22:1) — on green, five of the six marks simply vanish. Recoloured to a single
+   cream line and un-filled, which is what a hand-drawn mark on coloured stock actually is: a
+   white pencil. 5.91:1. The lost multicolour was illustrative, not semantic — the stylesheet's
+   own note assigns meaning to the HIGHLIGHTER colours, never to these. To get colour back,
+   REDRAW them in Happy / Oats / School Bus, the three inks that clear 3:1 on grass-deep; do
+   not restore the hexes. */
+.summary-band.gnd .sum-doodles .dood svg *{stroke:var(--oats)}
+.summary-band.gnd .sum-doodles .dood svg *[fill]{fill:none}
+
+/* ---- 2 · NOBODY GETS GOOD AT ANYTHING ALONE — the problem, on slate ---- */
+/* THE EYEBROW IS A MERGE FIX AND IT IS LOAD-BEARING. The reorder pass gave this section a
+   new eyebrow ("why it's hard") coloured Colorado inline, to match #bring's — written for a
+   CREAM ground, before this section became a sheet. Colorado on Sambas is 2.63:1, under even
+   the 3:1 large-text floor, and an inline style attribute would have beaten every rule in
+   this file. Happy on Sambas is 6.22:1 and is already what the other grounded head uses, so
+   the three eyebrows agree. The colour lives here, in the ground's own block, because the
+   ground is what makes it necessary. Coral was never safe: on cream it is 3.07:1. */
+.versus.gnd .head .eyebrow{color:var(--happy)}
+.versus.gnd .head h2{color:var(--oats)}
+.versus.gnd .head h2 .stop{color:var(--happy)}
+.versus.gnd .head h2 .ul::after{background:var(--oats)}
+.versus.gnd .vs-card .cap{color:var(--oats)}
+.versus.gnd .vs-card.vs-circle .cap{color:var(--happy)}
+/* Both tabs keep their fill and take a cream keyline, because on a dark ground the ink keyline
+   every sheet on this page carries has to print in the other plate. The sad tab's fill IS the
+   ground — the group chat is the colour of the void it sits in, and only its outline says it is
+   a thing. KNOWN RISK: that is one keystroke from reading as a rendering fault. If a cold reader
+   calls it a bug, swap it to background:var(--oats);color:var(--ink) and lose the joke — do NOT
+   introduce a second fill colour. */
+.versus.gnd .vs-tab{box-shadow:0 0 0 2.2px var(--oats)}
+/* THE RISO OFFSET (DESIGN.md Craft Bible: "hard offset shadow in GRASS on a Sambas block").
+   The club's sticky note lifts off the slate in green; the dead chat's shadow goes DARKER than
+   the ground, so it lies flat on it. Same 7/8px offsets as the cream version — only the plate
+   changes. This is the whole argument of the section, made in ink weight instead of words. */
+.versus.gnd .circlemock::before{box-shadow:7px 8px 0 0 var(--grass)}
+.versus.gnd .chatmock::before{box-shadow:7px 8px 0 0 rgba(22,28,34,.85)}
+/* THE AUTHORED SCRAP IN HERE IS REALLY ON SCREEN, so this rule is load-bearing. Both
+   upstream passes believed .si never rendered (they grepped the HTML; si-in is added by
+   app-post-beta.js:3249/:3254 on intersection) - verified visible at 1440 on this draft.
+   It is drawn in coral-ink and ink — 1.66:1 and 1.00:1 on slate.
+   balanceMarginalia()'s GENERATED scraps are not covered: one that draws in --ink on this sheet
+   will be invisible. They are aria-hidden and already pin nothing (Z-1), so that is a non-event,
+   but it is one more reason Z-1 is worth fixing. */
+.versus.gnd .si svg *{stroke:rgba(254,246,228,.5)}
+.versus.gnd .si svg *[fill]:not([fill="none"]){fill:rgba(254,246,228,.5)}
+
+/* ---- 3 · WHO'S USING DREX — it worked, on green ---- */
+#proof.gnd .dk-head .eyebrow{color:var(--happy)}
+#proof.gnd .dk-head h2{color:var(--oats)}
+#proof.gnd .dk-head h2 .stop{color:var(--happy)}
+#proof.gnd .dk-head h2 .ul::after{background:var(--oats)}
+#proof.gnd .gifts-foot{color:var(--happy)}
