@@ -33,8 +33,33 @@
      Pitch Sans → "Headings and Subheadings" — an upright SANS. Was wrongly substituted with
                   DM Mono (a monospace), which collapsed it into Pitch and killed the hierarchy.
      Bitter     → body. Birdie → margin annotations ONLY (never a heading, never body). */
-  --f-display:"Courier Prime",ui-monospace,monospace;   /* Pitch — h1 only */
-  --f-slab:"Courier Prime",ui-monospace,monospace;      /* Pitch — display accents (pull-quotes, dropcap) */
+  /* THE PITCH STAND-IN (2026-08-31). Verified first, because the complaint as stated is false:
+     PITCH IS A MONOSPACE. Measured off Klim's own webfonts, Pitch Semibold Italic sets M and i at
+     an identical 0.610em; Klim files it under "Mechanistic/Slab Serif Monospace" and the family is
+     named after the typewriter unit for characters-per-inch. So the H1 reading as fixed-width is
+     the brand doing what it was drawn to do, and swapping to a proportional face would be wrong.
+     WHAT IS ACTUALLY WRONG IS THE SPECIMEN, and it is one feature: Courier Prime keeps Courier's
+     long thin SPLAYED WINGS on H/d/l, which is the visual signature of terminal and screenplay
+     type. Pitch has short stubby slabs on flat brackets. Sometype Mono (Dharma Type, OFL, free)
+     has those slabs, the same double-storey italic a, single-storey hooked g, straight-tailed y
+     and unslashed zero — and measured, cap 0.650em against Courier Prime's 0.585em, an 11% taller
+     letter at the same point size. That second number is why the swap is structural and not
+     taste: at 40px the H1's cap goes 23.4 -> 26.0px, clearing the 23.8px cap of an ordinary h2,
+     so the headline stops being outranked by every heading beneath it. Advance is 0.580em vs
+     0.600em, so every ch-bound measure on the page gets 3.3% ROOMIER, never tighter.
+     THE DESTINATION IS REAL PITCH, and it is already bought: the full Pitch Collection is
+     licensed to drex.style (Klim order 26060812, web tier 5,000 monthly uniques) and the WOFF2s
+     live on the founder's Mac under fonts/Klim/WOFF2/. Copying those files in is a $0 change and
+     it is the reason "Pitch" leads both stacks below — the day they land, the page uses them.
+     NOTE when they do: Pitch is Semibold(600) Italic per the book, not 700; and Pitch's own cap
+     is 0.570em, SHORTER than Courier Prime's, so the H1's rank has to come from the column or
+     the h2 rank, not from the point size. That is a founder call and it is not made here.
+     REJECTED: Space Mono (0.610em advance and the most ink, but angular a and splayed M read
+     Colophon-brutalist, competing with the doodles); IBM Plex Mono (its italic is a true cursive
+     with a SINGLE-storey a — a structural break from Pitch); Cousine, DM Mono (no slabs);
+     Zilla Slab (proportional, and already rejected 2026-06-04). */
+  --f-display:"Pitch","Sometype Mono","Courier Prime",ui-monospace,monospace;   /* Pitch — h1 only */
+  --f-slab:"Pitch","Sometype Mono","Courier Prime",ui-monospace,monospace;      /* Pitch — display accents (pull-quotes, dropcap) */
   --f-head:"Space Grotesk",system-ui,sans-serif;        /* Pitch Sans — h2, h3 */
   --f-mono:"Space Grotesk",system-ui,sans-serif;        /* Pitch Sans — tracked uppercase labels */
   --f-body:"Bitter",Georgia,serif;
@@ -56,12 +81,46 @@
   --fs-body:clamp(1.0625rem, 1.02rem + 0.19vw, 1.1875rem);   /*  17 →  19px  body */
   --fs-small:clamp(0.875rem, 0.84rem + 0.14vw, 0.97rem);     /*  14 → 15.5px captions, marginalia — FLOOR */
   --fs-label:clamp(0.78rem, 0.76rem + 0.09vw, 0.84rem);      /* 12.5 → 13.5px tracked uppercase labels */
+
+  /* ---- THE RULE AND THE LADDER (2026-08-31). The page had a rigorous TYPE scale and nothing
+     corresponding for SPACE: 76 custom properties, zero of them a spacing token, against 921
+     spacing declarations carrying 255 distinct literals. Two objects fix that, and they are
+     both things you can SEE on the page rather than numbers you have to trust.
+
+     --lead IS THE RULED PAD. The ground prints a horizontal rule every 34px and the body line
+     box measured 28.93px, so the writing crossed a printed line every six lines and the page
+     drifted against its own paper. --lead is now the body's line box AND the pitch of every
+     rule printed on the page, so type and rule can never come apart again. Change one number
+     and the paper re-rules itself. (Constant offset from a rule reads as written by hand;
+     DRIFTING offset is what reads as "nothing lines up". That distinction is the whole point.)
+
+     --s-* IS THE SPACE LADDER, 8px, and it is NOT an invention: 24/32/48/56 is already the
+     section padding of .versus, .zines, .doors, .longgame and .note — the page's own plurality.
+     Five sections had drifted off it. THE RULE, same as the type block's: no spacing literal
+     for a PAGE-LEVEL rhythm outside this ladder. Component internals, container-query
+     illustrations and the littered marginalia are explicitly exempt — the tilts, the torn
+     edges and the scatter are the design, and snapping them would make a worse page. */
+  --fs-root:clamp(1rem,.97rem + .25vw,1.13rem);              /*  16 →  18px  the body em */
+  --lead-ratio:1.6;                                          /* body leading, UNCHANGED */
+  --lead:calc(var(--fs-root) * var(--lead-ratio));           /*  26 →  29px  THE RULE */
+  /* --lead-ratio, not --lead, is what body's line-height uses: a LENGTH line-height inherits as a
+     fixed number of pixels, so setting body{line-height:var(--lead)} silently re-leads every
+     element that relied on inheriting the ratio (measured: .eyebrow 40.96 -> 28.93px, .btn 22.02
+     -> 28.93px, which changes the buttons' height). Unitless inherits as a ratio. Do not "tidy"
+     this into one property. */
+  --s-1:.5rem;   /*  8 */
+  --s-2:1rem;    /* 16 */
+  --s-3:1.5rem;  /* 24  section padding-block, small end */
+  --s-4:2rem;    /* 32  section padding-block, small end (bottom) */
+  --s-5:3rem;    /* 48  section padding-block, large end */
+  --s-6:3.5rem;  /* 56  section padding-block, large end (bottom) */
+  --s-7:6rem;    /* 96 */
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;overflow-x:clip}
 body{
-  margin:0;color:var(--ink);font-family:var(--f-body);font-weight:300;line-height:1.6;
-  font-size:clamp(1rem,.97rem + .25vw,1.13rem);overflow-x:clip;-webkit-font-smoothing:antialiased;
+  margin:0;color:var(--ink);font-family:var(--f-body);font-weight:300;line-height:var(--lead-ratio);
+  font-size:var(--fs-root);overflow-x:clip;-webkit-font-smoothing:antialiased;
   /* the ground is one big RULED PAD, not a dotted desk (2026-08-24, second cut).
      The first cut today removed the RULES and kept the dots — backwards, said
      Sue: the collage wants to lie on ruled paper. The muddy "banding" was never
@@ -71,7 +130,7 @@ body{
      nudged to .10 so they read as intentional; grain stays. */
   background-color:var(--oats);
   background-image:
-    repeating-linear-gradient(0deg, transparent 0 33px, rgba(36,150,201,.10) 33px 34px),
+    repeating-linear-gradient(0deg, transparent 0 calc(var(--lead) - 1px), rgba(36,150,201,.10) calc(var(--lead) - 1px) var(--lead)),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.45'/%3E%3C/svg%3E");
   background-size:auto, 220px 220px;
   background-blend-mode:normal, multiply;
@@ -89,7 +148,11 @@ a{color:inherit}
   box-shadow:8px 8px 0 0 var(--ink);                /* hard SOLID registration shadow — one light, equal offset */
 }
 .paper>.sheet.ruled{
-  background:var(--paper) repeating-linear-gradient(0deg, transparent 0 27px, rgba(65,77,87,.07) 27px 28px);
+  /* the pitch is the LINE BOX OF THE WRITING ON THIS SHEET, not a number. --rule defaults to the
+     page's lead and is restated per surface where the writing has a leading of its own (see .note).
+     A pad ruled at 28px carrying 38.4px handwriting crosses a printed line every three lines. */
+  --rule:var(--lead);
+  background:var(--paper) repeating-linear-gradient(0deg, transparent 0 calc(var(--rule) - 1px), rgba(65,77,87,.07) calc(var(--rule) - 1px) var(--rule));
 }
 .paper>.inner{position:relative;z-index:2;padding:clamp(1.5rem,4vw,3rem)}
 
@@ -621,7 +684,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .how .step .ico svg>*{filter:url(#roughsm)}              /* same hand-drawn boil as the collage scraps */
 .how .step:nth-child(odd) .ico{transform:rotate(-4deg)}
 .how .step:nth-child(even) .ico{transform:rotate(4deg)}
-.how .step h3{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:4.3cqw;
+.how .step h3{font-size:4.3cqw;
   line-height:1;margin:0;color:var(--ink)}
 .how .step p{font-family:var(--f-hand);font-size:3.3cqw;line-height:1.15;margin:.8cqw 0 0;color:var(--sambas)}
 /* small screens only: a legible circle can't hold four text stations in the width, so below
@@ -636,13 +699,22 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   .how .step{position:relative;transform:none;width:auto}
   .how .flow .step:nth-child(1),.how .flow .step:nth-child(2),.how .flow .step:nth-child(3),.how .flow .step:nth-child(4),.how .flow .step:nth-child(5){top:auto;left:auto}  /* unset the circular coords so the stack centers */
   .how .step .ico{width:50px;height:50px}
-  .how .step p{font-size:1.02rem}
+  .how .step p{font-size:var(--fs-body)}
   /* the three per-node width/size overrides live OUTSIDE this block and outspecify
      `.how .step{width:auto}` above, so the stack must unset them explicitly or nodes
      02 and 03 stay at 81px and 68px with 8px type. */
   .how .step.is-key,.how .step.is-think,.how .step.is-cal{width:auto}
-  .how .step.is-think h3,.how .step.is-globe h3{font-size:1.18rem}
-  .how .step.is-think p{font-size:1.02rem;max-width:none}
+  /* 2026-08-31: this asked for 1.18rem on two of the four stations and never got it — both
+     per-node rules sat further down the file and outranked it, so the stack ran at their cqw
+     sizes and the h3s came out SMALLER than the .how .step p beneath them (15.76 vs 16.32 at
+     390px). Below 560 the ring is not a ring, it is a vertical stack, so cqw against the ring's
+     526px container is the wrong unit here: all four stations take the page's own h3 rung. */
+  .how .step h3{font-size:var(--fs-3)}
+  /* .how .flow .step, not .how .step: the balloon's 2.6cqw (:1538) sits further down the file
+     and silently beat this rule, so station 03's sentence rendered at 9.53px at 390 and 7.82px
+     at 320 — below the type scale's own 14px FLOOR, in the stacked layout where cqw is measured
+     against the ring container the stack no longer uses. */
+  .how .flow .step.is-think p{font-size:var(--fs-body);max-width:none}
   .how .step.is-clock .ico{width:66px;height:66px;margin:0 auto .3rem}
   .how .step.is-globe .ico,.how .step.is-cal .ico{width:auto;max-width:120px}
   /* REJECTED 2026-08-29 — the down-arrow connectors between stacked stations. They had not
@@ -818,7 +890,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 /* ---------- the long game = durability, drawn ----------
    One circle's own shelf, 001 to 012, each spine a little taller. The growth IS the argument:
    these are not strangers cycling through, they're the same people getting good together. */
-.longgame{padding:clamp(1.8rem,4.5vw,3rem) 0 clamp(1.2rem,3vw,2rem)}
+.longgame{padding:clamp(var(--s-3),4vw,var(--s-5)) 0 clamp(var(--s-4),5vw,var(--s-6))}
 .longgame .head{margin-bottom:clamp(1.6rem,3.6vw,2.4rem);text-align:center}
 .longgame .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;
   font-size:clamp(1.7rem,4.8vw,2.7rem);line-height:1;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
@@ -855,6 +927,14 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 /* the shelf they stand on — a drawn plank, not a rule */
 .shelf-rule{height:5px;border-radius:3px;background:var(--ink);filter:url(#rough)}
 .shelf-ends{display:flex;justify-content:space-between;gap:1rem;margin-top:.85rem}
+@media (max-width:899px){
+  /* keep both captions inside the page's own gutter, and take the rotation down so the
+     right-hand one does not throw its corner past the margin every card here respects. */
+  .shelf-ends{padding-inline:clamp(.9rem,4vw,1.2rem); gap:.6rem}
+  .se-a,.se-b{max-width:15ch}
+  .se-a{transform:rotate(-.8deg)}
+  .se-b{transform:rotate(.8deg)}
+}
 .se-a,.se-b{font-size:1.05rem;line-height:1.25;color:var(--sambas);max-width:20ch}
 .se-a{text-align:left;transform:rotate(-1.2deg)}
 .se-b{text-align:right;transform:rotate(1.2deg);color:var(--grass-deep)}
@@ -1223,8 +1303,8 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
    Tilted the other way from the deck below it so the two do not read as one stack. */
 /* #seewhat had a heading, a video and no FACT - 13 rendered words for 717px of scroll.
    This is the one the section was missing: the issues are public and browsable. */
-.sw-sub{margin:.6rem auto 0;max-width:34ch;text-align:center;color:var(--ink);
-  font-size:clamp(.95rem,1.9vw,1.1rem);line-height:1.4}
+.sw-sub{margin:.6rem auto 0;max-width:46ch;text-align:center;color:var(--ink);
+  font-size:var(--fs-body);line-height:1.5}
 
 /* the founders' closing question, in the margin voice, above the three doors. */
 .doors-ask{margin:.2rem 0 .1rem;color:var(--coral-ink);
@@ -1480,7 +1560,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
    overflowing line has nowhere to go but through node 01's answer. At 3.6cqw (the balloon
    node's size) "Who sees it?" clears by ~10px at 560, ~7px at 390. Lengthen this heading
    and the nowrap comes off with it. */
-.how .step.is-globe h3{font-size:3.6cqw;white-space:nowrap}
+.how .step.is-globe h3{white-space:nowrap}
 
 
 /* SHOW & TELL IS A GLOBE. Two objects in a ring of notes: the CLOCK at 02 (the hour, small, your
@@ -1534,7 +1614,9 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 @media(prefers-reduced-motion:reduce){.thoughtb path,.thoughtb circle{animation:none}}
 
 /* a balloon holds less air than a square note of the same width — keep the text off the scallops */
-.how .step.is-think h3{font-size:3.6cqw}
+/* 2026-08-31: the 3.6cqw that sat here is gone. Measured, "Your part" at the ring's own
+   4.3cqw sets 123.2px inside a 123.2px node at 1440, 700 and 560 — it never touched the
+   scallops, so the balloon was paying a rank for a clearance it did not need. */
 .how .step.is-think p{max-width:15ch;margin-inline:auto;font-size:2.6cqw;line-height:1.12}
 .how .step.is-think .n{margin-bottom:.35cqw}
 
@@ -1588,7 +1670,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 @media(prefers-reduced-motion:reduce){.how-ring{animation:none}}
 
 /* ---------- bring your group = the organizer's door ---------- */
-.bring{padding:clamp(1.5rem,4vw,2.6rem) 0}
+.bring{padding:clamp(var(--s-3),4vw,var(--s-5)) 0 clamp(var(--s-4),5vw,var(--s-6))}
 /* the pitch is a single ~44ch column now; keep the paper skinny around it instead of
    letting the sheet stretch the full .wrap and frame an empty gutter on both sides. */
 .bring .paper{max-width:52ch;margin-inline:auto}
@@ -1780,7 +1862,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 .crew .polaroid:hover::before{box-shadow:11px 12px 0 0 var(--ink)}
 
 /* ---------- founder's note (a handwritten letter, photo taped on) ---------- */
-.note{padding:clamp(1.5rem,4vw,3rem) 0}
+.note{padding:clamp(var(--s-3),4vw,var(--s-5)) 0 clamp(var(--s-4),5vw,var(--s-6))}
 .note .inner{padding:clamp(1.9rem,5vw,3.6rem)}
 .note-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(1.6rem,4vw,2.8rem);align-items:center}  /* minmax(0,…) stops the single mobile column blowing out to text max-content */
 @media(min-width:760px){.note-grid{grid-template-columns:1fr auto}}
@@ -1788,7 +1870,12 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 .note h2 .stop{color:var(--grass-deep)}
 .note-punch{font-family:var(--f-slab);font-style:italic;font-weight:700;
   font-size:clamp(1.05rem,1.9vw,1.28rem);line-height:1.25;color:var(--ink)}
-.note-body{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.2rem,2.1vw,1.6rem);line-height:1.5;color:var(--ink);max-width:min(36ch,100%);margin:.9rem 0 0}
+/* the founder's letter is the page's most personal copy AND its most literal object: handwriting
+   on a sheet of ruled notepaper. It was set at 38.4px leading on 28px rules, so the writing walked
+   off the lines it was drawn on — 10.4px further down the page every line. One token, used twice. */
+.note{--note-fs:clamp(1.2rem,2.1vw,1.6rem)}
+.note .paper>.sheet.ruled{--rule:calc(var(--note-fs) * 1.5)}
+.note-body{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:var(--note-fs);line-height:1.5;color:var(--ink);max-width:min(36ch,100%);margin:.9rem 0 0}
 .note-body b{font-weight:700;color:var(--grass-deep)}
 .sign{font-family:var(--f-hand);font-size:clamp(2.2rem,4.5vw,3.2rem);color:var(--grass-deep);margin:1.1rem 0 0;line-height:1}
 .sign-role{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--sambas);margin:.35rem 0 0}
@@ -1842,7 +1929,7 @@ footer .ft-word svg{display:block;width:100%;height:auto}
    .nb welds "show-and-tells." — its hyphens are CSS break opportunities, and nbsp cannot stop
    a hyphen break, only nowrap can. It is a guard, not a fix: at 320px the column is 252px and
    the noun 210px, so 42px of headroom. See the markup comment in index.html. */
-footer .tagline{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.5rem,3.4vw,2.3rem);color:var(--oats);max-width:18ch;margin:.8rem 0 0;line-height:1.05}
+footer .tagline{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:var(--fs-2);color:var(--oats);max-width:18ch;margin:.8rem 0 0;line-height:1.05}
 footer .tagline .nb{white-space:nowrap}
 footer .links{display:flex;flex-direction:column;gap:.35rem}
 footer .links a{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--oats);
@@ -2981,7 +3068,13 @@ html.sealed .envelope.lit-hl .hero-card .hl-rot.lit .mark::before{transform:rota
    own header condemns; and #seewhat is the thinnest section on the page (13 rendered words by
    measure.py), so it would take the loudest heading on it. Tier is an ordering decision about
    the pitch, and it needs the h1's size settled first. Both are founder calls, not lint. */
-#how .head h2,#zine .head h2,#reader .head h2,#why-not-chat .head h2{font-size:var(--fs-1)}
+/* TIER A IS RETIRED (2026-08-31). The block above left this standing and named the condition for
+   settling it: "it needs the h1's size settled first". It is settled — the H1 now spends its full
+   measured headroom (40px) in a face whose cap is 11% taller, so it measures 26.0px of cap. This
+   rule promoted exactly ONE head on this page (three of its four ids match nothing), and that head
+   measured 30.8px of cap: the single thing that still out-ranked the headline. Retiring it makes
+   every h2 one rank at one size, which is what "one rank, one face" means. --fs-1 stays declared;
+   it is the rung a promoted head would land on if the pitch ever wants one back. */
 
 /* The founder's note joined the system above (2026-08-29) because the section had rendered with no
    h2 at ALL — 63 words of unbroken letter with nothing for a skimmer to catch. Two corrections, and
@@ -3915,6 +4008,18 @@ html.sealed:not(.revealed) .hero::after{display:none}
    At the inherited size that blank is 98% of the mobile measure: 290px of ghost against a 290px
    column at 360px. The headline also went from 28 characters to 52. Both problems have the same
    fix — the sentence is set smaller than the old category line was, at every width. ============ */
+/* THE FOLD IS ONE NUMBER PER BREAKPOINT (2026-08-31). The H1's size expression was written out
+   as a literal in TEN places — four H1 rules and six phi derivations for lines two and three —
+   so the phi ladder documented at the foot of this file could not actually be checked, and the
+   H1 could not be resized without editing ten numbers in four regions. --fs-fold is that number.
+   It is declared on .ed-head, NOT on .hero-card: cqw resolves against the nearest ANCESTOR
+   container, so a cqw written on the container itself would silently measure something else.
+   The >=881 value moves 2.45rem/4.45cqw -> 2.5rem/4.81cqw. That is the FULL measured headroom
+   and not a taste call: sweeping the live H1 37->52px, scrollWidth stays 338 in a 340px column
+   up to 40px and breaks to 343 at 41px. 4.81cqw = 40.0px in the 831.6px card. */
+.hero-card .ed-head{--fs-fold:min(2.6rem,7.4vw)}
+@media(min-width:881px){.hero-card .ed-head{--fs-fold:min(2.5rem,4.81cqw)}}
+@media(max-width:380px){.hero-card .ed-head{--fs-fold:min(2.1rem,7.3vw)}}
 .hero-card h1.ed-cat{max-width:26ch;line-height:1.13}
 @media(min-width:881px){
   /* 6cqw (app.css:3459) was sized for a two-line category line. The fielded cut's 52-character
@@ -3928,7 +4033,7 @@ html.sealed:not(.revealed) .hero::after{display:none}
      "Clubs run their own magazine." binds on "Clubs run their " (15ch) and 6.1cqw
      overflows it — see the re-derivation at the min-width:900 rule below; this
      branch only exists to cover 881-899px, so it carries the same number. */
-  .hero-card h1.ed-cat{font-size:min(2.45rem,4.45cqw)}
+  .hero-card h1.ed-cat{font-size:var(--fs-fold)}
 }
 @media(max-width:880px){
   /* THE BINDING TOKEN IS THE SENTENCE'S OWN SECOND LINE NOW, NOT THE BLANK (2026-08-08).
@@ -3950,7 +4055,7 @@ html.sealed:not(.revealed) .hero::after{display:none}
      through the ceiling this whole rule exists to hold. The ceiling is the invariant; the floor is
      not. A miss here wraps rather than clips (the H1 is ordinary text again now that the
      unbreakable slot has gone), so the failure mode is a third line, not a guillotined word. */
-  .hero-card h1.ed-cat{font-size:min(2.6rem,7.4vw);max-width:none;line-height:1.15;
+  .hero-card h1.ed-cat{font-size:var(--fs-fold);max-width:none;line-height:1.15;
     /* the amber Circle ring sits in the card's top-right corner and zone 1's FIRST line now runs
        the full sheet — reserve its column. This lived at max-width:520px when it was protecting a
        one-line eyebrow; the H1 is display type across the whole under-881 branch, and between 521
@@ -5021,7 +5126,7 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
    border-only ::before/::after layers so photos + type never smear.
    (Replaced the old .mg/.fac "long page" block; that CSS is now dead.)
    ========================================================================= */
-.dk{max-width:960px;margin:0 auto;padding:clamp(.5rem,2vw,1.3rem) 1.25rem clamp(2.4rem,5.5vw,3.8rem)}
+.dk{max-width:960px;margin:0 auto;padding:clamp(var(--s-3),4vw,var(--s-5)) 1.25rem clamp(var(--s-4),5vw,var(--s-6))}
 .dk-head{text-align:center;max-width:60ch;margin:0 auto clamp(1rem,2.4vw,1.6rem)}
 .dk-head .eyebrow{color:var(--colorado);margin-bottom:.3rem}
 .dk-head h2{font-family:var(--f-head);font-weight:700;font-size:var(--fs-2);line-height:1.03;
@@ -5038,7 +5143,7 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
    the ratio to 1.15x. The 3.2rem top margin is NOT cosmetic: the cards are rotated, so their
    bounding boxes reach ~16px (desktop) to 28px (390px) higher than the deck box, and at 1.4rem
    the top-left card landed on top of the section heading. */
-.deck{position:relative;width:min(780px,96vw);height:clamp(440px,72vw,560px);margin:3.2rem auto 0}
+.deck{position:relative;width:min(780px,96vw);height:clamp(440px,72vw,560px);margin:clamp(.5rem,2.4vw,1.9rem) auto 0}
 
 .pc{--w:clamp(240px,58vw,368px);position:absolute;left:50%;top:50%;
   width:var(--w);aspect-ratio:1.62/1;
@@ -5070,7 +5175,7 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
    Fill + wobbly border live on ::before (filtered); the letters stay crisp. */
 .pc-name{position:absolute;left:7px;bottom:8px;z-index:5;isolation:isolate;
   writing-mode:vertical-rl;transform:rotate(180deg);
-  font-family:var(--f-head);font-weight:800;font-size:13px;letter-spacing:.02em;line-height:1;
+  font-family:var(--f-head);font-weight:700;font-size:13px;letter-spacing:.02em;line-height:1;
   color:var(--oats);padding:.5em .34em}
 .pc-name::before{content:"";position:absolute;inset:-1px;z-index:-1;
   background:var(--key,var(--ink));border:2px solid var(--ink);border-radius:4px;
@@ -5371,7 +5476,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
      Grass-deep  — WHAT CAME OUT. The zine's caption + the loop line,
                    following the site's .zpola.is-zine .zpola-cap rule.
    =================================================================== */
-.showtell{padding:clamp(2.2rem,5.5vw,3.6rem) 0 clamp(1.6rem,4vw,2.6rem);position:relative}
+.showtell{padding:clamp(var(--s-3),4vw,var(--s-5)) 0 clamp(var(--s-4),5vw,var(--s-6));position:relative}
 .showtell .head{margin-bottom:clamp(1.6rem,3.6vw,2.3rem);text-align:center}
 /* THE HEADING SYSTEM, applied here rather than in its own block upfile, because this rule sits
    BELOW that block and would otherwise win on source order — which is how this head stayed in
@@ -5697,7 +5802,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    The old stills had a pale gutter down the right edge; these are captured at
    the content width and chopped, so the fringe is the only edge you see.
    ===================================================================== */
-.pw{padding:clamp(2rem,5vw,3.2rem) 0 clamp(1.8rem,4.4vw,2.8rem);position:relative}
+.pw{padding:clamp(var(--s-3),4vw,var(--s-5)) 0 clamp(var(--s-4),5vw,var(--s-6));position:relative}
 .pw .head{margin-bottom:clamp(1.8rem,4vw,2.6rem);text-align:center}
 /* THE HEADING SYSTEM, applied here rather than in its own block upfile, because this rule sits
    BELOW that block and would otherwise win on source order — which is how this head stayed in
@@ -5708,7 +5813,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
   font-size:var(--fs-2);margin:.25rem 0 0;color:var(--ink);max-width:24ch;margin-inline:auto}
 .pw .head h2 .stop{color:var(--grass-deep)}
 .pw-sub{font-family:var(--f-body);font-size:var(--fs-body);line-height:1.5;color:var(--ink);
-  max-width:48ch;margin:.7rem auto 0}
+  max-width:46ch;margin:.7rem auto 0}
 .pw-sub b{font-weight:600}
 
 /* the pair. Generous gap: with no frames, the gap is the only thing
@@ -6565,7 +6670,7 @@ html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
    magazine.") has the longer longest line — "own magazine." is .nb, so the
    payoff word can never widow. */
 @media (min-width:900px){
-  .hero-card h1.ed-cat{font-size:min(2.45rem, 4.45cqw); line-height:1.08}
+  .hero-card h1.ed-cat{font-size:var(--fs-fold); line-height:1.08}
 }
 
 /* ---- THE CRAFT LINE IS A MARKED BOX, AND IT DOES NOT MOVE.
@@ -7270,7 +7375,7 @@ html[data-tier="lite"] .start-line::before{animation:boil-rough var(--boil-ink) 
      orphans "their" on its own display line. min(), no floor, per the doctrine
      at :3737 — the ceiling is the invariant. 7.3vw clears 320 (the binding
      width) by 4px. */
-  .hero-card h1.ed-cat{font-size:min(2.1rem,7.3vw)}
+  .hero-card h1.ed-cat{font-size:var(--fs-fold)}
 }
 /* 360x740 is the tightest phone in common use and the four-line headline plus a
    two-line button will not both fit above it with a picture worth showing. The
@@ -7681,13 +7786,13 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
   background-color: var(--oats) !important;
 }
 .deck.smear .pc-type{font-size:2.6cqw; letter-spacing:.08em}
-.deck.smear .pc-title{font-size:6.4cqw; line-height:1.06; margin:.6cqw 0 0}
+.deck.smear .pc-title{font-size:min(6.4cqw,var(--fs-3)); line-height:1.06; margin:.6cqw 0 0}
 .deck.smear .pc-slug{font-size:3cqw; margin:.8cqw 0 0}
 .deck.smear .pc-msg blockquote,
 .deck.smear .pc-quote{font-size:3.1cqw; line-height:1.36; margin:1.6cqw 0 0}
 .deck.smear .pc-cite{font-size:2.5cqw}
 .deck.smear .pc-cta{margin-top:auto; padding-top:1.4cqw}
-.deck.smear .pc-cta .btn{font-size:2.7cqw; padding:1.6cqw 2.6cqw}
+.deck.smear .pc-cta .btn{font-size:min(2.7cqw,var(--fs-label)); padding:1.6cqw 2.6cqw}
 .deck.smear .pc-cta .pc-ig{font-size:2.6cqw}
 .deck.smear .pc-post,.deck.smear .pc-a{transform:scale(.72); transform-origin:top right}
 .deck.smear .pc-play{font-size:2.6cqw}
@@ -8212,7 +8317,7 @@ html[data-tier="lite"] .zc-tag-spark .sp-b{animation:none}
   border-top:2.6px solid var(--ink);
   background-color:var(--oats);
   background-image:
-    repeating-linear-gradient(0deg, transparent 0 33px, rgba(36,150,201,.10) 33px 34px),
+    repeating-linear-gradient(0deg, transparent 0 calc(var(--lead) - 1px), rgba(36,150,201,.10) calc(var(--lead) - 1px) var(--lead)),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.45'/%3E%3C/svg%3E");
   background-size:auto, 220px 220px;
   background-blend-mode:normal, multiply;
@@ -8410,11 +8515,11 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
    ============================================================================ */
 .hero-card .ed-sub{position:relative;padding-left:0;margin-top:.7rem;
   font-family:var(--f-head);font-weight:600;font-style:normal;line-height:1.38;
-  font-size:calc(min(2.45rem,4.45cqw)/1.618)}
+  font-size:calc(var(--fs-fold)/1.618)}
 .hero-card .ed-sub .sub-dead{font-style:inherit}
 .hero-card .ed-sub-3{margin-top:.5rem;padding-left:1.5em;
   font-family:var(--f-body);font-style:italic;font-weight:400;
-  font-size:max(.875rem,calc(min(2.45rem,4.45cqw)/1.618/1.618))}
+  font-size:max(.875rem,calc(var(--fs-fold)/1.618/1.618))}
 @media(max-width:880px){
   .hero-card .ed-sub{font-size:calc(min(2.6rem,7.4vw)/1.618)}
   .hero-card .ed-sub-3{font-size:max(.875rem,calc(min(2.6rem,7.4vw)/1.618/1.618))}
@@ -8575,7 +8680,7 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
    centred figure, which is what the first render showed. */
 .seewhat{
   max-width:var(--mw,74rem); margin-inline:auto;
-  padding:clamp(2.4rem,5.5vw,4rem) clamp(1.2rem,5vw,2.4rem) clamp(1.6rem,4vw,2.6rem);
+  padding:clamp(var(--s-3),4vw,var(--s-5)) clamp(1.2rem,5vw,2.4rem) clamp(var(--s-4),5vw,var(--s-6));
 }
 .seewhat .head{max-width:44rem; margin:0 auto; text-align:center}
 /* the heading system (its block sits upfile), applied here because this rule is below it — see
