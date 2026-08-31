@@ -2627,8 +2627,16 @@ function initHamburgerJoy(audio) {
   const buzz = (p) => { try { navigator.vibrate && navigator.vibrate(p); } catch (_) {} };
   const arm = () => { try { Stage.armSound && Stage.armSound(); } catch (_) {} };
 
+  // REST PULL, 2026-08-31. flop() used to land at --pull 0, and at zero the strand sits
+  // at translateY((0-1) * 260px) = -260px, i.e. entirely above the viewport. All a reader
+  // got on first tap was the crown of the bubble and the "Pull me down" coach, clipped by
+  // the top edge - the thing you are being told to grab was not on screen. It now rests
+  // partway down so the bubble is visible and has a target you can actually put a thumb on.
+  // STRAIN is 1.04 and DANGER 1.13, so a rest of .3 is nowhere near either and the pull,
+  // strain and tear behaviour downstream is untouched.
+  const REST_PULL = 0.3;
   function flop() {
-    setState('fallen'); setPull(0);
+    setState('fallen'); setPull(REST_PULL);
     burger.setAttribute('aria-expanded', 'true');
     arm(); Stage.play('rustle', { gain: 0.3 }); buzz(12);
     hush(); hb.classList.remove('hb-happy'); if (!Stage.calm) coach('pull', 'Pull me down ↓');
