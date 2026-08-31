@@ -914,7 +914,11 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .lg-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.02rem,1.7vw,1.24rem);line-height:1.5;
   color:rgba(65,77,87,.85);max-width:50ch;margin:.85rem auto 0}
 
-.shelf{margin:clamp(1.4rem,3vw,2.2rem) auto 0;width:min(760px,94vw)}
+/* THE SHELF KEEPS THE PAGE'S GUTTER, 2026-08-31. 94vw left ~12px each side at 390 while
+   every card on the page sits at 17, so the drawn rule ran wider than the content above it
+   and read as bleeding into the margin. It now shares the exact measure its own end captions
+   use, so rule and captions start and stop together. */
+.shelf{margin:clamp(1.4rem,3vw,2.2rem) auto 0; width:min(760px, 100%)}
 .spines{list-style:none;margin:0;padding:0;display:flex;align-items:flex-end;justify-content:center;
   gap:clamp(3px,.6vw,7px);height:clamp(120px,15vw,175px)}
 /* These must read as ZINE SPINES ON A SHELF, not as bars on a chart — a chart implies the group
@@ -6155,17 +6159,7 @@ html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
         seat plus a white lip is a 3D bevel and this page does cartoon-analog,
         not photoreal. Hard 2px offset, zero blur. One line, always: real tape
         has no second row. ---- */
-/* THE DUE STAMP ON THE PLATE. Same object as the spine's .dd-due-tab (:5590) -
-   same red, same ink border, same hard offset shadow, same rotation family - so a
-   reader meeting it on the fold meets it again four sections down and recognises it.
-   Top-RIGHT so it never fights .zc-chal at top-left, and above the chevrons. */
-.zc-due{position:absolute; z-index:5; top:11px; right:26px;
-  font-family:var(--f-mono); font-weight:600; text-transform:uppercase;
-  letter-spacing:.16em; font-size:.62rem; line-height:1; color:var(--oats);
-  background:var(--colorado); border:2px solid var(--ink);
-  padding:.42em .6em .36em; border-radius:3px;
-  transform:rotate(2.6deg); box-shadow:3px 3px 0 0 var(--ink); pointer-events:none}
-@media (max-width:380px){ .zc-due{font-size:.56rem; top:9px; right:22px} }
+
 
 .zc-chal{
   position:absolute; z-index:4; top:11px; left:11px; isolation:isolate;

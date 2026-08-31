@@ -302,7 +302,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=137" />
+<link rel="stylesheet" href="app-post-beta.css?v=139" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -1216,18 +1216,11 @@
                          PAPER ZINE". show(0) at boot overwrites these anyway (app-post-beta.js);
                          the served copy just has to agree with the served picture. -->
                     <span class="zc-chal" id="zcChal">make a paper zine about your hobby</span>
-                    <!-- THE DEADLINE, AS AN OBJECT. The one element ~15 cold testers at
-                         Manny's consistently understood was the deadline, and several said
-                         unprompted that it should lead and be bigger. Today it is the last,
-                         deliberately unmarked word of fold line two and NOTHING on the fold
-                         carries a date. A fourth type mark would empty the three that are
-                         there (the argument at app-post-beta.css:6991 is right), so it goes
-                         in the PICTURE instead - the same red tab the spine already uses at
-                         .dd-due-tab, stamped on the plate the challenge sits on.
-                         DELIBERATELY NOT A DATE. This page has been burned twice by dated
-                         claims going stale. "DUE" is the object; the date lives on the
-                         challenge itself, inside the issue. -->
-                    <span class="zc-due" aria-hidden="true">due</span>
+                    <!-- NO DUE STAMP HERE. One was added 2026-08-31 to put the deadline on the fold as an
+                         object rather than a word, and it was wrong: this carousel shows PUBLISHED
+                         issues. A "due" tab on a finished issue says the deadline is still coming
+                         for a thing that already shipped. The deadline belongs on a CHALLENGE, and
+                         the spine four sections down already stamps one. -->
 
                     <!-- Drawn marks, not chrome. Two strokes a hair out of register, the way a
                          two-colour print misses — that is what makes them legible on any
@@ -1795,7 +1788,7 @@
       <div class="sw-pair">
 
       <figure class="sw-real">
-        <span class="sw-shot"><img src="assets/zines/beans-cover.jpg" width="600" height="750" loading="lazy" decoding="async" alt="The cover of &ldquo;Our Favorite Drinks&rdquo;, the issue four baristas at a San Francisco cafe made: a hand dusting cocoa over a cappuccino, their host&rsquo;s reflection question written across the bottom, and two of their answers printed beside it."></span>
+        <span class="sw-shot"><img src="assets/zines/cover-cafe.jpg" width="720" height="965" loading="lazy" decoding="async" alt="The cover of &ldquo;Drawing at the Cafe&rdquo;, an issue a cafe crew made: a maker holding up the drawing she did, with her club&rsquo;s question written under it &mdash; is drawing at the cafe different than at home?"></span>
       </figure>
 
       <figure class="rd-stage">
@@ -2060,8 +2053,13 @@
         </ol>
         <div class="how-loopback" aria-hidden="true">
           <svg class="lb-arrow" viewBox="0 0 40 680" preserveAspectRatio="xMidYMid meet" fill="none" stroke="var(--colorado)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M31 662 C8 644 8 40 31 20" filter="url(#roughsm)"/>
-            <path d="M21 30 L31 17 L40 30" filter="url(#roughsm)"/>
+            <!-- A BRACKET, NOT AN ARC (2026-08-31). This was one shallow cubic bulging ~17
+                 units of a 40-wide box across 680 of height - about 15px over 600px rendered,
+                 which at that aspect ratio reads as a slightly bent line rather than as a path
+                 going back anywhere. A rounded-rectangle bracket - out, up the side, back in -
+                 is the shape that says RETURN, and the corners are what carry it. -->
+            <path d="M31 661 C17 661 10 652 10 638 L10 44 C10 30 17 21 31 21" filter="url(#roughsm)"/>
+            <path d="M21 11 L32 21 L21 31" filter="url(#roughsm)"/>
           </svg>
           <span>back to the start</span>
         </div>
