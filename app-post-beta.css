@@ -6034,6 +6034,18 @@ html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
         seat plus a white lip is a 3D bevel and this page does cartoon-analog,
         not photoreal. Hard 2px offset, zero blur. One line, always: real tape
         has no second row. ---- */
+/* THE DUE STAMP ON THE PLATE. Same object as the spine's .dd-due-tab (:5590) -
+   same red, same ink border, same hard offset shadow, same rotation family - so a
+   reader meeting it on the fold meets it again four sections down and recognises it.
+   Top-RIGHT so it never fights .zc-chal at top-left, and above the chevrons. */
+.zc-due{position:absolute; z-index:5; top:11px; right:26px;
+  font-family:var(--f-mono); font-weight:600; text-transform:uppercase;
+  letter-spacing:.16em; font-size:.62rem; line-height:1; color:var(--oats);
+  background:var(--colorado); border:2px solid var(--ink);
+  padding:.42em .6em .36em; border-radius:3px;
+  transform:rotate(2.6deg); box-shadow:3px 3px 0 0 var(--ink); pointer-events:none}
+@media (max-width:380px){ .zc-due{font-size:.56rem; top:9px; right:22px} }
+
 .zc-chal{
   position:absolute; z-index:4; top:11px; left:11px; isolation:isolate;
   max-width:calc(100% - 5.5rem);
@@ -7865,11 +7877,17 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
 /* on a phone the plate is centred in its own track and there is no margin to
    hang into on the left, so the note tucks back under the corner instead of
    past it. Still overlapping, still not contained — just not off the card. */
+/* THE NOTE GOES TO THE TOP ON A PHONE, 2026-08-31. At the foot of the plate it
+   fell off the bottom of a 390x844 screen, which meant the fold's ONLY web verb -
+   "scroll the issue" - was the one thing a phone reader never saw, under a picture
+   captioned MAKE A PAPER ZINE. Same move .zc-tag already makes four rules below,
+   for the same reason and recorded in the same terms. Offset from the tag's 44px
+   so the two paper objects do not stack on one corner. */
 @media (max-width:899px){
-  .zc-note{left:-6px; bottom:-22px; width:min(22ch, 84%)}
+  .zc-note{left:-6px; bottom:auto; top:196px; width:min(22ch, 84%)}
 }
 @media (max-width:380px){
-  .zc-note{left:0; bottom:-18px; width:min(21ch, 92%); padding:.6rem .7rem .68rem}
+  .zc-note{left:0; bottom:auto; top:178px; width:min(21ch, 92%); padding:.6rem .7rem .68rem}
 }
 
 /* ============================================================================

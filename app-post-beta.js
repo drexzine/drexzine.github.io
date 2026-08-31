@@ -3020,7 +3020,17 @@ function initZineCarousel() {
       v.addEventListener('loadedmetadata', function(){
         if (!layer.classList.contains('is-on')) return;
         if (!v.duration || !isFinite(v.duration)) return;
-        dwellMs = Math.max(6000, (v.duration + 3) * 1000);
+        // CAPPED AT 12s, 2026-08-31. Uncapped this ran the clip's full length -
+        // ~80s on layer 0 - and layer 0 is the paper-zine clip. So for the first
+        // 80 seconds the fold argued PAPER: a red Dymo reading MAKE A PAPER ZINE,
+        // a second red slab inside the picture saying the same, and drawn scissors,
+        // against one small post-it that says scroll. Three print signals to one web
+        // signal, held long enough that most readers never saw it change.
+        // The product is a page you open at a link. The plate now hands off to an
+        // issue scrolling within ~12s, which demonstrates that instead of claiming it.
+        // The clip is not lost: it loops back, and the chevrons give a 20s dwell to
+        // anyone who steps to it deliberately.
+        dwellMs = Math.min(12000, Math.max(6000, (v.duration + 3) * 1000));
         if (timer){ stop(); start(); }
       });
       v.addEventListener('ended', function(){
