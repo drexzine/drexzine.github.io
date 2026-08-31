@@ -302,7 +302,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=136" />
+<link rel="stylesheet" href="app-post-beta.css?v=137" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -1658,7 +1658,7 @@
            applied - prefer the mechanism that needs no human, because it cannot rot.
            This sub is still the only place the page claims drex holds any of the scheduling.
            DO NOT restore "nagging" without shipping reminders first. -->
-      <p class="sum-sub">You bring the work. <span class="hl hl-y">We keep the time and the place</span>. The deadline closes itself.</p>
+      <p class="sum-sub">You bring the work. <span class="hl hl-y hl-wrap">We keep the time and the place</span>. The deadline closes itself.</p>
     </div>
 
 <div class="sum-stack">
@@ -2007,7 +2007,11 @@
             </svg>
             <span class="n">03</span>
             <h3>Your part</h3>
-            <p>made in your own time, for the issue</p>
+            <!-- SHORTENED 2026-08-31: the deck-order pass grew this from four words to seven and
+                 it stopped fitting the drawn cloud - "the issue" hung out of the bottom of
+                 the bubble at 390. The h3 above already says "Your part", so "for the issue"
+                 was a sentence explaining its own heading. -->
+            <p>in your own time</p>
           </li>
           <li class="step is-globe">
             <span class="n">04</span>

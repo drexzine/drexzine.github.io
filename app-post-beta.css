@@ -191,6 +191,22 @@ a{color:inherit}
   background:var(--happy);mix-blend-mode:multiply;opacity:.95;transform:rotate(-.9deg) skewX(-5deg);filter:url(#rough);border-radius:2px}
 .hl.g::before{background:var(--grass);opacity:.9}
 
+/* THE HIGHLIGHT THAT SURVIVES A LINE BREAK, 2026-08-31.
+   .hl draws its band with ONE absolutely-positioned ::before, which is a single box.
+   When the highlighted phrase wraps - "We keep the time and the place" at 390 - that
+   box collapses onto the first fragment and the band renders as a thin sliver before
+   the first word. The hero never hit this because .ed-sub .hl carries nowrap.
+   .hl-wrap swaps the mechanism for a painted background on the inline box itself,
+   which the layout engine draws once PER LINE FRAGMENT. box-decoration-break:clone
+   makes each fragment carry the full padding and radius rather than splitting one.
+   The ::before is suppressed so the two techniques cannot double up.
+   The rough filter and the skew go: they are ::before-only tricks, and the trade is
+   deliberate - a straight band that is THERE beats a hand-swiped one that vanishes. */
+.hl-wrap::before{display:none}
+.hl-wrap{background:var(--happy); mix-blend-mode:multiply; opacity:.95;
+  box-decoration-break:clone; -webkit-box-decoration-break:clone;
+  padding:.06em .19em .02em; border-radius:2px}
+
 /* wobbly marker underline — INK (grass is reserved as the "people are here" signal) */
 .ul{position:relative;display:inline}
 .ul::after{content:"";position:absolute;left:-.04em;right:-.07em;bottom:-.05em;height:.16em;
