@@ -689,17 +689,25 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
    deleted from app-post-beta.js with this. */
 /* Four nodes, not five: Practice was already one of the four words on the clock face, so as a step
    it counted itself twice. Four lands on a clean compass at R=38 on the ring. */
-.how .step:nth-child(1){top:8%;left:50%}       /* Challenge      — top (in the ring's gap) */
-.how .step:nth-child(2){top:50%;left:88%}      /* Club Hour      — right */
-.how .step:nth-child(3){top:88%;left:50%}      /* Your own time  — bottom */
-.how .step:nth-child(4){top:56%;left:12%}      /* Show & tell — left */
+/* POSITIONED BY CLASS, NOT BY nth-child (2026-09-01). The ring's <ol> now also carries
+   three .arc scrawls between the stations, so nth-child counted them and every station
+   jumped to the wrong point on the circle. Each station already carries the class its own
+   icon rules use, so the coordinate travels with the station and cannot be broken again by
+   inserting a sibling. Same (0,3,0) specificity as the nth-child rules these replace. */
+.how .step.is-cal  {top:8%; left:50%}      /* Challenge      — top (in the ring's gap) */
+.how .step.is-clock{top:50%;left:88%}      /* Club Hour      — right */
+.how .step.is-think{top:88%;left:50%}      /* Your own time  — bottom */
+.how .step.is-globe{top:56%;left:12%}      /* Show & tell    — left */
 .how .step .n{font-family:var(--f-mono);font-weight:600;font-size:2.05cqw;letter-spacing:.14em;
   text-transform:uppercase;color:var(--ink);display:block;margin-bottom:1cqw}
 .how .step .ico{width:10cqw;height:10cqw;margin:0 auto 1.3cqw;display:block}
 .how .step .ico svg{width:100%;height:100%;display:block;overflow:visible}
 .how .step .ico svg>*{filter:url(#roughsm)}              /* same hand-drawn boil as the collage scraps */
-.how .step:nth-child(odd) .ico{transform:rotate(-4deg)}
-.how .step:nth-child(even) .ico{transform:rotate(4deg)}
+/* the tilt ALTERNATES, and it alternated by nth-child until the .arc scrawls joined the
+   list — which made every station odd and every icon lean the same way. By class it survives
+   any sibling. Same pairs as before: 01 and 03 lean left, 02 and 04 lean right. */
+.how .step.is-cal .ico,.how .step.is-think .ico{transform:rotate(-4deg)}
+.how .step.is-clock .ico,.how .step.is-globe .ico{transform:rotate(4deg)}
 .how .step h3{font-size:4.3cqw;
   line-height:1;margin:0;color:var(--ink)}
 .how .step p{font-family:var(--f-hand);font-size:3.3cqw;line-height:1.15;margin:.8cqw 0 0;color:var(--sambas)}
@@ -713,7 +721,13 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   .how-ring{display:none}
   .how .flow{position:static;display:grid;grid-template-columns:1fr;gap:clamp(1.6rem,6vw,2.2rem);width:12.5rem;max-width:66vw;margin:0}
   .how .step{position:relative;transform:none;width:auto}
-  .how .flow .step:nth-child(1),.how .flow .step:nth-child(2),.how .flow .step:nth-child(3),.how .flow .step:nth-child(4),.how .flow .step:nth-child(5){top:auto;left:auto}  /* unset the circular coords so the stack centers */
+  /* unset the circular coords so the stack centers. BY CLASS, 2026-09-01: this was five
+     nth-child selectors, and with the .arc scrawls interleaved station 04 became the SEVENTH
+     child — off the end of the list, so the globe kept top:56%;left:12% and, on a
+     position:relative element in the stack, was shoved half its own height down and 12% of
+     the column right. It looked like the drawn globe overflowing its box. It was not. */
+  .how .flow .step.is-cal,.how .flow .step.is-clock,
+  .how .flow .step.is-think,.how .flow .step.is-globe{top:auto;left:auto}
   .how .step .ico{width:50px;height:50px}
   .how .step p{font-size:var(--fs-body)}
   /* the three per-node width/size overrides live OUTSIDE this block and outspecify
@@ -9113,3 +9127,92 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    It is also the only one of the section's five scraps without cg-drop-sm - the other four
    already vanish here, so the section keeps exactly one mark and that one collides. */
 @media(max-width:560px){ .doors .cg-collage .cg-scrap.cg-s3{display:none} }
+
+/* ============================================================================
+   THE LOOP (2026-09-01) — the library square, the two arrows, and the tool
+   scrawls on the ring's arcs. The RING ITSELF is unchanged; this block places it
+   inside a wider stage and hangs three things off it.
+   ============================================================================ */
+.loopwrap{position:relative;width:min(560px,94vw);
+  margin:clamp(1.2rem,3vw,2rem) auto clamp(1.6rem,4vw,2.8rem);text-align:center}
+
+/* ---- the library square: OUTSIDE the ring, because it is the world ---- */
+.lib-sq{margin:0 auto;width:min(270px,66%)}
+.lib-open{display:block;text-decoration:none}
+.lib-screen{display:block;width:100%}
+.lib-screen svg{display:block;width:100%;height:auto;overflow:visible}
+.lib-sq figcaption{font-family:var(--f-hand);font-size:clamp(1rem,2.3vw,1.2rem);line-height:1.15;
+  color:var(--lazuli-deep);margin-top:.5rem;transform:rotate(-1deg)}
+.lib-open:hover ~ figcaption .arr{transform:translateX(3px)}
+
+/* ---- the two arrows ---- */
+.loop-arrow{position:relative}
+.loop-arrow svg{display:block;overflow:visible}
+.loop-lab{font-family:var(--f-hand);font-weight:400;line-height:1.12;
+  font-size:clamp(.98rem,2.1vw,1.18rem);display:block}
+
+.loop-in{display:flex;align-items:center;justify-content:center;gap:.45rem;margin:.35rem auto .1rem}
+.loop-in svg{width:clamp(30px,4.4vw,42px);height:auto}
+.loop-in .loop-lab{color:var(--grass-deep);transform:rotate(-2deg)}
+
+.loop-out .loop-lab{color:var(--coral-ink)}
+/* under 660px there is no lane beside the ring for a bracket, so the label goes static under
+   the drawing and the ring's own turn (or .how-loopback in the stack) carries the return.
+   660 IS MEASURED, not chosen: the lane is taken out of .loopwrap's own width, and below 660
+   the ring's right-hand station (Club Hour at left:88%) is pushed past the viewport edge and
+   clipped by 5-6px. Checked at 680/672/660/659/641/640/639/600/561. */
+/* THE STAGE NEEDS ITS OWN GUTTERS. Station 01 sits at top:8% of the ring's square and
+   station 03 at top:88%, and both overflow that box - 01 by its number and h3 above the
+   icon, 03 by the thought bubble's tail. Inside .loopwrap those overflows land on the
+   "join a club, or start one" arrow above and on "What a club adds up to:" below. The floor is
+   5rem and not a vw: the overhang is a fixed pixel height, so a vw gutter shrank under it and
+   station 01 hit the join label by 8px at 660 and 13px at 599. Measured at 1440/1024/899/760/660/600. */
+.loopwrap .how{padding-top:clamp(5rem,9vw,6rem);padding-bottom:clamp(2.6rem,6vw,3.6rem)}
+/* the ring's own stage is sized off the VIEWPORT (min(560px,94vw)); inside .loopwrap it also
+   has a left lane taken out of it, so at 561-660 it grew wider than the box it sits in and the
+   arc scrawls were clipped off the right edge. Cap it to the container it is actually in. */
+.loopwrap .how-stage{width:min(560px,100%)}
+.loop-out{display:block;margin-top:clamp(.6rem,2vw,1.2rem)}
+.loop-out svg{display:none}
+@media(min-width:660px){
+  .loopwrap{width:min(700px,96vw);padding-left:clamp(2.6rem,5.5vw,5rem)}
+  /* the bracket runs from the station it leaves to the square it arrives at, not edge to edge:
+     measured at 1440, the globe's centre is 71% down .loopwrap and the library square's is 11%. */
+  .loop-out{position:absolute;left:0;top:9%;bottom:28%;width:clamp(2.4rem,4.5vw,3.4rem);margin:0}
+  .loop-out svg{display:block;height:100%;width:auto;margin:0 auto}
+  /* the label RUNS UP THE BRACKET rather than sticking out to its left. At 1024 a 9.5rem
+     label hung off the left edge of .loopwrap with 1px to spare and clipped below that;
+     set vertically it needs no horizontal room at any width the bracket itself survives. */
+  .loop-out .loop-lab{position:absolute;left:66%;top:50%;white-space:nowrap;
+    writing-mode:vertical-rl;transform:translate(-50%,-50%) rotate(180deg)}
+}
+
+/* ---- the tool scrawls, each pinned to the arc between two named stations ---- */
+.how .flow .arc{position:absolute;width:22cqw;transform:translate(-50%,-50%);
+  list-style:none;text-align:center;z-index:3;pointer-events:none}
+.how .flow .arc .arc-ink{font-family:var(--f-hand);font-size:3cqw;line-height:1.1;
+  color:var(--coral-ink);display:block}
+.how .flow .arc-a{top:16%;left:88%}   /* Challenge -> Club Hour */
+.how .flow .arc-b{top:84%;left:88%}   /* Club Hour -> Your part */
+.how .flow .arc-c{top:84%;left:12%}   /* Your part -> Show & tell */
+
+@media(max-width:560px){
+  /* THE MOBILE BRACKET GETS ITS OWN LANE. .how-loopback is flex:none with an auto-width svg,
+     so it lays out at ZERO width and the drawn bracket paints straight through the stack's
+     text (measured at 390: svg 100-157, text column 106-306). That crossing shipped when the
+     lines it crossed were sambas; the arc scrawls are coral, the same colour as the bracket,
+     and a coral line through coral words reads as a mistake. Scoped to .loopwrap so the same
+     ring on the other pages that load this sheet is untouched. */
+  .loopwrap .how-loopback{width:2.6rem}
+  /* no station overhangs the ring's square in the stack, so the desktop gutter is dead space here */
+  .loopwrap .how{padding-top:clamp(1.2rem,5vw,2rem);padding-bottom:clamp(1.2rem,4vw,2rem)}
+  /* the ring unwinds into a stack down here, so the scrawls unwind with it and sit between
+     the two stations they connect — the anchor survives the reflow. */
+  .how .flow .arc{position:static;width:auto;transform:none}
+  .how .flow .arc .arc-ink{font-size:var(--fs-body);line-height:1.15}
+  /* CLEARANCE ONLY, and NOT the old diagnosis: this gap was first blamed on the globe
+     "painting outside its box". It was not. Station 04 was being shoved down and right by the
+     nth-child bug fixed above. With that fixed, this is an ordinary breath before the closing
+     scrawl. Measured at 390 and 360. */
+  .loop-out{margin-top:clamp(1.4rem,5vw,2.2rem)}
+}
