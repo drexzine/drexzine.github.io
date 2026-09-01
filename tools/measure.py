@@ -62,6 +62,10 @@ from html.parser import HTMLParser
 TERMS = [
     "finish", "craft", "belong", "free", "link", "deadline", "club",
     "zine", "issue", "magazine", "portfolio", "challenge", "friends", "host",
+    # 2026-09-01: "get good" tracked alongside "craft". The promise moved onto the page
+    # as "how you get good" while "craft" stayed at 87% depth, so tracking only "craft"
+    # made a real improvement invisible to the instrument.
+    "good",
 ]
 
 # Synonyms that all name the SAME object. This is the metric that exists because of a
