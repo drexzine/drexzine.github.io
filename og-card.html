@@ -1,85 +1,110 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
-<title>drex — og card 1200x630</title>
+<title>drex &mdash; og card 1200x630</title>
 <!-- ============================================================================
-     THE SHARE CARD. Rendered to assets/og.png at exactly 1200x630.
+     THE SHARE CARD. Renders to assets/og.png at exactly 1200x630.
 
-     HOW TO RE-RENDER (there is no build step in this repo):
+     RE-RENDER (there is no build step in this repo):
        cd drex-landing && python3 -m http.server 8931 --bind 127.0.0.1 &
        B=~/.claude/skills/gstack/browse/dist/browse
-       $B viewport 1200x630 ; $B goto "http://127.0.0.1:8931/og-card.html" ; sleep 4
+       $B viewport 1200x630 ; $B goto "http://127.0.0.1:8931/og-card.html" ; sleep 5
        $B screenshot --viewport assets/og.png
 
-     WHY IT SAYS WHAT IT SAYS. This is the hero most people meet first — a link in
-     a DM, a bio tap, a preview card — so it carries the FOLD, verbatim, and not a
-     separate line written for it. The previous card was two generations stale: it
-     still read "A club for whatever you make", which ~15 cold testers at Manny's
-     named as too vague to translate into anything, and it sold "a magazine" as the
-     object when the page now says "issue".
+     THE BRIEF WAS "the best design and typography I've ever seen in an og image".
+     Four designs were built and rendered before this one was picked: a collage of
+     real covers behind a torn sheet; one cover full-bleed under a scrim; the dead
+     group chat beside "4,000 messages. Nothing made."; and this. The chat one is
+     the most arresting and was rejected for selling a problem instead of a product.
+     The full-bleed one was rejected because the scrim killed the maker's face.
 
-     THE FACE is Sometype Mono, which is what --f-slab resolves to on the page
-     (Pitch is listed first and is not licensed, so it falls through). Do not set
-     this card in Courier Prime — the page stopped using it.
+     WHY THIS ONE. The card is an OBJECT, not a slide - a magazine lying on a desk
+     with a second issue under it, torn at every edge, taped down across those edges
+     onto the desk itself. That is the product, depicted, and it is the one thing a
+     competitor's card cannot copy without doing the work. Everything on it is real:
+     a published issue, a maker holding the drawing she made, and her club's own
+     reflection question printed under it.
 
-     GREEN GROUND, KNOWINGLY. The brand book's seven sanctioned combinations never
-     ground anything in Grass; it appears as a bar in all of them. This card breaks
-     that on purpose: it is the one surface with no context around it, and the green
-     IS the recognition. Logged rather than fixed.
+     JUDGED AT FEED SIZE, NOT AT FULL SIZE. Previews render around 400-600px wide,
+     so every version was downscaled to 400 and read there before being accepted.
+     That is why the headline is 66px and the deadline is a red TAPE rather than a
+     third weight of type: at 400px the tape survives as a red mark and a type
+     change does not.
+
+     THE LOGO IS UNMODIFIED - no rotation, no shadow, no recolour, no filter, and
+     not set in a typeface. The PAPER carries the tilt and the offset shadow, which
+     is what the logo law allows and what the masthead already does.
+
+     GREEN IS NOT THE GROUND HERE. The brand book never grounds anything in Grass
+     and this card obeys that, unlike the one it replaces: the desk is warm neutral,
+     Grass appears as a bar (the two words it emphasises), and the accents are the
+     page's own tape colours.
      ============================================================================ -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Patrick+Hand&display=swap">
 <style>
-:root{--oats:#FEF6E4;--grass:#1CAB5B;--sambas:#414D57;--colorado:#F75458;--happy:#F1DD01;--ink:#2f2110}
+:root{--oats:#FEF6E4;--grass:#1CAB5B;--sambas:#414D57;--colorado:#F75458;--lazuli:#2496C9;--happy:#F1DD01;--ink:#2f2110}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:1200px;height:630px;overflow:hidden}
-.card{position:relative;width:1200px;height:630px;background:var(--grass);overflow:hidden}
-
-/* the ruled pad, faint, so the ground reads as paper and not as a colour field */
+.card{position:relative;width:1200px;height:630px;overflow:hidden;background:#C4B99E}
 .card::before{content:"";position:absolute;inset:0;
-  background:repeating-linear-gradient(180deg,transparent 0 33px,rgba(255,255,255,.07) 33px 34px)}
+  background:
+   radial-gradient(1200px 700px at 22% 0%, rgba(255,252,240,.6), transparent 64%),
+   repeating-linear-gradient(180deg,transparent 0 41px,rgba(90,70,40,.075) 41px 42px),
+   radial-gradient(circle at 12% 78%, rgba(120,95,55,.17) 0 2px, transparent 3px) 0 0/57px 63px,
+   radial-gradient(circle at 74% 26%, rgba(120,95,55,.14) 0 2px, transparent 3px) 0 0/83px 71px}
+svg.defs{position:absolute;width:0;height:0}
 
-.msg{position:absolute;left:88px;top:0;height:630px;width:660px;
-  display:flex;flex-direction:column;justify-content:center;z-index:2}
+/* A SECOND ISSUE UNDER THE FIRST. Depth is what makes this read as a pile of real things
+   rather than a graphic, and the product is issue AFTER issue. */
+.under{position:absolute;left:78px;top:96px;width:880px;height:452px;background:#EFE4CC;
+  transform:rotate(3.2deg);box-shadow:14px 16px 0 rgba(58,44,22,.22)}
+.under::before{content:"";position:absolute;inset:-9px;background:#EFE4CC;filter:url(#torn);z-index:-1}
 
-.head{font-family:"Sometype Mono",monospace;font-style:italic;font-weight:700;
-  color:var(--oats);font-size:62px;line-height:1.03;letter-spacing:-.02em}
+.plate{position:absolute;left:64px;top:70px;width:906px;height:470px;background:var(--oats);
+  transform:rotate(-1.6deg);box-shadow:18px 20px 0 rgba(58,44,22,.32);
+  display:grid;grid-template-columns:1.16fr 1fr}
+.plate::before{content:"";position:absolute;inset:-11px;background:var(--oats);filter:url(#torn);z-index:-1}
 
-.sub{margin-top:34px;font-family:"Sometype Mono",monospace;font-weight:400;
-  color:var(--oats);font-size:27px;line-height:1.32;max-width:20ch}
+.L{padding:44px 30px 36px 46px;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:2}
+.mast{font-family:"Sometype Mono",monospace;font-style:italic;font-weight:700;font-size:66px;
+  line-height:.93;letter-spacing:-.04em;color:var(--ink)}
+.mast b{color:var(--grass)}
+.rule{height:5px;background:var(--ink);margin:22px 0 20px;filter:url(#rough)}
+.line{font-family:"Sometype Mono",monospace;font-size:24px;color:var(--ink);line-height:1.4}
+.due{display:inline-block;background:var(--colorado);color:var(--oats);border:3px solid var(--ink);
+  border-radius:4px;padding:5px 13px 3px;font-family:"Sometype Mono",monospace;font-weight:700;
+  font-size:22px;letter-spacing:.1em;transform:rotate(-2.4deg);box-shadow:5px 5px 0 var(--ink);margin-top:9px}
+.mark{width:172px}
+.mark svg{display:block;width:100%;height:auto}
 
-/* the deadline is the one element cold testers consistently understood, so it gets
-   the page's own red tape rather than another weight of type */
-.tape{position:relative;display:inline-block;color:var(--oats);padding:.06em .34em;
-  font-weight:700}
-.tape::before{content:"";position:absolute;left:-.08em;right:-.1em;top:.02em;bottom:.04em;
-  background:var(--colorado);border:2.5px solid var(--ink);border-radius:3px;
-  transform:rotate(-1.6deg);z-index:-1;box-shadow:4px 4px 0 0 var(--ink)}
+.R{position:relative;overflow:hidden;border-left:5px solid var(--ink)}
+.R i{position:absolute;inset:0;background:url(assets/zines/cover-cafe.jpg) center 14%/cover}
+.R::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 60px rgba(58,44,22,.24)}
 
-/* the mark sits on its own taped card — the logo law forbids tilting or shadowing
-   the wordmark itself, so the PAPER carries both and the mark stays upright */
-.plate{position:absolute;right:74px;top:190px;width:330px;height:250px;
-  background:var(--oats);border:3px solid var(--ink);border-radius:6px;
-  box-shadow:10px 12px 0 0 rgba(0,0,0,.22);transform:rotate(2.4deg);
-  display:flex;align-items:center;justify-content:center;z-index:2}
-/* THE REAL MARK, not type. Setting the wordmark in a typeface is a worse logo
-   violation than tilting it. It is unmodified here - no rotation, no shadow, no
-   recolour, no filter. The PAPER under it carries the tilt and the offset shadow,
-   which is exactly what the logo law allows and the masthead already does.
-   THE WORDMARK, not the butterflies: a share card has to carry the NAME. It is the
-   same SVG the masthead uses, recoloured to Grass, which is the book's instruction
-   for a logo over a ground - pick the palette colour with the highest contrast. */
-.plate .mark{display:block;width:214px}
-.plate .mark svg{display:block;width:100%;height:auto}
-.wash{position:absolute;left:-26px;top:-16px;width:120px;height:34px;
-  background:rgba(241,221,1,.72);border-left:1px solid rgba(65,77,87,.2);
-  border-right:1px solid rgba(65,77,87,.2);transform:rotate(-9deg)}
-.proof{position:absolute;right:96px;bottom:112px;z-index:3;
-  font-family:"Patrick Hand",cursive;font-size:34px;color:var(--oats);transform:rotate(-3deg)}
-</style></head><body><div class="card">
-  <div class="msg">
-    <h1 class="head">Accountability buddies running their own magazine.</h1>
-    <p class="sub">Each issue is a new challenge with a <span class="tape">deadline</span>.</p>
+.tape{position:absolute;z-index:6;border-left:1px solid rgba(65,77,87,.18);border-right:1px solid rgba(65,77,87,.18)}
+.t1{width:198px;height:48px;background:rgba(36,150,201,.48);left:14px;top:44px;transform:rotate(-31deg)}
+.t2{width:178px;height:46px;background:rgba(241,221,1,.66);right:158px;bottom:44px;transform:rotate(-16deg)}
+
+/* the one hand-written thing on the card, in the margin, where marginalia lives */
+.scrawl{position:absolute;right:46px;top:186px;z-index:7;font-family:"Patrick Hand",cursive;
+  font-size:33px;color:var(--colorado);transform:rotate(6deg);text-align:center;line-height:1.05}
+.scrawl small{display:block;font-size:21px;opacity:.85}
+</style></head><body>
+<svg class="defs"><filter id="torn"><feTurbulence type="fractalNoise" baseFrequency="0.02 0.03" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G"/></filter>
+<filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.04 0.09" numOctaves="2" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<div class="card">
+  <div class="under"></div>
+  <div class="plate">
+    <div class="L">
+      <div>
+        <p class="mast">Accountability buddies running their <b>own magazine</b>.</p>
+        <div class="rule"></div>
+        <p class="line">Each issue is a new challenge<br><span class="due">WITH A DEADLINE</span></p>
+      </div>
+      <span class="mark"><svg viewBox="2453 1908 9790 2914" fill="#414D57" aria-hidden="true" focusable="false" style="display:block;width:100%;height:auto"><path d="M5478.999,2905.779c0,0 421.063,-37.36 425.9,108.343l-343.709,1707.337c-61.242,136.313 -436.173,134.324 -442.946,-22.416l360.754,-1793.265Z"/><path d="M5041.89,2951.676c63.511,-60.841 526.771,-49.633 526.771,-49.633l-102.739,405.414c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M3924.681,1958.721c63.511,-60.841 530.662,-50.446 530.662,-50.446l-106.63,406.227c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M5726.866,3417.607c0,0 256.489,-511.828 914.019,-511.828l-313.821,549.187c0,0 -52.304,-37.36 -119.551,-37.36c-40.411,0 -354.324,251.272 -556.659,579.075l76.013,-579.075Z"/><ellipse cx="6634.347" cy="3332.931" rx="430.57" ry="427.151"/><path d="M4268.545,3833.937c-54.051,587.803 -422.164,984.658 -1012.447,984.658c-466.996,0 -803.233,-354.917 -803.233,-919.048c0,-545.451 486.888,-993.767 1032.339,-993.767c668.793,0 813.229,603.128 783.342,928.157Zm-643.455,-498.703c-234.497,-17.38 -499.751,191.996 -499.751,524.336c0,438.408 306.192,521.14 448.316,514.446c142.124,-6.694 404.43,-206.606 404.43,-554.612c0,-284.788 -150.331,-469.149 -352.995,-484.17Z"/><path d="M4388.096,1908.276c0,0 411.204,-11.208 424.724,108.343c0,19.142 -451.623,2260.261 -451.623,2260.261c15.69,59.775 224.905,-302.557 315.685,-313.821c110.397,-13.699 320.176,120.344 320.176,210.008c-0,122.494 -381.069,648.499 -765.873,648.499c-140.399,0 -328.765,-47.802 -392.277,-174.825l549.187,-2738.465Z"/><path d="M8385.582,2902.043c497.354,57.086 817.745,422.164 739.722,818.177c-90.045,457.032 -844.694,445.003 -1082.497,417.708c-230.119,-26.413 -368.235,-100.848 -422.572,-20.593c0,0 -107.744,106.625 251.184,223.032c419.614,136.089 691.752,-83.334 866.656,-96.072c140.311,-10.219 217.565,170.071 168.209,286.302c-66.995,157.772 -494.323,338.135 -1028.793,276.789c-285.793,-32.803 -922.08,-269.802 -773.345,-1004.975c130.759,-646.322 784.083,-957.454 1281.437,-900.368Zm-212.016,404.392c-264.608,50.886 -442.712,200.115 -438.042,342.082c4.67,141.967 311.61,175.439 541.715,149.439c165.317,-18.68 362.389,-47.848 366.125,-257.062c3.213,-179.919 -275.528,-271.818 -469.798,-234.459Z"/><path d="M9206.516,4052.426c-70.533,107.48 -90.728,764.251 662.245,766.169c771.79,1.966 1183.203,-1911.019 149.439,-1912.816c-257.116,-0.447 -637.291,99.928 -646.668,437.503c-3.838,138.152 129.653,198.923 237.929,188.041c127.279,-12.792 188.555,-176.528 452.832,-176.528c264.278,0 131.209,448.7 79.402,619.471c-101.286,333.868 -336.519,428.184 -390.245,405.158c-60.791,-26.053 81.561,-246.308 11.513,-333.868c-61.401,-76.751 -475.858,-115.932 -556.447,6.87Z"/><path d="M11593.807,3675.684c70.533,-107.48 91.02,-767.987 -661.952,-769.905c-771.79,-1.966 -1183.496,1911.019 -149.731,1912.816c257.116,0.447 637.291,-96.192 646.668,-433.767c3.838,-138.152 -129.653,-198.923 -237.929,-188.041c-127.279,12.792 -188.555,176.528 -452.832,176.528c-264.278,0 -131.209,-448.7 -79.402,-619.471c101.286,-333.868 336.519,-428.184 390.245,-405.158c60.791,26.053 -81.561,246.308 -11.513,333.868c61.401,76.751 475.858,115.932 556.447,-6.87Z"/><path d="M11830.971,4385.014c61.784,-59.74 306.841,-59.74 367.586,0c60.745,59.74 58.668,298.701 -3.115,358.441c-61.784,59.74 -306.841,59.74 -367.586,0c-60.745,-59.74 -58.668,-298.701 3.115,-358.441Z"/></svg></span>
+    </div>
+    <div class="R"><i></i></div>
   </div>
-  <div class="plate"><span class="wash"></span><span class="mark"><svg viewBox="2453 1908 9790 2914" fill="#1CAB5B" aria-hidden="true" focusable="false" style="display:block;width:100%;height:auto"><path d="M5478.999,2905.779c0,0 421.063,-37.36 425.9,108.343l-343.709,1707.337c-61.242,136.313 -436.173,134.324 -442.946,-22.416l360.754,-1793.265Z"/><path d="M5041.89,2951.676c63.511,-60.841 526.771,-49.633 526.771,-49.633l-102.739,405.414c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M3924.681,1958.721c63.511,-60.841 530.662,-50.446 530.662,-50.446l-106.63,406.227c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M5726.866,3417.607c0,0 256.489,-511.828 914.019,-511.828l-313.821,549.187c0,0 -52.304,-37.36 -119.551,-37.36c-40.411,0 -354.324,251.272 -556.659,579.075l76.013,-579.075Z"/><ellipse cx="6634.347" cy="3332.931" rx="430.57" ry="427.151"/><path d="M4268.545,3833.937c-54.051,587.803 -422.164,984.658 -1012.447,984.658c-466.996,0 -803.233,-354.917 -803.233,-919.048c0,-545.451 486.888,-993.767 1032.339,-993.767c668.793,0 813.229,603.128 783.342,928.157Zm-643.455,-498.703c-234.497,-17.38 -499.751,191.996 -499.751,524.336c0,438.408 306.192,521.14 448.316,514.446c142.124,-6.694 404.43,-206.606 404.43,-554.612c0,-284.788 -150.331,-469.149 -352.995,-484.17Z"/><path d="M4388.096,1908.276c0,0 411.204,-11.208 424.724,108.343c0,19.142 -451.623,2260.261 -451.623,2260.261c15.69,59.775 224.905,-302.557 315.685,-313.821c110.397,-13.699 320.176,120.344 320.176,210.008c-0,122.494 -381.069,648.499 -765.873,648.499c-140.399,0 -328.765,-47.802 -392.277,-174.825l549.187,-2738.465Z"/><path d="M8385.582,2902.043c497.354,57.086 817.745,422.164 739.722,818.177c-90.045,457.032 -844.694,445.003 -1082.497,417.708c-230.119,-26.413 -368.235,-100.848 -422.572,-20.593c0,0 -107.744,106.625 251.184,223.032c419.614,136.089 691.752,-83.334 866.656,-96.072c140.311,-10.219 217.565,170.071 168.209,286.302c-66.995,157.772 -494.323,338.135 -1028.793,276.789c-285.793,-32.803 -922.08,-269.802 -773.345,-1004.975c130.759,-646.322 784.083,-957.454 1281.437,-900.368Zm-212.016,404.392c-264.608,50.886 -442.712,200.115 -438.042,342.082c4.67,141.967 311.61,175.439 541.715,149.439c165.317,-18.68 362.389,-47.848 366.125,-257.062c3.213,-179.919 -275.528,-271.818 -469.798,-234.459Z"/><path d="M9206.516,4052.426c-70.533,107.48 -90.728,764.251 662.245,766.169c771.79,1.966 1183.203,-1911.019 149.439,-1912.816c-257.116,-0.447 -637.291,99.928 -646.668,437.503c-3.838,138.152 129.653,198.923 237.929,188.041c127.279,-12.792 188.555,-176.528 452.832,-176.528c264.278,0 131.209,448.7 79.402,619.471c-101.286,333.868 -336.519,428.184 -390.245,405.158c-60.791,-26.053 81.561,-246.308 11.513,-333.868c-61.401,-76.751 -475.858,-115.932 -556.447,6.87Z"/><path d="M11593.807,3675.684c70.533,-107.48 91.02,-767.987 -661.952,-769.905c-771.79,-1.966 -1183.496,1911.019 -149.731,1912.816c257.116,0.447 637.291,-96.192 646.668,-433.767c3.838,-138.152 -129.653,-198.923 -237.929,-188.041c-127.279,12.792 -188.555,176.528 -452.832,176.528c-264.278,0 -131.209,-448.7 -79.402,-619.471c101.286,-333.868 336.519,-428.184 390.245,-405.158c60.791,26.053 -81.561,246.308 -11.513,333.868c61.401,76.751 475.858,115.932 556.447,-6.87Z"/><path d="M11830.971,4385.014c61.784,-59.74 306.841,-59.74 367.586,0c60.745,59.74 58.668,298.701 -3.115,358.441c-61.784,59.74 -306.841,59.74 -367.586,0c-60.745,-59.74 -58.668,-298.701 3.115,-358.441Z"/></svg></span></div>
-  <p class="proof">&#10003; Proof.</p>
+  <span class="tape t1"></span>
+  <span class="tape t2"></span>
+  <p class="scrawl">issue 004<small>&#10003; proof</small></p>
 </div></body></html>
