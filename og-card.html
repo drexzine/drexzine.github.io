@@ -1,40 +1,85 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>drex — og card 1200x630</title>
+<!-- ============================================================================
+     THE SHARE CARD. Rendered to assets/og.png at exactly 1200x630.
+
+     HOW TO RE-RENDER (there is no build step in this repo):
+       cd drex-landing && python3 -m http.server 8931 --bind 127.0.0.1 &
+       B=~/.claude/skills/gstack/browse/dist/browse
+       $B viewport 1200x630 ; $B goto "http://127.0.0.1:8931/og-card.html" ; sleep 4
+       $B screenshot --viewport assets/og.png
+
+     WHY IT SAYS WHAT IT SAYS. This is the hero most people meet first — a link in
+     a DM, a bio tap, a preview card — so it carries the FOLD, verbatim, and not a
+     separate line written for it. The previous card was two generations stale: it
+     still read "A club for whatever you make", which ~15 cold testers at Manny's
+     named as too vague to translate into anything, and it sold "a magazine" as the
+     object when the page now says "issue".
+
+     THE FACE is Sometype Mono, which is what --f-slab resolves to on the page
+     (Pitch is listed first and is not licensed, so it falls through). Do not set
+     this card in Courier Prime — the page stopped using it.
+
+     GREEN GROUND, KNOWINGLY. The brand book's seven sanctioned combinations never
+     ground anything in Grass; it appears as a bar in all of them. This card breaks
+     that on purpose: it is the one surface with no context around it, and the green
+     IS the recognition. Logged rather than fixed.
+     ============================================================================ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Patrick+Hand&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Patrick+Hand&display=swap">
 <style>
-:root{--oats:#FEF6E4;--grass:#1CAB5B;--sambas:#414D57;--colorado:#F75458;--lazuli:#2496C9;--schoolbus:#ECAF21;--happy:#F1DD01;--ink:#2f2110}
+:root{--oats:#FEF6E4;--grass:#1CAB5B;--sambas:#414D57;--colorado:#F75458;--happy:#F1DD01;--ink:#2f2110}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:1200px;height:630px}
-.card{position:relative;width:1200px;height:630px;overflow:hidden;background:var(--grass)}
+html,body{width:1200px;height:630px;overflow:hidden}
+.card{position:relative;width:1200px;height:630px;background:var(--grass);overflow:hidden}
 
-.msg{position:absolute;left:96px;top:0;height:630px;width:640px;display:flex;flex-direction:column;justify-content:center}
+/* the ruled pad, faint, so the ground reads as paper and not as a colour field */
+.card::before{content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(180deg,transparent 0 33px,rgba(255,255,255,.07) 33px 34px)}
 
-/* Eyebrow — small colorado torn tag, oats text, clearly subordinate */
-.a-eyebrow{align-self:flex-start;font-family:"Courier Prime",monospace;font-style:italic;font-weight:700;color:var(--oats);font-size:31px;line-height:1.1;letter-spacing:-.02em;background:var(--colorado);padding:9px 18px 11px;box-shadow:5px 5px 0 rgba(0,0,0,.22);transform:rotate(-1.6deg);clip-path:polygon(0 6%,4% 0,22% 5%,40% 0,60% 6%,80% 0,97% 5%,100% 0,100% 92%,97% 100%,78% 95%,58% 100%,38% 95%,18% 100%,3% 96%,0 100%)}
+.msg{position:absolute;left:88px;top:0;height:630px;width:660px;
+  display:flex;flex-direction:column;justify-content:center;z-index:2}
 
-/* Headline — dominant oats, Courier Prime italic 700 */
-.a-head{font-family:"Courier Prime",monospace;font-style:italic;font-weight:700;color:var(--oats);font-size:92px;line-height:.94;letter-spacing:-.02em;margin-top:30px}
+.head{font-family:"Sometype Mono",monospace;font-style:italic;font-weight:700;
+  color:var(--oats);font-size:62px;line-height:1.03;letter-spacing:-.02em}
 
-/* Payoff — Patrick Hand, oats, schoolbus flat marker block behind "portfolio." */
-.a-hello{font-family:"Patrick Hand",cursive;color:var(--oats);font-size:56px;line-height:1;margin-top:40px}
-.a-hello .hl{position:relative;display:inline-block;color:var(--ink);padding:0 8px}
-.a-hello .hl::before{content:"";position:absolute;left:0;right:0;top:6%;bottom:6%;background:var(--schoolbus);transform:rotate(-2.4deg);z-index:-1}
+.sub{margin-top:34px;font-family:"Sometype Mono",monospace;font-weight:400;
+  color:var(--oats);font-size:27px;line-height:1.32;max-width:20ch}
 
-/* Polaroid — oats paper card floats the unmodified green mark on the green ground */
-.polaroid{position:absolute;right:82px;top:135px;width:360px;height:360px;background:var(--oats);border-radius:10px;box-shadow:8px 8px 0 rgba(0,0,0,.25);transform:rotate(2.2deg);display:flex;align-items:center;justify-content:center}
-.a-mark{display:block;height:300px}
+/* the deadline is the one element cold testers consistently understood, so it gets
+   the page's own red tape rather than another weight of type */
+.tape{position:relative;display:inline-block;color:var(--oats);padding:.06em .34em;
+  font-weight:700}
+.tape::before{content:"";position:absolute;left:-.08em;right:-.1em;top:.02em;bottom:.04em;
+  background:var(--colorado);border:2.5px solid var(--ink);border-radius:3px;
+  transform:rotate(-1.6deg);z-index:-1;box-shadow:4px 4px 0 0 var(--ink)}
 
-/* Doodle star accent near the polaroid */
-.a-star{position:absolute;right:392px;top:112px;width:56px;height:56px;transform:rotate(-8deg)}
+/* the mark sits on its own taped card — the logo law forbids tilting or shadowing
+   the wordmark itself, so the PAPER carries both and the mark stays upright */
+.plate{position:absolute;right:74px;top:190px;width:330px;height:250px;
+  background:var(--oats);border:3px solid var(--ink);border-radius:6px;
+  box-shadow:10px 12px 0 0 rgba(0,0,0,.22);transform:rotate(2.4deg);
+  display:flex;align-items:center;justify-content:center;z-index:2}
+/* THE REAL MARK, not type. Setting the wordmark in a typeface is a worse logo
+   violation than tilting it. It is unmodified here - no rotation, no shadow, no
+   recolour, no filter. The PAPER under it carries the tilt and the offset shadow,
+   which is exactly what the logo law allows and the masthead already does.
+   THE WORDMARK, not the butterflies: a share card has to carry the NAME. It is the
+   same SVG the masthead uses, recoloured to Grass, which is the book's instruction
+   for a logo over a ground - pick the palette colour with the highest contrast. */
+.plate .mark{display:block;width:214px}
+.plate .mark svg{display:block;width:100%;height:auto}
+.wash{position:absolute;left:-26px;top:-16px;width:120px;height:34px;
+  background:rgba(241,221,1,.72);border-left:1px solid rgba(65,77,87,.2);
+  border-right:1px solid rgba(65,77,87,.2);transform:rotate(-9deg)}
+.proof{position:absolute;right:96px;bottom:112px;z-index:3;
+  font-family:"Patrick Hand",cursive;font-size:34px;color:var(--oats);transform:rotate(-3deg)}
 </style></head><body><div class="card">
-<div class="msg">
-  <p class="a-eyebrow">Tiny creative clubs with show-and-tell deadlines.</p>
-  <h1 class="a-head">A club for whatever you make.</h1>
-  <p class="a-hello">Hello, <span class="hl">portfolio.</span></p>
-</div>
-<svg class="a-star" viewBox="0 0 100 100"><path d="M50 3 C55 35,65 45,97 50 C65 55,55 65,50 97 C45 65,35 55,3 50 C35 45,45 35,50 3Z" fill="#F1DD01"/></svg>
-<div class="polaroid">
-<span class="a-mark"><svg viewBox="0 0 7438 6955" fill="#1CAB5B" role="img" aria-label="drex" style="display:block;height:100%;width:auto"><path d="M3940.792,1923.474c0,-237.327 876.575,-942.689 1916.579,-954.143c144.631,-1.593 160.411,78.319 137.9,189.4c-30.08,148.427 -98.327,433.131 -98.327,433.131c0,0 65.273,764.946 -24.815,794.112c-90.088,29.167 -290.952,-256.255 -825.803,-386.398c-752.956,-183.213 -1105.535,77.059 -1105.535,-76.102Z" style=""/><path d="M3904.129,2226.95c9.277,-48.947 42.212,-89.528 87.203,-107.447c243.766,-86.69 1260.521,-180.52 2114.804,662.836c42.289,41.921 54.919,106.632 31.665,162.246c-102.058,276.752 -340.779,1190.09 53.749,2858.265c38.355,162.175 -103.782,235.401 -233.086,138.553c-532.234,-398.637 -1304.501,-567.736 -1930.825,-724.558c-48.189,-11.629 -86.868,-48.709 -101.742,-97.538c-70.176,-252.215 -255.758,-1651.265 -21.766,-2892.358Z"/><path d="M3496.708,1923.474c0,-237.327 -876.575,-942.689 -1916.579,-954.143c-144.631,-1.593 -160.411,78.319 -137.9,189.4c30.08,148.427 98.327,433.131 98.327,433.131c0,0 -65.273,764.946 24.815,794.112c90.088,29.167 290.952,-256.255 825.803,-386.398c752.956,-183.213 1105.535,77.059 1105.535,-76.102Z" style=""/><path d="M3533.371,2226.95c-9.277,-48.947 -42.212,-89.528 -87.203,-107.447c-243.766,-86.69 -1260.521,-180.52 -2114.804,662.836c-42.289,41.921 -54.919,106.632 -31.665,162.246c102.058,276.752 340.779,1190.09 -53.749,2858.265c-38.355,162.175 103.782,235.401 233.086,138.553c532.234,-398.637 1304.501,-567.736 1930.825,-724.558c48.189,-11.629 86.868,-48.709 101.742,-97.538c70.176,-252.215 255.758,-1651.265 21.766,-2892.358Z"/></svg></span>
-</div>
+  <div class="msg">
+    <h1 class="head">Accountability buddies running their own magazine.</h1>
+    <p class="sub">Each issue is a new challenge with a <span class="tape">deadline</span>.</p>
+  </div>
+  <div class="plate"><span class="wash"></span><span class="mark"><svg viewBox="2453 1908 9790 2914" fill="#1CAB5B" aria-hidden="true" focusable="false" style="display:block;width:100%;height:auto"><path d="M5478.999,2905.779c0,0 421.063,-37.36 425.9,108.343l-343.709,1707.337c-61.242,136.313 -436.173,134.324 -442.946,-22.416l360.754,-1793.265Z"/><path d="M5041.89,2951.676c63.511,-60.841 526.771,-49.633 526.771,-49.633l-102.739,405.414c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M3924.681,1958.721c63.511,-60.841 530.662,-50.446 530.662,-50.446l-106.63,406.227c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M5726.866,3417.607c0,0 256.489,-511.828 914.019,-511.828l-313.821,549.187c0,0 -52.304,-37.36 -119.551,-37.36c-40.411,0 -354.324,251.272 -556.659,579.075l76.013,-579.075Z"/><ellipse cx="6634.347" cy="3332.931" rx="430.57" ry="427.151"/><path d="M4268.545,3833.937c-54.051,587.803 -422.164,984.658 -1012.447,984.658c-466.996,0 -803.233,-354.917 -803.233,-919.048c0,-545.451 486.888,-993.767 1032.339,-993.767c668.793,0 813.229,603.128 783.342,928.157Zm-643.455,-498.703c-234.497,-17.38 -499.751,191.996 -499.751,524.336c0,438.408 306.192,521.14 448.316,514.446c142.124,-6.694 404.43,-206.606 404.43,-554.612c0,-284.788 -150.331,-469.149 -352.995,-484.17Z"/><path d="M4388.096,1908.276c0,0 411.204,-11.208 424.724,108.343c0,19.142 -451.623,2260.261 -451.623,2260.261c15.69,59.775 224.905,-302.557 315.685,-313.821c110.397,-13.699 320.176,120.344 320.176,210.008c-0,122.494 -381.069,648.499 -765.873,648.499c-140.399,0 -328.765,-47.802 -392.277,-174.825l549.187,-2738.465Z"/><path d="M8385.582,2902.043c497.354,57.086 817.745,422.164 739.722,818.177c-90.045,457.032 -844.694,445.003 -1082.497,417.708c-230.119,-26.413 -368.235,-100.848 -422.572,-20.593c0,0 -107.744,106.625 251.184,223.032c419.614,136.089 691.752,-83.334 866.656,-96.072c140.311,-10.219 217.565,170.071 168.209,286.302c-66.995,157.772 -494.323,338.135 -1028.793,276.789c-285.793,-32.803 -922.08,-269.802 -773.345,-1004.975c130.759,-646.322 784.083,-957.454 1281.437,-900.368Zm-212.016,404.392c-264.608,50.886 -442.712,200.115 -438.042,342.082c4.67,141.967 311.61,175.439 541.715,149.439c165.317,-18.68 362.389,-47.848 366.125,-257.062c3.213,-179.919 -275.528,-271.818 -469.798,-234.459Z"/><path d="M9206.516,4052.426c-70.533,107.48 -90.728,764.251 662.245,766.169c771.79,1.966 1183.203,-1911.019 149.439,-1912.816c-257.116,-0.447 -637.291,99.928 -646.668,437.503c-3.838,138.152 129.653,198.923 237.929,188.041c127.279,-12.792 188.555,-176.528 452.832,-176.528c264.278,0 131.209,448.7 79.402,619.471c-101.286,333.868 -336.519,428.184 -390.245,405.158c-60.791,-26.053 81.561,-246.308 11.513,-333.868c-61.401,-76.751 -475.858,-115.932 -556.447,6.87Z"/><path d="M11593.807,3675.684c70.533,-107.48 91.02,-767.987 -661.952,-769.905c-771.79,-1.966 -1183.496,1911.019 -149.731,1912.816c257.116,0.447 637.291,-96.192 646.668,-433.767c3.838,-138.152 -129.653,-198.923 -237.929,-188.041c-127.279,12.792 -188.555,176.528 -452.832,176.528c-264.278,0 -131.209,-448.7 -79.402,-619.471c101.286,-333.868 336.519,-428.184 390.245,-405.158c60.791,26.053 -81.561,246.308 -11.513,333.868c61.401,76.751 475.858,115.932 556.447,-6.87Z"/><path d="M11830.971,4385.014c61.784,-59.74 306.841,-59.74 367.586,0c60.745,59.74 58.668,298.701 -3.115,358.441c-61.784,59.74 -306.841,59.74 -367.586,0c-60.745,-59.74 -58.668,-298.701 3.115,-358.441Z"/></svg></span></div>
+  <p class="proof">&#10003; Proof.</p>
 </div></body></html>

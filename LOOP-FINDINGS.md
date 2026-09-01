@@ -589,3 +589,20 @@ findings. An agent that reports raw counts has not finished.
 - **Z-6. One heading rank, two typefaces** — six h2s Space Grotesk, four Courier Prime italic.
 - **Z-7. Issues render as tall scroll strips** where each photograph is a few pixels high, so
   the craft is present but never legible. Scale problem, not a content problem.
+
+---
+
+## 2026-08-31 · PROMOTED
+
+index-next.html IS index.html now. The rebuild shipped: 850 rendered words against the
+963 it replaced, a 12% cut, and the previous live page is archived at
+index-pre-promotion.html.
+
+**There is no index-next.html any more.** The next pass forks a fresh one from
+index.html — do not assume it exists, and do not compare index.html against itself.
+`tools/measure.py` takes two paths and does not care what they are called.
+
+Shipped in the same move: title, og:title, twitter:title and og:image:alt all re-cut to
+the new fold, and assets/og.png re-rendered from og-card.html — which was two
+generations stale and still carried "A club for whatever you make", the line ~15 cold
+testers named as too vague to translate into anything.

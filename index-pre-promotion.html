@@ -58,60 +58,9 @@
      the closing run — so what a stranger reads in a search result is what they land on. "zine" is
      still deliberately absent: the word's mental image is a photocopied paper thing, and what they
      get is a URL. 157 characters, inside the SERP cut. -->
-<!-- ============ ONE OBJECT, ONE NAME (2026-08-29) ============
-     The page carried FOUR names for one thing — zine 15x, issue 13x, magazine 4x,
-     portfolio 3x — and a cold reader could not tell whether "one issue", "the zine",
-     "the scrollable magazine" and "one beautiful portfolio" were four things or one.
-     It survived three passes because it belonged to no section. The taxonomy is now:
-
-       magazine  = the club's ONGOING PUBLICATION. Named ONCE, in the frozen H1
-                   ("Clubs run their own magazine."), where the frozen line under it
-                   defines its unit ("Each issue is a new challenge with a deadline.").
-                   Container and unit, in ordinary English, for free. The band's
-                   "Turn showing up into a magazine." is the same container sense —
-                   what showing up ADDS UP TO — and is the only other use.
-       issue     = THE ONE NAME FOR THE ARTEFACT. One challenge, one deadline, one
-                   scrollable thing at a URL. It is also the recurring unit the spine
-                   counts (001..012). In publishing those are the same object.
-       wall      = where issues accumulate. The page already had this word AND a whole
-                   section headed "It all ends up on a wall."
-       zine      = DEMOTED. It now names only a PHYSICAL object, and the sentence says
-                   so ("make a paper zine about your hobby", "Ten makers cut paper zines
-                   by hand"), plus the proper noun "Zine Machine". It is no longer a
-                   name for the thing you open at a link.
-       portfolio = KILLED. Zero uses, but only after 2026-08-29, when the sweep was
-                   finished into the JSON-LD and the aria-labels. THE SWEEP'S FIRST PASS
-                   STOPPED AT RENDERED TEXT and declared portfolio dead while the FAQPage
-                   answer to "What is Drex?" still ended "...it adds up to a portfolio."
-                   measure.py strips <script> and ignores attributes, so it reported 0 and
-                   the sweep believed it. Any future taxonomy work must grep the JSON-LD,
-                   every aria-label and every alt, because the instrument cannot see them.
-                   It was a fourth name for the object AND a third
-                   name for the wall, in resume register on a page about cut paper.
-
-     WHY "issue" AND NOT "zine", which is the house word and had the most uses: the
-     HERO IS FROZEN and does not contain "zine". It contains magazine + issue. The
-     first two nouns a stranger reads cannot change, so they are the vocabulary; any
-     third word is a word the page has to teach. This file already said so — see the
-     meta comment above: "'zine' is still deliberately absent: the word's mental image
-     is a photocopied paper thing, and what they get is a URL." The body never got the
-     memo. Also: every "issue" use on the page was already correct. zine, magazine and
-     portfolio were the strays.
-
-     THE ONE TRAP. Never write "an issue" — the indefinite singular garden-paths to
-     "a problem" ("a blank page that became an issue"). Every form the page uses is
-     definite or counted: "the issue", "one issue", "issue 001", "Issue after issue",
-     "three issues". Keep it that way.
-
-     REJECTED: renaming the counter to "zine 001..012" and keeping zine as primary —
-     it needs the H1 to change, and the H1 is frozen by §F-1. Also rejected: killing
-     "magazine" outright for a two-name page; it is in the frozen H1, so the floor is
-     three names, and the instrument's klaxon at >2 cannot be satisfied. That is a
-     limit of the tool, not a defect in the copy — the third name is a container the
-     hero defines in its own second line, and the fourth name is gone. -->
-<meta name="description" content="Accountability buddies running their own magazine. Each issue is a new challenge with a deadline: a few real friends, work you actually finished, issues with your name in them." />
+<meta name="description" content="Clubs run their own magazine. Each issue is a new challenge with a deadline: a few real friends, many show-and-tells, one beautiful portfolio." />
 <meta property="og:title" content="drex. Make magazines with your club for show-and-tell." />
-<meta property="og:description" content="Accountability buddies running their own magazine. Each issue is a new challenge with a deadline: a few real friends, work you actually finished, issues with your name in them." />
+<meta property="og:description" content="Clubs run their own magazine. Each issue is a new challenge with a deadline: a few real friends, many show-and-tells, one beautiful portfolio." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://drex.style" />
 <meta property="og:image" content="https://drex.style/assets/og.png" />
@@ -127,14 +76,14 @@
 <meta property="og:image:alt" content="drex. — Show-and-tell with deadlines. Join or create a club that answers its own challenges with a magazine. Oats-cream type on a grass-green card: “challenges” is set on a strip of red embossed label tape, and “magazine” sits under a yellow highlighter mark." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="drex. Make magazines with your club for show-and-tell." />
-<meta name="twitter:description" content="Accountability buddies running their own magazine. Each issue is a new challenge with a deadline: a few real friends, work you actually finished, issues with your name in them." />
+<meta name="twitter:description" content="Clubs run their own magazine. Each issue is a new challenge with a deadline: a few real friends, many show-and-tells, one beautiful portfolio." />
 <meta name="twitter:image" content="https://drex.style/assets/og.png" />
 <meta name="theme-color" content="#FEF6E4" />
 
 <!-- ============ STRUCTURED DATA (JSON-LD) ============
      Invisible to readers, and the browser never executes it — application/ld+json is a data
      block. This is the ONE place on the page that gets to be plain and boring: the rest of the
-     copy is deliberately oblique ("The magic is the hour", "Come get good"), and a machine trying
+     copy is deliberately oblique ("The magic is the hour", "Pick a door"), and a machine trying
      to answer "what is drex.style" has to reconstruct the product out of fragments. Here it is
      said once, straight, for crawlers.
 
@@ -166,7 +115,7 @@
       "name": "Drex",
       "alternateName": "drex.",
       "url": "https://drex.style",
-      "description": "Drex runs small clubs for regular show-and-tells with deadlines: a host sets a challenge, the club helps each other finish, and the work goes into an issue everyone is named in.",
+      "description": "Drex runs small clubs for regular show-and-tells with deadlines: a host sets a challenge, the club helps each other finish, and the work goes into a zine everyone is named in.",
       "logo": {
         "@type": "ImageObject",
         "url": "https://drex.style/assets/logo.png",
@@ -202,7 +151,7 @@
           "name": "What is Drex?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Drex is where you join or create a small club for regular show-and-tells with deadlines. A host sets a challenge with a due date, the club meets for a recurring hour, everyone works in their own time, and the finished work ships as one issue with everyone's name in it. Repeat, and the issues stack up on the club's wall."
+            "text": "Drex is where you join or create a small club for regular show-and-tells with deadlines. A host sets a challenge with a due date, the club meets for a recurring hour, everyone works in their own time, and the finished work ships as one zine with everyone's name in it. Repeat, and it adds up to a portfolio."
           }
         },
         {
@@ -218,7 +167,7 @@
           "name": "How does a Drex club work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Four beats, on repeat. The challenge goes up with a deadline. Club Hour comes round — the club's recurring hour together. Everyone makes the issue together. Then it ships: submissions close on the due date, and the host publishes the issue."
+            "text": "Four beats, on repeat. The challenge goes up with a deadline. Club Hour comes round — the club's recurring hour together. Everyone makes the scrollable magazine together. Then it ships: submissions close on the due date and the issue is published."
           }
         },
         {
@@ -234,7 +183,7 @@
           "name": "What kinds of clubs are on Drex?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Baristas, models, photographers, letterers. Real clubs on Drex include Beans, a cafe crew in San Francisco; XChange Models; Photo Phloor; and Penmanship, a lettering club. Any craft you can show and tell."
+            "text": "Baristas, models, photographers, letterers. Real clubs on Drex include Beans, a cafe crew in San Francisco; XChange Models; Photo Phloor; and SF Penmans, a penmanship club. Any craft you can show and tell."
           }
         },
         {
@@ -242,7 +191,7 @@
           "name": "Do I need to have a group already, or can I join on my own?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Either. Bring your people, or come alone."
+            "text": "Either. You can bring an existing group in as a club, or grab a spot on the waitlist on your own."
           }
         },
         {
@@ -250,7 +199,7 @@
           "name": "What do you actually end up with?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "One issue — a scrollable thing at a link, made by the whole club, with every member's name in it. The issues stack up on the club's wall, and issue after issue with the same people is what turns into a body of work."
+            "text": "A zine — a scrollable magazine the club makes together, published as an issue with every member's name in it. The issues stack up on the club's wall, and issue after issue with the same people is what turns into a body of work."
           }
         }
       ]
@@ -262,7 +211,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7438 6955'%3E%3Cg fill='%231CAB5B'%3E%3Cpath d='M3940.792,1923.474c0,-237.327 876.575,-942.689 1916.579,-954.143c144.631,-1.593 160.411,78.319 137.9,189.4c-30.08,148.427 -98.327,433.131 -98.327,433.131c0,0 65.273,764.946 -24.815,794.112c-90.088,29.167 -290.952,-256.255 -825.803,-386.398c-752.956,-183.213 -1105.535,77.059 -1105.535,-76.102Z'/%3E%3Cpath d='M3904.129,2226.95c9.277,-48.947 42.212,-89.528 87.203,-107.447c243.766,-86.69 1260.521,-180.52 2114.804,662.836c42.289,41.921 54.919,106.632 31.665,162.246c-102.058,276.752 -340.779,1190.09 53.749,2858.265c38.355,162.175 -103.782,235.401 -233.086,138.553c-532.234,-398.637 -1304.501,-567.736 -1930.825,-724.558c-48.189,-11.629 -86.868,-48.709 -101.742,-97.538c-70.176,-252.215 -255.758,-1651.265 -21.766,-2892.358Z'/%3E%3Cpath d='M3496.708,1923.474c0,-237.327 -876.575,-942.689 -1916.579,-954.143c-144.631,-1.593 -160.411,78.319 -137.9,189.4c30.08,148.427 98.327,433.131 98.327,433.131c0,0 -65.273,764.946 24.815,794.112c90.088,29.167 290.952,-256.255 825.803,-386.398c752.956,-183.213 1105.535,77.059 1105.535,-76.102Z'/%3E%3Cpath d='M3533.371,2226.95c-9.277,-48.947 -42.212,-89.528 -87.203,-107.447c-243.766,-86.69 -1260.521,-180.52 -2114.804,662.836c-42.289,41.921 -54.919,106.632 -31.665,162.246c102.058,276.752 340.779,1190.09 -53.749,2858.265c-38.355,162.175 103.782,235.401 233.086,138.553c532.234,-398.637 1304.501,-567.736 1930.825,-724.558c48.189,-11.629 86.868,-48.709 101.742,-97.538c70.176,-252.215 255.758,-1651.265 21.766,-2892.358Z'/%3E%3C/g%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Sometype+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
 
 <!-- ============================================================================
      index.html — THE FRONT PAGE of drex.style. Promoted from index-post-beta.html
@@ -302,7 +251,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=140" />
+<link rel="stylesheet" href="app-post-beta.css?v=133" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -489,8 +438,9 @@
             <div class="hb-strand" id="hb-strand">
               <span class="hb-thread"></span>                 <!-- ONE continuous string: slit → through every tab → burger -->
               <ul class="hb-tray" id="hb-tray">
+                <li><a href="https://letters.drex.style/join-online/">Join as a group</a></li>
                 <li><a href="https://instagram.com/drexclubs">Instagram</a></li>
-                <li><a href="https://app.drex.style/show-and-tell">Library</a></li>
+                <li><a href="https://demo.drex.style">Demo</a></li>
                 <li class="hb-cta"><a class="btn" href="https://letters.drex.style/join-online/">Join the waitlist <span class="arr">&rarr;</span></a></li>
               </ul>
               <button class="hb-fallen" id="hb-fallen" type="button" tabindex="-1" aria-hidden="true"><span class="bars"><i></i><i></i><i></i></span><svg class="hb-facesm" viewBox="0 0 48 44" aria-hidden="true"><g filter="url(#roughsm)"><circle cx="18" cy="18" r="2.8" fill="var(--ink)"/><circle cx="30" cy="18" r="2.8" fill="var(--ink)"/><path d="M16 26 q8 8 16 0" fill="none" stroke="var(--ink)" stroke-width="2.9" stroke-linecap="round"/></g></svg><svg class="hb-facex" viewBox="0 0 48 44" aria-hidden="true"><g filter="url(#roughsm)" stroke="var(--oats)" stroke-width="2.7" stroke-linecap="round" fill="none"><path d="M14.5 13 L21.5 20 M21.5 13 L14.5 20"/><path d="M26.5 13 L33.5 20 M33.5 13 L26.5 20"/><path d="M16 29 q4 -3.5 8 0 q4 3.5 8 0"/></g></svg><span class="hb-bubble" id="hb-bubble" aria-hidden="true"><svg class="hb-cloud" viewBox="0 0 216 140" aria-hidden="true"><g filter="url(#roughsm)"><path d="M30 98 A22 22 0 0 1 22 60 A24 24 0 0 1 62 42 A26 26 0 0 1 110 40 A24 24 0 0 1 152 50 A22 22 0 0 1 180 70 A20 20 0 0 1 170 100 A24 24 0 0 1 128 108 A24 24 0 0 1 80 108 A22 22 0 0 1 30 98 Z" transform="translate(3,5)" fill="var(--ink)"/><g stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M30 98 A22 22 0 0 1 22 60 A24 24 0 0 1 62 42 A26 26 0 0 1 110 40 A24 24 0 0 1 152 50 A22 22 0 0 1 180 70 A20 20 0 0 1 170 100 A24 24 0 0 1 128 108 A24 24 0 0 1 80 108 A22 22 0 0 1 30 98 Z" fill="var(--hb-tone,var(--paper))"/><circle cx="188" cy="80" r="9" fill="var(--hb-tone,var(--paper))"/><circle cx="200" cy="84" r="5.5" fill="var(--hb-tone,var(--paper))"/><circle cx="209" cy="88" r="3" fill="var(--hb-tone,var(--paper))"/></g></g></svg><span class="hb-say" id="hb-say"></span><svg class="hb-face" viewBox="0 0 216 140" aria-hidden="true"><g filter="url(#roughsm)"><circle cx="84" cy="64" r="4.6" fill="var(--ink)"/><circle cx="116" cy="64" r="4.6" fill="var(--ink)"/><path d="M78 80 q22 22 44 0" fill="none" stroke="var(--ink)" stroke-width="4.6" stroke-linecap="round"/></g></svg></span></button>
@@ -766,18 +716,7 @@
                    word returns. .nb welds "own magazine." so the payoff word cannot widow; the
                    type ramp was re-derived for the new binding line "Clubs run their " at
                    app-post-beta.css:3715, :6263 (4.45cqw) and :6954 (no floor at <=380). -->
-              <!-- H1 CHANGED 2026-08-30, founder's call. Was "Clubs run their own magazine."
-                   Two reasons, both from the Manny's cold test that this fold otherwise survived:
-                   (1) "Club" was the word that test flagged - it "reads as an institution that
-                   ALREADY EXISTS, which obscures why you'd create or join one". Accountability
-                   buddies is a group you FORM. (2) The schema that does the comprehension work
-                   was buried in line three at the smallest size; it now leads.
-                   This also retires a whole line: the old line three said "Accountability buddies
-                   with something to show!" and its front half has moved up here.
-                   "who", not "that" - people take who.
-                   NOT YET FIELDED. This fold is the one part of the page with a real test behind
-                   it and this change is untested. Field before trusting. -->
-              <h1 class="ed-cat"><span class="sen"><span class="hd-who">Accountability buddies</span> running their <span class="nb">own <span class="hd-out">magazine</span>.</span></span></h1>
+              <h1 class="ed-cat"><span class="sen"><span class="hd-who">Clubs</span> run their <span class="nb">own <span class="hd-out">magazine</span>.</span></span></h1>
               <!-- The sub answers the two questions the headline provokes, in the order a stranger
                    asks them: "do I need to bring people?" and "show-and-tell of WHAT?"
                      - "Join or create" — both doors, join first. Arriving alone is the commoner
@@ -998,20 +937,7 @@
                    (never inside the picture — the cover is a carousel and a fixed drawing
                    aimed into moving content has unstable meaning). Hidden under 900px: one
                    column puts the plate directly below, adjacency does the pointing. -->
-              <p class="ed-sub ed-sub-3"><!-- "PROOF." 2026-08-31, founder's call. Was "Something to show for it.", and before
-                   that "Accountability buddies with something to show!" whose front half moved up
-                   into the H1 this morning.
-                   It answers the question line one raises - accountable to WHAT - in one syllable,
-                   and at one word it works as a stamp beside the checkmark and the arrow that
-                   already point at the magazine. It also takes five words off a fold that is set
-                   in a monospace: at 390 the column holds ~19 characters, so five words is two
-                   lines.
-                   TONE NOTE, so nobody softens it back by accident: "proof" is harder than the
-                   idiom it replaced and pulls slightly against the brand's maximally-Supportive
-                   tone. That sharpness is the point and it was chosen knowingly.
-                   Line three is quoted in NONE of the meta, og or twitter descriptions - checked -
-                   so unlike lines one and two it carries no downstream cost. -->
-              <span class="hl">Proof.</span><svg class="ed-point" viewBox="0 0 130 44" preserveAspectRatio="xMaxYMid meet" aria-hidden="true"><path d="M4 10 C40 26 78 30 116 24 M102 12 C107 17 112 21 119 23.5 C112 27 106 31.5 101 37" fill="none" stroke="#F75458" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
+              <p class="ed-sub ed-sub-3"><span class="nb">Accountability buddies with</span> <span class="hl">something to show!</span><svg class="ed-point" viewBox="0 0 130 44" preserveAspectRatio="xMaxYMid meet" aria-hidden="true"><path d="M4 10 C40 26 78 30 116 24 M102 12 C107 17 112 21 119 23.5 C112 27 106 31.5 101 37" fill="none" stroke="#F75458" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
               <!-- THE DOOR IS A COUPON UNDER THE COPY, NOT A TAG ON THE ZINE (2026-08-24).
                    The zc-tag covered the demo video's mid-frame at phone widths and read as a
                    sticker; research (F/Z-pattern eye-tracking) wants the primary CTA at the
@@ -1070,7 +996,7 @@
                    what makes the card readable; the size increase alone would not have.
 
                    EVERY RED AND GREEN LINE IS REAL, and checkable: the challenges are the assignments
-                   off each issue's ledger (app.drex.style/z/<id>/ledger) and the green lines are the
+                   off each issue's ledger (demo.drex.style/z/<id>/ledger) and the green lines are the
                    makers' own reflection answers, compressed to five words. Nothing here was written
                    for the landing page. Each card links to the issue it came from, so any of it can
                    be verified in one click.
@@ -1116,7 +1042,7 @@
                          table, got the challenge "make a paper zine" on the day, cut and glued
                          paper
                          for an afternoon, shot the results into the editor on a phone, and
-                         published issue "Making Zines!" with ten makers in it. Every
+                         published issue "Making Zines!" with eight makers in it. Every
                          other layer on this plate is the LAST frame of that loop; this is
                          the loop itself, which is the one thing a screenshot of a finished
                          zine structurally cannot argue.
@@ -1194,7 +1120,7 @@
                   </div>
                   <div class="zl" aria-hidden="true">
                     <img src="assets/zines/hero/formal.jpg" width="620" height="2806"
-                         loading="lazy" decoding="async" alt="Formal Practice, by Penmanship &mdash; pages of the real issue.">
+                         loading="lazy" decoding="async" alt="Formal Practice, by SF Penmans &mdash; pages of the real issue.">
                   </div>
                   <div class="zl" aria-hidden="true">
                     <img src="assets/zines/hero/beans.jpg" width="620" height="5314"
@@ -1206,7 +1132,7 @@
                   </div>
                   <div class="zl" aria-hidden="true">
                     <img src="assets/zines/hero/dropcaps.jpg" width="620" height="3224"
-                         loading="lazy" decoding="async" alt="Dropcaps, by Penmanship &mdash; pages of the real issue.">
+                         loading="lazy" decoding="async" alt="Dropcaps, by SF Penmans &mdash; pages of the real issue.">
                   </div>
                   
                   <div class="zl" aria-hidden="true">
@@ -1229,11 +1155,6 @@
                          PAPER ZINE". show(0) at boot overwrites these anyway (app-post-beta.js);
                          the served copy just has to agree with the served picture. -->
                     <span class="zc-chal" id="zcChal">make a paper zine about your hobby</span>
-                    <!-- NO DUE STAMP HERE. One was added 2026-08-31 to put the deadline on the fold as an
-                         object rather than a word, and it was wrong: this carousel shows PUBLISHED
-                         issues. A "due" tab on a finished issue says the deadline is still coming
-                         for a thing that already shipped. The deadline belongs on a CHALLENGE, and
-                         the spine four sections down already stamps one. -->
 
                     <!-- Drawn marks, not chrome. Two strokes a hair out of register, the way a
                          two-colour print misses — that is what makes them legible on any
@@ -1265,7 +1186,7 @@
                          - below 380px the frame shrinks to ~132px and the two labels clipped
                            mid-word ("D THIS ISSUE" / "IN THIS CL"). A note that hangs off the
                            plate is not bound by the frame's width, so that failure cannot recur.
-                       It is the same object as .reveal-name and .zc-note: happy
+                       It is the page's existing sticky note (.how-fn / .reveal-name): happy
                        yellow, ink border, hard offset shadow, hand-cut edge, a peeled corner,
                        and a slight rotation against the plate's own. It is deliberately NOT
                        fully contained — it laps over the plate's bottom-left corner and hangs
@@ -1275,7 +1196,7 @@
                        what it always was. Both hrefs and both strings are still written per
                        issue by the carousel (#ctaIssue, #zcCap, #ctaClub). -->
                   <div class="zc-note">
-                    <a class="zc-note-read" id="ctaIssue" href="https://app.drex.style/z/09e16cfb-3c15-4a98-a8d2-427ced250f2e">scroll the issue</a>
+                    <a class="zc-note-read" id="ctaIssue" href="https://app.drex.style/z/09e16cfb-3c15-4a98-a8d2-427ced250f2e">scroll the magazine</a>
                     <p class="zc-note-lead" id="zcCap" aria-live="polite">Eight makers cut paper zines by hand.</p>
                     <p class="zc-note-by">in <a class="zc-note-club" id="ctaClub" href="https://app.drex.style/clubs/zine-machine">Zine Machine</a></p>
                   </div>
@@ -1371,199 +1292,6 @@
     </div>
   </section>
 
-  <!-- ============ THE PROBLEM, AND IT ARRIVES FIRST (moved here 2026-08-30
-       from 55% scroll depth, where it sat between #portfolio and #bring).
-       THE PITCH DECK ARGUES PROBLEM-FIRST AND THIS PAGE ARGUED MECHANISM-FIRST.
-       The deck's order is: everyone has unrepeatable gifts, having them is not
-       enough -> why is this hard, "emotionally, technically, financially" -> nobody
-       becomes a master alone, it takes a support system -> SO: a posse, then the
-       infrastructure. The page's first beat below the fold was the summary band —
-       "the whole idea", i.e. the machinery — and the difficulty was not stated
-       anywhere until the founder's note at 87% depth. Want comes from recognising
-       yourself in a problem, not from understanding a machine, so the recognition
-       beat now lands before the machine and the band reads as the ANSWER to it.
-       WHY THIS SECTION AND NOT NEW COPY: the emotional truth was already written
-       and already illustrated. "4,000 messages. Nothing made." is the difficulty
-       in five words, and a dead group chat is the one picture every reader can
-       identify themselves in. Writing a problem section would have cost words this
-       page cannot spend (F-1's loudest complaint was "too much text"); moving one
-       cost none. The move itself is word-neutral.
-       WHAT THE OLD POSITION WAS FOR, kept because the reasoning still holds: a chat
-       has no deadline, no challenge and nothing to show at the end, and those three
-       absences are the whole product, so the two cards name them side by side. That
-       argument works better here than at 55%: it answers the objection before the
-       reader has finished forming it, and — per F-1, where "club" was heard as an
-       institution you APPLY TO — it teaches the noun by contrast, at the first
-       moment the page uses it, against a thing every reader already has.
-       DO NOT WEAKEN the group-chat mock or its caption. They are the section.
-       THIS IS ALSO THE SLATE SHEET, AND THE TWO DECISIONS ARE NOW LOAD-BEARING ON
-       EACH OTHER. The ground pass painted this section Sambas to say the group chat
-       is the colour of the void it sits in; the reorder pass moved it to beat two.
-       Merged, the argument is stronger than either alone — the reader meets the
-       problem on slate, and the cream page underneath it IS the relief. But it
-       means the two passes now share a constraint neither wrote down: THE SUMMARY
-       BAND DIRECTLY BELOW MUST STAY CREAM. Two saturated sheets stacked at the top
-       of the page stop reading as sheets on a pad and start reading as a dark page,
-       which is the one thing the idiom cannot afford in the first two screens.
-       See the merge note at the head of the CONSTRUCTION PAPER block in the
-       stylesheet for the measurement.
-       REJECTED: moving the summary band down instead, which lands the same order.
-       The band is quoted verbatim by all three meta descriptions (K-5) and its
-       markup is a third longer; moving the smaller block touches less.
-       REJECTED: leaving this in place and writing a new problem beat at the top.
-       Two statements of one idea, one of them new words. R-2's rule.
-       CORRECTED AT MERGE, AND DO NOT RE-LOG THE OLD VERSION: both upstream passes
-       recorded that the .si bubble beside this section "has NEVER rendered" and that
-       "no script anywhere adds si-in". BOTH ARE FALSE. They grepped index-next.html,
-       where the class does not appear; si-in is added by app-post-beta.js:3249 and
-       :3254, an IntersectionObserver that inks the strokes in as the section scrolls
-       up. Verified in the browser on this draft: the element carries si-in at
-       opacity 1 and the drawing is on screen at 1440.
-       That is not just a bookkeeping fix - it is WHY the stylesheet recolours
-       .versus.gnd .si to cream. A drawing that really is visible, left in coral-ink
-       (1.66:1) and ink (1.00:1) on a slate sheet, would have been an invisible
-       smear. That rule is load-bearing, not defensive.
-       See also the note at the old site, ~55% down. ============ -->
-  <section class="versus gnd gnd--slate" id="why-not-chat">
-    <!-- SECTION ILLUSTRATION — the abandoned bubble. This section's whole claim is
-         "4,000 messages. Nothing made.", i.e. the chat did not die, it just stopped
-         being where anything happens. So: a speech bubble nobody has spoken into
-         long enough for a spider has moved in. Drawn, not placed — the
-         strokes ink themselves in as it scrolls up. -->
-    <span class="si si-l" aria-hidden="true" style="--si-rot:-6deg;--si-w:116px;top:22%">
-      <svg viewBox="0 0 104 116" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <g filter="url(#roughsm)">
-          <path data-si-draw pathLength="1" d="M14 22 C14 13 20 8 29 8 L77 8 C86 8 92 13 92 22 L92 48 C92 57 86 62 77 62 L44 62 L28 78 L31 62 L29 62 C20 62 14 57 14 48 Z"
-                stroke="var(--ink)" stroke-width="3.4"/>
-          <path data-si-draw pathLength="1" d="M63 62 L63 88" stroke="var(--ink)" stroke-width="1.6"/>
-          <path data-si-draw pathLength="1" d="M56 92 L48 85 M55 98 L46 99 M57 104 L50 110 M70 92 L78 85 M71 98 L80 99 M69 104 L76 110"
-                stroke="var(--coral-ink)" stroke-width="1.9"/>
-          <ellipse cx="63" cy="98" rx="6.4" ry="5.6" fill="var(--coral-ink)"/>
-        </g>
-      </svg>
-    </span>
-
-    <div class="wrap">
-      <div class="head">
-        <!-- HEAD REFRAMED WITH THE MOVE, 2026-08-30 (+4 rendered words, 888 -> 892).
-             OUT: "Why not a group chat?" — an OBJECTION-HANDLER. It only works after
-             a proposal has been made, and at beat two no proposal has been made yet;
-             read at 6% depth it answers a question the reader has not asked. Same
-             failure mode R-4 records for the permission gate: order carries the
-             meaning, the words were never the problem. The referent is not lost —
-             the left card's tab still says "the group chat" in the picture, which is
-             where a reader meets it anyway.
-             IN: the deck's own argument, generalised. Slide 5 is "Virgil didn't do it
-             alone. Becoming a true master of a craft, it requires a support system."
-             The lineage story stays off the consumer page (R-6, founder's call) — this
-             is the ARGUMENT from it, not the anecdote, in plain English with no
-             jargon and no name attached.
-             THE EYEBROW IS DECK SLIDE 3, in three words: "Emotionally, technically,
-             financially, it's incredibly tough." The page never said the thing was
-             hard until #founder at 87% ("It's hard, emotionally more than
-             technically."). That line stays: it is first-person testimony 77% of the
-             page away, in a different register, and it RANKS the difficulty where
-             this only signposts it.
-             IT ALSO BOOKENDS. The page now opens its argument on "gets good ... alone"
-             and closes on .doors' "Come get good."
-             THE EYEBROW IS HAPPY, NOT CORAL, AND THAT IS A MERGE FIX — READ THIS
-             BEFORE YOU "RESTORE" IT. This head was written for a CREAM ground and
-             specified Colorado inline, to match #bring's eyebrow. This section is now
-             a SAMBAS SHEET, and Colorado on Sambas measures 2.63:1 — under even the
-             3:1 large-text floor, i.e. illegible, and an inline style no stylesheet
-             rule can reach. Happy on Sambas is 6.22:1, and it is already what the
-             other two grounded sections use for their eyebrow, so all three sheets
-             now agree. The colour lives in the stylesheet (.versus.gnd .eyebrow), not
-             in a style attribute, so the ground owns it. Coral was never safe here
-             anyway: on the cream it was written for it is 3.07:1.
-             NOTED, NOT FIXED: .doors says "Bring your people, or come alone." Different
-             sense (arrive alone vs. work alone) and 90% of the page apart, but if a cold
-             reader snags on "alone", that card is the cheaper thing to re-word.
-             REJECTED: adding a sub. The two cards below ARE the sub, and the drafted
-             line ("You already have the people. That was never the hard part.")
-             restates #bring's "You don't need new people." — R-2. -->
-        <!-- HEAD RE-CUT, 2026-08-31, ON TWO INDEPENDENT COLD READS THAT AGREED.
-             OUT: eyebrow "why it's hard" + h2 "Nobody gets good at anything alone."
-             Both readers rejected both, in the same terms and unprompted.
-             The eyebrow: it signposts DIFFICULTY and the picture under it shows
-             FLAKINESS. "That chat isn't hard, it's lazy." A label that writes a
-             cheque the picture does not cash. The deck's difficulty beat is not
-             lost: it is at #founder, in first person, where it RANKS the difficulty
-             ("It's hard, emotionally more than technically") instead of signposting it.
-             The h2: "a fridge magnet ... I skimmed straight past" / "Flatly false,
-             and you just promoted it to the first argument on the page." Plenty of
-             people have got good alone; the deck's defensible version is about
-             MASTERY and a SUPPORT SYSTEM, and generalising it to "anything" made it
-             both a slogan and falsifiable in the page's highest-value slot.
-             IN: the two lines both readers actually pointed at. Each names the
-             picture below it. The eyebrow is the caption's own verdict promoted from
-             8px to a signpost ("'Nothing gets made' is what the picture says").
-             The h2 states the problem in objects the reader already owns, and it
-             names the alternative the move had otherwise reduced to a tab ("you lost
-             the competitor ... a tab isn't an argument"). It is NOT the old
-             objection-handler: it does not ask "why not X?", it says what X does to
-             you, which is what beat two is for. "deadline" is the underlined word
-             because the frozen hero's line two already taught it, so this is a
-             callback and not a forward reference. And "alone" leaving the h2 also
-             dissolves the collision with .doors' "or come alone" 90% of the page
-             below, which the previous head recorded as noted-not-fixed. -->
-        <span class="eyebrow">why nothing gets made</span>
-        <h2 class="slab">Everyone has a group chat<span class="stop">.</span> Nobody has a <span class="ul">deadline</span><span class="stop">.</span></h2>
-      </div>
-
-      <!-- SHOW the dead chat instead of describing it. The joke writes itself: three messages of
-           enthusiasm, then an eleven-month silence, then someone asking if anyone's still alive.
-           Nobody needs a bullet list to recognise their own group chat. -->
-      <div class="vs-pair">
-
-        <figure class="vs-card vs-chat">
-          <span class="vs-tab vs-tab-sad">the group chat</span>
-          <div class="chatmock" role="img" aria-label="A group chat: three excited messages in January, then eleven months of silence, then one message asking if the chat is still alive.">
-            <span class="ch-day">JAN 4</span>
-            <p class="bub them">found this sick technique 🔥</p>
-            <p class="bub them">omg we should <em>totally</em> do this</p>
-            <p class="bub me">yes!! this weekend??</p>
-            <span class="ch-gap"><i></i>eleven months later<i></i></span>
-            <span class="ch-day">DEC 2</span>
-            <p class="bub them">is this chat still alive lol</p>
-            <span class="ch-typing" aria-hidden="true"><i></i><i></i><i></i></span>
-          </div>
-          <figcaption class="cap">4,000 messages. Nothing made.</figcaption>
-        </figure>
-
-        <figure class="vs-card vs-circle">
-          <span class="vs-tab vs-tab-glad">a club</span>
-          <div class="circlemock">
-            <div class="cm-note">
-              <span class="cm-pin" aria-hidden="true"></span>
-              <span class="cm-kick">the challenge</span>
-              <p class="cm-do">Shoot a roll you'd normally be scared to.</p>
-              <span class="cm-due">due friday</span>
-            </div>
-            <span class="cm-arrow" aria-hidden="true">
-              <svg viewBox="0 0 60 26" fill="none" stroke="var(--grass-deep)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13 H50" filter="url(#roughsm)"/><path d="M42 5 L52 13 L42 21" filter="url(#roughsm)"/></svg>
-            </span>
-            <!-- MEDIA PLACEHOLDER: swap this block for a real photo of a finished zine being held
-                 in someone's hands (ideally one of the Photo Phloor / XChange issues). A hand
-                 holding the artifact is the single most persuasive image on this page. -->
-            <div class="cm-out">
-              <span class="cm-outline" aria-hidden="true"></span>
-              <svg class="cm-zine" viewBox="0 0 64 78" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round">
-                <rect x="4" y="4" width="52" height="66" rx="2" fill="var(--schoolbus)"/>
-                <rect x="9" y="9" width="42" height="30" rx="1" fill="var(--paper)"/>
-                <path d="M13 47 h34 M13 55 h26 M13 63 h30" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
-              </svg>
-              <b>one issue, everyone's name in it</b>
-            </div>
-          </div>
-          <figcaption class="cap">A finished thing.</figcaption>
-        </figure>
-
-      </div>
-
-    </div>
-  </section>
-
   <!-- ============ THE SUMMARY BAND (2026-08-11) — moved OUT of the hero.
        These three fragments are the clearest statement of the product anywhere on
        this page: two independent cold readers picked them out unprompted, one
@@ -1581,7 +1309,7 @@
        keep it; the first one was answering a different question, which is why it was
        the flattest of the three.
        "A few real friends." is the page's own evidence said back: #proof carries "A
-       few photographers who became friends, and a blank page that became the issue.
+       few photographers who became friends, and a blank page that became a zine.
        Photo Phloor. Four weeks." — a named club, a real outcome, four weeks. This is
        not the kind of claim "monthly" was (struck 2026-08-04 for promising what
        nothing else on the site keeps); it is the one the proof run was built to
@@ -1595,7 +1323,7 @@
        and the reason to keep this exact phrasing rather than a synonym. The three
        meta descriptions quote all three fragments verbatim; they were updated with
        this and have to stay in step. ============ -->
-  <section class="summary-band" aria-label="What a club adds up to">
+  <section class="summary-band" aria-label="What a club adds up to, and the tools we hand you">
 
     <!-- ==== THE HEAD, ADDED 2026-08-26. This was the ONLY section on the page with
          no head: two lists and their ledes, arriving with nothing naming what they
@@ -1653,73 +1381,43 @@
     <div class="head sum-head">
       <span class="eyebrow">the <span class="hl hl-y">whole idea</span></span>
       <h2 class="slab">Turn showing up into a magazine<span class="stop">.</span></h2>
-      <!-- "WE DO THE NAGGING" IS GONE, 2026-08-29 (-1 word). It was K-1's known-false claim,
-           still highlighted in Happy as the promise of the paragraph headed "the whole idea":
-           sweepAllDueLadders' only caller is gated on DEADLINE_LADDER_ENABLED, which compose
-           passes empty. It was also SELF-CONTRADICTING in one breath, and a cold reader said so
-           unprompted - "do you nag me or don't you? 'We do the nagging' is highlighted, and then
-           the next clause says the thing does it by itself. Pick one."
-           "We keep the time and the place" is the same shape and IS kept by the product: a club
-           has a standing hour and a venue, and the door shuts on its own. K-1's own lesson,
-           applied - prefer the mechanism that needs no human, because it cannot rot.
-           This sub is still the only place the page claims drex holds any of the scheduling.
-           DO NOT restore "nagging" without shipping reminders first. -->
-      <p class="sum-sub">You bring the work. <span class="hl hl-y hl-wrap">We keep the time and the place</span>. The deadline closes itself.</p>
+      <p class="sum-sub">You bring the work. <span class="hl hl-y">We do the nagging</span>: the hour, the place. The deadline closes itself.</p>
     </div>
 
 <div class="sum-stack">
-    <!-- ONE LIST NOW (2026-08-29). This was two columns. The second one, "We give you
-         tools to:", was the section said twice: "Help each other make the deadline" is
-         the sub's own nagging, "Make the zine together" is the h2 three inches above,
-         and "Show the world" promised a planet to a club of six. Rewriting those three
-         lines would have left two lists still restating each other, so the column and
-         its three marks are gone and nothing replaced them.
-         ALL THREE FRAGMENTS ARE QUOTED VERBATIM in the meta, og and twitter descriptions.
-         Touch one here and you must touch all three there, in the same edit, or they drift
-         silently. They are in sync as of 2026-08-29 (the "many show-and-tells" staleness
-         recorded here before is fixed; so is item 3).
-         ITEM 3 WAS "One beautiful wall." UNTIL 2026-08-29, and two separate cold readers
-         failed on it in the same words: they did not know what a wall was. The section that
-         teaches the noun is three screens down, and the mark beside the line is three
-         coloured covers, so the picture said "issues" while the words said "wall". It also
-         promised ONE wall where #portfolio says there are two ("Yours, and the club's").
-         "Issues with your name in them." is ordinary English, matches the mark, uses the
-         page's one object name, and leaves #portfolio to introduce "wall" as its own reveal.
-         REJECTED: "Your beautiful wall." It fixes the count and not the comprehension, and
-         comprehension is the thing that was measured.
-         Do not reorder: it is the loop in miniature and the last item is the only one
-         that pays off. -->
+    <!-- TWO COLUMNS, NOT ONE STACK. The lists answer different questions — what a
+         club adds up to, and what we hand you to get there — and stacked they read
+         as one six-item list where item 4 contradicts the grammar of item 3. Side
+         by side with a lede each, the pair is legible at a glance. Under 820px
+         they stack again (two columns of 34ch does not fit a phone), and the ledes
+         are what keeps the stacked version from collapsing back into one list. -->
     <div class="sum-col">
       <p class="sum-lede" id="sum-lede-adds">What a club adds up&nbsp;to:</p>
-<ul class="sum-doodles" aria-labelledby="sum-lede-adds"><li style="--dr:-3deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke-width="2.2"><circle cx="11" cy="10" r="4.6" stroke="#C9343A"/><path d="M2.6 30c0-6.9 3.8-10.4 8.4-10.4s8.4 3.5 8.4 10.4" stroke="#C9343A"/><circle cx="23" cy="7.6" r="4.9" stroke="#0C6E39"/><path d="M13.8 30c0-7.6 4.1-11.4 9.2-11.4s9.2 3.8 9.2 11.4" stroke="#0C6E39"/><circle cx="34.6" cy="10.6" r="4.4" stroke="#2496C9"/><path d="M26.6 30c0-6.6 3.6-9.9 8-9.9s8 3.3 8 9.9" stroke="#2496C9"/></g></svg></span>A few real friends.</li><li style="--dr:2.2deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)"><g transform="rotate(-7 20 16)"><rect x="7" y="4" width="23" height="24" rx="1.4" fill="#FEF6E4" stroke="#414D57" stroke-width="2.2"/><path d="M12 12h13M12 17h13M12 22h8" stroke="#414D57" stroke-width="1.6" opacity=".42"/></g><path d="M19 19.5 25.5 27 41 6" stroke="#0C6E39" stroke-width="3.4"/></g></svg></span>Work you actually <b>finished</b>.</li><li style="--dr:-1.4deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke="#414D57" stroke-width="1.9"><g transform="rotate(-13 18 17)"><rect x="7" y="5.5" width="15" height="21" rx="1.4" fill="#ECAF21"/></g><g transform="rotate(-2 22 17)"><rect x="14" y="4.5" width="15" height="21" rx="1.4" fill="#1CAB5B"/></g><g transform="rotate(11 26 17)"><rect x="21" y="5.5" width="15" height="21" rx="1.4" fill="#F75458"/></g></g></svg></span>Issues with <span class="hl hl-b">your name</span> in them.</li></ul>
+<ul class="sum-doodles" aria-labelledby="sum-lede-adds"><li style="--dr:-3deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke-width="2.2"><circle cx="11" cy="10" r="4.6" stroke="#C9343A"/><path d="M2.6 30c0-6.9 3.8-10.4 8.4-10.4s8.4 3.5 8.4 10.4" stroke="#C9343A"/><circle cx="23" cy="7.6" r="4.9" stroke="#0C6E39"/><path d="M13.8 30c0-7.6 4.1-11.4 9.2-11.4s9.2 3.8 9.2 11.4" stroke="#0C6E39"/><circle cx="34.6" cy="10.6" r="4.4" stroke="#2496C9"/><path d="M26.6 30c0-6.6 3.6-9.9 8-9.9s8 3.3 8 9.9" stroke="#2496C9"/></g></svg></span>A few real friends.</li><li style="--dr:2.2deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke-width="2.6"><path d="M8 6.5 6.8 26" stroke="#0C6E39"/><path d="M15.5 5.8 14.6 25.6" stroke="#0C6E39"/><path d="M23 6.4 22.4 26.2" stroke="#0C6E39"/><path d="M30.6 5.6 30 25.4" stroke="#0C6E39"/><path d="M3.4 24.6C13 20.2 27 12.4 35.6 7.2" stroke="#C9343A"/></g></svg></span>Many show-and-tells.</li><li style="--dr:-1.4deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke="#414D57" stroke-width="1.9"><g transform="rotate(-13 18 17)"><rect x="7" y="5.5" width="15" height="21" rx="1.4" fill="#ECAF21"/></g><g transform="rotate(-2 22 17)"><rect x="14" y="4.5" width="15" height="21" rx="1.4" fill="#1CAB5B"/></g><g transform="rotate(11 26 17)"><rect x="21" y="5.5" width="15" height="21" rx="1.4" fill="#F75458"/></g></g></svg></span>One beautiful <span class="hl hl-b">portfolio</span>.</li></ul>
     </div>
 
-    <!-- THE SECOND COLUMN IS GONE AGAIN, 2026-08-31, and this time the reason is
-         structural rather than editorial - it is R-2 arriving by a new road.
-         It was restored on 2026-08-29 with a WHY clause on each regular, which did
-         answer the objection those three lines died of the first time. What changed
-         is what sits above the band. #why-not-chat moved here from 55% depth, so the
-         reader now meets a DRAWN CARD carrying "the challenge", "Shoot a roll you'd
-         normally be scared to.", "due friday", "one issue, everyone's name in it" and
-         "A finished thing." - and then, four inches later, this column said challenge,
-         hour, deadline and finished again in prose. Four of the band's six fragments
-         restated the picture the reader had just looked at. Before the move those two
-         sat 47% of the page apart with the WORDS first; the move put the picture first
-         and turned the words into a caption for it.
-         Three cold reads converged on it independently: one called the band a prose
-         restatement of the picture above; one recognised it as the "three regulars"
-         R-2 deleted for reading as a chant; one measured its half-screen as two matched
-         three-item lists at 13% depth, the flattest band on the desktop page.
-         WHAT IS LOST, STATED PLAINLY: the deck's slide-9 triad, and the reasons attached
-         to it, which were better copy than the mechanics #showtell's ring carries.
-         REJECTED: folding those reasons into the ring's step subs. That is R-1 - the ring
-         is the one object on this page whose whole job is to be scanned in two seconds,
-         and the last time it took extra words it grew 57% and overflowed at 1280px.
-         The three ideas each keep a whole section of their own (#showtell 01, #showtell
-         02, #portfolio); what has gone is the compressed restatement of them.
-         O-3 COMES BACK: the band is one narrow column again. That is a layout debt to pay
-         in CSS, not with restated copy - paying it with copy is what produced this. The
-         stylesheet already handles it: .sum-stack:not(:has(.sum-col + .sum-col)) exists. -->
+    <!-- A SECOND LIST, SAME GRAMMAR, DIFFERENT SUBJECT. The first three are what a
+         club ADDS UP TO; these three are what Drex actually hands them to get
+         there. Same drawn marks, same rhythm, so they read as a matched pair of
+         lists rather than as a features table bolted under a promise.
+         THE LEDE CARRIES "TOOLS FOR". Two of the three lines used to open with
+         "Tools for" and the middle one didn't, so the list read as broken
+         parallelism with a features label repeated twice. Hoisted into the lede,
+         it governs all three and every line can start on its own verb.
+         THE MARKS ARE REDRAWN. The old three were the weakest on the page: an
+         unreadable pair of arrows, a two-card stack that was the SAME drawing as
+         the portfolio mark directly above it, and a globe with a detached
+         magnifier handle that read as a stray tick. Now: speech bubbles (each
+         other), an OPEN zine with the spine showing (unmistakably not the closed
+         stack above), and a globe with an exchange arrow going out and coming
+         back — which is the two-way claim the line actually makes. -->
+    <div class="sum-col sum-col-tools">
+      <p class="sum-lede" id="sum-lede-tools">We give you tools&nbsp;to:</p>
+      <ul class="sum-doodles sum-tools" aria-labelledby="sum-lede-tools">
+        <li style="--dr:2.4deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke-width="2.2"><rect x="3.5" y="4.5" width="18" height="13" rx="3.6" stroke="#0C6E39"/><path d="M10 17.5 8.2 23.4 14.6 17.5" stroke="#0C6E39"/><rect x="23.5" y="13" width="17" height="12.5" rx="3.4" stroke="#C9343A"/><path d="M34.6 25.5 36.4 30.4 30.2 25.5" stroke="#C9343A"/></g></svg></span>Help each other make the deadline.</li>
+        <li style="--dr:-1.8deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke="#414D57" stroke-width="1.9"><path d="M3.5 9.5c5.6-3 11.7-3.4 17.6-2.4v18.6c-5.9-1-12-.6-17.6 2.4z" fill="#F1DD01"/><path d="M40.5 9.5c-5.6-3-11.7-3.4-17.6-2.4v18.6c5.9-1 12-.6 17.6 2.4z" fill="#1CAB5B"/><path d="M22 7.1v18.6"/></g></svg></span>Make the zine together.</li>
+        <li style="--dr:1.5deg"><span class="dood" aria-hidden="true"><svg viewBox="0 0 44 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)" stroke-width="2.2"><circle cx="14.5" cy="16" r="8.4" stroke="#2496C9"/><path d="M6.1 16h16.8M14.5 7.6c2.6 2.6 3.9 5.4 3.9 8.4s-1.3 5.8-3.9 8.4M14.5 7.6c-2.6 2.6-3.9 5.4-3.9 8.4s1.3 5.8 3.9 8.4" stroke="#2496C9"/><path d="M27.5 11h13.4M37.1 7.6 41.2 11 37.1 14.4" stroke="#C9343A" stroke-width="2.5"/><path d="M41 22H27.6M31.4 18.6 27.3 22 31.4 25.4" stroke="#0C6E39" stroke-width="2.5"/></g></svg></span>Show the world &mdash; and see what the world has made.</li>
+      </ul>
     </div>
     </div>
   </section>
@@ -1752,9 +1450,10 @@
        filter border, no drawn device). The clip already carries the reader's own
        chrome, so a drawn phone around it would frame a frame. Ratio overridden to
        1/1; the wall and club tours are 4:5. ============ -->
-  <section class="seewhat" id="seewhat" aria-label="A real issue in the reader, and the library it lands in">
+  <section class="seewhat" id="seewhat" aria-label="A real issue in the reader, from another club">
     <div class="wrap">
       <div class="head">
+        <span class="eyebrow" style="color:var(--lazuli)">real clubs, real issues</span>
         <!-- Sue's line: "see what people are doing — and join them." Set as TWO
              sentences rather than an em-dash clause: every h2 on this page is one
              short sentence or two ("The same people. Issue after issue."), and none
@@ -1765,89 +1464,25 @@
              orphaned the imperative onto its own line. Same deterministic-chunk fix
              the fold uses, and for the same reason: a headline that breaks mid-clause
              reads as a mistake in every engine, not just the one you tested. -->
-        <h2 class="slab"><span class="nb">See what people are <span class="ul">doing</span><span class="stop">.</span></span> <span class="nb">Then join them<span class="stop">.</span></span></h2>
-        <p class="sw-sub">Every issue lands in a library anyone can read.</p>      </div>
-
-      <!-- ============ THE PAIR (2026-08-29). This section was 768px of page carrying one
-           424px square and 22 rendered words - the thinnest section on the site, and the one whose
-           headline promises the most. What it showed was the reader's own chrome with the work
-           inside it a couple of hundred pixels tall: Z-7, "the craft is present but never legible",
-           landing in the exact place a stranger is being asked to want this. It is a pair now -
-           the artifact, then the door - paid for out of the ~340px of blank paper that used to sit
-           down each side at 1440.
-           THIS IS THE EDIT A COLD READER SINGLED OUT: "the cover... that one image did what nine
-           sections of copy were trying to do." Everything else in this pass is a subtraction; this
-           is the one addition, and it costs zero rendered words because every word it carries is
-           printed inside the JPEG - the masthead OUR FAVORITE DRINKS, the year, the host's
-           reflection question handwritten across the bottom, and two makers' answers with their
-           names against them. It is also four baristas, the one club here that is not an art scene.
-           WHY NOT penmans-desk.jpg, the better single object: the illuminated "b" is a CROP OF A
-           PAGE - no masthead, no title, no name. Large and alone it says "nice handwriting" and
-           then needs a caption to say more, which costs words against a 963 ceiling; and it is
-           already on this page twice (hero tile :572, Penmans card :2818).
-           NOT A LINK, AND NO CAPTION. A door needs an affordance and the affordance is "read it ->",
-           three words this section cannot afford for a second door beside one that already works.
-           NOT A DUPLICATE: beans-cover.jpg was unreferenced by this file. The Beans card in #proof
-           shows a DIFFERENT photograph of the same club five screens later, so the cover rhymes
-           forward into it. REJECTED: a rack of three covers - that is R-5, and one artifact large
-           is the entire point.
-           KNOWN DEFECT, NOT FIXABLE IN MARKUP: Ben's and Mauricio's answers are dark grey on a
-           busy grey shirt and the same reader who loved this could not read them - "the single
-           most convincing thing on this page did not come through". The fix is a RE-EXPORT of the
-           JPEG with those two quotes knocked back onto a plate, not a bigger box. The cover column
-           is already the wider of the two for this reason and cannot grow much further: the source
-           is 600x750, so 30rem renders it at 0.8x and anything larger is upscaling.
-           ============ -->
-      <div class="sw-pair">
-
-      <figure class="sw-real">
-        <span class="sw-shot"><img src="assets/zines/cover-cafe.jpg" width="720" height="965" loading="lazy" decoding="async" alt="The cover of &ldquo;Drawing at the Cafe&rdquo;, an issue a cafe crew made: a maker holding up the drawing she did, with her club&rsquo;s question written under it &mdash; is drawing at the cafe different than at home?"></span>
-      </figure>
+        <h2 class="slab"><span class="nb">See what people are <span class="ul">doing</span><span class="stop">.</span></span> <span class="nb">Then join them<span class="stop">.</span></span></h2>      </div>
 
       <figure class="rd-stage">
-        <!-- THE PICTURE IS NOW THE DOOR (2026-08-29). This was a .bd-open button, and what it
-             opened was assets/demo/book-cafe.mp4 — THE SAME CLIP ALREADY LOOPING INSIDE IT, at
-             about 13% larger. The inline <video> autoplays on intersection (the observer at the
-             foot of this file) and carries `loop`, so the section's only interaction was: click
-             the loop, get the loop. The modal's entire payload was scale.
-             It is now an <a> to the issue the clip's own poster is showing — "Drawing at the
-             Cafe" — and the caption underneath had been promising a destination all along: set
-             in --lazuli-deep with an arrow, which is this page's idiom for a real door ("Read
-             it →", "scroll the issue"). It now has one.
-             KNOWN AND ACCEPTED: this is the page's SECOND door to that same issue — .zines opens
-             it further down from its .zpola. Pointing this one elsewhere was considered and
-             rejected: the picture rests on that issue's cover, so any other destination would be
-             a fresh lie. Two doors to one room beats a door to nowhere.
-             target=_blank ON PURPOSE: same tab this early is a bounce, and it matches the other
-             real-issue links in this file (the hero postcard's "scroll the issue" is the one
-             exception, and it is inside the frozen hero).
-             REJECTED: keeping the lightbox and linking only the figcaption. Two affordances in
-             one square, one of which opens a copy of what you are already looking at.
-             REJECTED: dropping `loop` so the clip rests on its last frame. Measured: the last
-             frame carries no masthead, no club chip and no page counter — the reader HUD has
-             idle-hidden by then — while the POSTER carries all four. That is R-13's headless-frame
-             defect moved to the other end of the clip, and O-5 says do not kill a loop without
-             measuring on a throttled connection first. Nobody has.
-             REJECTED: cutting #seewhat outright. It is a real argument — 13 rendered words by
-             measure.py for 717px of scroll at 1440 — but Sue asked for this section on
-             2026-08-26 and deleted #reader because this took its job. Founder's call. -->
-        <a class="rd-open" href="https://app.drex.style/show-and-tell"
-           target="_blank" rel="noopener"
-           aria-label="Open the drex library &mdash; every issue any club has published">
+        <button type="button" class="rd-open bd-open"
+                data-video="assets/demo/book-cafe.mp4" data-poster="assets/demo/book-cafe-poster.jpg"
+                data-cap="flip through other clubs&rsquo; zines"
+                aria-label="Watch the reader &mdash; flipping through other clubs&rsquo; zines">
           <span class="pw-media rd-media">
             <video class="rd-vid" width="720" height="720" muted loop playsinline preload="none"
                    poster="assets/demo/book-cafe-poster.jpg"
-                   aria-label="The drex reader turning through five real published issues &mdash; [ 3AM, 2001 ], Interactive Zine, Office Attitude, Silk Road 001, and Drawing at the Cafe, which ends on a maker holding up her drawing.">
+                   aria-label="The drex reader with a real issue open: Drawing at the Cafe, page 5 of 10, scrolling past a maker holding up their drawing.">
               <source src="assets/demo/book-cafe.webm" type="video/webm" />
               <source src="assets/demo/book-cafe.mp4" type="video/mp4" />
             </video>
-            <img class="pw-still" src="assets/demo/book-cafe-poster.jpg" alt="The drex reader open on a real issue, Drawing at the Cafe." loading="lazy" width="720" height="720" />
+            <img class="pw-still" src="assets/demo/book-cafe-poster.jpg" alt="The drex reader open on a real issue, Drawing at the Cafe, at page 5 of 10." loading="lazy" width="720" height="720" />
           </span>
-        </a>
-        <figcaption class="rd-cap">flip through real issues <span class="arr">&rarr;</span></figcaption>
+        </button>
+        <figcaption class="rd-cap">flip through other clubs&rsquo; zines <span class="arr">&rarr;</span></figcaption>
       </figure>
-
-      </div>
     </div>
   </section>
 
@@ -1880,8 +1515,8 @@
              "friends + work" — tight, it reads as one compound noun (the two things you leave with);
              spaced, it becomes a sum of two separate items and the line goes limp. Lowercase, no
              full stop: it is a label now, not the two-beat joke it used to be. -->
-        <span class="eyebrow">how a <span class="hl hl-y">club works</span></span>
-        <h2 class="slab">The hour is why it <span class="ul">gets finished</span><span class="stop">.</span></h2>
+        <span class="eyebrow">make and keep <span class="hl hl-y">friends+work</span></span>
+        <h2 class="slab">The magic is <span class="ul">the hour</span><span class="stop">.</span></h2>
         <!-- TWO BECOMINGS, and that is the whole shape: the people became friends, the blank page
              became a zine. It is the eyebrow's "friends+work" split said again one rank down, so the
              head now makes the same claim three times at three sizes without repeating a word.
@@ -1895,10 +1530,10 @@
              It also stays a SENTENCE. An early cut ran "...Photo Phloor, four weeks." and the number
              tailed off inside a list; as its own stamp it gets a beat, and the tail reads like a
              caption credit — long sentence, name, number.
-             The arc stays "blank page to the issue" and NOT the wall, however tempting — this
-             timeline ends at the issue shipping, and the wall is the payoff of the NEXT section. An empty wall
+             The arc stays "blank page to a zine" and NOT the wall, however tempting — this timeline
+             ends at the zine shipping, and the wall is the payoff of the NEXT section. An empty wall
              filling with pinned photos describes what comes after this, not what is drawn below. -->
-        <p class="sht-sub">Photographers who became friends, and a blank page that became the issue. <b><a class="sht-club" href="https://app.drex.style/clubs/photo-phloor" target="_blank" rel="noopener">Photo Phloor</a></b>. Their first.</p>
+        <p class="sht-sub">A few photographers who became friends, and a blank page that became a zine. <b><a class="sht-club" href="https://app.drex.style/clubs/photo-phloor" target="_blank" rel="noopener">Photo Phloor</a></b>. Four weeks.</p>
       </div>
 
 
@@ -1944,21 +1579,7 @@
                 <circle cx="80" cy="8" r="4.5" fill="var(--oats)" filter="url(#roughsm)"/>
               </g>
             </svg></span>
-            <!-- HOST. The role needed a name (it was "someone"), and for a few hours on
-                 2026-08-29 this page called it "editor". That was wrong, and the product says so:
-                 DESIGN.md's Vocabulary section — "The one who runs a Club is the Host ... Not
-                 'Editor'" — and src/app/sms/page.tsx, which adds "founder confirmed 2026-08-29.
-                 Do not 'correct' this back." The schema agrees (clubs.hostId, isHost).
-                 EDITOR IS A TIER, NOT A ROLE: it is earned at three published issues
-                 (src/db/progression.ts, editor-unlock). Using it for the person who sets the
-                 challenge collapsed a rank into a job, and it collided with this page's own alt
-                 text, where "the editor" is the phone APP you lay pages out in.
-                 The argument that lost: "a magazine's challenge is set by its editor, so the hero
-                 has already paid for the metaphor." A metaphor the page can afford does not
-                 outrank the word the product ships. It was also argued from measure.py reporting
-                 host:0 — the instrument reads rendered text only, and "host" was alive in the
-                 JSON-LD the whole time. First of two uses. -->
-            <p>your host sets it, with a deadline</p>
+            <p>your Host sets one, with a deadline</p>
           </li>
           <li class="step is-key is-clock">
             <span class="n">02</span>
@@ -1999,7 +1620,7 @@
               </g>
               <circle cx="60" cy="60" r="5" fill="var(--colorado)" stroke="var(--ink)" stroke-width="2.4"/>
             </svg></span>
-            <p>a standing hour, online or in person</p>
+            <p>the recurring hour you've got <b>people</b></p>
           </li>
           <li class="step is-think">
             <svg class="thoughtb" viewBox="0 0 200 180" aria-hidden="true">
@@ -2012,12 +1633,8 @@
               <circle cx="14" cy="167" r="3.6" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.2" filter="url(#roughsm)"/>
             </svg>
             <span class="n">03</span>
-            <h3>Your part</h3>
-            <!-- SHORTENED 2026-08-31: the deck-order pass grew this from four words to seven and
-                 it stopped fitting the drawn cloud - "the issue" hung out of the bottom of
-                 the bubble at 390. The h3 above already says "Your part", so "for the issue"
-                 was a sentence explaining its own heading. -->
-            <p>in your own time</p>
+            <h3>Your own time</h3>
+            <p>to work on the challenge</p>
           </li>
           <li class="step is-globe">
             <span class="n">04</span>
@@ -2061,34 +1678,27 @@
                 </g>
               </g>
             </svg></span>
-            <p>your club, then anyone you send the link to</p>
+            <p>the zine goes out &mdash; <b>portfolio</b></p>
           </li>
         </ol>
         <div class="how-loopback" aria-hidden="true">
           <svg class="lb-arrow" viewBox="0 0 40 680" preserveAspectRatio="xMidYMid meet" fill="none" stroke="var(--colorado)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
-            <!-- A BRACKET, NOT AN ARC (2026-08-31). This was one shallow cubic bulging ~17
-                 units of a 40-wide box across 680 of height - about 15px over 600px rendered,
-                 which at that aspect ratio reads as a slightly bent line rather than as a path
-                 going back anywhere. A rounded-rectangle bracket - out, up the side, back in -
-                 is the shape that says RETURN, and the corners are what carry it. -->
-            <path d="M31 661 C17 661 10 652 10 638 L10 44 C10 30 17 21 31 21" filter="url(#roughsm)"/>
-            <path d="M21 11 L32 21 L21 31" filter="url(#roughsm)"/>
+            <path d="M31 662 C8 644 8 40 31 20" filter="url(#roughsm)"/>
+            <path d="M21 30 L31 17 L40 30" filter="url(#roughsm)"/>
           </svg>
           <span>back to the start</span>
         </div>
 
         <!-- Practice used to be its own step, which double-counted it: it's already one of the four
-             things the hour is FOR. Demoting it to a footnote was the fix at the time, and that
-             footnote is gone too — its markup was cut long ago and the last of its CSS (.how-fn,
-             .fn-star, .fn-body, .fn-link, .fn-tie) is deleted 2026-08-29. What survives is the
-             point: the ring is four clean nodes, and most of the making happens unwatched. -->
+             things the hour is FOR. Demoting it to a footnote is honest — most of the making happens
+             when nobody's watching — and it frees the ring to be four clean nodes. It's a sticky
+             note, parked in the empty margin beside the clock it annotates. -->
       </div>
-        <!-- REMOVED 2026-08-29 — the YARN (.fn-tie), a drawn string tying the clock's mechanism
-             line to the footnote note. Both ends were deleted before this comment was; the CSS
-             for the string itself goes 2026-08-29. Kept as a record, not as a description: if a
-             corkboard aside ever comes back, a string beats an arrow — an arrow says "go here
-             next", a string says "these two are pinned together" — and both ends must anchor to
-             the STAGE, never to the note, whose height breathes with the vw font clamps. -->
+        <!-- YARN, not an arrow: an arrow says "go here next", a string says "these two are pinned
+             together" — which is what a corkboard aside is. It hangs off the STAGE, not off the
+             note: the note's height breathes with the vw font clamps, so a string anchored to it
+             swung loose on every resize. Both ends are now rigid — a knot on the clock's rim, a
+             knot on the note's edge. -->
 
       </div>
 
@@ -2097,9 +1707,13 @@
            they've seen a real challenge — now tell them it isn't a gimmick, it's a forty-year-old
            finding, and we didn't invent it. Deliberately an aside, in the margin voice; the second
            it becomes a lecture it stops landing. -->
-      
+      <aside class="reveal-name">
+        <span class="rn-arrow" aria-hidden="true">btw</span>
+        <p>this is <b>situated&nbsp;learning</b> &mdash; Lave &amp; Wenger.</p>
+        <a class="rn-link" href="https://peer.asee.org/35417" target="_blank" rel="noopener">Read Our Founder&rsquo;s Stanford Research Paper &rarr;</a>
+      </aside>
       </div>
-      <p class="sht-exhibit">Now watch one club <span class="ul">do it</span><span class="stop">.</span></p>
+      <p class="sht-exhibit">See a <span class="ul">show-and-tell</span><span class="stop">.</span></p>
       <ol class="dd">
         <span class="dd-rail" aria-hidden="true"></span>
 
@@ -2109,7 +1723,7 @@
             <div class="dd-text">
               <span class="dd-step">01</span>
               <h3>The challenge goes up</h3>
-              <p>The host sets it, and <b>puts a date on it</b>.</p>
+              <p>Someone sets it, and <b>puts a date on it</b>.</p>
             </div>
             <!-- RESHOT, and now a link. The old capture predated the circle masthead redesign — it
                  still showed the purple NEXT CLUB HOUR pad, a "24 DAYS LEFT" stamp and "7 WORKERS",
@@ -2123,7 +1737,7 @@
                  px from a 1200-wide viewport at scale 2: .dd-print .ph is aspect-ratio 4/3 with
                  object-fit:cover, so an off-ratio capture gets its sides cropped away. -->
             <figure class="dd-print" style="--r:-2deg">
-              <a class="ph" href="https://app.drex.style/clubs/photo-phloor" target="_blank" rel="noopener" aria-label="Photo Phloor&rsquo;s circle on Drex, with the challenge &ldquo;Chinatown Story&rdquo; on the board &mdash; opens the club"><img src="assets/app/circle.jpg" alt="Photo Phloor&rsquo;s circle in Drex: a live circle-time bar across the top, the host @144mb, and the challenge &ldquo;Chinatown Story &mdash; make a story out of the Chinatown photo walk&rdquo; with two pinned resources and two people already submitted." loading="lazy" width="1128" height="846" /></a>
+              <a class="ph" href="https://app.drex.style/clubs/photo-phloor" target="_blank" rel="noopener" aria-label="Photo Phloor&rsquo;s circle on Drex, with the challenge &ldquo;Chinatown Story&rdquo; on the board &mdash; opens the club"><img src="assets/app/circle.jpg" alt="Photo Phloor&rsquo;s circle in Drex: a live circle-time bar across the top, the editor @144mb, and the challenge &ldquo;Chinatown Story &mdash; make a story out of the Chinatown photo walk&rdquo; with two pinned resources and two people already submitted." loading="lazy" width="1128" height="846" /></a>
               <!-- AN IMPERATIVE, not the board's title in quotes. Quoted, it sat in the same slot
                    and the same type as beat 04's caption — which IS a title, of a zine — so the two
                    read as a matched pair and invited the reader to take "Chinatown Story" for an
@@ -2147,7 +1761,7 @@
         <li class="dd-row is-standing">
           <span class="dd-repeat" aria-hidden="true"></span>
           <div class="dd-date">
-            <span class="dd-mon is-every">1st &amp; 3rd</span>
+            <span class="dd-mon is-every">every</span>
             <span class="dd-day">Wed</span>
             <span class="dd-knot" aria-hidden="true"></span>
           </div>
@@ -2157,17 +1771,7 @@
               <h3>Club Hour comes round</h3>
               <!-- "together" was here too; it moved to beat 03's headline, where it's the
                    payload. Said twice, it lands nowhere. -->
-              <!-- -11. Every clause here was said within one screen: "online or in person" is
-                   the back half of ring node 02 verbatim, and "it's when the work gets done" is the
-                   h2 "The hour is why it gets finished" at a third size. A cold reader counted FIVE
-                   statements of the hour on this page and stopped reading at them.
-                   What replaces it is the only thing this row can say that nothing else does: what
-                   this club did in the hour, which also stitches 01 -> 02 -> 03 into one story
-                   (the Chinatown challenge, the Chinatown walk, what came back from it).
-                   NOT DELETED OUTRIGHT. A render with all four spine paragraphs removed leaves four
-                   headlines over ~250px of blank column beside 250px prints - the section does not
-                   get shorter, it gets hollow. One short line per row is the shape. -->
-              <p>This one, they walked <b>Chinatown</b>.</p>
+              <p>Not a one-off. A <b>standing hour</b> in everyone&rsquo;s calendar &mdash; <b>online or in person</b> &mdash; where the work actually happens.</p>
             </div>
             <div class="dd-stack">
               <span class="dd-sheet" aria-hidden="true"></span>
@@ -2194,16 +1798,8 @@
           <div class="dd-body">
             <div class="dd-text">
               <span class="dd-step">03</span>
-              <h3>Make the issue &mdash; <span class="dd-together">together</span></h3>
-              <!-- "in one issue" restates the headline directly above it. "and what they learned"
-                   STAYS and is the load-bearing half: it is the only statement above 87% depth that
-                   an issue carries each maker's WRITTEN ANSWER, and the print beside it is exactly
-                   that pair - a submitted photograph with the answer under it.
-                   REJECTED: cutting the line and drawing a "their answer" arrow at the print instead.
-                   Built and rendered; the app's own MY ANSWER header is in those pixels at ~8px, so
-                   the arrow labelled something illegible. A reader's verdict: "a label naming
-                   something I can't read just tells me I'm missing something." -->
-              <p>Everyone&rsquo;s work, and <b>what they learned</b>.</p>
+              <h3>Make the scrollable magazine &mdash; <span class="dd-together">together</span></h3>
+              <p>Everyone&rsquo;s work, and what they learned, in <b>one issue</b>.</p>
             </div>
             <!-- THE ISSUE COMING TOGETHER, which is what this beat's sentence actually says:
                  "everyone's work, and what they learned, in one issue". This screen is exactly
@@ -2229,20 +1825,12 @@
         </li>
 
         <li class="dd-row is-due">
-          <div class="dd-date"><span class="dd-mon">on the</span><span class="dd-due-tab">due date</span><span class="dd-knot" aria-hidden="true"></span></div>
+          <div class="dd-date"><span class="dd-mon">Aug</span><span class="dd-day">12</span><span class="dd-due-tab">due</span><span class="dd-knot" aria-hidden="true"></span></div>
           <div class="dd-body">
             <div class="dd-text">
               <span class="dd-step">04</span>
-              <h3>It goes out: submissions close</h3>
-              <!-- -20, the biggest single cut in the pass. "The deadline is a Club Hour" was the
-                   fifth statement of the hour on the page and the h3 rewrite that tried to rescue it
-                   ("It goes out: the deadline IS a Club Hour") failed a cold read three times over -
-                   "is the deadline a date or a meeting?" - and broke the spine's own arithmetic on
-                   any non-weekly cadence. "You all show up" restates it again. "and onto your wall"
-                   is #portfolio's h2, ~200px below.
-                   What survives is the ship event, which is what the row is for, and the torn scrap
-                   beside the print now SHOWS what the link is. -->
-              <p><b>A link you can send anyone</b>.</p>
+              <h3>It ships: submissions close</h3>
+              <p>The deadline <b>is</b> a Club Hour. You all show up, it goes out to the world &mdash; and into <b>your portfolio</b>.</p>
             </div>
             <!-- THE CLUB'S OWN ISSUE, and openable. This print used to be Silk Road 001 — XChange
                  Models' zine — so the one beat that says "it ships" showed a DIFFERENT club's output
@@ -2253,24 +1841,9 @@
                  spread — the quote is signed, and no maker's name goes in visible copy or alt on
                  this page. Reshoot the top of the book only, and hide the CLUB HOUR — LIVE NOW
                  badge first: it is live state, it lands on the title, and it dates the capture. -->
-            <!-- THE ADDRESS, TORN OFF. This row's sentence used to end "...goes live at a link
-                 you can send anyone", and the sentence still says it - but saying it and SHOWING it
-                 are different jobs, and no picture on this page had ever shown that what a club
-                 ships is a web address. The scrap is the shape of this print's own href
-                 (app.drex.style/z/30412d80...), which is why the row is a link at all.
-                 A cold reader picked this out unprompted: "the first time the page showed me that
-                 'goes out' means a link. Best new mark on the page."
-                 GRASS, NOT LAZULI: .dd-print figcaption sets this section's colour law - blue is
-                 the work in progress, green is the thing that came out of it - and this row is the
-                 thing that came out.
-                 BELOW THE PRINT'S BOTTOM-LEFT CORNER, not level with the text: at that height it
-                 lands on the paragraph. REJECTED: the paper plane the #how globe node drags. It
-                 says "it goes out", which is what the headline already says, so it would be
-                 decoration - and decoration in the gutter is this page's known sin (Z-1). -->
             <figure class="dd-print">
-              <span class="dd-anno dd-anno-url" aria-hidden="true"><svg viewBox="0 0 250 96" fill="none" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)"><path d="M8 53 L54 49 L104 54 L150 48 L192 52 L190 82 L146 86 L98 81 L50 86 L9 82 Z" transform="translate(4,4)" fill="var(--ink)"/><path d="M8 53 L54 49 L104 54 L150 48 L192 52 L190 82 L146 86 L98 81 L50 86 L9 82 Z" fill="var(--oats)" stroke="var(--ink)" stroke-width="2.6"/><text x="96" y="72" text-anchor="middle">app.drex.style/z/&#8230;</text><path d="M198 62 C222 52 236 34 244 12" stroke="var(--grass-deep)" stroke-width="2.4"/><path d="M244 12 L235.4 16.6 M244 12 L244.6 21.8" stroke="var(--grass-deep)" stroke-width="2.4"/></g></svg></span>
               <a class="ph" href="https://app.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856" target="_blank" rel="noopener" aria-label="Read [ 3 A M, 2 0 0 1 ], the published issue from Photo Phloor &mdash; opens the zine"><img src="assets/app/zine-3am.jpg" alt="The published issue [ 3 A M, 2 0 0 1 ] from Photo Phloor: two night photographs pinned to the page &mdash; an empty lit stairwell and a glass-block window &mdash; one captioned &ldquo;Wow&rdquo;." loading="lazy" width="1000" height="750" /></a>
-              <figcaption>&ldquo;[ 3 A M, 2 0 0 1 ]&rdquo; &mdash; their last issue</figcaption>
+              <figcaption>&ldquo;[ 3 A M, 2 0 0 1 ]&rdquo;</figcaption>
             </figure>
           </div>
         </li>
@@ -2293,69 +1866,38 @@
        and both are LINKS to the thing they show. The wobbly edge is a torn backing
        slab, never a filter on the media — see #portfolio in app-post-beta.css.
        Videos are preload="none" and start on intersection (portfolioVids below). ==== -->
-  <section class="pw" id="portfolio" aria-label="Your wall: a real maker's wall and a real club's wall">
+  <section class="pw" id="portfolio" aria-label="Your portfolio: a real maker's wall and a real club's wall">
     <div class="wrap">
 
       <div class="head">
-        <h2 class="slab">It all ends up on a <span class="ul">wall</span><span class="stop">.</span> Your&nbsp;portfolio<span class="stop">.</span></h2>
-        <p class="pw-sub">Yours, and the club&rsquo;s.</p>
+        <span class="eyebrow" style="color:var(--colorado)">your portfolio</span>
+        <h2 class="slab">It all ends up on a <span class="ul">wall</span><span class="stop">.</span></h2>
+        <p class="pw-sub">Yours, and the club&rsquo;s. Both of these are real &mdash; go and look.</p>
       </div>
 
       <div class="pw-pair">
 
         <div class="pw-col is-mine">
-          <a class="pw-a" style="--r:-1.3deg" href="https://app.drex.style/u/144mb" target="_blank" rel="noopener" aria-label="Open 1.44 MB's wall on Drex — a real maker's wall">
+          <a class="pw-a" style="--r:-1.3deg" href="https://app.drex.style/u/144mb" target="_blank" rel="noopener" aria-label="Open 1.44 MB's wall on Drex — a real maker's portfolio">
             <span class="pw-media">
               <video class="pw-vid" width="720" height="918" muted loop playsinline preload="none"
-                     poster="assets/app/wall-144mb.jpg"
+                     poster="assets/demo/wall-tour-poster.jpg"
                      aria-label="A walk through 1.44 MB's wall: scrolling past the photo roll, then opening the Penmanship zine Dropcaps — the stack fans out and the reader unfolds it.">
                 <source src="assets/demo/wall-tour.webm" type="video/webm" />
                 <source src="assets/demo/wall-tour.mp4" type="video/mp4" />
               </video>
-              <!-- THE AT-REST FRAME IS THE TOP OF THE WALL, not a frame from the middle of
-                   the tour. Both panels are 10-19s videos that only start on intersection
-                   (preload="none"), so what a reader actually meets first is the poster —
-                   and this one used to be wall-tour-poster.jpg, a mid-scroll crop with no
-                   masthead, no face and no name in it. Its sibling never had that problem:
-                   club-tour-poster.jpg opens on the PHOTO PHLOOR masthead, so the club
-                   board announced whose it was and the maker board did not.
-                   assets/app/wall-144mb.jpg is the missing twin - the same wall, wound back
-                   to the top: the name "1.44 MB" set as a masthead, the face under it, the
-                   bio line, the club crests, and the pinned pick. It also does the one job
-                   no sentence on this page managed: a cold reader read "1.44 MB" as a FILE
-                   SIZE. Seen as a name on a profile with a face beneath it, it is a person
-                   in one glance, and the joke in the handle (the bio says floppy diskette
-                   camera) survives, which renaming the label to "@144mb" would have killed.
-                   Top-anchored in CSS, not cropped in the file - see .pw-col.is-mine in
-                   app-post-beta.css for why. -->
-              <img class="pw-still" src="assets/app/wall-144mb.jpg" alt="1.44 MB's wall on Drex: their name across the top of a cork board with their face beside it, the line &ldquo;i take photos with a floppy diskette camera&rdquo;, the clubs they edit, and the photo they pinned as their pick." loading="lazy" width="1078" height="1500" />
+              <img class="pw-still" src="assets/demo/wall-tour-poster.jpg" alt="1.44 MB's wall on Drex: their pick photo pinned under a handwritten caption, the clubs they edit, and the zines they made." loading="lazy" width="800" height="1020" />
             </span>
             <span class="pw-name">1.44&nbsp;MB&rsquo;s wall <span class="arr">&rarr;</span></span>
           </a>
-          <!-- THE TWO .pw-what CAPTIONS ARE GONE (2026-08-29), and they were the trade that
-               paid for the frame swap above. They read:
-                 "A maker's wall. Every photo they picked, and every issue they're in."
-                 "The club's wall. The table. Everything the club has pinned up."
-               21 words describing, one rank down, exactly what the sub one rank UP already
-               says ("Yours, and the club's") and what both boards now show at rest with
-               their own labels on them - MY PICK over the pinned photo, ZINES THEY MADE
-               over the pile, THE RACK and the challenge on the club side. That is the same
-               structural duplication that killed the tools column: a second list beside a
-               first list restates it, and rewriting the words does not fix it.
-               "The table" also went out with them, and should stay out: it was the page's
-               only visible use of that noun, introduced once and never used again, on a page
-               that already carries three names for one object.
-               REJECTED: keeping the maker's caption and cutting only the club's. The pair is
-               a matched pair - two boards, two names, two arrows - and one captioned column
-               beside an uncaptioned one reads as a missing line, not as restraint.
-               RESTORE BOTH TOGETHER if a cold reader cannot tell the boards apart. -->
+          <p class="pw-what"><b>A maker&rsquo;s wall.</b> Their pick, their roll, every zine they were in.</p>
         </div>
 
         <div class="pw-col is-club">
           <a class="pw-a" style="--r:1.2deg" href="https://app.drex.style/clubs/photo-phloor" target="_blank" rel="noopener" aria-label="Open Photo Phloor's wall on Drex — a real club">
             <span class="pw-media">
               <video class="pw-vid" width="720" height="918" muted loop playsinline preload="none"
-                     poster="assets/app/club-table.jpg"
+                     poster="assets/demo/club-tour-poster.jpg"
                      aria-label="A scroll down Photo Phloor's wall: the shelf of issues, then the table of photographs the club has pinned up.">
                 <source src="assets/demo/club-tour.webm" type="video/webm" />
                 <source src="assets/demo/club-tour.mp4" type="video/mp4" />
@@ -2364,17 +1906,93 @@
             </span>
             <span class="pw-name">Photo Phloor&rsquo;s wall <span class="arr">&rarr;</span></span>
           </a>
+          <p class="pw-what"><b>The club&rsquo;s wall.</b> The table &mdash; everything the club has pinned up.</p>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- WHY NOT A GROUP CHAT MOVED, 2026-08-30 — it is now the FIRST beat below the
-       fold, ahead of the summary band. The full note is up there with it.
-       NOTHING REPLACES IT HERE. #portfolio's two walls hand straight to #bring's
-       "already run something?", which is the door question, and a door question is
-       the right thing to follow "here is what you keep" with. -->
+  <!-- ============ WHY NOT A GROUP CHAT — the objection everyone arrives with.
+       A chat has no deadline, no challenge, and nothing to show at the end; those
+       three absences are the whole product, so we name them side by side. ============ -->
+  <section class="versus" id="why-not-chat">
+    <!-- SECTION ILLUSTRATION — the abandoned bubble. This section's whole claim is
+         "4,000 messages. Nothing made.", i.e. the chat did not die, it just stopped
+         being where anything happens. So: a speech bubble nobody has spoken into
+         long enough for a spider has moved in. Drawn, not placed — the
+         strokes ink themselves in as it scrolls up. -->
+    <span class="si si-l" aria-hidden="true" style="--si-rot:-6deg;--si-w:116px;top:22%">
+      <svg viewBox="0 0 104 116" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <g filter="url(#roughsm)">
+          <path data-si-draw pathLength="1" d="M14 22 C14 13 20 8 29 8 L77 8 C86 8 92 13 92 22 L92 48 C92 57 86 62 77 62 L44 62 L28 78 L31 62 L29 62 C20 62 14 57 14 48 Z"
+                stroke="var(--ink)" stroke-width="3.4"/>
+          <path data-si-draw pathLength="1" d="M63 62 L63 88" stroke="var(--ink)" stroke-width="1.6"/>
+          <path data-si-draw pathLength="1" d="M56 92 L48 85 M55 98 L46 99 M57 104 L50 110 M70 92 L78 85 M71 98 L80 99 M69 104 L76 110"
+                stroke="var(--coral-ink)" stroke-width="1.9"/>
+          <ellipse cx="63" cy="98" rx="6.4" ry="5.6" fill="var(--coral-ink)"/>
+        </g>
+      </svg>
+    </span>
+
+    <div class="wrap">
+      <div class="head">
+        <h2 class="slab">Why not a <span class="ul">group chat</span><span class="stop">?</span></h2>
+        <p class="vs-sub">Nobody quits. The date just stops being the date.</p>
+      </div>
+
+      <!-- SHOW the dead chat instead of describing it. The joke writes itself: three messages of
+           enthusiasm, then an eleven-month silence, then someone asking if anyone's still alive.
+           Nobody needs a bullet list to recognise their own group chat. -->
+      <div class="vs-pair">
+
+        <figure class="vs-card vs-chat">
+          <span class="vs-tab vs-tab-sad">the group chat</span>
+          <div class="chatmock" role="img" aria-label="A group chat: three excited messages in January, then eleven months of silence, then one message asking if the chat is still alive.">
+            <span class="ch-day">JAN 4</span>
+            <p class="bub them">found this sick technique 🔥</p>
+            <p class="bub them">omg we should <em>totally</em> do this</p>
+            <p class="bub me">yes!! this weekend??</p>
+            <span class="ch-gap"><i></i>eleven months later<i></i></span>
+            <span class="ch-day">DEC 2</span>
+            <p class="bub them">is this chat still alive lol</p>
+            <span class="ch-typing" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <figcaption class="cap">4,000 messages. Nothing made.</figcaption>
+        </figure>
+
+        <figure class="vs-card vs-circle">
+          <span class="vs-tab vs-tab-glad">a club</span>
+          <div class="circlemock">
+            <div class="cm-note">
+              <span class="cm-pin" aria-hidden="true"></span>
+              <span class="cm-kick">the challenge</span>
+              <p class="cm-do">Shoot a roll you'd normally be scared to.</p>
+              <span class="cm-due">due friday</span>
+            </div>
+            <span class="cm-arrow" aria-hidden="true">
+              <svg viewBox="0 0 60 26" fill="none" stroke="var(--grass-deep)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13 H50" filter="url(#roughsm)"/><path d="M42 5 L52 13 L42 21" filter="url(#roughsm)"/></svg>
+            </span>
+            <!-- MEDIA PLACEHOLDER: swap this block for a real photo of a finished zine being held
+                 in someone's hands (ideally one of the Photo Phloor / XChange issues). A hand
+                 holding the artifact is the single most persuasive image on this page. -->
+            <div class="cm-out">
+              <span class="cm-outline" aria-hidden="true"></span>
+              <svg class="cm-zine" viewBox="0 0 64 78" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round">
+                <rect x="4" y="4" width="52" height="66" rx="2" fill="var(--schoolbus)"/>
+                <rect x="9" y="9" width="42" height="30" rx="1" fill="var(--paper)"/>
+                <path d="M13 47 h34 M13 55 h26 M13 63 h30" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+              </svg>
+              <b>one issue, everyone's name in it</b>
+            </div>
+          </div>
+          <figcaption class="cap">A challenge, a date, a finished thing.</figcaption>
+        </figure>
+
+      </div>
+
+    </div>
+  </section>
 
 
 
@@ -2820,82 +2438,10 @@
              belong. -->
         <div class="inner bring-grid">
           <div class="bring-pitch">
-            <!-- HEADING, 2026-08-29. This section rendered with NO h2: 20 words a skimmer had no
-                 way into, so a reader scanning headings skipped it whole. No new copy was written
-                 for it. The lede was already two sentences doing two jobs, so the CLAIM is promoted
-                 to the h2 and the CONSEQUENCE stays as the lede. Net zero words.
-                 REJECTED: writing a fresh headline. Every added word has to be paid for out of
-                 another section, and the sentence that earns this heading was already on the page.
-                 .bring h2 (app-post-beta.css:1498) already existed, unused, from the pre-rebuild
-                 structure — no new CSS. -->
-            <div class="head">
-              <span class="eyebrow" style="color:var(--colorado)">already run something?</span>
-              <h2 class="slab">You don&rsquo;t need new people<span class="stop">.</span> You need yours to <span class="ul">show up</span><span class="stop">.</span></h2>
-            </div>
+            <span class="eyebrow" style="color:var(--colorado)">already run something?</span>
+            <p class="bring-body bring-lede">You don&rsquo;t need new people. You need yours to <span class="hl hl-y">show up</span>.</p>
             <p class="bring-cta">
               <a class="btn" href="https://letters.drex.style/join-online/">Bring the same people back <span class="arr">&rarr;</span></a>
-              <!-- NO DRAWN MARK HERE. ONE WAS DRAWN AND REMOVED THE SAME DAY, 2026-08-29.
-                   Two independent kills, either sufficient. (1) DUPLICATION: #bring ends
-                   and #long-game begins at the same y, so one viewport already carries
-                   "You don't need new people" / "You need yours to show up" / "Bring the
-                   same people back" / "The same people. Issue after issue." A circle drawn
-                   round three people is a fifth statement of one idea. R-2's rule is about
-                   structure, so it applies to marks and not only to lists. (2) THE GLYPH IS
-                   ALREADY CAPTIONED: the summary band binds these exact three figures to
-                   "A few real friends." inside a labelled legend, so requoting it made one
-                   drawing name both the friends a club PRODUCES and the friends you ALREADY
-                   HAD. That is the four-names defect in ink.
-                   A cold reader also read it as stuck on rather than drawn on ("same visual
-                   slot a Verified badge occupies"), and read a red ring round three people
-                   under "You don't need new people" as ambiguous about WHICH people are
-                   being pointed at -- kept, or crossed off.
-                   RE-OPEN only if #bring and #long-game are merged into one section first,
-                   and only with a mark that is not the band's.
-                   The original note is kept below for the record, because its three at-size
-                   rejections (arrowhead lap, two laps, .si margin illustration, roll-call
-                   sheet) stand on their own and should not be re-derived.
-                   ORIGINAL NOTE: THE ONLY DRAWN MARK IN THIS SECTION, and the section's only art of any kind.
-                   #bring was the one block on the page carrying no image, no capture and no
-                   illustration - a heading, seven words and a button - sitting between the
-                   group-chat mock and the twelve-spine shelf, both of which are pictures.
-                   WHAT IT DRAWS: the summary band's "A few real friends." mark requoted -
-                   the same three inks, the same 2.2 stroke, the same three people - with a
-                   marker loop thrown round them. The loop IS the h2: "You don't need new
-                   people" is a circle that closes on the ones already inside it. Drawn marks
-                   cost no rendered words, which is the only reason a section under a
-                   net-negative word budget gets art at all.
-                   THE LOOP IS ONE OPEN STROKE, wobbled, that starts at the top right, laps
-                   once and rides back OVER its own start before lifting - never a closed
-                   geometric ellipse. DESIGN.md's CircleMark rule: "a slightly-wobbled,
-                   not-quite-closed marker stroke", hand-drawn, never geometric. It also
-                   CLIPS the outer figures' feet, which is what a real marker circle does and
-                   is the single thing keeping this out of stock-icon territory.
-                   THE FIGURES ARE REDRAWN, NOT SCALED. The band's mark is authored for 41px
-                   and carries a 5-unit gap between each head and its shoulders; the boil
-                   closes that at 41px and blows it wide open at 104. Heads dropped to ~1
-                   unit clear of the torso apex, torsos given real height. If this mark is
-                   ever resized again, check that gap first - it is the tell.
-                   REJECTED, and SEEN AT SIZE BEFORE IT WAS REJECTED (three renders): a lap
-                   with an ARROWHEAD hooking back into the ring, the literal way to draw
-                   "back / again". At this size the barbs are ~4 viewBox units and #roughsm
-                   displaces 3 of them - it rendered as a blob welded to the ring. The mark
-                   lost half its meaning and kept all of its ink. Do not re-add below ~160px.
-                   REJECTED for the same reason: TWO laps meaning "again". Consecutive laps
-                   have to sit further apart than the stroke is wide, and at 104px inside a
-                   44x32 box they do not - both renders read as one thick ring, i.e. as a
-                   badge. "Again" is not drawable at this scale; the button already says it.
-                   REJECTED: a .si margin illustration, the treatment #why-not-chat got. .si is
-                   >=1340px only, so it would have left #bring bare at every width a phone has,
-                   and this section's reader is someone who already runs a group - i.e. someone
-                   checking it on a phone between meet-ups.
-                   REJECTED: a roll-call sheet with a tick column. It redraws the band's
-                   page-with-tick, and a tick already means "finished" on this page, not
-                   "turned up".
-                   NO STYLESHEET CHANGE. .bring-cta (app-post-beta.css:1509) is already
-                   display:flex / align-items:center / gap:.9rem / flex-wrap:wrap, so the mark
-                   sits beside the button and drops under it on narrow screens on its own.
-                   overflow:visible is NOT optional: #roughsm displaces up to 3px and the lasso
-                   runs within 2px of the viewBox on all four sides. -->
             </p>
           </div>
 
@@ -2916,6 +2462,7 @@
       <div class="head">
         <span class="eyebrow" style="color:var(--grass-deep)">your club</span>
         <h2 class="slab">The same people<span class="stop">.</span> <span class="ul">Issue after issue</span><span class="stop">.</span></h2>
+        <p class="lg-sub">The same few faces for a year &mdash; beginners next to old hands &mdash; who watch you get good.</p>
       </div>
 
       <figure class="shelf">
@@ -2941,55 +2488,7 @@
       </figure>
 
 
-      <!-- KURTIS. The cold reader killed an earlier version of this beat when it sat
-           UNDER the earn line: "he appears out of nowhere... it made me realise I'm
-           not allowed to start a club. That's a mobile-game feeling." So he sits ABOVE
-           it now. Start where he started, not at what he unlocked: the reader has to
-           be able to stand where he stood. (He used to be the proof of the .lg-sub line
-           "beginners next to old hands, watching you get good"; that sub was deleted
-           2026-08-29 for promising "for a year", a duration the product does not keep,
-           §R-8's fault exactly. He is now the proof of the shelf directly above him.)
-           HE NO LONGER COLLECTS A RANK. The line read "Two issues later, he's the
-           editor." — two issues, four lines above a rule that gates the same reward at
-           THREE ("Publish three issues and you can start a club of your own"), and
-           Editor is in fact the tier earned at three published issues. Two numbers, one
-           reward, twenty words apart. "Somebody's asking him" pays off the shelf-end
-           beside it ("issue 012 — somebody's asking you") and claims no tier at all.
-           REJECTED: changing two to three. It makes the numbers agree by asserting a
-           fact about a real named person that nobody checked.
-           The photo has no face - it is his hands, his phone and his drill page - so
-           it reads as the work rather than as a headshot, and it is the one photo on
-           the page where the craft and the app are in the same frame. -->
-      <figure class="lg-real">
-        <span class="lg-shot"><img src="assets/zines/penmans-drill.jpg" width="600" height="731" loading="lazy" decoding="async"
-             alt="A hand resting on a notebook page filled with rows of pointed-pen drill strokes in blue ink, a phone in the other hand." /></span>
-        <figcaption>
-          <p class="lg-real-q">Kurtis had never done this before.</p>
-          <p class="lg-real-a">He turned up to Penmanship, filled a page, and put it in
-          the issue. He runs that club now.</p>
-        </figcaption>
-      </figure>
-
-      <!-- "Publish three issues and you can start a club of your own." CUT 2026-08-31 (-10 words).
-           THREE reasons, and the third is the one that decided it.
-           FALSE AS WRITTEN: the gate is HOST_THRESHOLD=3 counted by publishedZineCount, which
-           is issues you have a SUBMISSION IN, not issues you published; and clearing it is
-           necessary, not sufficient, because circle_create_cap gates creation too.
-           CONTRADICTED BY ITS OWN PROOF, four inches above: Kurtis has two published issues
-           and is already the host of Penmanship. The reader was told the number is three and
-           shown a man with two who runs the club.
-           AND IT CONTRADICTS THE FROZEN HERO, which is what actually cost the page a signup.
-           The hero button says "start a club for your thing"; this said you may not. A cold
-           reader: "The button lied to me. It doesn't feel like a rule, it feels like a
-           bait-and-switch ... That killed it." R-4 already tried to fix this by ORDER - the
-           Kurtis beat was moved ABOVE the rule - and it fired anyway, so the remaining fault
-           is the claim, not the placement.
-           WHAT IS LOST, STATED: the deck's beat 6, hosting unlocked by contributing. It is
-           not lost from the page - it is now carried by the sentence directly above, as a
-           person rather than a toll: he turned up, and he runs that club now. That version
-           is checkable (app.drex.style/clubs/pen says "host @kurtis"), it is the deck's own
-           proof story, and it cannot read as a retraction of an invitation.
-           DO NOT restore a number here without re-checking it against a real host's wall. -->
+      <p class="lg-earn scrawl">Ship three issues and you earn <b>hosting a club of your own</b>!</p>
     </div>
   </section>
 
@@ -3012,7 +2511,7 @@
   <!-- ============ WHAT IT DID TO THE MAKERS — relocated here (was inside #zine) so the emotional
        proof lands AFTER the factual proof: real circles -> the zines they made -> and what the
        loop did to the people who made one. ============ -->
-  <section class="dk gnd gnd--grass" id="proof" aria-label="Real clubs and the zines they made">
+  <section class="dk" id="proof" aria-label="Real clubs and the zines they made">
 
     <!-- THIS SECTION MOVED HERE, and it is now the answer to "what counts". The slot used to hold
          #gifts: the eyebrow "what counts", the headline "Any craft you can show and tell." and a
@@ -3056,11 +2555,26 @@
         </div>
         <div class="pc-msg">
           <svg class="pc-post" aria-hidden="true"><use href="#pcstamp"/></svg>
-          <span class="pc-type">Club + issue</span>
+          <span class="pc-type">Club + zine</span>
           <h3 class="pc-title">Silk Road 001</h3>
           <p class="pc-slug"><b>XChange Models</b> &middot; 11 makers</p>
           <blockquote class="pc-a">&ldquo;You believe in yourself.&rdquo;<cite class="pc-cite">&mdash; Wei-Sean, and ten others</cite></blockquote>
-          <p class="pc-cta"><a class="btn" href="https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">Read it &rarr;</a><a class="pc-ig" href="https://www.instagram.com/xchange.fashion.app/" target="_blank" rel="noopener">Instagram &rarr;</a></p>
+          <p class="pc-cta"><a class="btn" href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">View zine &rarr;</a><a class="pc-ig" href="https://www.instagram.com/xchange.fashion.app/" target="_blank" rel="noopener">Instagram &rarr;</a></p>
+        </div>
+      </article>
+
+      <!-- 3 · DRESS-UP — zine, interactive -->
+      <article class="pc" data-i="2" style="--key:var(--lazuli)">
+        <div class="pc-img">
+          <img src="assets/zines/spread-dressup.jpg" width="720" height="1965" loading="lazy" decoding="async" style="--pc-focus:50% 0%" alt="The interactive dress-up zine: a clip-art figure with cut-out clothes taped beside him.">
+          <span class="pc-name">Dress-up</span>
+        </div>
+        <div class="pc-msg">
+          <svg class="pc-post" aria-hidden="true"><use href="#pcstamp"/></svg>
+	  <span class="pc-type">Interactive</span>
+          <h3 class="pc-title">The dress-up game</h3>
+          <p class="pc-slug"><b>Drexzine</b> &middot; 4 makers</p>
+          <p class="pc-cta"><a class="btn ink" href="https://demo.drex.style/z/5b548352-9124-4b25-bcaa-9c06322d30bb" target="_blank" rel="noopener">Play zine &rarr;</a></p>
         </div>
       </article>
 
@@ -3080,22 +2594,18 @@
       </article>
 
       <!-- 5 · SF PENMANS — circle + zine, non-model. Their issue "Dropcaps" is published, so this card
-           carries a View zine CTA like the rest.
-           The photo is the finished illuminated "b" (penmans-desk), not the over-the-shoulder drill
-           shot it used to be. A club card sells what the club MAKES, and this is a page out of the
-           exact issue the CTA opens. The drill shot reads as a dark back-of-a-head at thumb size and
-           stays in the hero collage, where it has scale and neighbours. -->
+           carries a View zine CTA like the rest. -->
       <article class="pc" id="c-penmans" data-i="4" style="--key:var(--lazuli)">
         <div class="pc-img">
-          <img src="assets/zines/penmans-desk.jpg" width="600" height="720" loading="lazy" decoding="async" style="--pc-focus:24% 24%" alt="Penmanship: a hand-inked dropcap b, stippled inside its box, opening a page of blue cursive.">
+          <img src="assets/zines/penmans-drill.jpg" width="600" height="731" loading="lazy" decoding="async" style="--pc-focus:52% 50%" alt="SF Penmans at a cafe table: a member's hand rests on a notebook page filled with rows of pointed-pen drill strokes in blue ink, phone in the other hand.">
           <span class="pc-name">Penmans</span>
         </div>
         <div class="pc-msg">
           <svg class="pc-post" aria-hidden="true"><use href="#pcstamp"/></svg>
-          <span class="pc-type">Club + issue</span>
-          <h3 class="pc-title">Penmanship</h3>
-          <p class="pc-slug"><b>San Francisco</b> &middot; a lettering club</p>
-          <p class="pc-cta"><a class="btn" href="https://app.drex.style/z/6f886428-a9eb-40b0-9cbf-60f4ae677992" target="_blank" rel="noopener">Read it &rarr;</a></p>
+          <span class="pc-type">Club + zine</span>
+          <h3 class="pc-title">SF Penmans</h3>
+          <p class="pc-slug"><b>San Francisco</b> &middot; a penmanship club</p>
+          <p class="pc-cta"><a class="btn" href="https://demo.drex.style/z/6f886428-a9eb-40b0-9cbf-60f4ae677992" target="_blank" rel="noopener">View zine &rarr;</a></p>
         </div>
       </article>
 
@@ -3119,11 +2629,11 @@
         </div>
         <div class="pc-msg">
           <svg class="pc-post" aria-hidden="true"><use href="#pcstamp"/></svg>
-          <span class="pc-type on-yellow">Club + issue</span>
+          <span class="pc-type on-yellow">Club + zine</span>
           <h3 class="pc-title">Our Favorite Drinks</h3>
           <p class="pc-slug"><b>San Francisco</b> &middot; a cafe crew &middot; 4 makers</p>
           <blockquote class="pc-a">&ldquo;I&rsquo;m addicted to chocolate.&rdquo;<cite class="pc-cite">&mdash; Michaela</cite></blockquote>
-          <p class="pc-cta"><a class="btn" href="https://app.drex.style/z/f362cc90-3b98-4c9e-80af-494105edb9e5" target="_blank" rel="noopener">Read it &rarr;</a></p>
+          <p class="pc-cta"><a class="btn" href="https://app.drex.style/z/f362cc90-3b98-4c9e-80af-494105edb9e5" target="_blank" rel="noopener">View zine &rarr;</a></p>
         </div>
       </article>
 
@@ -3142,13 +2652,9 @@
       <div class="zine-pair lg-feature">
         <figure class="zine-card hand">
           <div class="zine-duo">
-            <a class="zpola is-zine zbook" href="https://app.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener" aria-label="Flip through a real club issue, &ldquo;Drawing at the Cafe&rdquo;">
-              <span class="ph"><img src="assets/zine-handmade.jpg" alt="A real Drex club issue, &ldquo;Drawing at the Cafe&rdquo; &mdash; a taped photo of a maker holding her sketch, with the creative challenge highlighted." loading="lazy" width="700" height="955" /></span>
-              <!-- -3: the title is BURNT INTO THE PHOTOGRAPH directly above this caption in 20px
-                   typewriter caps, and the <a>'s aria-label still carries it in full. The picture
-                   says what, the caption says the verb, and "read it ->" is the same door idiom the
-                   postcards above it use. -->
-              <span class="zpola-cap">read it <span class="arr">&rarr;</span></span>
+            <a class="zpola is-zine zbook" href="https://demo.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener" aria-label="Flip through a real club zine, &ldquo;Drawing at the Cafe&rdquo;">
+              <span class="ph"><img src="assets/zine-handmade.jpg" alt="A real Drex club zine, &ldquo;Drawing at the Cafe&rdquo; &mdash; a taped photo of a maker holding her sketch, with the creative challenge highlighted." loading="lazy" width="700" height="955" /></span>
+              <span class="zpola-cap">read &ldquo;Drawing at the Cafe&rdquo; <span class="arr">&rarr;</span></span>
             </a>
             <a class="zpola is-vid" href="https://www.instagram.com/reel/DaEIcmkSW4o/" target="_blank" rel="noopener" aria-label="Watch a zine page come together &mdash; Instagram reel with @claguo">
               <span class="ph"><img src="assets/editor-reel-thumb.jpg" alt="A maker at a cafe table, phone in hand, placing pages in the zine editor" loading="lazy" width="600" height="720" /><span class="play-badge" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"/><path d="M20 16 L33 24 L20 32 Z"/></svg></span></span>
@@ -3178,9 +2684,7 @@
            The lovely part is we don't have to solicit these. Every quote is somebody's REFLECTION
            ANSWER, lifted straight out of an issue — the reflection question manufactures
            testimonials as a byproduct. The first one is real (it's the pull-quote on the Silk Road
-           001 cover). SO ARE THE OTHER FIVE. All six are real reflection answers from the
-           Silk Road 001 ledger (app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23/ledger,
-           public signed-out). Verify any edit against it. These are NOT placeholders.
+           001 cover). The rest are PLACEHOLDERS: swap the text + cite, keep the shape.
 
            MEDIA PLACEHOLDER: the in-circle interview videos belong right here. Ideal shape is a
            small round video thumb to the left of the quote, tapping to open the clip — the face
@@ -3202,94 +2706,59 @@
               The frame, aspect and hand-drawn border are already right. Delete the .mv-soon stamp.
            2. VIDEOS — the red play dot marks the makers we filmed. Make .mv-vid open that clip.
               Every polaroid is already a play button; no redesign needed. -->
-      <!-- HEADING, 2026-08-29. .zines was the page's biggest headless block (116 rendered words)
-           and the one a skimmer most needed a way into, because from a distance it is just faces.
-           The h2 is NOT new copy: it is .mb-frame's own first sentence ("Every challenge comes
-           with one question."), promoted out of a scrawl nobody reads at that size and into the
-           one line they do. .mb-frame's second sentence ("These are the answers.") is deleted —
-           six answers are visible directly beneath it, so it narrated what the eye had already
-           done. The eyebrow moves up here from .mb-head and drops "did a challenge…", which the
-           h2 now says better. Section net: -6 words.
-           REJECTED: dropping a polaroid to buy the heading. Every quote is a real reflection
-           answer from a named, photographed person (§K-2) — cutting one to save words spends
-           the section's only real evidence on a word budget, and breaks the 3x2 grid. -->
-      <div class="head">
-        <span class="eyebrow" style="color:var(--colorado)">XChange Models club</span>
-        <h2 class="slab">Every challenge comes with a <span class="ul">question</span><span class="stop">.</span></h2>
-      </div>
       <figure class="makerboard" aria-label="Six makers from Silk Road 001, answering the reflection question">
-        <!-- THE PINNED CARD IS THE BRIEF, 2026-08-29 (-17 words). It used to carry @falcon's
-             quote, hoisted out of the deck to give "belong" a prominent home. That hoist is
-             REVERSED, for two reasons the hoist note got wrong:
-             1. IT WAS THE SAME SENTENCE TWICE. @falcon is card 2 of 6 and the deck advances every
-                3.2s, so anyone who lingers four seconds got the identical 14 words in two places
-                one screen apart. "It showed roughly one visit in six" is true of a single frame,
-                not of a deck that deals all six in nineteen seconds.
-             2. ITS "VERIFY BEFORE SHIPPING" WARNING IS DISCHARGED. All six quotes were checked
-                against the public ledger on 2026-08-29 and all six are real - see this section's
-                own note above. LOOP-FINDINGS K-2 and Z-4 are stale and say the opposite; strike
-                them, do not act on them.
-             What the card carries instead is what was BARE TEXT ON CORK directly under it - the
-             challenge and the reflection question, which is the one pair the h2 above promises
-             ("Every challenge comes with a question."). A challenge brief pinned to a club board
-             is the object this section is drawing; nothing on cork should be unpinned text.
-             COST: "belong" now appears once on the page instead of twice, and only while @falcon's
-             card is face-up. If that matters, the fix is to stop the deck cycling and show all six
-             at once - the board is ~60% empty cork at 1440 - not to re-pin the quote.
-             REJECTED: keeping the pull and deleting @falcon's polaroid. It spends a real, named,
-             photographed maker to save the same 17 words. -->
-        <!-- TWO TACKS, 2026-08-30. This scrap's own note two lines up calls it "a challenge
-             brief pinned to a club board" and says "nothing on cork should be unpinned text" -
-             and it was pinned by nothing at all, floating on a drop shadow while all six
-             answers below it carried a tack. Two and not one because a 34rem notice pinned in
-             the middle spins; you pin a wide sheet at both top corners. Sambas, so the brief
-             reads as the one thing the HOST put up and the coloured tacks stay the makers'.
-             Zero rendered words - these spans carry no text. -->
-        <figure class="mb-pull">
-          <span class="mv-pin p-l" aria-hidden="true" style="--c:var(--sambas)"></span>
-          <span class="mv-pin p-r" aria-hidden="true" style="--c:var(--sambas)"></span>
+        <div class="mb-head">
+          <span class="eyebrow" style="color:var(--colorado)">XChange Models club did a challenge&hellip;</span>
           <p class="mb-challenge">Come as Your Heritage. Come As Yourself.</p>
           <p class="mb-q">&ldquo;What changed once you stepped off the runway?&rdquo;</p>
-        </figure>
+        </div>
         <div class="mb-grid" id="mbDeck">
-        <figure class="mpol lead" style="--r:-2.4deg;--c:var(--colorado)">
+        <figure class="mpol lead" style="--r:-1.6deg;--c:var(--colorado)">
           <span class="mv-pin" aria-hidden="true"></span>
           <span class="mv-ph has-photo" style="background-image:url(assets/makers/tergel.jpg);background-size:cover;background-position:center 22%"><span class="mv-vid" aria-hidden="true"></span></span>
           <figcaption class="mv-strip"><q>I didn't know what was possible until I saw someone else do it.</q><b>@tergel</b></figcaption>
         </figure>
-        <figure class="mpol" style="--r:1.8deg;--c:var(--lazuli)">
+        <figure class="mpol" style="--r:1.4deg;--c:var(--lazuli)">
           <span class="mv-pin" aria-hidden="true"></span>
           <span class="mv-ph has-photo" style="background-image:url(assets/makers/falcon.jpg);background-size:cover;background-position:center 22%"></span>
-          <figcaption class="mv-strip"><q>Not every place you go, you feel like you belong. Here, I feel right at home.</q><b>@falcon</b></figcaption>
+          <figcaption class="mv-strip"><q>Not every place you feel like you belong. Here, I feel right at home.</q><b>@falcon</b></figcaption>
         </figure>
-        <figure class="mpol" style="--r:-1.1deg;--c:var(--sambas)">
+        <figure class="mpol lead" style="--r:1.2deg;--c:var(--schoolbus)">
           <span class="mv-pin" aria-hidden="true"></span>
           <span class="mv-ph has-photo" style="background-image:url(assets/makers/shanara.jpg);background-size:cover;background-position:center 22%"></span>
           <figcaption class="mv-strip"><q>Since I'm capable of doing something like that, I feel like I could do anything.</q><b>@shanara</b></figcaption>
         </figure>
-        <figure class="mpol" style="--r:2.2deg;--c:var(--colorado)">
+        <figure class="mpol" style="--r:-1.2deg;--c:var(--colorado)">
           <span class="mv-pin" aria-hidden="true"></span>
           <span class="mv-ph has-photo" style="background-image:url(assets/makers/chiamakabrowneyes.jpg);background-size:cover;background-position:center 22%"></span>
           <figcaption class="mv-strip"><q>They treat you as a person, not as a model.</q><b>@chiamakabrowneyes</b></figcaption>
         </figure>
-        <figure class="mpol" style="--r:-2.1deg;--c:var(--sambas)">
+        <figure class="mpol" style="--r:1.6deg;--c:var(--grass-deep)">
           <span class="mv-pin" aria-hidden="true"></span>
           <span class="mv-ph has-photo" style="background-image:url(assets/makers/angela.jpg);background-size:cover;background-position:center 22%"><span class="mv-vid" aria-hidden="true"></span></span>
-          <figcaption class="mv-strip"><q>Seeing people model before me relieved a lot of my stress.</q><b>@angela</b></figcaption>
+          <figcaption class="mv-strip"><q>Seeing them go before me relieved a lot of my stress.</q><b>@angela</b></figcaption>
         </figure>
-        <figure class="mpol" style="--r:1.3deg;--c:var(--lazuli)">
+        <figure class="mpol" style="--r:-2.2deg;--c:var(--grass-deep)">
           <span class="mv-pin" aria-hidden="true"></span>
           <span class="mv-ph has-photo" style="background-image:url(assets/makers/miguel.jpg);background-size:cover;background-position:center 22%"></span>
-          <figcaption class="mv-strip"><q>I had an idea of what I wanted to do. I didn&rsquo;t do any of it. All instinct.</q><b>@miguel</b></figcaption>
+          <figcaption class="mv-strip"><q>I had a plan. I did none of it. It was all instinct.</q><b>@miguel</b></figcaption>
         </figure>
         </div>
-        <figcaption class="mb-echo scrawl"><a href="https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23/ledger" target="_blank" rel="noopener">read the ledger &rarr;</a></figcaption>
+        <figcaption class="mb-echo scrawl"><a href="https://demo.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23/ledger" target="_blank" rel="noopener">read the ledger &rarr;</a></figcaption>
       </figure>
     </div>
   </section>
 
   <!-- ============ WHO&#39;S BEHIND IT (moved up: credibility before the deep dive) ============ -->
-  
+  <section class="team" id="team">
+    <div class="wrap">
+      <div class="cg-collage" aria-hidden="true"><span class="cg-scrap cg-s1 cg-gl" data-cg-parallax="7" style="--cg-rot:-7deg;--cg-w:60px;top:46%"><svg width="40" height="52" viewBox="0 0 40 52" fill="none" stroke-linecap="round"><g class="cg-wob"><circle cx="20" cy="16" r="12" fill="var(--colorado)" stroke="var(--ink)" stroke-width="2.4"/><circle cx="16" cy="12" r="3" fill="rgba(254,246,228,.75)" stroke="none"/><path d="M20 28 L20 48" stroke="var(--ink)" stroke-width="2.4"/></g></svg></span><span class="cg-scrap cg-s2 cg-gr2 cg-drop-sm" data-cg-parallax="6" style="--cg-rot:9deg;--cg-w:76px;top:24%"><svg width="50" height="52" viewBox="0 0 50 52" fill="none" stroke="var(--grass)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M25 22 C22 12 12 12 13 20 C5 17 3 27 11 28 C5 33 12 41 17 34 C17 44 27 44 26 36 C34 39 37 29 29 28 C36 24 30 15 25 22 Z"/><circle cx="24" cy="28" r="3.4" fill="var(--schoolbus)" stroke="none"/><path d="M24 36 L24 50"/></g></svg></span><span class="cg-scrap cg-s3 cg-drop-sm" data-cg-parallax="5" style="--cg-rot:-3deg;--cg-w:96px;right:8%;bottom:0"><svg width="64" height="44" viewBox="0 0 64 44" fill="none" stroke="var(--lazuli)" stroke-width="2.4" stroke-linecap="round"><g class="cg-wob"><path d="M52 18 C58 28 44 40 28 40 C10 40 4 26 12 16 C20 7 44 6 54 16 C60 22 50 30 38 30"/></g></svg></span><span class="cg-scrap cg-s2 cg-gl2 cg-shadow cg-drop-sm" data-cg-parallax="6" style="--cg-rot:-5deg;--cg-w:90px;bottom:5%"><svg width="90" height="84" viewBox="0 0 90 84" fill="none" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path class="cg-torn" d="M10 6 H80 V56 H10 Z" fill="var(--oats)" stroke="var(--ink)" stroke-width="2.6"/><rect x="19" y="14" width="52" height="34" rx="2" fill="var(--lazuli)" stroke="var(--ink)" stroke-width="2.2"/><path d="M29 25 C36 20 44 30 53 24" stroke="var(--oats)" stroke-width="2.4"/><path d="M30 56 L26 70 L64 70 L60 56" fill="var(--oats)" stroke="var(--ink)" stroke-width="2.4"/><path d="M18 70 L72 70" stroke="var(--ink)" stroke-width="2.8"/></g></svg></span><span class="cg-scrap cg-s1" data-cg-parallax="4" style="--cg-rot:-2deg;--cg-w:120px;left:5%;top:5%"><svg width="120" height="36" viewBox="0 0 120 36" fill="none" stroke="var(--schoolbus)" stroke-width="9" stroke-linecap="round"><g class="cg-wob" opacity=".75"><path d="M8 24 C34 12 62 30 86 18 C98 12 106 15 112 20"/></g></svg></span></div>
+      <div class="head">
+        <span class="eyebrow" style="color:var(--grass-deep)">who's behind it</span>
+        <h2 class="slab">Led by a researcher and two <span class="ul">designers</span>.</h2>
+      </div>
+    </div>
+  </section>
 
   <!-- ============ FOUNDER'S NOTE (handwritten letter + taped photo) ============ -->
   <section class="note" id="founder">
@@ -3301,15 +2770,7 @@
         <div class="inner note-grid">
           <div>
             <span class="eyebrow">why we built it</span>
-            <!-- HEADING, 2026-08-29. #founder rendered with no h2: 63 words of unbroken letter.
-                 The heading is the note's OWN closing sentence, promoted and tightened — it was
-                 the most concrete line in the section ("a Tuesday night") and it was hiding in
-                 the fourth position of a paragraph. Removed from the body, so this is -5 words,
-                 not new copy. The body now ends on "Nothing online works that way.", which is the
-                 convicted close the paragraph wanted anyway.
-                 KEEP "I researched": the positioning is researcher, never expert. -->
-            <h2 class="slab">Good at something<span class="stop">,</span> with nowhere to take it on a <span class="ul">Tuesday night</span><span class="stop">.</span></h2>
-            <p class="note-body">It&rsquo;s hard, emotionally more than technically. I researched how people pick up a craft: next to someone learning the same thing. Nothing online works that way.</p>
+            <p class="note-body">I researched how people pick up a craft: next to someone who&rsquo;s on the same journey. Nothing online works that way.</p>
             <p class="sign">Chielo</p>
             <p class="sign-role">Chielo Mbaezue &middot; CEO &amp; Co-founder</p>
           </div>
@@ -3348,8 +2809,7 @@
       <div class="cg-collage" aria-hidden="true"><span class="cg-scrap cg-s1 cg-gl2 cg-shadow cg-drop-sm" data-cg-parallax="6" style="--cg-rot:-8deg;--cg-w:130px;top:18%"><svg width="92" height="44" viewBox="0 0 92 44"><path class="cg-torn" d="M4 6 H58 V38 H4 Z" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="2.2"/><line x1="60" y1="6" x2="60" y2="38" stroke="var(--ink)" stroke-width="2" stroke-dasharray="4 4"/><g class="cg-wob" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"><line x1="68" y1="14" x2="86" y2="14"/><line x1="68" y1="22" x2="86" y2="22"/><line x1="68" y1="30" x2="80" y2="30"/><circle cx="60" cy="6" r="2.5" fill="var(--oats)"/><circle cx="60" cy="38" r="2.5" fill="var(--oats)"/></g></svg></span><span class="cg-scrap cg-s2 cg-gr2 cg-shadow cg-drop-sm" data-cg-parallax="7" style="--cg-rot:7deg;--cg-w:78px;top:32%"><svg width="52" height="58" viewBox="0 0 52 58"><rect class="cg-torn" x="6" y="6" width="40" height="46" rx="2" fill="var(--lazuli)" stroke="var(--oats)" stroke-width="3" stroke-dasharray="3 4"/><g class="cg-wob" fill="none" stroke="var(--oats)" stroke-width="2.2" stroke-linecap="round"><path d="M19 38 C19 28 33 28 33 36 C33 30 18 28 18 22 C18 16 28 16 30 22"/><circle cx="26" cy="19" r="3.6"/></g></svg></span><span class="cg-scrap cg-s3" data-cg-parallax="5" style="--cg-rot:4deg;--cg-w:104px;left:42%;top:4px"><svg width="70" height="40" viewBox="0 0 70 40" fill="none" stroke="var(--colorado)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M6 30 C18 8 50 6 62 24"/><path d="M62 24 L48 24 M62 24 L60 10"/></g></svg></span><span class="cg-scrap cg-s2 cg-drop-sm" data-cg-parallax="6" style="--cg-rot:6deg;--cg-w:100px;right:4%;top:64px"><svg width="62" height="58" viewBox="0 0 62 58" fill="none" stroke="var(--sambas)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><rect x="5" y="5" width="52" height="40" rx="4"/><rect x="11" y="11" width="40" height="28" rx="2" fill="var(--lazuli)" stroke="none"/><path d="M27 19 L38 25 L27 31 Z" fill="var(--oats)" stroke="none"/><path d="M22 45 L20 52 M40 45 L42 52"/><path d="M15 52 L47 52"/></g></svg></span><span class="cg-scrap cg-s1 cg-drop-sm" data-cg-parallax="3" style="--cg-rot:-18deg;--cg-w:150px;right:-70px;top:45%"><svg width="150" height="44" viewBox="0 0 150 44" fill="none" stroke="var(--happy)" stroke-width="12" stroke-linecap="round"><g class="cg-wob" opacity=".8"><path d="M10 30 C40 14 80 34 112 20 C126 14 136 18 142 24"/></g></svg></span></div>
       <div class="head">
         <span class="eyebrow" style="color:var(--lazuli)">three ways in</span>
-        <p class="doors-ask scrawl">What unrepeatable gifts do you&nbsp;have?</p>
-        <h2 class="slab">Come get <span class="ul">good</span><span class="stop" style="color:var(--grass-deep)">.</span></h2>
+        <h2 class="slab">Pick a <span class="ul">door</span><span class="stop" style="color:var(--grass-deep)">.</span></h2>
       </div>
 
       <div class="splay">
@@ -3361,9 +2821,10 @@
           <div class="inner">
             <span class="cap" style="color:var(--grass-deep)">start here</span>
             <h3><span class="ul">Clubs</span> <span class="cmark" aria-hidden="true"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" transform="rotate(-42 14 14)"/></svg></span></h3>
-            <p>Bring your people, or come alone. It&rsquo;s free, and invite-only while we&rsquo;re small.</p>
+            <p>Bring your group in &mdash; or grab a spot on the waitlist.</p>
             <div class="foot">
-              <span class="cta-attn"><a class="btn" href="https://letters.drex.style/join-online/">Join the waitlist <span class="arr">&rarr;</span></a><span class="cta-ring" aria-hidden="true"></span></span>
+              <span class="cta-attn"><a class="btn" href="https://letters.drex.style/join-online/">Join as a group <span class="arr">&rarr;</span></a><span class="cta-ring" aria-hidden="true"></span></span>
+              <a class="btn ink" href="https://letters.drex.style/join-online/">Join the waitlist <span class="arr">&rarr;</span></a>
             </div>
           </div>
         </article>
@@ -3374,7 +2835,7 @@
           <span class="tape c" style="left:14px;top:-14px;transform:rotate(-7deg)"></span>
           <div class="inner">
             <h3>Instagram</h3>
-            <p>The people, the issues in progress.</p>
+            <p>Watch clubs form &mdash; the people, the zines in progress.</p>
             <div class="foot">
               <a class="btn ink" href="https://instagram.com/drexclubs">Follow along <span class="arr">&rarr;</span></a>
               <span class="url">@drexclubs</span>
@@ -3387,19 +2848,10 @@
           <span class="sheet"></span>
           <span class="tape b" style="right:14px;top:-14px;transform:rotate(6deg)"></span>
           <div class="inner">
-            <!-- THE DEMO DOOR IS NOW THE LIBRARY DOOR, 2026-08-31. demo.drex.style's
-                 TLS certificate expired on 30 Aug and the host is now nothing but a 301
-                 to app.drex.style, so every visitor met a full-page browser security
-                 warning here. And "Locked for now." was false in the other direction:
-                 app.drex.style/show-and-tell is publicly readable with no account -
-                 it was verified fetched signed-out. So the card described a locked room
-                 behind a hostname that no longer resolves, when what actually exists is
-                 an open library that this page promised twice ("Every issue lands in a
-                 library anyone can read") and linked zero times. -->
-            <h3>The Library</h3>
-            <p>Every issue any club has published. No account needed.</p>
+            <h3>The Demo</h3>
+            <p>Published zines, the walls, a club&rsquo;s room. Latched pre-launch &mdash; knock for a key.</p>
             <div class="foot">
-              <a class="btn ink" href="https://app.drex.style/show-and-tell">Read them <span class="arr">&rarr;</span></a>
+              <a class="btn ink" href="https://demo.drex.style">Knock on the demo <span class="arr">&rarr;</span></a>
             </div>
           </div>
         </article>
@@ -3439,7 +2891,7 @@
         <a href="#circle">Clubs</a>
         <a href="https://instagram.com/drexclubs">Instagram</a>
         <a href="https://letters.drex.style/">Club Letters</a>
-        <a href="#demo">The Library</a>
+        <a href="#demo">The Demo</a>
         <a href="mailto:hi@drex.style">hi@drex.style</a>
       </div>
     </div>
@@ -3458,8 +2910,8 @@
   <div class="dm-backdrop" data-close></div>
   <div class="dm-panel" role="document">
     <button class="dm-close" type="button" data-close aria-label="Close">&times;</button>
-    <p class="dm-eyebrow">the issues clubs <span class="hl">made</span></p>
-    <p class="dm-sub scrawl">tap any cover to read</p>
+    <p class="dm-eyebrow">the zines clubs <span class="hl">made</span></p>
+    <p class="dm-sub scrawl">real issues &mdash; tap any cover to read</p>
     <div class="dm-grid" id="deckModalGrid"></div>
   </div>
 </div>
@@ -3517,37 +2969,37 @@
     document.addEventListener('keydown', function(e){ if(e.key==='Escape' && modalOpen()) closeModal(); });
   }
 })();
-/* B · THE MAKERBOARD CYCLING DECK IS GONE, 2026-08-30, and this note is the record.
-   It dealt ONE of six real, named, photographed makers at a time on a 3.2s loop. Three
-   consequences, all measured before it was cut:
-     1. Five sixths of the section was invisible at any moment, and the board rendered as
-        ~60% empty cork with a single polaroid dead centre at 1440.
-     2. app-post-beta.css hid every handle but .lead's (that rule existed ONLY because the
-        deck stacked the cards) - and .lead started at --i:1, never on top. So the quote a
-        visitor actually read carried NO NAME, roughly five loops out of six. In a section
-        whose stated mechanism is Bandura's vicarious experience - seeing SIMILAR OTHERS
-        succeed - an unattributed quote is a testimonial and a named face is a person.
-     3. Its only affordance was an undocumented click on a div with no role and no
-        tabindex. .mb-hint ("tap to see them all") is styled in the stylesheet and has
-        never existed in the DOM.
-   The deck's own justification was "(saves the tall 11-tile grid)" and the grid has not
-   been eleven tiles for some time - it is six, in three columns. There was no tall grid
-   left to save. The board now shows all six pinned at once: see "THE BOARD IS A PINNED
-   SCATTER" in app-post-beta.css, which is also where the arithmetic and the two traps are
-   written down. The stylesheet said so first ("All the makers visible at once: the
-   repetition is the argument"); the deck was the regression.
-   REJECTED: keeping the deck and finally adding .mb-hint. It spends rendered words
-   teaching a gesture whose payoff is the thing the section is for.
-   #mbDeck's id stays on the div. Nothing reads it now, but it is the section's only
-   stable hook and removing it buys nothing. */
+/* B · makerboard cycling deck: same mechanic on the 11 maker answers, both breakpoints. */
+(function(){
+  var deck=document.getElementById('mbDeck');
+  if(!deck) return;
+  var board=deck.closest('.makerboard');
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)');
+  var order=[].slice.call(deck.querySelectorAll('.mpol'));
+  var timer=null, paused=false;
+  function applyStack(){ order.forEach(function(p,i){ p.style.setProperty('--i',i); }); }
+  function stacked(){ return deck.classList.contains('mb-stack'); }
+  function startCycle(){ clearInterval(timer); timer=null;
+    if(reduce.matches) return;
+    timer=setInterval(function(){ if(paused||!stacked())return; order.push(order.shift()); applyStack(); },3200);
+  }
+  deck.classList.add('mb-stack'); if(board)board.classList.add('decked'); applyStack(); startCycle();
+  deck.addEventListener('mouseenter',function(){ paused=true; });
+  deck.addEventListener('mouseleave',function(){ paused=false; });
+  deck.addEventListener('click',function(){
+    deck.classList.toggle('mb-stack');
+    if(board)board.classList.toggle('decked', deck.classList.contains('mb-stack'));
+    if(deck.classList.contains('mb-stack')) applyStack();
+  });
+})();
 </script>
-<script type="module" src="app-post-beta.js?v=99"></script>
+<script type="module" src="app-post-beta.js?v=55"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign
      tag): e.g. drex.style/?ref=qr-poster-cafe shows up under Referrers.
      The config prefixes each recorded path with location.host so this site
-     (drex.style/…) and the app (app.drex.style/…) share the drex dashboard
+     (drex.style/…) and the app (demo.drex.style/…) share the drex dashboard
      but stay distinguishable. It preserves location.search, so ?ref= still
      registers. Inline config must precede count.js. -->
 <script>
