@@ -33,7 +33,15 @@
      Pitch Sans → "Headings and Subheadings" — an upright SANS. Was wrongly substituted with
                   DM Mono (a monospace), which collapsed it into Pitch and killed the hierarchy.
      Bitter     → body. Birdie → margin annotations ONLY (never a heading, never body). */
-  /* THE PITCH STAND-IN (2026-08-31). Verified first, because the complaint as stated is false:
+  /* ~~THE PITCH STAND-IN (2026-08-31)~~ SUPERSEDED 2026-09-02 — the stand-in is now ZILLA SLAB,
+     a PROPORTIONAL slab. See the block at .hero-card h1.ed-cat for the specimen and the numbers.
+     WHAT STILL HOLDS below: Pitch really is a monospace, and Courier Prime really is the wrong
+     specimen for it. WHAT NO LONGER HOLDS: the conclusion that "swapping to a proportional face
+     would be wrong". That reasoned from the real Pitch, which we do not serve — Pitch is licensed
+     to the founder's Mac and every cold visitor got the stand-in. Serving a mono stand-in bought
+     the monospace's reading cost without Pitch's wood-type display weights that pay for it.
+     Pitch remains FIRST in both stacks and takes over the moment the Klim files are installed.
+     KEPT VERBATIM because the measurements are still the best record of what Pitch actually is:
      PITCH IS A MONOSPACE. Measured off Klim's own webfonts, Pitch Semibold Italic sets M and i at
      an identical 0.610em; Klim files it under "Mechanistic/Slab Serif Monospace" and the family is
      named after the typewriter unit for characters-per-inch. So the H1 reading as fixed-width is
@@ -58,8 +66,8 @@
      Colophon-brutalist, competing with the doodles); IBM Plex Mono (its italic is a true cursive
      with a SINGLE-storey a — a structural break from Pitch); Cousine, DM Mono (no slabs);
      Zilla Slab (proportional, and already rejected 2026-06-04). */
-  --f-display:"Pitch","Sometype Mono","Courier Prime",ui-monospace,monospace;   /* Pitch — h1 only */
-  --f-slab:"Pitch","Sometype Mono","Courier Prime",ui-monospace,monospace;      /* Pitch — display accents (pull-quotes, dropcap) */
+  --f-display:"Pitch","Zilla Slab",Georgia,serif;   /* Pitch — h1 only */
+  --f-slab:"Pitch","Zilla Slab",Georgia,serif;      /* Pitch — display accents (pull-quotes, dropcap) */
   --f-head:"Space Grotesk",system-ui,sans-serif;        /* Pitch Sans — h2, h3 */
   --f-mono:"Space Grotesk",system-ui,sans-serif;        /* Pitch Sans — tracked uppercase labels */
   --f-body:"Bitter",Georgia,serif;
@@ -664,7 +672,10 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
    FOR THE RECORD, because it is the plausible-sounding reason and it is FALSE: the thought
    balloon does NOT reach the centre. Measured at 1440 — its top edge sits about 123px BELOW
    the ring's centre, so a restored two-line scrawl would have cleared it comfortably. */
-.how-loopback{display:none}   /* desktop: the ring shows the loop; this is the mobile-only loop-back cue */
+.how-loopback{display:none}   /* desktop: the ring shows the loop; this is the mobile-only loop-back cue.
+   .how-flowdown left this selector 2026-09-01 when that bracket was deleted outright - index.html was its
+   only page. .how-loopback stays: index.html dropped its markup too, but five archived index-*.html in
+   this repo still load this sheet and still carry it. */
 .how .flow{list-style:none;margin:0;padding:0;position:absolute;inset:0;z-index:2}
 /* width tuned so a side station (centre at 86%/14% on the ring) + its note stays inside the 100cqw box at every size */
 .how .step{position:absolute;width:24cqw;transform:translate(-50%,-50%);text-align:center}
@@ -713,9 +724,14 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .how .step p{font-family:var(--f-hand);font-size:3.3cqw;line-height:1.15;margin:.8cqw 0 0;color:var(--sambas)}
 /* small screens only: a legible circle can't hold four text stations in the width, so below
    560px — the media query on the very next line; this comment used to say ~340px, which was
-   never the breakpoint — fall back to the unwound vertical stack. Sequence is carried by the
-   numbers 01..04, by the vertical order itself, and by .how-loopback, the red "back to the
-   start" arrow hugging the stack. */
+   never the breakpoint — fall back to the unwound vertical stack.
+   WHAT CARRIES SEQUENCE IN THE STACK, rewritten 2026-09-01: the vertical order, and the fact
+   that .flow is an <ol>, which is what assistive tech has always read it from. This used to
+   name three things - the 01..04 badges and the .how-loopback bracket were the other two - and
+   the founder had both removed from index.html in one pass ("why is the #3 inside the bubble?",
+   "get rid of the 'back to the start' and 'one issue' arrows"). Both still render on the five
+   archived index-*.html that load this sheet, which is why the unscoped rules below are still
+   here. Do not read a rule in this block as evidence that index.html uses it. */
 @media(max-width:560px){
   .how-loop{display:flex;align-items:stretch;justify-content:center;gap:6px;width:auto;aspect-ratio:auto;margin-top:.4rem}
   .how-ring{display:none}
@@ -776,13 +792,20 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
      to out-specify the kills changes nothing, because the cascade resolves per PROPERTY and
      this rule never declares `display`. Restoring the arrow needs a new rule with an explicit
      display, not a specificity bump.
-     NOT RESTORED: the stack already carries sequence three ways — 01..04, vertical order, and
-     the red .how-loopback arrow. A fourth cue is not craft. */
+     NOT RESTORED, and the reasoning changed 2026-09-01 without changing the answer. It read:
+     "the stack already carries sequence three ways — 01..04, vertical order, and the red
+     .how-loopback arrow. A fourth cue is not craft." Two of those three are gone from
+     index.html by the founder's own ask, so the count there is one (vertical order, plus the
+     <ol> itself). That is still not a reason to un-delete these arrows. They are the same
+     class of mark she has just had removed twice over, and the measured reason they never
+     drew - four ::after kills, and a cascade that resolves per PROPERTY - is unchanged. If
+     station order ever fails a cold reader at 390, fix it in the stack's own spacing and
+     order, not by drawing connectors between the nodes. */
   /* loop-back: a real curved arrow hugging the stack, Show & tell (bottom) → Challenge (top) */
   .how-loopback{display:block;order:-1;flex:none;align-self:stretch;position:relative}
   .how-loopback .lb-arrow{height:100%;width:auto;display:block;overflow:visible}
   .how-loopback span{position:absolute;top:50%;right:-2px;transform:translateY(-50%) rotate(-90deg);transform-origin:center;
-    white-space:nowrap;font-family:var(--f-hand);color:var(--colorado);font-size:.92rem;pointer-events:none}
+    white-space:nowrap;font-family:var(--f-hand);color:var(--ink);font-size:.92rem;pointer-events:none}
 }
 
 /* ---------- the prompt card = the product, as one object ----------
@@ -1165,7 +1188,16 @@ html[data-tier="lite"] .craftboard::before{filter:none;animation:none}
   border-radius:12px;margin:0}
 .bub em{font-style:italic}
 .bub.them{align-self:flex-start;background:var(--oats);border-bottom-left-radius:3px}
-.bub.me{align-self:flex-end;background:var(--lazuli);color:var(--oats);border-bottom-right-radius:3px}
+/* THE SENT BUBBLE IS INK, NOT LAZULI (2026-09-01), and it fixes two things at once.
+   (1) CONTRAST, which was a live defect: oats on bright Lazuli is 3.11:1 and this is 0.92rem
+   body text, so it FAILED AA - and the column carries filter:saturate(.35) on top, which
+   pushes the rendered ratio lower still. Oats on ink is 8.05:1, AA and AAA.
+   (2) THE BEAT. Under the four-colour system Lazuli is SHOW & TELL as of this pass, and this
+   bubble is the one message in a section whose whole argument is that a group chat is NOT a
+   show-and-tell. The page was painting its counter-example in the colour of the thing it is
+   being contrasted with. Ink also suits the column's own stated intent - the chat column is
+   deliberately the drab one. Do not send it to Grass; that only moves the collision. */
+.bub.me{align-self:flex-end;background:var(--ink);color:var(--oats);border-bottom-right-radius:3px}
 /* the silence is the punchline, so give it room */
 .ch-gap{display:flex;align-items:center;gap:.55rem;margin:.7rem 0;font-family:var(--f-hand);
   font-size:.95rem;color:var(--colorado);white-space:nowrap}
@@ -1184,7 +1216,7 @@ html[data-tier="lite"] .craftboard::before{filter:none;animation:none}
 .cm-pin{position:absolute;top:-8px;left:50%;margin-left:-7px;width:14px;height:14px;border-radius:50%;
   background:var(--colorado);border:2.2px solid var(--ink)}
 .cm-kick{display:block;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--grass-deep)}
+  text-transform:uppercase;color:var(--colorado)}
 .cm-do{font-family:var(--f-hand);font-size:clamp(1.05rem,2vw,1.28rem);line-height:1.2;margin:.25rem 0 0;color:var(--ink)}
 .cm-due{display:inline-block;margin-top:.45rem;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.12em;
   text-transform:uppercase;color:var(--oats);background:var(--colorado);border-radius:3px;padding:.2em .45em}
@@ -1399,15 +1431,53 @@ html[data-tier="lite"] .mb-pull::before{filter:none}
    fill, the ink border and the hard offset shadow, run through filter:url(#torn) so the
    edge is cut rather than machined. Content sits at z-index 1 so the filter never
    touches the type. The photo is taped down, not framed. */
+/* SAMBAS, NOT OATS - and it is the only card on the page cut from a different sheet.
+   2026-09-01, when #long-game became this card and nothing else.
+   WHY SAMBAS AND NOT A BEAT COLOUR: the loop's four beats own Colorado (challenge),
+   School Bus (Club Hour), Grass (work on the magazine) and Lazuli (show & tell), and
+   Happy is the reserved live beacon. (Grass and Lazuli exchanged beats on 2026-09-01 so
+   the ring's globe could be a blue earth; this card's argument does not depend on which
+   is which, only on all four being spoken for.) Sambas is the only colour left in the seven-colour palette, so
+   it is the only field big enough to matter that cannot be misread as one of the four.
+   A card that is proof the LOOP works must not wear one beat's colour.
+   IT ALSO PAYS DOWN THE PAGE'S BIGGEST PALETTE DEBT: Oats is ~80% of painted pixels
+   against a 45% ceiling, so the one object we most want looked at was, until now, the
+   same colour as everything around it. Cream on slate is 8.05:1 - measured, and above
+   the 7:1 AAA line.
+   THE BORDER IS INK UNDER AN OATS KEYLINE, and the ink half is not decoration: an oats
+   border on the oats page is 1.00:1, so the first cut had NO SILHOUETTE along its top
+   and left, where nothing but the dark fill held the shape (the bottom and right only
+   read because the offset shadow sits behind them). Torn dark paper does show a pale
+   fibre core, so the oats stays - it just sits inside an ink outline now.
+   THE SHADOW IS A DEEPENED SAMBAS, not --ink: --ink IS this card's fill, so an ink
+   offset shadow would weld to the card and read as a fat blob instead of a second plane.
+   #242C34 is Sambas darkened, not a new hue.
+   THE BOTTOM MARGIN CLEARS #proof'S TORN GREEN TEAR. Measured at 390 with the first cut:
+   61px of box, but the near-black shadow eats into it and the tear's peaks rise to meet
+   it, so it read as 8-15px. The clamp's floor is raised to buy that back on a phone.
+   REJECTED: School Bus. It is the Club Hour colour, and "he turned up" is so close to
+   Club Hour that a yellow card would have read as the meeting rather than the man. Also
+   a full field of it breaks the 5% accent budget and DESIGN.md's dark-ink-text-only rule.
+   REJECTED: Grass. It is a beat's colour and it is #proof's ground two sections down; a
+   green card here would have said "this is one of the four beats". THE PREMISE MOVED AND
+   THE REJECTION DID NOT: Grass meant SHOW & TELL when this was written and means WORK ON
+   THE MAGAZINE since 2026-09-01, which if anything makes a green card here worse - "he
+   turned up for two years" is not a description of doing your own pages.
+   REJECTED: 46rem wide with a 200px photo column, built and looked at first. At 1440 the
+   card came out 745x310 and read as a BANNER; 40rem wraps the heading and the answer to
+   the same line count and gives back a card.
+   RISK, STATED SO THE NEXT PASS CHECKS IT: #why-not-chat is a full-bleed Sambas GROUND
+   near the top. This is a small rotated CARD on cream, not a second dark band - if a cold
+   reader ever ties the two together, the card is the one to move, not the section. */
 .lg-real{position:relative;isolation:isolate;
-  display:grid;grid-template-columns:clamp(120px,18vw,168px) 1fr;
-  gap:clamp(.9rem,2vw,1.4rem);align-items:center;
-  max-width:44rem;margin:clamp(1.6rem,3.5vw,2.6rem) auto clamp(.8rem,1.6vw,1.1rem);
-  padding:clamp(1rem,2.2vw,1.5rem);
+  display:grid;grid-template-columns:clamp(140px,20vw,190px) 1fr;
+  gap:clamp(1.1rem,2.6vw,1.8rem);align-items:center;
+  max-width:40rem;margin:clamp(1.8rem,4vw,3rem) auto clamp(2.6rem,4.4vw,3rem);
+  padding:clamp(1.4rem,3vw,2.1rem);
   transform:rotate(-.5deg);transition:transform .18s ease}
 .lg-real::before{content:"";position:absolute;inset:0;z-index:-1;
-  background:var(--paper);border:2.6px solid var(--ink);border-radius:5px;
-  box-shadow:7px 8px 0 0 var(--ink);filter:url(#torn)}
+  background:var(--sambas);border:3px solid var(--oats);border-radius:5px;
+  box-shadow:0 0 0 1.5px var(--ink), 7px 8px 0 0 #242C34;filter:url(#torn)}
 .lg-real:hover{transform:rotate(0)}
 html[data-tier="lite"] .lg-real::before{filter:none}
 
@@ -1417,21 +1487,51 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 .lg-real figure,.lg-real .lg-shot{position:relative}
 .lg-real img{display:block;position:relative;z-index:1;width:100%;height:auto;
   transform:rotate(1.4deg)}
+/* the print keeps its cream backing sheet - on a slate card that sheet is now what makes
+   the photograph read as a separate, taped-down object instead of a hole in the paper.
+   Its shadow moves off --ink for the same reason the card's did: ink on slate is invisible. */
 .lg-real .lg-shot::before{content:"";position:absolute;inset:-6px;z-index:0;
   background:var(--paper);border:2.2px solid var(--ink);
-  box-shadow:4px 5px 0 0 var(--ink);filter:url(#torn);transform:rotate(1.4deg)}
+  box-shadow:4px 5px 0 0 #242C34;filter:url(#torn);transform:rotate(1.4deg)}
+/* THE TAPE IS KRAFT NOW, and that is two fixes in one line.
+   (1) It was var(--tape-lazuli, rgba(36,150,201,.42)) - and --tape-lazuli is defined
+   NOWHERE in this stylesheet, so what shipped was always the fallback. On slate, a 42%
+   blue over #414D57 is mud; you cannot see that anything is taped.
+   (2) Lazuli is the "your part" beat colour. A strip of it holding down a photograph is
+   exactly the case of a beat colour meaning something else. Kraft is the default DESIGN.md
+   actually asks for ("kraft default, never a yellow tape"), and tape here still does the
+   one job tape is allowed to do: it pins something.
+   THE TAN IS rgb(224,201,160), NOT OATS. Oats tape was tried first and lost: the card's
+   torn edge is oats, so a cream strip crossing that edge dissolved into it and read as a
+   smudge rather than as tape. The tan is the same cork the wall boards in #portfolio are
+   painted in, so it is a colour the page already owns, and it separates from both the
+   slate field and the oats edge. */
 .lg-real .lg-shot::after{content:"";position:absolute;z-index:2;
-  left:-14px;top:-9px;width:56px;height:20px;
-  background:var(--tape-lazuli,rgba(36,150,201,.42));
-  border-left:1px solid rgba(65,77,87,.18);border-right:1px solid rgba(65,77,87,.18);
+  left:-11px;top:-13px;width:64px;height:22px;
+  background:rgba(224,201,160,.92);
+  border-left:1px solid rgba(36,42,48,.30);border-right:1px solid rgba(36,42,48,.30);
   transform:rotate(-24deg);filter:url(#torn)}
 .lg-real figcaption{margin:0;position:relative;z-index:1}
-.lg-real-q{margin:0 0 .35rem;font-family:var(--f-hand);line-height:1.15;
-  font-size:clamp(1.15rem,2.4vw,1.5rem);color:var(--ink)}
-.lg-real-a{margin:0;font-size:clamp(.9rem,1.7vw,1.02rem);line-height:1.42;color:var(--ink)}
+/* TYPOGRAPHY, REBUILT. What was here: the line in Patrick Hand at 18-24px and the answer
+   at clamp(.9rem,...), i.e. BELOW the --fs-small floor at small roots, with neither one on
+   the type scale at all. The most important sentence in the section was set in the
+   marginalia face at caption size.
+   Now the line is the section's h2 and takes the display-accent role it always was - .slab
+   (Pitch italic, the pull-quote face) at --fs-2, the same rank every other h2 on the page
+   holds - and the answer takes --fs-body, the page's body size. Patrick Hand goes back to
+   being marginalia only, which is the one job DESIGN.md gives it.
+   MEASURED, NOT EYEBALLED. Oats #FEF6E4 on Sambas #414D57 = 8.05:1 - AA (4.5) and AAA (7)
+   both clear. The answer is oats at .90 alpha, which composites to #EBE5D6 = 6.89:1 over
+   the same fill: still far above AA, and the step exists only to rank the two lines. */
+.lg-real-q{margin:0 0 .5rem;font-family:var(--f-slab);font-style:italic;font-weight:700;
+  letter-spacing:-.02em;line-height:1.08;text-wrap:balance;
+  font-size:var(--fs-2);color:var(--oats)}
+.lg-real-a{margin:0;font-family:var(--f-body);font-size:var(--fs-body);line-height:1.55;
+  color:rgba(254,246,228,.90);max-width:34ch}
 @media(max-width:720px){
-  .lg-real{grid-template-columns:1fr;justify-items:center;text-align:center;max-width:22rem}
-  .lg-real img{max-width:190px}
+  .lg-real{grid-template-columns:1fr;justify-items:center;text-align:center;max-width:24rem}
+  .lg-real img{max-width:200px}
+  .lg-real-a{max-width:none}
 }
 @media(prefers-reduced-motion:reduce){.lg-real{transition:none}}
 
@@ -1563,6 +1663,82 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 .mb-echo a{color:#0C6E39;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 @media(prefers-reduced-motion:reduce){.mpol{transition:none}}
 
+/* =====================================================================
+   THE PILE IN #proof - the maker board's object, re-pointed at clubs.
+   2026-09-01. .zines is deleted; .mb-grid / .mpol / .mv-* survive, because
+   the object was always right and only its content was orphaned. Every rule
+   below is a #proof OVERRIDE of that object - the base rules, their
+   arithmetic and their two traps stay where they are, under "THE BOARD IS A
+   PINNED SCATTER". Read them before you touch a width.
+   ===================================================================== */
+/* BIGGER, because the founder's ask was a caption with two lines of room:
+   248px -> 286px at 1440. THE LIP GROWS WITH IT, 22 -> 28, and that is
+   arithmetic and not taste: the tuck is a fixed -18px, the lip is what
+   absorbs it, and the last line in this strip is now a LINK with a 2px
+   underline where the board's last line was a mono handle with no descender.
+   Change one, re-measure the other.
+   IT IS A PILE, NOT A GRID, AND THAT COST A NEGATIVE GAP. Looked at first
+   with a +20px gap: nothing overlapped anything, the tops of three cards were
+   within 8px of each other and the closest approach between rows was 11px,
+   which is a strict 3+2 table with rotations too small to register. A pile is
+   prints lying ON each other. The gap is negative now, the rotations are
+   +/-2.2 to 3.4 degrees instead of +/-1.4 to 2.2, and the DOM-order z-index
+   staircase in the base rules is what keeps the overlap legible - every card
+   covers the one before it, so no tack is ever swallowed. */
+#proof .mb-grid{--mb-cw:min(calc(33.333% - 4px),286px);--mb-gap:-16px;--mb-off:56px}
+@media(max-width:1080px){#proof .mb-grid{--mb-cw:calc(33.333% - 4px);--mb-gap:-12px;--mb-off:38px}}
+@media(max-width:760px){#proof .mb-grid{--mb-cw:calc(50% - 4px);--mb-gap:-10px;--mb-off:0px}}
+@media(max-width:460px){#proof .mb-grid{--mb-cw:min(92%,320px);--mb-gap:0px}}
+#proof .mpol{padding:9px 9px 28px}
+/* A SOLID INK OFFSET, not the board's translucent brown. That brown was mixed
+   to sit on cork; on grass-deep it reads as a smear of the ground rather than
+   a shadow. Every other sheet in this section carries a hard ink offset
+   (DESIGN.md: SOLID, never blurred, never a gradient) and now so does this. */
+#proof .mpol::before{box-shadow:5px 6px 0 0 var(--ink)}
+#proof .mpol:hover::before{box-shadow:8px 10px 0 0 var(--ink)}
+
+/* ONE PIN COLOUR, ONE MARKER INK. The first cut gave every card its own pin AND
+   its own handwriting colour - ten decisions, eight of them one of the four beat
+   hues, none of them naming a beat, two screens under the ring that teaches the
+   opposite. Sambas is the page's one non-beat, non-reserved colour, so the pins
+   read as "somebody pinned these" rather than as four beats; the handwriting is
+   the page's ink at 8.05:1 on cream. The cards are told apart by four different
+   photographs. The cost is real and is stated in the markup: this section used to
+   look like four different pens and now looks like one. */
+#proof .mv-pin{background:var(--sambas)}
+#proof .mv-strip{padding:.7rem .45rem .2rem}
+#proof .mv-strip q,#proof .pk-line{display:block;font-family:var(--f-hand);
+  font-size:1.06rem;line-height:1.22;color:var(--ink);text-wrap:balance}
+/* .pk-line IS NOT A QUOTE AND MUST NEVER RENDER AS ONE. Same face, same ink,
+   no quotation marks - because <q> paints them and quotation marks are an
+   attribution. It carries a club's own masthead and a club's own challenge.
+   That distinction is the honesty of the section; if a later pass collapses the
+   two selectors into one, it silently attributes the page's sentences to the
+   people in the photographs. */
+#proof .pk-craft{display:block;margin-bottom:.3rem;font-family:var(--f-mono);
+  font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+#proof .mv-strip b{margin-top:.45rem;font-size:.68rem;color:var(--ink)}
+/* THE TAP TARGET. Measured on the first cut: 52-72 x 22px, at every width, and
+   the only tappable thing on the card - the polaroid itself is a <figure>, not a
+   link. That fails 2.5.5 outright, and two of them 12px apart also fail 2.5.8's
+   24px-circle test. The padding is vertical only, so the underline still sits on
+   the words. */
+#proof .pk-club{display:inline-block;margin:.35rem .55rem 0 0;padding:.55rem .2rem;
+  font-family:var(--f-head);font-weight:600;font-size:.74rem;
+  color:var(--grass-deep);text-decoration:none;box-shadow:inset 0 -.72rem 0 -.6rem var(--grass)}
+#proof .pk-club:last-child{margin-right:0}
+#proof .pk-club:hover{box-shadow:inset 0 -.72rem 0 -.6rem var(--grass-deep)}
+#proof .pk-club:focus-visible{outline:3px solid var(--lazuli);outline-offset:2px}
+#proof .mv-strip{padding-bottom:.5rem}
+
+/* THE COUPLET'S SECOND PRINT GOES ON TOP, and this is a defect fix, not a taste.
+   The book carries z-index:2 and the reel polaroid z-index:1, and at 390 they
+   overlap by 18px - measured, the book's right edge at x=227 over a caption that
+   starts at x=217, so "watch it get made" lost its w. The overlap is the craft and
+   stays; which of the two prints is underneath is arbitrary, and the one with words
+   along that edge cannot be the loser. */
+#proof .zine-duo .zpola.is-vid{z-index:3}
+
 /* B · the makerboard CYCLING DECK's CSS was deleted 2026-08-30 with the JS that drove it -
    .mb-hint, .makerboard.decked, .mb-grid.mb-stack and its absolute .mpol rules. See "THE
    BOARD IS A PINNED SCATTER" above and the record in index-next.html where the script was.
@@ -1633,9 +1809,19 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 /* the plane drags a banner, the way a little plane over a beach does. One word fits, and the one
    word is the product: the thing that goes around the world is the ZINE. */
 /* the word has to survive at ~30px of rendered banner: heaviest weight, tightest tracking that
-   still separates the letters, and a hairline ink stroke to hold the counters open against red. */
+   still separates the letters, and an OATS hairline behind the ink letters (paint-order:stroke)
+   to hold the counters open.
+   RE-SOLVED FOR THE BLUE GLOBE, 2026-09-01, AND NOTHING MOVES - checked, not assumed. Two things
+   were wrong in the old note: the halo is oats, not ink, and "against red" is a fossil from a
+   banner that has not been red for two generations. The banner is an OATS pennant with INK
+   letters riding at r~46 on the plane's group, i.e. OUTSIDE the disc, whose painted edge stops at
+   r~41.7 - so at every phase of the 11s orbit the type sits on cream at 8.05:1, not on the sea.
+   Frozen at 0/70/150/250 degrees at 200px and the real ~100px: the only contact is the pennant's
+   inner corner (r=39.2) clipping the disc at low phases, and there it IMPROVES - oats on Lazuli
+   3.11:1 against 2.78:1 on Grass. Recolouring it to carry the beat was rejected: the colour pop
+   belongs on the word, and the word is already the darkest thing in the drawing. */
 .ct-banner{font-family:var(--f-mono);font-weight:700;font-size:8.4px;letter-spacing:.3px;
-  fill:var(--oats);paint-order:stroke;stroke:rgba(65,77,87,.35);stroke-width:.5px}
+  fill:var(--ink);paint-order:stroke;stroke:rgba(254,246,228,.5);stroke-width:.5px}
 
 
 /* REFLECT IS A THOUGHT BUBBLE. It had a sticky note with a speech-bubble icon drawn on it, which
@@ -2251,7 +2437,7 @@ html[data-tier="lite"] .corkboard::before{filter:none;animation:none}
 .bub::before{content:"";position:absolute;inset:0;z-index:-1;border:2.2px solid var(--ink);
   border-radius:12px;filter:url(#roughsm)}
 .bub.them::before{background:var(--oats);border-bottom-left-radius:3px}
-.bub.me::before{background:var(--lazuli);border-bottom-right-radius:3px}
+.bub.me::before{background:var(--ink);border-bottom-right-radius:3px}
 .bub.me{color:var(--oats)}
 .bub:nth-of-type(even)::before{animation-delay:-.6s}
 .ch-gap i{filter:url(#rough)}
@@ -4080,6 +4266,43 @@ html.sealed:not(.revealed) .hero::after{display:none}
 @media(min-width:881px){.hero-card .ed-head{--fs-fold:min(2.5rem,4.81cqw)}}
 @media(max-width:380px){.hero-card .ed-head{--fs-fold:min(2.1rem,7.3vw)}}
 .hero-card h1.ed-cat{max-width:26ch;line-height:1.13}
+/* ============ THE DISPLAY FACE IS NO LONGER A MONOSPACE (2026-09-02, founder's call:
+   "should we really be choosing a monospaced font for the main headline" -> "just use whatever
+   is best to replace pitch for on the landing, for now").
+   WHAT WAS WRONG. --f-display and --f-slab resolved Pitch -> Sometype Mono -> Courier Prime,
+   all three MONOSPACED. In a monospace the word space is a full character advance (Sometype's
+   is .58em), so at fold size every gap between words was as wide as a letter and the headline
+   set as isolated tokens, not phrases. A word-spacing:-.30em patch was tried first and worked,
+   but it was fighting the face's own design intent, and a mono is a measurable reading-speed
+   handicap on the one line that has to be understood cold in about three seconds.
+   PITCH ITSELF IS DEFENSIBLE AND IS NOT WHAT WE SHIP. Klim built Pitch's heavy weights to read
+   as wood-type slabs rather than typewriter, which is exactly what a display mono needs. We
+   were paying the monospace's costs WITHOUT that compensation, because Pitch is licensed and
+   lives only on the founder's Mac.
+   THE STAND-IN IS ZILLA SLAB, chosen by specimen against Sometype Mono, Courier Prime, Cutive
+   Mono, Fragment Mono, Space Mono, IBM Plex Mono, DM Mono, Fraunces, Bitter, Roboto Slab,
+   Space Grotesk and Instrument Serif, all set in this exact sentence at display size.
+   It keeps the half of Pitch that carries the brand - blunt squared slab serifs, mechanical,
+   sturdy, with a true bold italic - and drops the half that hurt reading. MEASURED: the full
+   headline sets 1081px against Sometype's 1450px at 50px, i.e. 25% narrower, which is the
+   measure the block above records having had to give up TO the mono. Cap heights are within a
+   hair (.65 vs .66) so apparent size barely moves. It also stays distinct from Space Grotesk
+   (headings) and Bitter (body), so the four-role hierarchy survives; Bitter and Space Grotesk
+   were both rejected as H1 candidates for collapsing it.
+   IF PITCH IS EVER INSTALLED it is still first in both stacks and simply takes over - but it is
+   a MONOSPACE, so re-add word-spacing:-.30em on .ed-cat at that point or the gaps come back.
+   That is the whole reason this paragraph exists.
+   CAP HEIGHT IS LOCKED at Zilla's measured .65 so the fold is the same object whichever face
+   resolves - the founder was otherwise judging a hero one size larger than cold visitors got.
+   Baseline since Chrome 127 / Interop 2024.
+   TEXT-BOX-TRIM removes the font's half-leading so the H1's box hugs cap-to-baseline; this page
+   draws ruled paper from --lead and had 5.07px of drift per line. Baseline 2026-08-18
+   (Firefox 154; Chrome/Edge 133+, Safari 18.2+), silently ignored below that. ============ */
+.hero-card h1.ed-cat{
+  font-size-adjust:cap-height .65;
+  text-box-trim:trim-both; text-box-edge:cap alphabetic;
+}
+
 @media(min-width:881px){
   /* 6cqw (app.css:3459) was sized for a two-line category line. The fielded cut's 52-character
      sentence set at that size was four display lines and pushed the coupon off the card, so it was
@@ -5529,16 +5752,64 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    it happened, which makes "set a due date" structural instead of
    merely stated — the deadline IS the spine.
 
-   COLOUR: four accents, one job each, nothing decorative.
-     Colorado    — TIME. The rail, the dates, the knots, the DUE tab.
-     Happy       — CIRCLE TIME. The bead chain, and nothing else.
-     Lazuli-deep — THE WORK. Step headlines + the handwritten print
-                   captions + the play chip. Blue has to land in BOTH
-                   columns or it reads as an accident rather than a
-                   layer. Always the DEEPENED token: plain --lazuli is
-                   ~3.4:1 on Oats and fails AA below heading size.
-     Grass-deep  — WHAT CAME OUT. The zine's caption + the loop line,
-                   following the site's .zpola.is-zine .zpola-cap rule.
+   COLOUR, REPLACED 2026-09-01 - THE FOUR-COLOUR BEAT SYSTEM. Colour no
+   longer indexes the LAYER (time / the work / what came out). It indexes
+   the BEAT of the loop, and the same four hues carry that meaning
+   everywhere they appear on the page, starting with the ring in
+   .summary-band. One row = one beat = one colour, on the rail segment,
+   the knot, the headline and the handwritten caption:
+     Colorado   #F75458  CHALLENGE              row 01 - and the tail, the next one
+     School Bus #ECAF21  CLUB HOUR              row 02 - the standing row
+     Grass      #1CAB5B  WORK ON THE MAGAZINE   row 03
+     Lazuli     #2496C9  SHOW & TELL            row 04 - the row that ships
+   ROWS 03 AND 04 EXCHANGED HUES ON 2026-09-01. RECORD THE REASON, because a later pass that
+   reads it as drift will swap it straight back: station 04's drawing is a GLOBE and the founder
+   asked for a blue earth. Measured on the redrawn globe, the oats continents go 2.78:1 -> 3.11:1
+   against the sea and the meridians 1.66:1 -> 1.79:1; at the real ~100px the blue disc is legibly
+   a planet and the green one was a ball with white blobs.
+   IT COST NOTHING IN CONTRAST: the four headline ratios are the same SET before and after -
+   {4.84, 5.99, 5.20, 5.91} - rows 03 and 04 simply trade 5.20 and 5.91. The one sub-3:1 rail
+   under 1.4.11 (bright Grass 2.78:1, bright Lazuli 3.11:1) moves from row 04 to row 03; the count
+   stays at one.
+   IT DID COST INK BUDGET, AND THAT IS THE REAL PRICE: grass/grass-deep appear ~162 times in this
+   stylesheet against Lazuli's ~71 - the link colour, the primary button fill, #proof's whole
+   ground, nearly every h2's full stop. The page's biggest ink now sits on the QUIETEST beat and
+   the loudest beat is carried by its scarcest hue. The lever is not a third swap: it is moving
+   the page's INCIDENTAL green to ink. A page-wide pass, not this one.
+   THE OLD SCHEME IS RECORDED HERE ON PURPOSE, because three of its rules
+   look like the new one and are not: the rail was ONE Colorado line down
+   all four rows (time, not challenge); every h3 was Lazuli-deep (the work,
+   not your part); and the standing knot and its bead chain were --happy,
+   which DESIGN.md reserves for the live-and-present beacon and which this
+   section was spending as decoration. School Bus takes that job now, and
+   it is the honest one - a bead means Club Hour.
+   TYPE TAKES THE DEEPENED TOKEN, NEVER THE FILL (--beat-ink). Bright
+   Colorado is 3.07:1 on Oats and bright School Bus about 1.9:1, so neither
+   works as type. School Bus has no sanctioned deepened token and inventing
+   a fifth yellow would be worse than the problem, so row 02's headline
+   takes a School Bus HIGHLIGHTER instead (the page's own marker idiom) and
+   sets its type in #4A3410 - the ink the app already uses on School Bus fills,
+   measured 6.0:1 on the swatch and 10.9:1 on bare paper.
+   THE HONEST HOLE GOT BIGGER, AND IT IS WRITTEN DOWN RATHER
+   THAN HIDDEN: Grass is ALSO this page's link colour, everywhere
+   (.btn, .pk-club, .sht-club, the waitlist buttons). A cold reader
+   on 2026-09-01 said green reads as "click this" more often than
+   as a beat. Until the swap that overlap very nearly held, because
+   almost every green link opens PUBLISHED WORK and published work
+   WAS Show & tell. The swap deletes that rescue: Grass now means
+   WORK ON THE MAGAZINE, the one beat of the four that produces
+   nothing to link to. The marks whose only defence was that
+   argument moved to lazuli-deep with the beat they actually serve -
+   .rd-dymo and .sw-arrow, .pw-kind, all three .pw-name and the
+   three drawn ticks in #seewhat's new grid, and the .dd-anno-url
+   arrow inside row 04 here. The drawn library square's caption -
+   the one mark argued as a LINK rather than a beat - was deleted
+   outright the same day on the founder's ask, so that exception
+   no longer needs settling. What is left green is an ACTION (join,
+   get in, open a club), not a beat, which is a cleaner line than
+   the one this page had before. The real fix is still a fifth,
+   non-beat action colour - a page-wide decision, not one this
+   section can take. Do not "solve" it by recolouring one more link.
    =================================================================== */
 .showtell{padding:clamp(var(--s-3),4vw,var(--s-5)) 0 clamp(var(--s-4),5vw,var(--s-6));position:relative}
 .showtell .head{margin-bottom:clamp(1.6rem,3.6vw,2.3rem);text-align:center}
@@ -5590,6 +5861,37 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
   background:var(--colorado);filter:url(#roughsm);
   -webkit-mask-image:linear-gradient(180deg,#000 0,#000 calc(100% - 38px),transparent 100%);
   mask-image:linear-gradient(180deg,#000 0,#000 calc(100% - 38px),transparent 100%)}
+/* ...and as of 2026-09-01 it is the TAIL ONLY. Every row paints its own segment over it
+   (below), so what is left of this one red line is the stretch past the last row, running
+   down into "...and the next challenge goes up." Colorado is exactly right there: what
+   comes next is a CHALLENGE, which is row 01's colour, and the loop closes in the hue it
+   opened in. The feathered end still does the job it always did.
+   REJECTED: deleting this and giving .dd-after a segment of its own. The mask that feathers
+   the line out lives on this element, and .dd-after has no height past its own text, so the
+   segment version ended in a hard stop. */
+
+/* ---- THE FOUR BEATS, ONE COLOUR EACH ------------------------------------------
+   --beat      the FILL: rail segment, knot ring, bead chain. Brand hue, full strength.
+   --beat-ink  the same beat as TYPE: headline + handwritten caption + the DUE tab.
+               Deepened, AA-safe. Never use --beat on type.
+   They are set ON THE ROW so nothing inside a row has to know which row it is in. */
+.dd-row{--beat:var(--colorado);--beat-ink:var(--coral-ink)}
+.dd-row.is-standing{--beat:var(--schoolbus);--beat-ink:#4A3410}
+.dd-row.is-build{--beat:var(--grass);--beat-ink:var(--grass-deep)}
+.dd-row.is-due{--beat:var(--lazuli);--beat-ink:var(--lazuli-deep)}
+/* THE SEGMENT RUNS KNOT TO KNOT, NOT BOX TO BOX, and that is a correction: the first cut
+   spanned the ROW, so the colour changed 10-37px ABOVE the knot (measured at 390) and the
+   knot - the thing a reader takes for the hinge - was not the hinge. .dd-knot is top:.45rem
+   with a 21px box, so its centre sits 17px down; top:17px/bottom:-17px puts every change of
+   colour exactly on a knot and makes consecutive segments abut with no seam.
+   THE 1.5px SPREAD IS NOT A GLOW. .dd-rail and this pseudo are the same 4px box with the
+   same #roughsm filter, but the filter is SEEDED PER ELEMENT, so the two wobble differently
+   and the red base bled through the beat segment in six places (measured on the 1440 render,
+   27px of red inside the green row alone). The spread covers a ~1px mismatch. */
+.dd-row::before{content:"";position:absolute;left:var(--rail);top:17px;bottom:-17px;width:4px;
+  z-index:0;background:var(--beat);box-shadow:0 0 0 1.5px var(--beat);filter:url(#roughsm)}
+.dd-row:first-of-type::before{top:.9rem}   /* start level with .dd-rail's own top */
+.dd-row.is-due::before{bottom:0}           /* the tail past the last knot is Colorado again */
 
 .dd-row{position:relative;display:grid;grid-template-columns:var(--rail) 1fr;align-items:start;
   padding-bottom:clamp(1.1rem,2.4vw,1.7rem)}
@@ -5607,7 +5909,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 .dd-date{grid-column:1;text-align:right;padding-right:1.5rem;position:relative;z-index:1}
 .dd-mon{display:block;font-family:var(--f-mono);font-weight:500;text-transform:uppercase;
   letter-spacing:.16em;font-size:var(--fs-label);color:var(--ink);line-height:1}
-.dd-mon.is-every{color:var(--colorado)}
+.dd-mon.is-every{color:var(--ink)}   /* was Colorado. Colorado now means CHALLENGE, and this is the Club Hour row; the yellow knot and bead chain beside it carry the beat. */
 .dd-day{display:block;font-family:var(--f-display);font-weight:700;line-height:.92;
   font-size:clamp(2rem,4.4vw,2.9rem);color:var(--ink);letter-spacing:-.03em}
 /* THE KNOTS OUTRANK THE BEADS. At 15px against the beads' 14px they read as the
@@ -5615,17 +5917,21 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    running between them. The knots go up; the Happy beads stay exactly where
    they are. Dates are the structural beats, circle time is the pulse. */
 .dd-knot{position:absolute;right:-12px;top:.45rem;width:21px;height:21px;border-radius:50%;
-  background:var(--paper);border:4.2px solid var(--colorado);filter:url(#roughsm);z-index:2}
-/* ...except the standing row's, which is circle time and therefore Happy, not Colorado. A coral
-   knot there said "date event" on the one row that is explicitly NOT a date — the same lie the
-   bead chain was invented to stop telling, still being told by the biggest mark in the column.
-   It is built as a BEAD, not as a recoloured knot: fill Happy, stroke --ink, exactly the two
-   colours of .dd-repeat's SVG (fill %23F1DD01, stroke %23414D57). That is not a style choice,
-   it is the only construction that stays visible — Happy on Oats is ~1.8:1, so a yellow RING on
-   paper (the naive recolour, border-color:var(--happy)) all but disappears, while a yellow disc
-   outlined in ink is the same object the chain below it is made of. The knot reads as the head
-   of the chain, which is what it is. */
-.dd-row.is-standing .dd-knot{background:var(--happy);border-color:var(--ink)}
+  background:var(--paper);border:4.2px solid var(--beat,var(--colorado));filter:url(#roughsm);z-index:2}
+/* THE FALLBACK IS LOAD-BEARING: .dd-after is not a .dd-row and has no --beat, so its knot -
+   the one that means "the next challenge goes up" - stays Colorado, matching the tail above it. */
+/* ...except the standing row's, which is Club Hour and therefore SCHOOL BUS (it was --happy
+   until 2026-09-01, and Happy is DESIGN.md's reserved live-and-present beacon - see the
+   four-colour note at the head of this section). A coral knot here said "date event" on the
+   one row that is explicitly NOT a date, which is the same lie the bead chain was invented to
+   stop telling, still being told by the biggest mark in the column.
+   IT IS BUILT AS A BEAD, NOT AS A RECOLOURED KNOT: fill School Bus, stroke --ink, exactly the
+   two colours of .dd-repeat's SVG (fill %23ECAF21, stroke %23414D57). That is not a style
+   choice, it is the only construction that stays visible - School Bus on Oats is ~1.9:1, so a
+   yellow RING on paper (the naive recolour, border-color) all but disappears, while a yellow
+   disc outlined in ink is the same object the chain below it is made of. The knot reads as the
+   head of the chain, which is what it is. */
+.dd-row.is-standing .dd-knot{background:var(--schoolbus);border-color:var(--ink)}
 
 /* ---- THE STANDING ROW ----------------------------------------------------
    Circle time is the one beat here that is NOT a date. It's a slot that keeps
@@ -5642,7 +5948,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    loop closes on a KNOT instead (same coral knot the dates use, because the
    next challenge going up is a date event exactly like row 01). */
 .dd-repeat{position:absolute;left:calc(var(--rail) - 6px);top:2.4rem;bottom:.3rem;width:16px;z-index:1;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='88'%3E%3Ccircle cx='8' cy='44' r='6' fill='%23F1DD01' stroke='%23414D57' stroke-width='2.6'/%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='88'%3E%3Ccircle cx='8' cy='44' r='6' fill='%23ECAF21' stroke='%23414D57' stroke-width='2.6'/%3E%3C/svg%3E");
   background-repeat:repeat-y;background-position:center top}
 
 /* ---------- the payload ----------
@@ -5656,24 +5962,39 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 .dd-row.is-due .dd-body{grid-template-columns:minmax(0,1fr) clamp(186px,30vw,278px)}
 
 .dd-text{min-width:0;padding-top:.15rem}
-/* the index is just an index — it stays quiet. Colouring it put the emphasis
-   on the least meaningful thing in the row, and it sat a centimetre from
-   Colorado dates on a Colorado rail, so the whole left half was one red wash
-   and "01" competed with "JUL 15" instead of indexing it. */
-.dd-step{display:block;font-family:var(--f-mono);font-weight:500;text-transform:uppercase;
-  letter-spacing:.13em;font-size:var(--fs-label);color:var(--ink);margin-bottom:.35rem}
-/* the headline carries the blue: it's the actual story ("The challenge goes
-   up", "It ships"). Three ranks, three treatments — Colorado date = WHEN,
-   Lazuli headline = WHAT, solid ink body = the detail. No underline, heading
-   weight, editorial context: this must not read as a link. */
+/* ~~.dd-step~~ THE 01-04 INDEX IS GONE (2026-09-01, Sue) and its rule with it. The rows carry
+   real dates and the dates ARE the sequence, so a numeral beside "JUL 15" indexed something the
+   eye had already counted. The record of what it was: a quiet mono index, deliberately NOT
+   coloured, because colouring it put the emphasis on the least meaningful thing in the row and
+   it sat a centimetre from Colorado dates on a Colorado rail. Do not re-add it while the dates
+   are there. */
+/* the headline carries ITS ROW'S BEAT (2026-09-01). All four used to be Lazuli-deep, which
+   said "the work" four times over and told a scanner nothing about which beat they were
+   looking at. Three ranks, three treatments - ink date = WHEN, beat headline = WHAT, solid
+   ink body = the detail. No underline, heading weight, editorial context: this must not read
+   as a link. */
 .dd-text h3{margin:0 0 .3rem;font-family:var(--f-head);font-weight:700;font-size:var(--fs-3);
-  line-height:1.1;color:var(--lazuli-deep)}
-/* "together" is the payload of beat 03, so it gets Grass — and that is not a
-   free choice: grass is reserved page-wide as the "people are here" signal
-   (app-post-beta.css:126), which is precisely what this word means. Colour
-   carries the emphasis instead of caps, so the headline stays inside the type
-   system while still landing the one word the whole product turns on. */
-.dd-together{color:var(--grass-deep)}
+  line-height:1.1;color:var(--beat-ink)}
+/* the one headline that cannot take its beat as type: School Bus is ~1.9:1 on Oats. Row 02
+   takes the MARKER instead, and its --beat-ink (#4A3410) does double duty as the ink on the
+   swatch - measured 6.0:1 there and 10.9:1 on bare paper. That is the app's own pairing (Drex
+   sets #4A3410, never --ink, on School Bus fills); --ink was tried here first and measures
+   4.42:1 on the swatch, which passes only because the headline is 26px bold.
+   NO SEPARATE RULE FOR THE MARKED WORDS, and that is the point: the whole headline is one
+   colour, like the other three, and the mark is the only thing that changes. */
+.dd-text h3 .hl-wrap{background:var(--schoolbus)}
+/* "together" WAS Grass as a SEPARATE emphasis, on the argument that grass is the page's "people
+   are here" signal (:126). That was removed on 2026-09-01 because Grass then meant SHOW & TELL
+   while this word sat in row 03 - two meanings for one hue, four inches apart - so the word took
+   its own row's beat and lost its emphasis.
+   THE SWAP LATER THE SAME DAY MADE THAT MOOT AND THE RULE DID NOT CHANGE. Rows 03 and 04
+   exchanged hues, so row 03 IS Grass now and this word is Grass again - not because the old
+   argument was restored, but because --beat-ink resolves to grass-deep here. It also got darker:
+   lazuli-deep 5.20:1 -> grass-deep 5.91:1 on oats.
+   DO NOT "RESTORE" A SEPARATE COLOUR FOR THIS WORD: the removal was correct under the old
+   mapping and is simply unnecessary under the new one.
+   FLAGGED, NOT SOLVED: grass-as-people, and grass-as-link, are used page-wide. This is local. */
+.dd-together{color:var(--beat-ink)}
 .dd-text p{margin:0;font-family:var(--f-body);font-size:var(--fs-body);line-height:1.5;
   color:var(--ink);max-width:32ch}          /* solid ink, not --ink-soft: ~9:1 instead of 5.4:1 */
 .dd-text p b{font-weight:600}
@@ -5723,19 +6044,24 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 .dd-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;pointer-events:none}
 /* the play chip is the one thing here you can actually DO, so it carries the
    blue too — Oats on Lazuli-deep clears AA. The near-black dymo read as chrome
-   rather than an invitation. */
+   rather than an invitation.
+   DORMANT AS OF 2026-09-01: grep -c 'dd-dymo' index.html returns 0. There is no element
+   for these two rules to match, on any page that loads this sheet. ITS LAZULI IS NOT A
+   BEAT DECISION - it predates the four-colour system, and the beat swap in this pass
+   (rows 03 and 04 exchanged hues) has made it look like one, because Lazuli is now SHOW
+   & TELL and this chip would sit on all four rows. If you restore it, pick its colour
+   deliberately; do not read the blue as evidence that somebody already did. */
 .dd-dymo{position:absolute;left:9px;bottom:9px;z-index:3;pointer-events:none;
   font-family:var(--f-mono);font-weight:600;text-transform:uppercase;letter-spacing:.14em;
   font-size:.6rem;line-height:1;color:var(--oats);background:var(--lazuli-deep);
   border:2px solid var(--ink);padding:.34em .6em .3em;border-radius:4px;transform:rotate(-3deg);
   box-shadow:2px 2px 0 0 var(--ink)}
-/* the handwritten captions are the other half of the blue layer: index down the
-   left, captions down the right, one annotation voice over the evidence. The
-   finished zine is the exception and goes Grass — blue is the work in progress,
-   green is the thing that came out of it. */
+/* the handwritten caption takes its row's beat too, so colour pairs each picture with its
+   own headline across the gutter. It was Lazuli-deep on three rows and Grass on the fourth -
+   "blue is the work in progress, green is the thing that came out of it" - which is the old
+   layer scheme; the is-due override said exactly what --beat-ink now says by itself. */
 .dd-print figcaption{display:block;font-family:var(--f-hand);text-align:center;font-size:.98rem;
-  line-height:1;color:var(--lazuli-deep);padding:.4rem .2rem .5rem}
-.dd-row.is-due .dd-print figcaption{color:var(--grass-deep)}
+  line-height:1;color:var(--beat-ink);padding:.4rem .2rem .5rem}
 
 /* ---- the standing row's print is a PAD, not a sheet ----------------------
    The spine said "every week" while the media column still showed exactly one
@@ -5754,11 +6080,23 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 .dd-sheet:nth-of-type(1){transform:rotate(.3deg) translate(-6px,-7px)}
 .dd-sheet:nth-of-type(2){transform:rotate(-1.9deg) translate(-11px,-13px)}
 
-/* the DUE row: the date the whole spine has been counting toward */
-.dd-row.is-due .dd-day{color:var(--colorado)}
+/* the DUE row: the date the whole spine has been counting toward. THE TAB WEARS THE ROW'S OWN
+   BEAT, which is the four-colour system doing what it is for: this row is SHOW & TELL. Red would
+   say CHALLENGE, which is row 01 and four rows away, and the deadline-is-red idea is not lost -
+   it lives on row 01, where the challenge is the thing that carries a date.
+   THE HUE IS LAZULI-DEEP AS OF 2026-09-01, not grass-deep: rows 03 and 04 exchanged colours so
+   the ring's globe could be a blue earth. Nothing here needed editing, because the tab takes
+   --beat-ink and the token is set on the row - the whole point of the row-scoped design. Oats on
+   lazuli-deep is 5.20:1 (was 5.91:1), AA at this size.
+   THE HALF THAT NEVER MOVES: --beat-ink and NEVER --beat. Oats on bright Grass is 2.78:1 and on
+   bright Lazuli 3.11:1 - both fail AA, so a tab filled with the beat's bright token is wrong in
+   every mapping this page has ever had.
+   (.dd-row.is-due .dd-day is vestigial - this row has no numeral, it has the tab - but it is
+   pointed at the beat rather than left saying Colorado.) */
+.dd-row.is-due .dd-day{color:var(--beat-ink)}
 .dd-due-tab{display:inline-block;margin-top:.4rem;font-family:var(--f-mono);font-weight:600;
   text-transform:uppercase;letter-spacing:.16em;font-size:.7rem;line-height:1;color:var(--oats);
-  background:var(--colorado);border:2px solid var(--ink);padding:.42em .6em .36em;
+  background:var(--beat-ink);border:2px solid var(--ink);padding:.42em .6em .36em;
   border-radius:3px;transform:rotate(-2.4deg);box-shadow:3px 3px 0 0 var(--ink)}
 .dd-row.is-due .dd-print{--r:2.2deg}
 
@@ -5791,8 +6129,11 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 .dd-after{position:relative;display:grid;grid-template-columns:var(--rail) 1fr;align-items:center;
   padding-top:clamp(2.4rem,5vw,3.6rem)}
 .dd-after .dd-knot{top:-.15rem}
+/* the loop line is the NEXT CHALLENGE, so it is Colorado's deepened token, not Grass. It was
+   green because green used to mean "what came out"; it now means SHOW & TELL, which is the row
+   ABOVE this line, not this line. Red here matches the tail it hangs off and row 01 below. */
 .dd-forever{margin:0;font-family:var(--f-hand);font-size:1.22rem;line-height:1.15;
-  color:var(--grass-deep);padding-left:clamp(1.1rem,2.6vw,2rem);transform:rotate(-.9deg)}
+  color:var(--coral-ink);padding-left:clamp(1.1rem,2.6vw,2rem);transform:rotate(-.9deg)}
 
 /* ---- KEEP THE MARGINALIA OFF THE DATES --------------------------------------
    balanceMarginalia() auto-injects gutter scraps into every `main > section`
@@ -5953,8 +6294,12 @@ html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
 .pw-name{display:flex;align-items:baseline;justify-content:center;gap:.4rem;flex-wrap:wrap;
   margin:2.1rem .1rem 0;font-family:var(--f-hand);font-size:1.16rem;line-height:1.15;
   text-align:center}
-.pw-col.is-mine .pw-name{color:var(--lazuli-deep)}
-.pw-col.is-club .pw-name{color:var(--grass-deep)}
+/* ~~.pw-col.is-mine .pw-name{color:var(--lazuli-deep)}~~ and its is-club grass twin DELETED
+   2026-09-01. They were DEAD - overridden 50 lines down by the one-ink rule that binds both
+   names - and a dead rule carrying a beat colour is worse than no rule: under the grass/lazuli
+   swap that landed the same day the lazuli-deep one becomes accidentally CORRECT, and the next
+   pass reads it as the fix. The live binding is the one at the foot of this block, and in
+   .lands-grid. */
 .arr{display:inline-block;font-family:var(--f-body);font-size:.92em;transition:transform .17s ease}
 .pw-a:hover .arr{transform:translateX(3px)}
 
@@ -5967,6 +6312,56 @@ html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
   .pw-media{aspect-ratio:4/3}
 }
 @media (prefers-reduced-motion:reduce){.pw-a,.arr{transition:none}}
+
+/* ---- SHOW & TELL FEEDS BOTH WALLS (2026-09-01) → ALL THREE LANDINGS (same day) -----
+   Drawn marks, one per board, at EVERY width. They cost zero rendered words, which is the
+   only reason a section under a net-negative word budget gets a new mark at all. The
+   trunk-and-fork they replaced is argued down in the markup.
+   THERE ARE THREE OF THEM NOW, not two, and they have a NAMED SOURCE. The pair used to hang
+   out of the h2's green full stop, which made the claim implicit; the fan now leaves a tape
+   reading "show & tell" and lands on the library, the club's wall and the maker's wall.
+   Aiming and ink live with the grid (.lands-grid, in the #seewhat block downfile) because
+   the geometry is the grid's, not this block's - THESE TWO is-mine/is-club margins are the
+   TWO-COLUMN aim and are kept for the archived index files that still render a pair.
+   Each glyph is drawn from its own control points and leans at the board it lands on, so
+   they read as three hand marks and not as one shape stamped three times. */
+.pw-tick{display:block;width:clamp(46px,5vw,72px);margin:0 auto -.2rem}
+.pw-col.is-mine .pw-tick{margin-left:14%}
+.pw-col.is-club .pw-tick{margin-right:14%;margin-left:auto}
+.pw-tick svg{display:block;width:100%;height:auto;overflow:visible}
+
+/* THE TAPE PINS THE BOARD, IT DOES NOT SIT UNDER IT. Measured on the first cut:
+   .pw-media's bottom edge at 5974 and this label's top at 5999 - a 25px band of bare
+   cream between a cork board and the tape naming it, touching nothing. That is a
+   caption dressed as tape, which is the exact thing this section's own note forbids.
+   The negative margin lifts it back onto the board's torn bottom edge, straddling it,
+   the way every other pinned thing on this page is fixed to the page. */
+.pw-kind{position:relative;isolation:isolate;display:block;width:max-content;
+  margin:-.72rem auto .1rem;padding:.3rem .72rem .34rem;z-index:3;
+  font-family:var(--f-mono);font-weight:600;font-size:var(--fs-label);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--oats);
+  transform:rotate(-1.1deg)}
+.pw-kind::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:var(--lazuli-deep);border-radius:3px;filter:url(#torn)}   /* show & tell is Lazuli as of 2026-09-01; oats on lazuli-deep 5.20:1, AA */
+html[data-tier="lite"] .pw-kind::before{filter:none}
+.pw-col.is-club .pw-kind{transform:rotate(1.1deg)}
+/* the name is no longer the panel's first label, so it gives its clearance to the tape */
+.pw-kind + .pw-name{margin-top:.7rem}
+/* ALL THE NAMES ARE ONE INK, AND THAT ARGUMENT IS OLDER THAN THE INK. They were lazuli-deep and
+   grass-deep, i.e. two of the loop's four beat colours spent telling two WALLS apart - not a
+   beat of the loop, and a contradiction of the single mark hanging over both boards. One ink:
+   show & tell feeds all of them.
+   THE INK IS LAZULI-DEEP AS OF 2026-09-01. Rows 03 and 04 exchanged hues so the ring's globe
+   could be a blue earth, so SHOW & TELL is Lazuli and every mark in this beat moves with it:
+   .pw-name, .pw-kind's tape, the .pw-tick glyphs, .rd-dymo and .sw-arrow. THE OLD PARENTHETICAL
+   IS NOW BACKWARDS and is kept corrected: the worry was that Lazuli would say "a wall" under a
+   timeline where Lazuli meant "your part". It no longer does, so that collision is gone - and
+   the one it warned about has inverted into the reason these marks are blue at all.
+   THERE ARE THREE NAMES NOW: the library card joined when #portfolio folded into #seewhat, and
+   its live binding is --lands-ink in .lands-grid. THIS rule survives because .pw-name also
+   exists on three archived index files. index-fielded.html - the control - has no .pw-name. */
+.pw-col.is-mine .pw-name,
+.pw-col.is-club .pw-name{color:var(--lazuli-deep)}
 
 /* the reader-demo stamp is a BUTTON now (it opens the reader clip in the shared
    lightbox), so it has to shed the UA button styling and pick up affordances —
@@ -8650,6 +9045,53 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
   margin:.25rem 0 0; color:var(--ink); max-width:24ch; margin-inline:auto;
 }
 .summary-band .sum-head h2 .stop{color:var(--grass-deep)}
+
+/* ---- THE HEAD IS SET ON THREE LINES, ONE CLAUSE EACH (2026-09-01) ----
+   Sue: "the heading can be on three lines: we make people show up (yellow?) know what's up (red)
+   and put their work up (blue?)". The WORDS are untouched - setting and ink only.
+   EACH CLAUSE IS A BEAT: show up = CLUB HOUR (School Bus, as a SWIPE) / know what's up =
+   CHALLENGE (--coral-ink, 4.84:1 on Oats) / put their work up = SHOW & TELL (--lazuli-deep,
+   5.20:1). THE LAST LINE MOVES WITH THE SWAP - if rows 03/04 swap back, .say-beat becomes
+   grass-deep (5.91:1, still AA) in the same edit. GRASS IS ABSENT ON PURPOSE: "work on the
+   magazine" is the one beat this sentence never names, and the ring below says it in a drawing.
+   THE YELLOW IS A SWIPE AND NEVER LETTERFORMS, MEASURED: School Bus type on Oats is 1.82:1 and
+   Happy 1.29:1. The run is #4A3410 - the ink Drex puts on School Bus fills, never --ink (on the
+   composited swatch #ECAD27: #4A3410 5.89:1, --ink 4.35:1; off the real render 6.15:1).
+   THREE YELLOW MARKS NOW SHARE ONE SCREEN - the hero's Happy, this School Bus (which MEANS Club
+   Hour) and .lt-nag in the ring (emphasis). THIS one is load-bearing; if the set is cut to two,
+   cut .lt-nag. HARD: .hl's own fill is --happy, DESIGN.md's reserved beacon, so the ::before
+   override below is the only thing keeping this legal - do not "tidy" .say-mark to a bare .hl.
+   .hl AND NOT .hl-wrap: .hl-wrap exists because a highlighted phrase that WRAPS collapses its
+   ::before onto the first fragment (:195). "show up," is nowrap and cannot wrap.
+   INK CARRIES THE GRAMMAR: "We make sure people" and "and" stay --ink, so this reads as one
+   sentence, not three labels. NOT THE SaaS FEATURE ROW: no icons, no boxes, no rules, no shared
+   left edge, no equal ranks - different line lengths, each rotated a different way off square and
+   nudged off the centre axis, punctuated as one sentence.
+   THE TILTS ARE NOT IN THE REDUCED-MOTION FLATTEN LIST at :2270 - that list squares up tilts
+   paired with an ENTRANCE ANIMATION, and flattening a static rotate would leave three centred
+   coloured ranks, the shape the line above avoids.
+   REJECTED - the printed rule: --lead is 26->29px, this rank 24->34px, so the only multiples are
+   29px (crashes into the type) and 58px (three loose lines).
+   THE PHONE FORM IS FOUR LINES, DELIBERATELY: "We make sure people show up," wants 353px of a
+   351px column at 390, so below 480 the LEAD-IN drops to its own line. CLAUSE-per-line is the
+   rule; the lead-in is not a clause. REJECTED: --fs-3 to hold three lines - 20.3px against
+   neighbours' 28.8px, and it jams the swipe into the right margin.
+   THE FULL STOP IS STILL GRASS AND IS NOT DECIDED HERE - page-wide decorative-green, flagged. */
+.summary-band .sum-head h2/* The clause ends in its own beat: the stop was grass-deep against a lazuli-deep run,
+   the only place on the page where two beat hues touch with no gap. 4.58:1 measured, large. */
+.sum-say .say-tell .stop{color:var(--lazuli-deep)}
+.sum-say{max-width:36ch;line-height:1.04}
+.sum-say .say-l{display:block;width:fit-content;margin-inline:auto;
+  transform:translateX(var(--sx,0)) rotate(var(--sr,0deg))}
+.sum-say .say-l+.say-l{margin-top:.13em}
+.sum-say .say-lead,.sum-say .say-mark,.sum-say .say-chal,.sum-say .say-beat{white-space:nowrap}
+.sum-say .say-hour{--sr:-1.2deg;--sx:-.3rem}
+.sum-say .say-chal{--sr:.9deg;--sx:1.15rem;color:var(--coral-ink)}
+.sum-say .say-tell{--sr:-.5deg;--sx:-.15rem}
+.sum-say .say-mark{color:#4A3410}                        /* never --ink on a School Bus fill */
+.sum-say .say-mark::before{background:var(--schoolbus)}  /* NOT --happy - see above */
+.sum-say .say-beat{color:var(--lazuli-deep)}
+@media (max-width:479px){.sum-say .say-lead{display:block}}
 /* the sub is body voice, one rank under the ledes it introduces. 46ch keeps it
    to two lines on a laptop; unbounded it sets as one long line and stops
    reading as a paragraph under a headline. */
@@ -8795,7 +9237,153 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
   .rd-cap .arr,.rd-stage:hover .rd-cap .arr{transition:none; translate:0}
 }
 
-/* ---- THE ARTIFACT BESIDE THE DOOR (2026-08-29) -----------------------------
+/* ---- THE LABEL, THE ARROW AND THE TAPE (2026-09-01) -------------------------
+   .rd-cap is unused as of this date and kept only because restoring the caption is
+   one line: the door's label is now stuck ON the door.
+   THE ARROW OWNS A ROW, in flow, not absolutely placed in a margin - at 390 there is
+   no margin, and .scroll-cue already establishes the in-flow drawn arrow as page idiom.
+   IT IS LAID OUT AGAINST THE STAGE, NOT THE VIEWPORT. The first cut pushed it left with
+   translateX(clamp(-190px,-13vw,-60px)); measured, that lands on the tape at 1440 and
+   46px PAST it at 900, because the tape's x is a function of the STAGE width and -13vw
+   is a function of the window. The lane below is the stage's own width, so the tip sits
+   over the tape at every width. Re-measure both if you change .seewhat .rd-stage.
+   THE GLYPH WAS REDRAWN TOO: two ~26-unit barbs on a ~75-unit shaft read as a CHECK
+   MARK, not an arrow. Longer shaft, shorter barbs.
+   ONE COLOUR FOR BOTH MARKS, because the arrow and the tape are one gesture. Red would read
+   CHALLENGE under the four-colour system; the library is where SHOW & TELL lands, so both
+   take show & tell's ink.
+   THAT INK IS LAZULI-DEEP AS OF 2026-09-01. It was grass-deep, and the sentence above is the
+   reason it moved rather than an argument against moving it: rows 03 and 04 exchanged hues so
+   the ring's globe could be a blue earth, and this pair follows the BEAT, not the hue. Bright
+   Lazuli is 3.11:1 with oats and bright Grass was 2.78:1, so the tape still uses the deepened
+   token for its white letters, exactly as .btn does - 5.20:1, AA.
+   AND THE TAPE ITSELF IS DORMANT since the same day, because #seewhat became a three-card
+   grid and the clip wears .pw-name like its siblings. See the block below.
+   THE TAPE STRADDLES THE TOP-LEFT CORNER, half on the frame's torn mat and half on the
+   capture, which is how every other pinned thing on this page is fixed to the page.
+   INSIDE the capture it could not go: the bottom-left is the club chip and the
+   bottom-right is the page counter - there is no empty corner in a capture whose
+   margins are all chrome.
+   AT 390 IT SITS ABOVE THE MASTHEAD ROW, NOT BESIDE IT. Measured on the built page: at
+   left:-6px/top:-12px the tape's green ran to x=136 and the reader's own pin glyph is
+   dark at x=125-131, with the "d" of drex starting at 136 - i.e. it sat ON the glyph and
+   abutted the wordmark at 0px. Lifting it 14px clears the whole row. Shrinking it further
+   was rejected: it is the only text this section has left besides the head.
+   REJECTED: --coral-ink, the Dymo red used elsewhere on this page (.dm-dymo, the hero
+   tape). Dymo tape IS red in life, and that is a real cost - but a red label on the
+   library beat is the four-colour system contradicting itself in the one place this pass
+   added a label. Colour meaning beats colour realism. */
+/* ---- ~~.seewhat .rd-stage~~ and ~~.rd-dymo~~ DORMANT SINCE 2026-09-01 ----
+   #seewhat is a three-card grid; the reader clip is card one and wears .pw-media / .pw-kind /
+   .pw-name like its siblings. .rd-dymo is left WHOLE and dormant - the house rule for a mark that
+   lost its object, not its argument. ITS FILL IS lazuli-deep, NOT grass-deep, even dormant: a
+   dormant rule wearing the wrong beat is what the next pass mis-reads as a decision. REJECTED,
+   STILL: --coral-ink - Dymo tape IS red in life, but a red label on the library beat contradicts
+   the four-colour system. */
+.rd-dymo{position:absolute;left:-6px;top:-12px;z-index:3;pointer-events:none;
+  font-family:var(--f-mono);font-weight:600;text-transform:uppercase;letter-spacing:.13em;
+  font-size:clamp(.66rem,1.4vw,.78rem);line-height:1;color:var(--oats);
+  background:var(--lazuli-deep);border:2px solid var(--ink);padding:.42em .62em .36em;
+  border-radius:4px;transform:rotate(-3deg);box-shadow:2px 2px 0 0 var(--ink)}
+.rd-dymo .arr{display:inline-block;margin-left:.15em;transition:translate .18s ease}
+@media (prefers-reduced-motion:reduce){
+  .rd-dymo .arr{transition:none; translate:0}
+}
+@media (max-width:560px){
+  .rd-dymo{top:-26px;left:-10px;letter-spacing:.09em;padding:.38em .5em .32em}
+}
+
+/* ---- WHERE IT LANDS — #seewhat's three-card grid (2026-09-01) ----
+   Geometry and ink; the argument is in the markup. --lands-ink IS ONE TOKEN ON PURPOSE - the
+   source tape, the three arrows and the three card names all read it. Lazuli-deep because rows
+   03/04 exchanged hues in this pass. If it moves again, this line is the whole edit here. */
+.seewhat .lands-head,
+.seewhat .lands-grid{--lands-ink:var(--lazuli-deep)}
+
+/* THE SOURCE AND THE LINE IT POINTS AT. The tape sits LEFT OF CENTRE and the hook curves down
+   and right into the sentence, so the two read as one gesture rather than a label stacked on a
+   heading. Centre-aligned column, so it survives 390 unchanged.
+   z-index:5 LIFTS THE TYPE OUT OF THE MARGINALIA - precedent .makerboard upfile, which took
+   z-index for exactly this after "a red tick struck clean through @angela's quote".
+   balanceMarginalia() keys scrap count to SECTION HEIGHT and this section tripled, so it draws
+   several times its old ration; .cg-collage is absolute at z-index 0 and paints over static
+   text in LATER sibling sections too. THE NUMBER IS 5, NOT 1, AND THAT IS MEASURED:
+   .cg-collage.cg-fore is z-index 3 and is the layer carrying PHOTOGRAPHS. 5 clears both layers
+   and every pinned label on this page (.pw-kind is 3, .rd-dymo is 3). */
+.lands-head{position:relative;z-index:5;max-width:44rem;margin:clamp(2rem,5vw,3.2rem) auto 0;
+  text-align:center;display:flex;flex-direction:column;align-items:center}
+.lands-src{display:block;position:relative;isolation:isolate;width:max-content;
+  margin-right:clamp(0rem,26vw,15rem);
+  padding:.3rem .72rem .34rem;font-family:var(--f-mono);font-weight:600;
+  font-size:var(--fs-label);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--oats);transform:rotate(-1.8deg)}
+.lands-src::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:var(--lands-ink);border-radius:3px;filter:url(#torn)}
+html[data-tier="lite"] .lands-src::before{filter:none}
+/* THE HOOK IS LAID OUT AGAINST THE COLUMN, NEVER THE VIEWPORT. Its predecessor was pushed
+   with translateX(clamp(-190px,-13vw,-60px)) and landed on its target at 1440 and 46px past
+   it at 900, because the target's x is a function of the stage and -13vw is a function of the
+   window. Everything here is a % of .lands-head, so the tip stays under the tape at any width. */
+.sw-arrow{display:block;width:100%;color:var(--lands-ink);margin:.1rem 0 -.2rem}
+.sw-arrow svg{display:block;width:clamp(34px,4.4vw,54px);height:auto;
+  margin-left:clamp(2rem,22vw,13.5rem);filter:url(#roughsm);transform:rotate(-4deg)}
+html[data-tier="lite"] .sw-arrow svg{filter:none}
+/* TIER B of the heading system, one rank under the h2 above it. It is a <p>, not an h2 - two
+   h2s in one section is two headlines arguing - but it keeps the h2's face, its .ul and both
+   .stops, because it is still the sentence the section is built around. */
+.lands-h{font-family:var(--f-head);font-style:normal;font-weight:700;
+  font-size:var(--fs-3);line-height:1.08;letter-spacing:-.012em;text-wrap:balance;
+  margin:.45rem 0 0;color:var(--ink);max-width:22ch}
+.lands-h .stop{color:var(--lands-ink)}
+
+/* THE GRID. Three columns from 820 up, one below it - not the pair's 760, because at 800 a
+   third column leaves each board 250px and the wall mastheads stop reading.
+   align-items:start is inherited from .pw-pair and is load-bearing here: the three cards are
+   1:1, 4:5 and 4:5, so they end at different heights and the row must not stretch them. */
+.lands-grid{grid-template-columns:repeat(3,1fr);max-width:1080px;
+  gap:clamp(2.2rem,4vw,3rem);margin-top:clamp(2.2rem,5vw,3.4rem)}
+@media (max-width:820px){
+  .lands-grid{grid-template-columns:1fr;max-width:400px;gap:clamp(2.4rem,8vw,3rem)}
+  /* the pair's mobile rule squashes 4:5 to 4:3; the library card is square either way */
+  .lands-grid .pw-media{aspect-ratio:4/3}
+  .lands-grid .rd-media{aspect-ratio:1/1}
+}
+/* THE FAN. One source, three landings, so each arrow leans at the board it belongs to: the
+   left card's mark hangs on ITS right (nearest the tape), the right card's on its left, the
+   middle one drops straight down. Stacked, all three centre.
+   THE MARK LANDS ON THE BOARD, so it must PAINT over it: .pw-media::before is the torn slab,
+   13px proud of the media box on every side, in .pw-a's stacking context. A static sibling
+   above it paints UNDER that slab - measured at 900, the 46px glyph lost three quarters of
+   its length behind the cork. Hence its own z-index. */
+.lands-grid .pw-tick{position:relative;z-index:4;margin-bottom:-.7rem}
+.lands-grid .pw-col.is-lib  .pw-tick{margin-left:auto;margin-right:10%}
+.lands-grid .pw-col.is-club .pw-tick{margin-inline:auto}
+.lands-grid .pw-col.is-mine .pw-tick{margin-left:10%;margin-right:auto}
+@media (max-width:820px){
+  .lands-grid .pw-col.is-lib .pw-tick,
+  .lands-grid .pw-col.is-club .pw-tick,
+  .lands-grid .pw-col.is-mine .pw-tick{margin-inline:auto}
+}
+/* THE LIBRARY CARD IS TOP-ANCHORED TOO, and for the same reason the maker's is: the poster is
+   the reader open on a masthead, and `center` on a 1:1 source in a 1:1 box is a no-op anyway -
+   this is here so the rule survives the mobile 4:3 box. */
+.lands-grid .pw-col.is-lib .pw-media img,
+.lands-grid .pw-col.is-lib .pw-media video{object-position:center top}
+/* ONE INK FOR ALL THREE NAMES. Three beat hues telling three cards apart is the pattern this
+   page has killed at .pw-name, at the #proof pins and at the .zine-tab trio. */
+.lands-grid .pw-col.is-lib .pw-name,
+.lands-grid .pw-col.is-club .pw-name,
+.lands-grid .pw-col.is-mine .pw-name{color:var(--lands-ink)}
+.lands-grid .pw-kind::before{background:var(--lands-ink)}
+.lands-grid .pw-col.is-lib .pw-kind{transform:rotate(-1.6deg)}
+
+/* ---- ~~THE ARTIFACT BESIDE THE DOOR~~ DORMANT SINCE 2026-09-01 --------------
+   Nothing on the page carries .sw-pair / .sw-real / .sw-shot any more: Sue reduced
+   #seewhat to the clip and one label. The block is left whole, and so is
+   assets/zines/cover-cafe.jpg, because restoring the cover is one <figure> and the
+   grid wrapper - and the argument below for why the cover earned its place is the
+   argument for putting it back, not a description of what is there now.
+   ---- THE ARTIFACT BESIDE THE DOOR (2026-08-29) -----------------------------
    .sw-pair turns this section from one centred square into two objects: the
    printed issue on the left, the reader on the right. At 1440 the old layout
    left ~340px of blank paper down each side, which is the entire budget this
@@ -9010,6 +9598,19 @@ html[data-tier="lite"] .sw-shot::after{filter:none}
   #proof.gnd{--gnd-bleed-t:26px}
 }
 
+/* #proof'S GROUND IS NOT A BEAT, AND AS OF 2026-09-01 THAT HAS TO BE SAID OUT LOUD.
+   #0C6E39 is --grass-deep verbatim, and this is the largest painted colour field on the page.
+   Grass means WORK ON THE MAGAZINE since rows 03 and 04 exchanged hues - so read literally, the
+   page's biggest sheet now says MAKE-THE-ISSUE over a wall of FINISHED issues, two screens under
+   the ring that teaches the mapping.
+   IT IS DECLARED NON-BEAT, the same way .lg-real is declared Sambas-because-no-beat: a ground is
+   a room, not a step. Repainting was considered and rejected on COST, not taste - a full-bleed
+   sheet re-opens every pairing inside it (.mpol, the pins, the markers, .pk-club, the eyebrow
+   and the stop, and the "on grass-deep it reads as a smear" finding upfile), which is a
+   section-sized re-measure and not part of a colour swap.
+   IF A COLD READER EVER TIES THIS SHEET TO A BEAT, that is the evidence that settles it - move
+   the ground to lazuli-deep and re-measure the section. Until then this comment is the answer,
+   and the five .pk-craft chips are what carry meaning here, not the ground. */
 .gnd--grass{
   --gnd-fill:#0C6E39;
   --gnd-fibre:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='168' height='168'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.62' numOctaves='3' seed='5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.42'/%3E%3C/svg%3E");
@@ -9118,7 +9719,7 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
 #proof.gnd .dk-head h2{color:var(--oats)}
 #proof.gnd .dk-head h2 .stop{color:var(--happy)}
 #proof.gnd .dk-head h2 .ul::after{background:var(--oats)}
-#proof.gnd .gifts-foot{color:var(--happy)}
+#proof.gnd .gifts-foot{color:var(--oats)}  /* was --happy: 4.15:1 measured on the RENDERED ground, AA fail at 20px/400. Oats = 5.4:1 measured. Also takes a decorative use off the reserved beacon. */
 
 
 /* 2026-08-31. The doors' arc scrap is positioned left:42% with a fixed 104px width, so it
@@ -9136,14 +9737,17 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
 .loopwrap{position:relative;width:min(560px,94vw);
   margin:clamp(1.2rem,3vw,2rem) auto clamp(1.6rem,4vw,2.8rem);text-align:center}
 
-/* ---- the library square: OUTSIDE the ring, because it is the world ---- */
-.lib-sq{margin:0 auto;width:min(270px,66%)}
-.lib-open{display:block;text-decoration:none}
-.lib-screen{display:block;width:100%}
-.lib-screen svg{display:block;width:100%;height:auto;overflow:visible}
-.lib-sq figcaption{font-family:var(--f-hand);font-size:clamp(1rem,2.3vw,1.2rem);line-height:1.15;
-  color:var(--lazuli-deep);margin-top:.5rem;transform:rotate(-1deg)}
-.lib-open:hover ~ figcaption .arr{transform:translateX(3px)}
+/* ---- ~~THE LIBRARY SQUARE~~ DELETED 2026-09-01, markup and rules together ----
+   Founder: "boy, you need to get rid of 'the library' graphic you made." Nothing carries
+   .lib-sq / .lib-open / .lib-screen, so the rules go with the drawing rather than sitting here
+   waiting to be re-pointed at something. What they did: a min(270px,66%) centred figure, a block
+   anchor, a full-width SVG, and a hand-set grass-deep caption with a hover nudge on its arrow.
+   THE CAPTION'S GREEN WAS THE ONE INTERESTING DECISION and it survives elsewhere: grass-deep
+   because green is this page's LINK colour, not because the library is a beat. That
+   Grass-beat/Grass-link overlap is still unsolved - see #showtell's colour block. The caption's
+   text now sits on .pw-name in #seewhat's grid, in LAZULI-DEEP, because those three links are
+   the show & tell beat and show & tell is Lazuli as of the same day. A recolour of THIS caption
+   was proposed in the same pass and is moot: the element is gone. */
 
 /* ---- the two arrows ---- */
 .loop-arrow{position:relative}
@@ -9153,11 +9757,27 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
 
 .loop-in{display:flex;align-items:center;justify-content:center;gap:.45rem;margin:.35rem auto .1rem}
 .loop-in svg{width:clamp(30px,4.4vw,42px);height:auto}
-.loop-in .loop-lab{color:var(--grass-deep);transform:rotate(-2deg)}
+/* ---- THE LOOP'S PLUMBING IS INK (2026-09-01) ----
+   These two arrows are the way IN to the loop and the way OUT of it. They are not beats, and
+   under the four-colour system they were both wearing a beat's colour one inch from the ring
+   that defines it: "join a club, or start one" in Grass (which now means SHOW & TELL) and
+   "it lands in the library" in coral (which now means CHALLENGE). A cold reader on 2026-09-01
+   read the red one as the loudest mark in the section. Ink, like the ring itself.
+   ~~THE LIBRARY'S OWN CAPTION IS THE EXCEPTION AND STAYS GREEN~~ MOOT 2026-09-01: the drawn
+   library square and its figcaption were both deleted (founder's call), so there is no
+   exception left in this block - both loop arrows are ink and nothing else here is coloured.
+   THE OVERLAP IT RECORDED IS STILL REAL AND STILL UNSOLVED: Grass is this page's link colour
+   everywhere AND, until this pass, was a beat. The swap made it worse rather than better -
+   Grass now means WORK ON THE MAGAZINE, the one beat of the four that produces nothing to link
+   to - so see the note at the head of #showtell's colour block, which is where that argument
+   now lives. Do not solve it by recolouring one link. */
+.loop-in .loop-lab{color:var(--ink);transform:rotate(-2deg)}
 
-.loop-out .loop-lab{color:var(--coral-ink)}
+.loop-out .loop-lab{color:var(--ink)}
 /* under 660px there is no lane beside the ring for a bracket, so the label goes static under
-   the drawing and the ring's own turn (or .how-loopback in the stack) carries the return.
+   the drawing and the ring's own turn carries the return. (It used to add "or .how-loopback in
+   the stack". That bracket was deleted from index.html 2026-09-01 at the founder's ask, so
+   below 560 nothing draws the return and the stack is simply four stations in order.)
    660 IS MEASURED, not chosen: the lane is taken out of .loopwrap's own width, and below 660
    the ring's right-hand station (Club Hour at left:88%) is pushed past the viewport edge and
    clipped by 5-6px. Checked at 680/672/660/659/641/640/639/600/561. */
@@ -9172,47 +9792,234 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    has a left lane taken out of it, so at 561-660 it grew wider than the box it sits in and the
    arc scrawls were clipped off the right edge. Cap it to the container it is actually in. */
 .loopwrap .how-stage{width:min(560px,100%)}
-.loop-out{display:block;margin-top:clamp(.6rem,2vw,1.2rem)}
-.loop-out svg{display:none}
-@media(min-width:660px){
-  .loopwrap{width:min(700px,96vw);padding-left:clamp(2.6rem,5.5vw,5rem)}
-  /* the bracket runs from the station it leaves to the square it arrives at, not edge to edge:
-     measured at 1440, the globe's centre is 71% down .loopwrap and the library square's is 11%. */
-  .loop-out{position:absolute;left:0;top:9%;bottom:28%;width:clamp(2.4rem,4.5vw,3.4rem);margin:0}
-  .loop-out svg{display:block;height:100%;width:auto;margin:0 auto}
-  /* the label RUNS UP THE BRACKET rather than sticking out to its left. At 1024 a 9.5rem
-     label hung off the left edge of .loopwrap with 1px to spare and clipped below that;
-     set vertically it needs no horizontal room at any width the bracket itself survives. */
-  .loop-out .loop-lab{position:absolute;left:66%;top:50%;white-space:nowrap;
-    writing-mode:vertical-rl;transform:translate(-50%,-50%) rotate(180deg)}
-}
+/* ---- THE EXIT IS ONE GLYPH NOW, AT EVERY WIDTH (2026-09-01) ----
+   ~~The tall bracket~~ and its left lane are gone with the drawn library square. For the record:
+   above 660 .loopwrap took a clamp(2.6rem,5.5vw,5rem) padding-left, the bracket sat in that lane
+   at top:9%/bottom:28% (measured - the globe's centre is 71% down .loopwrap and the square's was
+   11%), and the label ran UP it writing-mode:vertical-rl, because at 1024 a 9.5rem horizontal
+   label hung off the left edge with 1px to spare.
+   ALL OF THAT WAS GEOMETRY IN SERVICE OF ONE TARGET, and the target is deleted. The library is a
+   real card further down the page, so the exit points DOWN AND OUT: the short glyph, in flow,
+   centred under the ring, at 390 and 900 and 1440 alike. No breakpoint, no re-measurement - the
+   lane version needed both at every one. THE RING RE-CENTRES as a result. */
 
-/* ---- the tool scrawls, each pinned to the arc between two named stations ---- */
-.how .flow .arc{position:absolute;width:22cqw;transform:translate(-50%,-50%);
-  list-style:none;text-align:center;z-index:3;pointer-events:none}
-.how .flow .arc .arc-ink{font-family:var(--f-hand);font-size:3cqw;line-height:1.1;
-  color:var(--coral-ink);display:block}
-.how .flow .arc-a{top:16%;left:88%}   /* Challenge -> Club Hour */
-.how .flow .arc-b{top:84%;left:88%}   /* Club Hour -> Your part */
-.how .flow .arc-c{top:84%;left:12%}   /* Your part -> Show & tell */
+/* ---- ONE TOOL STATEMENT, IN THE MIDDLE OF THE RING (2026-09-01) ----
+   This replaces the three .arc scrawls pinned to three arcs. Founder's call: one object,
+   not three annotations. It sits in the ring's own centre because the claim is about the
+   WHOLE loop, not about one transition.
+   top:58%, NOT 46%, AND THAT NUMBER IS MEASURED. At 46% the statement's last baseline
+   landed 0.7px from "Show & tell"'s baseline 50px to its left, and the two read as one
+   row - which attributed a whole-loop claim to station 04. At 53% it clears both station
+   labels and still sits ~150px above the thought balloon's top edge.
+   IT IS INK, NOT CORAL. The scrawls it replaces were coral-ink, and coral is now CHALLENGE
+   in the four-colour system - a red sentence in the middle of the ring would have read as
+   station 01's. The machine is not one of the four beats, so it takes the page's ink.
+   IT SAYS "NAG" NOW, AND THAT IS THE FOUNDER'S CALL (2026-09-01): "'nobody has to chase. we nag
+   for you.' and 'we nag for you' is highlighted?" Read this before undoing it.
+   WHAT THIS FILE BANNED WAS NEVER THE WORD - IT WAS K-1'S CLAIM. The live line "We do the
+   nagging: the hour, the place, the deadlines" is false on its last noun: the ladder is gated on
+   DEADLINE_LADDER_ENABLED and absent from .env.prod.example. A cold reader pulled a face at the
+   word; the founder overruled that, on the record.
+   EVERY CLAUSE IS A SHIPPED MECHANISM AND NONE IS THE LADDER: the calendar feed is real and
+   ungated, the club hour carries a day-before note (src/db/club-hour-place-reminder.ts, on by
+   default), submissions close on their own (src/db/issue-writers.ts, opt-OUT). Do not let a later
+   pass cash "we nag for you" for a text message: say "we text you" and K-1 is back.
+   THE MARK IS SCHOOL BUS - NOT HAPPY, NOT INK. Happy is DESIGN.md's reserved beacon and
+   .hl::before defaults to it, so .lt-nag overrides the fill. Ink was built first as a .ul marker
+   underline and MEASURED FAILING: .ul::after is a .16em bar (2.6px here) run through filter
+   #rough, whose displacement scale is 4 ABSOLUTE px, so it rendered as a blob under two letters.
+   Plain .hl and not .hl-wrap, because this run is nowrap on one line.
+   THE TEXT IS #4A3410, as .dd-text h3 does: --ink on the swatch is 4.36:1 and FAILS AA, #4A3410
+   is 5.91:1. Never put --ink on a School Bus band.
+   THE COST, DOUBLE-CHARGED AFTER THE MERGE: School Bus is CLUB HOUR and the clock sits ~300px
+   right; and the summary band's head one screen up now carries a SECOND School Bus swipe, on
+   "show up," - and THAT one is load-bearing, because that clause IS the Club Hour beat. Both are
+   spent because no free hue is left. THE READING THAT MAKES IT COHERE: both marks are one claim -
+   the hour is the thing we make sure of, and "we nag for you" is how. If a cold reader reads this
+   as the clock's colour, the fix is a fifth non-beat accent, or dropping THIS swipe. */
+.loop-tool .lt-nag{white-space:nowrap;color:#4A3410}
+.loop-tool .lt-nag::before{background:var(--schoolbus)}
+.loop-tool{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);
+  width:34cqw;margin:0;z-index:1;text-align:center;pointer-events:none;
+  font-family:var(--f-hand);font-size:2.9cqw;line-height:1.2;color:var(--ink)}
 
+/* ---- THE FOUR-COLOUR SYSTEM ON THE RING'S NODES (2026-09-01) ----
+   Challenge = Colorado, Club Hour = School Bus, Work on the magazine = Grass,
+   Show & tell = Lazuli.
+   ROWS 03 AND 04 EXCHANGED HUES ON 2026-09-01, and the beat's NAME changed with them ("Your
+   part" -> "Work on the magazine"). RECORD THE REASON SO NOBODY READS IT AS DRIFT: station 04's
+   drawing is a GLOBE and the founder asked for a blue earth. Measured, the oats continents go
+   2.78:1 -> 3.11:1 on the new sea and the meridians 1.66:1 -> 1.79:1, so it is legibly an earth
+   for the first time. EVERY RATIO AND REJECTION BELOW SURVIVES - station 03's heading moves
+   5.20 -> 5.91:1 and station 04's 5.91 -> 5.20:1, and the set of four is identical. Full cost
+   accounting is in #showtell's colour block; this ring is downstream of it.
+   THE RING ITSELF IS INK, AND THAT IS THE CENTRAL DECISION OF THIS PASS. The first cut
+   coloured the four ARCS, one per beat, and it was looked at and rejected: measured off the
+   path data the four segments came out 38 / 66 / 51 / 56 degrees, so one beat got nearly
+   twice another's ink; every arc DIED at the next station's badge, so scanning clockwise
+   you read red line -> yellow pin and the yellow pin looked like the red line's
+   destination; and the gaps cannot be equalised, because they are sized by the station TEXT
+   they have to clear (station 02 needs ~78 degrees of gap, which leaves 12 degrees of arc).
+   So the ring now does exactly what the dated timeline in #showtell does, which is the one
+   object on this page a cold reader read the system off correctly: the LINE is neutral, and
+   the beat is carried by a coloured knot and a coloured heading. Two objects, one mechanism.
+   THE NUMBERED BADGES ARE GONE, 2026-09-01, founder: "why is the #3 inside the bubble?"
+   Station 03's badge sat on the drawn thought balloon, that station's own GROUND, so the numeral
+   read as something written inside the cloud. DELETED WITH THEM: .loopwrap .how .step .n and the
+   four --beat declarations that fed it, which had no other consumer inside .loopwrap (the only
+   other var(--beat) readers are .dd-row::before and .dd-knot, fed by .dd-row). The UNSCOPED
+   .how .step .n rule upfile STAYS - five archived index-*.html carry that markup.
+   WHAT IT COSTS: three carriers per node become two. STATION 03 IS NOW THE THINNEST,
+   DOUBLE-CHARGED: its tail bubbles went WHITE in the same pass on the founder's ask, and the
+   badge that would have carried the beat instead went on her other ask. A FILLED grass-deep badge
+   WAS built for this hole and was DROPPED - deletion beats re-inking, and both instructions are
+   hers. Its beat is its h3 alone, grass-deep at 5.91:1.
+   IF THAT PROVES TOO QUIET, REACH FOR THE DRAWING. NOT a Grass or School Bus swipe behind the
+   heading (ink on Grass 2.90:1, oats on Grass 2.78:1, School Bus worse both ways). NOT a coloured
+   stroke on the balloon - every object in this ring is ink-outlined.
+   KEPT, BECAUSE IT WILL BE RE-DERIVED IF NUMBERS COME BACK: the numeral could not have BEEN the
+   colour. School Bus on Oats is 1.77:1 and Colorado 2.97:1, and neither hosts oats or ink as text
+   (3.05 / 2.63 on Colorado) - which is why the beat rode a 3px border and an ink hairline, and
+   why the hairline was not decoration (1.4.11 wants 3:1; bare School Bus 1.82, Grass 2.78). */
+/* THE HEADING TAKES THE BEAT AS TYPE, in the deepened token - the same rule, the same four
+   inks and the same measured ratios as .dd-text h3 in #showtell. Club Hour is the one that
+   cannot: School Bus is ~1.9:1 on oats. It takes #4A3410, the ink Drex sets ON School Bus
+   fills, and the yellow itself is carried by the clock face directly beneath the words. */
+.loopwrap .how .step.is-cal   h3{color:var(--coral-ink)}
+.loopwrap .how .step.is-clock h3{color:#4A3410}
+.loopwrap .how .step.is-think h3{color:var(--grass-deep)}
+.loopwrap .how .step.is-globe h3{color:var(--lazuli-deep)}
+/* THE RING STILL TURNS, and that is deliberate. An earlier cut of this pass coloured the
+   four arcs and had to stop the rotation, because a turning ring walks Colorado onto Club
+   Hour inside nine seconds. The arcs are one faint ink line now, so nothing about the
+   mapping depends on where the line is, and the turn goes back to carrying the one thing it
+   was always for: this happens again. Do NOT re-colour the arcs without also killing
+   .how-ring{animation:how-turn} - see the note in the markup. */
+/* THE CLOCK'S CAPTION WAS UNDER THE CLOCK. Measured at 1440: the .ico box bottom sits at
+   816 and the <p> top at 815, and .ctclock carries drop-shadow(4px 5px) with overflow
+   visible - so the rim and its shadow landed on "a standing hour", eating the d and the i.
+   Station 02 is the only one whose drawing fills its box edge to edge (r=56 of a 120 box),
+   so the clearance is scoped to it rather than added to all four. */
+.loopwrap .how .step.is-clock p{margin-top:2.4cqw}
 @media(max-width:560px){
-  /* THE MOBILE BRACKET GETS ITS OWN LANE. .how-loopback is flex:none with an auto-width svg,
-     so it lays out at ZERO width and the drawn bracket paints straight through the stack's
-     text (measured at 390: svg 100-157, text column 106-306). That crossing shipped when the
-     lines it crossed were sambas; the arc scrawls are coral, the same colour as the bracket,
-     and a coral line through coral words reads as a mistake. Scoped to .loopwrap so the same
-     ring on the other pages that load this sheet is untouched. */
-  .loopwrap .how-loopback{width:2.6rem}
+  /* REMOVED 2026-09-01 with the bracket it laned: .loopwrap .how-loopback{width:2.6rem}.
+     WHY IT EXISTED, kept for whoever hangs anything else in this flex row: .how-loopback was
+     flex:none with an auto-width svg, so it laid out at ZERO width and the drawing painted
+     straight through the stack's text (measured at 390: svg 100-157, text column 106-306).
+     Anything dropped into .how-loop as a flex sibling of .flow needs an explicit width or it
+     will do exactly the same thing. The unscoped .how-loopback rules near the top of this file
+     are untouched and still serve the archived pages that carry that markup. */
   /* no station overhangs the ring's square in the stack, so the desktop gutter is dead space here */
   .loopwrap .how{padding-top:clamp(1.2rem,5vw,2rem);padding-bottom:clamp(1.2rem,4vw,2rem)}
   /* the ring unwinds into a stack down here, so the scrawls unwind with it and sit between
      the two stations they connect — the anchor survives the reflow. */
-  .how .flow .arc{position:static;width:auto;transform:none}
-  .how .flow .arc .arc-ink{font-size:var(--fs-body);line-height:1.15}
+  /* the tool statement leaves the ring's centre and takes its own row under the stack */
+  .loopwrap .how-loop{flex-wrap:wrap}
+  .loop-tool{position:static;transform:none;width:auto;order:20;flex:0 0 100%;
+    font-size:var(--fs-body);line-height:1.2;margin-top:clamp(1rem,4vw,1.5rem)}
+  /* THE CIRCUIT IS DELETED, 2026-09-01, founder: "also just get rid of the 'back to the start'
+     and 'one issue' arrows." It lasted one pass. .how-flowdown was on no other page in this repo,
+     so its markup and all four rules are deleted outright; .how-loopback's unscoped rules stay
+     upfile for five archived index-*.html.
+     KEPT, THE EXPENSIVE PART: these brackets were INK and the founder had asked for red. Red is
+     CHALLENGE, and they were the two largest marks in the diagram at phone width - in Colorado
+     they framed all four beats in station 01's colour, and a cold reader at 390 read them as
+     "two red square brackets", not a circuit. Any large connector here again is ink.
+     .loopwrap .how .step .n{font-size:.82rem} went too: cqw resolves against .how-loop, ~248px in
+     the stack, so 3.1cqw set 7.7px - a live trap for any cqw type in this stack. */
+  /* THE BALLOON NEEDS ITS BOX BACK, SYMMETRICALLY. .thoughtb is centred ON THE BOX, not on the
+     words, so removing the badge shortened the box and the tail bubbles came down onto station
+     04's heading. The SUB-LINE SURVIVED ("one shared editor"), so this station is one line
+     shorter, not two.
+     WHY 3.8rem, MEASURED AT A TRUE 390 VIEWPORT (a 390px iframe - headless Chromium clamps a real
+     window to 500 and will lie to you): the gap is 16px at 3.4rem, 23px at 3.8rem, 29px at
+     4.2rem, and the heading's centring inside the balloon body is +6px at ALL THREE, because
+     symmetric padding does not move it. 23px is the smallest with slack for a two-line h3.
+     WHY SYMMETRICAL: one-sided bottom padding pushes the words UP inside the balloon by half of
+     it - at 1.5rem/6.2rem the heading was hard against the top scallops. Shrinking --tb needs
+     7.4rem, and a 119px balloon pushes a two-line heading out through its own scallops.
+     SCOPED TO .loopwrap: the unscoped rule keeps 1.5rem/2.6rem for the archived pages. Above 560
+     nothing moved - each station is centred on a ring point. */
+  .loopwrap .how .flow .step.is-think{padding-block:3.8rem}
   /* CLEARANCE ONLY, and NOT the old diagnosis: this gap was first blamed on the globe
      "painting outside its box". It was not. Station 04 was being shoved down and right by the
      nth-child bug fixed above. With that fixed, this is an ordinary breath before the closing
      scrawl. Measured at 390 and 360. */
   .loop-out{margin-top:clamp(1.4rem,5vw,2.2rem)}
 }
+
+
+/* ---- LOAD-BEARING, added 2026-09-02 after a verifier deleted the rule at runtime and watched all
+   three grid cards flip to 4:5. The library card's 1:1 came only from `.rd-media{aspect-ratio:1/1}`,
+   a bare rule stranded inside the reader block that this pass emptied of markup and marked dormant.
+   The scoped guard existed ONLY inside @media(max-width:820px), so desktop was unprotected and the
+   failure was silent - nothing 404s, nothing overflows, the card just becomes the matched-trio shape
+   the grid's own comment says it must avoid. Restated unconditionally so a future tidy cannot. ---- */
+.lands-grid .pw-col.is-lib .pw-media{aspect-ratio:1/1}
+
+/* =====================================================================
+   THE FOLD IS THREE RANKS NOW (2026-09-02, founder's call).
+   WAS: h1 "Accountability buddies running their own magazine." + one sub.
+   NOW: h1   "Your gifts are unique."                the premise, display face
+        deck "Grow and share them in a group by
+              running a magazine."                   the instruction, Pitch Sans
+        sub  "Each issue features a new challenge."  the mechanism, smallest
+   WHY THE DECK EXISTS, and it is a measured reason. The founder's sentence is
+   15 words. Set whole in the display face it ran to SIX lines in the fold's
+   column and pushed the coupon down the card - the same failure the :4310 note
+   records the fielded 52-character cut hitting. Dropping the back half one rank
+   into Pitch Sans makes the h1 two lines and the deck three, and the coupon
+   comes back up. The h1 keeps --fs-fold untouched: :4263 measures the column
+   breaking at 41px and that ceiling is the face's, not the sentence's.
+   THE TWO COLOURED NOUNS MOVE DOWN WITH THE CLAUSE THAT OWNS THEM. "Your gifts
+   are unique." contains no who and no artifact, so there is nothing there for
+   .hd-who / .hd-out to mean; colouring it would be the page's first decorative
+   colour. They are re-declared for the deck rather than rescoped, because :8527
+   scopes them to `.hero-card h1.ed-cat` and the h1's own rules stay untouched. */
+.hero-card .ed-deck{margin:clamp(.5rem,1.2vw,.85rem) 0 0;
+  font-family:var(--f-head);font-weight:600;font-style:normal;
+  font-size:var(--fs-lede);line-height:1.3;letter-spacing:-.005em;
+  color:var(--ink);text-wrap:pretty;max-width:24ch}
+.hero-card .ed-deck .hd-who{color:#2190C2}
+.hero-card .ed-deck .hd-out{color:#159C53}
+@supports (text-box-trim:trim-both){
+  .hero-card .ed-deck{text-box-trim:trim-both;text-box-edge:cap alphabetic}
+}
+/* the sub drops a rank so three ranks descend instead of the lower two tying */
+.hero-card .ed-sub{font-size:clamp(1rem,.94rem + .26vw,1.1875rem)}
+
+/* ===== THE MARKER LANDS ON THE HEADLINE, ONE BAND PER LINE =====
+   WHY A MARK AND NOT A FACE. Asked whether the h1 should be handwritten with
+   squigglevision: no on both counts, and neither is a taste call. :32 gives each
+   brand face one job - "Birdie -> margin annotations ONLY (never a heading)" -
+   and the boil policy (index-old.html:78) is "the marker boils, the paper does
+   not": every boiling thing on this page is a drawn mark or a torn edge, never
+   type. .hl::before IS a drawn mark, so it carries the hand without moving the
+   headline out of the display face or putting feDisplacementMap on letterforms.
+   WHY TWO BANDS AND NOT ONE. :202 - one absolutely-positioned ::before collapses
+   onto the first fragment when the phrase wraps. .hl-wrap fixes the wrap by
+   painting a background and says what that costs: "The rough filter and the skew
+   go: they are ::before-only tricks." A single band over two lines therefore
+   cannot boil, tip, or carry a rough edge. It was built and looked at - a flat
+   rectangle reading as a redaction bar - and it also reflowed the h1 to THREE
+   lines, because a padded inline box changes where the text breaks. Rejected on
+   the render, not on the argument.
+   So: one band per line-box, each its own ::before. The break is forced with two
+   .sen blocks (display:block, :4377) rather than a <br>, which is how this h1
+   already does multi-line.
+   WHY .hl-mark AND NOT PLAIN .hl: :4236 gives .ed-cat .hl the wrap-safe painted
+   background and :4239 suppresses the ::before so the two cannot double up. Each
+   line here is short and cannot wrap, so it takes the ::before form back.
+   THE SECOND STROKE IS LATE ON PURPOSE. A person highlighting two lines makes
+   two passes; simultaneous bands read as a printed block rather than a hand.
+   The full stops stay outside the bands - a tipped band under a period reads as
+   a strikethrough.
+   IT ALSO REPAIRS A BEAT THE NEW COPY BROKE. :357-358 pin .hl::before at scale 0
+   inside a sealed hero and release it on .lit-hl, which app-post-beta.js:1238
+   adds 1000ms after the cut, on the marker sound. The retired sub carried the
+   fold's only .hl; without this the stroke swept across nothing. */
+.hero-card h1.ed-cat .hl.hl-mark{white-space:nowrap;background:none;padding:0;
+  border-radius:0;box-shadow:none;
+  -webkit-box-decoration-break:slice;box-decoration-break:slice}
+.hero-card h1.ed-cat .hl.hl-mark::before{content:""}
+.hero-card h1.ed-cat .sen + .sen .hl.hl-mark::before{transition-delay:.18s}
