@@ -1,114 +1,115 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
-<title>drex &mdash; og card 1200x630</title>
+<title>drex — og card 1200x630</title>
 <!-- ============================================================================
-     THE SHARE CARD. Renders to assets/og.png at exactly 1200x630.
+     THE SHARE CARD → assets/og-v4.png, exactly 1200x630.
 
-     RE-RENDER (there is no build step in this repo):
-       cd drex-landing && python3 -m http.server 8931 --bind 127.0.0.1 &
-       B=~/.claude/skills/gstack/browse/dist/browse
-       $B viewport 1200x630 ; $B goto "http://127.0.0.1:8931/og-card.html" ; sleep 5
-       $B screenshot --viewport assets/og.png
+     RE-RENDER (no build step in this repo):
+       python3 -m http.server 8931 --bind 127.0.0.1 &
+       chromium --headless=new --screenshot=assets/og-v4.png --window-size=1200,630 \
+         --hide-scrollbars --no-sandbox "http://127.0.0.1:8931/og-card.html"
 
-     THE BRIEF WAS "the best design and typography I've ever seen in an og image".
-     Four designs were built and rendered before this one was picked: a collage of
-     real covers behind a torn sheet; one cover full-bleed under a scrim; the dead
-     group chat beside "4,000 messages. Nothing made."; and this. The chat one is
-     the most arresting and was rejected for selling a problem instead of a product.
-     The full-bleed one was rejected because the scrim killed the maker's face.
+     THE BRIEF (2026-09-03): "a beautiful perfect OG card which reflects our brand,
+     the new fonts, and will grab attention and instantly communicate the product
+     and be legible at tons of sizes and have very limited text (one sentence max)."
 
-     WHY THIS ONE. The card is an OBJECT, not a slide - a magazine lying on a desk
-     with a second issue under it, torn at every edge, taped down across those edges
-     onto the desk itself. That is the product, depicted, and it is the one thing a
-     competitor's card cannot copy without doing the work. Everything on it is real:
-     a published issue, a maker holding the drawing she made, and her club's own
-     reflection question printed under it.
+     WHAT CHANGED FROM v3. Three things had gone stale and one was always wrong:
+       · it led with "Accountability buddies running their own magazine.", which has
+         not been the page's fold since 2026-09-02;
+       · it was set in Sometype Mono, the STAND-IN. Pitch is licensed and self-hosted
+         now, so the card can finally be in the brand's own face;
+       · it carried five text blocks — headline, sub, a red deadline tape, the
+         wordmark and a whole zine panel with its own quote. The brief says ONE
+         SENTENCE. At feed size that clutter was the whole problem.
 
-     JUDGED AT FEED SIZE, NOT AT FULL SIZE. Previews render around 400-600px wide,
-     so every version was downscaled to 400 and read there before being accepted.
-     That is why the headline is 66px and the deadline is a red TAPE rather than a
-     third weight of type: at 400px the tape survives as a red mark and a type
-     change does not.
+     THE ONE SENTENCE names the object, the people and the mechanism in that order:
+     "Make a magazine with your people, on a deadline." A reader who sees nothing
+     else knows what this is.
 
-     THE LOGO IS UNMODIFIED - no rotation, no shadow, no recolour, no filter, and
-     not set in a typeface. The PAPER carries the tilt and the offset shadow, which
-     is what the logo law allows and what the masthead already does.
+     THE PROOF IS THE COVERS, NOT A CLAIM. Four real published issues, fanned like a
+     rack — modelling, bold editorial, penmanship, illustration. That range IS the
+     product ("learn WHAT?" is the question the page's own notes say the hero
+     provokes) and it is the one thing a competitor cannot fake without doing the
+     work. They are the same 320x400 crops the page's own selector rack uses.
 
-     GREEN IS NOT THE GROUND HERE. The brand book never grounds anything in Grass
-     and this card obeys that, unlike the one it replaces: the desk is warm neutral,
-     Grass appears as a bar (the two words it emphasises), and the accents are the
-     page's own tape colours.
+     JUDGED AT FEED SIZE. Previews render 400-600px wide, so the headline is 70px
+     (23px at 400) and there is no type below 26px anywhere on the card. Every
+     version was downscaled to 400 and read there before being kept.
+
+     THE LOGO IS UNMODIFIED — upright, unrotated, no shadow, no filter, not set in a
+     typeface. §03 of the brand book. The PAPER carries the tilt, which is what the
+     logo law allows and what the masthead already does.
+
+     GREEN IS NOT THE GROUND. The brand book never grounds anything in Grass; the
+     desk is warm neutral, Grass appears only in the wordmark and one full stop.
      ============================================================================ -->
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Patrick+Hand&display=swap">
 <style>
-:root{--oats:#FEF6E4;--grass:#1CAB5B;--sambas:#414D57;--colorado:#F75458;--lazuli:#2496C9;--happy:#F1DD01;--ink:#2f2110}
+@font-face{font-family:"Pitch";src:url(assets/fonts/pitch-bold.woff2) format("woff2");font-weight:700;font-style:normal;font-display:block}
+@font-face{font-family:"Pitch";src:url(assets/fonts/pitch-bold-italic.woff2) format("woff2");font-weight:700;font-style:italic;font-display:block}
+@font-face{font-family:"Pitch Sans";src:url(assets/fonts/pitch-sans-bold.woff2) format("woff2");font-weight:700;font-display:block}
+@font-face{font-family:"Pitch Sans";src:url(assets/fonts/pitch-sans-semibold.woff2) format("woff2");font-weight:600;font-display:block}
+@font-face{font-family:"Birdie";src:url(assets/fonts/birdie-regular.woff2) format("woff2");font-weight:400;font-display:block}
+:root{--oats:#FEF6E4;--ink:#414D57;--grass:#1CAB5B;--grass-deep:#0C6E39;
+      --colorado:#F75458;--coral-ink:#C9343A;--lazuli-deep:#1C6F94;--schoolbus:#ECAF21}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:1200px;height:630px;overflow:hidden}
-.card{position:relative;width:1200px;height:630px;overflow:hidden;background:#C4B99E}
-.card::before{content:"";position:absolute;inset:0;
+body{background:#C9BEA4;font-family:"Pitch Sans",monospace;-webkit-font-smoothing:antialiased}
+.card{position:relative;width:1200px;height:630px;overflow:hidden;
   background:
-   radial-gradient(1200px 700px at 22% 0%, rgba(255,252,240,.6), transparent 64%),
-   repeating-linear-gradient(180deg,transparent 0 41px,rgba(90,70,40,.075) 41px 42px),
-   radial-gradient(circle at 12% 78%, rgba(120,95,55,.17) 0 2px, transparent 3px) 0 0/57px 63px,
-   radial-gradient(circle at 74% 26%, rgba(120,95,55,.14) 0 2px, transparent 3px) 0 0/83px 71px}
-svg.defs{position:absolute;width:0;height:0}
-
-/* A SECOND ISSUE UNDER THE FIRST. Depth is what makes this read as a pile of real things
-   rather than a graphic, and the product is issue AFTER issue. */
-.under{position:absolute;left:82px;top:70px;width:886px;height:508px;background:#EFE4CC;
-  transform:rotate(3.2deg);box-shadow:14px 16px 0 rgba(58,44,22,.22)}
-.under::before{content:"";position:absolute;inset:-9px;background:#EFE4CC;filter:url(#torn);z-index:-1}
-
-.plate{position:absolute;left:64px;top:40px;width:912px;height:558px;background:var(--oats);
-  transform:rotate(-1.6deg);box-shadow:18px 20px 0 rgba(58,44,22,.32);
-  display:grid;grid-template-columns:1.16fr 1fr}
-.plate::before{content:"";position:absolute;inset:-11px;background:var(--oats);filter:url(#torn);z-index:-1}
-
-/* padding-bottom is the wordmark's exclusion zone, not a layout choice: DESIGN.md:136
-   requires one x-glyph (0.25 x rendered width) clear on all sides, which at a 173px mark
-   is 43px. It measured -4 below and -10 above before this - the mark hung off the plate
-   and sat on the tape. */
-.L{padding:40px 30px 56px 46px;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:2}
-.mast{font-family:"Sometype Mono",monospace;font-style:italic;font-weight:700;font-size:57px;
-  line-height:.95;letter-spacing:-.04em;color:var(--ink)}
-.mast b{color:var(--grass)}
-.rule{height:5px;background:var(--ink);margin:20px 0 18px;filter:url(#rough)}
-.line{font-family:"Sometype Mono",monospace;font-size:24px;color:var(--ink);line-height:1.4}
-/* the page marks these two words this way round, so the card does too: CHALLENGE is the
-   red Dymo slab, the deadline is the highlighter band. */
-.dymo{display:inline-block;background:var(--colorado);color:var(--oats);border:3px solid var(--ink);
-  border-radius:4px;padding:4px 12px 2px;font-family:"Sometype Mono",monospace;font-weight:700;
-  font-size:23px;letter-spacing:.09em;transform:rotate(-1.8deg);box-shadow:4px 4px 0 var(--ink)}
-.mark-hl{position:relative;display:inline-block;font-weight:700;padding:0 .18em;margin-top:14px}
-.mark-hl::before{content:"";position:absolute;left:-.1em;right:-.12em;top:.04em;bottom:-.06em;z-index:-1;
-  background:var(--happy);transform:rotate(-1.1deg) skewX(-4deg);filter:url(#rough);border-radius:2px}
-.mark{width:166px;margin-top:52px}
-.mark svg{display:block;width:100%;height:auto}
-
-.R{position:relative;overflow:hidden;border-left:5px solid var(--ink)}
-.R i{position:absolute;inset:0;background:url(assets/zines/cover-cafe.jpg) center 14%/cover}
-.R::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 60px rgba(58,44,22,.24)}
-
-.tape{position:absolute;z-index:6;border-left:1px solid rgba(65,77,87,.18);border-right:1px solid rgba(65,77,87,.18)}
-.t1{width:198px;height:48px;background:rgba(36,150,201,.48);left:14px;top:44px;transform:rotate(-31deg)}
-.t2{width:178px;height:46px;background:rgba(241,221,1,.66);right:158px;bottom:44px;transform:rotate(-16deg)}
-
+    radial-gradient(1100px 640px at 20% -10%, rgba(255,252,242,.55), transparent 62%),
+    repeating-linear-gradient(0deg,transparent 0 27px,rgba(80,66,44,.045) 27px 28px),
+    #C9BEA4}
+/* THE SHEET. Torn on every edge, tilted, with a hard offset shadow — the page's own
+   paper idiom. The tilt lives here so the wordmark never has to move. */
+.sheet{position:absolute;left:-26px;top:-30px;width:742px;height:690px;
+  background:var(--oats);transform:rotate(-1.15deg);
+  box-shadow:16px 18px 0 0 rgba(48,38,22,.30);filter:url(#torn)}
+.inner{position:absolute;left:74px;top:96px;width:566px}
+.eyebrow{font-family:"Birdie",cursive;font-size:30px;color:var(--coral-ink);
+  transform:rotate(-1deg);display:block;margin-bottom:16px}
+h1{font-family:"Pitch",Georgia,serif;font-weight:700;font-style:italic;
+  font-size:70px;line-height:1.03;letter-spacing:-.022em;color:var(--ink);
+  word-spacing:-.30em}   /* Pitch is MONOSPACED: without this the words set as isolated tokens */
+h1 .g{color:var(--grass-deep)}
+h1 .stop{color:var(--grass)}
+.mark{position:absolute;left:74px;bottom:66px;display:flex;align-items:center;gap:18px}
+.wordmark{font-family:"Pitch",Georgia,serif;font-weight:700;font-style:italic;
+  font-size:52px;color:var(--grass-deep);letter-spacing:-.03em}
+.rule{width:3px;height:34px;background:var(--ink);opacity:.28;border-radius:2px}
+.dom{font-family:"Pitch Sans",monospace;font-weight:600;font-size:26px;
+  letter-spacing:.10em;color:var(--ink);opacity:.72}
+/* THE RACK. Four real covers, fanned, each on its own angle and its own pin. */
+.rack{position:absolute;right:0;top:0;width:520px;height:630px;overflow:hidden}
+.zine{position:absolute;width:252px;aspect-ratio:4/5;background:var(--oats);
+  border:3px solid var(--ink);box-shadow:8px 10px 0 0 rgba(48,38,22,.34);overflow:hidden}
+.zine img{width:100%;height:100%;object-fit:cover;display:block}
+.z1{right:238px;top:44px;transform:rotate(-5.2deg)}
+.z2{right:6px;top:112px;transform:rotate(4.2deg);z-index:2}
+.z3{right:188px;top:292px;transform:rotate(2.4deg);z-index:3}
+.z4{display:none}
+.pin{position:absolute;top:-11px;left:50%;margin-left:-9px;width:19px;height:19px;
+  border-radius:50%;border:3px solid var(--ink);box-shadow:2px 3px 0 0 rgba(48,38,22,.4)}
+.p1{background:var(--colorado)} .p2{background:var(--schoolbus)}
+.p3{background:var(--lazuli-deep)} .p4{background:var(--grass)}
 </style></head><body>
-<svg class="defs"><filter id="torn"><feTurbulence type="fractalNoise" baseFrequency="0.02 0.03" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G"/></filter>
-<filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.04 0.09" numOctaves="2" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<svg width="0" height="0" style="position:absolute"><defs>
+  <filter id="torn"><feTurbulence type="fractalNoise" baseFrequency=".009" numOctaves="5" seed="9" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G"/></filter>
+</defs></svg>
 <div class="card">
-  <div class="under"></div>
-  <div class="plate">
-    <div class="L">
-      <div>
-        <p class="mast">Accountability buddies running their <b>own magazine</b>.</p>
-        <div class="rule"></div>
-        <p class="line">Each issue is a new <span class="dymo">CHALLENGE</span><br><span class="mark-hl">with a deadline</span>.</p>
-      </div>
-      <span class="mark"><svg viewBox="2453 1908 9790 2914" fill="#414D57" aria-hidden="true" focusable="false" style="display:block;width:100%;height:auto"><path d="M5478.999,2905.779c0,0 421.063,-37.36 425.9,108.343l-343.709,1707.337c-61.242,136.313 -436.173,134.324 -442.946,-22.416l360.754,-1793.265Z"/><path d="M5041.89,2951.676c63.511,-60.841 526.771,-49.633 526.771,-49.633l-102.739,405.414c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M3924.681,1958.721c63.511,-60.841 530.662,-50.446 530.662,-50.446l-106.63,406.227c0,0 -396.752,19.539 -449.056,-24.346c-70.672,-59.297 -57.436,-252.443 25.024,-331.436Z"/><path d="M5726.866,3417.607c0,0 256.489,-511.828 914.019,-511.828l-313.821,549.187c0,0 -52.304,-37.36 -119.551,-37.36c-40.411,0 -354.324,251.272 -556.659,579.075l76.013,-579.075Z"/><ellipse cx="6634.347" cy="3332.931" rx="430.57" ry="427.151"/><path d="M4268.545,3833.937c-54.051,587.803 -422.164,984.658 -1012.447,984.658c-466.996,0 -803.233,-354.917 -803.233,-919.048c0,-545.451 486.888,-993.767 1032.339,-993.767c668.793,0 813.229,603.128 783.342,928.157Zm-643.455,-498.703c-234.497,-17.38 -499.751,191.996 -499.751,524.336c0,438.408 306.192,521.14 448.316,514.446c142.124,-6.694 404.43,-206.606 404.43,-554.612c0,-284.788 -150.331,-469.149 -352.995,-484.17Z"/><path d="M4388.096,1908.276c0,0 411.204,-11.208 424.724,108.343c0,19.142 -451.623,2260.261 -451.623,2260.261c15.69,59.775 224.905,-302.557 315.685,-313.821c110.397,-13.699 320.176,120.344 320.176,210.008c-0,122.494 -381.069,648.499 -765.873,648.499c-140.399,0 -328.765,-47.802 -392.277,-174.825l549.187,-2738.465Z"/><path d="M8385.582,2902.043c497.354,57.086 817.745,422.164 739.722,818.177c-90.045,457.032 -844.694,445.003 -1082.497,417.708c-230.119,-26.413 -368.235,-100.848 -422.572,-20.593c0,0 -107.744,106.625 251.184,223.032c419.614,136.089 691.752,-83.334 866.656,-96.072c140.311,-10.219 217.565,170.071 168.209,286.302c-66.995,157.772 -494.323,338.135 -1028.793,276.789c-285.793,-32.803 -922.08,-269.802 -773.345,-1004.975c130.759,-646.322 784.083,-957.454 1281.437,-900.368Zm-212.016,404.392c-264.608,50.886 -442.712,200.115 -438.042,342.082c4.67,141.967 311.61,175.439 541.715,149.439c165.317,-18.68 362.389,-47.848 366.125,-257.062c3.213,-179.919 -275.528,-271.818 -469.798,-234.459Z"/><path d="M9206.516,4052.426c-70.533,107.48 -90.728,764.251 662.245,766.169c771.79,1.966 1183.203,-1911.019 149.439,-1912.816c-257.116,-0.447 -637.291,99.928 -646.668,437.503c-3.838,138.152 129.653,198.923 237.929,188.041c127.279,-12.792 188.555,-176.528 452.832,-176.528c264.278,0 131.209,448.7 79.402,619.471c-101.286,333.868 -336.519,428.184 -390.245,405.158c-60.791,-26.053 81.561,-246.308 11.513,-333.868c-61.401,-76.751 -475.858,-115.932 -556.447,6.87Z"/><path d="M11593.807,3675.684c70.533,-107.48 91.02,-767.987 -661.952,-769.905c-771.79,-1.966 -1183.496,1911.019 -149.731,1912.816c257.116,0.447 637.291,-96.192 646.668,-433.767c3.838,-138.152 -129.653,-198.923 -237.929,-188.041c-127.279,12.792 -188.555,176.528 -452.832,176.528c-264.278,0 -131.209,-448.7 -79.402,-619.471c101.286,-333.868 336.519,-428.184 390.245,-405.158c60.791,26.053 -81.561,246.308 -11.513,333.868c61.401,76.751 475.858,115.932 556.447,-6.87Z"/><path d="M11830.971,4385.014c61.784,-59.74 306.841,-59.74 367.586,0c60.745,59.74 58.668,298.701 -3.115,358.441c-61.784,59.74 -306.841,59.74 -367.586,0c-60.745,-59.74 -58.668,-298.701 3.115,-358.441Z"/></svg></span>
-    </div>
-    <div class="R"><i></i></div>
+  <div class="sheet"></div>
+  <div class="rack">
+    <div class="zine z1"><span class="pin p1"></span><img src="assets/zines/hero/covers/silkroad.jpg" alt=""></div>
+    <div class="zine z2"><span class="pin p2"></span><img src="assets/zines/hero/covers/office.jpg" alt=""></div>
+    <div class="zine z3"><span class="pin p3"></span><img src="assets/zines/hero/covers/interactive.jpg" alt=""></div>
   </div>
-  <span class="tape t1"></span>
-  <span class="tape t2"></span>
-</div></body></html>
+  <div class="inner">
+    <span class="eyebrow">a club, an issue, a deadline</span>
+    <h1>Make a <span class="g">magazine</span> with your people, on a deadline<span class="stop">.</span></h1>
+  </div>
+  <div class="mark">
+    <span class="wordmark">drex.</span>
+    <span class="rule"></span>
+    <span class="dom">DREX.STYLE</span>
+  </div>
+</div>
+</body></html>
