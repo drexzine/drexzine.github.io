@@ -589,7 +589,209 @@
         </div>
 
         <!-- the card lives in a clipped pocket; sealed it is pushed down out of sight -->
-        <div class="card-clip">
+        <!-- fold-v2 (2026-09-02) IS A SCOPE, NOT A STYLE. app-post-beta.css is shared with
+             seven archived index-*.html, and EVERY ONE of them also says class="hero ed"
+             (checked: grep -c 'hero ed' index-*.html = 1 each), so .hero.ed is NOT a scope.
+             Measured what happened without this class: index-aug-11.html at 1440 went from
+             hero 858 / card 122,79 839x733 to hero 829 / card 442,-83 556x886 - the archived
+             card flew 162px above its own hero, because the new rules turned its .card-clip
+             into a column and handed its .hero-card a -126px lap for a plate it does not
+             have. Every rule of the new fold hangs off this class or off
+             .hero.ed:has(.card-clip.fold-v2); the archived pages match neither. -->
+        <div class="card-clip fold-v2">
+        <!-- ============ THE PLATE MOVED OUT OF THE CARD (2026-09-02, "space budget" fold)
+             It was column 2 of .ed-inner, i.e. a CHILD of the looseleaf sheet, so the sheet
+             could never lap it: a box cannot overlap its own child. Founder: "the zine is at
+             the top (scrolling video) and then the card ... is at the bottom third of the
+             video." That composition needs plate and card to be SIBLINGS in .card-clip, in
+             this order, with the card pulled up by a negative margin (--fold-lap).
+             The CTA did NOT travel with it: a.ed-cta (the dashed coupon) lives in .ed-head;
+             the .zc-tag green coupon inside .zc-plate has been display:none since the coupon
+             replaced it, and stays that way. Verified with getComputedStyle, not by reading.
+             DO NOT count </div>s to find this block again - several comments in this file
+             contain the literal text "</div>" in prose. Anchor on id="zineCarousel". -->
+        <div class="zc" id="zineCarousel">
+          <div class="zc-plate">
+            <!-- THE STACK. Two sheets behind the live one, offset and rotated, with
+                 torn edges — the pile of back issues this club has already made. It
+                 is the same object the polaroid deck was, which is the point: the
+                 page already taught this reader that a leaning stack of paper means
+                 "there are more of these", so the plate borrows the vocabulary
+                 instead of inventing a second one. Purely decorative, aria-hidden. -->
+            <span class="zc-sheet zc-sheet-4" aria-hidden="true"></span>
+            <span class="zc-sheet zc-sheet-3" aria-hidden="true"></span>
+            <span class="zc-sheet zc-sheet-2" aria-hidden="true"></span>
+            <span class="tape b zc-tape" aria-hidden="true"></span>
+            <div class="zc-frame" id="zcFrame">
+            <!-- ~~LAYERS 0 AND 1 - zinemachine.mp4 AND cafe.mp4~~ MOVED OUT 2026-09-02.
+                 Founder: "perhaps the video carousel actually isn't advantageous as examples
+                 of magazines with their challenge ... we can move those videos somewhere else
+                 on the page more advantageous." They are the second and third cards of the
+                 #tools band now, whose captions are what the footage actually shows.
+                 THIS CAROUSEL'S OWN NOTE ALREADY MADE THE CASE - see "NO DUE STAMP HERE"
+                 below, which refuses a due stamp because "this carousel shows PUBLISHED
+                 issues". Those two layers were NOT published issues; they were footage of
+                 people MAKING one, and they were layers 0 and 1, so process was the first
+                 thing at the fold in a rack of finished magazines.
+                 AND THEY WERE THE WEIGHT: 2.65MB + 629KB = 3.28MB, against 2.55MB for ALL
+                 EIGHT page-strips together, paid at the fold.
+                 THE COST, STATED PLAINLY: the carousel drops from ten issues to eight, and
+                 the two that leave are Zine Machine's "make a paper zine" and Drexzine's
+                 "make a doodle at the cafe" - there is no page-strip JPEG for either, only
+                 the clip. Both clubs are still on the page (Zine Machine in #tools and
+                 #proof; Drexzine keeps two other rows here).
+                 D[] IN app-post-beta.js LOST THE MATCHING TWO ROWS IN THE SAME EDIT. The
+                 array is indexed BY LAYER. Add or remove a layer without its row and every
+                 issue after the gap wears another issue's challenge, club and link. -->
+            <div class="zl is-on">
+              <img src="assets/zines/hero/silkroad.jpg" width="620" height="10628"
+                   loading="eager" decoding="async" alt="Silk Road 001, by XChange Models &mdash; pages of the real issue.">
+            </div>
+
+            <div class="zl" aria-hidden="true">
+              <img src="assets/zines/hero/phloor.jpg" width="620" height="5048"
+                   loading="lazy" decoding="async" alt="[ 3AM, 2001 ], by Photo Phloor &mdash; pages of the real issue.">
+            </div>
+            <div class="zl" aria-hidden="true">
+              <img src="assets/zines/hero/office.jpg" width="620" height="10628"
+                   loading="lazy" decoding="async" alt="Office Attitude &mdash; pages of the real issue.">
+            </div>
+            <div class="zl" aria-hidden="true">
+              <img src="assets/zines/hero/formal.jpg" width="620" height="2806"
+                   loading="lazy" decoding="async" alt="Formal Practice, by Penmanship &mdash; pages of the real issue.">
+            </div>
+            <div class="zl" aria-hidden="true">
+              <img src="assets/zines/hero/beans.jpg" width="620" height="5314"
+                   loading="lazy" decoding="async" alt="Our Favorite Drinks, by Beans &mdash; pages of the real issue.">
+            </div>
+            <div class="zl" aria-hidden="true">
+              <img src="assets/zines/hero/dissonance.jpg" width="620" height="5314"
+                   loading="lazy" decoding="async" alt="Dissonance production, by The Web Dissonance &mdash; pages of the real issue.">
+            </div>
+            <div class="zl" aria-hidden="true">
+              <img src="assets/zines/hero/dropcaps.jpg" width="620" height="3224"
+                   loading="lazy" decoding="async" alt="Dropcaps, by Penmanship &mdash; pages of the real issue.">
+            </div>
+            
+            <div class="zl" aria-hidden="true">
+              <img src="assets/zines/hero/interactive.jpg" width="620" height="1719"
+                   loading="lazy" decoding="async" alt="Interactive Zine &mdash; pages of the real issue.">
+            </div>
+
+              <!-- Printed ON the cover: the challenge, and the count under it. The
+                   challenge is the mechanism the whole page exists to explain, so it
+                   belongs on the picture, not only in the caption below it. Dymo spec is
+                   the house one at app-post-beta.css:4245 — coral (never --colorado:
+                   #FFF8EC on #C9343A is 5.20:1, on #F75458 only 3.30:1), stretched-plastic
+                   letters, ONE tinted shadow not a bevel, hard 2px zero-blur offset, and
+                   #roughsm on the ::before that carries the background — never on the
+                   element holding the text, or the displacement chews the letterforms. -->
+              <!-- 2026-08-24 — the served strings here and in the zc-note below now belong to
+                   LAYER 0 (the Zine Machine video, .zl.is-on in this same markup). They were
+                   D[2]'s (XChange) — so a no-JS visitor, a crawler, and the first JS-less
+                   paint all showed "come as your heritage" over a poster reading "MAKE A
+                   PAPER ZINE". show(0) at boot overwrites these anyway (app-post-beta.js);
+                   the served copy just has to agree with the served picture. -->
+              <!-- THE PLATE IS THE DOOR (2026-09-02, founder: "you can click and it'll
+                   link."). An overlay anchor, not a wrapper: .zc-frame holds the prev/next
+                   buttons and an anchor cannot contain them. Its href is rewritten per issue
+                   by show(), the same string #ctaIssue gets. z-index 3 - over every layer,
+                   under the tape and the arrows. -->
+              <a class="zc-open" id="zcOpen" href="https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener" aria-label="Open this issue in the drex reader"></a>
+              <span class="zc-craft" id="zcCraft">modeling &middot; XChange Models</span>
+              <span class="zc-chal" id="zcChal">come as your heritage</span>
+              <!-- NO DUE STAMP HERE. One was added 2026-08-31 to put the deadline on the fold as an
+                   object rather than a word, and it was wrong: this carousel shows PUBLISHED
+                   issues. A "due" tab on a finished issue says the deadline is still coming
+                   for a thing that already shipped. The deadline belongs on a CHALLENGE, and
+                   the spine four sections down already stamps one. -->
+
+              <!-- Drawn marks, not chrome. Two strokes a hair out of register, the way a
+                   two-colour print misses — that is what makes them legible on any
+                   photograph with no plate behind them. The button is invisible and
+                   44px+, running the frame's height above the plank. -->
+              <!-- ~~zc-prev / zc-next~~ DELETED 2026-09-02: the rack below the
+                   plate is the navigation now, and it shows where you are. -->
+
+            </div>
+
+
+
+            <!-- THE POST-IT (2026-08-17). It replaces the plank of two buttons that used
+                 to be bolted across the foot of the cover, and the caption that sat under
+                 the plate. Three things were wrong with the plank:
+                   - JOIN THIS CLUB was a second green call to action six inches from the
+                     real one, and on a phone the reader met it FIRST. The plate's job is
+                     proof; the card already has a primary action.
+                   - both labels were laid on the artwork, so the picture had a chrome bar
+                     across it — the one thing that stops a screenshot reading as a zine.
+                   - below 380px the frame shrinks to ~132px and the two labels clipped
+                     mid-word ("D THIS ISSUE" / "IN THIS CL"). A note that hangs off the
+                     plate is not bound by the frame's width, so that failure cannot recur.
+                 It is the same object as .reveal-name and .zc-note: happy
+                 yellow, ink border, hard offset shadow, hand-cut edge, a peeled corner,
+                 and a slight rotation against the plate's own. It is deliberately NOT
+                 fully contained — it laps over the plate's bottom-left corner and hangs
+                 outside it, the way a note actually gets stuck to something.
+                 The club is now a LINK INSIDE THE SENTENCE rather than a button: same
+                 destination, and it reads as an attribution ("in SF Penmans"), which is
+                 what it always was. Both hrefs and both strings are still written per
+                 issue by the carousel (#ctaIssue, #zcCap, #ctaClub). -->
+            <!-- ~~THE POST-IT~~ DELETED 2026-09-02 with the arrows, when the rack became the
+                 navigation. It carried three things and the page kept all three: "scroll the
+                 issue" is now the whole plate (.zc-open, wired 2026-09-02), the caption was
+                 one more line of the same claim the tape already makes, and the club's name
+                 moved into the chip under the tape - see #zcCraft, which now reads
+                 "craft · club". #ctaIssue/#zcCap/#ctaClub are gone from the document and
+                 every write to them in app-post-beta.js is null-guarded, so nothing throws;
+                 the archived index-*.html keep their own copies. -->
+
+            <!-- THE DOOR, TACKED TO THE MAGAZINE (2026-08-17). This is the page's only
+                 call to action between the fold and the footer, and it is now a paper
+                 object on the object it is selling rather than a green slab under the
+                 copy. Same family as the post-it opposite it — hand-cut edge, hard
+                 registration shadow, tilted — but FILLED GREEN, not yellow: two yellow
+                 papers on one plate read as twins, and green is what this page has always
+                 meant by "the way in".
+                 NOT bottom-right, which is where the three page leaves fan out (they run
+                 15px right and 19px below the plate) and that stack is the only thing
+                 saying "there are more of these". It hangs off the right edge above the
+                 fan instead, and on a phone it moves to the TOP of the plate — at the
+                 foot of a 473px-tall cover it would land exactly where the button it
+                 replaces used to sit, which is under the fold.
+                 The small line is doing the work the retired rotator did: it is the only
+                 place left that says you can START one, and that it can be anything. It
+                 is static — the rotator was caught mid-word 23% of the time. -->
+            <div class="zc-tag">
+              <!-- A GLITTER MARK, DRAWN TWICE. Two four-point stars in the same place, one
+                   hidden at a time on a step animation — the two-frame trick the rest of the
+                   page's boil uses, applied to a doodle instead of an edge. It is the only
+                   thing in the fold that moves once the cut is over, which is the point:
+                   motion is reserved for the call to action (see the note at :7040). -->
+              <span class="zc-tag-spark" aria-hidden="true">
+                <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                  <g class="sp-a"><path d="M13 2.6c.9 5.4 4.1 8.5 9.6 9.4-5.5.9-8.7 4-9.6 9.4-.9-5.4-4.1-8.5-9.6-9.4 5.5-.9 8.7-4 9.6-9.4Z"/><path d="M21.4 18.4c.4 2.2 1.6 3.4 3.8 3.8-2.2.4-3.4 1.6-3.8 3.8-.4-2.2-1.6-3.4-3.8-3.8 2.2-.4 3.4-1.6 3.8-3.8Z"/></g>
+                  <g class="sp-b"><path d="M13.4 3.4c.7 5.6 3.8 8.8 9.2 9.8-5.4 1.1-8.4 4.3-9.2 9.6-1.1-5.3-4.3-8.4-9.8-9.2 5.4-1.1 8.6-4.4 9.8-10.2Z"/><path d="M4.6 17.6c.3 2.3 1.5 3.6 3.7 4.1-2.2.3-3.4 1.5-3.9 3.7-.3-2.2-1.4-3.4-3.6-3.9 2.2-.4 3.4-1.6 3.8-3.9Z"/></g>
+                </svg>
+              </span>
+              <a class="zc-tag-cta" href="https://letters.drex.style/join-online/">
+                <span class="zc-tag-note">start a club for your thing</span>
+                <span class="zc-tag-line">Join the waitlist<svg class="zc-tag-arr" viewBox="0 0 34 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 7.6c8.4-1.5 17.6-2 30-1.2"/><path d="M25.6 1.9c2.4 1.9 4.2 3.4 5.9 4.5-2 1.2-3.9 2.6-5.6 4.6"/></svg></span>
+              </a>
+              <!-- THE TERMS COME WITH THE DOOR. They were the coupon's own fine print and
+                   they belong wherever the door is: price and access are the first two
+                   things a wary reader looks for, and they are useless a column away from
+                   the thing they qualify. Keeping them in the card was ALSO what killed
+                   the layering — the copy column ended within 5px of the plate's foot, so
+                   the paper had nothing to stop above. Out of the card, the note ends
+                   under the sub and the magazine lies across its bottom edge, which was
+                   the whole point.
+                   A <div>, not an <a>: "Already invited?" is a second destination, and a
+                   link inside a link is not a thing. The action is its own anchor. -->
+              <p class="zc-tag-fine">It&rsquo;s free &mdash; no way to pay us yet. Invite-only while we&rsquo;re small. <a href="invited/">Already&nbsp;invited?</a></p>
+            </div>
+          </div>
+        </div>
           <div class="paper hero-card ed-sheet">
             <span class="sheet ruled"></span>
             <!-- the punched edge: this is a page torn out of a notebook, which is exactly what a
@@ -1063,188 +1265,6 @@
                    Legibility over ten different photographs is structural, not opacity: an
                    opaque ink plank, opaque colour blocks on top. If a torn edge wanders, what
                    shows through is the plank, never the zine. ============ -->
-              <div class="zc" id="zineCarousel">
-                <div class="zc-plate">
-                  <!-- THE STACK. Two sheets behind the live one, offset and rotated, with
-                       torn edges — the pile of back issues this club has already made. It
-                       is the same object the polaroid deck was, which is the point: the
-                       page already taught this reader that a leaning stack of paper means
-                       "there are more of these", so the plate borrows the vocabulary
-                       instead of inventing a second one. Purely decorative, aria-hidden. -->
-                  <span class="zc-sheet zc-sheet-4" aria-hidden="true"></span>
-                  <span class="zc-sheet zc-sheet-3" aria-hidden="true"></span>
-                  <span class="zc-sheet zc-sheet-2" aria-hidden="true"></span>
-                  <span class="tape b zc-tape" aria-hidden="true"></span>
-                  <div class="zc-frame" id="zcFrame">
-                  <!-- ~~LAYERS 0 AND 1 - zinemachine.mp4 AND cafe.mp4~~ MOVED OUT 2026-09-02.
-                       Founder: "perhaps the video carousel actually isn't advantageous as examples
-                       of magazines with their challenge ... we can move those videos somewhere else
-                       on the page more advantageous." They are the second and third cards of the
-                       #tools band now, whose captions are what the footage actually shows.
-                       THIS CAROUSEL'S OWN NOTE ALREADY MADE THE CASE - see "NO DUE STAMP HERE"
-                       below, which refuses a due stamp because "this carousel shows PUBLISHED
-                       issues". Those two layers were NOT published issues; they were footage of
-                       people MAKING one, and they were layers 0 and 1, so process was the first
-                       thing at the fold in a rack of finished magazines.
-                       AND THEY WERE THE WEIGHT: 2.65MB + 629KB = 3.28MB, against 2.55MB for ALL
-                       EIGHT page-strips together, paid at the fold.
-                       THE COST, STATED PLAINLY: the carousel drops from ten issues to eight, and
-                       the two that leave are Zine Machine's "make a paper zine" and Drexzine's
-                       "make a doodle at the cafe" - there is no page-strip JPEG for either, only
-                       the clip. Both clubs are still on the page (Zine Machine in #tools and
-                       #proof; Drexzine keeps two other rows here).
-                       D[] IN app-post-beta.js LOST THE MATCHING TWO ROWS IN THE SAME EDIT. The
-                       array is indexed BY LAYER. Add or remove a layer without its row and every
-                       issue after the gap wears another issue's challenge, club and link. -->
-                  <div class="zl is-on">
-                    <img src="assets/zines/hero/silkroad.jpg" width="620" height="10628"
-                         loading="eager" decoding="async" alt="Silk Road 001, by XChange Models &mdash; pages of the real issue.">
-                  </div>
-
-                  <div class="zl" aria-hidden="true">
-                    <img src="assets/zines/hero/phloor.jpg" width="620" height="5048"
-                         loading="lazy" decoding="async" alt="[ 3AM, 2001 ], by Photo Phloor &mdash; pages of the real issue.">
-                  </div>
-                  <div class="zl" aria-hidden="true">
-                    <img src="assets/zines/hero/office.jpg" width="620" height="10628"
-                         loading="lazy" decoding="async" alt="Office Attitude &mdash; pages of the real issue.">
-                  </div>
-                  <div class="zl" aria-hidden="true">
-                    <img src="assets/zines/hero/formal.jpg" width="620" height="2806"
-                         loading="lazy" decoding="async" alt="Formal Practice, by Penmanship &mdash; pages of the real issue.">
-                  </div>
-                  <div class="zl" aria-hidden="true">
-                    <img src="assets/zines/hero/beans.jpg" width="620" height="5314"
-                         loading="lazy" decoding="async" alt="Our Favorite Drinks, by Beans &mdash; pages of the real issue.">
-                  </div>
-                  <div class="zl" aria-hidden="true">
-                    <img src="assets/zines/hero/dissonance.jpg" width="620" height="5314"
-                         loading="lazy" decoding="async" alt="Dissonance production, by The Web Dissonance &mdash; pages of the real issue.">
-                  </div>
-                  <div class="zl" aria-hidden="true">
-                    <img src="assets/zines/hero/dropcaps.jpg" width="620" height="3224"
-                         loading="lazy" decoding="async" alt="Dropcaps, by Penmanship &mdash; pages of the real issue.">
-                  </div>
-                  
-                  <div class="zl" aria-hidden="true">
-                    <img src="assets/zines/hero/interactive.jpg" width="620" height="1719"
-                         loading="lazy" decoding="async" alt="Interactive Zine &mdash; pages of the real issue.">
-                  </div>
-
-                    <!-- Printed ON the cover: the challenge, and the count under it. The
-                         challenge is the mechanism the whole page exists to explain, so it
-                         belongs on the picture, not only in the caption below it. Dymo spec is
-                         the house one at app-post-beta.css:4245 — coral (never --colorado:
-                         #FFF8EC on #C9343A is 5.20:1, on #F75458 only 3.30:1), stretched-plastic
-                         letters, ONE tinted shadow not a bevel, hard 2px zero-blur offset, and
-                         #roughsm on the ::before that carries the background — never on the
-                         element holding the text, or the displacement chews the letterforms. -->
-                    <!-- 2026-08-24 — the served strings here and in the zc-note below now belong to
-                         LAYER 0 (the Zine Machine video, .zl.is-on in this same markup). They were
-                         D[2]'s (XChange) — so a no-JS visitor, a crawler, and the first JS-less
-                         paint all showed "come as your heritage" over a poster reading "MAKE A
-                         PAPER ZINE". show(0) at boot overwrites these anyway (app-post-beta.js);
-                         the served copy just has to agree with the served picture. -->
-                    <!-- THE PLATE IS THE DOOR (2026-09-02, founder: "you can click and it'll
-                         link."). An overlay anchor, not a wrapper: .zc-frame holds the prev/next
-                         buttons and an anchor cannot contain them. Its href is rewritten per issue
-                         by show(), the same string #ctaIssue gets. z-index 3 - over every layer,
-                         under the tape and the arrows. -->
-                    <a class="zc-open" id="zcOpen" href="https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener" aria-label="Open this issue in the drex reader"></a>
-                    <span class="zc-craft" id="zcCraft">modeling &middot; XChange Models</span>
-                    <span class="zc-chal" id="zcChal">come as your heritage</span>
-                    <!-- NO DUE STAMP HERE. One was added 2026-08-31 to put the deadline on the fold as an
-                         object rather than a word, and it was wrong: this carousel shows PUBLISHED
-                         issues. A "due" tab on a finished issue says the deadline is still coming
-                         for a thing that already shipped. The deadline belongs on a CHALLENGE, and
-                         the spine four sections down already stamps one. -->
-
-                    <!-- Drawn marks, not chrome. Two strokes a hair out of register, the way a
-                         two-colour print misses — that is what makes them legible on any
-                         photograph with no plate behind them. The button is invisible and
-                         44px+, running the frame's height above the plank. -->
-                    <!-- ~~zc-prev / zc-next~~ DELETED 2026-09-02: the rack below the
-                         plate is the navigation now, and it shows where you are. -->
-
-                  </div>
-
-
-
-                  <!-- THE POST-IT (2026-08-17). It replaces the plank of two buttons that used
-                       to be bolted across the foot of the cover, and the caption that sat under
-                       the plate. Three things were wrong with the plank:
-                         - JOIN THIS CLUB was a second green call to action six inches from the
-                           real one, and on a phone the reader met it FIRST. The plate's job is
-                           proof; the card already has a primary action.
-                         - both labels were laid on the artwork, so the picture had a chrome bar
-                           across it — the one thing that stops a screenshot reading as a zine.
-                         - below 380px the frame shrinks to ~132px and the two labels clipped
-                           mid-word ("D THIS ISSUE" / "IN THIS CL"). A note that hangs off the
-                           plate is not bound by the frame's width, so that failure cannot recur.
-                       It is the same object as .reveal-name and .zc-note: happy
-                       yellow, ink border, hard offset shadow, hand-cut edge, a peeled corner,
-                       and a slight rotation against the plate's own. It is deliberately NOT
-                       fully contained — it laps over the plate's bottom-left corner and hangs
-                       outside it, the way a note actually gets stuck to something.
-                       The club is now a LINK INSIDE THE SENTENCE rather than a button: same
-                       destination, and it reads as an attribution ("in SF Penmans"), which is
-                       what it always was. Both hrefs and both strings are still written per
-                       issue by the carousel (#ctaIssue, #zcCap, #ctaClub). -->
-                  <!-- ~~THE POST-IT~~ DELETED 2026-09-02 with the arrows, when the rack became the
-                       navigation. It carried three things and the page kept all three: "scroll the
-                       issue" is now the whole plate (.zc-open, wired 2026-09-02), the caption was
-                       one more line of the same claim the tape already makes, and the club's name
-                       moved into the chip under the tape - see #zcCraft, which now reads
-                       "craft · club". #ctaIssue/#zcCap/#ctaClub are gone from the document and
-                       every write to them in app-post-beta.js is null-guarded, so nothing throws;
-                       the archived index-*.html keep their own copies. -->
-
-                  <!-- THE DOOR, TACKED TO THE MAGAZINE (2026-08-17). This is the page's only
-                       call to action between the fold and the footer, and it is now a paper
-                       object on the object it is selling rather than a green slab under the
-                       copy. Same family as the post-it opposite it — hand-cut edge, hard
-                       registration shadow, tilted — but FILLED GREEN, not yellow: two yellow
-                       papers on one plate read as twins, and green is what this page has always
-                       meant by "the way in".
-                       NOT bottom-right, which is where the three page leaves fan out (they run
-                       15px right and 19px below the plate) and that stack is the only thing
-                       saying "there are more of these". It hangs off the right edge above the
-                       fan instead, and on a phone it moves to the TOP of the plate — at the
-                       foot of a 473px-tall cover it would land exactly where the button it
-                       replaces used to sit, which is under the fold.
-                       The small line is doing the work the retired rotator did: it is the only
-                       place left that says you can START one, and that it can be anything. It
-                       is static — the rotator was caught mid-word 23% of the time. -->
-                  <div class="zc-tag">
-                    <!-- A GLITTER MARK, DRAWN TWICE. Two four-point stars in the same place, one
-                         hidden at a time on a step animation — the two-frame trick the rest of the
-                         page's boil uses, applied to a doodle instead of an edge. It is the only
-                         thing in the fold that moves once the cut is over, which is the point:
-                         motion is reserved for the call to action (see the note at :7040). -->
-                    <span class="zc-tag-spark" aria-hidden="true">
-                      <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-                        <g class="sp-a"><path d="M13 2.6c.9 5.4 4.1 8.5 9.6 9.4-5.5.9-8.7 4-9.6 9.4-.9-5.4-4.1-8.5-9.6-9.4 5.5-.9 8.7-4 9.6-9.4Z"/><path d="M21.4 18.4c.4 2.2 1.6 3.4 3.8 3.8-2.2.4-3.4 1.6-3.8 3.8-.4-2.2-1.6-3.4-3.8-3.8 2.2-.4 3.4-1.6 3.8-3.8Z"/></g>
-                        <g class="sp-b"><path d="M13.4 3.4c.7 5.6 3.8 8.8 9.2 9.8-5.4 1.1-8.4 4.3-9.2 9.6-1.1-5.3-4.3-8.4-9.8-9.2 5.4-1.1 8.6-4.4 9.8-10.2Z"/><path d="M4.6 17.6c.3 2.3 1.5 3.6 3.7 4.1-2.2.3-3.4 1.5-3.9 3.7-.3-2.2-1.4-3.4-3.6-3.9 2.2-.4 3.4-1.6 3.8-3.9Z"/></g>
-                      </svg>
-                    </span>
-                    <a class="zc-tag-cta" href="https://letters.drex.style/join-online/">
-                      <span class="zc-tag-note">start a club for your thing</span>
-                      <span class="zc-tag-line">Join the waitlist<svg class="zc-tag-arr" viewBox="0 0 34 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 7.6c8.4-1.5 17.6-2 30-1.2"/><path d="M25.6 1.9c2.4 1.9 4.2 3.4 5.9 4.5-2 1.2-3.9 2.6-5.6 4.6"/></svg></span>
-                    </a>
-                    <!-- THE TERMS COME WITH THE DOOR. They were the coupon's own fine print and
-                         they belong wherever the door is: price and access are the first two
-                         things a wary reader looks for, and they are useless a column away from
-                         the thing they qualify. Keeping them in the card was ALSO what killed
-                         the layering — the copy column ended within 5px of the plate's foot, so
-                         the paper had nothing to stop above. Out of the card, the note ends
-                         under the sub and the magazine lies across its bottom edge, which was
-                         the whole point.
-                         A <div>, not an <a>: "Already invited?" is a second destination, and a
-                         link inside a link is not a thing. The action is its own anchor. -->
-                    <p class="zc-tag-fine">It&rsquo;s free &mdash; no way to pay us yet. Invite-only while we&rsquo;re small. <a href="invited/">Already&nbsp;invited?</a></p>
-                  </div>
-                </div>
-              </div>
 
             </div>
           </div>

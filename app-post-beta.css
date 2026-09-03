@@ -10460,3 +10460,356 @@ html[data-tier="lite"] .pw-sticker::before{filter:none}
    .hero-card h1.ed-cat - so it needed declaring here too. Without it "Show-and-tell." broke
    across the hyphen ("Show-and- / tell.") which is the one break this line cannot take. */
 .lands-h .nb{white-space:nowrap}
+
+/* ============================================================================
+   THE FOLD AS A SPACE BUDGET (2026-09-02)
+   Founder: "the above-the-fold makes great use of space ... the zine is at the
+   top (scrolling video) and then the card (with the headline and cta and such)
+   is at the bottom third of the video. also put the zines (selectors) in nice
+   places."
+
+   THE ARITHMETIC THAT DECIDED EVERY NUMBER BELOW. The fold is one column and it
+   has to close inside the viewport with no scroll:
+       1440x900 : 900 - 48 (hero pad-top) - 32 (pad-bottom)  = 820px to spend
+        390x844 : 844 - 38 (hero pad-top) - 24 (pad-bottom)  = 782px to spend
+   Spend = frame + card - lap + rack-gap + rack, where lap = frame/3 (the card
+   sits over the video's BOTTOM THIRD, which is the ask, stated as a fraction so
+   it survives every frame height).
+   AS SHIPPED, MEASURED (offsetHeight, settled, not mid-reveal):
+       1440 : 378 + 388 - 126 + 13 + 130 = 783 spent of 820   -> #hero is 860 of 900vh
+        768 : 342 + 360 - 114 + 13 + 117 = 718 spent of 827   -> #hero is 841 of 900vh
+        390 : 388 + 351 - 129 + 11 +  68 = 689 spent of 782   -> #hero is 790 of 844vh
+   Every width has 26-90px of slack and none of them scrolls.
+   ~~SUPERSEDED by ROUND TWO at the foot of this file~~, which spends part of that
+   slack on a 34px headline, a 22px wordmark clearance and the phone shelf's craft
+   words, and takes it back off --fold-frame. Re-measured after those, same method:
+       1440 -> hero 870 / 900   1024 -> 825 / 900   768 -> 841 / 900
+        390 -> hero 815 / 844    360 -> 823 / 844
+   Still 21-75px of slack at every width, still no scroll at any of the five.
+   Nothing here is a taste number. If the fold overflows, shrink --fold-frame
+   first: it is the only term with slack that does not cost readability.
+
+   WHY THE CARD IS NOT ~642px TALL ANY MORE (:10325 recorded 642 as the healthy
+   value, and measured 510 in practice once .zc-rack joined .card-clip as a flex
+   ROW item and shrank the card). 642 + a 340 plate + a 118 rack is 987px of
+   content in 820px of fold - the two cannot both be true at 900px of viewport.
+   The card is now the copy alone (h1 + deck + sub + coupon); the plate it used
+   to contain moved out. The 642 guard was written against the card BALLOONING
+   (642 -> 912 put the drex ticket on the headline); the failure it guards
+   against is unchanged and still guarded - see rule 5, which CAPS the card's
+   width (clamp(440px,38vw,560px) at 1440) so the copy cannot reflow itself
+   taller than the budget. Measured on the shipped fold: 388px at 1440, 351 at
+   390. Report this gate as FAILED-BY-ARITHMETIC, not as passed.
+   ============================================================================ */
+
+/* --- 1. THE STACK. .card-clip inherited display:flex from the seal (:363),
+       written when it had exactly ONE child. .zc-rack later joined it as a
+       sibling and silently became a flex ROW item: measured 611x115 standing
+       BESIDE the card at 1440, and 57x251 - a vertical ribbon of eight covers -
+       at 390. Both screenshots in the brief. Column, and the sealed pocket's
+       bottom-alignment moves from align-items (cross axis in a row) to
+       justify-content (main axis in a column) or the card floats mid-pocket and
+       the rise starts from the wrong place.
+       (0,4,1) so it beats html.sealed .card-clip (0,2,1) without !important. --- */
+html .hero .envelope .card-clip.fold-v2{
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+  --fold-lap:0px;                 /* sealed pocket holds the card ALONE: no lap */
+}
+
+/* --- 2. THE SEAL IS UNTOUCHED. While sealed the pocket must contain exactly what
+       it contained before this change - one card, translateY(122%), nothing else -
+       or the "blank ruled paper" above the cut line stops being blank. Plate and
+       rack are display:none until .revealed (the settle), which is the same moment
+       html.sealed:not(.revealed) .card-clip drops its clip and its fixed height,
+       so they arrive with the pocket opening rather than through it. Precedent:
+       .hero-pile does exactly this at :3596. --- */
+html.sealed:not(.revealed) .card-clip.fold-v2 > .zc,
+html.sealed:not(.revealed) .card-clip.fold-v2 > .zc-rack{display:none}
+html.sealed.revealed .card-clip.fold-v2 > .zc,
+html.sealed.revealed .card-clip.fold-v2 > .zc-rack{animation:fold-settle-in .5s cubic-bezier(.22,.7,.25,1) both}
+@keyframes fold-settle-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  html.sealed.revealed .card-clip.fold-v2 > .zc,
+  html.sealed.revealed .card-clip.fold-v2 > .zc-rack{animation:none}
+}
+
+/* --- 3. THE LAP. A negative margin, not a transform: a transform would leave the
+       card's old box in flow and the fold would keep the 113px it is supposed to
+       reclaim. The lap only exists once the plate is actually rendered, so the
+       variable is 0 in the sealed pocket (rule 1) and real everywhere else. --- */
+html:not(.sealed) .hero .envelope .card-clip.fold-v2,
+html.sealed.revealed .hero .envelope .card-clip.fold-v2{--fold-lap:calc(var(--fold-frame) / 3)}
+.hero .envelope .card-clip.fold-v2 > .zc{position:relative; z-index:1; width:min(100%,var(--fold-plate-w))}
+.hero .envelope .card-clip.fold-v2 > .hero-card{position:relative; z-index:2; margin-top:calc(-1 * var(--fold-lap))}
+/* the plate's own ink slab hangs 12px past its left/right edge (:6626); at full
+   clip width that is 12px of horizontal overflow on a phone. Clip it at the hero. */
+.hero.ed:has(.card-clip.fold-v2){overflow-x:clip}
+
+/* --- 4. THE BUDGET'S TERMS, as custom properties so the arithmetic above is
+       editable in one place. --fold-frame is the scrolling video's height and is
+       the term with the slack. --- */
+.hero.ed:has(.card-clip.fold-v2){
+  --fold-frame:clamp(260px,46vh,400px);   /* 388px at 844: the fold closed at 751/844 on the
+                                             first render, i.e. 93px of the phone budget was
+                                             going unspent. The video is the term that wanted it. */
+  --fold-plate-w:100%;
+  --fold-rack-w:100%;
+}
+@media (min-width:900px){
+  /* 38rem, not 52rem. At 900px wide and 308 tall the plate letterboxed a PORTRAIT zine page into
+     a banner: the render showed one red field and no page. A zine page is a column, so the video
+     is a column - 608x378 shows a full text block and its picture at once. */
+  .hero.ed:has(.card-clip.fold-v2){--fold-frame:clamp(280px,42vh,400px); --fold-plate-w:38rem; --fold-rack-w:38rem}
+  /* the fold is tighter than the page: 4.2rem of hero padding is 67px of the 900
+     the fold has, spent on nothing. */
+  .hero.ed:has(.card-clip.fold-v2){padding-block:clamp(1.6rem,3.2vw,3rem) clamp(1rem,2vw,2rem)}
+}
+@media (min-width:1180px){
+  .hero.ed:has(.card-clip.fold-v2){--fold-plate-w:40rem; --fold-rack-w:40rem}
+}
+/* THE TABLET BAND (600-899) IS ITS OWN BUDGET. It inherits the phone's 46vh video AND the
+   phone's full-width card, and at 768x900 that closed the fold at 893 of 900 - a 7px margin,
+   i.e. one font-metric away from a scrollbar. 900 - 42 (pad-top) - 31 (pad-bottom) = 827px to
+   spend: 342 + 380 - 114 + 14 + 118 = 740 leaves 87px of real headroom. */
+@media (min-width:600px) and (max-width:899px){
+  .hero.ed:has(.card-clip.fold-v2){--fold-frame:clamp(260px,38vh,350px); --fold-plate-w:34rem; --fold-rack-w:34rem}
+  .hero .envelope .card-clip.fold-v2 .paper.hero-card{width:clamp(400px,64vw,520px)}
+}
+.hero .envelope .card-clip.fold-v2 > .zc .zc-frame{height:var(--fold-frame)}
+
+/* --- 5. THE CARD IS ONE COLUMN NOW. .ed-inner was a two-track grid whose second
+       track existed only to hold the plate (:6981); with the plate gone the track
+       is empty and the copy would keep sitting in 1fr of the card, ~44% of it.
+       (0,3,0) + later in source beats the @media rules that set the two tracks. --- */
+.hero .card-clip.fold-v2 .hero-card .ed-inner{grid-template-columns:minmax(0,1fr)}
+.hero .card-clip.fold-v2 .hero-card .ed-head{grid-column:1; grid-row:1}
+/* card width is the BALLOON GUARD. 547px wide / 388px tall at 1440; 355 / 351 at 390.
+   The cap is what stops the 642 -> 912 failure recurring: an uncapped sheet in a 1188px
+   clip re-wraps the h1 and the deck and takes the fold with it. */
+@media (min-width:900px){
+  .hero .envelope .card-clip.fold-v2 .paper.hero-card{width:clamp(440px,38vw,560px)}
+}
+/* THE SHOULDERS ARE THE LAP, AT DESKTOP ONLY. Card and plate at the same width read as two
+   stacked blocks, not as paper laid ON a picture: 547 under a 608 plate at 1440 leaves ~30px of
+   video either side of the sheet.
+   ~~336px at phone~~ REVERTED: 19px of shoulder is invisible at 390 and it cost the coupon its
+   line - "Join the waitlist ->" broke and the arrow dropped to a row of its own, which grew the
+   card by 30px. The phone lap is legible from the vertical overlap alone. */
+
+/* --- 6. THE RACK IS A SHELF UNDER THE VIDEO, not a column beside the card.
+       EIGHT-UP AT EVERY WIDTH. Four-up wrapped to two rows and cost 251px of a
+       782px phone budget - a third of the fold for navigation. One row of eight
+       at 390 gives each cover (355 - 7*5)/8 = 40px, 50px tall; the sources are
+       320x400, so a 40px thumbnail is a real picture, not a smear. --- */
+.hero .card-clip.fold-v2 > .zc-rack{
+  grid-template-columns:repeat(8,1fr);
+  width:min(var(--fold-rack-w),100%);
+  margin:clamp(.55rem,1.3vw,.95rem) auto 0;
+  gap:clamp(4px,.8vw,10px);
+}
+.hero .card-clip.fold-v2 > .zc-rack .zc-book{padding-block:.3rem}   /* 40x50 cover -> ~60px of tap height */
+/* THE CRAFT WORD GOES, BUT NOT THE INFORMATION. At 40px a cover fits ~5 characters
+   of the mono label before "night photography" becomes four wrapped rows and the
+   rack doubles in height. The selected issue's craft is already named in full on
+   the plate itself (#zcCraft, "craft . club"), which is 12px away and legible. */
+@media (max-width:559px){
+  .hero .card-clip.fold-v2 > .zc-rack .zc-book-craft{display:none}
+}
+
+/* --- 7. NO BARE TEXT ON A PHOTOGRAPH. The rack now sits on the fold's floor, and at 1440 that
+       floor is the collage: eight craft words in small mono at opacity .78 landed on dark
+       photographs and vanished (see the 1440 render - "NIGHT PHOTOGRAPHY" is unreadable over the
+       club shot). Same failure the page already solved for .zc-count and .zc-chal: give the word
+       its own torn scrap of paper. #roughsm is the document's existing filter, on the ::before
+       that carries the background and NEVER on the element holding the text.
+       Ink on oats, not a beat hue - eight domain words are not eight beats (:10358). Resting is
+       rgba(88,74,60,.92) (the .zc-cap ink, ~7.4:1 on the rendered paper), selected is full --ink,
+       so the rack still says where you are. --- */
+.hero .card-clip.fold-v2 > .zc-rack .zc-book-craft{
+  position:relative; isolation:isolate;
+  margin-top:.42em; padding:.16em .34em;
+  color:rgba(88,74,60,.92); opacity:1;
+  /* :10362 sets overflow-wrap:anywhere, which on a 72px cover cut PHOTOGRAPHY into
+     "PHOTOGRAPH / Y". Break at spaces only, and size the type so the longest single word
+     still fits the narrowest cover: 11 chars ("PHOTOGRAPHY") x 0.64em advance in a
+     72-11=61px chip needs <=8.7px at 1440 and <=7.3px at 768. clamp lands 8.0 / 7.04. */
+  overflow-wrap:normal; word-break:normal; hyphens:none;
+  font-size:clamp(.44rem,.58vw,.5rem); letter-spacing:.04em;
+}
+.hero .card-clip.fold-v2 > .zc-rack .zc-book-craft::before{
+  content:""; position:absolute; z-index:-1; inset:-1px -2px;
+  background:var(--oats); filter:url(#roughsm);
+}
+.hero .card-clip.fold-v2 > .zc-rack .zc-book.is-on .zc-book-craft{color:var(--ink)}
+
+/* ---- THE THREE SUBTITLES ARE SCRAPS NOW (2026-09-02) -------------------------------------
+   Founder: "fix up the labels like 'the work you've put up' so they have a similar torn paper
+   bg." They were the only labels left in #seewhat standing as bare text on the page — the
+   sticker above them (.pw-sticker), the source tape (.lands-src) and the plate's chips
+   (.zc-craft, .zc-count) all sit on something.
+   THE IDIOM IS .zc-craft's, NOT .pw-sticker's: an OATS scrap carrying INK, not a Lazuli tape
+   carrying oats. Two reasons. (1) Contrast: this line was moved to Bitter 400 / --ink (7.4:1)
+   on purpose, after a legibility complaint; oats-on-lazuli is 5.20:1 and would have quietly
+   walked that fix back, and the arrow could no longer stay --lazuli-deep on a lazuli fill.
+   (2) Rank: three more Lazuli tapes directly under three Lazuli stickers is the same label
+   twice at the same volume. A scrap under a tape reads label-then-caption, which is the order
+   these actually have.
+   IT IS NOT PAPER-ON-PAPER: the scrap lands on the ruled cream page BELOW the board, never on
+   the tan slab. The slab's own bottom edge is ~1rem above it and the hard offset shadow (solid,
+   never blurred) is what separates the scrap from the ground it shares a hue with.
+   WIDTH IS fit-content, NOT the column. .pw-name is a centred flex row; left at width:100% the
+   background would have been a full-column band, i.e. a rule, not a scrap. max-width:100% keeps
+   the long middle one from pushing the grid at 390, where it wraps to two lines inside the one
+   torn edge.
+   THE LEAN IS ITS OWN, and it COMPOUNDS with the card's: .pw-a already carries
+   rotate(var(--r)) over the whole anchor, label included, and rotates to 0 on hover. Each
+   angle here is chosen against its card's --r so the scrap sits nearly level under a tilted
+   board and the three read as three things dropped there, not one printed strip. */
+.lands-grid .pw-name{
+  position:relative; isolation:isolate;
+  width:fit-content; max-width:100%; margin-inline:auto;
+  /* CLEARANCE, MEASURED, NOT GUESSED. .pw-media::before is a torn slab at inset:-13px with a
+     hard offset shadow under it, so the old 1.05rem left the scrap's top edge sitting ON the
+     board's fringe - paper on paper, and the one thing this must not do. 1.9rem puts ~17px of
+     bare ruled ground between the slab's bottom edge and the scrap. The three gaps are equal;
+     the three scraps are NOT on one line, because .rd-media is 1/1 and the other two are 4/5,
+     so the library board is 74px shorter. Each label belongs to ITS board - bottom-aligning
+     the row would strand card one's caption in 74px of empty cream. */
+  margin-top:1.9rem;
+  /* HORIZONTAL PADDING IS SET BY THE FILTER, NOT BY TASTE: #torn3 displaces at scale 12, so
+     the tear can bite ~6px in from each edge. Under ~.9em the bite reaches the B of "browse"
+     and the arrow's tail. */
+  padding:.42em 1.05em .46em;
+  transform:rotate(1.2deg); transform-origin:center top;
+}
+.lands-grid .pw-name::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:var(--oats);border-radius:3px;filter:url(#torn3);
+  box-shadow:2px 3px 0 0 rgba(40,26,10,.34)}
+html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
+.lands-grid .pw-col.is-club .pw-name{transform:rotate(-1.1deg)}
+.lands-grid .pw-col.is-mine .pw-name{transform:rotate(.9deg)}
+
+/* ============================================================================
+   THE FOLD, ROUND TWO (2026-09-02) — the defects the review named in the
+   composition above, each fixed against a measurement.
+   ~~"Everything here is scoped .hero.ed. The archived index-*.html ... their hero
+   is a .hero WITHOUT .ed"~~ - FALSE, and the reason rule 5 exists. All seven
+   archived pages carry class="hero ed" too. The scope that actually separates the
+   two is the fold-v2 marker on the pocket; every rule in BOTH blocks now hangs off
+   .card-clip.fold-v2 or .hero.ed:has(.card-clip.fold-v2), and the archived pages
+   were re-measured against pristine to prove it.
+   ============================================================================ */
+
+/* --- 1. THE PLATE IS CAPPED AT ITS OWN SOURCE WIDTH. The eight page-strips are
+       620px wide (measured with PIL over assets/zines/hero: all eight report a width
+       of 620, at heights from 1719 to 10628. The glob for that directory is spelled out
+       in prose here on purpose - a slash-star inside a comment unbalances the
+       CSS-integrity gate). .zl img is width:100%, so any frame wider than 620 is pure
+       upscale - at the old --fold-plate-w:40rem the 1180+ frame rendered 645px of
+       image from 620px of pixels and the strip went soft, which is half of why the
+       1440 plate read as a wash.
+       38.75rem = 620px exactly. It is a MAX, not a width: min(100%,...) still
+       shrinks it on narrow screens.
+       Knock-on, checked in app-post-beta.js:2920 rather than assumed: --travel is
+       min(room, 165px/s * dwell) where room is strip-height minus frame-height, and
+       the pace is a fixed 165px/s. A narrower plate makes the strip shorter, so the
+       reel travels less and dwells for less time AT THE SAME SPEED. Nothing about
+       the frame height or width can make the pan too fast or leave it parked. --- */
+@media (min-width:1180px){
+  .hero.ed:has(.card-clip.fold-v2){--fold-plate-w:38.75rem; --fold-rack-w:38.75rem}
+}
+
+/* --- 2. THE HEADLINE CARRIES THE CARD AGAIN. It measured 26.3px at 1440 under a
+       620px plate and lost the fold to it. --fs-fold (:4326) is the one knob and
+       it is min(2.5rem, 4.81cqw) above 881 - CONTAINER units, so it is the CARD's
+       width that sets it, not the viewport. 4.81cqw of a 551px card = 26.5px.
+       6.2cqw = 34.2px, which is where "Your gifts are unique." stops being a
+       caption. Measured cost: the h1 box goes 50 -> 66px and the card 394 -> 412,
+       inside the 40px of slack the fold had at 1440.
+       DO NOT "fix" a small headline by narrowing the sheet - cqw means a narrower
+       card gives a SMALLER h1, which is the opposite of the instinct. --- */
+@media (min-width:900px){
+  .hero.ed .card-clip.fold-v2 .hero-card .ed-head{--fs-fold:min(2.5rem,6.2cqw)}
+}
+
+/* --- 3. THE PLATE CLEARS THE WORDMARK ON A PHONE. Measured at 390: a.brand
+       occupies 18,21 -> 171,91 and the plate's hard green frame started at 18,80.
+       An 11px x 153px sliver of the plate's green rail ran UNDER the green "drex."
+       ticket - two greens touching with no gap, which is the one thing a lockup
+       may not do.
+       Paid for out of the frame, not out of the fold: the plate drops 22px and the
+       frame gives back 17 (46vh -> 44vh at 844 is 388 -> 371), so the fold grows
+       ~5px, not 22. Clearance after: 102 - 91 = 11px of ruled ground. --- */
+@media (max-width:599px){
+  /* 41vh, not the 44vh this rule shipped with for one round: rule 6 below gives the
+     phone shelf its craft words back and that costs 30px, which took the fold to
+     831 of 844 - 13px of slack, one font-metric from a scrollbar. 41vh at 844 is
+     346px of plate (was 371) and puts the fold back at 806/844, 38px of slack.
+     The plate is the term with the slack; the words are not. */
+  .hero.ed:has(.card-clip.fold-v2){--fold-frame:clamp(238px,41vh,380px)}
+  .hero.ed .envelope .card-clip.fold-v2 > .zc{margin-top:22px}
+}
+
+/* --- 4. THE SHELF STANDS ON GROUND, NOT ON FACES. The rack is z-index 6 and the
+       collage photographs are z-index 2/3, so the eight covers were painting
+       directly onto photographs of people at the fold's floor - hard rectangles on
+       a face, and the reason the row read as pasted-on rather than shelved.
+       The house-legal fix is SUBTRACTION, not a plank: a paper slab under the rack
+       would be paper on paper, and the wall survives losing three of fifteen.
+       Culled by their OWN COORDINATES, not by :nth-of-type. Every .hp carries its
+       position in a style attribute, so [style*="--t:80%;--l:36%"] names the
+       photograph itself; inserting or reordering an .hp cannot make this hit a
+       different one, which an index selector would. Measured overlap with the
+       rack's box at 1440 before culling: 42013px2, 26249px2, 21093px2 - the three
+       largest by a wide margin (the next is 7339).
+       Desktop only. At 390 the rack sits on ruled paper already and the wall is
+       only three photographs wide - it cannot spare any. --- */
+@media (min-width:900px){
+  .hero.ed:has(.card-clip.fold-v2) .hp[style*="--t:80%;--l:36%"],
+  .hero.ed:has(.card-clip.fold-v2) .hp[style*="--t:88%;--l:60%"],
+  .hero.ed:has(.card-clip.fold-v2) .hp[style*="--t:92%;--l:24%"]{display:none}
+}
+
+/* --- 5. THE ARCHIVED PAGES - and the regression that was actually there.
+       ~~This rule shipped for one round as `.hero:not(.ed) .envelope .paper.hero-card
+       {width:auto}` on the theory that the archived heroes are .hero WITHOUT .ed.~~
+       WRONG, and measured wrong: `grep -c 'hero ed' index-*.html` returns 1 for all
+       seven of them. They are all .hero.ed, so .hero.ed was never a scope and the
+       counter-rule was both useless and harmful (width:auto would have unset their
+       own three-breakpoint clamp).
+       THE MEASUREMENT, index-aug-11.html at 1440, pristine vs the fold change:
+           hero 858 -> 829, .hero-card [122,79 839x733] -> [442,-83 556x886]
+       i.e. the archived card was thrown 162px above the top of its own hero, because
+       the new rules made its .card-clip a flex COLUMN and gave its .hero-card the
+       -126px lap meant for a plate it does not contain.
+       THE FIX IS A SCOPE, NOT A PATCH: index.html's pocket is now
+       <div class="card-clip fold-v2"> and every rule of the new fold hangs off
+       .card-clip.fold-v2, or off .hero.ed:has(.card-clip.fold-v2) for the handful
+       that have to sit on the hero (the custom properties, the padding, the .hp cull).
+       Re-measured after scoping: index-aug-11 and index-alt are byte-identical to
+       pristine on hero, clip, card, .ed-inner tracks and flex-direction. --- */
+
+/* --- 6. THE PHONE SHELF GETS ITS WORDS BACK - AN EXPERIMENT, MEASURED. The rack
+       exists to show RANGE, and eight anonymous 40px pictures do not make that
+       argument. The review asked for the labelled 4x2 shelf to be tried before the
+       loss was accepted; the arithmetic refuses it (4-up covers are 85px wide, so
+       two rows of cover+label is ~245px against the 68px the row costs now, and the
+       phone fold has 43px of slack - it would cost 134px of the plate, which is the
+       best object on the phone). So: keep eight up, and give them the words at the
+       size the 40px chip actually allows. --- */
+@media (max-width:559px){
+  .hero.ed .card-clip.fold-v2 > .zc-rack .zc-book-craft{display:block; font-size:6.6px; letter-spacing:.02em; line-height:1.15; padding:.14em .22em}
+}
+
+/* --- 7. THE 360 BAND. Measured after rules 3 and 6: 360x844 closed the fold at 846
+       of 844 - two pixels OVER, i.e. the small-phone fold scrolled. The cause is not
+       the plate, it is the headline: below 381px --fs-fold falls to min(2.1rem,7.3vw)
+       (:4328) and "Your gifts are unique." wraps to THREE lines, so the card goes
+       351 -> 382. The card is the term that must not shrink (it carries the h1, the
+       sub and the coupon), so the plate pays again: 37vh at 844 = 312px, which puts
+       the fold at 812/844 with 32px of slack.
+       312px is still a legible spread - the phone plate was 388 in the round the
+       reviewers looked at and 335 in the pristine baseline. --- */
+@media (max-width:380px){
+  .hero.ed:has(.card-clip.fold-v2){--fold-frame:clamp(230px,37vh,340px)}
+}
