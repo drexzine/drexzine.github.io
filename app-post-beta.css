@@ -6064,8 +6064,17 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 .dd-print{position:relative;width:100%;margin:0;   /* a bare <figure> carries the UA's 1em/40px margin */
   background:var(--paper);border:2.6px solid var(--ink);border-radius:4px;
   box-shadow:7px 7px 0 0 var(--ink);padding:7px 7px 0;transform:rotate(var(--r,-1.6deg))}
+/* THE PLACEHOLDER IS MUTED PAPER, NOT NEAR-BLACK (2026-09-03). It was #212c30, and every one of
+   these four photographs is loading="lazy" - so on a phone, scrolling the spine, you meet FOUR
+   solid black rectangles and they fill in afterwards. Measured mid-scroll at 390: all four
+   img.naturalWidth === 0, complete === false, over a #212c30 slab. Founder: "that fucking
+   .dd-stack bug is driving me nuts (club hour comes round)".
+   #EDE4CF is the tone .mv-ph already uses for exactly this job, and its note upfile says why:
+   "the placeholder is muted paper, not a saturated colour block - eleven loud squares made the
+   board shout". A dark slab on cream is a hole; a paper slab is an empty frame, which is what an
+   unloaded photograph actually is. Do not put a saturated or dark colour back here. */
 .dd-print .ph{display:block;position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;
-  background:#212c30;border:1.5px solid rgba(65,77,87,.3)}
+  background:#EDE4CF;border:1.5px solid rgba(65,77,87,.3)}
 .dd-print .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--op,top center)}
 /* the app screenshots are landscape and want their top edge; the reel thumb is
    PORTRAIT (600x720) and the payload — hands on the phone, placing a page — sits
