@@ -2199,7 +2199,10 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 .snap.trio::before{border-width:2.2px}
 .snap.trio .cap-mini{position:relative;z-index:1;font-family:var(--f-hand);text-align:center;
   font-size:1.1rem;line-height:1;color:var(--ink);margin:.35rem 0 .05rem}
-.snap.trio .cap-mini.scrawl{color:var(--colorado)}
+/* --coral-ink, not --colorado: this is a colour carrying text, and (0,4,0) here was beating the
+   eyebrow-rank rule at the foot of the file. 17.6px, so it clears nothing at AA-normal either
+   way - this is the better of two, not a pass. */
+.snap.trio .cap-mini.scrawl{color:var(--coral-ink)}
 @media(max-width:480px){.snap.trio{transform:rotate(0)}}
 
 /* demo gate */
@@ -4359,6 +4362,17 @@ html.sealed:not(.revealed) .hero::after{display:none}
    TEXT-BOX-TRIM removes the font's half-leading so the H1's box hugs cap-to-baseline; this page
    draws ruled paper from --lead and had 5.07px of drift per line. Baseline 2026-08-18
    (Firefox 154; Chrome/Edge 133+, Safari 18.2+), silently ignored below that. ============ */
+/* THE MONOSPACE PATCH, RE-ADDED 2026-09-03 — the file predicted this exact failure and it
+   happened anyway. :4354, verbatim: "IF PITCH IS EVER INSTALLED it is still first in both stacks
+   and simply takes over — but it is a MONOSPACE, so re-add word-spacing:-.30em on .ed-cat at that
+   point or the gaps come back. That is the whole reason this paragraph exists."
+   Pitch WAS installed on 2026-09-02 (@font-face upfile, --f-display:"Pitch") and the patch was
+   not re-added. Measured after: computed word-spacing 0px on a face whose word space is .615em
+   against Bitter's .250em — every gap in the page's one headline was 2.5x a normal one, so the
+   fold set as isolated tokens rather than phrases.
+   RE-CHECK THE WRAP WHEN TOUCHING THIS: .ed-cat carries max-width:26ch and text-wrap:balance, so
+   a tighter line can re-balance onto a different break. */
+.hero-card h1.ed-cat{word-spacing:-.30em}
 .hero-card h1.ed-cat{
   font-size-adjust:cap-height .65;
   text-box-trim:trim-both; text-box-edge:cap alphabetic;
@@ -10738,7 +10752,15 @@ html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
        DO NOT "fix" a small headline by narrowing the sheet - cqw means a narrower
        card gives a SMALLER h1, which is the opposite of the instinct. --- */
 @media (min-width:900px){
-  .hero.ed .card-clip.fold-v2 .hero-card .ed-head{--fs-fold:min(2.5rem,6.2cqw)}
+  /* 6.2cqw is a CARD-relative term and the card is nearly FLAT across the desktop band
+     (444 / 490 / 551px at 1024 / 1280 / 1440) while the h2s' --fs-2 climbs with the VIEWPORT.
+     They crossed at ~950px. Measured h1/h2: 27.28/30.27 = 0.90 at 1024, 30.16/32.67 = 0.92 at
+     1280, 33.93/34.00 = 1.00 at 1440 — the page's one h1 was the same size as or SMALLER than
+     every section h2 across the whole desktop range.
+     max() puts a floor under the flat band and 7.4cqw spends the headroom at 1440. Longest line
+     "are unique." is 11ch x .614em (Pitch is monospaced) = 275px against a ~470px inner, so it
+     still fits; re-derive if a line ever grows past ~13 characters. */
+  .hero.ed .card-clip.fold-v2 .hero-card .ed-head{--fs-fold:min(3.25rem, max(7.4cqw, 2.35rem))}
 }
 
 /* --- 3. THE PLATE CLEARS THE WORDMARK ON A PHONE. Measured at 390: a.brand
@@ -10855,3 +10877,30 @@ html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
      the row loses 12px. Verified they still resolve as words at 375 before this was kept. */
   .hero.ed:has(.card-clip.fold-v2) .zc-book-craft{font-size:.46rem;margin-top:.22em}
 }
+
+/* ---- THE EYEBROW RANK STOPS USING A FILL AS AN INK (2026-09-03) --------------------------
+   .eyebrow has carried color:var(--colorado) since :238. Measured against the RENDERED paper
+   rgb(239,232,215): 2.70:1. It is 3.13:1 even on the whitest sheet on the page, so it fails the
+   large-text floor too. Four rendered text nodes at 17.6-24.8px sit on it: "already run
+   something?" (#bring), "why we built it" and "that's me" (#founder), "drag to cut" (#envelope).
+   THE PAGE ALREADY DECIDED THIS TWICE and the eyebrow rank is where it never landed - :8349 and
+   :4559 both carry the note "--coral-ink, not --colorado: this is a colour carrying text".
+   --coral-ink is 4.26:1 rendered: clears AA-large at the eyebrow's 24.6px, and is a real
+   improvement at .cap-mini's 17.6px without clearing AA-normal there. Stated, not hidden.
+   THE DARK-BAND EYEBROWS ARE NOT TOUCHED - they override to --happy at :663 and measure 6.22:1
+   on their own ground, which is the one place a bright accent legitimately carries text. */
+.eyebrow,.note .eyebrow,.dk-head .eyebrow,.cut-hint,.cap-mini{color:var(--coral-ink)}
+
+/* ---- #tools IS A PEER SECTION HEAD, SO IT LOOKS LIKE ONE (2026-09-03) ---------------------
+   ~~It was deliberately TIER B~~ - one rank under the summary band's h2, on the .lands-h pattern,
+   so that two headings 300px apart would not argue. That reasoning is kept because it is sound in
+   general and it is why .lands-h exists. It was the wrong call HERE: #tools is a peer <section>
+   whose h2 names what the product actually contains, and three independent audit lenses read it
+   as subordinate. Measured: 23.8px in Pitch ITALIC against every other section h2's 34px in
+   upright Pitch Sans - a rank down AND a different face, so a reader scanning the page meets it
+   as a caption between two headlines.
+   It now takes .showtell .head h2's treatment verbatim (:5881), which is the canonical section
+   head on this page. The .slab class in the markup is overridden here rather than removed,
+   because .slab is what five archived index-*.html style their heads with. */
+.tools .tools-h{font-family:var(--f-head);font-style:normal;font-weight:700;
+  font-size:var(--fs-2);letter-spacing:-.015em;line-height:1.06;color:var(--ink)}
