@@ -173,6 +173,28 @@
      element that relied on inheriting the ratio (measured: .eyebrow 40.96 -> 28.93px, .btn 22.02
      -> 28.93px, which changes the buttons' height). Unitless inherits as a ratio. Do not "tidy"
      this into one property. */
+  /* ---- THE SECTION HEAD GAP IS ONE VALUE (2026-09-03) --------------------------------------
+     Ten sections carried SEVEN different .head margin-bottom clamps for the identical
+     relationship — a section's head to its first content:
+        .versus / .zines / .peek   clamp(1.8rem,4.5vw,2.6rem)   <- three already agreed
+        .team                      clamp(1.9rem,4.5vw,2.8rem)
+        .doors                     clamp(2rem,5vw,3rem)
+        .resources / .longgame     clamp(1.6rem,3.6vw,2.4rem)
+        .gifts                     clamp(1.5rem,3.6vw,2.2rem)
+        .showtell                  clamp(1.6rem,3.6vw,2.3rem)
+        .dk-head (#proof)          clamp(1rem,2.4vw,1.6rem)
+     Rendered, that is a head-to-content gap of 5 / 19 / 20 / 22 / 24 / 32 / 33 / 42 / 49px
+     across the page for one relationship. A reader cannot perceive 1.5rem vs 1.6rem as a
+     DECISION — it just reads as nothing lining up. The whole file already owns an 8px grid
+     (--s-1..--s-7 = 8/16/24/32/48/56/96), and it is referenced 28 times against roughly 300
+     one-off spacing values.
+     THE HOUSE VALUE WAS ALREADY THERE: three sections independently landed on
+     clamp(1.8rem,4.5vw,2.6rem). That is the token now. Difference should mean something; these
+     differences meant nothing.
+     TWO EXCEPTIONS ARE KEPT AND ARE REAL: .how holds 4.2rem because the ring's stations overhang
+     their box (its own note upfile measures the overhang), and .kit holds 0 on purpose. If you
+     add a third exception, say what it buys. ---- */
+  --head-gap:clamp(1.8rem,4.5vw,2.6rem);
   --s-1:.5rem;   /*  8 */
   --s-2:1rem;    /* 16 */
   --s-3:1.5rem;  /* 24  section padding-block, small end */
@@ -241,7 +263,7 @@ a{color:inherit}
 .slab{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:.98;letter-spacing:-.02em}
 /* #resources — reuses the shared corkboard/.pinit/.pu-* styles; just the section chrome + polaroid pins */
 .resources{padding:clamp(1.8rem,4.5vw,3rem) 0}
-.resources .head{margin-bottom:clamp(1.6rem,3.6vw,2.4rem);text-align:center}
+.resources .head{margin-bottom:var(--head-gap);text-align:center}
 .resources .head h2{font-size:clamp(1.8rem,5.4vw,2.9rem);margin:.3rem 0 0;color:var(--ink)}
 .resources .head h2 .stop{color:var(--grass-deep)}
 .res-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1rem,1.6vw,1.2rem);line-height:1.5;color:rgba(65,77,87,.85);max-width:52ch;margin:.85rem auto 0}
@@ -674,7 +696,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 
 /* ---------- three doors = littered postcards (.splay, NOT a grid) ---------- */
 .doors{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
-.doors .head{margin-bottom:clamp(2rem,5vw,3rem);text-align:center}
+.doors .head{margin-bottom:var(--head-gap);text-align:center}
 .doors .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);
   line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
 .splay{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(1.6rem,3vw,2.6rem);align-items:flex-start}
@@ -1021,7 +1043,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
    One circle's own shelf, 001 to 012, each spine a little taller. The growth IS the argument:
    these are not strangers cycling through, they're the same people getting good together. */
 .longgame{padding:clamp(var(--s-3),4vw,var(--s-5)) 0 clamp(var(--s-4),5vw,var(--s-6))}
-.longgame .head{margin-bottom:clamp(1.6rem,3.6vw,2.4rem);text-align:center}
+.longgame .head{margin-bottom:var(--head-gap);text-align:center}
 .longgame .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;
   font-size:clamp(1.7rem,4.8vw,2.7rem);line-height:1;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
 .longgame .head h2 .stop{color:var(--grass-deep)}
@@ -1121,7 +1143,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 
 /* ---------- gifts = the range. Torn tags, littered, deliberately unranked ---------- */
 .gifts{padding:clamp(1.6rem,4vw,3rem) 0 clamp(1.2rem,3vw,2.2rem)}
-.gifts .head{margin-bottom:clamp(1.5rem,3.6vw,2.2rem);text-align:center}
+.gifts .head{margin-bottom:var(--head-gap);text-align:center}
 .gifts .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.7rem,4.6vw,2.6rem);
   line-height:1.02;margin:.3rem auto 0;color:var(--ink);max-width:22ch;text-wrap:balance}
 .gifts .head h2 .stop{color:var(--grass-deep)}
@@ -1213,7 +1235,7 @@ html[data-tier="lite"] .craftboard::before{filter:none;animation:none}
    The chat column is deliberately the drab one (desaturated, tilted the "wrong"
    way); the Circle column carries the grass accent. The kicker is the payload. */
 .versus{position:relative;padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
-.versus .head{margin-bottom:clamp(1.8rem,4.5vw,2.6rem);text-align:center}
+.versus .head{margin-bottom:var(--head-gap);text-align:center}
 .versus .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);
   line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
 .versus .head h2 .stop{color:var(--grass-deep)}
@@ -2001,7 +2023,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 
 /* ---------- the zine = the tangible keepsake (hand-made vs bot-made) ---------- */
 .zines{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
-.zines .head{margin-bottom:clamp(1.8rem,4.5vw,2.6rem);text-align:center}
+.zines .head{margin-bottom:var(--head-gap);text-align:center}
 .zines .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);
   line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
 .zines .head h2 .stop{color:var(--grass-deep)}
@@ -2068,7 +2090,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 @media(max-width:560px){.zine-card.hand,.zine-card.bot,.zine-or{transform:rotate(0)}}
 /* ---------- peek = browse Circles by their zines + the zinemaker (all placeholders) ---------- */
 .peek{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
-.peek .head{margin-bottom:clamp(1.8rem,4.5vw,2.6rem);text-align:center}
+.peek .head{margin-bottom:var(--head-gap);text-align:center}
 .peek .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
 .peek .head h2 .stop{color:var(--grass-deep)}
 .peek-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.05rem,1.8vw,1.35rem);line-height:1.5;color:rgba(65,77,87,.85);max-width:48ch;margin:.9rem auto 0}
@@ -2138,7 +2160,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 
 /* ---------- team = taped polaroids ---------- */
 .team{padding:clamp(1.5rem,4vw,3rem) 0}
-.team .head{margin-bottom:clamp(1.9rem,4.5vw,2.8rem);text-align:center}
+.team .head{margin-bottom:var(--head-gap);text-align:center}
 .team .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.9rem,5vw,2.8rem);line-height:1.02;margin:.35rem auto 0;color:var(--ink);max-width:20ch}
 .team-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1rem,1.6vw,1.18rem);line-height:1.5;
   color:rgba(65,77,87,.85);max-width:52ch;margin:.9rem 0 0}
@@ -5484,7 +5506,7 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
    (Replaced the old .mg/.fac "long page" block; that CSS is now dead.)
    ========================================================================= */
 .dk{max-width:960px;margin:0 auto;padding:clamp(var(--s-3),4vw,var(--s-5)) 1.25rem clamp(var(--s-4),5vw,var(--s-6))}
-.dk-head{text-align:center;max-width:60ch;margin:0 auto clamp(1rem,2.4vw,1.6rem)}
+.dk-head{text-align:center;max-width:60ch;margin:0 auto var(--head-gap)}
 .dk-head .eyebrow{color:var(--colorado);margin-bottom:.3rem}
 /* 1.03 was set for a one-line head. The .ul mark hangs ~.05em below its line box, and
    this is the only .ul on the page with a line underneath it - measured gap to the next
@@ -5887,7 +5909,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    section can take. Do not "solve" it by recolouring one more link.
    =================================================================== */
 .showtell{padding:clamp(var(--s-3),4vw,var(--s-5)) 0 clamp(var(--s-4),5vw,var(--s-6));position:relative}
-.showtell .head{margin-bottom:clamp(1.6rem,3.6vw,2.3rem);text-align:center}
+.showtell .head{margin-bottom:var(--head-gap);text-align:center}
 /* THE HEADING SYSTEM, applied here rather than in its own block upfile, because this rule sits
    BELOW that block and would otherwise win on source order — which is how this head stayed in
    the h1's Courier Prime italic while seven of its eleven peers were in Space Grotesk. TIER B:
@@ -10168,7 +10190,10 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    section will silently become a tucked pile. Set them to 0 at that point, or accept the pile.
    THE HANG IS THE BASE 3n RHYTHM (10/0/8px) and it is kept: it is what stops three photographs
    at three angles from reading as a table of three. */
-.tools{position:relative;padding:clamp(2.2rem,6vw,3.6rem) 0 clamp(1rem,3vw,1.8rem)}
+/* the house section rhythm is padding 48/56 at 1440 — measured across the other ten sections.
+   #tools shipped at 58/29, which made it the only section that opened tighter at the bottom than
+   its neighbours and read as a band jammed under the one above it. */
+.tools{position:relative;padding:clamp(2rem,5vw,3rem) 0 clamp(2.2rem,5.5vw,3.5rem)}
 .tools-in{max-width:1080px;margin:0 auto;padding-inline:clamp(1rem,4vw,1.6rem);
   position:relative;z-index:1}
 /* the eyebrow is the section's whole heading, so it gets the label treatment and nothing more.
