@@ -1934,227 +1934,28 @@
              "THE LOOP'S PLUMBING IS INK") because five archived index-*.html still carry this
              markup and load this sheet. -->
 
-      <div class="how"><div class="how-stage">
-      <div class="how-loop">
-        <svg class="how-ring" viewBox="0 0 100 100" aria-hidden="true">
-          <defs>
-            <marker id="howarrow" viewBox="0 0 10 10" refX="6.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="6.5" markerHeight="6.5" orient="auto">
-              <path d="M1.5 1.5 L9 5 L1.5 8.5" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-            </marker>
-          </defs>
-          <!-- ONE LIGHT INK LOOP (2026-09-01). It was --happy #F1DD01 at full strength: the
-               reserved live-and-present beacon spent as the largest decoration on the page.
-               WHY NOT FOUR COLOURED ARCS, one per beat, which is what this pass tried first and
-               then looked at: once the gaps are sized to the type each station actually
-               occupies, the four segments come out 38 / 66 / 51 / 56 degrees, so one beat gets
-               nearly twice another's ink; and every arc dies at the NEXT station's badge, so
-               clockwise you read red line -> yellow pin and the pin looks like the line's
-               destination. Station 02 alone is 56% of the ring's height (badge at y 22.8-26.7,
-               heading 28.8-34.3, caption 70.6-78.8, all measured), so clearing its type costs
-               ~78 degrees of arc and leaves 12. The geometry cannot carry the system.
-               WHY IT IS FAINT: in solid ink at full strength this line is the heaviest mark in
-               the section - heavier than any node - and it draws THROUGH "Club Hour" and through
-               "a standing hour, online or in person" (both photographed). At .38 it passes
-               BEHIND the type the way a pencil line does, and the four nodes are what you see.
-               The beat is carried by the heading and the node's own drawing. It was THREE
-               carriers until 2026-09-01, when the founder had the badges taken off the ring
-               ("why is the #3 inside the bubble?"); #showtell's timeline still runs all three.
-               The two "badge" mentions above are the rejected-arcs measurement and stay as
-               written - the degrees are right either way. -->
-          <path d="M67.3 12.8 A41 41 0 1 1 32.7 12.8" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" marker-end="url(#howarrow)" filter="url(#squig)" opacity=".38"/>
-        </svg>
-        <ol class="flow">
-          <li class="step is-cal">
-            <h3>Challenge</h3>
-            <span class="ico"><svg class="ctcal" viewBox="0 0 120 120" role="img" aria-label="A tear-off desk calendar. The challenge is written on Friday's page.">
-              <!-- the pad underneath: this happens again next week, and the week after -->
-              <path d="M18 24 h88 v84 h-88 Z" fill="var(--oats)" stroke="var(--ink)" stroke-width="2.6" filter="url(#roughsm)" opacity=".55"/>
-              <path d="M15 21 h88 v84 h-88 Z" fill="var(--oats)" stroke="var(--ink)" stroke-width="2.8" filter="url(#roughsm)" opacity=".75"/>
-              <!-- today's page -->
-              <path d="M11 18 h92 v86 h-92 Z" fill="var(--paper)" stroke="var(--ink)" stroke-width="3.4" filter="url(#roughsm)"/>
-              <!-- the red band: the deadline is part of the object, not a sticker on it -->
-              <path d="M11 18 h92 v24 h-92 Z" fill="var(--colorado)" stroke="var(--ink)" stroke-width="3.4" filter="url(#roughsm)"/>
-              <text class="cal-day" x="57" y="37" text-anchor="middle">FRI</text>
-              <!-- the challenge, scrawled on the page -->
-              <g stroke="var(--sambas)" stroke-width="3.4" stroke-linecap="round" opacity=".5">
-                <path d="M23 60 c14 -3 34 2 48 -1" filter="url(#roughsm)"/>
-                <path d="M23 74 c18 3 44 -4 66 0" filter="url(#roughsm)"/>
-                <path d="M23 88 c11 -2 24 1 33 -1" filter="url(#roughsm)"/>
-              </g>
-              <!-- the binder rings -->
-              <g stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round">
-                <path d="M34 8 v14" filter="url(#roughsm)"/><path d="M80 8 v14" filter="url(#roughsm)"/>
-                <circle cx="34" cy="8" r="4.5" fill="var(--oats)" filter="url(#roughsm)"/>
-                <circle cx="80" cy="8" r="4.5" fill="var(--oats)" filter="url(#roughsm)"/>
-              </g>
-            </svg></span>
-            <!-- HOST. The role needed a name (it was "someone"), and for a few hours on
-                 2026-08-29 this page called it "editor". That was wrong, and the product says so:
-                 DESIGN.md's Vocabulary section — "The one who runs a Club is the Host ... Not
-                 'Editor'" — and src/app/sms/page.tsx, which adds "founder confirmed 2026-08-29.
-                 Do not 'correct' this back." The schema agrees (clubs.hostId, isHost).
-                 EDITOR IS A TIER, NOT A ROLE: it is earned at three published issues
-                 (src/db/progression.ts, editor-unlock). Using it for the person who sets the
-                 challenge collapsed a rank into a job, and it collided with this page's own alt
-                 text, where "the editor" is the phone APP you lay pages out in.
-                 The argument that lost: "a magazine's challenge is set by its editor, so the hero
-                 has already paid for the metaphor." A metaphor the page can afford does not
-                 outrank the word the product ships. It was also argued from measure.py reporting
-                 host:0 — the instrument reads rendered text only, and "host" was alive in the
-                 JSON-LD the whole time. First of two uses. -->
-            <p>your host sets it, with a deadline</p>
-            <span class="step-arw" aria-hidden="true"><svg viewBox="0 0 34 46" fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)"><path d="M17 4 C15 16 19 22 17 34"/><path d="M9 26 L17 38 L25 26"/></g></svg></span>
-          </li>
-          <li class="step is-key is-clock">
-            <h3>Club Hour</h3>
-            <span class="ico"><svg class="ctclock" viewBox="0 0 120 120" role="img" aria-label="A clock. The hour is quartered into practice, observe, ask, and be seen.">
-              <circle cx="60" cy="60" r="56" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="3.4" filter="url(#roughsm)"/>
-              <circle cx="60" cy="60" r="48" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.6" filter="url(#roughsm)"/>
-              <path d="M60 60 L60 12 A48 48 0 0 1 108 60 Z" fill="var(--schoolbus)" opacity=".26" filter="url(#roughsm)"/>
-              <path d="M60 60 L108 60 A48 48 0 0 1 60 108 Z" fill="var(--schoolbus)" opacity=".13" filter="url(#roughsm)"/>
-              <path d="M60 60 L60 108 A48 48 0 0 1 12 60 Z" fill="var(--schoolbus)" opacity=".26" filter="url(#roughsm)"/>
-              <path d="M60 60 L12 60 A48 48 0 0 1 60 12 Z" fill="var(--schoolbus)" opacity=".13" filter="url(#roughsm)"/>
-              <path d="M60 14 v92 M14 60 h92" stroke="var(--ink)" stroke-width="1.6" opacity=".22"/>
-              <!-- THE FOUR MECHANISMS, ON THE FACE. They used to be said twice — once as these
-                   icons and again as a ~9px red line underneath the node. Said twice, legible
-                   zero times. Now each word sits in its own quadrant, in that quadrant's colour,
-                   right under its icon. One object, one statement. The red line is deleted. -->
-              <!-- icons shrunk to ~0.72 and pushed out to the rim, so each word gets the room it
-                   needs. The word is the payload; the icon is the ornament. -->
-              <g stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="3.6">
-                <g stroke="var(--ink)" transform="translate(24,4) scale(.72)"><path d="M78 30 c0 -6 7 -9 10 -4 c3 -5 10 -2 9 5 c-1 6 -9 9 -12 12 c-3 -3 -7 -7 -7 -13 Z"/></g>
-                <g stroke="var(--ink)" transform="translate(21,17) scale(.72)"><path d="M78 78 c5 -7 15 -7 20 0 c-5 7 -15 7 -20 0 Z"/><circle cx="88" cy="78" r="3" fill="var(--ink)" stroke="none"/></g>
-                <g stroke="var(--ink)" transform="translate(9,16) scale(.72)"><path d="M22 70 H42 V84 H30 L24 90 V84 H22 Z"/><path d="M29 75 c0 -3 6 -3 6 1 c0 3 -3 3 -3 5"/></g>
-                <g stroke="var(--ink)" transform="translate(12,7) scale(.72)"><circle cx="32" cy="26" r="5.4"/><path d="M22 42 c0 -9 20 -9 20 0"/></g>
-              </g>
-              <!-- the words, DARK (the deep tokens, not the bright fills), bold, and out at r≈40
-                   where the shortened hands can't sweep through them. -->
-              <!-- THE FOUR WORDS ARE PINNED TO A WIDTH, NOT LEFT TO THE FACE (2026-09-02).
-                   They used to be font-size:12.6 and nothing else, which fitted because the hand
-                   face was Patrick Hand. Swapping --f-hand to the real Birdie made every one of
-                   them wider and all four ran out over the dark ring - "be seen" lost its b,
-                   "observe" lost its last letters. Measured at 390 before the fix: practice 50
-                   units against a 37-unit half-chord at that height.
-                   textLength + lengthAdjust="spacingAndGlyphs" makes the layout FONT-INDEPENDENT:
-                   each word is drawn to the width the face has room for, whatever face resolves.
-                   The numbers are the widest that clear the ring at the y each word sits at. Set
-                   font-size so the squeeze stays small (about 10% here) - a hand face compressed
-                   much harder than that stops looking hand-drawn. -->
-              <g class="ct-words" text-anchor="middle" font-size="9.4" font-weight="700">
-                <text x="81" y="49" textLength="28" lengthAdjust="spacingAndGlyphs" fill="var(--ink)">practice</text>
-                <text x="79" y="84" textLength="28" lengthAdjust="spacingAndGlyphs" fill="var(--ink)">observe</text>
-                <text x="39" y="84" textLength="13" lengthAdjust="spacingAndGlyphs" fill="var(--ink)">ask</text>
-                <text x="38" y="49" textLength="28" lengthAdjust="spacingAndGlyphs" fill="var(--ink)">be seen</text>
-              </g>
-              <!-- The hands ROTATE, so any hand long enough to reach the words will eventually sweep
-                   through all four of them. The words sit at r≈27; keep both hands inside that. -->
-              <g class="ct-hands">
-                <line class="ct-min" x1="60" y1="60" x2="60" y2="42" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round"/>
-                <line class="ct-hr"  x1="60" y1="60" x2="70" y2="66" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round"/>
-              </g>
-              <circle cx="60" cy="60" r="5" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="2.4"/>
-            </svg></span>
-            <p>a standing hour, online or in person</p>
-            <span class="step-arw" aria-hidden="true"><svg viewBox="0 0 34 46" fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)"><path d="M18 4 C21 15 14 23 17 35"/><path d="M10 27 L17 39 L25 26"/></g></svg></span>
-          </li>
-          <li class="step is-think">
-            <svg class="thoughtb" viewBox="0 0 200 180" aria-hidden="true">
-              <path d="M 100 16.9 A 24.4 24.4 0 0 1 145.7 25.5 A 19.3 19.3 0 0 1 176.4 47.6 A 15.4 15.4 0 0 1 181.1 77.7 A 17 17 0 0 1 161.9 105.4 A 21.2 21.2 0 0 1 123.1 120.8 A 24.5 24.5 0 0 1 76.5 123.2 A 21.6 21.6 0 0 1 37.9 105 A 17.8 17.8 0 0 1 16.5 77.9 A 16.2 16.2 0 0 1 23.4 47.6 A 19.1 19.1 0 0 1 53.6 25.6 A 24.4 24.4 0 0 1 100 16.9 Z"
-                fill="var(--paper)" stroke="var(--ink)" stroke-width="2.6" filter="url(#roughsm)"/>
-              <!-- the tail SWEEPS. Three bubbles on a curve that bends left and flattens out, the way a
-                   comic tail arcs back toward the thinker — not a straight 45-degree staircase. -->
-              <circle cx="58" cy="140" r="10.2" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.6" filter="url(#roughsm)"/>
-              <circle cx="35" cy="160" r="6.4" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4" filter="url(#roughsm)"/>
-              <circle cx="14" cy="167" r="3.6" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.2" filter="url(#roughsm)"/>
-            </svg>
-            <h3>Work on the magazine</h3>
-            <!-- "Your part" until 2026-09-01, when Sue named the beat by what you DO in it. It is
-                 the one node label that is a verb phrase, and that is the point: the other three
-                 beats happen TO you - a challenge goes up, an hour comes round, it ships - and
-                 this one is the reader's own.
-                 "magazine" IS TAXONOMY-LEGAL and is not a fourth name for the artefact: it is the
-                 CONTAINER noun the frozen H1 already owns ("Clubs run their own magazine."), and
-                 what you work on across a month is the club's publication. Writing "the issue"
-                 here would name the container after its unit. See the ONE OBJECT, ONE NAME block
-                 at the top of this file before touching it. A COLD READER STILL TRIPPED ON IT
-                 (2026-09-01): "magazine, issue, zine - is it three things?" If that verdict
-                 repeats, the one-line swap is "Work on the issue" - do not leave the taxonomy
-                 comment saying two uses if you make it.
-                 NO FULL STOP: the other three node labels carry none.
-                 THE SUB-LINE NAMES THE TOOL NOW - TWO FOUNDER ASKS IN ONE LINE (2026-09-01). It
-                 read "in your own time". Sue killed those words ("it shouldnt be 'in your own
-                 time.'") and separately said "no where is it clear that we give you a tool to
-                 edit the magazine together where you all show up". Same defect from two ends:
-                 this was the one node subline arguing you work ALONE, four screens above
-                 #showtell's "Make the issue - together", and nothing named the tool.
-                 DELETING IT OUTRIGHT WAS THE OTHER CANDIDATE AND IT LOST: an empty balloon over
-                 the beat whose tool is invisible spends the only line the page has to name it.
-                 MEASURED: 110px of Patrick Hand at 390 against a 176px balloon. "one editor,
-                 everyone in it" (158px) was built and REJECTED - it hung out of both lobes.
-                 THE COST: this line was the page's only RENDERED statement that the work is
-                 async. That claim now survives only in the FAQ JSON-LD, which nothing renders.
-                 Put it somewhere it FITS - do not take this line back, and do not lengthen it.
-                 THREE WORDS IS THE CEILING (screenshotted 390/900/1440). Anything longer needs
-                 the bubble redrawn, not the type shrunk. -->
-            <p>one shared editor</p>
-            <span class="step-arw" aria-hidden="true"><svg viewBox="0 0 34 46" fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)"><path d="M16 4 C13 14 20 25 17 34"/><path d="M9 26 L18 38 L25 27"/></g></svg></span>
-          </li>
-          <li class="step is-globe">
-            <h3>Show &amp; tell</h3>
-            <span class="ico"><svg class="ctglobe" viewBox="0 0 120 120" role="img" aria-label="A globe with a paper plane circling it.">
-              <circle cx="60" cy="62" r="40" fill="var(--lazuli)" stroke="var(--ink)" stroke-width="3.4" filter="url(#roughsm)"/>
-              <g stroke="var(--oats)" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".5">
-                <path d="M20 62 h80" filter="url(#roughsm)"/>
-                <path d="M27 40 h66 M27 84 h66" filter="url(#roughsm)"/>
-                <path d="M60 22 C40 42 40 82 60 102" filter="url(#roughsm)"/>
-                <path d="M60 22 C80 42 80 82 60 102" filter="url(#roughsm)"/>
-              </g>
-              <g fill="var(--oats)" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round" opacity="1">
-                <path d="M34 44 c7 -6 16 -5 21 1 c4 5 -1 9 -5 11 c-3 2 -2 7 -6 9 c-5 2 -9 -2 -12 -6 c-3 -5 -3 -11 2 -15 Z" filter="url(#roughsm)"/>
-                <path d="M64 66 c9 -4 17 0 18 7 c1 6 -5 9 -9 8 c-2 4 -5 9 -8 7 c-4 -2 -3 -8 -4 -12 c-1 -4 -1 -8 3 -10 Z" filter="url(#roughsm)"/>
-                <path d="M74 40 c5 -2 9 1 8 5 c-1 4 -7 5 -10 2 c-2 -3 -1 -6 2 -7 Z" filter="url(#roughsm)"/>
-                <path d="M40 78 c4 -2 8 0 8 4 c0 3 -4 5 -7 3 c-2 -1 -3 -5 -1 -7 Z" filter="url(#roughsm)"/>
-              </g>
-              <g class="ct-orbit">
-                <!-- CONTRAIL, not an orbit ring. It rides WITH the plane, starts just past the end
-                     of the ZINE banner, runs half a lap back, and fades out — so it reads as the
-                     path the plane has already flown, not as a hoop drawn around the globe. -->
-                <g class="ct-trail" stroke="var(--lazuli-deep)" fill="none" stroke-linecap="round">
-                  <path d="M96.3 90.3 A46 46 0 0 1 53.6 107.6" stroke-width="1.6" stroke-dasharray="3 8" opacity=".2"/>
-                  <path d="M53.6 107.6 A46 46 0 0 1 17.4 79.2" stroke-width="1.8" stroke-dasharray="4 7" opacity=".38"/>
-                  <path d="M17.4 79.2 A46 46 0 0 1 23.8 33.7" stroke-width="2" stroke-dasharray="5 6" opacity=".6"/>
-                </g>
-                <g transform="translate(60,62)">
-                  <!-- the whole assembly has to fit inside r=60 of the globe's box or it sweeps
-                       through the title above and the caption below. Keep it compact. -->
-                  <g class="ct-plane" transform="translate(0,-46)">
-                    <!-- the banner it drags: one word, and the word is the whole product -->
-                    <path d="M-8 3 L-13 4" stroke="var(--ink)" stroke-width="1.3" fill="none"/>
-                    <path d="M-13 -1 L-38 -2.5 L-33 4 L-38 11 L-13 9 Z" fill="var(--oats)" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round" filter="url(#roughsm)"/>
-                    <text class="ct-banner" x="-24" y="7.2" text-anchor="middle">ZINE</text>
-                    <!-- the plane is PAPER: all white, one ink crease. A two-tone plane reads as an
-                         arrow at 30px. The colour pop belongs on the banner, where the word is. -->
-                    <path d="M12 0 L-10 -9 L-4 1 L-10 9 Z" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.7" stroke-linejoin="round" filter="url(#roughsm)"/>
-                    <path d="M12 0 L-4 1" stroke="var(--ink)" stroke-width="1.3" opacity=".55" fill="none" filter="url(#roughsm)"/>
-                  </g>
-                </g>
-              </g>
-            </svg></span>
-            <!-- STATION 04'S SUB, 2026-09-02, founder: "remove 'it lands in the library.' or move
-                 it under 'show & tell' as a subtitle like the other items, and make 'the library'
-                 colored?" Moved, and it closes a gap that was already here: 01, 02 and 03 each
-                 carried a <p> and 04 was the only station without one, so the ring read as three
-                 explained beats and one bare icon.
-                 THE LIBRARY IS LAZULI-DEEP, i.e. this station's OWN ink, and the repeat with the
-                 h3 above it is the point rather than a slip: the library is where SHOW & TELL
-                 lands, so it is the same beat continuing, not a new one.
-                 NOT GRASS, though grass is this page's link colour and this names a real place.
-                 Grass has meant WORK ON THE MAGAZINE since rows 03/04 exchanged hues, and the
-                 stylesheet's own note on that collision says in as many words: "Do not solve it
-                 by recolouring one link." -->
-            <p>it lands in <b class="lib">the library</b></p>
-          </li>
-        </ol>
+      <!-- ============ ~~THE LOOP~~ THE RING IS GONE, 2026-09-03 ==========================
+           Founder: "i guess the timeline makes the loop redundant, right? specifically the
+           .how-stage? however i do like the text ... yes keep the line i like, get rid of the
+           rest of the loop."
+           IT WAS REDUNDANT, AND THE PROOF IS THE INK. The ring's four station headings and
+           #showtell's four dated rows resolve to the SAME four colours, measured:
+               rgb(201,52,58)  rgb(74,52,16)  rgb(12,110,57)  rgb(28,111,148)
+           Same four beats, same order, same inks — except the timeline also gives each one a
+           DATE, a photograph and a real published issue. The timeline is not a restatement of
+           the ring; it is the ring instantiated, with evidence. This page has killed
+           restatement repeatedly (R-2 / R-14 in LOOP-FINDINGS) and this was the last big one.
+           WHAT WENT: .how / .how-stage / .how-loop, the .how-ring svg, and the four .step
+           stations with their sub-lines ("your host sets it, with a deadline", "a standing
+           hour, online or in person", "one shared editor", "it lands in the library").
+           WHAT STAYED: the .loop-tool line below, on the founder's explicit call.
+           WHAT IT COSTS, STATED: the ring was the only object that said the loop REPEATS.
+           #showtell's spine ends "...and the next challenge goes up." and now carries that
+           alone. And the reader now meets the proof BEFORE any explanation of the beats —
+           which is a real change in reading order, not just a deletion.
+           The .how / .how-ring / .step CSS is untouched: five archived index-*.html render it.
+           ================================================================================ -->
+
         <p class="loop-tool">The hour&rsquo;s in your calendar. The deadline closes itself. Nobody has to chase. <span class="hl lt-nag">We nag for you</span>.</p>
         <!-- THE TWO BRACKETS ARE GONE, 2026-09-01, founder: "also just get rid of the 'back to
              the start' and 'one issue' arrows." They only drew below 560px. THEY DID COST WORDS -
@@ -2171,7 +1972,6 @@
              footnote is gone too — its markup was cut long ago and the last of its CSS (.how-fn,
              .fn-star, .fn-body, .fn-link, .fn-tie) is deleted 2026-08-29. What survives is the
              point: the ring is four clean nodes, and most of the making happens unwatched. -->
-      </div>
         <!-- CARRIED WITH THE RING 2026-09-01 — REMOVED 2026-08-29 — the YARN (.fn-tie), a drawn string tying the clock's mechanism
              line to the footnote note. Both ends were deleted before this comment was; the CSS
              for the string itself goes 2026-08-29. Kept as a record, not as a description: if a
@@ -2179,9 +1979,7 @@
              next", a string says "these two are pinned together" — and both ends must anchor to
              the STAGE, never to the note, whose height breathes with the vw font clamps. -->
 
-      </div>
 
-      </div>
 
         <!-- ~~THE EXIT ARROW AND "it lands in the library"~~ DELETED 2026-09-02, founder's call.
              The words moved into station 04's sub-line above; the arrow went with them, because a

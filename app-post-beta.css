@@ -11012,3 +11012,15 @@ html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
      itself on one line as long as it fits. */
   #proof .pk-meta{gap:var(--s-02) var(--s-03)}
 }
+
+/* ---- THE NAG LINE STANDS ON ITS OWN (2026-09-03) --------------------------------------------
+   The ring was deleted from index.html and this line was kept (founder's explicit call). It had
+   been position:absolute at top:58% of .how-loop and sized in cqw — BOTH of which had the ring's
+   stage as their container. With the stage gone, the absolute position has no anchor and the cqw
+   units resolve against nothing, so it needed real values, not a tidy-up.
+   SCOPED AS A DIRECT CHILD of .loopwrap on purpose: on the five archived index-*.html this line
+   is still nested inside .how-loop, so `.loopwrap > .loop-tool` cannot match there and they keep
+   the centred-in-the-ring treatment the original rule gives them. */
+.loopwrap > .loop-tool{position:static;transform:none;pointer-events:auto;
+  width:min(48ch,94%);margin:0 auto;text-align:center;
+  font-family:var(--f-hand);font-size:var(--fs-lede);line-height:1.32;color:var(--ink)}
