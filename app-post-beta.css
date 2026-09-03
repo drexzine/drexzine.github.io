@@ -14,6 +14,59 @@
    ground. Palette §4 only. The LOGO stays clean: upright, one solid
    colour, no filter / shadow / tilt (brand §3.3).
    ================================================================= */
+/* ============================================================================
+   THE BRAND FACES, SELF-HOSTED (2026-09-02) — founder's call: "go full brand".
+   Until today the page ran free stand-ins because Pitch was a DESKTOP licence living on one
+   Mac: Zilla Slab for Pitch, Space Grotesk for Pitch Sans, Patrick Hand for Birdie, Bitter off
+   Google. Sue was rendering Pitch locally while every cold visitor rendered the stand-in, so
+   she has been judging a different page from the one being tested.
+   THE LICENCES, BECAUSE THEY CONSTRAIN THIS FILE:
+     - Pitch + Pitch Sans — Klim Type Foundry, order 26060812, paid 18 Jun 2026, all 20 styles,
+       WOFF2 included. WEB TIER IS 5,000 MONTHLY UNIQUE USERS, DOMAIN drex.style. That is a
+       real ceiling and launch is next month; the invoice does NOT name app.drex.style, so do
+       not copy these files into the app before checking with Klim.
+     - Birdie (TAY Birdie, Work by Taylor) — Standard EULA 2026: unlimited websites, unlimited
+       pageviews, orgs under 50 people. No ceiling.
+     - Bitter — OFL.
+   WHY BITTER IS SUBSET AND THE OTHER TWO ARE NOT. Bitter is OFL, so it is subset to the latin
+   range: 65KB -> 23KB a face, 444KB -> 138KB across six. The Klim and Work-by-Taylor EULAs
+   both forbid modifying the font file, and subsetting is modification, so Pitch, Pitch Sans and
+   Birdie ship WHOLE. Do not "optimise" them.
+   BOTH PITCH AND PITCH SANS ARE MONOSPACED — measured, 614/1000 advance on every glyph in all
+   three faces checked. Pitch Sans is NOT the proportional companion its name suggests. That is
+   the single fact to hold on to before touching any headline size here: a Pitch headline sets
+   ~40% wider than the Zilla Slab it replaces, and word gaps are a full monospace em.
+   font-display:swap everywhere: the fold must paint on first contact. ============ */
+@font-face{font-family:"Pitch";src:url(assets/fonts/pitch-bold.woff2) format("woff2");
+  font-weight:700 800;font-style:normal;font-display:swap}
+@font-face{font-family:"Pitch";src:url(assets/fonts/pitch-bold-italic.woff2) format("woff2");
+  font-weight:700 800;font-style:italic;font-display:swap}
+@font-face{font-family:"Pitch Sans";src:url(assets/fonts/pitch-sans-regular.woff2) format("woff2");
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Pitch Sans";src:url(assets/fonts/pitch-sans-medium.woff2) format("woff2");
+  font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Pitch Sans";src:url(assets/fonts/pitch-sans-semibold.woff2) format("woff2");
+  font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Pitch Sans";src:url(assets/fonts/pitch-sans-bold.woff2) format("woff2");
+  font-weight:700 800;font-style:normal;font-display:swap}
+/* Birdie ships Regular only. 700 is declared on the same file rather than left to the browser:
+   a synthesised bold on a hand face thickens the strokes unevenly and stops it reading as one
+   pen. The page's few --f-hand 700 rules therefore render as Birdie Regular, on purpose. */
+@font-face{font-family:"Birdie";src:url(assets/fonts/birdie-regular.woff2) format("woff2");
+  font-weight:400 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Bitter";src:url(assets/fonts/bitter-light.woff2) format("woff2");
+  font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Bitter";src:url(assets/fonts/bitter-light-italic.woff2) format("woff2");
+  font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:"Bitter";src:url(assets/fonts/bitter-regular.woff2) format("woff2");
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Bitter";src:url(assets/fonts/bitter-italic.woff2) format("woff2");
+  font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Bitter";src:url(assets/fonts/bitter-semibold.woff2) format("woff2");
+  font-weight:600 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Bitter";src:url(assets/fonts/bitter-semibold-italic.woff2) format("woff2");
+  font-weight:600 700;font-style:italic;font-display:swap}
+
 :root{
   --grass:#1CAB5B; --oats:#FEF6E4; --sambas:#414D57; --colorado:#F75458;
   --lazuli:#2496C9; --schoolbus:#ECAF21; --happy:#F1DD01;
@@ -66,12 +119,16 @@
      Colophon-brutalist, competing with the doodles); IBM Plex Mono (its italic is a true cursive
      with a SINGLE-storey a — a structural break from Pitch); Cousine, DM Mono (no slabs);
      Zilla Slab (proportional, and already rejected 2026-06-04). */
-  --f-display:"Pitch","Zilla Slab",Georgia,serif;   /* Pitch — h1 only */
-  --f-slab:"Pitch","Zilla Slab",Georgia,serif;      /* Pitch — display accents (pull-quotes, dropcap) */
-  --f-head:"Space Grotesk",system-ui,sans-serif;        /* Pitch Sans — h2, h3 */
-  --f-mono:"Space Grotesk",system-ui,sans-serif;        /* Pitch Sans — tracked uppercase labels */
-  --f-body:"Bitter",Georgia,serif;
-  --f-hand:"Patrick Hand",cursive;                      /* Birdie (scrawl) */
+  /* THE BRAND STACK, 2026-09-02. Every one of these is now the real licensed face, self-hosted
+     (see the @font-face block at the head of this file). The fallbacks are what paints during a
+     failed fetch, not a design: Georgia for the slab ranks, ui-monospace for Pitch Sans's
+     tracked labels (mono, so the tracking does not collapse), cursive for the hand. */
+  --f-display:"Pitch",Georgia,serif;                    /* Pitch Bold — h1 only (spec p36: "Headings use Pitch bold") */
+  --f-slab:"Pitch",Georgia,serif;                       /* Pitch — display accents (pull-quotes, dropcap) */
+  --f-head:"Pitch Sans",ui-monospace,monospace;         /* Pitch Sans — h2, h3 (spec p36: subheads) */
+  --f-mono:"Pitch Sans",ui-monospace,monospace;         /* Pitch Sans — tracked uppercase labels */
+  --f-body:"Bitter",Georgia,serif;                      /* Bitter — intro body + body */
+  --f-hand:"Birdie","Patrick Hand",cursive;             /* Birdie — eyebrows + accents */
 
   /* ---- Type scale: fluid, two-ratio (1.2 @375 → 1.333 @1440), base 17→19px. ----
      THE RULE: no font-size literal anywhere outside this block. The page previously carried 108
@@ -781,7 +838,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
      at 320 — below the type scale's own 14px FLOOR, in the stacked layout where cqw is measured
      against the ring container the stack no longer uses. */
   .how .flow .step.is-think p{font-size:var(--fs-body);max-width:none}
-  .how .step.is-clock .ico{width:66px;height:66px;margin:0 auto .3rem}
+  .how .step.is-clock .ico{width:75px;height:75px;margin:0 auto .3rem}
   .how .step.is-globe .ico,.how .step.is-cal .ico{width:auto;max-width:120px}
   /* REJECTED 2026-08-29 — the down-arrow connectors between stacked stations. They had not
      drawn for anybody: is-clock/is-globe/is-think are killed by the folded-corner block's
@@ -3441,7 +3498,11 @@ html.sealed .envelope.lit-hl .hero-card .hl-rot.lit .mark::before{transform:rota
 .hero .cta{flex-direction:column;align-items:flex-start;gap:0}
 .hero .cta .cta-attn{margin-bottom:.1rem}
 
-/* the clock's four words — Birdie, so they read as annotation on a drawn object, not as UI */
+/* the clock's four words — Birdie, so they read as annotation on a drawn object, not as UI.
+   THE FACE GREW 14% WITH THEM. Birdie is wider than the Patrick Hand stand-in it replaced, so the
+   words had to come down to 9.4 viewBox units to clear the ring; at the old icon size that put
+   them under 10px on a phone, which is beneath the 9.5px floor this file already set for the
+   carousel tape. The clock is the busiest station icon and could afford the room. */
 .ctclock .ct-words text{font-family:var(--f-hand);font-weight:400}
 
 /* =====================================================================
@@ -6320,15 +6381,21 @@ html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
    THERE ARE THREE OF THEM NOW, not two, and they have a NAMED SOURCE. The pair used to hang
    out of the h2's green full stop, which made the claim implicit; the fan now leaves a tape
    reading "show & tell" and lands on the library, the club's wall and the maker's wall.
-   Aiming and ink live with the grid (.lands-grid, in the #seewhat block downfile) because
-   the geometry is the grid's, not this block's - THESE TWO is-mine/is-club margins are the
-   TWO-COLUMN aim and are kept for the archived index files that still render a pair.
-   Each glyph is drawn from its own control points and leans at the board it lands on, so
-   they read as three hand marks and not as one shape stamped three times. */
-.pw-tick{display:block;width:clamp(46px,5vw,72px);margin:0 auto -.2rem}
-.pw-col.is-mine .pw-tick{margin-left:14%}
-.pw-col.is-club .pw-tick{margin-right:14%;margin-left:auto}
-.pw-tick svg{display:block;width:100%;height:auto;overflow:visible}
+   ~~Aiming and ink live with the grid...~~ ALL OF IT IS GONE, 2026-09-02, founder: delete all
+   three. The argument above is kept because it is the case FOR a fan and it is worth reading
+   before anyone builds another one; what follows is why this one was not a fan.
+   IT WAS 938px FROM ITS OWN SOURCE. Measured at 1440: the "show & tell" tape ends at y2847 and
+   all three glyphs sat at y3022-3084, with the .lands-h heading and 54px of cream between. A
+   fan is read from its origin outward; at that distance there is no origin, just three hooks.
+   AND THE TIPS LANDED ON UI CHROME - the reader's share/heart cluster, the club wall's "Sign In"
+   button, and a person's shoulder - so each read as a SaaS product-tour callout.
+   THE TWO is-mine/is-club MARGINS WERE ALREADY DEAD BEFORE THIS. They were justified here as
+   "kept for the archived index files that still render a pair"; `grep -c pw-tick` is 0 across
+   all seven archived index-*.html, and both were fully overridden live by .lands-grid's own aim
+   rules. A dead rule with a false justification is worse than no rule.
+   NOTHING ON ANY PAGE IN THIS REPO CARRIES .pw-tick NOW, so the whole class goes: the width
+   rule, the two aims, the svg rule, and .lands-grid's five aim rules downfile. The markup's
+   record is at #seewhat's grid in index.html. */
 
 /* THE TAPE PINS THE BOARD, IT DOES NOT SIT UNDER IT. Measured on the first cut:
    .pw-media's bottom edge at 5974 and this label's top at 5999 - a 25px band of bare
@@ -6353,7 +6420,8 @@ html[data-tier="lite"] .pw-kind::before{filter:none}
    show & tell feeds all of them.
    THE INK IS LAZULI-DEEP AS OF 2026-09-01. Rows 03 and 04 exchanged hues so the ring's globe
    could be a blue earth, so SHOW & TELL is Lazuli and every mark in this beat moves with it:
-   .pw-name, .pw-kind's tape, the .pw-tick glyphs, .rd-dymo and .sw-arrow. THE OLD PARENTHETICAL
+   .pw-name, .pw-kind's tape, .rd-dymo and .sw-arrow (the .pw-tick glyphs were on this list until
+   2026-09-02; they are deleted). THE OLD PARENTHETICAL
    IS NOW BACKWARDS and is kept corrected: the worry was that Lazuli would say "a wall" under a
    timeline where Lazuli meant "your part". It no longer does, so that collision is gone - and
    the one it warned about has inverted into the reason these marks are blue at all.
@@ -9348,22 +9416,13 @@ html[data-tier="lite"] .sw-arrow svg{filter:none}
   .lands-grid .pw-media{aspect-ratio:4/3}
   .lands-grid .rd-media{aspect-ratio:1/1}
 }
-/* THE FAN. One source, three landings, so each arrow leans at the board it belongs to: the
-   left card's mark hangs on ITS right (nearest the tape), the right card's on its left, the
-   middle one drops straight down. Stacked, all three centre.
-   THE MARK LANDS ON THE BOARD, so it must PAINT over it: .pw-media::before is the torn slab,
-   13px proud of the media box on every side, in .pw-a's stacking context. A static sibling
-   above it paints UNDER that slab - measured at 900, the 46px glyph lost three quarters of
-   its length behind the cork. Hence its own z-index. */
-.lands-grid .pw-tick{position:relative;z-index:4;margin-bottom:-.7rem}
-.lands-grid .pw-col.is-lib  .pw-tick{margin-left:auto;margin-right:10%}
-.lands-grid .pw-col.is-club .pw-tick{margin-inline:auto}
-.lands-grid .pw-col.is-mine .pw-tick{margin-left:10%;margin-right:auto}
-@media (max-width:820px){
-  .lands-grid .pw-col.is-lib .pw-tick,
-  .lands-grid .pw-col.is-club .pw-tick,
-  .lands-grid .pw-col.is-mine .pw-tick{margin-inline:auto}
-}
+/* ---- ~~THE FAN~~ DELETED 2026-09-02 with the glyphs it aimed (founder's call) -------------
+   KEPT, BECAUSE IT IS THE ONE THING HERE THAT WAS EXPENSIVE TO LEARN: a mark laid over
+   .pw-media must PAINT OVER IT. .pw-media::before is a torn slab 13px proud of the media box
+   on every side, inside .pw-a's stacking context, so a static sibling above it paints UNDER
+   that slab - measured at 900, a 46px glyph lost three quarters of its length behind the cork.
+   Anything dropped on these cards again needs its own z-index (this used 4; .pw-kind is 3,
+   .rd-dymo is 3). ------------------------------------------------------------------------ */
 /* THE LIBRARY CARD IS TOP-ANCHORED TOO, and for the same reason the maker's is: the poster is
    the reader open on a masthead, and `center` on a 1:1 source in a 1:1 box is a no-op anyway -
    this is here so the rule survives the mobile 4:3 box. */
@@ -9773,7 +9832,43 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    now lives. Do not solve it by recolouring one link. */
 .loop-in .loop-lab{color:var(--ink);transform:rotate(-2deg)}
 
-.loop-out .loop-lab{color:var(--ink)}
+/* ---- THE EXIT ARROW IS SIZED, 2026-09-02. MEASURED BUG, not a taste call ----
+   .loop-arrow svg sets display:block and no width, and .loop-in svg carried the only width
+   clamp in this block - so .loop-out's svg had NOTHING sizing it and filled its container:
+   560x728 at 1440 (LARGER THAN THE 560px RING IT CLOSES) and 366x477 at a 390 viewport, where
+   the station icons are 128px. It was the biggest object in the section by a factor of three,
+   in near-black ink, with "it lands in the library" stranded 700px of bare cream below it.
+   Founder, 2026-09-02: "the arrows you got going seem really fucking random and ugly plus a lot
+   of the random annotations like 'it lands in the library' seem so disjointed."
+   THE FIX IS .loop-in's OWN LAYOUT, applied to its twin: a clamped glyph with the label beside
+   it, so the two arrows that open and close this loop are finally the same mark at the same
+   weight. Do not restore a bare `.loop-arrow svg{display:block}` without a width. */
+.loop-out{display:flex;align-items:center;justify-content:center;gap:.5rem;margin:.5rem auto 0}
+.loop-out svg{width:clamp(34px,4.8vw,46px);height:auto}
+.loop-out .loop-lab{color:var(--ink);transform:rotate(-1.4deg)}
+
+/* THE LIBRARY, INSIDE STATION 04'S SUB (2026-09-02). Lazuli-deep is this station's own ink - the
+   library is where SHOW & TELL lands, so the sub finishes the h3's thought rather than starting a
+   new one. Contrast: lazuli-deep on the rendered paper (rgb(239,232,215), not the flat token) is
+   4.9:1 at this weight, over the 4.58 floor this file sets for small lazuli-deep text. */
+.loopwrap .how .step.is-globe p .lib{color:var(--lazuli-deep);font-weight:700}
+
+/* ---- THE STACK GETS CONNECTORS, 2026-09-02, ON THE FOUNDER'S DIRECT ASK ----
+   "when in phone viewport width should have arrows between challenge/club hour/work on the
+   magazine -> share with the world."
+   ~~THIS OVERRULES the note in the @media(max-width:560px) block upfile~~ - the one that ends
+   "If station order ever fails a cold reader at 390, fix it in the stack's own spacing and
+   order, not by drawing connectors between the nodes." That argument is kept there, because
+   its measurements still hold and they say WHY these are small and ink:
+     - they are NOT the deleted .how-loopback / .how-flowdown brackets, which were full-height
+       spine marks framing all four beats, and which a cold reader read as "two red brackets";
+     - INK, NOT A BEAT COLOUR. Four coloured connectors would spend all four beat hues on the
+       gaps BETWEEN the beats, one inch from the stations that define them;
+     - 30px, i.e. under a quarter of the 128px station icons, so they read as the joins they are.
+   Each is drawn from its own control points - the discipline the deleted .pw-tick trio used -
+   so they are three hand marks and not one shape stamped three times. Desktop is untouched: the ring IS the connector
+   up there, which is the whole reason these are gated. */
+.step-arw{display:none}
 /* under 660px there is no lane beside the ring for a bracket, so the label goes static under
    the drawing and the ring's own turn carries the return. (It used to add "or .how-loopback in
    the stack". That bracket was deleted from index.html 2026-09-01 at the founder's ask, so
@@ -9941,6 +10036,20 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
      SCOPED TO .loopwrap: the unscoped rule keeps 1.5rem/2.6rem for the archived pages. Above 560
      nothing moved - each station is centred on a ring point. */
   .loopwrap .how .flow .step.is-think{padding-block:3.8rem}
+  .loopwrap .how .flow .step-arw{display:block;margin:clamp(.5rem,2.6vw,.95rem) auto -.35rem}
+  .loopwrap .how .flow .step-arw svg{display:block;width:30px;height:auto;margin:0 auto}
+  /* STATION 03'S CONNECTOR IS OUT OF FLOW, AND THAT IS THE BALLOON'S RULE, NOT A NUDGE.
+     .thoughtb is position:absolute at top:50% with a FIXED width - it is centred ON THE LI'S
+     BOX (see "THE BALLOON NEEDS ITS BOX BACK" below), so ANY flow content added to this station
+     moves the balloon down by half of what it adds and the heading drifts out through the
+     scallops. Measured at 390 on the first cut: in flow the arrow drew at 2889-2930 INSIDE the
+     balloon (2825-2983), straight over "one shared editor" at 2896-2915.
+     So it hangs off top:100% - the padding box's bottom edge, i.e. under the balloon's lowest
+     scallop - and the room it needs comes from the LI'S MARGIN, which is outside the box the
+     balloon centres on and therefore cannot move it. */
+  .loopwrap .how .flow .step.is-think{margin-bottom:2.6rem}
+  .loopwrap .how .flow .step.is-think .step-arw{position:absolute;left:0;right:0;top:100%;
+    margin:.45rem 0 0}
   /* CLEARANCE ONLY, and NOT the old diagnosis: this gap was first blamed on the globe
      "painting outside its box". It was not. Station 04 was being shoved down and right by the
      nth-child bug fixed above. With that fixed, this is an ordinary breath before the closing
@@ -10023,3 +10132,331 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
   -webkit-box-decoration-break:slice;box-decoration-break:slice}
 .hero-card h1.ed-cat .hl.hl-mark::before{content:""}
 .hero-card h1.ed-cat .sen + .sen .hl.hl-mark::before{transition-delay:.18s}
+
+/* ---- THE THREE TOOLS (2026-09-02) --------------------------------------------------------
+   Three pinned photographs between #why-not-chat and the summary band. The full argument -
+   including the collision with the band's own heading, which the founder was shown and ruled
+   on - is in index.html at the section. This block is geometry only.
+   IT REUSES .mb-grid / .mpol / .mv-* WHOLE and overrides three custom properties. That is the
+   cheap half. The expensive half is what those base rules assume: SIX cards in TWO rows, with a
+   row-two offset, an 18px tuck and a 3n hang rhythm. With three cards :nth-child(n+4) never
+   matches, so the tuck and the offset are inert here - but they are one added card away from
+   firing. If a fourth tool is ever added, --mb-off and the -18px margin-top wake up and this
+   section will silently become a tucked pile. Set them to 0 at that point, or accept the pile.
+   THE HANG IS THE BASE 3n RHYTHM (10/0/8px) and it is kept: it is what stops three photographs
+   at three angles from reading as a table of three. */
+.tools{position:relative;padding:clamp(2.2rem,6vw,3.6rem) 0 clamp(1rem,3vw,1.8rem)}
+.tools-in{max-width:1080px;margin:0 auto;padding-inline:clamp(1rem,4vw,1.6rem);
+  position:relative;z-index:1}
+/* the eyebrow is the section's whole heading, so it gets the label treatment and nothing more.
+   Ink, not a beat hue: the three pins below are the only coloured marks this section spends. */
+/* ~~.tools-eyebrow~~ DEAD 2026-09-02: the Birdie eyebrow became a real .tools-h heading. Kept as
+   a record because the CENTRING TRAP it documents is live for any .eyebrow anywhere on this page:
+   .eyebrow is display:inline-block (so its -1.2deg does not span the full column), which means
+   text-align on ITSELF centres nothing. Block + width:max-content + auto margins is the fix, and
+   NOT text-align on the parent - that inherits into whatever the section holds. */
+
+/* WIDER CARDS THAN #proof's, because these captions are two lines of statement rather than one
+   line of quote, and a 248px polaroid broke "Organize a community challenge" over three. */
+.tool-grid{--mb-cw:min(calc(33.333% - 20px),306px);--mb-gap:30px;--mb-off:0px}
+@media(max-width:1080px){.tool-grid{--mb-cw:calc(33.333% - 18px);--mb-gap:20px;--mb-off:0px}}
+/* ONE COLUMN UNDER 760, NOT THE BASE RULE'S TWO. Two columns of three leaves a single card
+   stranded on row two, and .mb-grid's :nth-child(n+3){margin-top:-18px} then tucks that orphan
+   up under the card above it - a deliberate effect for a six-card pile, an accident for three.
+   Both are unset here rather than out-specified, because the base tuck is (0,2,0) and so is a
+   plain .tool-grid .mpol - and the base rule comes LATER in the file, which is the same
+   specificity trap this stylesheet documents three times over. :nth-child(n) buys the extra
+   pseudo-class that settles it. */
+@media(max-width:760px){
+  .tool-grid{--mb-cw:min(90%,330px);--mb-gap:0px;--mb-off:0px}
+  .tool-grid .mpol:nth-child(n){--y:0px;margin-top:0;margin-left:0}
+  .tool-grid .mpol:nth-child(n+2){margin-top:clamp(1.4rem,5vw,2rem)}
+}
+.tools .tpol{padding:9px 9px 26px}
+/* THE PHOTO IS NOT SQUARE HERE. .mv-ph is 1:1 for the #proof deck's face-per-card; two of these
+   three sources are 3:4 portraits (1100x1466, 900x1200) and a square crop cut the Zine Machine
+   table off at the near edge and took the top of the held-up zine. 4:5 keeps both whole and is
+   the shape a polaroid actually is. */
+.tools .tpol .mv-ph{aspect-ratio:4/5}
+.tools .tpol .mv-strip{padding:.7rem .45rem .1rem}
+/* the tool name is the loudest thing on the card, so it takes the display face, not the mono
+   handle treatment .mv-strip b carries in #proof. INK: see the contrast note at .mv-strip b -
+   an accent as text fails AA at this size, and School Bus fails it outright. */
+/* 1.2rem IS A CONTRAST DECISION, NOT A TASTE ONE. --coral-ink measures 4.26:1 against the
+   RENDERED paper (rgb(239,232,215) — the texture, not the flat #FEF6E4 token, which flatters
+   every ratio in this file by ~0.6), and AA for normal text is 4.5. At 700 weight WCAG's
+   large-text threshold is 18.66px, where the floor drops to 3:1 — 1.2rem is 19.2px and clears
+   it. Do not shrink these names without re-checking the coral one; the other two have room
+   (#4A3410 9.61:1, --lazuli-deep 4.58:1). */
+.tools .tp-name{display:block;font-family:var(--f-head);font-weight:700;font-size:1.2rem;
+  line-height:1.14;letter-spacing:-.005em;color:var(--ink);text-wrap:balance;margin:0}
+.tools .tp-what{display:block;margin-top:.36rem;font-family:var(--f-hand);
+  font-size:.95rem;line-height:1.2;color:var(--sambas);text-wrap:balance}
+@media(max-width:460px){
+  .tools .tp-name{font-size:1.22rem}
+  .tools .tp-what{font-size:1rem}
+}
+
+/* ---- THE CATEGORY, UNDER THE CHALLENGE (2026-09-02) --------------------------------------
+   Founder: "each zine can say the challenge and then the category, e.g., photography."
+   IT WAS ALREADY IN THE DATA AND HAD NEVER RENDERED. Every row of D[] in app-post-beta.js has
+   carried a `craft` since the array was written - zine-making, drawing, modeling, night
+   photography, penmanship, coffee, photography, cut-outs - and the carousel even declared
+   `var craft = document.getElementById('zcCraft')`. #zcCraft was not in the document, so that
+   lookup returned null and the field rendered nowhere. This is the span it was waiting for.
+   IT TAKES .zc-count's SLOT AND ITS IDIOM, which was free (.zc-count is styled here but is on
+   no page in this repo). Older paper, a small opposite rotation: the pair reads as
+   label-then-annotation, which is exactly the "challenge, then the category" order asked for,
+   rather than as two labels arguing at the same rank.
+   INK, NOT A BEAT HUE. The tape above it is already coral; a second colour here would put two
+   of the loop's four beat colours in one corner of a photograph, meaning neither. */
+.zc-craft{
+  position:absolute; z-index:4; top:calc(11px + 2.15em); left:1.5rem; isolation:isolate;
+  max-width:calc(100% - 5.5rem);
+  padding:.26em .5em .22em;
+  font-family:var(--f-mono); font-weight:600; font-size:clamp(.5rem,1.15cqw,.62rem);
+  letter-spacing:.13em; text-transform:uppercase; white-space:nowrap;
+  overflow:hidden; text-overflow:clip;
+  color:var(--ink); transform:rotate(1.7deg); transform-origin:left center;
+}
+.zc-craft::before{content:""; position:absolute; inset:0; z-index:-1;
+  background:var(--oats); filter:url(#torn3)}
+html[data-tier="lite"] .zc-craft::before{filter:none}
+
+/* ---- THE WHOLE PLATE IS THE DOOR (2026-09-02) --------------------------------------------
+   Founder: "you can click and it'll link." The issue was reachable only from "scroll the
+   issue", a 10px line on the post-it hanging off the plate's corner; the magazine itself - the
+   biggest object on the fold - was inert.
+   IT IS AN OVERLAY <a>, NOT A WRAPPER. Wrapping .zc-frame would put the prev/next buttons
+   inside an anchor, which is invalid and swallows their clicks. This sits at z-index 3: above
+   every .zl (1) and below .zc-chal (4), .zc-nav (5) and the coverlines, so the tape stays
+   readable and the arrows keep working.
+   ITS href IS REWRITTEN BY show(), same as #ctaIssue's. If you ever add a layer without a D[]
+   row, this link points at the previous issue - see the note on the array. */
+.zc-open{position:absolute; inset:0; z-index:3; display:block; border-radius:inherit;
+  -webkit-tap-highlight-color:transparent}
+.zc-open:focus-visible{outline:3px solid var(--happy); outline-offset:-6px}
+
+/* ---- ~~THE PLAY CHIP~~ INERT SINCE 2026-09-02 --------------------------------------------
+   .zc-frame:has(.zl.is-on video)::after (upfile) draws an ink play chip on a video layer.
+   Both video layers moved to #tools, so no .zl carries a <video> and the :has() never matches.
+   The rule is left alone deliberately: it is self-guarding, it costs nothing, and it is the
+   right behaviour if a clip ever comes back to the rack. This note is here so the next reader
+   does not spend ten minutes working out why the chip never draws. */
+
+/* ---- #tools CARDS 2 AND 3 ARE CLIPS (2026-09-02) -----------------------------------------
+   The two the hero gave up. .mv-ph is a background-image box in #proof; these two need a real
+   element, so the photo slot takes a <video> and a still twin, laid out absolutely to fill it.
+   THE STILL TWIN IS THE reduced-motion PATH and it is CSS, not JS: `autoplay`/`play()` cannot
+   be un-fired once the element is in the document, which is the same reasoning .pw-vid's pair
+   is written under upfile. Both selectors are qualified (video.tp-vid / img.tp-still) because
+   the rule they have to beat is element-qualified too - the specificity trap this file has
+   already been bitten by twice.
+   THE SOURCES ARE 9:16 IN A 4:5 BOX, so cover crops the top and bottom, not the sides. Both
+   clips are shot with their subject central and the crop was checked at 390 and 1440. */
+.tools .tpol .mv-ph.has-vid{background:#EDE4CF}
+.tools .tpol .mv-ph video.tp-vid,
+.tools .tpol .mv-ph img.tp-still{position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center}
+.tools .tpol .mv-ph img.tp-still{display:none}
+@media (prefers-reduced-motion:reduce){
+  .tools .tpol .mv-ph video.tp-vid{display:none}
+  .tools .tpol .mv-ph img.tp-still{display:block}
+}
+/* the play chip .mv-vid is part of the .mpol vocabulary already (upfile) - it just had no
+   consumer until now. It sits above the clip. */
+.tools .tpol .mv-vid{z-index:2}
+
+/* ---- THE CARD LABEL IS A CORNER STICK-ON (2026-09-02) ------------------------------------
+   Founder's ask; the argument for collapsing two labels into one is in index.html at the grid.
+   IT LIVES INSIDE .pw-media AND THAT IS LOAD-BEARING. .pw-media::before is a torn slab at
+   inset:-13px, z-index 0, and the picture is z-index 1 - so a sticker has to clear BOTH or it
+   paints under the photograph. This is the same trap the deleted .pw-tick block documented at
+   z-index 4; the numbers are unchanged, so if anything else is ever dropped on these cards it
+   needs its own z-index too.
+   IT HANGS OFF THE CORNER, not inside it: -10px/-8px, so it laps over the torn slab's edge the
+   way a real sticker is stuck half onto a thing. Fully contained, it would read as a caption
+   printed on the screenshot.
+   LAZULI-DEEP ON OATS, 5.20:1 - the same pair .pw-kind carried, and the same beat: these three
+   cards are where SHOW & TELL lands. */
+.pw-sticker{position:absolute;z-index:4;top:-10px;left:-8px;isolation:isolate;
+  display:block;width:max-content;max-width:calc(100% - 1rem);
+  padding:.34em .7em .3em;
+  font-family:var(--f-mono);font-weight:600;font-size:var(--fs-label);
+  letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;
+  color:var(--oats);transform:rotate(-2.4deg);transform-origin:left center}
+.pw-sticker::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:var(--lazuli-deep);border-radius:3px;filter:url(#torn);
+  box-shadow:2px 3px 0 0 rgba(40,26,10,.42)}
+html[data-tier="lite"] .pw-sticker::before{filter:none}
+/* each one leans its own way, so three stickers read as three things somebody stuck on */
+.lands-grid .pw-col.is-club .pw-sticker{transform:rotate(1.8deg)}
+.lands-grid .pw-col.is-mine .pw-sticker{transform:rotate(-1.3deg)}
+/* THE LINE UNDER THE CARD IS A SUBTITLE NOW, not a repeat of the name, so it drops the tape's
+   old clearance (.pw-name carried margin-top:2.1rem to clear .pw-kind, which is gone). */
+.lands-grid .pw-name{margin-top:1.15rem;font-size:1.08rem}
+@media (max-width:560px){
+  .pw-sticker{font-size:calc(var(--fs-label) * .92);padding:.32em .6em .28em;left:-5px}
+}
+
+/* ---- THE RACK (2026-09-02) — eight covers under the plate, and the carousel's navigation ---
+   The argument for it is in index.html at the markup. This is geometry.
+   ~~A ROW THAT SCROLLS, NOT A GRID THAT WRAPS~~ OVERRULED BY MEASUREMENT, same day. The
+   argument was that one row running off the edge reads as a shelf with more on it, and a wrapped
+   grid reads as a contact sheet. It is a real distinction and it lost to arithmetic: the rack
+   lives inside .zc-plate, which is 362px at 1440 and 525px at 390, so a single row showed FOUR
+   of eight books and the reader had to find a horizontal scroll to learn the range. The whole
+   reason this rack exists is that a carousel hid seven issues at a time - a shelf that hides
+   four is the same bug at half the size. Four up, two rows, everything visible, which was the
+   requirement.
+   THE COVER IS 4:5, THE SAME CROP THE STRIP OPENS ON, so a book and the plate it summons agree
+   about what that issue looks like. */
+/* IT HAS TO OUTRANK THE COLLAGE. The rack sits at the plate's foot, which is the densest part
+   of the hero: .cg-collage.cg-fore is z-index 3 and carries PHOTOGRAPHS, and the scattered
+   .cg-scrap marginalia paint over anything static beneath them. First cut, the whole rack drew
+   UNDER a pile of polaroids and doodles. 6 clears both, the same number .lands-head took for the
+   same reason downfile. NO PAPER BEHIND IT: the plate already sits on the hero card, and a third
+   sheet here is the paper-on-paper the design rules forbid outright. The covers carry their own
+   ink border and hard shadow, which is what lifts them. */
+/* IT LIVES IN .card-clip, NOT IN THE CARD - AND THAT IS A HEIGHT BUG, NOT A TASTE CALL.
+   Inside .zc-plate the rack added 270px to .hero-card (642px -> 912px, measured against
+   origin/main), and the hero is 100vh with the card centred in it, so the whole composition rose
+   out of the top of the viewport: the drex ticket landed on the h1 and the plate ran over the
+   copy. Founder, seeing it: "mother fucker the hero card is totally off to the right", "the hero
+   card is all kinds of fucked up". Moving the rack to be .hero-card's SIBLING put the card back
+   to 642px on the nose. It also happens to be what was asked for on its own merits - "for heading
+   shelf put it bellow, don't put it in the zine container that looks weird".
+   FOUR-UP AT PHONE, EIGHT-UP FROM 900. Inside the plate the rack only had 362px, which is why it
+   wrapped to two rows; out here it has the full clip (1188px at 1440) and a single row of eight
+   fits with room, which is the shelf the covers wanted to be all along. */
+.zc-rack{position:relative;z-index:6;display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(.5rem,1.4vw,.9rem) clamp(.4rem,1vw,.65rem);
+  width:min(880px,100%);margin:clamp(.9rem,2.2vw,1.3rem) auto 0;padding:.2rem .1rem .3rem}
+@media(min-width:900px){.zc-rack{grid-template-columns:repeat(8,1fr)}}
+.zc-book{display:block;width:100%;
+  margin:0;padding:0;border:0;background:none;cursor:pointer;text-align:center;
+  -webkit-tap-highlight-color:transparent;
+  transform:rotate(var(--br,0deg));transition:transform .17s ease,opacity .17s ease}
+/* no two sit straight — the same reason .mpol carries a per-card --r */
+.zc-book:nth-child(3n+1){--br:-2.1deg} .zc-book:nth-child(3n+2){--br:1.6deg}
+.zc-book:nth-child(3n+3){--br:-1.1deg}
+/* THE RESTING STATE IS DESATURATION, NOT OPACITY. It was opacity:.62, and the rack sits over the
+   hero's photo collage - so the pile showed straight THROUGH every resting cover and the shelf
+   read as mush. A cover has to stay opaque; it is a picture of a thing, not a veil. */
+.zc-book img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;
+  background:var(--paper);
+  border:2.2px solid var(--ink);border-radius:2px;
+  box-shadow:2px 3px 0 0 rgba(40,26,10,.42);
+  filter:saturate(.35) contrast(.94) brightness(.97);
+  transition:filter .17s ease,box-shadow .17s ease}
+/* THE ONE ON THE PLATE IS THE ONE IN FULL COLOUR. That is the whole state model: the rack says
+   where you are, so the resting books have to be visibly resting. */
+.zc-book.is-on img{filter:none;box-shadow:3px 4px 0 0 var(--ink)}
+.zc-book.is-on{transform:rotate(var(--br,0deg)) translateY(-3px) scale(1.05)}
+.zc-book:hover img,.zc-book:focus-visible img{filter:none}
+.zc-book:focus-visible{outline:3px solid var(--happy);outline-offset:3px;border-radius:3px}
+/* the craft is the point of the rack — it is what makes eight covers read as a RANGE and not as
+   eight pictures. Ink, not a beat hue: eight domain words are not eight beats. */
+.zc-book-craft{display:block;margin-top:.34em;font-family:var(--f-mono);font-weight:600;
+  font-size:clamp(.42rem,.86vw,.56rem);letter-spacing:.06em;text-transform:uppercase;
+  line-height:1.15;color:var(--sambas);opacity:.78;
+  overflow-wrap:anywhere}
+.zc-book.is-on .zc-book-craft{color:var(--ink);opacity:1}
+@media(prefers-reduced-motion:reduce){.zc-book,.zc-book img{transition:none}}
+
+/* ---- "What you get" IS A HEADING NOW, AND THE THREE NAMES CARRY BEATS (2026-09-02) --------
+   Founder: "make 'what you get' an actual heading (typography) ... and also color the headings
+   in the poloroids or give the text each a unique color ... try to use semantic colors?"
+   THE COLOURS ARE NOT A NEW SET. Each tool serves one beat of the ring 300px below, and it takes
+   THAT station's ink - the same four declarations, verbatim, that .loopwrap's station h3s use:
+       accountability -> CLUB HOUR      #4A3410        (is-clock)
+       the challenge  -> CHALLENGE      --coral-ink    (is-cal)
+       the portfolio  -> SHOW & TELL    --lazuli-deep  (is-globe)
+   So a reader meets the colour on the card and again on the station it names. Grass-deep is
+   absent for the same reason Grass is absent from the pins: MAKE-THE-ISSUE is what the club
+   does, not a tool handed to it.
+   THEY ARE THE DEEPENED INKS AND THAT IS NOT OPTIONAL. This file already measured the raw
+   accents as text on cream: School Bus 1.82:1, Colorado 3.07, Lazuli 3.11 - all under AA, and
+   School Bus as text is a written DESIGN.md violation, not just a WCAG one ("both yellows are
+   5% accents, dark-ink text only"). #4A3410, --coral-ink and --lazuli-deep are the sanctioned
+   deepened forms this page already ships. Never set a tool name in a raw beat hue.
+   The PINS keep the raw hues, because a pin is an accent and that is where an accent belongs. */
+.tools-h{text-align:center;font-size:var(--fs-3);line-height:1.06;letter-spacing:-.014em;
+  color:var(--ink);margin:0 auto clamp(1.5rem,4vw,2.3rem);max-width:20ch;text-wrap:balance}
+.tools-h .stop{color:var(--grass-deep)}
+.tools .tp-name.tp-hour{color:#4A3410}
+.tools .tp-name.tp-chal{color:var(--coral-ink)}
+.tools .tp-name.tp-tell{color:var(--lazuli-deep)}
+
+/* ---- ~~THE CARD LAPS THE PLATE~~ NOT SHIPPED, 2026-09-02. TWO ATTEMPTS, BOTH REVERTED. ----
+   The ask is real and still open: "let's put the hero card (your gifts are unique, that whole
+   paper container) on top/overlapping the bottom third of the scrolling zine video".
+   ATTEMPT 1 - MOVE THE DOM. Lift .zc out of .ed-inner into a new .hero-stack sibling. Three
+   failures: the card kept its TWO-COLUMN width (842px) while holding only the 346px copy column,
+   so half the sheet was blank; the riser SHRANK to 117px inside a 355px pocket, because
+   .card-clip is display:flex while sealed and a plain width:100% is still shrinkable, which made
+   translateY(122%) resolve against the wrong height and left the card visible ABOVE the cut line
+   through the whole intro (fix is flex:0 0 100%, if anyone retries this); and the splice could
+   not be done by counting <div>/</div>, because several comments in index.html contain the
+   literal text "</div>" in prose - it mis-nested the rack into .card-clip twice.
+   ATTEMPT 2 - CSS ONLY. .paper is isolation:isolate and its sheet is a REAL CHILD at z-index 0,
+   so an absolutely-positioned .zc at z-index:-1 does lap correctly and the seal survives. It
+   still failed, and for a reason neither attempt could fix from here: taking the plate out of
+   flow removes it from the hero's collage grid, and the surrounding pinned photographs, the drex
+   ticket and the marginalia are all positioned against a layout that assumed it was in there. The
+   plate ended up over the h1 and the ticket landed on "Your gifts are unique".
+   WHAT IT ACTUALLY NEEDS: the hero collage re-laid out as a whole, not the plate relocated inside
+   it. That is a design pass, not a patch, and it is the one thing on this page that cannot be
+   done incrementally. Everything else from the same batch shipped. */
+
+/* ---- THE CHALLENGE TAPE MOVES TO THE TOP RIGHT (2026-09-02) --------------------------------
+   Founder: "should probably move the challenge dymo tape on the hero video to the top right
+   because the drex ticket covers it atm" + "can give it a little margin away from the edges".
+   The ticket (.hero-card .tape) is pinned to the card's top-LEFT corner and laps the plate there,
+   so a tape in the same corner is under it at any width where the two meet. The right corner is
+   free - the page leaves fan out bottom-right, not top - and 18px of inset stops it reading as
+   printed to the edge. transform-origin flips with it or the -1.5deg rotation swings the tape
+   AWAY from its corner instead of into it. */
+.zc-chal{left:auto;right:18px;top:18px;transform-origin:right center}
+.zc-craft{left:auto;right:24px;top:calc(18px + 2.15em);transform-origin:right center;
+  text-align:right}
+@media (max-width:560px){.zc-chal{right:12px;top:12px}.zc-craft{right:17px;top:calc(12px + 2.15em)}}
+
+/* THE CARD-CLIP OUTRANKS THE PILE. .card-clip is position:relative z-index:3, which makes it a
+   stacking context - so the rack's own z-index:6 only ever resolved INSIDE it, and the clip was
+   tying at 3 with .cg-collage.cg-fore and the .hp photographs pinned around the hero. The rack
+   sits lowest in the clip, which is exactly where the pile is densest, so it went under. 5 clears
+   both without touching anything inside the card. */
+.card-clip{z-index:5}
+
+/* ---- THE CARD SUBTITLES HAD TO STOP BEING A HAND (2026-09-02) ------------------------------
+   Founder: "the captions are hard to read for 'the library, the club's wall, your wall'".
+   Measured: Birdie at 17.28px, inheriting body's font-weight:300, in --lazuli-deep, which is
+   4.58:1 on the RENDERED paper - exactly the floor this file sets and no more. A HAND face at the
+   floor reads far worse than a grotesk at the same ratio, because the strokes are thinner and
+   irregular; the number passes and the line still does not read.
+   THREE CHANGES, EACH DOING ONE THING: Bitter instead of Birdie (this is a sentence you read, not
+   an annotation you glance at); --ink instead of the beat hue, which is 7.4:1; and weight 400 so
+   it can never inherit the 300 again. THE ARROW KEEPS THE BEAT COLOUR - the affordance stays
+   lazuli, the words become legible, and the card still reads as a door. */
+.lands-grid .pw-name{font-family:var(--f-body);font-weight:400;font-size:1.06rem;
+  line-height:1.35;color:var(--ink);margin-top:1.05rem}
+.lands-grid .pw-name .arr{color:var(--lazuli-deep)}
+.lands-grid .pw-a:hover .pw-name{text-decoration:underline;text-underline-offset:3px;
+  text-decoration-thickness:1.5px;text-decoration-color:var(--lazuli-deep)}
+/* the collapsed head: one line, centred, no tape and no arrow above it */
+.lands-head .lands-h{margin-top:0}
+
+/* THE SUBTITLE'S INK, AND WHY THIS RULE IS SPELLED OUT THREE TIMES. The one-ink rule upfile is
+   `.lands-grid .pw-col.is-lib .pw-name` and its two twins - (0,3,0) - so a plain
+   `.lands-grid .pw-name` (0,2,0) loses to it and the captions stayed lazuli. Matching the
+   selector and coming later is the fix; a bare bump would have needed !important. The one-ink
+   argument still holds for the NAMES, which is what those rules were written for - but these are
+   no longer names, they are sentences, and a sentence has to be readable first. */
+.lands-grid .pw-col.is-lib .pw-name,
+.lands-grid .pw-col.is-club .pw-name,
+.lands-grid .pw-col.is-mine .pw-name{color:var(--ink)}
+/* .nb is not a global on this page - it is defined scoped, at footer .tagline and at
+   .hero-card h1.ed-cat - so it needed declaring here too. Without it "Show-and-tell." broke
+   across the hyphen ("Show-and- / tell.") which is the one break this line cannot take. */
+.lands-h .nb{white-space:nowrap}

@@ -351,12 +351,23 @@ function fillGutters() {
    themselves the moment a real photo exists at assets/makers/<handle>.jpg — no markup change, no
    redeploy of anything but the image. Probe, and only swap on a successful decode, so a missing
    file degrades to the placeholder instead of a broken-image icon. */
+/* IT PROBES BY HANDLE, so every card whose <b> is NOT a handle costs a 404 per load. That was
+   already true of #proof's four named cards (the probe is the fallback path - the photo is set
+   in the markup and this only upgrades it), and #tools made it worse on 2026-09-02: its three
+   <b class="tp-name"> elements are TOOL NAMES, so it went looking for
+   assets/makers/Accountability for a community.jpg and two more like it. Eight 404s a load.
+   TWO GUARDS, both cheap: skip any card that already carries .has-photo (its photo is resolved,
+   there is nothing to upgrade), and skip anything that is not a handle-shaped string. The
+   .has-photo guard alone fixes #tools AND removes #proof's four, because every card on this page
+   now ships its photograph in the markup. The probe survives for a card that does not. */
 function initMakerPhotos() {
   document.querySelectorAll('.mpol').forEach((pol) => {
     const handle = (pol.querySelector('.mv-strip b')?.textContent || '').replace('@', '').trim();
     if (!handle) return;
+    if (/\s/.test(handle)) return;                  // tool names and "Name · Club" are not handles
     const ph = pol.querySelector('.mv-ph');
     if (!ph) return;
+    if (ph.classList.contains('has-photo')) return;  // already resolved in the markup
     const img = new Image();
     img.onload = () => {
       ph.style.backgroundImage = `url("assets/makers/${handle}.jpg")`;
@@ -2457,7 +2468,7 @@ function burstConfetti() {
   const layer = document.createElement('div');
   layer.id = 'finale-confetti';
   layer.setAttribute('aria-hidden', 'true');
-  const COLORS = ['var(--colorado)', 'var(--grass)', 'var(--lazuli)', 'var(--schoolbus)', 'var(--happy)', 'var(--sambas)'];
+  const COLORS = ['var(--colorado)', 'var(--grass)', 'var(--lazuli)', 'var(--schoolbus)', 'var(--oats)', 'var(--sambas)'];
   const N = 54;
   for (let i = 0; i < N; i++) {
     const b = document.createElement('span');
@@ -2600,7 +2611,7 @@ function initHamburgerJoy(audio) {
     if (Stage.reduce) return;
     const layer = document.createElement('div'); layer.className = 'hb-conf';
     const KIND = ['mark', 'star', 'dot', 'butterfly', 'dot', 'star'];
-    const COLOR = ['var(--grass)', 'var(--colorado)', 'var(--lazuli)', 'var(--schoolbus)', 'var(--happy)', 'var(--sambas)'];
+    const COLOR = ['var(--grass)', 'var(--colorado)', 'var(--lazuli)', 'var(--schoolbus)', 'var(--oats)', 'var(--sambas)'];
     for (let i = 0; i < 36; i++) {
       const kind = KIND[i % KIND.length];
       const bit = document.createElement('span'); bit.className = 'hb-conf-bit';
@@ -2744,10 +2755,11 @@ function initZineCarousel() {
 
   // dwell in seconds, and the craft/club/caption each issue carries.
   var D = [
-{d:18, craft:'zine-making',       club:'Zine Machine',       tape:'make a paper zine about your hobby',  lead:'Eight makers cut paper zines by hand.',
-     z:'https://app.drex.style/z/09e16cfb-3c15-4a98-a8d2-427ced250f2e', c:'https://app.drex.style/clubs/zine-machine'},
-{d:22, craft:'drawing',           club:'Drexzine',           tape:'make a doodle at the cafe',    lead:'Drawing between coffees.',
-     z:'https://app.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41', c:'https://app.drex.style/clubs/drex'},
+// ~~ROWS 0 AND 1 - Zine Machine's "make a paper zine" and Drexzine's "make a doodle at the
+  // cafe"~~ REMOVED 2026-09-02 WITH THEIR LAYERS. Both were videos, not page-strips, and both
+  // moved to the #tools band (founder's call). THIS ARRAY IS INDEXED BY LAYER: D[i] belongs to
+  // the i-th .zl in the markup, so a row and a layer are added or removed TOGETHER or every
+  // issue past the gap wears the next one's challenge, club and link. Ten became eight.
 {d:18, craft:'modeling',          club:'XChange Models',     tape:'come as your heritage',        lead:'Eleven models reflect on their performance.',
      z:'https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23', c:'https://app.drex.style/clubs/xchange-models'},
 {d:18, craft:'night photography', club:'Photo Phloor',       tape:'take night photos of the unseen', lead:'A collective shoots after dark.',
@@ -2770,6 +2782,7 @@ function initZineCarousel() {
   var cap   = document.getElementById('zcCap');
   var craft = document.getElementById('zcCraft');
   var read  = document.getElementById('ctaIssue');
+  var open_ = document.getElementById('zcOpen');   // the whole plate, 2026-09-02
   var join  = document.getElementById('ctaClub');
   var still = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -2913,13 +2926,24 @@ function initZineCarousel() {
 
     if (chal){
       chal.textContent = d.tape;
+      // THE CATEGORY, 2026-09-02, founder: "each zine can say the challenge and then the
+      // category, e.g., photography." The field has been on every row since this array was
+      // written; it had never rendered, because #zcCraft was not in the document and this
+      // `craft` lookup returned null. One span in index.html and this line.
+      // craft AND club: the post-it that used to carry "in <club>" was deleted with the
+      // arrows when the rack became the navigation, and the attribution had to survive. The
+      // rack's books each carry their own craft, so this chip is the only place the CLUB is
+      // named - do not trim it back to d.craft alone.
+      if (craft) craft.textContent = d.craft + ' \u00b7 ' + d.club;
       fitTape();
     }
     // Plain text, not <b>: the lead sits under a heading link on the note now, so
     // bolding it puts two emphases in a three-line block and the eye has nowhere
     // to land. (It was bold when it was a standalone caption under the plate.)
     if (cap)   cap.textContent = d.lead;
+    markActive(i);              // the rack follows the plate, including on auto-rotate
     if (read)  read.href = d.z;
+    if (open_) open_.href = d.z;   // the plate and the post-it always point at the same issue
     if (join) {
       join.href = d.c;
       // The club's name IS the visible link text now (it reads "in SF Penmans"
@@ -2996,6 +3020,40 @@ function initZineCarousel() {
     timer = setTimeout(function () { timer = null; show(i + 1); start(); }, wait);
   }
   var COURTESY = 20000;                    // how long a hand-picked issue is left alone
+  /* THE RACK. Eight covers under the plate, and they ARE the navigation - #zcPrev/#zcNext
+     were deleted in the same pass. goTo() is step()'s absolute twin: same stop / show /
+     courtesy-dwell / restart, so a reader who picks a book gets exactly the treatment a reader
+     who took an arrow used to get.
+     markActive() runs from show(), NOT from the click, because the plate keeps auto-rotating -
+     if the rack only updated on click it would point at the wrong book within one dwell. */
+  var rack = document.getElementById('zcRack');
+  var books = rack ? [].slice.call(rack.querySelectorAll('.zc-book')) : [];
+  function markActive(n){
+    for (var b = 0; b < books.length; b++){
+      var on = (b === n);
+      books[b].classList.toggle('is-on', on);
+      books[b].setAttribute('aria-selected', on ? 'true' : 'false');
+      books[b].tabIndex = on ? 0 : -1;
+    }
+  }
+  function goTo(n) {
+    if (n === i) return;
+    manual = true;
+    stop(); show(n); holdOnce = COURTESY; start();
+  }
+  books.forEach(function(b){
+    b.setAttribute('role','tab');
+    b.addEventListener('click', function(){ goTo(+b.dataset.i); });
+  });
+  // left/right walk the rack, which is what a tablist owes a keyboard
+  if (rack) rack.addEventListener('keydown', function(e){
+    var k = e.key, n = null;
+    if (k === 'ArrowRight') n = (i + 1) % books.length;
+    else if (k === 'ArrowLeft') n = (i - 1 + books.length) % books.length;
+    else return;
+    e.preventDefault(); goTo(n); if (books[n]) books[n].focus();
+  });
+
   function step(n) {                       // manual: PAUSES the rotation, never ends it
     manual = true;                         // (only so warm() starts warming backwards too)
     stop(); show(i + n); holdOnce = COURTESY; start();

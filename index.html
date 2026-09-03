@@ -267,9 +267,17 @@
 </script>
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7438 6955'%3E%3Cg fill='%231CAB5B'%3E%3Cpath d='M3940.792,1923.474c0,-237.327 876.575,-942.689 1916.579,-954.143c144.631,-1.593 160.411,78.319 137.9,189.4c-30.08,148.427 -98.327,433.131 -98.327,433.131c0,0 65.273,764.946 -24.815,794.112c-90.088,29.167 -290.952,-256.255 -825.803,-386.398c-752.956,-183.213 -1105.535,77.059 -1105.535,-76.102Z'/%3E%3Cpath d='M3904.129,2226.95c9.277,-48.947 42.212,-89.528 87.203,-107.447c243.766,-86.69 1260.521,-180.52 2114.804,662.836c42.289,41.921 54.919,106.632 31.665,162.246c-102.058,276.752 -340.779,1190.09 53.749,2858.265c38.355,162.175 -103.782,235.401 -233.086,138.553c-532.234,-398.637 -1304.501,-567.736 -1930.825,-724.558c-48.189,-11.629 -86.868,-48.709 -101.742,-97.538c-70.176,-252.215 -255.758,-1651.265 -21.766,-2892.358Z'/%3E%3Cpath d='M3496.708,1923.474c0,-237.327 -876.575,-942.689 -1916.579,-954.143c-144.631,-1.593 -160.411,78.319 -137.9,189.4c30.08,148.427 98.327,433.131 98.327,433.131c0,0 -65.273,764.946 24.815,794.112c90.088,29.167 290.952,-256.255 825.803,-386.398c752.956,-183.213 1105.535,77.059 1105.535,-76.102Z'/%3E%3Cpath d='M3533.371,2226.95c-9.277,-48.947 -42.212,-89.528 -87.203,-107.447c-243.766,-86.69 -1260.521,-180.52 -2114.804,662.836c-42.289,41.921 -54.919,106.632 -31.665,162.246c102.058,276.752 340.779,1190.09 -53.749,2858.265c-38.355,162.175 103.782,235.401 233.086,138.553c532.234,-398.637 1304.501,-567.736 1930.825,-724.558c48.189,-11.629 86.868,-48.709 101.742,-97.538c70.176,-252.215 255.758,-1651.265 21.766,-2892.358Z'/%3E%3C/g%3E%3C/svg%3E" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Zilla+Slab:ital,wght@0,600;0,700;1,600;1,700&family=Space+Grotesk:wght@500;700&family=Patrick+Hand&display=swap" />
+<!-- ~~GOOGLE FONTS~~ GONE 2026-09-02. The four families here were STAND-INS - Zilla Slab for
+     Pitch, Space Grotesk for Pitch Sans, Patrick Hand for Birdie, and Bitter (which was always
+     the real face, just remotely hosted). All four are now the licensed brand faces, self-hosted
+     from assets/fonts; the @font-face block and the licence ceilings are at the head of
+     app-post-beta.css. This also removes two preconnects and a blocking third-party stylesheet
+     from the critical path.
+     THE ARCHIVED index-*.html STILL CARRY THIS LINK and still need it: they load the same
+     stylesheet, whose --f-* tokens now name Pitch and Birdie, but their own copies of this tag
+     are what keeps them rendering as they did. Do not "tidy" it out of them. -->
+<link rel="preload" href="assets/fonts/pitch-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bitter-light.woff2" as="font" type="font/woff2" crossorigin>
 
 <!-- ============================================================================
      index.html — THE FRONT PAGE of drex.style. Promoted from index-post-beta.html
@@ -1068,75 +1076,27 @@
                   <span class="zc-sheet zc-sheet-2" aria-hidden="true"></span>
                   <span class="tape b zc-tape" aria-hidden="true"></span>
                   <div class="zc-frame" id="zcFrame">
-                  <div class="zl is-on" aria-hidden="true">
-                    <!-- THE WHOLE LOOP, IN ONE TAKE (2026-08-20). Zine Machine met at a
-                         table, got the challenge "make a paper zine" on the day, cut and glued
-                         paper
-                         for an afternoon, shot the results into the editor on a phone, and
-                         published issue "Making Zines!" with ten makers in it. Every
-                         other layer on this plate is the LAST frame of that loop; this is
-                         the loop itself, which is the one thing a screenshot of a finished
-                         zine structurally cannot argue.
-                         It leads the deck because a cold reader's first question is "what
-                         IS this", and 77 seconds of people making a thing answers it
-                         before any sentence on the page gets read.
-                         540x960 from a 2160x3840 / 154Mbps / 1.4GB master, at 2.6MB: mild
-                         hqdn3d first (handheld grain in a dim cafe was eating most of the
-                         bitrate and none of it survives the downscale anyway), 30fps off a
-                         60fps source so the decimation is a clean 2:1, silent, x264 veryslow
-                         crf37, faststart. The tags said bt2020 primaries on an smpte170m
-                         transfer -- a mistag, not real wide gamut: converting properly moved
-                         the brand green by under 2/255, so the encode re-tags to bt709 and
-                         does NOT transform, which is also what stops a browser desaturating
-                         it on the way to the display.
-                         ONE FILE, H.264, NO WEBM. VP9 and AV1 were both encoded and both came
-                         out LARGER than this at matching quality on this footage (libvpx crf50
-                         = 3.0MB, SVT-AV1 crf50 = 3.4MB, and SVT pads 540 to 544). The newer
-                         codecs win on clean synthetic frames; 77 seconds of noisy handheld
-                         room is where x264's psy tuning is still ahead. Do not re-add a second
-                         source without re-measuring -- it cost bytes both times.
-                         preload stays "none" here and the carousel promotes it to "auto"
-                         on its turn -- which is at boot, since this is layer 0, so it
-                         buffers behind the sealed envelope and is ready when it lifts.
-                         THE TAPE DOES NOT REPEAT THE CARD. This clip opens on its own red
-                         challenge slab reading MAKE A PAPER ZINE, so setting the dymo label
-                         to the same words printed the same string twice in the same red,
-                         forty pixels apart, which reads as a fault rather than a design. The
-                         label carries "make a paper zine about your hobby" -- the day's
-                         prompt and the ISSUE's prompt ("make a zine about your favorite
-                         hobby", the one on the /z page, which this clip shows on screen at
-                         ~60s) folded into one line. There were two prompts, one for the
-                         afternoon and one for the zine, and this is the sentence that is
-                         true of both.
-                         "favorite" WAS IN IT AND HAD TO COME OUT. At 41 characters the label
-                         hit fitTape's 9.5px floor and still overran a 360px frame by 34px,
-                         and .zc-chal is nowrap + overflow:hidden with text-overflow:CLIP
-                         under 900px -- so it cut mid-word to "...ABOUT YOUR FAVORITE HO" with
-                         the tape's own end severed by the frame edge. 34 characters clears
-                         every width without flooring, and reads LARGER than any string this
-                         label has carried at 360px. Measure before lengthening it.
-                         SILENT ON PURPOSE. The plate has no unmute affordance and autoplay
-                         with sound is refused everywhere, so an audio track would be ~2.4MB
-                         nobody can hear -- most of the file, for nothing. -->
-                    <video class="zc-vid" src="assets/zines/hero/zinemachine.mp4" poster="assets/zines/hero/zinemachine-poster.jpg"
-                           width="540" height="960" muted playsinline preload="none"
-                           aria-label="Zine Machine takes the challenge &ldquo;make a paper zine&rdquo; &mdash; the club cutting and gluing paper at a table, the pages going into the editor on a phone, and the issue they published."></video>
-                  </div>
-                  <div class="zl" aria-hidden="true">
-                    <!-- THE SECOND MOVING ONE. A screen recording of an issue being MADE —
-                         Claire drawing at the cafe, the editor with the challenge on it, then
-                         the page she ended up with. It used to be the only layer that showed
-                         the act rather than the artifact; the Zine Machine take above it now
-                         carries that job for the whole club, and this is the same argument at
-                         the scale of ONE person, which is the scale most readers are at.
-                         432x766, 24s, silent, H.264 crf30 faststart: 764KB, which is smaller than
-                         two of the JPEG strips beside it. preload="none" so it costs nothing until
-                         its turn; the poster covers the gap before the first frame decodes. -->
-                    <video class="zc-vid" src="assets/zines/hero/cafe.mp4" poster="assets/zines/hero/cafe-poster.jpg"
-                           width="400" height="710" muted playsinline preload="none"
-                           aria-label="Drawing at the Cafe being made — the challenge, the photo going in, and the finished page."></video>
-                  </div>
-<div class="zl">
+                  <!-- ~~LAYERS 0 AND 1 - zinemachine.mp4 AND cafe.mp4~~ MOVED OUT 2026-09-02.
+                       Founder: "perhaps the video carousel actually isn't advantageous as examples
+                       of magazines with their challenge ... we can move those videos somewhere else
+                       on the page more advantageous." They are the second and third cards of the
+                       #tools band now, whose captions are what the footage actually shows.
+                       THIS CAROUSEL'S OWN NOTE ALREADY MADE THE CASE - see "NO DUE STAMP HERE"
+                       below, which refuses a due stamp because "this carousel shows PUBLISHED
+                       issues". Those two layers were NOT published issues; they were footage of
+                       people MAKING one, and they were layers 0 and 1, so process was the first
+                       thing at the fold in a rack of finished magazines.
+                       AND THEY WERE THE WEIGHT: 2.65MB + 629KB = 3.28MB, against 2.55MB for ALL
+                       EIGHT page-strips together, paid at the fold.
+                       THE COST, STATED PLAINLY: the carousel drops from ten issues to eight, and
+                       the two that leave are Zine Machine's "make a paper zine" and Drexzine's
+                       "make a doodle at the cafe" - there is no page-strip JPEG for either, only
+                       the clip. Both clubs are still on the page (Zine Machine in #tools and
+                       #proof; Drexzine keeps two other rows here).
+                       D[] IN app-post-beta.js LOST THE MATCHING TWO ROWS IN THE SAME EDIT. The
+                       array is indexed BY LAYER. Add or remove a layer without its row and every
+                       issue after the gap wears another issue's challenge, club and link. -->
+                  <div class="zl is-on">
                     <img src="assets/zines/hero/silkroad.jpg" width="620" height="10628"
                          loading="eager" decoding="async" alt="Silk Road 001, by XChange Models &mdash; pages of the real issue.">
                   </div>
@@ -1185,7 +1145,14 @@
                          paint all showed "come as your heritage" over a poster reading "MAKE A
                          PAPER ZINE". show(0) at boot overwrites these anyway (app-post-beta.js);
                          the served copy just has to agree with the served picture. -->
-                    <span class="zc-chal" id="zcChal">make a paper zine about your hobby</span>
+                    <!-- THE PLATE IS THE DOOR (2026-09-02, founder: "you can click and it'll
+                         link."). An overlay anchor, not a wrapper: .zc-frame holds the prev/next
+                         buttons and an anchor cannot contain them. Its href is rewritten per issue
+                         by show(), the same string #ctaIssue gets. z-index 3 - over every layer,
+                         under the tape and the arrows. -->
+                    <a class="zc-open" id="zcOpen" href="https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener" aria-label="Open this issue in the drex reader"></a>
+                    <span class="zc-craft" id="zcCraft">modeling &middot; XChange Models</span>
+                    <span class="zc-chal" id="zcChal">come as your heritage</span>
                     <!-- NO DUE STAMP HERE. One was added 2026-08-31 to put the deadline on the fold as an
                          object rather than a word, and it was wrong: this carousel shows PUBLISHED
                          issues. A "due" tab on a finished issue says the deadline is still coming
@@ -1196,20 +1163,12 @@
                          two-colour print misses — that is what makes them legible on any
                          photograph with no plate behind them. The button is invisible and
                          44px+, running the frame's height above the plank. -->
-                    <button class="zc-nav zc-prev" id="zcPrev" type="button" aria-label="Previous issue">
-                      <svg viewBox="0 0 24 36" aria-hidden="true" focusable="false">
-                        <path class="zn-ink" d="M17.6 3.1C13.9 7.4 10.3 11.5 6.4 15.9c-1 1.1-.9 1.9-.1 2.9 3.6 4.4 7.3 8.7 10.9 13.2"/>
-                        <path class="zn-lit" d="M16.9 2.4C13.2 6.8 9.7 10.9 5.8 15.3c-1 1.1-.9 1.9-.1 2.9 3.6 4.4 7.2 8.7 10.8 13.1"/>
-                      </svg>
-                    </button>
-                    <button class="zc-nav zc-next" id="zcNext" type="button" aria-label="Next issue">
-                      <svg viewBox="0 0 24 36" aria-hidden="true" focusable="false">
-                        <path class="zn-ink" d="M6.4 3.1C10.1 7.4 13.7 11.5 17.6 15.9c1 1.1.9 1.9.1 2.9-3.6 4.4-7.3 8.7-10.9 13.2"/>
-                        <path class="zn-lit" d="M7.1 2.4C10.8 6.8 14.3 10.9 18.2 15.3c1 1.1.9 1.9.1 2.9-3.6 4.4-7.2 8.7-10.8 13.1"/>
-                      </svg>
-                    </button>
+                    <!-- ~~zc-prev / zc-next~~ DELETED 2026-09-02: the rack below the
+                         plate is the navigation now, and it shows where you are. -->
 
                   </div>
+
+
 
                   <!-- THE POST-IT (2026-08-17). It replaces the plank of two buttons that used
                        to be bolted across the foot of the cover, and the caption that sat under
@@ -1231,11 +1190,14 @@
                        destination, and it reads as an attribution ("in SF Penmans"), which is
                        what it always was. Both hrefs and both strings are still written per
                        issue by the carousel (#ctaIssue, #zcCap, #ctaClub). -->
-                  <div class="zc-note">
-                    <a class="zc-note-read" id="ctaIssue" href="https://app.drex.style/z/09e16cfb-3c15-4a98-a8d2-427ced250f2e">scroll the issue</a>
-                    <p class="zc-note-lead" id="zcCap" aria-live="polite">Eight makers cut paper zines by hand.</p>
-                    <p class="zc-note-by">in <a class="zc-note-club" id="ctaClub" href="https://app.drex.style/clubs/zine-machine">Zine Machine</a></p>
-                  </div>
+                  <!-- ~~THE POST-IT~~ DELETED 2026-09-02 with the arrows, when the rack became the
+                       navigation. It carried three things and the page kept all three: "scroll the
+                       issue" is now the whole plate (.zc-open, wired 2026-09-02), the caption was
+                       one more line of the same claim the tape already makes, and the club's name
+                       moved into the chip under the tape - see #zcCraft, which now reads
+                       "craft · club". #ctaIssue/#zcCap/#ctaClub are gone from the document and
+                       every write to them in app-post-beta.js is null-guarded, so nothing throws;
+                       the archived index-*.html keep their own copies. -->
 
                   <!-- THE DOOR, TACKED TO THE MAGAZINE (2026-08-17). This is the page's only
                        call to action between the fold and the footer, and it is now a paper
@@ -1286,6 +1248,66 @@
 
             </div>
           </div>
+        <!-- ============ THE RACK IS THE NAVIGATION (2026-09-02) =====================
+        Founder: "i think it'd be cuter to show a bunch of different little
+        zinebooks ... to show off the diversity and obviousness as exemplars of the
+        kind of work done here ... under the zine can write like 'photography' to
+        show the domain", then "and yeah the rack as the navigation".
+        WHY THE CAROUSEL NEEDED THIS, and the page has already won this argument
+        once: #proof used to deal ONE card at a time and was rebuilt as a pinned
+        scatter because "five of the six people were invisible at any moment" and
+        "every voice is visible at once and the repetition IS the argument". This
+        carousel was the same failure at the fold - seven of eight issues invisible
+        at any moment, and the DIVERSITY is the whole argument. Eight covers side by
+        side answer "learn what?" in one look; a carousel answers it in 30 seconds
+        of dwell nobody gives.
+        THE COVERS COST NOTHING NEW. Each is the top 4:5 of the page-strip that
+        layer already loads, cut to 320x400 - 184KB for all eight, against 2.55MB of
+        strips. No shoot.
+        IT REPLACES THE ARROWS, IT DOES NOT SIT BESIDE THEM. .zc-nav is gone: a rack
+        that shows you where you are and lets you go straight there is strictly
+        better than two chevrons that only step. The plate still auto-rotates and
+        the rack follows it - see markActive() in app-post-beta.js.
+        NO CHALLENGE TAPE ON A BOOK. The founder asked for one; it cannot survive
+        the width. .zc-chal's own note records the measurement: 41 characters hit
+        fitTape's 9.5px floor AND still overran a 360px frame by 34px, clipping to
+        "...ABOUT YOUR FAVORITE HO". A book is ~86px at 390. The challenge stays on
+        the plate, where there is room for it; the book carries the craft, which is
+        one or two words and is the thing the rack exists to contrast. ========== -->
+        <div class="zc-rack" id="zcRack" role="tablist" aria-label="Eight published issues">
+        <button class="zc-book is-on" type="button" data-i="0" aria-label="Show Silk Road 001 &mdash; modeling">
+        <img src="assets/zines/hero/covers/silkroad.jpg" width="320" height="400" loading="lazy" decoding="async" alt="" />
+        <span class="zc-book-craft">modeling</span>
+        </button>
+        <button class="zc-book" type="button" data-i="1" aria-label="Show [ 3AM, 2001 ] &mdash; night photography">
+        <img src="assets/zines/hero/covers/phloor.jpg" width="320" height="400" loading="lazy" decoding="async" alt="" />
+        <span class="zc-book-craft">night photography</span>
+        </button>
+        <button class="zc-book" type="button" data-i="2" aria-label="Show Office Attitude &mdash; getting dressed">
+        <img src="assets/zines/hero/covers/office.jpg" width="320" height="400" loading="lazy" decoding="async" alt="" />
+        <span class="zc-book-craft">getting dressed</span>
+        </button>
+        <button class="zc-book" type="button" data-i="3" aria-label="Show Formal Practice &mdash; penmanship">
+        <img src="assets/zines/hero/covers/formal.jpg" width="320" height="400" loading="lazy" decoding="async" alt="" />
+        <span class="zc-book-craft">penmanship</span>
+        </button>
+        <button class="zc-book" type="button" data-i="4" aria-label="Show Our Favorite Drinks &mdash; coffee">
+        <img src="assets/zines/hero/covers/beans.jpg" width="320" height="400" loading="lazy" decoding="async" alt="" />
+        <span class="zc-book-craft">coffee</span>
+        </button>
+        <button class="zc-book" type="button" data-i="5" aria-label="Show the shadow field guide &mdash; photography">
+        <img src="assets/zines/hero/covers/dissonance.jpg" width="320" height="400" loading="lazy" decoding="async" alt="" />
+        <span class="zc-book-craft">photography</span>
+        </button>
+        <button class="zc-book" type="button" data-i="6" aria-label="Show the dropcap issue &mdash; penmanship">
+        <img src="assets/zines/hero/covers/dropcaps.jpg" width="320" height="400" loading="lazy" decoding="async" alt="" />
+        <span class="zc-book-craft">penmanship</span>
+        </button>
+        <button class="zc-book" type="button" data-i="7" aria-label="Show Interactive Zine &mdash; cut-outs">
+        <img src="assets/zines/hero/covers/interactive.jpg" width="320" height="400" loading="lazy" decoding="async" alt="" />
+        <span class="zc-book-craft">cut-outs</span>
+        </button>
+        </div>
         </div>
         <!-- The reel is GONE. It was a cross-origin Instagram iframe with no poster and no
              fallback, so for anyone running an ad-blocker, Firefox strict tracking protection,
@@ -1554,6 +1576,140 @@
        and the reason to keep this exact phrasing rather than a synonym. The three
        meta descriptions quote all three fragments verbatim; they were updated with
        this and have to stay in step. ============ -->
+  <!-- ============ THE THREE TOOLS (2026-09-02, founder's ask) ============================
+       Founder, relaying Chielo's Sept 1 note verbatim: "give you tools to ensure accountability
+       for a community, tools to organize a community challenge, and tools to seamlessly make a
+       portfolio out of your work" - "these items need to be featured in a strong way. maybe even
+       immediately after the chat dead section?" Then: "each of the three items can even be a
+       poloroid of the most apt photo? ... or video ... can even be surrounded by doodles."
+       THE COLLISION WAS RAISED BEFORE THIS WAS BUILT, AND SHE RULED. Flattened, these three are
+       "tools for accountability, community and portfolio", which Circle, Skool, Mighty, a Discord
+       with a bot and most bootcamps can all say verbatim - the exact failure her own long message
+       argues against - AND the summary band 300px below already says the same three in the page's
+       own words (show up / know what's up / put their work up). Told that, she chose to keep both.
+       Recorded so the next pass does not "discover" the duplication and quietly cut one.
+       WHY THERE IS NO h2. The band's h2 is 300px down and says the same thing; two headings that
+       close together is two headlines arguing (the rule .lands-h was demoted under). This is an
+       OBJECT - three pinned photographs - under one eyebrow, and the captions carry it.
+       THE PHOTOGRAPHS ARE REAL AND ARE THE MOST APT ONES IN THE REPO. Beans' whole crew behind
+       the counter for a community; the Zine Machine table mid-challenge, materials out; and a
+       maker holding up the issue she made, for the portfolio. Two are Zine Machine's, which is
+       stated here rather than hidden: they are different scenes (six at a table vs one person and
+       a finished zine), and beans-crew was the only other group photograph in the repo.
+       beans-crew.jpg WAS REJECTED FROM #proof and that rejection does not apply here: it was
+       "four people over a caption carrying ONE person's quote". This caption carries no quote and
+       names no individual - it is about a community, which is what the photograph shows.
+       THE PINS CARRY BEATS, NOT DECORATION. Each tool serves one beat of the ring below, and the
+       pin takes that beat's hue: accountability -> CLUB HOUR (School Bus), the challenge ->
+       CHALLENGE (Colorado), the portfolio -> SHOW & TELL (Lazuli). Grass is absent on purpose -
+       MAKE-THE-ISSUE is what the club does, not a tool handed to it. Accent on the pin ONLY,
+       never as text: School Bus measured 1.82:1 on cream (see .mv-strip b upfile).
+       HAPPY IS NOT IN THIS SECTION, pins or doodles. It is the live-and-present beacon.
+       ==================================================================================== -->
+  <section class="tools" id="tools" aria-label="What Drex gives a club">
+    <div class="tools-in">
+      <!-- A REAL HEADING, 2026-09-02 (founder: "maybe we make 'what you get' an actual heading
+           (typography)"). It was a Birdie eyebrow, i.e. a label, over the biggest object in the
+           section - the one rank on this page that is not a heading at all.
+           IT IS TIER B, NOT AN h2 TWIN. The summary band's h2 is ~300px below and this is the
+           .lands-h pattern exactly: the h2 face and its .stop, one size rank down, so the two do
+           not argue. The band's head stays the section's loudest line, which is right - this
+           names three objects, that one states the whole idea. -->
+      <h2 class="tools-h slab">What you get<span class="stop">.</span></h2>
+
+      <div class="mb-grid tool-grid">
+
+        <figure class="mpol tpol" style="--r:-2.6deg;--c:var(--schoolbus)">
+          <span class="mv-pin" aria-hidden="true"></span>
+          <span class="mv-ph has-photo" role="img" aria-label="The whole crew behind the counter at Beans, hands up, mid-laugh." style="background-image:url(assets/clubs/beans-crew.jpg);background-position:center 38%"></span>
+          <figcaption class="mv-strip">
+            <b class="tp-name tp-hour">Accountability for a community</b>
+            <span class="tp-what">A standing hour, in everyone&rsquo;s calendar.</span>
+          </figcaption>
+        </figure>
+
+        <figure class="mpol tpol" style="--r:1.9deg;--c:var(--colorado)">
+          <span class="mv-pin" aria-hidden="true"></span>
+          <span class="mv-ph has-photo has-vid">
+            <video class="tp-vid" width="540" height="960" muted loop playsinline preload="none"
+                   poster="assets/zines/hero/zinemachine-poster.jpg" src="assets/zines/hero/zinemachine.mp4"
+                   aria-label="Zine Machine taking the challenge &ldquo;make a paper zine&rdquo; &mdash; the club cutting and gluing paper around a table, the pages going into the editor on a phone, and the issue they published."></video>
+            <img class="tp-still" src="assets/zines/hero/zinemachine-poster.jpg" alt="Zine Machine at a table, cutting and gluing paper for their issue." loading="lazy" width="540" height="960" />
+            <span class="mv-vid" aria-hidden="true"></span>
+          </span>
+          <figcaption class="mv-strip">
+            <b class="tp-name tp-chal">Organize a community challenge</b>
+            <span class="tp-what">Your host sets it. The deadline closes itself.</span>
+          </figcaption>
+        </figure>
+
+        <figure class="mpol tpol" style="--r:-1.4deg;--c:var(--lazuli)">
+          <span class="mv-pin" aria-hidden="true"></span>
+          <!-- BUILT FOR THIS CARD, 2026-09-02, founder's ask: "a new lil video showcase for
+               portfolio items ... having bumps to show 'user portfolio' vs 'club portfolio' ...
+               even drawing on parts of the video ... we have really nice recordings of the user
+               wall and club walls already in the landing repo".
+               WHAT IT IS: assets/demo/wall-tour.mp4 (a maker's own wall) and club-tour.mp4 (Photo
+               Phloor's), cut 4.6s each, under three hand-made bumps and two drawn-on rings. Same
+               method as ~/Projects/Drex/drex-reel-markers: the bumps and the marks are HTML driven
+               frame-by-frame through window.__frame(t) in headless Chromium, captured a frame at a
+               time, composited over the footage with ffmpeg. The build lives in the scratchpad;
+               the source recordings and this file are what the repo keeps.
+               THEY ARE DOODLES, NOT ANNOTATION, AND THAT TOOK TWO WRONG CUTS TO LEARN.
+               Cut 1 drew marks at FIXED SCREEN COORDINATES over SCROLLING footage, so each mark
+               enclosed whatever happened to be passing behind it. Founder: "when you draw over the
+               screen recordings... it looks totally fucking random lmfao."
+               Cut 2 over-corrected into precision: measure where each clip stops (signalstats -
+               wall-tour holds still 2.0-3.7s, club-tour 4.4-6.5s), freeze the settled frame, and
+               ring a real object on it. It registered perfectly and it was still wrong, because
+               nothing on screen explains WHY those particular things are circled. Founder: "what
+               the fuck are you even circling lmfao? just draw random squiggle vision doodles that
+               look cute af in different brand colors."
+               SO: eight little marks a segment - sparkle, heart, spiral, squiggle, tick, burst,
+               zigzag, confetti - scattered wide of the content, popping in on staggered delays,
+               breathing, and boiling on three separate turbulence seeds so they do not wobble in
+               lockstep. Decoration has no target to miss.
+               NO HAPPY. Five brand inks here (Colorado, Lazuli, Grass, School Bus, Sambas) and
+               Happy is not one of them - it is the live-and-present beacon and DESIGN.md's Never
+               row names decoration by name. A TRAP THIS ALREADY FELL INTO: --sambas was never
+               declared in the card stylesheet, so one doodle carried an invalid stroke and simply
+               did not paint, silently, in every render. If a doodle is missing, check the token.
+               THE FOOTAGE JUST RUNS NOW. Cut 2's freeze existed to hold a mark on its target;
+               with nothing to register, the clips are better left scrolling.
+               ONE INK, AND THAT IS THE RULE NOT A PREFERENCE. The first cut ringed the maker's
+               wall in Colorado and the club's in Grass, which on this page says CHALLENGE and
+               MAKE-THE-ISSUE over two walls. A wall is where SHOW & TELL lands, so both bumps and
+               both rings are Lazuli - the same beat as this card's own pin.
+               NO WEBM. Encoded and measured: VP9 came out 987KB against H.264's 596KB on this
+               footage. That is the same result the hero carousel's own encode note records, for
+               the same reason - noisy handheld/screen-recorded room is where x264's psy tuning
+               still wins. Do not re-add a second source without re-measuring.
+               600x750 (4:5, .mv-ph's box), 30fps, 13.9s, silent, crf 32. -->
+          <span class="mv-ph has-photo has-vid">
+            <video class="tp-vid" width="600" height="750" muted loop playsinline preload="none"
+                   poster="assets/demo/wall-reel-poster.jpg" src="assets/demo/wall-reel.mp4"
+                   aria-label="A maker&rsquo;s own wall on Drex and then their club&rsquo;s &mdash; polaroids, postcards and the issues they are in, hand-drawn doodles scattered over them, under the labels &ldquo;your portfolio&rdquo; and &ldquo;the club&rsquo;s portfolio&rdquo;."></video>
+            <img class="tp-still" src="assets/demo/wall-reel-poster.jpg" alt="A maker&rsquo;s wall on Drex: polaroids and the published issues they appear in, with hand-drawn doodles scattered over it." loading="lazy" width="600" height="750" />
+            <span class="mv-vid" aria-hidden="true"></span>
+          </span>
+          <figcaption class="mv-strip">
+            <b class="tp-name tp-tell">Seamlessly make a portfolio</b>
+            <span class="tp-what">Every issue lands on your wall.</span>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+
+    <!-- DOODLES, HAND-PLACED, founder's ask. NOT balanceMarginalia()'s: fillGutters() skips any
+         section narrower than the viewport and its rails are viewport-anchored, so injected
+         scraps would land inside this reading column - and .cg-drop-lg hides them under 1200px
+         anyway. These are positioned in % against the section, so they hold at 390 and 1440.
+         NO HAPPY, and no fifth ink: they are drawn in the same three beat hues the pins carry,
+         plus oats and sambas, so the doodles cannot say a colour the pins do not. -->
+    <div class="cg-collage" aria-hidden="true"><span class="cg-scrap cg-s1 cg-drop-sm" data-cg-parallax="6" style="--cg-rot:-13deg;--cg-w:78px;left:3%;top:12%"><svg width="52" height="46" viewBox="0 0 52 46" fill="none" stroke="var(--schoolbus)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M6 24 L18 36 L45 9"/></g></svg></span><span class="cg-scrap cg-s2 cg-drop-sm" data-cg-parallax="5" style="--cg-rot:9deg;--cg-w:70px;right:4%;top:8%"><svg width="46" height="46" viewBox="0 0 46 46" fill="none" stroke="var(--colorado)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><circle cx="23" cy="23" r="16" stroke-dasharray="5 5"/><path d="M23 13 L23 24 L31 28"/></g></svg></span><span class="cg-scrap cg-s3 cg-shadow cg-drop-sm" data-cg-parallax="7" style="--cg-rot:-6deg;--cg-w:96px;left:1%;bottom:14%"><svg width="88" height="48" viewBox="0 0 88 48"><path class="cg-torn" d="M5 9 L80 4 L84 40 L9 45 Z" fill="var(--lazuli)" stroke="var(--ink)" stroke-width="2"/><g class="cg-wob" fill="none" stroke="var(--oats)" stroke-width="2.4" stroke-linecap="round"><path d="M16 21 L52 19 M16 30 L66 27"/></g></svg></span><span class="cg-scrap cg-s2 cg-drop-sm" data-cg-parallax="4" style="--cg-rot:7deg;--cg-w:82px;right:2%;bottom:18%"><svg width="70" height="34" viewBox="0 0 70 34" fill="none" stroke="var(--sambas)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><g class="cg-wob"><path d="M6 26 C20 6 48 6 62 22"/><path d="M62 22 L50 22 M62 22 L60 10"/></g></svg></span><span class="cg-scrap cg-s1 cg-drop-sm" data-cg-parallax="3" style="--cg-rot:-17deg;--cg-w:104px;right:9%;top:46%"><svg width="96" height="18" viewBox="0 0 96 18" fill="none" stroke="var(--sambas)" stroke-width="2.6" stroke-linecap="round"><g class="cg-wob" opacity=".55"><path d="M4 10 C16 4 24 16 36 10 C48 4 56 16 68 10 C80 4 88 16 92 10"/></g></svg></span></div>
+  </section>
+
   <section class="summary-band" aria-label="How a club runs, and what runs itself">
 
     <!-- ==== SUPERSEDED 2026-09-01, KEPT AS THE RECORD. Every line of copy this note argues
@@ -1732,15 +1888,13 @@
              DO NOT REDRAW IT. A picture of the library needs a capture of
              app.drex.style/show-and-tell, which this repo does not have. A shoot, not a search. -->
 
-        <span class="loop-arrow loop-in">
-          <svg viewBox="0 0 60 78" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <g filter="url(#roughsm)">
-              <path d="M30 6 C30 30 16 36 24 62"/>
-              <path d="M13 50 L25 70 L38 56"/>
-            </g>
-          </svg>
-          <b class="loop-lab">join a club, or start one</b>
-        </span>
+        <!-- ~~THE WAY IN~~ DELETED 2026-09-02, founder: "also remove 'join a club or start one'."
+             It was a small down-arrow and the label, sitting between the band's heading and
+             station 01. THE ARROW WENT WITH THE WORDS on purpose: a connector whose label is
+             deleted points at nothing, which is the exact fault this pass was called in to fix.
+             The way in is now the heading itself. .loop-in's CSS is kept (see app-post-beta.css
+             "THE LOOP'S PLUMBING IS INK") because five archived index-*.html still carry this
+             markup and load this sheet. -->
 
       <div class="how"><div class="how-stage">
       <div class="how-loop">
@@ -1811,6 +1965,7 @@
                  host:0 — the instrument reads rendered text only, and "host" was alive in the
                  JSON-LD the whole time. First of two uses. -->
             <p>your host sets it, with a deadline</p>
+            <span class="step-arw" aria-hidden="true"><svg viewBox="0 0 34 46" fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)"><path d="M17 4 C15 16 19 22 17 34"/><path d="M9 26 L17 38 L25 26"/></g></svg></span>
           </li>
           <li class="step is-key is-clock">
             <h3>Club Hour</h3>
@@ -1836,11 +1991,22 @@
               </g>
               <!-- the words, DARK (the deep tokens, not the bright fills), bold, and out at r≈40
                    where the shortened hands can't sweep through them. -->
-              <g class="ct-words" text-anchor="middle" font-size="12.6" font-weight="700">
-                <text x="79" y="47" fill="var(--ink)">practice</text>
-                <text x="74" y="90" fill="var(--ink)">observe</text>
-                <text x="38" y="90" fill="var(--ink)">ask</text>
-                <text x="36" y="47" fill="var(--ink)">be seen</text>
+              <!-- THE FOUR WORDS ARE PINNED TO A WIDTH, NOT LEFT TO THE FACE (2026-09-02).
+                   They used to be font-size:12.6 and nothing else, which fitted because the hand
+                   face was Patrick Hand. Swapping --f-hand to the real Birdie made every one of
+                   them wider and all four ran out over the dark ring - "be seen" lost its b,
+                   "observe" lost its last letters. Measured at 390 before the fix: practice 50
+                   units against a 37-unit half-chord at that height.
+                   textLength + lengthAdjust="spacingAndGlyphs" makes the layout FONT-INDEPENDENT:
+                   each word is drawn to the width the face has room for, whatever face resolves.
+                   The numbers are the widest that clear the ring at the y each word sits at. Set
+                   font-size so the squeeze stays small (about 10% here) - a hand face compressed
+                   much harder than that stops looking hand-drawn. -->
+              <g class="ct-words" text-anchor="middle" font-size="9.4" font-weight="700">
+                <text x="81" y="49" textLength="28" lengthAdjust="spacingAndGlyphs" fill="var(--ink)">practice</text>
+                <text x="79" y="84" textLength="28" lengthAdjust="spacingAndGlyphs" fill="var(--ink)">observe</text>
+                <text x="39" y="84" textLength="13" lengthAdjust="spacingAndGlyphs" fill="var(--ink)">ask</text>
+                <text x="38" y="49" textLength="28" lengthAdjust="spacingAndGlyphs" fill="var(--ink)">be seen</text>
               </g>
               <!-- The hands ROTATE, so any hand long enough to reach the words will eventually sweep
                    through all four of them. The words sit at r≈27; keep both hands inside that. -->
@@ -1851,6 +2017,7 @@
               <circle cx="60" cy="60" r="5" fill="var(--schoolbus)" stroke="var(--ink)" stroke-width="2.4"/>
             </svg></span>
             <p>a standing hour, online or in person</p>
+            <span class="step-arw" aria-hidden="true"><svg viewBox="0 0 34 46" fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)"><path d="M18 4 C21 15 14 23 17 35"/><path d="M10 27 L17 39 L25 26"/></g></svg></span>
           </li>
           <li class="step is-think">
             <svg class="thoughtb" viewBox="0 0 200 180" aria-hidden="true">
@@ -1892,6 +2059,7 @@
                  THREE WORDS IS THE CEILING (screenshotted 390/900/1440). Anything longer needs
                  the bubble redrawn, not the type shrunk. -->
             <p>one shared editor</p>
+            <span class="step-arw" aria-hidden="true"><svg viewBox="0 0 34 46" fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)"><path d="M16 4 C13 14 20 25 17 34"/><path d="M9 26 L18 38 L25 27"/></g></svg></span>
           </li>
           <li class="step is-globe">
             <h3>Show &amp; tell</h3>
@@ -1934,6 +2102,19 @@
                 </g>
               </g>
             </svg></span>
+            <!-- STATION 04'S SUB, 2026-09-02, founder: "remove 'it lands in the library.' or move
+                 it under 'show & tell' as a subtitle like the other items, and make 'the library'
+                 colored?" Moved, and it closes a gap that was already here: 01, 02 and 03 each
+                 carried a <p> and 04 was the only station without one, so the ring read as three
+                 explained beats and one bare icon.
+                 THE LIBRARY IS LAZULI-DEEP, i.e. this station's OWN ink, and the repeat with the
+                 h3 above it is the point rather than a slip: the library is where SHOW & TELL
+                 lands, so it is the same beat continuing, not a new one.
+                 NOT GRASS, though grass is this page's link colour and this names a real place.
+                 Grass has meant WORK ON THE MAGAZINE since rows 03/04 exchanged hues, and the
+                 stylesheet's own note on that collision says in as many words: "Do not solve it
+                 by recolouring one link." -->
+            <p>it lands in <b class="lib">the library</b></p>
           </li>
         </ol>
         <p class="loop-tool">The hour&rsquo;s in your calendar. The deadline closes itself. Nobody has to chase. <span class="hl lt-nag">We nag for you</span>.</p>
@@ -1964,21 +2145,16 @@
 
       </div>
 
-        <span class="loop-arrow loop-out">
-          <!-- ~~THE TALL BRACKET~~ DELETED 2026-09-01 with the library square it pointed at. It
-               ran from station 04 UP a left lane to the square at top:9%; with the square gone
-               its arrowhead landed on the "join a club" arrow - an arrow pointing at nothing.
-               THE SHORT TWIN IS THE ONLY ONE NOW, AT EVERY WIDTH. It already pointed down and
-               out, which is where the exit has to go: the library is a real card two sections
-               down. In flow, so it holds at 390/900/1440 by construction. -->
-          <svg class="lo-short" viewBox="0 0 60 78" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <g filter="url(#roughsm)">
-              <path d="M30 6 C30 30 44 36 36 62"/>
-              <path d="M47 50 L35 70 L22 56"/>
-            </g>
-          </svg>
-          <b class="loop-lab">it lands in the library</b>
-        </span>
+        <!-- ~~THE EXIT ARROW AND "it lands in the library"~~ DELETED 2026-09-02, founder's call.
+             The words moved into station 04's sub-line above; the arrow went with them, because a
+             connector whose label has left points at nothing - the same fault that took out
+             .loop-in and #seewhat's three ticks in this pass.
+             FOR THE RECORD, since it is the second bug of its kind here: .loop-arrow svg sets
+             display:block and no width, and only .loop-in svg ever carried a width clamp, so this
+             one filled its container - 560x728 at 1440, LARGER THAN THE 560px RING, and 366x477
+             at 390 where the station icons are 128px. It was the biggest object in the section by
+             a factor of three. If any .loop-arrow ever comes back it needs an explicit width.
+             .loop-out's CSS stays in app-post-beta.css for the five archived index-*.html. -->
 
       </div>
 
@@ -2162,20 +2338,56 @@
            viewport - a vw offset lands on target at 1440 and 46px past it at 900. -->
 
       <div class="lands-head">
-        <span class="lands-src">show &amp; tell</span>
-        <span class="sw-arrow" aria-hidden="true"><svg viewBox="0 0 96 108" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)"><path d="M14 6 C3 40 22 68 62 86"/><path d="M47 68 L66 88 L44 96"/></g></svg></span>
-        <p class="lands-h">It all ends up on a <span class="ul">wall</span><span class="stop">.</span> Your&nbsp;portfolio<span class="stop">.</span></p>
+        <!-- ~~THE TAPE, THE ARROW AND "It all ends up on a wall. Your portfolio."~~ COLLAPSED INTO
+             ONE LINE, 2026-09-02. Founder: "'show & tell. It all ends up on a wall. Your
+             portfolio.' -- this bit is... fucked maybe the heading should just be 'Show-and-tell...
+             and portfolio.'"
+             IT WAS THREE TYPOGRAPHIC OBJECTS BEFORE ANY CONTENT: a Dymo tape, a drawn arrow, and a
+             two-sentence line - stacked under an h2 that had already introduced the section. The
+             arrow was the only thing tying them together and it pointed at a sentence, not at the
+             evidence. WHAT IS LOST, STATED: "It all ends up on a wall" was the founder's own line
+             and it named the WALL, which the three cards below now name themselves - each carries
+             its own corner sticker and a subtitle saying what you would do there. The claim did
+             not disappear; it moved onto the objects that prove it. -->
+        <p class="lands-h"><span class="nb">Show-and-tell<span class="stop">.</span></span> <span class="nb">And&nbsp;portfolio<span class="stop">.</span></span></p>
       </div>
 
       <div class="pw-pair lands-grid">
+        <!-- THE LABEL IS A CORNER STICK-ON NOW (2026-09-02, founder: "we change the label for
+             the reader to say 'the library' with a subtitle 'browse the world's work'. kind of
+             similar fixes with the walls. and we should position the title-label like 'the
+             library' as a little top left corner cute stick-on").
+             IT COLLAPSES TWO LABELS INTO ONE OBJECT. Each card used to carry a .pw-kind tape
+             across its bottom edge AND a .pw-name link line under that - two labels per card,
+             and because the three cards are 1:1, 4:5 and 4:5 on align-items:start, the library
+             card's pair sat 76px HIGHER than the other two (measured at 1440). That staircase is
+             what made the row look broken. The name moves onto the picture where it can't
+             staircase, and the line underneath stops repeating the name and says what you would
+             DO there instead - which is the one thing this page measures itself as missing. -->
+
+        <!-- ~~THE THREE TICK ARROWS~~ DELETED 2026-09-02, founder: "the arrows you got going seem
+             really fucking random and ugly", and on a direct call to delete all three.
+             WHAT THEY WERE: one 72x62 hooked glyph over each card, leaning right/centre/left, sold
+             in this file and in the stylesheet as a FAN from the "show & tell" tape.
+             WHY IT COULD NEVER READ AS ONE, MEASURED AT 1440: the tape's bottom is y2847 and all
+             three glyphs sit at y3022-3084 - 938px and a whole heading below the source they were
+             supposed to spring from. Three marks that far from their origin are three marks.
+             AND EVERY TIP LANDED ON APP CHROME: card 1's on the reader's share/heart cluster,
+             card 2's on the wall's "Sign In" button, card 3's on a person's shoulder - so each one
+             read as a product-tour callout pointing at a UI control.
+             THE SENTENCE ALREADY DOES THE JOB. "It all ends up on a wall. Your portfolio.", under
+             the tape and its one arrow, is the claim; the three cards under it are the evidence.
+             IF ARROWS EVER COME BACK they have to start ON the grid, not 938px above it, and their
+             tips have to land on paper - not on a button. All .pw-tick CSS went with this; see
+             app-post-beta.css under "SHOW & TELL FEEDS BOTH WALLS". -->
 
         <!-- 1 · THE LIBRARY. The clip that used to be this section's only object, now card one.
              Anchor and aria unchanged; the label that was a Dymo tape on the capture is the
              .pw-name its siblings use. -->
         <div class="pw-col is-lib">
-          <span class="pw-tick" aria-hidden="true"><svg viewBox="0 0 72 62" fill="none" stroke="var(--lands-ink)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)"><path d="M64 6 C58 25 46 33 32 46"/><path d="M48 42 L29 50 L34 30"/></g></svg></span>
           <a class="pw-a" style="--r:-1.4deg" href="https://app.drex.style/show-and-tell" target="_blank" rel="noopener" aria-label="Open the drex library &mdash; every issue any club has published">
             <span class="pw-media rd-media">
+              <span class="pw-sticker">the library</span>
               <video class="pw-vid" width="720" height="720" muted loop playsinline preload="none"
                      poster="assets/demo/book-cafe-poster.jpg"
                      aria-label="The drex reader turning through five real published issues &mdash; [ 3AM, 2001 ], Interactive Zine, Office Attitude, Silk Road 001, and Drawing at the Cafe, which ends on a maker holding up her drawing.">
@@ -2184,16 +2396,15 @@
               </video>
               <img class="pw-still" src="assets/demo/book-cafe-poster.jpg" alt="The drex reader open on a real issue, Drawing at the Cafe." loading="lazy" width="720" height="720" />
             </span>
-            <span class="pw-kind">everyone&rsquo;s</span>
-            <span class="pw-name">The library <span class="arr">&rarr;</span></span>
+            <span class="pw-name">browse the world&rsquo;s work <span class="arr">&rarr;</span></span></span>
           </a>
         </div>
 
         <!-- 2 · THE CLUB'S WALL. Moved verbatim from #portfolio, poster and all. -->
         <div class="pw-col is-club">
-          <span class="pw-tick" aria-hidden="true"><svg viewBox="0 0 72 62" fill="none" stroke="var(--lands-ink)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)"><path d="M34 6 C28 20 42 31 35 48"/><path d="M26 40 L35 54 L44 40"/></g></svg></span>
           <a class="pw-a" style="--r:1.2deg" href="https://app.drex.style/clubs/photo-phloor" target="_blank" rel="noopener" aria-label="Open Photo Phloor's wall on Drex — a real club">
             <span class="pw-media">
+              <span class="pw-sticker">the club&rsquo;s wall</span>
               <video class="pw-vid" width="720" height="918" muted loop playsinline preload="none"
                      poster="assets/app/club-table.jpg"
                      aria-label="A scroll down Photo Phloor's wall: the shelf of issues, then the table of photographs the club has pinned up.">
@@ -2202,8 +2413,7 @@
               </video>
               <img class="pw-still" src="assets/app/club-table.jpg" alt="Photo Phloor's wall on Drex: the table, a corkboard of night photographs pinned up by the club's makers." loading="lazy" width="982" height="1250" />
             </span>
-            <span class="pw-kind">the club&rsquo;s</span>
-            <span class="pw-name">Photo Phloor&rsquo;s wall <span class="arr">&rarr;</span></span>
+            <span class="pw-name">see what Photo Phloor keeps <span class="arr">&rarr;</span></span></span>
           </a>
         </div>
 
@@ -2213,9 +2423,9 @@
              "1.44 MB" as a file size until they saw it over a face. Top-anchored in CSS, not
              cropped in the file: see .pw-col.is-mine in app-post-beta.css for why. -->
         <div class="pw-col is-mine">
-          <span class="pw-tick" aria-hidden="true"><svg viewBox="0 0 72 62" fill="none" stroke="var(--lands-ink)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)"><path d="M8 6 C14 24 26 32 40 46"/><path d="M24 42 L43 50 L38 30"/></g></svg></span>
           <a class="pw-a" style="--r:-0.9deg" href="https://app.drex.style/u/144mb" target="_blank" rel="noopener" aria-label="Open 1.44 MB's wall on Drex — a real maker's wall">
             <span class="pw-media">
+              <span class="pw-sticker">your wall</span>
               <video class="pw-vid" width="720" height="918" muted loop playsinline preload="none"
                      poster="assets/app/wall-144mb.jpg"
                      aria-label="A walk through 1.44 MB's wall: scrolling past the photo roll, then opening the Penmanship zine Dropcaps — the stack fans out and the reader unfolds it.">
@@ -2224,8 +2434,7 @@
               </video>
               <img class="pw-still" src="assets/app/wall-144mb.jpg" alt="1.44 MB's wall on Drex: their name across the top of a cork board with their face beside it, the line &ldquo;i take photos with a floppy diskette camera&rdquo;, the clubs they edit, and the photo they pinned as their pick." loading="lazy" width="1078" height="1500" />
             </span>
-            <span class="pw-kind">yours</span>
-            <span class="pw-name">1.44&nbsp;MB&rsquo;s wall <span class="arr">&rarr;</span></span>
+            <span class="pw-name">the work you&rsquo;ve put up <span class="arr">&rarr;</span></span></span>
           </a>
         </div>
 
@@ -3704,7 +3913,10 @@
      - the library clip, the club's wall, the maker's wall - now live in #seewhat and are driven
      by this one observer, on the same contract. */
   (function(){
-    var vids = document.querySelectorAll('#seewhat video');
+    // #tools joined this observer 2026-09-02 when the two hero clips moved into cards 2 and 3.
+    // Same contract, same one observer - the file's stated preference - and the same reason:
+    // preload="none" until the reader is within 200px of them.
+    var vids = document.querySelectorAll('#seewhat video, #tools video');
     if (!vids.length) return;
     if (!('IntersectionObserver' in window)) {            // no observer: just play
       [].forEach.call(vids, function(v){ v.play().catch(function(){}); }); return;
