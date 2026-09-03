@@ -140,7 +140,7 @@
      dropping the polaroid below the headline. Measured, not guessed. */
   --fs-display:clamp(2.375rem, 1.28rem + 4.60vw, 4.5rem);    /*  38 →  72px  hero h1 — off-scale, on purpose */
   --fs-1:clamp(1.75rem, 1.35rem + 1.69vw, 2.75rem);          /*  28 →  44px  h2, TIER A */
-  --fs-2:clamp(1.5rem, 1.29rem + 0.94vw, 2.125rem);          /*  24 →  34px  h2, TIER B */
+  --fs-2:clamp(1.72rem, 1.42rem + 1.30vw, 2.55rem);          /*  24 →  34px  h2, TIER B */
   --fs-3:clamp(1.25rem, 1.13rem + 0.56vw, 1.625rem);         /*  20 →  26px  h3 / card heads */
   --fs-lede:clamp(1.1875rem, 1.08rem + 0.47vw, 1.5rem);      /*  19 →  24px  hero lede, sub-decks */
   --fs-body:clamp(1.0625rem, 1.02rem + 0.19vw, 1.1875rem);   /*  17 →  19px  body */
@@ -4391,9 +4391,9 @@ html.sealed:not(.revealed) .hero::after{display:none}
    The >=881 value moves 2.45rem/4.45cqw -> 2.5rem/4.81cqw. That is the FULL measured headroom
    and not a taste call: sweeping the live H1 37->52px, scrollWidth stays 338 in a 340px column
    up to 40px and breaks to 343 at 41px. 4.81cqw = 40.0px in the 831.6px card. */
-.hero-card .ed-head{--fs-fold:min(2.6rem,7.4vw)}
+.hero-card .ed-head{--fs-fold:min(3.2rem,8.9vw)}   /* 2026-09-03: raised with --fs-2. The phone fold has its OWN --fs-fold rule, so lifting only the >=900 one left the h1 at 28.9 against 27.8 section heads — a 1.04 ratio, i.e. no rank at all on a phone. */
 @media(min-width:881px){.hero-card .ed-head{--fs-fold:min(2.5rem,4.81cqw)}}
-@media(max-width:380px){.hero-card .ed-head{--fs-fold:min(2.1rem,7.3vw)}}
+@media(max-width:380px){.hero-card .ed-head{--fs-fold:min(2.6rem,8.6vw)}}   /* raised in step with the 390 rule above */
 .hero-card h1.ed-cat{max-width:26ch;line-height:1.13}
 /* ============ THE DISPLAY FACE IS NO LONGER A MONOSPACE (2026-09-02, founder's call:
    "should we really be choosing a monospaced font for the main headline" -> "just use whatever
@@ -10832,7 +10832,7 @@ html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
      max() puts a floor under the flat band and 7.4cqw spends the headroom at 1440. Longest line
      "are unique." is 11ch x .614em (Pitch is monospaced) = 275px against a ~470px inner, so it
      still fits; re-derive if a line ever grows past ~13 characters. */
-  .hero.ed .card-clip.fold-v2 .hero-card .ed-head{--fs-fold:min(3.25rem, max(7.4cqw, 2.35rem))}
+  .hero.ed .card-clip.fold-v2 .hero-card .ed-head{--fs-fold:min(3.9rem, max(8.9cqw, 2.6rem))}
 }
 
 /* --- 3. THE PLATE CLEARS THE WORDMARK ON A PHONE. Measured at 390: a.brand
@@ -10942,8 +10942,11 @@ html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
    plate gives up more too - it is still the term with the slack, and a 32vh frame at 667 is 213px,
    which is short but is a real spread rather than a letterbox. */
 @media (max-height:700px){
-  .hero.ed:has(.card-clip.fold-v2){--fold-frame:clamp(180px,28vh,300px);
-    padding-block:clamp(1.5rem,3.4vh,2.4rem) clamp(.6rem,1.6vh,1.1rem)}
+  /* 28vh -> 25vh 2026-09-03: the beat-rank lift raised the fold h1 from 27.4 to 32.3 at
+     375x667, which put the hero 11px over the viewport again. The plate is still the term with
+     the slack (see the note above), and it pays 20px here to buy the headline its rank. */
+  .hero.ed:has(.card-clip.fold-v2){--fold-frame:clamp(165px,25vh,300px);
+    padding-block:clamp(1.3rem,3vh,2.2rem) clamp(.6rem,1.6vh,1.1rem)}
   /* the craft words are the only thing under the covers; at this height they are what pushes the
      shelf past the fold, and a cover without its word still shows the range. 8.6px -> 7.4px and
      the row loses 12px. Verified they still resolve as words at 375 before this was kept. */
