@@ -2762,9 +2762,9 @@ function initZineCarousel() {
   // issue past the gap wears the next one's challenge, club and link. Ten became eight.
 {d:18, craft:'modeling',          club:'XChange Models',     tape:'come as your heritage',        lead:'Eleven models reflect on their performance.',
      z:'https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23', c:'https://app.drex.style/clubs/xchange-models'},
-{d:18, craft:'night photography', club:'Photo Phloor',       tape:'take night photos of the unseen', lead:'A collective shoots after dark.',
+{d:18, craft:'photography', club:'Photo Phloor',       tape:'take night photos of the unseen', lead:'A collective shoots after dark.',
      z:'https://app.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856', c:'https://app.drex.style/clubs/photo-phloor'},
-{d:18, craft:'getting dressed',   club:'Drexzine',           tape:'wear something to the office', lead:'Sharing our fashion.',
+{d:18, craft:'fashion',   club:'Drexzine',           tape:'wear something to the office', lead:'Sharing our fashion.',
      z:'https://app.drex.style/z/d5a5a957-84cc-40bf-bafa-87f4b6dc600c', c:'https://app.drex.style/clubs/drex'},
 {d:7,  craft:'penmanship',        club:'SF Penmans',         tape:'do a penmanship study',        lead:'Penmans show their flourish.',
      z:'https://app.drex.style/z/6940b4c7-337b-4b6c-9de8-9dccdeeba566', c:'https://app.drex.style/clubs/pen'},

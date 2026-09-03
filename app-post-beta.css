@@ -10813,3 +10813,36 @@ html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
 @media (max-width:380px){
   .hero.ed:has(.card-clip.fold-v2){--fold-frame:clamp(230px,37vh,340px)}
 }
+
+/* ---- THE FOLD FITS THE PHONE IT IS ON (2026-09-03) -----------------------------------------
+   Founder: "the above-the-fold should be max 100% view height on phone probably, eh?"
+   Measured first, because the obvious lever was the wrong one. .hero height vs the viewport:
+       360x780  hero 800  OVER by 20      375x667  hero 774  OVER by 107
+       390x844  hero 807  fits            414x896  hero 825  fits
+   THE RACK WAS NEVER THE PROBLEM. Its bottom edge measured INSIDE the viewport at 360, 390 and
+   414 (776 / 783 / 801), so nothing was ever hidden below the fold - the hero BOX overshot, not
+   the content. Do not "fix" this by shrinking the rack.
+   AND --fold-frame WAS NOT THE BINDING TERM EITHER. A first attempt put a max-height guard on it
+   and changed nothing: `@media (max-width:380px)` downfile already sets it to
+   clamp(230px,37vh,340px), which is LATER in the file and won. Computed at 360x780 the frame was
+   already 288px. The term actually spending the budget is `.hero{padding-top:clamp(5rem,15vw,6rem)}`
+   at :8759 - 15vw of 360 is 54px, so the 5rem FLOOR bites and the hero wears 80px of top padding
+   on a 780px screen. That is 10% of the viewport above a headline.
+   THE GUARD IS ON HEIGHT, NOT WIDTH, and that distinction is load-bearing: a 360x780 and a
+   390x844 differ by 30px of width and 64px of HEIGHT, and it is the height that busts the budget.
+   A max-width guard catches the wrong phones and misses a short landscape device entirely.
+   PLACED AT THE END OF THE FILE ON PURPOSE so the max-width:380 block cannot outrank it. ---- */
+@media (max-height:820px){
+  .hero.ed:has(.card-clip.fold-v2){padding-block:clamp(2.4rem,5vh,3.2rem) clamp(.8rem,2vh,1.4rem)}
+}
+/* A 375x667 phone (iPhone SE) needs ~107px, which padding alone cannot pay. Below 700px tall the
+   plate gives up more too - it is still the term with the slack, and a 32vh frame at 667 is 213px,
+   which is short but is a real spread rather than a letterbox. */
+@media (max-height:700px){
+  .hero.ed:has(.card-clip.fold-v2){--fold-frame:clamp(180px,28vh,300px);
+    padding-block:clamp(1.5rem,3.4vh,2.4rem) clamp(.6rem,1.6vh,1.1rem)}
+  /* the craft words are the only thing under the covers; at this height they are what pushes the
+     shelf past the fold, and a cover without its word still shows the range. 8.6px -> 7.4px and
+     the row loses 12px. Verified they still resolve as words at 375 before this was kept. */
+  .hero.ed:has(.card-clip.fold-v2) .zc-book-craft{font-size:.46rem;margin-top:.22em}
+}
