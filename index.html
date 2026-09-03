@@ -1956,7 +1956,21 @@
            The .how / .how-ring / .step CSS is untouched: five archived index-*.html render it.
            ================================================================================ -->
 
-        <p class="loop-tool">The hour&rsquo;s in your calendar. The deadline closes itself. Nobody has to chase. <span class="hl lt-nag">We nag for you</span>.</p>
+        <!-- 2026-09-03, founder's own words. The mark moves to "texted and nagged" - .lt-nag is a
+           School Bus highlighter and it belongs on the operative clause, which is no longer "We nag
+           for you". "Nobody has to chase" was dropped: it stated the absence that the rest of the
+           line already demonstrates.
+           TWO VERSIONS WERE OFFERED. Taken: "It's in everyone's calendar and text messages..."
+           Rejected: "It's in your calendar ... Everyone is texted and nagged for you." - it moves
+           the subject from "your" to "everyone" mid-line, and it spends the sentence's best clause
+           ("We nag for you") on a longer paraphrase. The mark stays on that clause.
+           WHAT THIS LINE NOW PROMISES, recorded because a public page should not outrun its code:
+           the calendar feed is live, and the deadline lock is live. THE TEXT IS NOT YET - SMS
+           carries three kinds through db/sms-notify.ts (signin, club_message, deadline) and
+           sendDeadlineSms has ZERO live callers; deadline-ladder.ts reaches by email + push + orb.
+           The founder has confirmed the SMS leg is being wired. If it slips, this clause is the
+           one to revisit. -->
+        <p class="loop-tool">It&rsquo;s in everyone&rsquo;s calendar and text messages. The deadline closes itself. <span class="hl lt-nag">We nag for you</span>.</p>
         <!-- THE TWO BRACKETS ARE GONE, 2026-09-01, founder: "also just get rid of the 'back to
              the start' and 'one issue' arrows." They only drew below 560px. THEY DID COST WORDS -
              measure.py counts aria-hidden labels - and "issue" drops from 9 uses to 8.
@@ -2190,7 +2204,6 @@
              the section's own h2 has just said "See what people are doing." This names the RESULT,
              which is the one thing the three cards below actually demonstrate: the work lands on a
              wall without anybody filing it. -->
-        <p class="lands-h"><span class="nb">Automatic&nbsp;portfolio<span class="stop">.</span></span></p>
       </div>
 
       <div class="pw-pair lands-grid">
@@ -2242,6 +2255,17 @@
         </div>
 
         <!-- 2 · THE CLUB'S WALL. Moved verbatim from #portfolio, poster and all. -->
+        <!-- "Automatic portfolio." SITS HERE, BETWEEN THE LIBRARY AND THE TWO WALLS (2026-09-03).
+             Founder: "'Automatic portfolio.' goes AFTER the library and right before The club's
+             wall as a heading."
+             IT SPLITS THE ROW INTO ITS TWO ARGUMENTS, which is what the three cards always were:
+             the LIBRARY is "see what people are doing" — everyone's work, the section's own h2.
+             The two WALLS are the portfolio claim — the same work, filed under whoever made it,
+             without anybody filing it. One heading above all three made them one list; between
+             them it makes them two ideas.
+             It is a grid ITEM now, spanning every column, not a block above the grid. -->
+
+        <p class="lands-h"><span class="nb">Automatic&nbsp;portfolio<span class="stop">.</span></span></p>
         <div class="pw-col is-club">
           <a class="pw-a" style="--r:1.2deg" href="https://app.drex.style/clubs/photo-phloor" target="_blank" rel="noopener" aria-label="Open Photo Phloor's wall on Drex — a real club">
             <span class="pw-media">
@@ -3333,14 +3357,11 @@
            only record of that lived in a deleted card's comment in an archive file. -->
       <figure class="mpol" style="--r:-3.4deg">
         <span class="mv-pin" aria-hidden="true"></span>
-        <span class="mv-ph has-photo" role="img" aria-label="Michaela, a barista at a San Francisco cafe, grinning over the counter with the mocha she poured." style="background-image:url(assets/zines/beans-michaela.jpg);background-position:center 14%"></span>
+        <a class="mv-door" href="https://app.drex.style/z/f362cc90-3b98-4c9e-80af-494105edb9e5" target="_blank" rel="noopener" aria-label="Read it &mdash; opens on Drex"><span class="mv-ph has-photo" role="img" aria-label="Michaela, a barista at a San Francisco cafe, grinning over the counter with the mocha she poured." style="background-image:url(assets/zines/beans-michaela.jpg);background-position:center 14%"></span></a>
         <figcaption class="mv-strip">          <q>I&rsquo;m addicted to chocolate.</q>
           <div class="pk-meta">
 
             <b><span class="pk-craft">barista</span> &middot; Michaela &middot; Beans</b>
-
-            <a class="pk-club" href="https://app.drex.style/z/f362cc90-3b98-4c9e-80af-494105edb9e5" target="_blank" rel="noopener">read it <span class="arr">&rarr;</span></a>
-
           </div>
         </figcaption>
       </figure>
@@ -3358,14 +3379,11 @@
            check. Do not add a second one. -->
       <figure class="mpol" style="--r:2.6deg">
         <span class="mv-pin" aria-hidden="true"></span>
-        <span class="mv-ph has-photo" role="img" aria-label="Tergel on the Silk Road 001 shoot: a pink kimono, a blue-tasselled parasol over one shoulder, looking straight down the lens." style="background-image:url(assets/makers/tergel.jpg);background-position:center"></span>
+        <a class="mv-door" href="https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener" aria-label="read it &mdash; opens on Drex"><span class="mv-ph has-photo" role="img" aria-label="Tergel on the Silk Road 001 shoot: a pink kimono, a blue-tasselled parasol over one shoulder, looking straight down the lens." style="background-image:url(assets/makers/tergel.jpg);background-position:center"></span></a>
         <figcaption class="mv-strip">          <q>I didn&rsquo;t know what was possible until I saw someone else do it.</q>
           <div class="pk-meta">
 
             <b><span class="pk-craft">model</span> &middot; @tergel &middot; XChange Models</b>
-
-            <a class="pk-club" href="https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">read it <span class="arr">&rarr;</span></a>
-
           </div>
         </figcaption>
       </figure>
@@ -3387,14 +3405,11 @@
            shoot, not a search. -->
       <figure class="mpol" style="--r:-2.2deg">
         <span class="mv-pin" aria-hidden="true"></span>
-        <span class="mv-ph has-photo" role="img" aria-label="A Chinatown lion-dance head in gold, red and green sequins with a white fur mane, shot from below against a blue sky." style="background-image:url(assets/clubs/phloor-lion.jpg);background-position:center 46%"></span>
+        <a class="mv-door" href="https://app.drex.style/clubs/photo-phloor" target="_blank" rel="noopener" aria-label="their wall &mdash; opens on Drex"><span class="mv-ph has-photo" role="img" aria-label="A Chinatown lion-dance head in gold, red and green sequins with a white fur mane, shot from below against a blue sky." style="background-image:url(assets/clubs/phloor-lion.jpg);background-position:center 46%"></span></a>
         <figcaption class="mv-strip">          <span class="pk-line">Documenting the overlooked.</span>
           <div class="pk-meta">
 
             <b><span class="pk-craft">photographers</span> &middot; Photo Phloor</b>
-
-            <a class="pk-club" href="https://app.drex.style/clubs/photo-phloor" target="_blank" rel="noopener">their wall <span class="arr">&rarr;</span></a>
-
           </div>
         </figcaption>
       </figure>
@@ -3407,14 +3422,11 @@
            not carry one for this photograph and the club page does not attribute it. -->
       <figure class="mpol" style="--r:3.2deg">
         <span class="mv-pin" aria-hidden="true"></span>
-        <span class="mv-ph has-photo" role="img" aria-label="A Zine Machine maker holding up the hand-drawn San Francisco map zine she made, grinning at the camera." style="background-image:url(assets/clubs/zm-holding-zine.jpg);background-position:center 26%"></span>
+        <a class="mv-door" href="https://app.drex.style/clubs/zine-machine" target="_blank" rel="noopener" aria-label="their wall &mdash; opens on Drex"><span class="mv-ph has-photo" role="img" aria-label="A Zine Machine maker holding up the hand-drawn San Francisco map zine she made, grinning at the camera." style="background-image:url(assets/clubs/zm-holding-zine.jpg);background-position:center 26%"></span></a>
         <figcaption class="mv-strip">          <span class="pk-line">The challenge: make a paper zine.</span>
           <div class="pk-meta">
 
             <b><span class="pk-craft">zinemakers</span> &middot; Zine Machine</b>
-
-            <a class="pk-club" href="https://app.drex.style/clubs/zine-machine" target="_blank" rel="noopener">their wall <span class="arr">&rarr;</span></a>
-
           </div>
         </figcaption>
       </figure>
@@ -3440,14 +3452,11 @@
            quote is. -->
       <figure class="mpol" style="--r:-3.0deg">
         <span class="mv-pin" aria-hidden="true"></span>
-        <span class="mv-ph has-photo" role="img" aria-label="Kurtis at a table with a phone in one hand showing the Drex app, the other hand resting on a notebook page filled with rows of pointed-pen drill loops in blue ink." style="background-image:url(assets/zines/penmans-drill.jpg);background-position:center 46%"></span>
+        <a class="mv-door" href="https://app.drex.style/z/6f886428-a9eb-40b0-9cbf-60f4ae677992" target="_blank" rel="noopener" aria-label="read it &mdash; opens on Drex"><span class="mv-ph has-photo" role="img" aria-label="Kurtis at a table with a phone in one hand showing the Drex app, the other hand resting on a notebook page filled with rows of pointed-pen drill loops in blue ink." style="background-image:url(assets/zines/penmans-drill.jpg);background-position:center 46%"></span></a>
         <figcaption class="mv-strip">          <q>I learned how to choose a theme &hellip; shading can be used to highlight the letter!</q>
           <div class="pk-meta">
 
             <b><span class="pk-craft">letterer</span> &middot; Kurtis &middot; Penmanship</b>
-
-            <a class="pk-club" href="https://app.drex.style/z/6f886428-a9eb-40b0-9cbf-60f4ae677992" target="_blank" rel="noopener">read it <span class="arr">&rarr;</span></a>
-
           </div>
         </figcaption>
       </figure>
