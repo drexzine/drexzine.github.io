@@ -10301,6 +10301,10 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    rather than as two labels arguing at the same rank.
    INK, NOT A BEAT HUE. The tape above it is already coral; a second colour here would put two
    of the loop's four beat colours in one corner of a photograph, meaning neither. */
+/* ~~THE CRAFT CHIP~~ NO CONSUMER ON index.html SINCE 2026-09-03 — #zcCraft was deleted (founder:
+   it sat too far under the dymo tape). The block is KEPT because five archived index-*.html load
+   this stylesheet, and because the corner-annotation idiom below it is referenced by name from the
+   torn-label note downfile. Nothing on the live page matches it. */
 .zc-craft{
   position:absolute; z-index:4; top:calc(11px + 2.15em); left:1.5rem; isolation:isolate;
   max-width:calc(100% - 5.5rem);

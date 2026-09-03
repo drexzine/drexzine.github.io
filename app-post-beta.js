@@ -2934,7 +2934,10 @@ function initZineCarousel() {
       // arrows when the rack became the navigation, and the attribution had to survive. The
       // rack's books each carry their own craft, so this chip is the only place the CLUB is
       // named - do not trim it back to d.craft alone.
-      if (craft) craft.textContent = d.craft + ' \u00b7 ' + d.club;
+      // ~~craft.textContent = d.craft + ' · ' + d.club~~ INERT 2026-09-03: #zcCraft was deleted
+      // (founder — the chip sat half under the dymo tape). The lookup and this guard stay because
+      // the guard is what makes the deletion safe, and because d.craft is still the source of the
+      // rack's book labels. If a chip ever comes back, this is the line that fills it.
       fitTape();
     }
     // Plain text, not <b>: the lead sits under a heading link on the note now, so
