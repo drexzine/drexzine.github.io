@@ -10236,7 +10236,19 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
 /* the house section rhythm is padding 48/56 at 1440 — measured across the other ten sections.
    #tools shipped at 58/29, which made it the only section that opened tighter at the bottom than
    its neighbours and read as a band jammed under the one above it. */
-.tools{position:relative;padding:clamp(2rem,5vw,3rem) 0 clamp(2.2rem,5.5vw,3.5rem)}
+/* #tools FOLLOWS A FULL-BLEED SHEET, AND PAYS FOR IT (2026-09-03). Founder: "the whitespace for
+   'What you get' is just fucking horrible, it's so cramped next to the grey paper above."
+   Measured, and the section gap was never the problem — it was already the house 48px at 1440.
+   #why-not-chat is .gnd .gnd--slate: its ::before runs 8px PAST the section box (top/bottom
+   -8px) and throws a HARD 12px 15px offset shadow below that. So the grey a reader SEES ends
+   ~23px lower than the box the rhythm is measured from:
+        1440   head 48px from the box  ->  25px from the visible grey
+         390   head 32px from the box  ->  11px from the visible grey
+   The page already has a name for this — .gnd's --gnd-bleed-t/b, which #proof and .summary-band
+   both use. #tools needed the same allowance and did not have it, because it was added after that
+   system. The extra is the bleed (8) + the shadow (15) rounded to the 8px grid = 24px, on top of
+   the house rhythm, so the PERCEIVED gap matches every other section's measured one. */
+.tools{position:relative;padding:calc(clamp(2rem,5vw,3rem) + 1.5rem) 0 clamp(2.2rem,5.5vw,3.5rem)}
 .tools-in{max-width:1080px;margin:0 auto;padding-inline:clamp(1rem,4vw,1.6rem);
   position:relative;z-index:1}
 /* the eyebrow is the section's whole heading, so it gets the label treatment and nothing more.
@@ -10979,3 +10991,24 @@ html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
    because .slab is what five archived index-*.html style their heads with. */
 .tools .tools-h{font-family:var(--f-head);font-style:normal;font-weight:700;
   font-size:var(--fs-2);letter-spacing:-.015em;line-height:1.06;color:var(--ink)}
+
+/* ---- THE POLAROID META IS ONE LINE, WITH THE DOOR BESIDE IT (2026-09-03) --------------------
+   Founder: "instead of having 'MODEL' as eyebrow text wouldn't it make more sense to say like
+   MODEL · @tergel · XChange Models? this would save space. could even tuck the ctas on those
+   polaroids to the right of all that meta?"
+   The strip carried FOUR stacked blocks — craft chip, quote, byline, "read it →" — on a card
+   whose whole job is one photograph and one sentence. The craft was its own line for one word.
+   Craft, name and club are the same rank (who this is), so they are one line; the door sits
+   beside them because it belongs to the same row, not under it.
+   THE CRAFT KEEPS ITS OWN INK. It is the only part of the line that is not a proper noun, and
+   #proof's own note says the five chips "are what carry meaning here, not the ground". */
+#proof .pk-meta{display:flex;align-items:baseline;justify-content:center;flex-wrap:wrap;
+  gap:var(--s-03) var(--s-06);margin-top:var(--s-03)}
+#proof .pk-meta b{display:inline;margin:0;text-align:left}
+#proof .pk-meta .pk-craft{display:inline;margin:0;text-transform:uppercase;letter-spacing:.08em}
+#proof .pk-meta .pk-club{margin:0}
+@media(max-width:560px){
+  /* stacked, the row would wrap the door onto its own line anyway — let it, but keep the meta
+     itself on one line as long as it fits. */
+  #proof .pk-meta{gap:var(--s-02) var(--s-03)}
+}
