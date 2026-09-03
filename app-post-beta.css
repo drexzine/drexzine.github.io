@@ -146,6 +146,17 @@
   --fs-body:clamp(1.0625rem, 1.02rem + 0.19vw, 1.1875rem);   /*  17 →  19px  body */
   --fs-small:clamp(0.875rem, 0.84rem + 0.14vw, 0.97rem);     /*  14 → 15.5px captions, marginalia — FLOOR */
   --fs-label:clamp(0.78rem, 0.76rem + 0.09vw, 0.84rem);      /* 12.5 → 13.5px tracked uppercase labels */
+  /* 2026-09-03 SCALE PASS — TWO RUNGS ADDED BELOW --fs-label, because eight could not carry the
+     page's fine print. Neither is off-scale: both continue the ladder DOWNWARD at the same ~1.13
+     ratio --fs-small -> --fs-label already uses, so the block still holds exactly one deliberately
+     off-scale size (--fs-display) and the rule above stands.
+       --fs-micro: .72/.7/.68/.66rem (11.5/11.2/10.9/10.6px, 22 elements) sit 15-27% BELOW
+         --fs-label. One step cannot hold both; this is the fine-print rung.
+       --fs-fine:  .62/.58/.56rem (9.9/9.3/9.0px). Fixed at .62rem — the value #proof .pk-craft
+         already measures at — so that rule is byte-unchanged and the other two join it. Static
+         on purpose: at this size a fluid clamp buys 0.5px of range and costs a distinct value. */
+  --fs-micro:clamp(.66rem, .63rem + .1vw, .7rem);            /* 10.6 → 11.2px  fine print */
+  --fs-fine:.62rem;                                          /*  9.9 →  9.9px  micro stamps */
 
   /* ---- THE RULE AND THE LADDER (2026-08-31). The page had a rigorous TYPE scale and nothing
      corresponding for SPACE: 76 custom properties, zero of them a spacing token, against 921
@@ -194,14 +205,46 @@
      TWO EXCEPTIONS ARE KEPT AND ARE REAL: .how holds 4.2rem because the ring's stations overhang
      their box (its own note upfile measures the overhang), and .kit holds 0 on purpose. If you
      add a third exception, say what it buys. ---- */
-  --head-gap:clamp(1.8rem,4.5vw,2.6rem);
+  /* ---- SPACING, 2026-09-03 SCALE PASS -------------------------------------------------
+     The 8px ladder above was referenced 28 times against ~1,030 spacing declarations, and it
+     was ignored for two STRUCTURAL reasons, not sloppiness:
+       (1) THE LADDER HAD NO RUNGS WHERE THE PAGE ACTUALLY LIVES. Its smallest step was 8px,
+           but the single most-used spacing value in the file is 4.8px (.3rem, 37 uses); 3.2px
+           has 28 uses and 9.6px 27. All three sat below or between the first two rungs.
+       (2) A FLUID VALUE CANNOT LAND ON A STATIC RUNG AT TWO WIDTHS. Of 199 resolvable clamp()
+           spacings, ZERO came within 2px of an --s-* step at both 390 and 1440. That is
+           arithmetic. So the ladder is now BOTH: static rungs for fixed gaps, and a parallel
+           --sp-* clamp ladder for the fluid rhythm.
+     --s-1 .. --s-7 ARE UNCHANGED, deliberately. They have seven live callers (the section
+     padding-block pairs) and seven archived pages read this stylesheet; re-cutting them would
+     move every one of those without anyone having looked. The new rungs are ADDED BELOW and
+     BESIDE the ladder, never on top of it. Names are monotonic: 0 02 03 1 06 08 2 3 4 5 6 65 7 8.
+     THE SUBSTITUTION RULE used throughout this pass: a declaration only moves onto a token when
+     the RENDERED result shifts <=3.2px (one sub-rung) at BOTH 390 and 1440 — and never at all on
+     a horizontal container dimension, where a few px re-wraps text. 95 of candidate substitutions
+     failed that test and were left as hand values; they are listed in the pass notes. */
+  --s-0:.125rem;  /*   2 */
+  --s-02:.2rem;   /* 3.2  the tape/dymo hairline gap — 28 uses, previously off the ladder */
+  --s-03:.3rem;   /* 4.8  THE most-used spacing value in the file — 37 uses, previously off it */
+  --s-06:.6rem;   /* 9.6 */
+  --s-08:.8rem;   /* 12.8 */
   --s-1:.5rem;   /*  8 */
   --s-2:1rem;    /* 16 */
   --s-3:1.5rem;  /* 24  section padding-block, small end */
   --s-4:2rem;    /* 32  section padding-block, small end (bottom) */
   --s-5:3rem;    /* 48  section padding-block, large end */
   --s-6:3.5rem;  /* 56  section padding-block, large end (bottom) */
+  --s-65:4.8rem; /* 76.8 */
   --s-7:6rem;    /* 96 */
+  --s-8:8rem;    /* 128 */
+  /* THE FLUID LADDER. Four rungs at ~1.6x, each a real (390 -> 1440) pair. */
+  --sp-1:clamp(.75rem,1.6vw,1.1rem);   /* 12.0 -> 17.6  tight */
+  --sp-2:clamp(1.2rem,2.6vw,1.8rem);   /* 19.2 -> 28.8  normal */
+  --sp-3:clamp(1.8rem,4.5vw,2.6rem);   /* 28.8 -> 41.6  loose — this IS the old --head-gap */
+  --sp-4:clamp(2.9rem,6.4vw,4.2rem);   /* 46.4 -> 67.2  section */
+  /* --head-gap (ten section heads, consolidated in an earlier pass) is --sp-3 EXACTLY. Kept as
+     an alias so the ten call sites still say WHY they are that size, not just how big. */
+  --head-gap:var(--sp-3);
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;overflow-x:clip}
@@ -257,8 +300,8 @@ a{color:inherit}
 
 /* ---------- type ---------- */
 .scrawl{font-family:var(--f-hand);font-weight:400;line-height:1.15}
-.eyebrow{font-family:var(--f-hand);font-size:clamp(1.15rem,2.4vw,1.6rem);color:var(--colorado);transform:rotate(-1.2deg);display:inline-block}
-.label{font-family:var(--f-mono);font-weight:500;text-transform:uppercase;letter-spacing:.14em;font-size:.74rem}
+.eyebrow{font-family:var(--f-hand);font-size:var(--fs-lede);color:var(--colorado);transform:rotate(-1.2deg);display:inline-block}
+.label{font-family:var(--f-mono);font-weight:500;text-transform:uppercase;letter-spacing:.14em;font-size:var(--fs-label)}
 .dot{color:var(--grass-deep);font-weight:700}
 .slab{font-family:var(--f-slab);font-style:italic;font-weight:700;line-height:.98;letter-spacing:-.02em}
 /* #resources — reuses the shared corkboard/.pinit/.pu-* styles; just the section chrome + polaroid pins */
@@ -302,8 +345,8 @@ a{color:inherit}
 /* ---------- rubber-stamp press-down button ---------- */
 .btn{
   --bg:var(--grass-deep);--fg:var(--oats);   /* deep grass clears AA (oats label 5.9:1); bright grass was 2.78:1 */
-  font-family:var(--f-mono);font-weight:500;font-size:.86rem;letter-spacing:.12em;text-transform:uppercase;
-  display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;cursor:pointer;
+  font-family:var(--f-mono);font-weight:500;font-size:var(--fs-label);letter-spacing:.12em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:var(--s-1);text-decoration:none;cursor:pointer;
   background:var(--bg);color:var(--fg);border:2.6px solid var(--ink);border-radius:6px;
   padding:.85em 1.35em;min-height:46px;
   box-shadow:5px 5px 0 0 var(--ink);transform:rotate(-1.4deg);
@@ -321,7 +364,7 @@ a{color:inherit}
    .tape-fall(90), #finale-*(80–95) still cover the menu during the eruption/finale. */
 .mast{position:relative;z-index:60;background:var(--oats);border-bottom:0}
 .mast::after{content:"";position:absolute;left:0;right:0;bottom:-15px;height:30px;background:var(--oats);filter:url(#tornbig);z-index:1}
-.mast .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:1rem;position:relative;z-index:2}
+.mast .wrap{display:flex;align-items:center;justify-content:space-between;gap:var(--s-2);padding-block:var(--s-2);position:relative;z-index:2}
 /* THE MASTHEAD LOGO — the SECONDARY logo (brand guidelines §03 Logo Suite): the "drex." wordmark
    ALONE. The butterflies mark used to sit beside it, which is §03 Incorrect Usage panel 6 verbatim,
    "Do not reorganize or combine logos" — the suite issues exactly three forms (mark stacked OVER
@@ -392,7 +435,7 @@ html.sealed:not(.revealed) .card-clip{overflow:clip;height:calc(50vh - 136px);mi
 html.sealed .hero-card{transform:translateY(122%)}
 html.sealed .envelope.opened .hero-card{transform:translateY(0)}
 /* compact hero so the whole card + seam live in one view (the envelope is a single screen) */
-.hero-card .inner{padding:clamp(1.1rem,2.4vw,1.7rem)}
+.hero-card .inner{padding:var(--sp-2)}
 /* Headline is static now (the rotating cadence slot retired with the classroom framing).
    Two sentences = two blocks: each wraps on its own and balances, so a line break can
    never straddle the full stop ("circle. Show and / tell"). .hl needs its phrase to stay
@@ -438,7 +481,7 @@ html.sealed .envelope.lit-hl .hero-card .hl::before{scale:1 1}
 
 /* ---- the seam (the "cut here" seal — now a drag handle) ---- */
 .seam{--cut:0;--cut-x:0;position:relative;display:flex;align-items:center;justify-content:center;
-  height:30px;margin:.2rem 0 0;color:rgba(65,77,87,.6);cursor:grab;touch-action:none;
+  height:30px;margin:var(--s-02) 0 0;color:rgba(65,77,87,.6);cursor:grab;touch-action:none;
   -webkit-tap-highlight-color:transparent}
 .seam:active{cursor:grabbing}
 .seam:focus-visible{outline:3px solid var(--lazuli);outline-offset:6px;border-radius:4px}
@@ -448,8 +491,8 @@ html.sealed .envelope.lit-hl .hero-card .hl::before{scale:1 1}
 .seam .cut-scissors{position:absolute;top:50%;left:calc(var(--cut-x)*100%);transform:translate(-50%,-50%);
   width:26px;height:26px;color:var(--sambas);z-index:2;transition:opacity .3s ease;will-change:left}
 .seam .cut-scissors svg{display:block;width:100%;height:100%}
-.seam .label{position:relative;z-index:1;background:var(--oats);padding:0 .55rem;
-  font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;color:rgba(65,77,87,.6);
+.seam .label{position:relative;z-index:1;background:var(--oats);padding:0 var(--s-06);
+  font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.12em;font-size:var(--fs-micro);color:rgba(65,77,87,.6);
   opacity:calc(1 - var(--cut))}
 .envelope.opened .seam .cut-scissors{opacity:0}
 .seam.armed .cut-scissors{animation:scisnudge 1.6s ease-in-out infinite}
@@ -463,7 +506,7 @@ html:not(.sealed) .seam .cut-scissors{display:none}
 
 /* ---- hand-drawn "drag to cut" indicator ---- */
 .cut-prompt{display:none}
-html.sealed .cut-prompt{display:flex;align-items:center;gap:.55rem;justify-content:center;margin:.9rem 0 0;
+html.sealed .cut-prompt{display:flex;align-items:center;gap:var(--s-06);justify-content:center;margin:var(--s-08) 0 0;
   color:var(--colorado);transition:opacity .35s ease;animation:cutbob 1.7s ease-in-out infinite}
 html.sealed .envelope.cutting .cut-prompt,
 html.sealed .envelope.opened .cut-prompt{opacity:0;pointer-events:none;animation:none}
@@ -479,7 +522,7 @@ html.sealed .envelope.opened .cut-prompt{opacity:0;pointer-events:none;animation
    seam + .cut-prompt do. Hidden entirely when the hero shows un-sealed (no cut
    to make). CSS-only — html.revealed is already set by the cut JS. ---- */
 .cut-hook{display:none}
-html.sealed .cut-hook{display:block;text-align:center;margin:.7rem 0 .2rem;
+html.sealed .cut-hook{display:block;text-align:center;margin:var(--s-08) 0 var(--s-02);
   transition:opacity .5s ease, visibility .5s ease, height .6s ease, margin .6s ease}
 html:not(.sealed) .cut-hook{display:none}
 .cut-hook-line{margin:0;color:var(--grass-deep);font-size:clamp(1.35rem,3.4vw,1.9rem);line-height:1.1;
@@ -542,7 +585,7 @@ html.sealed.revealed .seam,html.sealed.revealed .cut-prompt{height:0;margin:0;ov
 
 /* ---- hand-drawn "there's more" scroll cue: appears after the reveal, fades on scroll ---- */
 .scroll-cue{position:fixed;left:50%;bottom:clamp(.7rem,2.4vh,1.5rem);transform:translateX(-50%);z-index:40;
-  display:flex;flex-direction:column;align-items:center;gap:.3rem;
+  display:flex;flex-direction:column;align-items:center;gap:var(--s-03);
   opacity:0;pointer-events:none;transition:opacity .5s ease}
 html.revealed .scroll-cue{opacity:1;animation:scrollbob 1.6s ease-in-out infinite}
 html.revealed.scrolled .scroll-cue{opacity:0;animation:none}
@@ -698,25 +741,25 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .doors{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
 .doors .head{margin-bottom:var(--head-gap);text-align:center}
 .doors .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);
-  line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
+  line-height:.98;margin:var(--s-03) 0 0;color:var(--ink);text-wrap:balance}
 .splay{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(1.6rem,3vw,2.6rem);align-items:flex-start}
 .card{position:relative;width:min(318px,100%)}
 .card .inner{padding:clamp(1.6rem,2.6vw,2.1rem);display:flex;flex-direction:column;min-height:250px}
 .card.big{width:min(410px,100%)}  /* the Circle is the primary door — unmistakably dominant */
 .card.big .inner{min-height:0}
 .card h3{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.7rem,2.7vw,2.3rem);
-  line-height:1;margin:.3rem 0 0;color:var(--ink)}
+  line-height:1;margin:var(--s-03) 0 0;color:var(--ink)}
 .card.big h3{font-size:clamp(2.1rem,3.2vw,2.9rem)}
-.card .cap{font-family:var(--f-hand);font-size:1.15rem;color:var(--sambas);transform:rotate(-1deg);display:inline-block}
+.card .cap{font-family:var(--f-hand);font-size:var(--fs-body);color:var(--sambas);transform:rotate(-1deg);display:inline-block}
 .card p{margin:.9rem 0 1.4rem;font-size:1rem;line-height:1.5;color:rgba(65,77,87,.85)}
-.card .foot{margin-top:auto;display:flex;flex-direction:column;gap:.7rem}
-.card .url{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.06em;color:var(--sambas);text-transform:lowercase}
+.card .foot{margin-top:auto;display:flex;flex-direction:column;gap:var(--s-08)}
+.card .url{font-family:var(--f-mono);font-size:var(--fs-label);letter-spacing:.06em;color:var(--sambas);text-transform:lowercase}
 /* resting tilts — littered on the table; straighten + lift on hover */
 .splay,.crew{overflow-x:clip}
 .splay .card:nth-child(1){transform:rotate(-3deg)}
 .splay .card:nth-child(2){transform:rotate(2.4deg)}
 .splay .card:nth-child(3){transform:rotate(-2.2deg)}
-@media(max-width:480px){.splay{padding-inline:16px} .splay .card,.crew .polaroid{transform:rotate(0)} .tape{width:92px;height:26px}}
+@media(max-width:480px){.splay{padding-inline:var(--s-2)} .splay .card,.crew .polaroid{transform:rotate(0)} .tape{width:92px;height:26px}}
 .splay .card{transition:transform .18s ease}
 .splay .card:hover{transform:rotate(0) translateY(-7px);z-index:6}
 .splay .card:hover>.sheet{box-shadow:13px 14px 0 0 var(--ink)}
@@ -841,7 +884,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   .how .flow .step.is-think,
   .how .flow .step.is-cal,
   .how .flow .step.is-globe{width:auto}
-  .how .flow .step.is-clock .ico{width:100%;margin:0 auto .3rem}
+  .how .flow .step.is-clock .ico{width:100%;margin:0 auto var(--s-03)}
   /* the balloon is sized off the RING (46cqw, dropped 4.6cqw so its BODY and not its tail
      centres on the text). There is no ring in the stack, so pin it to the station and keep
      the ratio. width:auto alone over-corrects: at 560 the 46cqw balloon bulges into the
@@ -860,7 +903,7 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
      at 320 — below the type scale's own 14px FLOOR, in the stacked layout where cqw is measured
      against the ring container the stack no longer uses. */
   .how .flow .step.is-think p{font-size:var(--fs-body);max-width:none}
-  .how .step.is-clock .ico{width:75px;height:75px;margin:0 auto .3rem}
+  .how .step.is-clock .ico{width:75px;height:75px;margin:0 auto var(--s-03)}
   .how .step.is-globe .ico,.how .step.is-cal .ico{width:auto;max-width:120px}
   /* REJECTED 2026-08-29 — the down-arrow connectors between stacked stations. They had not
      drawn for anybody: is-clock/is-globe/is-think are killed by the folded-corner block's
@@ -1237,7 +1280,7 @@ html[data-tier="lite"] .craftboard::before{filter:none;animation:none}
 .versus{position:relative;padding:clamp(1.5rem,4vw,3rem) 0 clamp(2rem,5vw,3.5rem)}
 .versus .head{margin-bottom:var(--head-gap);text-align:center}
 .versus .head h2{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:clamp(1.8rem,6vw,3rem);
-  line-height:.98;margin:.3rem 0 0;color:var(--ink);text-wrap:balance}
+  line-height:.98;margin:var(--s-03) 0 0;color:var(--ink);text-wrap:balance}
 .versus .head h2 .stop{color:var(--grass-deep)}
 .vs-sub{font-family:var(--f-body);font-style:italic;font-size:clamp(1.05rem,1.8vw,1.3rem);line-height:1.5;
   color:rgba(65,77,87,.85);max-width:40ch;margin:.9rem auto 0}
@@ -1253,17 +1296,17 @@ html[data-tier="lite"] .craftboard::before{filter:none;animation:none}
 .vs-card.vs-chat>.paper{filter:saturate(.35)}
 
 .vs-tab{position:absolute;z-index:4;top:-13px;left:50%;transform:translateX(-50%) rotate(-2deg);
-  font-family:var(--f-mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  font-family:var(--f-mono);font-size:var(--fs-micro);letter-spacing:.14em;text-transform:uppercase;
   color:var(--oats);border-radius:4px;padding:.32em .7em;white-space:nowrap;background:var(--ink)}
 .vs-tab-glad{background:var(--grass-deep)}
 
 /* the dead group chat, drawn. Reads in two seconds; a bullet list took twelve. */
 .chatmock{background:var(--paper);border:2.6px solid var(--ink);border-radius:8px;
-  box-shadow:7px 8px 0 0 var(--ink);padding:.9rem .8rem 1rem;display:flex;flex-direction:column;gap:.42rem;
+  box-shadow:7px 8px 0 0 var(--ink);padding:var(--s-08) var(--s-08) var(--s-2);display:flex;flex-direction:column;gap:var(--s-1);
   background-image:repeating-linear-gradient(to bottom,transparent 0 25px,rgba(65,77,87,.05) 25px 26px)}
-.ch-day{align-self:center;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.16em;
-  color:rgba(65,77,87,.5);margin:.15rem 0}
-.bub{max-width:82%;font-size:.92rem;line-height:1.35;padding:.45em .7em;border:2.2px solid var(--ink);
+.ch-day{align-self:center;font-family:var(--f-mono);font-size:var(--fs-fine);letter-spacing:.16em;
+  color:rgba(65,77,87,.5);margin:var(--s-0) 0}
+.bub{max-width:82%;font-size:var(--fs-small);line-height:1.35;padding:.45em .7em;border:2.2px solid var(--ink);
   border-radius:12px;margin:0}
 .bub em{font-style:italic}
 .bub.them{align-self:flex-start;background:var(--oats);border-bottom-left-radius:3px}
@@ -1278,36 +1321,36 @@ html[data-tier="lite"] .craftboard::before{filter:none;animation:none}
    deliberately the drab one. Do not send it to Grass; that only moves the collision. */
 .bub.me{align-self:flex-end;background:var(--ink);color:var(--oats);border-bottom-right-radius:3px}
 /* the silence is the punchline, so give it room */
-.ch-gap{display:flex;align-items:center;gap:.55rem;margin:.7rem 0;font-family:var(--f-hand);
-  font-size:.95rem;color:var(--colorado);white-space:nowrap}
+.ch-gap{display:flex;align-items:center;gap:var(--s-06);margin:var(--s-08) 0;font-family:var(--f-hand);
+  font-size:var(--fs-small);color:var(--colorado);white-space:nowrap}
 .ch-gap i{flex:1;height:2px;background:var(--colorado);opacity:.35;border-radius:2px}
-.ch-typing{align-self:flex-start;display:flex;gap:4px;padding:.5em .7em;background:var(--oats);
+.ch-typing{align-self:flex-start;display:flex;gap:var(--s-03);padding:.5em .7em;background:var(--oats);
   border:2.2px solid var(--ink);border-radius:12px;border-bottom-left-radius:3px;opacity:.55}
 .ch-typing i{width:6px;height:6px;border-radius:50%;background:var(--ink);opacity:.45}
 
 /* the circle's answer: a challenge, an arrow, a finished thing */
-.circlemock{display:flex;flex-direction:column;align-items:center;gap:.5rem;
+.circlemock{display:flex;flex-direction:column;align-items:center;gap:var(--s-1);
   background:var(--paper);border:2.6px solid var(--ink);border-radius:8px;
   box-shadow:7px 8px 0 0 var(--ink);padding:1.1rem .9rem 1.2rem}
 .cm-note{position:relative;width:100%;background:var(--oats);border:2.4px solid var(--ink);border-radius:6px;
-  padding:.9rem .8rem .7rem;transform:rotate(-1.2deg);
+  padding:var(--s-08) var(--s-08) var(--s-08);transform:rotate(-1.2deg);
   background-image:repeating-linear-gradient(to bottom,transparent 0 22px,rgba(65,77,87,.09) 22px 23px)}
 .cm-pin{position:absolute;top:-8px;left:50%;margin-left:-7px;width:14px;height:14px;border-radius:50%;
   background:var(--colorado);border:2.2px solid var(--ink)}
-.cm-kick{display:block;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.16em;
+.cm-kick{display:block;font-family:var(--f-mono);font-size:var(--fs-fine);letter-spacing:.16em;
   text-transform:uppercase;color:var(--colorado)}
-.cm-do{font-family:var(--f-hand);font-size:clamp(1.05rem,2vw,1.28rem);line-height:1.2;margin:.25rem 0 0;color:var(--ink)}
-.cm-due{display:inline-block;margin-top:.45rem;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.12em;
+.cm-do{font-family:var(--f-hand);font-size:var(--fs-body);line-height:1.2;margin:var(--s-03) 0 0;color:var(--ink)}
+.cm-due{display:inline-block;margin-top:var(--s-1);font-family:var(--f-mono);font-size:var(--fs-fine);letter-spacing:.12em;
   text-transform:uppercase;color:var(--oats);background:var(--colorado);border-radius:3px;padding:.2em .45em}
-.cm-arrow{transform:rotate(90deg);margin:.15rem 0}
+.cm-arrow{transform:rotate(90deg);margin:var(--s-0) 0}
 .cm-arrow svg{width:64px;height:28px;display:block}
 /* the cards carry a hard offset shadow, so a bare figcaption collides with it */
 .vs-card .cap{display:block;font-family:var(--f-hand);font-size:1.08rem;color:var(--sambas);
   text-align:center;margin:1.35rem auto 0;transform:rotate(-1deg);max-width:24ch;text-wrap:balance}
 .vs-card.vs-circle .cap{color:var(--grass-deep)}
-.cm-out{display:flex;flex-direction:column;align-items:center;gap:.35rem;text-align:center}
+.cm-out{display:flex;flex-direction:column;align-items:center;gap:var(--s-03);text-align:center}
 .cm-zine{width:clamp(56px,7vw,70px);height:auto;filter:drop-shadow(3px 4px 0 rgba(65,77,87,.55))}
-.cm-out b{font-family:var(--f-slab);font-style:italic;font-size:.88rem;color:var(--grass-deep);line-height:1.2}
+.cm-out b{font-family:var(--f-slab);font-style:italic;font-size:var(--fs-small);color:var(--grass-deep);line-height:1.2}
 
 .vs-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.95rem}
 .vs-list li{position:relative;padding-left:1.9rem;font-size:clamp(.98rem,1.5vw,1.06rem);line-height:1.5}
@@ -1472,8 +1515,8 @@ html[data-tier="lite"] .makerboard::before{filter:none;animation:none}
   font-size:var(--fs-body);line-height:1.5}
 
 /* the founders' closing question, in the margin voice, above the three doors. */
-.doors-ask{margin:.2rem 0 .1rem;color:var(--coral-ink);
-  font-size:clamp(1rem,2.2vw,1.28rem);line-height:1.2;transform:rotate(-1deg)}
+.doors-ask{margin:var(--s-02) 0 .1rem;color:var(--coral-ink);
+  font-size:var(--fs-body);line-height:1.2;transform:rotate(-1deg)}
 
 .mb-pull{position:relative;isolation:isolate;max-width:34rem;
   margin:0 auto clamp(1.4rem,3vw,2.2rem);padding:clamp(1rem,2.4vw,1.6rem) clamp(1.2rem,3vw,2rem);
@@ -1550,7 +1593,7 @@ html[data-tier="lite"] .mb-pull::before{filter:none}
    reader ever ties the two together, the card is the one to move, not the section. */
 .lg-real{position:relative;isolation:isolate;
   display:grid;grid-template-columns:clamp(140px,20vw,190px) 1fr;
-  gap:clamp(1.1rem,2.6vw,1.8rem);align-items:center;
+  gap:var(--sp-2);align-items:center;
   max-width:40rem;margin:clamp(1.8rem,4vw,3rem) auto clamp(2.6rem,4.4vw,3rem);
   padding:clamp(1.4rem,3vw,2.1rem);
   transform:rotate(-.5deg);transition:transform .18s ease}
@@ -1602,7 +1645,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
    MEASURED, NOT EYEBALLED. Oats #FEF6E4 on Sambas #414D57 = 8.05:1 - AA (4.5) and AAA (7)
    both clear. The answer is oats at .90 alpha, which composites to #EBE5D6 = 6.89:1 over
    the same fill: still far above AA, and the step exists only to rank the two lines. */
-.lg-real-q{margin:0 0 .5rem;font-family:var(--f-slab);font-style:italic;font-weight:700;
+.lg-real-q{margin:0 0 var(--s-1);font-family:var(--f-slab);font-style:italic;font-weight:700;
   letter-spacing:-.02em;line-height:1.08;text-wrap:balance;
   font-size:var(--fs-2);color:var(--oats)}
 .lg-real-a{margin:0;font-family:var(--f-body);font-size:var(--fs-body);line-height:1.55;
@@ -1722,7 +1765,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
   border-bottom:4.5px solid transparent;margin-left:2px}
 
 /* THE STRIP — the whole idea: the quote IS the caption, in handwriting */
-.mv-strip{padding:.55rem .35rem .6rem;text-align:center}
+.mv-strip{padding:var(--s-06) var(--s-03) var(--s-06);text-align:center}
 .mv-strip q{display:block;font-family:var(--f-hand);font-size:1rem;line-height:1.2;color:var(--ink);
   quotes:'\201C' '\201D'}
 .mpol.lead .mv-strip q{font-size:1.22rem;line-height:1.18}
@@ -1732,7 +1775,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
    accents, dark-ink text only"). The accent stays where an accent belongs - the pin and
    the card edge, both still var(--c) - and the name itself goes to ink at a size you can
    actually read. 8.2:1. */
-.mv-strip b{display:block;margin-top:.35rem;font-family:var(--f-mono);font-weight:400;font-size:.72rem;
+.mv-strip b{display:block;margin-top:.35rem;font-family:var(--f-mono);font-weight:400;font-size:var(--fs-micro);
   letter-spacing:.08em;color:var(--ink)}
 
 /* the echo sits BELOW the cycling deck. It was getting covered as the stack fanned downward, so it
@@ -1785,7 +1828,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
    photographs. The cost is real and is stated in the markup: this section used to
    look like four different pens and now looks like one. */
 #proof .mv-pin{background:var(--sambas)}
-#proof .mv-strip{padding:.7rem .45rem .2rem}
+#proof .mv-strip{padding:var(--s-08) var(--s-1) var(--s-02)}
 #proof .mv-strip q,#proof .pk-line{display:block;font-family:var(--f-hand);
   font-size:1.06rem;line-height:1.22;color:var(--ink);text-wrap:balance}
 /* .pk-line IS NOT A QUOTE AND MUST NEVER RENDER AS ONE. Same face, same ink,
@@ -1794,21 +1837,21 @@ html[data-tier="lite"] .lg-real::before{filter:none}
    That distinction is the honesty of the section; if a later pass collapses the
    two selectors into one, it silently attributes the page's sentences to the
    people in the photographs. */
-#proof .pk-craft{display:block;margin-bottom:.3rem;font-family:var(--f-mono);
-  font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
-#proof .mv-strip b{margin-top:.45rem;font-size:.68rem;color:var(--ink)}
+#proof .pk-craft{display:block;margin-bottom:var(--s-03);font-family:var(--f-mono);
+  font-size:var(--fs-fine);letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+#proof .mv-strip b{margin-top:var(--s-1);font-size:var(--fs-micro);color:var(--ink)}
 /* THE TAP TARGET. Measured on the first cut: 52-72 x 22px, at every width, and
    the only tappable thing on the card - the polaroid itself is a <figure>, not a
    link. That fails 2.5.5 outright, and two of them 12px apart also fail 2.5.8's
    24px-circle test. The padding is vertical only, so the underline still sits on
    the words. */
-#proof .pk-club{display:inline-block;margin:.35rem .55rem 0 0;padding:.55rem .2rem;
-  font-family:var(--f-head);font-weight:600;font-size:.74rem;
+#proof .pk-club{display:inline-block;margin:var(--s-03) var(--s-06) 0 0;padding:var(--s-06) var(--s-02);
+  font-family:var(--f-head);font-weight:600;font-size:var(--fs-label);
   color:var(--grass-deep);text-decoration:none;box-shadow:inset 0 -.72rem 0 -.6rem var(--grass)}
 #proof .pk-club:last-child{margin-right:0}
 #proof .pk-club:hover{box-shadow:inset 0 -.72rem 0 -.6rem var(--grass-deep)}
 #proof .pk-club:focus-visible{outline:3px solid var(--lazuli);outline-offset:2px}
-#proof .mv-strip{padding-bottom:.5rem}
+#proof .mv-strip{padding-bottom:var(--s-1)}
 
 /* THE COUPLET'S SECOND PRINT GOES ON TOP, and this is a defect fix, not a taste.
    The book carries z-index:2 and the reel polaroid z-index:1, and at 390 they
@@ -1855,7 +1898,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
    four notes and one OBJECT says "this one is different" without a word of copy. The hour is
    quartered into the four ways you use it. Hands sweep, because a clock that doesn't move is a
    drawing of a clock. */
-.how .step.is-clock .ico{width:100%;height:auto;margin:0 auto .3rem}
+.how .step.is-clock .ico{width:100%;height:auto;margin:0 auto var(--s-03)}
 .ctclock{width:clamp(104px,20cqw,168px);height:auto;display:block;margin:0 auto;overflow:visible;
   filter:drop-shadow(4px 5px 0 rgba(65,77,87,.55))}
 .ct-hands{transform-origin:60px 60px}
@@ -1876,7 +1919,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
    people) and the GLOBE at 05 (the world, big, everyone else). That pairing IS the thesis —
    make small, show and tell big — built into the loop instead of bolted on as a stunt.
    The paper plane was already the Show icon; now it orbits. */
-.how .step.is-globe .ico{width:100%;height:auto;margin:0 auto .3rem}
+.how .step.is-globe .ico{width:100%;height:auto;margin:0 auto var(--s-03)}
 .ctglobe{width:clamp(104px,20cqw,168px);height:auto;display:block;margin:0 auto;overflow:visible;
   filter:drop-shadow(4px 5px 0 rgba(65,77,87,.55))}
 /* plane + contrail are ONE group: the trail is the path already flown, so it must ride with the
@@ -1954,7 +1997,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
    long node-04 heading collides worse after this. Never take this without keeping node 04's
    heading short. Ring layout only — below 341px the ring unwinds and every station is auto. */
 @media(min-width:561px){ .how .step.is-cal{width:32cqw} }
-.how .step.is-cal .ico{width:100%;height:auto;margin:0 auto .3rem}
+.how .step.is-cal .ico{width:100%;height:auto;margin:0 auto var(--s-03)}
 .ctcal{width:clamp(96px,18cqw,152px);height:auto;display:block;margin:0 auto;overflow:visible;
   filter:drop-shadow(4px 5px 0 rgba(65,77,87,.55));transform:rotate(-2deg)}
 /* the pad boils on the calm cadence — paper breathing, not marker jitter (that's the balloon's job).
@@ -1964,7 +2007,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 .ctcal>path:nth-of-type(3){animation-delay:-.8s}
 .ctcal>path:nth-of-type(4){animation-delay:-1.1s}
 @media(prefers-reduced-motion:reduce){.ctcal>path,.ctcal>g>path,.ctcal>g>circle{animation:none}}
-.cal-day{font-family:var(--f-mono);font-weight:600;font-size:15px;letter-spacing:2px;fill:var(--oats)}
+.cal-day{font-family:var(--f-mono);font-weight:600;font-size:var(--fs-small);letter-spacing:2px;fill:var(--oats)}
 
 /* DELETED 2026-08-29 — THE FOOTNOTE STICKY NOTE (.how-fn, .fn-star, .fn-body, .fn-link) and its
    desktop pointing arrow. The markup was cut long ago; about 45 lines of CSS and four explaining
@@ -1996,7 +2039,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 .bring .inner{padding:clamp(1.4rem,3vw,2.3rem)}
 .bring-grid{display:grid;grid-template-columns:1fr;gap:clamp(1.4rem,3.4vw,2.8rem);align-items:center;max-width:44ch;margin-inline:auto}
 .bring .head h2,.bring h2{font-family:var(--f-slab);font-style:italic;font-weight:700;
-  font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.02;margin:.35rem 0 0;color:var(--ink);max-width:18ch}
+  font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.02;margin:var(--s-03) 0 0;color:var(--ink);max-width:18ch}
 .bring h2 .stop{color:var(--grass-deep)}
 .bring-body{font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.55;color:rgba(65,77,87,.9);margin:.95rem 0 0;max-width:46ch}
 .bring-body em{font-style:italic}
@@ -2006,7 +2049,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 /* .bring-cap and the old inline .bring-money were the pre-rebuild left-border callout paragraphs.
    The cap is folded into .bring-fine now and the money answer is a card (see the #bring rebuild block
    at the end of this file); their old rules are deleted so they can't collide with the card's ::before. */
-.bring-cta{display:flex;flex-wrap:wrap;align-items:center;gap:.9rem;margin:1.5rem 0 0}
+.bring-cta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-08);margin:var(--s-3) 0 0}
 .bring-note{color:var(--colorado);font-size:1.1rem;transform:rotate(-1.5deg)}
 .bring-honest{font-family:var(--f-body);font-size:clamp(.88rem,1.25vw,.95rem);line-height:1.55;
   color:rgba(65,77,87,.66);margin:1.3rem 0 0;max-width:52ch;font-style:italic}
@@ -2129,15 +2172,15 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 
 /* zine-duo — paired polaroids: the finished product + the editor video */
 .zine-card.hand,.zine-card.bot,.zine-card.hand:hover,.zine-card.bot:hover{transform:none}  /* tilt lives on the polaroids now */
-.zine-duo{display:flex;justify-content:center;align-items:flex-start;padding-top:8px}
+.zine-duo{display:flex;justify-content:center;align-items:flex-start;padding-top:var(--s-1)}
 .zpola{position:relative;width:clamp(122px,15vw,156px);background:var(--paper);border:2.4px solid var(--ink);
-  border-radius:5px;box-shadow:6px 6px 0 0 var(--ink);padding:8px 8px 0;text-decoration:none;
+  border-radius:5px;box-shadow:6px 6px 0 0 var(--ink);padding:var(--s-1) var(--s-1) 0;text-decoration:none;
   transition:transform .18s ease, box-shadow .18s ease}
 .zine-duo .zpola:nth-child(1){transform:rotate(-4deg);z-index:2}
 .zine-duo .zpola:nth-child(2){transform:rotate(4deg);margin-left:-20px;margin-top:22px;z-index:1}
 .zine-duo .zpola:hover{transform:rotate(0) translateY(-5px);z-index:5;box-shadow:10px 11px 0 0 var(--ink)}
 .zpola .ph{position:relative;width:100%;aspect-ratio:5/6;overflow:hidden;background:var(--sambas);
-  border:1.5px solid rgba(65,77,87,.28);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.45rem}
+  border:1.5px solid rgba(65,77,87,.28);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s-1)}
 .zpola .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
 .zpola-cap{display:block;font-family:var(--f-hand);text-align:center;font-size:1rem;color:var(--ink);padding:.42rem .2rem .55rem;line-height:1}
 .zpola.is-zine .zpola-cap{color:var(--grass-deep)}
@@ -2197,13 +2240,13 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 /* the founder's letter is the page's most personal copy AND its most literal object: handwriting
    on a sheet of ruled notepaper. It was set at 38.4px leading on 28px rules, so the writing walked
    off the lines it was drawn on — 10.4px further down the page every line. One token, used twice. */
-.note{--note-fs:clamp(1.2rem,2.1vw,1.6rem)}
+.note{--note-fs:var(--fs-lede)}
 .note .paper>.sheet.ruled{--rule:calc(var(--note-fs) * 1.5)}
-.note-body{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:var(--note-fs);line-height:1.5;color:var(--ink);max-width:min(36ch,100%);margin:.9rem 0 0}
+.note-body{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:var(--note-fs);line-height:1.5;color:var(--ink);max-width:min(36ch,100%);margin:var(--s-08) 0 0}
 .note-body b{font-weight:700;color:var(--grass-deep)}
 .sign{font-family:var(--f-hand);font-size:clamp(2.2rem,4.5vw,3.2rem);color:var(--grass-deep);margin:1.1rem 0 0;line-height:1}
-.sign-role{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--sambas);margin:.35rem 0 0}
-.snap{position:relative;width:min(312px,84vw);justify-self:center;padding:12px;transform:rotate(2.6deg)}
+.sign-role{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.14em;font-size:var(--fs-micro);color:var(--sambas);margin:.35rem 0 0}
+.snap{position:relative;width:min(312px,84vw);justify-self:center;padding:var(--s-08);transform:rotate(2.6deg)}
 .snap::before{content:"";position:absolute;inset:0;z-index:0;background:var(--paper);border:2.6px solid var(--ink);border-radius:5px;
   box-shadow:8px 8px 0 0 var(--ink);filter:url(#soft)}
 .snap>.ph{position:relative;z-index:1}
@@ -2213,14 +2256,14 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 /* the note carries the whole team: three near-equal snaps in one tight row, shoulder to
    shoulder with a hair of overlap, so it reads as a hand-laid strip rather than a hierarchy. */
 .note-crew{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:0}
-.snap.trio{width:min(150px,29vw);padding:9px;margin:0 -6px}
+.snap.trio{width:min(150px,29vw);padding:var(--s-06);margin:0 -6px}
 .snap.trio:nth-child(1){transform:rotate(-3deg);z-index:2}
 .snap.trio:nth-child(2){transform:rotate(2.6deg);z-index:1}
 .snap.trio:nth-child(3){transform:rotate(-2deg);z-index:2}
 .snap.trio:hover{transform:rotate(0) translateY(-5px);z-index:5}
 .snap.trio::before{border-width:2.2px}
 .snap.trio .cap-mini{position:relative;z-index:1;font-family:var(--f-hand);text-align:center;
-  font-size:1.1rem;line-height:1;color:var(--ink);margin:.35rem 0 .05rem}
+  font-size:var(--fs-body);line-height:1;color:var(--ink);margin:var(--s-03) 0 .05rem}
 /* --coral-ink, not --colorado: this is a colour carrying text, and (0,4,0) here was beating the
    eyebrow-rank rule at the foot of the file. 17.6px, so it clears nothing at AA-normal either
    way - this is the better of two, not a pass. */
@@ -2244,7 +2287,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 footer{position:relative;background:var(--grass-deep);margin-top:clamp(2.5rem,6vw,4.5rem);
   padding:clamp(2.6rem,6vw,4.2rem) 0 clamp(1.8rem,4vw,2.6rem);color:var(--oats)}  /* deep grass: oats text clears AA on the band */
 footer::before{content:"";position:absolute;left:0;right:0;top:-15px;height:30px;background:var(--grass-deep);filter:url(#tornbig2)}
-footer .top{display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap}
+footer .top{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s-4);flex-wrap:wrap}
 footer .ft-word{width:clamp(150px,24vw,240px);display:block}
 footer .ft-word svg{display:block;width:100%;height:auto}
 /* 18ch, down from 20: the tagline is now "Clubs for regular show-and-tells." and its longest
@@ -2256,19 +2299,19 @@ footer .ft-word svg{display:block;width:100%;height:auto}
    .nb welds "show-and-tells." — its hyphens are CSS break opportunities, and nbsp cannot stop
    a hyphen break, only nowrap can. It is a guard, not a fix: at 320px the column is 252px and
    the noun 210px, so 42px of headroom. See the markup comment in index.html. */
-footer .tagline{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:var(--fs-2);color:var(--oats);max-width:18ch;margin:.8rem 0 0;line-height:1.05}
+footer .tagline{font-family:var(--f-slab);font-style:italic;font-weight:700;font-size:var(--fs-2);color:var(--oats);max-width:18ch;margin:var(--s-08) 0 0;line-height:1.05}
 footer .tagline .nb{white-space:nowrap}
-footer .links{display:flex;flex-direction:column;gap:.35rem}
-footer .links a{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--oats);
+footer .links{display:flex;flex-direction:column;gap:var(--s-03)}
+footer .links a{font-family:var(--f-mono);font-size:var(--fs-label);letter-spacing:.08em;text-transform:uppercase;color:var(--oats);
   display:inline-flex;align-items:center;min-height:44px;                       /* >=44px tap target */
   text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px;text-decoration-color:rgba(254,246,228,.55)}
 footer .links a:hover,footer .links a:focus-visible{text-decoration-color:var(--oats)}
 footer .links a:focus-visible{outline:2px solid var(--oats);outline-offset:2px}
-footer .stamp{display:inline-block;margin-top:1.4rem;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.14em;
-  font-size:.72rem;color:rgba(254,246,228,.85);border:2.4px solid rgba(254,246,228,.7);border-radius:6px;
+footer .stamp{display:inline-block;margin-top:var(--s-3);font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.14em;
+  font-size:var(--fs-micro);color:rgba(254,246,228,.85);border:2.4px solid rgba(254,246,228,.7);border-radius:6px;
   padding:.5em .8em;transform:rotate(-3deg);filter:url(#roughsm)}
-footer .legal{margin-top:2rem;border-top:1.6px solid rgba(254,246,228,.4);padding-top:1.1rem;display:flex;
-  justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.05em;color:rgba(254,246,228,.9)}
+footer .legal{margin-top:var(--s-4);border-top:1.6px solid rgba(254,246,228,.4);padding-top:var(--s-2);display:flex;
+  justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:var(--f-mono);font-size:var(--fs-micro);letter-spacing:.05em;color:rgba(254,246,228,.9)}
 
 /* ===================================================================
    R5 composition — break the centered, same-width stack into laid leaves:
@@ -2354,7 +2397,7 @@ html[data-tier="lite"] .snap::before,
 html[data-tier="lite"] .cutline .cut-torn{filter:none!important}
 
 /* ---- footer opt-in sound toggle (sits in the legal row) ------------ */
-footer .legal .snd{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.05em;text-transform:lowercase;
+footer .legal .snd{font-family:var(--f-mono);font-size:var(--fs-micro);letter-spacing:.05em;text-transform:lowercase;
   color:var(--oats);background:none;border:1.6px solid rgba(254,246,228,.5);border-radius:5px;
   display:inline-flex;align-items:center;min-height:44px;padding:.28em .8em;cursor:pointer;
   transition:border-color .12s, color .12s}
@@ -3010,7 +3053,7 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .burger:hover{transform:rotate(0)}
 .burger:active{transform:translate(3px,3px) rotate(0);box-shadow:0 0 0 0 var(--ink)}
 .burger:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
-.bars{display:flex;flex-direction:column;gap:4.5px;width:22px}
+.bars{display:flex;flex-direction:column;gap:var(--s-03);width:22px}
 .bars i{height:2.8px;background:var(--ink);border-radius:2px;display:block}
 .hb[data-state="fallen"] .burger,.hb[data-state="open"] .burger,.hb[data-state="torn"] .burger{opacity:0;pointer-events:none}
 
@@ -3031,16 +3074,16 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .hb-strand{position:relative;display:flex;flex-direction:column;align-items:flex-end;gap:15px;padding:44px 35px 0 0;
   transform:translateY(calc((var(--pull) - 1) * 260px))}
 .hb[data-state="fallen"] .hb-strand,.hb[data-state="open"] .hb-strand{transition:transform .08s linear}
-.hb-tray{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:flex-end;gap:15px;position:relative;z-index:1;pointer-events:none}
+.hb-tray{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:flex-end;gap:var(--s-2);position:relative;z-index:1;pointer-events:none}
 .hb-tray li{display:block}
-.hb-tray a{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
+.hb-tray a{font-family:var(--f-mono);font-size:var(--fs-label);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
   color:var(--ink);background:var(--paper);border:2.4px solid var(--ink);border-radius:6px;box-shadow:3px 3px 0 0 var(--ink);
   padding:.5em .85em;display:inline-block;white-space:nowrap;pointer-events:none}
 .hb[data-state="open"] .hb-tray,.hb[data-state="open"] .hb-tray a,.hb[data-state="plain"] .hb-tray a{pointer-events:auto}
 .hb-tray li:nth-child(odd) a{transform:rotate(-1.6deg)}
 .hb-tray li:nth-child(even) a{transform:rotate(1.4deg)}
 .hb-tray a:hover{transform:rotate(0) translate(-1px,-1px);box-shadow:4px 4px 0 0 var(--grass)}
-.hb-tray .hb-cta .btn{font-size:.72rem;pointer-events:none}
+.hb-tray .hb-cta .btn{font-size:var(--fs-micro);pointer-events:none}
 .hb[data-state="open"] .hb-tray .hb-cta .btn,.hb[data-state="plain"] .hb-tray .hb-cta .btn{pointer-events:auto}
 /* string is ROOTED at the slit and STRETCHES as you over-pull (top counters the
    strand's translate so it never slides out of the cut) — taut, then it snaps */
@@ -3069,7 +3112,7 @@ html.finale-hide-soft body>header, html.finale-hide-soft body>main, html.finale-
 .hb[data-state="torn"] .hb-fallen .bars{display:none}
 .hb[data-state="torn"] .hb-fallen .hb-facex{display:block}
 .hb-say{position:absolute;left:9%;top:28%;width:74%;height:44%;display:flex;align-items:center;justify-content:center;
-  text-align:center;font-family:var(--f-hand);font-weight:700;font-size:.96rem;line-height:1.02;color:var(--hb-ink,var(--ink));padding:0 1px}
+  text-align:center;font-family:var(--f-hand);font-weight:700;font-size:var(--fs-small);line-height:1.02;color:var(--hb-ink,var(--ink));padding:0 1px}
 /* visibility gate: a data-coach key present AND the rig is out */
 .hb[data-state="fallen"] .hb-bubble[data-coach],.hb[data-state="open"] .hb-bubble[data-coach],.hb[data-state="torn"] .hb-bubble[data-coach]{opacity:1}
 /* idle downward bob (points the way) */
@@ -3155,7 +3198,7 @@ html[data-tier="lite"] .vol-p.vz i{ filter:none; }   /* weak devices only: drop 
 .zpola.zbook{background:transparent;border:none;box-shadow:none;width:clamp(158px,20vw,210px)}
 .zpola.zbook .ph{aspect-ratio:4/5;border:2.6px solid var(--ink);border-radius:3px 9px 9px 3px;
   box-shadow:3.4px 3.4px 0 0 var(--oats),4.8px 4.8px 0 0 var(--ink),8px 8px 0 0 var(--oats),9.6px 9.6px 0 0 var(--ink)}
-.zpola.zbook .zpola-cap{padding-top:.75rem}
+.zpola.zbook .zpola-cap{padding-top:var(--s-08)}
 .zine-duo .zpola.zbook:hover{box-shadow:none}
 
 /* bigger objects — the evidence is the point: polaroids ~1.6x, booklets ~2x */
@@ -3414,7 +3457,7 @@ html.sealed .envelope.lit-hl .hero-card .hl-rot.lit .mark::before{transform:rota
    NOT changed: family, weight, size. It was tried in --f-slab italic (the letter's own voice) and
    that was the wrong instinct — it came out in the typewriter face, matching the reflection
    question two sections up, so the page's most personal heading read as machine output. */
-.note h2{margin-inline:0;max-width:30ch;margin-top:.45rem}
+.note h2{margin-inline:0;max-width:30ch;margin-top:var(--s-1)}
 /* .ul is an ABSOLUTELY POSITIONED ::after on an inline box, so a marker underline that wraps
    comes apart: the bar draws across one line and leaves a stray tick under the other. The first
    draft underlined "nowhere to take it", which broke over two lines and did exactly that. Two
@@ -3462,7 +3505,7 @@ html.sealed .envelope.lit-hl .hero-card .hl-rot.lit .mark::before{transform:rota
 .hero-pile .hp i{position:relative;z-index:1;display:block;aspect-ratio:1;
   background-size:cover;background-position:center}   /* clean cut-out edges. never filtered. */
 .hero-pile .hp figcaption{position:relative;z-index:1;display:block;font-family:var(--f-hand);
-  font-size:.86rem;color:var(--ink);margin-top:5px}
+  font-size:var(--fs-label);color:var(--ink);margin-top:var(--s-03)}
 @media(max-width:880px){.hero-pile{display:none}}   /* the card owns the phone; the pile would bury it */
 
 /* the two beats of the headline: the problem in ink, the promise in grass */
@@ -3668,8 +3711,8 @@ html.sealed:not(.revealed) .hero::after{display:none}
 /* ---- THE CLOCK, ACTUALLY BIGGER ---------------------------------------
    My earlier 13.2cqw rule overrode an existing `width:100%` and SHRANK the dial from 155px to
    79px — the opposite of the ask. The clock now carries four words; give it the room to say them. */
-.how .step.is-clock .ico{width:132%;height:auto;margin:0 -16% .3rem}
-@media(max-width:900px){ .how .step.is-clock .ico{width:118%;margin:0 -9% .3rem} }
+.how .step.is-clock .ico{width:132%;height:auto;margin:0 -16% var(--s-03)}
+@media(max-width:900px){ .how .step.is-clock .ico{width:118%;margin:0 -9% var(--s-03)} }
 
 /* Polaroids carry the maker's OWN words — their reflection answer from the ledger. Nobody was
    asked for a testimonial, which is exactly why they land. Never invent one of these. */
@@ -3707,7 +3750,7 @@ html.sealed:not(.revealed) .hero::after{display:none}
   .hero-pile .hp{margin:0 -4% 2.2rem}
   .hero-pile .hp:nth-child(n+5){display:none}  /* four reads as a heap without pushing the card down a screen */
   .hero-pile .hp:nth-child(1){width:50%;--r:-6deg}
-  .hero-pile .hp:nth-child(2){width:44%;--r:5deg;margin-top:1.6rem}
+  .hero-pile .hp:nth-child(2){width:44%;--r:5deg;margin-top:var(--s-3)}
   .hero-pile .hp:nth-child(3){width:42%;--r:-3deg;margin-top:-.6rem}
   .hero-pile .hp:nth-child(4){width:46%;--r:7deg}
 }
@@ -3723,7 +3766,7 @@ html.sealed:not(.revealed) .hero::after{display:none}
   .hero-pile .hp{position:absolute;margin:0;
     top:var(--mt);left:var(--ml);width:var(--mw);transform:rotate(var(--mr))}
   .hero-pile .hp::before{inset:-5px -5px -30px}
-  .hero-pile .hp figcaption{margin-top:4px}
+  .hero-pile .hp figcaption{margin-top:var(--s-03)}
   .hero-pile .hp figcaption q{font-size:.6rem;line-height:1.15}
   .hero-pile .hp figcaption b{font-size:.58rem}
   .hero-pile .hp:nth-child(n+13){display:none}
@@ -4503,7 +4546,7 @@ html.sealed:not(.revealed) .hero::after{display:none}
 .hero-card h1.ed-cat .rot-line{display:block}
 
 /* the hero subtitle: handles the "do I need a group?" question right under the headline */
-.ed-sub{margin:clamp(.7rem,1.7vw,1.15rem) 0 0;font-family:var(--f-body);font-style:italic;font-weight:400;
+.ed-sub{margin:var(--sp-1) 0 0;font-family:var(--f-body);font-style:italic;font-weight:400;
   font-size:var(--fs-lede);line-height:1.4;color:var(--ink);max-width:34ch}
 /* THE GREEN TOKEN IS UNUSED AS OF 2026-08-08. These rules marked "clubs for regular
    show-and-tells" — the tagline uncompressed, laid down as a grass swatch inside the italic sub.
@@ -5160,7 +5203,7 @@ html.modal-open{overflow:hidden}
 .dm-eyebrow{margin:0;font-family:var(--f-head);font-weight:500;font-size:var(--fs-label);
   letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
 .dm-eyebrow .hl{background:var(--happy);mix-blend-mode:multiply;padding:.02em .18em;border-radius:3px;color:var(--ink)}
-.dm-sub{margin:.45rem 0 0;font-family:var(--f-hand);font-size:1.16rem;line-height:1.2;color:var(--grass-deep)}
+.dm-sub{margin:var(--s-1) 0 0;font-family:var(--f-hand);font-size:1.16rem;line-height:1.2;color:var(--grass-deep)}
 /* 150px -> 210px: the lightbox is the one place these are meant to be READ rather than glanced at,
    and at a 150px cell the two bands ate roughly half the card, leaving the photograph as a letterbox
    strip. At 210 the picture gets its 3:4 back and the answers still set at a comfortable size. */
@@ -5489,7 +5532,7 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
   /* collapse to one column. My unconditional .bring-grid rule above is later in source order than
      the original mobile rule, so it was overriding the collapse and leaving two cramped columns on
      a phone. Re-assert it here, after, where it wins. */
-  .bring-grid{grid-template-columns:1fr;gap:1.6rem}
+  .bring-grid{grid-template-columns:1fr;gap:var(--s-3)}
   .bring-right{margin-top:.2rem}
   .bring-money{transform:rotate(-.6deg);max-width:26rem}
 }
@@ -5507,14 +5550,14 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
    ========================================================================= */
 .dk{max-width:960px;margin:0 auto;padding:clamp(var(--s-3),4vw,var(--s-5)) 1.25rem clamp(var(--s-4),5vw,var(--s-6))}
 .dk-head{text-align:center;max-width:60ch;margin:0 auto var(--head-gap)}
-.dk-head .eyebrow{color:var(--colorado);margin-bottom:.3rem}
+.dk-head .eyebrow{color:var(--colorado);margin-bottom:var(--s-03)}
 /* 1.03 was set for a one-line head. The .ul mark hangs ~.05em below its line box, and
    this is the only .ul on the page with a line underneath it - measured gap to the next
    line box was negative at 320, 360, 390 AND 430, so the mark struck through "photographers".
    It only looked clean at 430 because line two is short and centred out from under it. */
 @media(max-width:560px){ .dk-head h2{line-height:1.22} }
 .dk-head h2{font-family:var(--f-head);font-weight:700;font-size:var(--fs-2);line-height:1.03;
-  letter-spacing:-.01em;color:var(--ink);margin:.1rem 0 .5rem}
+  letter-spacing:-.01em;color:var(--ink);margin:.1rem 0 var(--s-1)}
 .dk-head h2 .stop{color:var(--grass-deep)}
 .dk-sub{font-family:var(--f-body);font-style:italic;font-size:var(--fs-lede);line-height:1.45;
   color:var(--ink-soft);max-width:54ch;margin:0 auto}
@@ -5661,7 +5704,7 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
 .antidote .bloom p b{color:var(--grass-deep);font-weight:700}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.antidote .petals{animation:none}}
-@media(max-width:600px){.wa-list{grid-template-columns:1fr;gap:1.6rem}.wa-face{top:-46px;right:0;width:84px;height:84px}.antidote{flex-direction:column;text-align:center}.antidote .hero{margin-bottom:-.4rem}}
+@media(max-width:600px){.wa-list{grid-template-columns:1fr;gap:var(--s-3)}.wa-face{top:-46px;right:0;width:84px;height:84px}.antidote{flex-direction:column;text-align:center}.antidote .hero{margin-bottom:-.4rem}}
 
 /* ============ #inside — LOOK INSIDE: clothesline / film-strip of app screens ============ */
 .board{padding:clamp(2rem,5vw,3.5rem) 0 clamp(1.5rem,4vw,3rem)}
@@ -5804,15 +5847,15 @@ html[data-tier="lite"] .bd-flyer{animation:none}   /* under lite the ball still 
   background:rgba(65,77,87,.74);padding:clamp(1rem,4vw,2.5rem);animation:bd-fade .16s ease}
 .bd-modal[hidden]{display:none}
 .bd-modal-fig{position:relative;margin:0;max-width:min(92vw,500px);background:var(--paper);
-  border:3px solid var(--ink);box-shadow:10px 12px 0 0 rgba(65,77,87,.5);padding:14px 14px 12px}
+  border:3px solid var(--ink);box-shadow:10px 12px 0 0 rgba(65,77,87,.5);padding:var(--s-08) var(--s-08) var(--s-08)}
 .bd-modal-img,.bd-modal-vid{display:block;width:100%;height:auto;max-height:70vh;object-fit:contain;
   border:1.5px solid var(--ink);background:var(--sambas)}
 .bd-modal-embed{display:block;width:min(84vw,340px);aspect-ratio:9/16;max-height:72vh;
   border:1.5px solid var(--ink);background:var(--sambas)}
 .bd-modal-img[hidden],.bd-modal-vid[hidden],.bd-modal-embed[hidden]{display:none}
-.bd-modal-cap{font-family:var(--f-hand);font-size:1.2rem;color:var(--ink);margin:.65rem .2rem .15rem;text-align:center}
-.bd-modal-play{display:block;width:max-content;margin:.6rem auto 0;font-family:var(--f-mono);font-weight:700;
-  font-size:.95rem;color:var(--paper);background:var(--grass);border:2.5px solid var(--ink);
+.bd-modal-cap{font-family:var(--f-hand);font-size:1.2rem;color:var(--ink);margin:var(--s-06) var(--s-02) var(--s-0);text-align:center}
+.bd-modal-play{display:block;width:max-content;margin:var(--s-06) auto 0;font-family:var(--f-mono);font-weight:700;
+  font-size:var(--fs-small);color:var(--paper);background:var(--grass);border:2.5px solid var(--ink);
   box-shadow:3px 3px 0 0 var(--ink);padding:.5em .9em;text-decoration:none}
 .bd-modal-play[hidden]{display:none}
 .bd-modal-x{position:absolute;top:-17px;right:-17px;width:38px;height:38px;border-radius:50%;
@@ -5820,7 +5863,7 @@ html[data-tier="lite"] .bd-flyer{animation:none}   /* under lite the ball still 
   font-size:1.5rem;line-height:33px;text-align:center;cursor:pointer;padding:0}
 /* prev / next through the clothesline — paper buttons, hand-cut edge (in the design bible) */
 .bd-modal-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:54px;height:54px;
-  display:flex;align-items:center;justify-content:center;cursor:pointer;padding-bottom:4px;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;padding-bottom:var(--s-03);
   background:var(--oats);color:var(--ink);border:2.8px solid var(--ink);border-radius:50%;
   box-shadow:4px 4px 0 0 rgba(65,77,87,.85);filter:url(#soft);
   font-family:var(--f-display);font-weight:700;font-size:2.1rem;line-height:1}
@@ -5916,7 +5959,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    size from --fs-2, family/measure from the same tokens the system block uses. */
 .showtell .head h2{font-family:var(--f-head);font-style:normal;font-weight:700;
   letter-spacing:-.015em;line-height:1.06;text-wrap:balance;
-  font-size:var(--fs-2);margin:.25rem 0 0;color:var(--ink);max-width:24ch;margin-inline:auto}
+  font-size:var(--fs-2);margin:var(--s-03) 0 0;color:var(--ink);max-width:24ch;margin-inline:auto}
 .showtell .head h2 .stop{color:var(--grass-deep)}
 /* The marked half of the eyebrow goes to --ink, and this line is the whole reason the mark works.
    .hl only paints a background; the text underneath keeps inheriting, and the eyebrow inherits
@@ -5991,7 +6034,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 .dd-row.is-due::before{bottom:0}           /* the tail past the last knot is Colorado again */
 
 .dd-row{position:relative;display:grid;grid-template-columns:var(--rail) 1fr;align-items:start;
-  padding-bottom:clamp(1.1rem,2.4vw,1.7rem)}
+  padding-bottom:var(--sp-2)}
 /* THE SPINE IS DRAWN TO SCALE. Even row spacing made every gap look like the
    same amount of time, wasting the one thing a timeline does that a numbered
    list can't. The standing stretch is the long one; build -> due is the
@@ -6003,7 +6046,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 .dd-row.is-due{padding-bottom:clamp(1.4rem,3vw,2.1rem)}
 
 /* the date, hard against the rail */
-.dd-date{grid-column:1;text-align:right;padding-right:1.5rem;position:relative;z-index:1}
+.dd-date{grid-column:1;text-align:right;padding-right:var(--s-3);position:relative;z-index:1}
 .dd-mon{display:block;font-family:var(--f-mono);font-weight:500;text-transform:uppercase;
   letter-spacing:.16em;font-size:var(--fs-label);color:var(--ink);line-height:1}
 .dd-mon.is-every{color:var(--ink)}   /* was Colorado. Colorado now means CHALLENGE, and this is the Club Hour row; the yellow knot and bead chain beside it carry the beat. */
@@ -6058,7 +6101,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 .dd-row.is-build .dd-body{grid-template-columns:minmax(0,1fr) clamp(148px,20vw,192px)}
 .dd-row.is-due .dd-body{grid-template-columns:minmax(0,1fr) clamp(186px,30vw,278px)}
 
-.dd-text{min-width:0;padding-top:.15rem}
+.dd-text{min-width:0;padding-top:var(--s-0)}
 /* ~~.dd-step~~ THE 01-04 INDEX IS GONE (2026-09-01, Sue) and its rule with it. The rows carry
    real dates and the dates ARE the sequence, so a numeral beside "JUL 15" indexed something the
    eye had already counted. The record of what it was: a quiet mono index, deliberately NOT
@@ -6070,7 +6113,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    looking at. Three ranks, three treatments - ink date = WHEN, beat headline = WHAT, solid
    ink body = the detail. No underline, heading weight, editorial context: this must not read
    as a link. */
-.dd-text h3{margin:0 0 .3rem;font-family:var(--f-head);font-weight:700;font-size:var(--fs-3);
+.dd-text h3{margin:0 0 var(--s-03);font-family:var(--f-head);font-weight:700;font-size:var(--fs-3);
   line-height:1.1;color:var(--beat-ink)}
 /* the one headline that cannot take its beat as type: School Bus is ~1.9:1 on Oats. Row 02
    takes the MARKER instead, and its --beat-ink (#4A3410) does double duty as the ink on the
@@ -6099,7 +6142,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 /* ---------- the print hung off the rail ---------- */
 .dd-print{position:relative;width:100%;margin:0;   /* a bare <figure> carries the UA's 1em/40px margin */
   background:var(--paper);border:2.6px solid var(--ink);border-radius:4px;
-  box-shadow:7px 7px 0 0 var(--ink);padding:7px 7px 0;transform:rotate(var(--r,-1.6deg))}
+  box-shadow:7px 7px 0 0 var(--ink);padding:var(--s-1) var(--s-1) 0;transform:rotate(var(--r,-1.6deg))}
 /* THE PLACEHOLDER IS MUTED PAPER, NOT NEAR-BLACK (2026-09-03). It was #212c30, and every one of
    these four photographs is loading="lazy" - so on a phone, scrolling the spine, you meet FOUR
    solid black rectangles and they fill in afterwards. Measured mid-scroll at 390: all four
@@ -6166,8 +6209,8 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    own headline across the gutter. It was Lazuli-deep on three rows and Grass on the fourth -
    "blue is the work in progress, green is the thing that came out of it" - which is the old
    layer scheme; the is-due override said exactly what --beat-ink now says by itself. */
-.dd-print figcaption{display:block;font-family:var(--f-hand);text-align:center;font-size:.98rem;
-  line-height:1;color:var(--beat-ink);padding:.4rem .2rem .5rem}
+.dd-print figcaption{display:block;font-family:var(--f-hand);text-align:center;font-size:var(--fs-small);
+  line-height:1;color:var(--beat-ink);padding:var(--s-1) var(--s-02) var(--s-1)}
 
 /* ---- the standing row's print is a PAD, not a sheet ----------------------
    The spine said "every week" while the media column still showed exactly one
@@ -6200,8 +6243,8 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    (.dd-row.is-due .dd-day is vestigial - this row has no numeral, it has the tab - but it is
    pointed at the beat rather than left saying Colorado.) */
 .dd-row.is-due .dd-day{color:var(--beat-ink)}
-.dd-due-tab{display:inline-block;margin-top:.4rem;font-family:var(--f-mono);font-weight:600;
-  text-transform:uppercase;letter-spacing:.16em;font-size:.7rem;line-height:1;color:var(--oats);
+.dd-due-tab{display:inline-block;margin-top:var(--s-1);font-family:var(--f-mono);font-weight:600;
+  text-transform:uppercase;letter-spacing:.16em;font-size:var(--fs-micro);line-height:1;color:var(--oats);
   background:var(--beat-ink);border:2px solid var(--ink);padding:.42em .6em .36em;
   border-radius:3px;transform:rotate(-2.4deg);box-shadow:3px 3px 0 0 var(--ink)}
 .dd-row.is-due .dd-print{--r:2.2deg}
@@ -6228,7 +6271,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 .dd-anno{position:absolute;pointer-events:none;z-index:4}
 .dd-anno svg{display:block;width:100%;height:auto;overflow:visible}
 .dd-anno-url{right:100%;margin-right:-6px;top:calc(100% - 66px);width:250px}
-.dd-anno-url text{font-family:var(--f-slab);font-weight:700;font-size:15px;letter-spacing:.01em;fill:var(--ink)}
+.dd-anno-url text{font-family:var(--f-slab);font-weight:700;font-size:var(--fs-small);letter-spacing:.01em;fill:var(--ink)}
 @media(max-width:720px){.dd-anno{display:none}}
 
 /* the tail: the spine doesn't stop at shipped */
@@ -6268,10 +6311,10 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
 
 @media(max-width:720px){
   .dd{--rail:3.4rem}
-  .dd-date{padding-right:.85rem}
+  .dd-date{padding-right:var(--s-08)}
   .dd-day{font-size:1.55rem}
-  .dd-row.is-standing .dd-day{font-size:1.15rem}   /* "Wed" is 3 chars against a 3.4rem column */
-  .dd-mon{font-size:.62rem;letter-spacing:.1em}
+  .dd-row.is-standing .dd-day{font-size:var(--fs-body)}   /* "Wed" is 3 chars against a 3.4rem column */
+  .dd-mon{font-size:var(--fs-fine);letter-spacing:.1em}
   .dd-knot{right:-10px;top:.3rem;width:18px;height:18px;border-width:3.6px}
   .dd-repeat{top:2rem}
   /* the per-row .is-build / .is-due column overrides are MORE SPECIFIC than a
@@ -6279,7 +6322,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
      desktop split and squeeze the text into a ~150px ribbon */
   .dd-body,
   .dd-row.is-build .dd-body,
-  .dd-row.is-due .dd-body{grid-template-columns:minmax(0,1fr);padding-left:1rem;gap:.9rem}
+  .dd-row.is-due .dd-body{grid-template-columns:minmax(0,1fr);padding-left:var(--s-2);gap:var(--s-08)}
   /* the tilt and the 7px registration shadow both live outside the box, so a
      full-bleed print runs off the right edge of a 390px screen */
   .dd-print{width:min(100% - 14px,300px)}
@@ -6397,8 +6440,8 @@ html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
   .pw-media img.pw-still{display:block}
 }
 
-.pw-name{display:flex;align-items:baseline;justify-content:center;gap:.4rem;flex-wrap:wrap;
-  margin:2.1rem .1rem 0;font-family:var(--f-hand);font-size:1.16rem;line-height:1.15;
+.pw-name{display:flex;align-items:baseline;justify-content:center;gap:var(--s-1);flex-wrap:wrap;
+  margin:var(--s-4) .1rem 0;font-family:var(--f-hand);font-size:1.16rem;line-height:1.15;
   text-align:center}
 /* ~~.pw-col.is-mine .pw-name{color:var(--lazuli-deep)}~~ and its is-club grass twin DELETED
    2026-09-01. They were DEAD - overridden 50 lines down by the one-ink rule that binds both
@@ -6406,7 +6449,7 @@ html[data-tier="lite"] .pw-media::before{filter:none;border-radius:3px}
    swap that landed the same day the lazuli-deep one becomes accidentally CORRECT, and the next
    pass reads it as the fix. The live binding is the one at the foot of this block, and in
    .lands-grid. */
-.arr{display:inline-block;font-family:var(--f-body);font-size:.92em;transition:transform .17s ease}
+.arr{display:inline-block;font-family:var(--f-body);font-size:1em;transition:transform .17s ease}  /* 2026-09-03: was .92em. The dymo arrow rides five different parents, so one em multiplier minted FIVE rendered sizes (15.6/14.7/12.7/10.9/10.6 @1440) that belonged to no rank at all. At 1em it simply inherits its parent's rung — the arrow grows 8% and the scale loses four values. */
 .pw-a:hover .arr{transform:translateX(3px)}
 
 .pw-what{margin:.4rem .2rem 0;font-family:var(--f-body);font-size:.95rem;line-height:1.45;
@@ -7166,7 +7209,7 @@ html[data-tier="lite"] .pw-kind::before{filter:none}
   position:relative; isolation:isolate; display:inline-block;
   margin:0 .06em; padding:.1em .34em .06em;
   font-family:var(--f-head); font-weight:700; font-style:normal;
-  font-size:.72em; text-transform:uppercase; letter-spacing:.045em;
+  font-size:var(--fs-label); text-transform:uppercase;  /* 2026-09-03: was .72em (13.7px@1440 / 12.3@390) — a one-off em that landed 2% off --fs-label's own 13.4/12.5. Same rank, one value. */ letter-spacing:.045em;
   color:#FFF8EC; text-shadow:0 1px 0 rgba(93,18,22,.55);
   transform:rotate(-1.2deg); vertical-align:.06em;
 }
@@ -7549,7 +7592,7 @@ html[data-tier="lite"] .sl-box path{animation:none}
         picked one at a time: the sub hangs off the headline, the button clears
         the sub by a full step, and the fine print sits close under the button
         because it annotates it. ---- */
-.hero-card .ed-sub{margin-top:clamp(.7rem,1.5vw,1.05rem)}
+.hero-card .ed-sub{margin-top:var(--sp-1)}
 /* the fold's third line (2026-08-24). A full .ed-sub margin between lines two
    and three read as three separate paragraphs; this gap says "same breath". */
 .hero-card .ed-sub-3{margin-top:clamp(.3rem,.7vw,.5rem)}
@@ -7587,7 +7630,7 @@ html[data-tier="lite"] .sl-box path{animation:none}
 @media (max-width:899px){
   .zc-frame{height:min(37vh,20rem)}
   .hero-card .ed-start{margin-top:clamp(.9rem,2.4vw,1.3rem)}
-  .hero-card .ed-sub{margin-top:.6rem}
+  .hero-card .ed-sub{margin-top:var(--s-06)}
   .start-line{padding:.75rem 1rem .95rem}
   .start-note{margin-top:.4rem}
 }
@@ -7625,7 +7668,7 @@ html[data-tier="lite"] .sl-box path{animation:none}
   }
   /* one rhythm down the column instead of four values chosen one at a time */
   .hero-card .ed-head{margin-bottom:0}
-  .hero-card .ed-sub{margin-top:.55rem}
+  .hero-card .ed-sub{margin-top:var(--s-06)}
   .hero-card .zc{margin-top:clamp(1rem,3.4vw,1.5rem)}
   .zc-cap{margin-top:.55rem}
   .hero-card .ed-start{margin-top:clamp(1rem,3vw,1.5rem)}
@@ -7832,7 +7875,7 @@ html[data-tier="lite"] .start-line::before{animation:boil-rough var(--boil-ink) 
 .zc-sheet-4{inset:15px -15px -19px 30px}
 /* the caption clears the foot of the stack instead of sitting on it */
 .zc-cap{margin-top:1.9rem}
-@media (max-width:899px){ .zc-cap{margin-top:1.6rem} }
+@media (max-width:899px){ .zc-cap{margin-top:var(--s-3)} }
 /* 360px lost the button again when the caption moved down to clear the stack —
    the shortest phone pays for it out of the picture, not out of the offer. */
 @media (max-width:380px){ .zc-frame{height:min(31vh,17rem)} .zc-cap{margin-top:1.3rem} }
@@ -7922,7 +7965,7 @@ html[data-tier="lite"] .start-line::before{animation:boil-rough var(--boil-ink) 
    where losing the button costs everything. Type sizes are untouched. */
 @media (max-width:899px){
   .zc-frame{height:min(34vh,19rem)}
-  .hero-card .ed-sub{margin-top:.5rem}
+  .hero-card .ed-sub{margin-top:var(--s-1)}
   .hero-card .zc{margin-top:.85rem}
   .zc-cap{margin-top:1.15rem}
   .hero-card .ed-start{margin-top:.9rem}
@@ -8686,7 +8729,7 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
   position:absolute; z-index:7;
   right:-20px; bottom:64px;
   width:min(19ch, 66%);
-  display:block; padding:.6rem .8rem .65rem;
+  display:block; padding:var(--s-06) var(--s-08) var(--s-06);
   transform:rotate(2.6deg);
   text-decoration:none; color:var(--oats);
   isolation:isolate;
@@ -8702,14 +8745,14 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
 .zc-tag:hover,.zc-tag:focus-visible{transform:rotate(2.6deg) translate(-1px,-2px)}
 .zc-tag:focus-visible{outline:3px solid var(--lazuli); outline-offset:6px}
 .zc-tag-note{
-  display:block; margin-bottom:.12rem;
-  font-family:var(--f-hand); font-size:clamp(.82rem,1.02vw,.92rem); line-height:1.15;
+  display:block; margin-bottom:var(--s-0);
+  font-family:var(--f-hand); font-size:var(--fs-small); line-height:1.15;
   color:rgba(254,246,228,.82);
 }
 .zc-tag-line{
-  display:flex; align-items:center; gap:.4rem;
+  display:flex; align-items:center; gap:var(--s-1);
   font-family:var(--f-head); font-weight:700;
-  font-size:clamp(1rem,1.3vw,1.14rem); line-height:1.12; letter-spacing:-.005em;
+  font-size:var(--fs-body); line-height:1.12; letter-spacing:-.005em;
 }
 .zc-tag-arr{width:26px; height:11px; flex:0 0 auto; color:var(--happy)}
 @media (prefers-reduced-motion:reduce){ .zc-tag{transition:none} }
@@ -8720,16 +8763,16 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
   .zc-tag{right:-10px; bottom:auto; top:44px; width:min(20ch,68%)}
 }
 @media (max-width:380px){
-  .zc-tag{right:-4px; top:38px; width:min(19ch,74%); padding:.52rem .68rem .58rem}
+  .zc-tag{right:-4px; top:38px; width:min(19ch,74%); padding:var(--s-06) var(--s-06) var(--s-06)}
 }
 
 /* the tag is a coupon again: the action, then the terms it qualifies. Same paper,
    one object. .zc-tag is the paper; the anchor inside it is the door. */
 .zc-tag-cta{display:block; text-decoration:none; color:inherit}
 .zc-tag-fine{
-  margin:.42rem 0 0; padding-top:.36rem;
+  margin:var(--s-1) 0 0; padding-top:var(--s-03);
   border-top:1.5px dashed rgba(254,246,228,.4);   /* the coupon's perforation */
-  font-family:var(--f-body); font-size:.72rem; line-height:1.35;
+  font-family:var(--f-body); font-size:var(--fs-micro); line-height:1.35;
   color:rgba(254,246,228,.86);
 }
 .zc-tag-fine a{color:var(--happy); text-decoration:underline; text-underline-offset:2px;
@@ -9075,7 +9118,7 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
    shared one voice) / Bitter italic intro-body (line three) / Birdie accent
    (coupon note). The tape sits inside line two natively — same family.
    ============================================================================ */
-.hero-card .ed-sub{position:relative;padding-left:0;margin-top:.7rem;
+.hero-card .ed-sub{position:relative;padding-left:0;margin-top:var(--s-08);
   font-family:var(--f-head);font-weight:600;font-style:normal;line-height:1.38;
   font-size:calc(var(--fs-fold)/1.618)}
 .hero-card .ed-sub .sub-dead{font-style:inherit}
@@ -9103,7 +9146,7 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
 /* the door leaves the zine — coupon under the copy; zc-tag markup retained dark */
 .zc-tag{display:none}
 .ed-cta{position:relative;isolation:isolate;display:inline-block;margin:1.15rem 0 0 0;
-  padding:.72rem 1.05rem .8rem;text-decoration:none;color:var(--ink);transform:rotate(-.8deg);
+  padding:var(--s-08) var(--s-2) var(--s-08);text-decoration:none;color:var(--ink);transform:rotate(-.8deg);
   transition:transform .18s cubic-bezier(.2,.8,.3,1)}
 .ed-cta::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);
   border:2.4px dashed var(--ink);border-radius:6px;box-shadow:5px 5px 0 0 var(--ink);
@@ -9155,7 +9198,7 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
   font-family:var(--f-head); font-style:normal; font-weight:700;
   font-size:var(--fs-2);
   line-height:1.06; letter-spacing:-.015em; text-wrap:balance;
-  margin:.25rem 0 0; color:var(--ink); max-width:24ch; margin-inline:auto;
+  margin:var(--s-03) 0 0; color:var(--ink); max-width:24ch; margin-inline:auto;
 }
 .summary-band .sum-head h2 .stop{color:var(--grass-deep)}
 
@@ -9266,7 +9309,7 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
   .summary-band .sum-doodles{gap:clamp(.7rem,1.6vw,1rem)}
   /* the lede labels the list, it does not open a new section: bring it up under the
      sub so head and list read as ONE block rather than two centred ones. -21px. */
-  .summary-band .sum-head{margin-bottom:clamp(1.15rem,2.6vw,1.9rem)}
+  .summary-band .sum-head{margin-bottom:var(--sp-2)}
   /* .seewhat already opens with 64px of its own padding; the band's 32 stacked on
      top was the gap that left the list sitting alone before the next beat arrived.
      -32px. */
@@ -9298,7 +9341,7 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
   font-family:var(--f-head); font-style:normal; font-weight:700;
   font-size:var(--fs-2);
   line-height:1.06; letter-spacing:-.015em; text-wrap:balance;
-  margin:.25rem 0 0; color:var(--ink); max-width:24ch; margin-inline:auto;
+  margin:var(--s-03) 0 0; color:var(--ink); max-width:24ch; margin-inline:auto;
 }
 .seewhat .head h2 .stop{color:var(--grass-deep)}
 /* .nb is scoped per-place in this stylesheet (footer tagline :1695, the H1 :3776,
@@ -9446,7 +9489,7 @@ html[data-tier="lite"] .sw-arrow svg{filter:none}
    .stops, because it is still the sentence the section is built around. */
 .lands-h{font-family:var(--f-head);font-style:normal;font-weight:700;
   font-size:var(--fs-3);line-height:1.08;letter-spacing:-.012em;text-wrap:balance;
-  margin:.45rem 0 0;color:var(--ink);max-width:22ch}
+  margin:var(--s-1) 0 0;color:var(--ink);max-width:22ch}
 .lands-h .stop{color:var(--lands-ink)}
 
 /* THE GRID. Three columns from 820 up, one below it - not the pair's 760, because at 800 a
@@ -10094,7 +10137,7 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
      balloon centres on and therefore cannot move it. */
   .loopwrap .how .flow .step.is-think{margin-bottom:2.6rem}
   .loopwrap .how .flow .step.is-think .step-arw{position:absolute;left:0;right:0;top:100%;
-    margin:.45rem 0 0}
+    margin:var(--s-1) 0 0}
   /* CLEARANCE ONLY, and NOT the old diagnosis: this gap was first blamed on the globe
      "painting outside its box". It was not. Station 04 was being shoved down and right by the
      nth-child bug fixed above. With that fixed, this is an ordinary breath before the closing
@@ -10140,7 +10183,7 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
   .hero-card .ed-deck{text-box-trim:trim-both;text-box-edge:cap alphabetic}
 }
 /* the sub drops a rank so three ranks descend instead of the lower two tying */
-.hero-card .ed-sub{font-size:clamp(1rem,.94rem + .26vw,1.1875rem)}
+.hero-card .ed-sub{font-size:var(--fs-body)}
 
 /* ===== THE MARKER LANDS ON THE HEADLINE, ONE BAND PER LINE =====
    WHY A MARK AND NOT A FACE. Asked whether the h1 should be handwritten with
@@ -10226,7 +10269,7 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    table off at the near edge and took the top of the held-up zine. 4:5 keeps both whole and is
    the shape a polaroid actually is. */
 .tools .tpol .mv-ph{aspect-ratio:4/5}
-.tools .tpol .mv-strip{padding:.7rem .45rem .1rem}
+.tools .tpol .mv-strip{padding:var(--s-08) var(--s-1) .1rem}
 /* the tool name is the loudest thing on the card, so it takes the display face, not the mono
    handle treatment .mv-strip b carries in #proof. INK: see the contrast note at .mv-strip b -
    an accent as text fails AA at this size, and School Bus fails it outright. */
@@ -10238,10 +10281,10 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    (#4A3410 9.61:1, --lazuli-deep 4.58:1). */
 .tools .tp-name{display:block;font-family:var(--f-head);font-weight:700;font-size:1.2rem;
   line-height:1.14;letter-spacing:-.005em;color:var(--ink);text-wrap:balance;margin:0}
-.tools .tp-what{display:block;margin-top:.36rem;font-family:var(--f-hand);
-  font-size:.95rem;line-height:1.2;color:var(--sambas);text-wrap:balance}
+.tools .tp-what{display:block;margin-top:var(--s-03);font-family:var(--f-hand);
+  font-size:var(--fs-small);line-height:1.2;color:var(--sambas);text-wrap:balance}
 @media(max-width:460px){
-  .tools .tp-name{font-size:1.22rem}
+  .tools .tp-name{font-size:1.2rem}  /* 2026-09-03: was 1.22rem. 19.52 vs the base rule's 19.2px is a 1.6% fork nobody can see; one value instead of two. The measured --coral-ink note above still governs — 19.2px is over WCAG's 18.66px large-bold threshold at every width. */
   .tools .tp-what{font-size:1rem}
 }
 
@@ -10344,7 +10387,7 @@ html[data-tier="lite"] .pw-sticker::before{filter:none}
    old clearance (.pw-name carried margin-top:2.1rem to clear .pw-kind, which is gone). */
 .lands-grid .pw-name{margin-top:1.15rem;font-size:1.08rem}
 @media (max-width:560px){
-  .pw-sticker{font-size:calc(var(--fs-label) * .92);padding:.32em .6em .28em;left:-5px}
+  .pw-sticker{font-size:var(--fs-label);padding:.32em .6em .28em;left:-5px}
 }
 
 /* ---- THE RACK (2026-09-02) — eight covers under the plate, and the carousel's navigation ---
@@ -10488,7 +10531,7 @@ html[data-tier="lite"] .pw-sticker::before{filter:none}
    it can never inherit the 300 again. THE ARROW KEEPS THE BEAT COLOUR - the affordance stays
    lazuli, the words become legible, and the card still reads as a door. */
 .lands-grid .pw-name{font-family:var(--f-body);font-weight:400;font-size:1.06rem;
-  line-height:1.35;color:var(--ink);margin-top:1.05rem}
+  line-height:1.35;color:var(--ink);margin-top:var(--s-2)}
 .lands-grid .pw-name .arr{color:var(--lazuli-deep)}
 .lands-grid .pw-a:hover .pw-name{text-decoration:underline;text-underline-offset:3px;
   text-decoration-thickness:1.5px;text-decoration-color:var(--lazuli-deep)}
@@ -10723,7 +10766,7 @@ html.sealed.revealed .hero .envelope .card-clip.fold-v2{--fold-lap:calc(var(--fo
      the three scraps are NOT on one line, because .rd-media is 1/1 and the other two are 4/5,
      so the library board is 74px shorter. Each label belongs to ITS board - bottom-aligning
      the row would strand card one's caption in 74px of empty cream. */
-  margin-top:1.9rem;
+  margin-top:var(--s-4);
   /* HORIZONTAL PADDING IS SET BY THE FILTER, NOT BY TASTE: #torn3 displaces at scale 12, so
      the tear can bite ~6px in from each edge. Under ~.9em the bite reaches the B of "browse"
      and the arrow's tail. */
