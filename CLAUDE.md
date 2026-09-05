@@ -41,7 +41,6 @@ The other `index-*.html` files are frozen comparison pages, each on its own asse
 - `index-fielded.html` — runs on `app-fielded.css` / `app-fielded.js`. Edits to
   `app-post-beta.*` never reach it.
 - `index-aug-*.html`, `index-old.html`, `index-pre-promotion.html` — dated snapshots.
-- `index-sep-5-var-test.html` — the Sep-5 fold variant.
 
 ## The comments are the spec
 
@@ -100,7 +99,11 @@ HTML comments at the cited line.
   the page says so twice in visible copy. A number is allowed only in a worked example
   about one named club.
 - **"creative" and "portfolio" are struck.** So is the corporate third-person register
-  ("Drex is where…", "this platform exists to…").
+  ("Drex is where…", "this platform exists to…"). Both rules held on 2026-09-05 when the
+  Sep-5 variant was promoted: its deck read "Drex is where creative groups stay accountable
+  by making magazines together." and was rewritten to "Keep each other accountable by making
+  a magazine together." for the page. The third-person sentence survives as an elevator
+  pitch OFF this page; it is not served copy.
 - **Never the name "Sue"** in visible text, alt or aria. `grep -inE '\bsue'`.
 - **No em dashes in head strings** (`<title>`, meta description, OG/Twitter strings).
 - The six head strings move together or they rot: `<title>`, meta description,

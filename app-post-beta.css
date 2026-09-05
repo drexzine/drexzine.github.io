@@ -10184,10 +10184,23 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
 /* =====================================================================
    THE FOLD IS THREE RANKS NOW (2026-09-02, founder's call).
    WAS: h1 "Accountability buddies running their own magazine." + one sub.
-   NOW: h1   "Your gifts are unique."                the premise, display face
-        deck "Grow and share them in a group by
-              running a magazine."                   the instruction, Pitch Sans
+   NOW (2026-09-05): the Sep-5 variant won and was promoted; index-sep-5-var-test.html
+   is deleted and there is one page again.
+        h1   "Your gifts matter."                    the premise, display face
+        deck "Keep each other accountable by
+              making a magazine together."           the instruction, Pitch Sans
         sub  "Each issue is a new challenge."        the mechanism, smallest
+   THE VARIANT'S OWN DECK WAS NOT TAKEN. It read "Drex is where creative groups stay
+   accountable by making magazines together." - both "creative" and the "Drex is where"
+   third-person register are struck page-wide, and it MEASURED worse: FOUR deck lines
+   against three, and +25px of card at 320 AND 375 alike.
+   COUNT LINES BY DISTINCT LINE-BOX TOPS, not by height/line-height and not by
+   Range.getClientRects().length - the deck's .hd-who/.hd-out/.nb spans split the range
+   into fragments and the h1's .hl marks add their own rects, so both of those shortcuts
+   gave wrong counts here (2 and 9 respectively) for a line that is plainly three.
+   The clause that survived is the one that does the work, in the second person the
+   h1 is already in. The founder keeps the third-person sentence as an elevator
+   pitch off this page; it is not served copy.
    WHY THE DECK EXISTS, and it is a measured reason. The founder's sentence is
    15 words. Set whole in the display face it ran to SIX lines in the fold's
    column and pushed the coupon down the card - the same failure the :4310 note
@@ -10196,7 +10209,7 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    comes back up. The h1 keeps --fs-fold untouched: :4263 measures the column
    breaking at 41px and that ceiling is the face's, not the sentence's.
    THE TWO COLOURED NOUNS MOVE DOWN WITH THE CLAUSE THAT OWNS THEM. "Your gifts
-   are unique." contains no who and no artifact, so there is nothing there for
+   matter." contains no who and no artifact, so there is nothing there for
    .hd-who / .hd-out to mean; colouring it would be the page's first decorative
    colour. They are re-declared for the deck rather than rescoped, because :8527
    scopes them to `.hero-card h1.ed-cat` and the h1's own rules stay untouched. */
@@ -10857,7 +10870,7 @@ html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
        620px plate and lost the fold to it. --fs-fold (:4326) is the one knob and
        it is min(2.5rem, 4.81cqw) above 881 - CONTAINER units, so it is the CARD's
        width that sets it, not the viewport. 4.81cqw of a 551px card = 26.5px.
-       6.2cqw = 34.2px, which is where "Your gifts are unique." stops being a
+       6.2cqw = 34.2px, which is where "Your gifts matter." stops being a
        caption. Measured cost: the h1 box goes 50 -> 66px and the card 394 -> 412,
        inside the 40px of slack the fold had at 1440.
        DO NOT "fix" a small headline by narrowing the sheet - cqw means a narrower
@@ -10869,8 +10882,10 @@ html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
      1280, 33.93/34.00 = 1.00 at 1440 — the page's one h1 was the same size as or SMALLER than
      every section h2 across the whole desktop range.
      max() puts a floor under the flat band and 7.4cqw spends the headroom at 1440. Longest line
-     "are unique." is 11ch x .614em (Pitch is monospaced) = 275px against a ~470px inner, so it
-     still fits; re-derive if a line ever grows past ~13 characters. */
+     is now "Your gifts" at 10ch x .614em (Pitch is monospaced) = 250px against a ~470px inner.
+     Re-derived 2026-09-05 with the new h1: it WAS "are unique." at 11ch = 275px, so the fold
+     promotion bought 25px of slack here rather than spending any. Re-derive again if a line
+     ever grows past ~13 characters. */
   .hero.ed .card-clip.fold-v2 .hero-card .ed-head{--fs-fold:min(3.9rem, max(8.9cqw, 2.6rem))}
 }
 
@@ -10946,8 +10961,13 @@ html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
 /* --- 7. THE 360 BAND. Measured after rules 3 and 6: 360x844 closed the fold at 846
        of 844 - two pixels OVER, i.e. the small-phone fold scrolled. The cause is not
        the plate, it is the headline: below 381px --fs-fold falls to min(2.1rem,7.3vw)
-       (:4328) and "Your gifts are unique." wraps to THREE lines, so the card goes
-       351 -> 382. The card is the term that must not shrink (it carries the h1, the
+       (:4328) and "Your gifts are unique." wrapped to THREE lines, so the card went
+       351 -> 382.
+       THAT CASE IS GONE AS OF 2026-09-05 and the rule is kept anyway. "Your gifts matter."
+       is 4 characters shorter and measures TWO lines at 360x844, card 345px, coupon closing
+       at 617 - so the 37vh plate below now has MORE slack than it was sized for, not less.
+       Kept because the slack is free and the next headline may be long again; if it is, this
+       is the note that says what to re-measure. The card is the term that must not shrink (it carries the h1, the
        sub and the coupon), so the plate pays again: 37vh at 844 = 312px, which puts
        the fold at 812/844 with 32px of slack.
        312px is still a legible spread - the phone plate was 388 in the round the
