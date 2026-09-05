@@ -1,0 +1,14 @@
+# drex.style
+#
+# The site itself is fair game. The working directories are not: they hold
+# drafts and internal files that happen to be committed next to the site
+# because .nojekyll means GitHub Pages serves the whole repo verbatim.
+# A disallow keeps them out of search results. It does NOT make them private
+# to anyone who types the URL — see _private/README.md.
+#
+# /invited/ is deliberately NOT listed: it is linked from the front page and
+# is a real destination.
+
+User-agent: *
+Disallow: /_private/
+Disallow: /tools/

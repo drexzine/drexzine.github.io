@@ -1,3 +1,12 @@
 .gstack/
 .DS_Store
 tools/__pycache__/
+
+# Scratch pages written into the repo root by measurement/QA runs (full page
+# copies at candidate line lengths and viewport widths). Regenerable, ~300KB
+# each, and .nojekyll means anything committed here is served live.
+/h_m-*.html
+/ht_c*.html
+/t_c*.html
+/m-new.html
+/m-old.html
