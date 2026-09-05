@@ -606,3 +606,98 @@ Shipped in the same move: title, og:title, twitter:title and og:image:alt all re
 the new fold, and assets/og.png re-rendered from og-card.html — which was two
 generations stale and still carried "A club for whatever you make", the line ~15 cold
 testers named as too vague to translate into anything.
+
+---
+
+## 2026-09-02 · PASS 5 — THE SIX-BUILDER MERGE
+
+Six builders worked concurrently on `index.html` + `app-post-beta.css`. **X-1 held**: builders
+returned edits, one applier wrote, no builder touched the repo.
+
+**M-7 · `tools/measure.py`, verbatim:** `RENDERED WORD COUNT 630 651 +21 (+3.3%)`. Object names
+3 → 3; `issue` 9 → **8**; sections 11 → **10**; `portfolio` depth 58.3% → **41.3%**, still ONE
+use; unfalsifiable claims 1 → 1; slop tells 0 → 0. **Over the 630 baseline.** The one lever left
+is trimming the Kurtis pull-quote at the zine's own ellipsis (−9) — measured, NOT taken, because
+it drops the concrete half of a verbatim quotation.
+
+**R-21 · REMOVED · the drawn library square (`.lib-sq`).** Founder: *"boy, you need to get rid of
+'the library' graphic you made."* The concept survives as card 1 of #seewhat's grid. **Re-opening
+it needs an ASSET, not a decision** — `assets/app/` holds no capture of /show-and-tell. The tall
+`.loop-out` bracket went with it: it pointed only AT the square.
+
+**R-22 · MERGED · #seewhat absorbed #portfolio.** The only library object the repo owns is
+`book-cafe.mp4`, which #seewhat already showed under a tape reading "the library →". A grid
+containing the library, 600px under a section that already showed it, is one door drawn twice.
+**Closes §O-2.** The h2 MOVED and was DEMOTED to a `.lands-h`. **Do not restore #portfolio without
+deleting that line.** ~~R-9's "portfolio = 0 uses"~~ was stale — it swept `index-next.html`.
+
+**R-23 · REJECTED · three differently-coloured arrows in the grid.** Three colours out of one
+source assert the arrows mean three different things; they mean one thing three times — killed
+already at `.pw-name`, the #proof pins, the `.zine-tab` trio. What differs is the HAND.
+**Re-opens on a statable meaning for the three colours;** scope is not one. One declaration to try.
+
+**R-24 · SHIPPED · rows 03/04 exchanged hues. Grass = WORK ON THE MAGAZINE, Lazuli = SHOW &
+TELL.** The founder wanted a blue earth. Oats continents 2.78:1 → **3.11:1**, meridians 1.66:1 →
+**1.79:1**; the four headline ratios are the same SET {4.84, 5.99, 5.20, 5.91}. Word cost zero.
+**THE REAL PRICE IS INK BUDGET, unfixed:** grass/grass-deep appear ~162× against Lazuli's ~71, so
+the page's biggest ink now sits on the QUIETEST beat. The lever is **not** a third swap — sweep
+the page's INCIDENTAL green to ink. It also killed the rescue that made Grass-beat/Grass-link
+"very nearly hold": Grass is now the one beat with nothing to link to.
+
+**R-25 · DROPPED IN THE MERGE · a filled grass-deep badge on ring station 03.** Built to carry the
+beat after the tail bubbles went white; died the same day when another builder deleted ALL FOUR
+badges on the founder's ask. **Deletion beats re-inking.** Station 03's beat is its h3 alone
+(5.91:1) — the thinnest node. If it reads thin, reach for the DRAWING: NOT a Grass or School Bus
+swipe behind the heading (2.90:1 / 2.78:1 — fails both ways), NOT a coloured stroke on the balloon.
+
+**R-26 · RESOLVED · "in your own time" was to be DELETED; it was REPLACED.** Founder A: *"it
+shouldnt be 'in your own time.'"* Founder B: *"no where is it clear that we give you a tool to
+edit the magazine together"*. **"one shared editor"** satisfies both in three words and won.
+**THE COST:** that line was the page's only RENDERED async statement; it survives only in the FAQ
+JSON-LD, which nothing renders → §O-6. Station 03's mobile padding is `3.8rem`, measured at a TRUE
+390 viewport (P-8).
+
+**R-27 · SHIPPED, WITH A STATED COST · "We nag for you", highlighted.** **§K-1 was never a ban on
+the WORD — it bans the CLAIM** ("...the hour, the place, **the deadlines**", false because
+`DEADLINE_LADDER_ENABLED` is absent from `.env.prod.example`). The new line promises no deadline
+text; its three mechanisms are real. **DO NOT let a later pass cash it for an SMS.** **TWO NEW
+COSTS → §O-7:** three yellow swipes now share one screen (hero Happy / band-head School Bus =
+Club Hour / this one = emphasis); and "We make sure people show up" and "We nag for you" 400px
+apart are §R-2's structural duplication. Both lines are the founder's own. **If the set must be
+cut to two, cut this one.**
+
+**R-28 · SHIPPED · @tergel's chip reads "model".** Founder: *"tergel is a model not comedian"*.
+The chip names the craft IN THE FRAME. **§K-2 IS WRONG ABOUT THE SOURCE** — the Silk Road 001
+cover burns @shanara's different sentence; @tergel's source is a login-walled **ledger reflection
+answer**, the one line on this deck a stranger cannot check.
+
+**R-29 · SHIPPED, ON A DIRECT INSTRUCTION · Photo Phloor's card photograph.** The shot that sat
+there was pulled by the founder before it ever shipped; uncommitted, never reached `origin/main`.
+**Do not restore it under any crop, and do not go looking for it.** `phloor-lion.jpg` replaces it;
+`phloor-portrait.jpg` rejected (the `<b>` is the CLUB's name, so a face reads as a member),
+`phloor-rabbit.jpg` rejected (a gag beside three sincere portraits). **THE COST:** the one card in
+the pile with no person in it.
+
+**Z-1 GOT WORSE, GUARDED LOCALLY (again).** `.lands-head` takes `z-index:5` (clears `.cg-collage`
+0 AND `.cg-collage.cg-fore` 3). The general defect is untouched.
+
+### §O — NEW OPEN ITEMS
+**O-6 · the async claim has no rendered home.** See R-26.
+**O-7 · three yellow swipes in one screen, and one restated claim.** See R-27.
+**O-8 · OUTRANKS EVERYTHING ELSE HERE · TWO OPSEC EXPOSURES ARE LIVE.** §K-4 is closed for
+`cover-3am.jpg` and OPEN for two assets `index.html` renders: `assets/zines/hero/phloor.jpg` (a
+taped quote signed with the founder's first name, in the hero carousel's opening frame) and
+`assets/demo/book-cafe.webm`/`.mp4` (the same signature in a frame the #seewhat library card
+autoplays — this pass shrank that clip and did **not** fix it). **Both need an asset re-cut.**
+Also unreviewed: `assets/makers/falcon.jpg`, `ivy.jpg`, already live.
+**O-9 · `assets/clubs/` is UNTRACKED** and the #proof pile needs `phloor-lion.jpg` and
+`zm-holding-zine.jpg`. **DO NOT `git add assets/clubs/` wholesale** — it also holds the pulled
+Photo Phloor photograph. Add the two BY NAME.
+**O-10 · five 404s per load.** `initMakerPhotos()` probes `assets/makers/<handle>.jpg` using
+`.mv-strip b`, a DISPLAY NAME. It can never succeed as written; degrades gracefully.
+**O-11 · no footage shows LIVE EDITOR PRESENCE.** The one clip is `zinemachine.mp4` t=33–52s,
+which needs a CUT ASSET and carries burnt-in browser chrome. Needs a screen recording.
+**P-8 · headless Chromium clamps `--window-size` to a 500px minimum width** and reports
+`innerWidth=500` while writing a 390px PNG. Use a 390px `<iframe>` in a 500px host page.
+**P-9 · the shared machine served another session's page on this pass's port.** `curl | grep` for
+a string only YOUR build contains before every screenshot run.

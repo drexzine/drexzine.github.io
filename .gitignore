@@ -2,6 +2,12 @@
 .DS_Store
 tools/__pycache__/
 
+# Anything in notes/ is INTERNAL and must never reach GitHub Pages.
+# NOTE: this repo ships a .nojekyll file, so Jekyll is OFF and the usual
+# "_underscore dirs are skipped" behaviour does NOT apply here. Pages serves
+# whatever is committed, verbatim. Gitignoring is the only reliable exclusion.
+notes/
+
 # Scratch pages written into the repo root by measurement/QA runs (full page
 # copies at candidate line lengths and viewport widths). Regenerable, ~300KB
 # each, and .nojekyll means anything committed here is served live.
@@ -10,3 +16,4 @@ tools/__pycache__/
 /t_c*.html
 /m-new.html
 /m-old.html
+/__m_*.html
