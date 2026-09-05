@@ -1983,6 +1983,32 @@
            The founder has confirmed the SMS leg is being wired. If it slips, this clause is the
            one to revisit. -->
         <p class="loop-tool">It&rsquo;s in everyone&rsquo;s calendar and text messages. The deadline closes itself. <span class="hl lt-nag">We nag for you</span>.</p>
+
+        <!-- 2026-09-05, founder, on a friend's note that the page wants more call-to-action
+             buttons. THE PAGE'S ONLY REAL CTA DESERT ENDS HERE, and it was measured before it
+             was believed. At 440x956 on a 13304px page the three doors sit at y=576 (the fold's
+             coupon), y=7452 (#bring's "Bring the same people back") and y=11833 (the closing
+             card). Between the fold and #bring that is 6876px - 7.2 SCREENS with nothing to
+             press. The midpoint of the gap is y=4014 and this line ends at y=3800, so this is
+             the one insertion point that actually halves it: 3.5 screens, then 3.7.
+             IT IS ALSO THE RIGHT BEAT, not just the right y. This line is the payoff of the
+             whole mechanism argument - the reader who is worried they will not follow through
+             is answered by "the deadline closes itself. We nag for you." and the next thing
+             they meet should be the door. And .loop-tool is the LAST child of .loopwrap, so
+             the button closes #tools rather than interrupting an argument mid-way.
+             THE LABEL IS "Join the waitlist" AND IT DOES NOT GET TO BE CLEVERER. R-3
+             (LOOP-FINDINGS.md:153) killed "Join a club" in this exact role: the verb promised a
+             club, the link delivered a waitlist, and a cold reader called it bait that "turns a
+             maybe into a no". Every door on this page names the thing behind it.
+             NO TERMS LINE UNDER IT, deliberately. #bring's button is the precedent and carries
+             none either. R-4's rule is that a permission gate read after an invitation reads as
+             a retraction, and "invite-only while we're small" at 29% of the page is that gate
+             arriving before one real club has been shown. The terms are stated at the closing
+             CTA, where the reader has already seen the pile.
+             KNOWN, NOT FIXED HERE: .zc-tag-fine - the fold's "It's free - no way to pay us yet.
+             Invite-only while we're small." - measures ZERO HEIGHT at 440, so on a phone the
+             terms are invisible until y=11833. That is its own bug and its own fix. -->
+        <p class="loop-cta"><a class="btn" href="https://letters.drex.style/join-online/">Join the waitlist <span class="arr">&rarr;</span></a></p>
         <!-- THE TWO BRACKETS ARE GONE, 2026-09-01, founder: "also just get rid of the 'back to
              the start' and 'one issue' arrows." They only drew below 560px. THEY DID COST WORDS -
              measure.py counts aria-hidden labels - and "issue" drops from 9 uses to 8.

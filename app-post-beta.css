@@ -11025,6 +11025,15 @@ html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
   width:min(48ch,94%);margin:0 auto;text-align:center;
   font-family:var(--f-hand);font-size:var(--fs-lede);line-height:1.32;color:var(--ink)}
 
+/* ---- AND THE DOOR UNDER IT (2026-09-05) -----------------------------------------------------
+   The mid-page CTA measured for in index.html's comment above the markup. .loopwrap is already
+   text-align:center and 560px-capped, so the button needs nothing but its own clearance - the
+   nag line's own margin is 0 and .loopwrap's bottom margin belongs to the section, not to this.
+   SCOPED `.loopwrap > .loop-cta` for the same reason the nag line is: five archived
+   index-*.html load this sheet and none of them carries this markup, so an unscoped rule would
+   be a rule waiting for a page that never comes. */
+.loopwrap > .loop-cta{margin:clamp(1.1rem,3.2vw,1.7rem) 0 0}
+
 /* ---- #seewhat's GRID SPLITS INTO ITS TWO ARGUMENTS (2026-09-03) -----------------------------
    Founder: "'Automatic portfolio.' goes AFTER the library and right before The club's wall as a
    heading." The three cards were never one list: the LIBRARY is everyone's work (the section h2's
