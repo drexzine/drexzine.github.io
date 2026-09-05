@@ -9703,7 +9703,34 @@ html[data-tier="lite"] .sw-shot::after{filter:none}
    sparingly; none of them carries body text, and both of these sections have text
    sitting directly on the ground.
    ================================================================================= */
-.gnd{position:relative}
+/* ---- THE FILL IS DECLARED TWICE, ON PURPOSE (2026-09-05) ------------------------------------
+   REPORTED FROM AN IPHONE: #proof's heading was invisible. It is cream by design (:9866, and the
+   measured contrast table above says why) because it sits on a green sheet - and the sheet was
+   not there, so the section read cream-on-cream.
+   THE GROUND IS THE ::before, AND THE ::before IS FILTERED. Per Filter Effects, an element whose
+   filter cannot be applied is NOT RENDERED - there is no unfiltered fallback - so when the filter
+   fails the whole sheet drops and takes the background-color with it. Measured at 440x956 at DPR
+   3 (the reporting device): #proof's ::before is 520x2705 CSS px = 1560x8115 device px, past the
+   4096px texture limit iOS WebKit allocates filter surfaces in. #why-not-chat's is 1560x3094 and
+   renders on the same phone - same mechanism, same page, so height is the only variable.
+   THIS IS A FLOOR, NOT A REPLACEMENT. The ::before still draws the torn sheet on top.
+   WHY IT IS INSET 24px AND NOT FLUSH, which is the whole reason this is four lines and not one:
+   the tear cuts INWARD as well as outward, and a fill ending at the section box would plug every
+   notch that bites in, flattening the torn edge on every browser where the filter works. Measured
+   worst case, using this file's own +/-14px-for-scale-28 note above (displacement = scale/2):
+     #why-not-chat  edge -8px,  #tornbig  scale 28 -> +/-14  ->  6px INSIDE the box
+     #proof top     edge -24px, #tornbig2 scale 22 -> +/-11  -> 13px outside (safe)
+     #proof bottom  edge -8px,  #tornbig2 scale 22 -> +/-11  ->  3px INSIDE the box
+   Deepest inward crest anywhere is 6px, so 24px clears it by 18px. Re-derive this if a bleed,
+   a filter scale or a section changes.
+   WHERE THE FILTER FAILS you get a square-edged sheet 24px short at top and bottom instead of
+   nothing: the torn edge is lost, the text is legible. If the tear is wanted on iOS too, that is
+   the bigger fix - split it into bounded top/bottom strips so no filtered surface is ever tall
+   enough to blow the cap. */
+.gnd{position:relative;
+  background-image:linear-gradient(var(--gnd-fill),var(--gnd-fill));
+  background-repeat:no-repeat;background-position:50% 50%;
+  background-size:100% calc(100% - 48px)}
 .gnd::before{
   content:"";position:absolute;z-index:-1;
   /* the tear is a ±14px displacement, so the sheet is run 40px PAST the viewport on
