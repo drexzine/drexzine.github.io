@@ -2850,7 +2850,8 @@ html.sealed:not(.revealed) .cg-scrap{opacity:0!important}
   100% {transform:translateX(-50%) rotate(-3deg) translateY(0)}
 }
 .cta-attn:not(.cta-quiet){animation:ctaShimmy 5.2s ease-in-out infinite}
-/* ...except the hero's "Join the waitlist", which boils instead (see .ed-stamp::before). Two
+/* ...except the hero's door - "Join the waitlist" until 2026-09-05, "Sign up or log in" since -
+   which boils instead (see .ed-stamp::before). Two
    attention devices on one button is one too many: the shimmy would rock the casing while the
    casing is already redrawing itself, and the two read as a glitch rather than as one alive thing.
    Scoped to .hero so the "Join as a group" CTA further down keeps its shimmy + ring + scrawl. */
@@ -5932,7 +5933,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    measured 6.0:1 on the swatch and 10.9:1 on bare paper.
    THE HONEST HOLE GOT BIGGER, AND IT IS WRITTEN DOWN RATHER
    THAN HIDDEN: Grass is ALSO this page's link colour, everywhere
-   (.btn, .pk-club, .sht-club, the waitlist buttons). A cold reader
+   (.btn, .pk-club, .sht-club, the sign-up buttons). A cold reader
    on 2026-09-01 said green reads as "click this" more often than
    as a beat. Until the swap that overlap very nearly held, because
    almost every green link opens PUBLISHED WORK and published work
@@ -8668,7 +8669,7 @@ html[data-tier="lite"] .start-line::before{animation:boil-roughsm var(--boil-pap
        "deadline" and the band below on "portfolio". Blue is the page's colour
        for the OTHER mechanism, and the group is what makes drex not a folder.
      - MAGAZINE keeps the green. It is the payoff and green is the payoff
-       colour everywhere else on this page (the waitlist tag, the grass swipe,
+       colour everywhere else on this page (the sign-up tag, the grass swipe,
        the brand mark).
    EVERY ONE OF THE THREE IS A STANDALONE WORD, SO EVERY ONE HAS TO CLEAR AA ON
    ITS OWN — 3.0:1 is the floor for large text, and each of these is the only
@@ -10740,7 +10741,8 @@ html.sealed.revealed .hero .envelope .card-clip.fold-v2{--fold-lap:calc(var(--fo
    stacked blocks, not as paper laid ON a picture: 547 under a 608 plate at 1440 leaves ~30px of
    video either side of the sheet.
    ~~336px at phone~~ REVERTED: 19px of shoulder is invisible at 390 and it cost the coupon its
-   line - "Join the waitlist ->" broke and the arrow dropped to a row of its own, which grew the
+   line - the label ("Join the waitlist ->" then, "Sign up or log in ->" since 2026-09-05: the same
+   17 characters, so the measurement still holds) broke and the arrow dropped to a row of its own, which grew the
    card by 30px. The phone lap is legible from the vertical overlap alone. */
 
 /* --- 6. THE RACK IS A SHELF UNDER THE VIDEO, not a column beside the card.

@@ -2392,7 +2392,11 @@ function fcDetonate(anchor, audio) {
 }
 
 function initFirecrackerCta(audio) {
-  const btns = document.querySelectorAll('a.btn[href*="join-online"]');
+  // 2026-09-05: registrations opened, so the doors point at app.drex.style/welcome and no
+  // longer at the letters waitlist. BOTH selectors stay: index-aug-*.html / index-old.html /
+  // index-pre-promotion.html load THIS file and still carry join-online hrefs, and a firecracker
+  // that only fires on the live page would silently die on every archived one.
+  const btns = document.querySelectorAll('a.btn[href*="/welcome"], a.btn[href*="join-online"]');
   btns.forEach((a) => {
     let fired = false;
     a.addEventListener('click', (e) => {
