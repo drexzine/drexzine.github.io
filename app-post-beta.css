@@ -11793,15 +11793,22 @@ figure.dd-print.dd-zine > figcaption{margin-top:.55rem}
    arrow on the same var(--beat) fallback the note at :6078 calls load-bearing. Do not
    give this a --beat of its own; .dd-after is not a .dd-row and Colorado is the point.
    The phone block at :6344 shrinks the round knot to 18px; this scales with it. ====== */
-/* 30px, not 26: at 26 with a 3.4 stroke the ring's own thickness swallowed the gap and
-   the mark read as a nicked dot. Thinner stroke (2.8), a 60-degree gap and a barbed head
-   that reaches outside the ring are what make it read as "again" at this size. */
+/* 38px, after two goes at it. At 26 with a 3.4 stroke the ring's thickness swallowed the
+   gap and the mark read as a nicked dot; at 30 with two thin barbs it read as a broken
+   ring. Founder: "the reload arrow at the end isn't obvious enough as an arrow. could
+   make larger and look more arrow-like."
+   WHAT FIXED IT WAS THE HEAD, NOT THE SIZE. Two stroked barbs are a chevron, and a
+   chevron at 4px is just texture; a FILLED triangle is a shape, and a shape survives
+   being small. The head is now solid currentColor and reaches well outside the ring, the
+   gap is 70 degrees so nothing crowds it, and the arc is r=10 in a 32 viewBox so the ring
+   reads as a circle rather than as a thick washer. Still #roughsm, still hand-drawn.
+   The phone step is 30px, not the old 22 - the head is what has to stay legible. */
 .dd-after .dd-knot-loop{background:none; border:0; border-radius:0; filter:none;
-  width:30px; height:30px; right:-17px; top:-.5rem;
+  width:38px; height:38px; right:-21px; top:-.85rem;
   color:var(--colorado); display:block}
 .dd-after .dd-knot-loop svg{width:100%; height:100%; display:block}
 @media(max-width:560px){
-  .dd-after .dd-knot-loop{width:22px; height:22px; right:-13px; top:-.25rem}
+  .dd-after .dd-knot-loop{width:30px; height:30px; right:-17px; top:-.5rem}
 }
 /* ONE TRIM, NOT TWO. .zc-plate::after draws the grass-deep #torn trim that is right in
    #zines, where the plate is the section's hero object. Here it sits directly outside the

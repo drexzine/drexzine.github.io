@@ -356,7 +356,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=156" />
+<link rel="stylesheet" href="app-post-beta.css?v=157" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -1594,9 +1594,11 @@
         </figcaption>
       </figure>
 
-      <!-- 3 - PHOTO PHLOOR. The line is the club's OWN masthead - burnt into their zine cover
-           and their own wall description - which is why it takes .pk-line and no quotation marks.
-           Nobody is named and nothing is put in anybody's mouth.
+      <!-- 3 - PHOTO PHLOOR. ~~The line is the club's OWN masthead - burnt into their zine cover
+           and their own wall description - which is why it takes .pk-line and no quotation marks.~~
+           SUPERSEDED 2026-09-07 - the line is a maker's quote now; the argument is in the comment
+           directly above the figcaption. "Nobody is named" still holds, but for a different
+           reason: the repo does not record who wrote it, not because the line was the club's.
            THE PHOTOGRAPH IS ONE OF THEIRS AND IS NO LONGER A PHOTOGRAPH OF A PHOTOGRAPHER. The
            shot that sat here until 2026-09-01 was pulled on a direct instruction from the founder
            before it ever shipped: uncommitted, never reached origin/main. DO NOT restore it under
@@ -1633,10 +1635,35 @@
       <figure class="mpol" style="--r:-2.2deg">
         <span class="mv-pin" aria-hidden="true"></span>
         <a class="mv-door" href="https://app.drex.style/clubs/photo-phloor" target="_blank" rel="noopener" aria-label="their wall &mdash; opens on Drex"><span class="mv-ph has-photo" role="img" aria-label="Someone in a white rabbit mask, curly hair loose around it, in a shop hung with painted canvases." style="background-image:url(assets/clubs/phloor-rabbit.jpg);background-position:center 34%"></span></a>
-        <figcaption class="mv-strip">          <span class="pk-line">Documenting the overlooked.</span>
+        <!-- IT CARRIES A MAKER'S QUOTE NOW, 2026-09-07, and that moves it from the minority
+             pattern to the majority one. Founder: "photo phloor has way more interesting
+             quotes than what you chose", with the source - a written answer from the
+             Chinatown issue: 'I often tell people "Culture is a bridge to distant hearts."
+             Learning Chinese has allowed me to make friends with those who don't speak
+             English. The story is about the master and the apprentice of Dragonseed Bridal
+             Shop--making qipaos for 40~ years.'
+             ~~"Documenting the overlooked." - the club's OWN masthead, burnt into their zine
+             cover and their wall description, which is why it took .pk-line and no quotation
+             marks.~~ It was true and it was inert: a masthead describes the club to itself,
+             and the three cards that land hardest in this pile (Michaela, @tergel, Kurtis)
+             are people saying what happened to them. Photo Phloor was one of only two cards
+             not doing that.
+             WHY THIS SENTENCE AND NOT THE PARAGRAPH. The aphorism is the part that travels;
+             everything after it is the worked example, and the pile gives each card about
+             two lines. The rest of the answer is not lost - it is legible in the submission
+             photograph at #showtell beat 03, whose alt already carries it.
+             MARKUP FOLLOWS THE PATTERN, NOT THE EXCEPTION: <q> (which supplies the quotation
+             marks the .pk-line idiom refuses) and a SINGULAR craft, because the meta line now
+             names a person's role rather than the club's roster - "barista", "model" and
+             "letterer" on the other three, so "photographer" here.
+             NO NAME, AND THAT IS A GAP IN THE REPO, NOT A CHOICE. The other three quotes name
+             their maker; nothing in this repo records who wrote this answer. The club carries
+             the attribution until it does. If a name turns up, it goes between the craft and
+             the club like the others. -->
+        <figcaption class="mv-strip">          <q>Culture is a bridge to distant hearts.</q>
           <div class="pk-meta">
 
-            <b><span class="pk-craft">photographers</span> &middot; Photo Phloor</b>
+            <b><span class="pk-craft">photographer</span> &middot; Photo Phloor</b>
           </div>
         </figcaption>
       </figure>
@@ -3364,7 +3391,23 @@
                    NOT DELETED OUTRIGHT. A render with all four spine paragraphs removed leaves four
                    headlines over ~250px of blank column beside 250px prints - the section does not
                    get shorter, it gets hollow. One short line per row is the shape. -->
-              <p>This one, they walked <b>Chinatown</b>.</p>
+              <!-- +6, AND IT PUTS "ONLINE" BACK, 2026-09-07. Founder: "'This one, they walked
+                   Chinatown. Sometimes other Club Hours they work on the challenge online.'
+                   or something like that?"
+                   THE PARAGRAPH ABOVE IS WHY IT LEFT AND WHY THIS IS NOT A REVERSAL. What was
+                   cut was "online or in person" as an abstract capability, stated a fifth time
+                   within one screen. What goes back is a CONTRAST with the picture beside it:
+                   the print shows five people in a Chinatown shop and the figcaption says "in
+                   person, this week", so without this clause the only Club Hour the page ever
+                   shows is an outing, and a reader whose club is in four cities reads themselves
+                   out of it. The sentence only exists because "this one" is already there to be
+                   contrasted with.
+                   "Other hours", NOT "other Club Hours": the h3 two lines up is
+                   "Club Hour comes round", and the cold-read finding that killed the old clause
+                   was FIVE statements of the hour on one screen. The product noun is already
+                   said; this needs the contrast, not the name again.
+                   NO CADENCE, per the rule: "other hours", never "some weeks". -->
+              <p>This one, they walked <b>Chinatown</b>. Other hours, they work online.</p>
             </div>
             <div class="dd-stack">
               <span class="dd-sheet" aria-hidden="true"></span>
@@ -3572,7 +3615,7 @@
                closed ring. Colorado, the same colour the plain knot fell back to, so the tail
                of the spine does not change hue. Decorative, aria-hidden - the sentence beside
                it is the accessible text. -->
-          <div class="dd-date"><span class="dd-mon">then</span><span class="dd-knot dd-knot-loop" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)"><path d="M18.25 6.64 A8.5 8.5 0 1 1 9.75 6.64"/><path d="M9.75 6.64 L7.43 11.62 M9.75 6.64 L4.27 6.16"/></g></svg></span></div>
+          <div class="dd-date"><span class="dd-mon">then</span><span class="dd-knot dd-knot-loop" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#roughsm)"><path d="M21.74 7.81 A10 10 0 1 1 10.26 7.81"/><path d="M16.4 3.5 L12.9 11.6 L7.2 4.9 Z" fill="currentColor" stroke-width="2.2"/></g></svg></span></div>
           <p class="dd-forever">&hellip;and the next challenge goes up.</p>
         </li>
       </ol>
