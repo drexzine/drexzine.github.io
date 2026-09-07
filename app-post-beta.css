@@ -2281,6 +2281,111 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 .snap.trio .cap-mini.scrawl{color:var(--coral-ink)}
 @media(max-width:480px){.snap.trio{transform:rotate(0)}}
 
+/* ===================================================================
+   THE CREW BLOCK, 2026-09-07 — .snap.quad, a 2x2 of four named people.
+   EVERY .trio RULE ABOVE IS STILL LIVE AND MUST NOT BE DELETED. index.html
+   carries .quad now, but index-aug-8 / aug-10 / aug-11 / old / pre-promotion
+   all load THIS stylesheet and all still ship `class="snap trio"`. Checked
+   2026-09-07 (grep -l 'snap trio' *.html). Deleting the trio block silently
+   un-styles the team strip on five archived pages; .quad is additive.
+   WHY A BLOCK AND NOT A LONGER ROW. Chiamaka is the fourth face and the row
+   could not take her: 4 x 150px = 600px inside a grid column that shares 760px
+   with the letter, and .note-crew is flex-wrap, so a phone wrapped it 3+1 and
+   stranded one snap alone on line two. 2x2 holds at both ends, and it degrades
+   correctly at five (3+2, by the same wrap).
+   THE WIDTH IS ON THE CONTAINER, VIA :has, AND HAS TO BE. .note-crew's own
+   width is content-driven inside the `1fr auto` note-grid (:2246), so with no
+   cap the four snaps lay out in one 656px row and blow the column out. The
+   :has() selector is what keeps this off the five archived pages, which is the
+   same scoping trick .hero.ed:has(.card-clip.fold-v2) uses at :11096.
+   =================================================================== */
+.note-crew:has(.snap.quad){width:min(336px,100%)}
+/* PERCENT, NOT vw, AND THE -5px IS PAID BACK IN THE WIDTH. The row must hold
+   EXACTLY two at every width, and vw is the wrong ruler: this block sits in a
+   grid column inside a padded sheet, so its width is nothing like the viewport's
+   (341px of column at a 375px phone). calc(50% + 5px) minus the 10px of negative
+   margin lands each card on 50% - 5px of the container, so two always fit and
+   never three. max-width caps the print at desktop, where the container stops
+   growing at 336px anyway. */
+.snap.quad{width:calc(50% + 5px);max-width:164px;padding:var(--s-06);margin:0 -5px var(--s-06)}
+/* alternating tilts, and the two on the outside of each row lean away from the
+   middle so the block reads as four prints laid down by hand, not a 2x2 grid.
+   THE RIGHT PRINT IN EACH ROW GOES ON TOP, AND THAT IS A DEFECT FIX, NOT TASTE.
+   .snap::before carries `box-shadow:8px 8px 0 0 var(--ink)` (:2262) — a hard ink
+   shadow thrown 8px RIGHT — and the cards overlap by 10px. With the LEFT card on
+   top (which is what the trio order gives you) that black shadow lands across the
+   first character of the right card's caption: measured at 375, Chiamaka's role
+   read "EAD OF COMMUNITY" and her address "hiamaka@drex.style". Right-over-left
+   throws every shadow into the gutter beside the block instead, and tucks each
+   left card's shadow under the print on top of it, which is what a real pile does.
+   Row 1's shadow clears row 2 on its own: 8px down against a 9.6px margin. */
+.snap.quad:nth-child(1){transform:rotate(-3deg);z-index:1}
+.snap.quad:nth-child(2){transform:rotate(2.6deg);z-index:2}
+.snap.quad:nth-child(3){transform:rotate(2.2deg);z-index:1}
+.snap.quad:nth-child(4){transform:rotate(-2.4deg);z-index:2}
+.snap.quad:hover{transform:rotate(0) translateY(-5px);z-index:5}
+.snap.quad::before{border-width:2.2px}
+/* THE PRINT'S WHITE BORDER GIVES UP 6.4px A SIDE ON THE NARROWEST PHONES, to buy
+   the caption box back. Measured at 320: the card is 128px, so a 9.6px border
+   leaves 105px of caption and "chiamaka@drex.style" wants 106 — the address broke
+   its last letter to a second line. 6.4px leaves 112 and it sets on one line. The
+   photo still reads as a print; a wrapped email does not read as an email. */
+@media(max-width:360px){.snap.quad{padding:.4rem}}
+
+/* THE CAPTION IS A THREE-LINE BLOCK NOW (name / role / email), so it is a
+   column with its own leading rather than one line of hand type. Chielo's card
+   runs two lines by design — see the note in index.html; do not "fix" it. */
+.snap.quad .cap-mini{position:relative;z-index:1;display:flex;flex-direction:column;
+  align-items:center;text-align:center;gap:.14rem;margin:var(--s-03) 0 .24rem}
+/* max-width IS LOAD-BEARING, not defensive. align-items:center sizes each line to
+   max-content, so a caption longer than the print does not wrap — it hangs out both
+   sides of the card and slides UNDER the neighbouring snap, which carries a higher
+   z-index (:nth-child(1) and (4) are z2 over (2) and (3) at z1). Measured before the
+   fix: "HEAD OF COMMUNITY & GROWTH" ran 148px under a 130px print and lost its H
+   behind Chielo's card at 375. Every caption line is capped, not just the role. */
+.snap.quad .cap-mini>*{max-width:100%}
+.cm-name{font-family:var(--f-hand);font-size:var(--fs-body);line-height:1;color:var(--ink)}
+.cm-name.scrawl{color:var(--coral-ink)}
+/* same treatment as .sign-role (:2259) on the same paper — this is that label
+   repeated per face, so it is that rule's tracking, colour and case, at the one
+   size that fits "HEAD OF COMMUNITY & GROWTH" in two lines and not three. */
+.cm-role{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.06em;
+  font-size:clamp(.58rem,2.4vw,.64rem);line-height:1.3;color:var(--sambas);text-wrap:balance}
+/* the longest address on the page is chiamaka@drex.style at 19 characters, and
+   the card's inner box is 145px at desktop / 121px at 320. Pitch is monospaced at
+   ~0.67em advance (measured, NOT the 0.6 the rest of this file quotes for the
+   display face), so this is arithmetic: 19ch is 114px at the .56rem floor and
+   124px at the .68rem ceiling, and both clear their box. overflow-wrap is the
+   belt; the <wbr> in the markup is the braces, and it picks the break. */
+.cm-mail{font-family:var(--f-mono);font-size:clamp(.56rem,2.45vw,.68rem);line-height:1.2;
+  color:var(--grass-deep);text-decoration:none;overflow-wrap:anywhere;
+  border-bottom:1.5px solid transparent}
+.cm-mail:hover{border-bottom-color:var(--grass-deep)}
+.cm-mail:focus-visible{outline:3px solid var(--lazuli);outline-offset:2px}
+
+/* PHONES DROP THE PILE AND BUY THE WIDTH BACK. Two things go at 480, and they go
+   together because they are the same trade: the tilt (already dropped here before
+   this block existed) and the 10px overlap. Overlap is free while a caption is one
+   short word, and it is not free now — measured at 320, the right-hand card's
+   opaque paper sat over the last character of the left-hand card's address, so
+   "chielo@drex.style" served as "chielo@drex.styl". Same defect as the ink shadow
+   above, other direction; the only real fix is to stop the prints touching.
+   THE BLOCK THEN BLEEDS 20px PAST THE LETTER'S TEXT COLUMN, because square-on
+   prints at 50% of a 228px column leave a 101px caption and every address wraps.
+   .note .inner is padded 30.4px at 320, so a 20px bleed still keeps 10px of ruled
+   paper outside the prints and never reaches the torn edge. Buys 40px: the caption
+   box goes 101 -> 121 and the longest address (114px) sets on one line again. */
+@media(max-width:480px){
+  .snap.quad{transform:rotate(0);width:50%;margin:0 0 var(--s-06)}
+  /* the 12px of margin-bottom is for the CRUMPLE HINT, which is absolutely
+     positioned at the sheet's bottom-right (:2720, right:12px bottom:12px) and
+     is 28px tall. Stacked, the letter's own 30.4px of inner padding plus the
+     card's 9.6px leaves exactly 40px under the last print — the hint's own
+     height plus its offset — so the button landed ON Lucero's bottom edge.
+     Measured at 320: 3px of overlap before this line, none after. */
+  .note-crew:has(.snap.quad){width:calc(100% + 40px);margin-inline:-20px;margin-bottom:12px}
+}
+
 /* demo gate */
 .locktag{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sambas);display:inline-flex;align-items:center;gap:.4rem}
 .gate{display:none;margin-top:.2rem}

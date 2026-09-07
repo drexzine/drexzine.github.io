@@ -4304,25 +4304,28 @@
         <span class="tape c" style="left:22px;top:-13px;transform:rotate(-8deg)"></span>
         <div class="inner note-grid">
           <div>
-            <!-- EYEBROW CARRIES THE TEAM, 2026-09-07. It read "why we built it" — a label for
-                 a job the h2 and the body already do twice over ("Want to grow your gifts, but
-                 are stuck?" over "I researched how people get good at their craft"). Founder:
-                 "it isn't clear that uko and lucero are designers and lead drex with chielo. we
-                 used to make that clear ... a subtle way to add that context back in without
-                 taking up more space."
-                 IT COSTS NOTHING BECAUSE THE STRIP IS ALREADY THERE. .note-crew below is three
-                 near-equal snaps in a row, and until now a sighted reader got two bare first
-                 names off them — the roles lived only in alt text. One researcher plus two
-                 designers is three, and there are exactly three snaps, so the count captions the
-                 strip by arithmetic; no face needs its own label and no line is added.
-                 "led by" is the part that was actually missing: not that they work here, that
-                 they run it with Chielo. Chielo is the researcher by the body's own "I
-                 researched", which the note above that paragraph pins ("KEEP 'I researched': the
-                 positioning is researcher, never expert."), so Uko and Lucero are the two
-                 designers by elimination.
-                 LOWERCASE, like every other eyebrow on the page ("who's using Drex", "why
-                 nothing gets made"). No name goes in this string. -->
-            <span class="eyebrow">led by a researcher and two designers</span>
+            <!-- ~~"led by a researcher and two designers"~~ RETIRED 2026-09-07 (same day it
+                 shipped) because the fourth person broke it. Its whole argument was arithmetic,
+                 and the argument is quoted here because it is the reason this string cannot come
+                 back in any counting form: "One researcher plus two designers is three, and there
+                 are exactly three snaps, so the count captions the strip by arithmetic; no face
+                 needs its own label and no line is added." A COUNT IN AN EYEBROW IS A LIABILITY
+                 THAT COMES DUE ON EVERY HIRE. It came due in one day. Do not write another one.
+                 WHAT IT WAS FOR, and where that job went. Founder, 09-07: "it isn't clear that uko
+                 and lucero are designers and lead drex with chielo. we used to make that clear ...
+                 a subtle way to add that context back in without taking up more space." The roles
+                 lived only in alt text, so a sighted reader got bare first names. They are now
+                 PRINTED UNDER EVERY FACE (.cm-role below), which is the same job done outright
+                 instead of by inference, and it survives the next hire.
+                 WHAT IS LOST AND IS NOT BEING SILENTLY DROPPED: "led by" said they RUN it, not
+                 that they work here, and "designer" under a face does not say that. The claim now
+                 rests on the strip being the founder's whole letter — these four and nobody else.
+                 If that ever stops reading as leadership, the fix is a word in the body copy, NOT
+                 a head-count in this eyebrow.
+                 "who's building it" is deliberately the mirror of "who's using Drex" (:1508) two
+                 thirds of the page above: same construction, other side of the product. LOWERCASE,
+                 like every other eyebrow on the page. No name goes in this string. -->
+            <span class="eyebrow">who&rsquo;s building it</span>
             <!-- HEADING, 2026-08-29. #founder rendered with no h2: 63 words of unbroken letter.
                  The heading is the note's OWN closing sentence, promoted and tightened — it was
                  the most concrete line in the section ("a Tuesday night") and it was hiding in
@@ -4341,23 +4344,81 @@
             <p class="sign">Chielo</p>
             <p class="sign-role">Chielo Mbaezue &middot; CEO &amp; Co-founder</p>
           </div>
-          <!-- The whole team lives in the letter now: three near-equal snaps in a tight row,
-               shoulder to shoulder, slight alternating tilts so it reads as a hand-laid strip. -->
+          <!-- ============ THE CREW: FOUR SNAPS, EACH ONE NAMED, TITLED AND REACHABLE ==========
+               2026-09-07, second pass the same day. It was a ROW of three (.snap.trio) captioned
+               with bare first names; it is a 2x2 BLOCK of four (.snap.quad) and every face now
+               carries its own name, role and email. Chiamaka Ezeonyebuchi joined as Head of
+               Community & Growth and the row could not take a fourth: 4 x 150px is 600px in a
+               column that shares a 760px grid with the letter, and on a phone the flex row wrapped
+               3+1 and stranded one snap on its own line. 2x2 is the shape that holds at BOTH ends
+               and does not have to be re-thought at five (it becomes 3+2 by wrapping, upright).
+               WHY THE EMAILS ARE HERE AT ALL. Founder's ask, verbatim: "we should name who is what
+               too and their respective emails." The page already had exactly one address on it
+               (hi@drex.style, in the footer :4513) and that is a company inbox, not a person. Four
+               named people with four real addresses is the concrete version of the claim this
+               whole section makes — that Drex is four humans and not a platform.
+               THE ORDER IS NOT ALPHABETICAL AND IS NOT SENIORITY THEATRE: Chielo first because
+               the letter beside these photos is signed by her, then Chiamaka, then the two
+               designers who were already here in that order. Adding somebody appends; it does not
+               re-sort.
+               CHIELO'S CARD IS THE ONE THAT BREAKS THE PATTERN, ON PURPOSE. Hers reads "↑ that's
+               me" over her address and prints NO name and NO role, because .sign / .sign-role sit
+               about 200px to its left saying "Chielo" and "Chielo Mbaezue · CEO & Co-founder" in
+               type three times the size. Printing either again inside the same paper would be the
+               same fact twice in one glance. The scrawl is the pointer that joins the signature to
+               the face and it is the oldest thing in this block — do not "regularise" the grid by
+               deleting it, and do not add her role back without deleting it from the signature.
+               ROLES ARE UPPERCASED BY CSS (.cm-role), like .sign-role above, so the source keeps
+               the founder's own casing. "designer" is what the retired eyebrow asserted by
+               elimination; it is asserted outright now.
+               ALT TEXT STILL CARRIES NAME + ROLE. It is no longer the only place they live, but a
+               screen reader gets the photo's subject from the alt and the same three facts from
+               the caption, which is the right redundancy: the caption is not marked aria-hidden
+               and the alt is not empty, because these are four different people and a decorative
+               photo would be a lie.
+               THE <wbr> AFTER EACH "@" IS THE ONLY BREAK THE ADDRESS IS ALLOWED. Pitch is
+               monospaced at ~0.67em advance, so "chiamaka@drex.style" is 19 x 6.0px = 114px
+               against a 109px caption box at 320 — it has to break somewhere, and left to
+               .cm-mail's overflow-wrap:anywhere it broke after "styl" and orphaned an "e".
+               A soft break opportunity is preferred over an emergency one, so this pins the
+               only break a reader would forgive: local part on one line, domain on the next.
+               It is inert at every width where the address fits, which is all of them from
+               ~360 up, and inert for the three shorter addresses everywhere. -->
           <div class="note-crew">
-            <figure class="snap trio">
+            <figure class="snap quad">
               <span class="tape c" style="left:28%;top:-11px;transform:rotate(5deg)"></span>
               <div class="ph"><img src="assets/team/chielo.jpg" alt="Chielo Mbaezue, CEO and co-founder of Drex" loading="lazy" width="600" height="720" style="transform:scale(1.4);transform-origin:60% 20%" /></div>
-              <figcaption class="cap-mini scrawl">&uarr; that&rsquo;s me</figcaption>
+              <figcaption class="cap-mini">
+                <span class="cm-name scrawl">&uarr; that&rsquo;s me</span>
+                <a class="cm-mail" href="mailto:chielo@drex.style">chielo@<wbr>drex.style</a>
+              </figcaption>
             </figure>
-            <figure class="snap trio">
-              <span class="tape" style="left:50%;margin-left:-36px;top:-11px"></span>
-              <div class="ph"><img src="assets/team/uko.jpg" alt="Uko, designer at Drex" loading="lazy" width="600" height="720" /></div>
-              <figcaption class="cap-mini">Uko</figcaption>
+            <figure class="snap quad">
+              <span class="tape" style="left:50%;margin-left:-34px;top:-11px"></span>
+              <div class="ph"><img src="assets/team/chiamaka.jpg" alt="Chiamaka Ezeonyebuchi, head of community and growth at Drex" loading="lazy" width="600" height="720" /></div>
+              <figcaption class="cap-mini">
+                <span class="cm-name">Chiamaka</span>
+                <span class="cm-role">Head of Community &amp; Growth</span>
+                <a class="cm-mail" href="mailto:chiamaka@drex.style">chiamaka@<wbr>drex.style</a>
+              </figcaption>
             </figure>
-            <figure class="snap trio">
+            <figure class="snap quad">
               <span class="tape c" style="left:18px;top:-11px;transform:rotate(-6deg)"></span>
+              <div class="ph"><img src="assets/team/uko.jpg" alt="Uko, designer at Drex" loading="lazy" width="600" height="720" /></div>
+              <figcaption class="cap-mini">
+                <span class="cm-name">Uko</span>
+                <span class="cm-role">Designer</span>
+                <a class="cm-mail" href="mailto:uko@drex.style">uko@<wbr>drex.style</a>
+              </figcaption>
+            </figure>
+            <figure class="snap quad">
+              <span class="tape" style="left:52%;margin-left:-30px;top:-11px;transform:rotate(3deg)"></span>
               <div class="ph"><img src="assets/team/lucero.jpg" alt="Lucero, designer at Drex" loading="lazy" width="600" height="720" /></div>
-              <figcaption class="cap-mini">Lucero</figcaption>
+              <figcaption class="cap-mini">
+                <span class="cm-name">Lucero</span>
+                <span class="cm-role">Designer</span>
+                <a class="cm-mail" href="mailto:lucero@drex.style">lucero@<wbr>drex.style</a>
+              </figcaption>
             </figure>
           </div>
         </div>
