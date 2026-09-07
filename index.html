@@ -356,7 +356,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=155" />
+<link rel="stylesheet" href="app-post-beta.css?v=156" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -3543,7 +3543,7 @@
                 <span class="tape b zc-tape" aria-hidden="true"></span>
                 <div class="zc-frame">
                   <div class="zl is-on">
-                    <img src="assets/zines/hero/phloor-cover.jpg" width="620" height="775" loading="lazy" decoding="async" alt="A page from the published issue [ 3 A M, 2 0 0 1 ] by Photo Phloor: three night photographs pinned to a board, captioned &ldquo;A single light yet gently touches thru&rdquo;, &ldquo;Lighting and subject too good to pass?&rdquo; and &ldquo;Layers&rdquo;.">
+                    <img src="assets/zines/hero/phloor-cover.jpg" width="620" height="775" loading="lazy" decoding="async" alt="The cover of the published issue [ 3 A M, 2 0 0 1 ] by Photo Phloor: the title in red type over two night photographs pinned to a board, an empty lit stairwell captioned &ldquo;Wow&rdquo; and a glass-block window.">
                   </div>
                   <a class="zc-open" href="https://app.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856" target="_blank" rel="noopener" aria-label="Read [ 3 A M, 2 0 0 1 ], the published issue from Photo Phloor &mdash; opens the zine"></a>
                 </div>
@@ -4424,10 +4424,20 @@
              and THIS IS THE ONLY PLACE IT IS SERVED. The <title>, og:title and twitter:title
              carry the fold H1 (read the corrected block above <title>); the OG card's kicker
              is pixels in assets/og-v4.png and changes only when that image is re-rendered.
-             So there is nothing left for this line to stay in sync WITH — which is why the
-             2026-09-07 fold rewrite ("Don't waste your talents.") did not touch it, and why
-             a future fold rewrite should not either. There is no longer a cut to choose
-             between (see the <title> comment).
+             So there is nothing left for this line to stay in sync WITH.
+             ~~which is why the 2026-09-07 fold rewrite ("Don't waste your talents.") did not
+             touch it, and why a future fold rewrite should not either.~~ OVERRULED THE SAME
+             DAY, by the founder, an hour after it was written: "also make sure the tagline
+             becomes 'Don't waste your talents.'" The paragraph above says only that nothing
+             FORCES this line to follow the fold; it never argued the two should differ. With
+             the H1 in the title, the OG title and the twitter title, the footer was the last
+             place still saying something else, and a signature line that disagrees with the
+             masthead is not independence, it is drift.
+             WHAT WAS LOST, so nobody restores it by accident: "Clubs for regular
+             show-and-tells." was the only served copy naming the CADENCE ("regular", never a
+             number - that rule is unchanged and still enforced everywhere else) and the only
+             one using the phrase "show-and-tells" outside #showtell. The category is still
+             carried by the JSON-LD and by #showtell's own heading.
              THE NOWRAP IS A GUARD, NOT A FIX — it is not doing anything today, and that is
              the point of writing down what it is for. "show-and-tells." carries two hyphens,
              and a hyphen is a break opportunity in CSS, so the line is in principle free to
@@ -4438,7 +4448,7 @@
              bump, a wider column word, or a longer noun eats it without anyone noticing, and
              nbsp CANNOT stop a hyphen break — only nowrap can. So it stays.
              Re-measure that headroom if the tagline or the footer scale changes. -->
-        <p class="tagline">Clubs for regular <span class="nb">show-and-tells.</span></p>
+        <p class="tagline">Don&rsquo;t waste <span class="nb">your talents.</span></p>
         <span class="stamp">Made by hand &middot; 2026</span>
       </div>
       <div class="links">

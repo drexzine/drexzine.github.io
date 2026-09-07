@@ -11669,19 +11669,22 @@ html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
    assets/zines/hero/phloor.jpg carries a signed red scrap at source rows 524-624 reading
    "Not pissing security off ..." with a name under it, and going portrait pulled that
    band INTO the visible window. Measured: red rows at 524-624 and 4068-4100. This beat
-   now loads assets/zines/hero/phloor-cover.jpg, 620x775 = 4:5 exactly: source rows
-   2200-2975 of the same strip, clear of BOTH measured red bands (524-624 and 4068-4100).
-   IT IS AN INNER PAGE, NOT THE COVER, AND THAT IS THE SECOND THING I GOT WRONG. The
-   cover is real but it is 620x500 — landscape — so making it 4:5 meant padding 275 rows
-   of blank pinboard under it, and the object rendered as a small cover stranded above a
-   grey dead zone. Look at what .zbook actually does (assets/zine-handmade.jpg, 700x955):
-   the page fills its frame edge to edge. A portrait frame around a landscape crop is not
-   a portrait object. Rows 2200-2975 are a full spread — three pinned photographs with
-   their handwritten captions — so the frame is full of zine at every point, which is the
-   property that made the reference read as a book.
-   THE TITLE MOVES TO THE CAPTION, which already carried it: the figcaption under this
-   frame reads "[ 3 A M, 2 0 0 1 ]" — their last issue. The picture shows what is inside,
-   the caption says which issue it is. The source strip is untouched.
+   now loads assets/zines/hero/phloor-cover.jpg, 620x775 = 4:5 exactly. It is the REAL
+   page 1 of the issue — rows 0-775 of the strip, title, both night photographs, "Wow" —
+   with the scrap band PATCHED OUT rather than cropped around: rows 508-648 are replaced
+   by the clean board band (rows 462-486 averaged to one row and stretched), feathered
+   14px at both seams so it does not sit on a hard line. The scrap measured 524-624, so
+   the patch clears it by 16px each way. The board is the surface the cover is already
+   pinned to, so nothing is invented; the pins and tape scraps around it survive.
+   TWO WRONG ANSWERS CAME FIRST, both recorded because each is a tempting mistake.
+   (1) The cover cropped to rows 0-500 and padded to 4:5 — that is landscape content in a
+   portrait box, and it rendered as a small cover stranded over a grey dead zone.
+   (2) An inner spread, rows 2200-2975, which DID fill the frame edge to edge but is not
+   a cover: founder, "also doesn't look like a cover". A zine's cover is the thing that
+   says which zine it is, and this beat's whole job is naming the issue that shipped.
+   THE PAGE IS ALREADY 4:5. That is the fact both wrong answers missed — page 1 of this
+   strip runs 0-775, and the only reason to leave it was the scrap. Patch the scrap, keep
+   the page. The source strip is untouched.
    STILL OUTSTANDING, DO NOT ASSUME THIS FIXED IT: the 320x400 rack thumbnail
    assets/zines/hero/covers/phloor.jpg is the top 4:5 of the same strip and CONTAINS the
    scrap; it is live in #zines. And the carousel pans past rows 524-624 on every rotation
@@ -11806,3 +11809,11 @@ figure.dd-print.dd-zine > figcaption{margin-top:.55rem}
    book, and the green one is thicker. .zbook has a single 2.6px ink keyline and that is
    the whole reason it reads as a printed thing rather than a framed picture. */
 .dd-zine .zc-plate::after{content:none}
+/* SMALLER, 2026-09-07. Founder: "the zine doesn't need to be huge. can be a little
+   smaller." It was filling its whole grid cell at 291px on a 1440 desktop, which put it
+   level with the .dd-print polaroid one beat above and made the two compete for the
+   spine's attention. 78% takes it to ~227px: still the biggest object in the row, no
+   longer the biggest on the screen. Right-aligned in the cell so the page-edge stack and
+   the dd-anno-url scrap keep the same relationship to the rail they had before. */
+.dd-print.dd-zine{width:78%; margin-left:auto}
+@media(max-width:720px){.dd-print.dd-zine{width:88%}}
