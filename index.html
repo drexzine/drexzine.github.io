@@ -160,21 +160,29 @@
 <meta property="og:description" content="Don&rsquo;t waste your talents. Get accountable by making a magazine together. Each issue is a new challenge. We make sure people show up, know what&rsquo;s up, and put their work up." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://drex.style" />
-<meta property="og:image" content="https://drex.style/assets/og-v4.png" />
+<meta property="og:image" content="https://drex.style/assets/og-v5.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<!-- The alt describes the card that is actually there: assets/og-v4.png, rendered from
+<!-- The alt describes the card that is actually there: assets/og-v5.png (was og-v4 until
+     2026-09-07), rendered from
      _shotgun-og/r6-A.html (the re-render recipe is in that file's header). Both moved with
      the fold on 2026-08-08 — headline, sub, and the blank that came down with it — so the
      card, this alt and index.html's zone 1 are three copies of one thing. If any of them
      changes, all three do.
      It has to name the BLANK as a blank: a reader who cannot see the image gets no sentence
      at all otherwise, since the card's subtitle deliberately stops mid-thought. -->
-<meta property="og:image:alt" content="A torn cream sheet on a desk. It reads &ldquo;Make a magazine with your people, on a deadline.&rdquo; in a bold italic typewriter face, with the drex wordmark beneath it. Pinned to the right are three real published issues &mdash; Silk Road 001, Office Attitude, and Interactive Zine." />
+<!-- RE-CUT 2026-09-07 WITH THE PIXELS. This string is pinned to assets/og-v5.png, not
+     to the fold - it changes when and only when that image is re-rendered, which is what
+     happened today. v4 was the last thing on the property still promising "Make a
+     magazine with your people, on a deadline", and its kicker printed "an issue", the one
+     phrase this page may never print. A rule that greps index.html does not grep a PNG.
+     Em dashes are FINE here and nowhere else in the head: this is alt text, not a head
+     string; the no-em-dash rule covers title/description/OG-title/twitter strings. -->
+<meta property="og:image:alt" content="A torn cream sheet on a desk. It reads &ldquo;Don&rsquo;t waste your talents.&rdquo; in a bold italic typewriter face, over the line &ldquo;Get accountable by making a magazine together.&rdquo;, with the drex wordmark beneath. Pinned to the right are three real published issues &mdash; Silk Road 001, Office Attitude, and Interactive Zine." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="drex. Don&rsquo;t waste your talents." />
 <meta name="twitter:description" content="Don&rsquo;t waste your talents. Get accountable by making a magazine together. Each issue is a new challenge. We make sure people show up, know what&rsquo;s up, and put their work up." />
-<meta name="twitter:image" content="https://drex.style/assets/og-v4.png" />
+<meta name="twitter:image" content="https://drex.style/assets/og-v5.png" />
 <meta name="theme-color" content="#FEF6E4" />
 
 <!-- ============ STRUCTURED DATA (JSON-LD) ============
@@ -212,14 +220,14 @@
       "name": "Drex",
       "alternateName": "drex.",
       "url": "https://drex.style",
-      "description": "Drex runs small clubs for regular show-and-tells with deadlines: a host sets a challenge, the club helps each other finish, and the work goes into an issue everyone is named in.",
+      "description": "Drex runs small clubs for regular show-and-tells with deadlines: a host sets a challenge, the club helps each other finish, and the work goes into one issue everyone is named in.",
       "logo": {
         "@type": "ImageObject",
         "url": "https://drex.style/assets/logo.png",
         "width": 512,
         "height": 512
       },
-      "image": "https://drex.style/assets/og-v4.png",
+      "image": "https://drex.style/assets/og-v5.png",
       "founder": {
         "@type": "Person",
         "name": "Chielo Mbaezue",
@@ -4466,7 +4474,8 @@
              kicker.~~ FALSE, corrected 2026-09-07: the tagline left the <title> on 2026-08-18
              and THIS IS THE ONLY PLACE IT IS SERVED. The <title>, og:title and twitter:title
              carry the fold H1 (read the corrected block above <title>); the OG card's kicker
-             is pixels in assets/og-v4.png and changes only when that image is re-rendered.
+             is pixels in assets/og-v5.png and changes only when that image is re-rendered
+             — which it was, on 2026-09-07, so the card now carries the fold's own H1.
              So there is nothing left for this line to stay in sync WITH.
              ~~which is why the 2026-09-07 fold rewrite ("Don't waste your talents.") did not
              touch it, and why a future fold rewrite should not either.~~ OVERRULED THE SAME

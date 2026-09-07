@@ -71,6 +71,14 @@ h1{font-family:"Pitch",Georgia,serif;font-weight:700;font-style:italic;
   word-spacing:-.30em}   /* Pitch is MONOSPACED: without this the words set as isolated tokens */
 h1 .g{color:var(--grass-deep)}
 h1 .stop{color:var(--grass)}
+/* THE DECK, added 2026-09-07 with the fold rewrite. The six head strings lead H1 then
+   deck, and this card is the seventh member of that family in pixels rather than text,
+   so it sets the same two ranks in the same order. Pitch Sans, not Pitch: the headline
+   owns the italic slab and a second slab under it reads as a two-line headline that lost
+   its size. 30px against the h1's 70 is the same ~2.3x drop the fold uses. */
+.sub{font-family:"Pitch Sans",monospace;font-weight:500;font-size:30px;line-height:1.32;
+  color:var(--ink);opacity:.86;margin-top:22px;display:block;max-width:520px}
+.sub .g{color:var(--grass-deep);font-weight:700}
 .mark{position:absolute;left:74px;bottom:66px;display:flex;align-items:center;gap:18px}
 .wordmark{font-family:"Pitch",Georgia,serif;font-weight:700;font-style:italic;
   font-size:52px;color:var(--grass-deep);letter-spacing:-.03em}
@@ -103,8 +111,24 @@ h1 .stop{color:var(--grass)}
     <div class="zine z3"><span class="pin p3"></span><img src="assets/zines/hero/covers/interactive.jpg" alt=""></div>
   </div>
   <div class="inner">
-    <span class="eyebrow">a club, an issue, a deadline</span>
-    <h1>Make a <span class="g">magazine</span> with your people, on a deadline<span class="stop">.</span></h1>
+    <!-- 2026-09-07 — THIS CARD WAS THE LAST THING STILL SAYING THE OLD PROMISE.
+         ~~"a club, an issue, a deadline" / "Make a magazine with your people, on a
+         deadline."~~ The fold, the title, the OG title, the twitter title and the footer
+         tagline all moved to "Don't waste your talents." on 2026-09-07; this is pixels,
+         so it does not move until it is re-rendered, and nobody re-rendered it. Every
+         share of drex.style was serving the superseded headline.
+         THE EYEBROW ALSO BROKE A HARD RULE. "an issue" is the one phrase this page may
+         never print (CLAUDE.md, and index.html's own note), and it had been sitting in
+         the share card since v4 because a rule that greps index.html does not grep a
+         template. "a challenge" is the honest replacement, not a euphemism: the page
+         reorganised around the challenge this same day, and section 3 is now headed
+         "Each issue is a new challenge."
+         GREEN GOES ON "talents", where the fold puts its emphasis. The deck keeps
+         "magazine" green so the card still names the object in one glance - a reader who
+         only sees the picture should still learn what is being made. -->
+    <span class="eyebrow">a club, a challenge, a deadline</span>
+    <h1>Don&rsquo;t waste your <span class="g">talents</span><span class="stop">.</span></h1>
+    <span class="sub">Get accountable by making a <span class="g">magazine</span> together.</span>
   </div>
   <div class="mark">
     <span class="wordmark">drex.</span>
