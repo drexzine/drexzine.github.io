@@ -1765,6 +1765,32 @@
          real clubs than it did after a wall of drawings. .gifts-foot is unscoped CSS (app-post-beta.css:895),
          so it needs no .gifts ancestor to keep its centring and its colorado ink. -->
     <p class="gifts-foot scrawl">&hellip;and whatever yours is.</p>
+
+    <!-- THE SECOND DOOR IN THE DESERT (2026-09-07, Chielo, watching people read).
+         THE 09-05 FIX WAS MEASURED AT 440 AND ONLY AT 440. The note under .loop-tool
+         records a 7.2-screen desert halved into 3.5 + 3.7 by putting a door at y=4014.
+         Re-measured today at 375x812 on a 14000px page, the four doors land at 0.4, 8.6,
+         13.1 and 15.4 screens: the fold-to-band gap is still 8.2 SCREENS on a phone. At
+         1280x800 the same gap is 5.6, which is the width the old fix was actually good
+         at - a taller viewport eats the sections whole, a phone stacks every one of them.
+         Do not re-audit this at 440 and conclude it is fixed.
+         #proof ENDS AT 5.8 SCREENS, which is the only line in the gap that halves what is
+         left: 5.4 screens, then 2.8. Same arithmetic the 09-05 insertion used, run at the
+         width the page is actually read at.
+         IT IS THE RIGHT BEAT, NOT JUST THE RIGHT Y. This line is the end of the breadth
+         claim - six real clubs, five faces, and then "...and whatever yours is." The reader
+         has just been told their thing counts. The next thing they meet should be the door.
+         THE LABEL IS "Sign up or log in" AND IS NOT ALLOWED TO BE CLEVERER THAN THE SCREEN
+         BEHIND IT. R-3 (LOOP-FINDINGS.md:153) killed "Join a club" in this exact role: the
+         verb promised a club, the link delivered something else, and a cold reader called it
+         bait that "turns a maybe into a no". All four doors open app.drex.style/welcome, so
+         all four wear one label. If that screen ever becomes a club, all four change together.
+         NO TERMS LINE UNDER IT, on the precedent of #bring's button and .loop-tool's - the
+         price is stated at the closing CTA, after the reader has seen the pile.
+         .proof-cta IS ITS OWN SCOPED RULE, not .loop-cta reused: `.loopwrap > .loop-cta` is
+         child-scoped on purpose because five archived index-*.html carry .loop-cta, and
+         unscoping it to reach here would reach them too. -->
+    <p class="proof-cta"><a class="btn" href="https://app.drex.style/welcome">Sign up or log in <span class="arr">&rarr;</span></a></p>
   </section>
 
   <!-- ============ SECTION 3 — THE PLATE IS THE SECTION NOW (2026-09-07) ============
@@ -3079,6 +3105,10 @@
              the reader to say 'the library' with a subtitle 'browse the world's work'. kind of
              similar fixes with the walls. and we should position the title-label like 'the
              library' as a little top left corner cute stick-on").
+             THE STICKER SURVIVES; ITS SUBTITLE DOES NOT. "browse the world's work" was replaced
+             on 2026-09-07 by a green .pw-go door reading "Read what clubs publish" - the full
+             argument is filed on that line below. The sticker, the collapse of two labels into
+             one object, and everything in the rest of this note are untouched and still rule.
              IT COLLAPSES TWO LABELS INTO ONE OBJECT. Each card used to carry a .pw-kind tape
              across its bottom edge AND a .pw-name link line under that - two labels per card,
              and because the three cards are 1:1, 4:5 and 4:5 on align-items:start, the library
@@ -3118,7 +3148,42 @@
               </video>
               <img class="pw-still" src="assets/demo/book-cafe-poster.jpg" alt="The drex reader open on a real issue, Drawing at the Cafe." loading="lazy" width="720" height="720" />
             </span>
-            <span class="pw-name">browse the world&rsquo;s work <span class="arr">&rarr;</span></span></span>
+            <!-- ~~"browse the world's work"~~ IS A GREEN DOOR NOW, 2026-09-07. Chielo, from
+                 watching people read the page: "I've seen a couple people scroll by that and
+                 not click it... that's an important feature of the platform and our go-to-market
+                 strategy for the public to browse it for inspiration."
+                 THE PAGE AGREES WITH HIM, MEASURED. At 375x812 there is NO library entry in the
+                 top 8 of 17.2 screens except the one buried in the burger. The next is THIS card
+                 at 9.0 screens, and until now its only two affordances were a corner sticker and
+                 a hand-written caption on a card whose whole surface is a video. Two people
+                 walking past an image-shaped link is the ordinary result, not bad luck.
+                 WHY THIS CARD AND NOT ITS TWO SIBLINGS. They are destinations you LOOK at - one
+                 club's wall, one maker's wall, both behind the "Automatic portfolio." heading
+                 that splits this row into its two arguments. This one is the public shelf that
+                 needs no account, and it is the only card on the page carrying a go-to-market
+                 job. The asymmetry is the point; do not promote the other two to match.
+                 ~~"browse the world's work"~~ WAS THE FOUNDER'S OWN SUBTITLE (2026-09-02, quoted
+                 in the .pw-pair note above, which is annotated). It went for two reasons and
+                 either is sufficient. (1) "the world's work" names no object - the reader cannot
+                 tell whether they are about to get a feed, a gallery or a shop. (2) It is a
+                 caption's register, and this needed a button's.
+                 "Read what clubs publish" NAMES WHAT IS BEHIND THE LINK, which is R-3's rule
+                 (LOOP-FINDINGS.md:153) and the reason every door on this page is plain: behind
+                 it is /show-and-tell, every issue any club has published. Verb, who, what.
+                 IT DOES NOT REPEAT THE H2. "See what people are doing. Then join them." is
+                 directly above; a button reading "see what people are doing on drex" would be
+                 the section's own head printed twice, which is R-2. The h2 says what you will
+                 see, the button says what you will read.
+                 "club" IS LOWERCASE and the source is sentence case - the uppercase is
+                 text-transform in .pw-go, so a grep for the copy rules still reads true. -->
+            <!-- THE .nb IS LOAD-BEARING AT 320, AND IT IS RULED (it is inert everywhere it is
+                 not - see the .ed-deck note). .pw-go is a flex row that inherits flex-wrap from
+                 .pw-name, so its children are an anonymous text item and the arrow. At 320 the
+                 card is 250px, the label needs ~250 plus padding, and the text item wrapped on
+                 its own leaving the arrow ALONE on line two, centred under nothing. Welded to
+                 "publish" the break lands where a reader would put it: READ WHAT CLUBS /
+                 PUBLISH ->. One line from 375 up; two, deliberately, below it. -->
+            <span class="pw-name pw-go">Read what clubs <span class="nb">publish <span class="arr">&rarr;</span></span></span>
           </a>
         </div>
 
@@ -3146,7 +3211,7 @@
               </video>
               <img class="pw-still" src="assets/app/club-table.jpg" alt="Photo Phloor's wall on Drex: the table, a corkboard of night photographs pinned up by the club's makers." loading="lazy" width="982" height="1250" />
             </span>
-            <span class="pw-name">see what Photo Phloor keeps <span class="arr">&rarr;</span></span></span>
+            <span class="pw-name">see what Photo Phloor keeps <span class="arr">&rarr;</span></span>
           </a>
         </div>
 
@@ -3167,7 +3232,7 @@
               </video>
               <img class="pw-still" src="assets/app/wall-144mb.jpg" alt="1.44 MB's wall on Drex: their name across the top of a cork board with their face beside it, the line &ldquo;i take photos with a floppy diskette camera&rdquo;, the clubs they edit, and the photo they pinned as their pick." loading="lazy" width="1078" height="1500" />
             </span>
-            <span class="pw-name">the work you&rsquo;ve put up <span class="arr">&rarr;</span></span></span>
+            <span class="pw-name">the work you&rsquo;ve put up <span class="arr">&rarr;</span></span>
           </a>
         </div>
 

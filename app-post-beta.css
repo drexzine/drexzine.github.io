@@ -1201,6 +1201,18 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   box-shadow:3px 3px 0 0 var(--ink);white-space:nowrap;transition:transform .16s ease}
 .gift-pile li:hover{transform:rotate(0) translateY(-3px)}
 .gifts-foot{text-align:center;margin:clamp(1.1rem,2.6vw,1.6rem) 0 0;color:var(--colorado);font-size:1.25rem}
+/* THE DOOR UNDER THE BREADTH LINE (2026-09-07). #proof's second door, argued in the markup:
+   at 375 the fold-to-band gap was 8.2 screens and this halves it. Geometry only - the button
+   is a plain .btn on cream, because #proof ships without .gnd (every `#proof.gnd` rule in this
+   file is dormant, kept from when the section had a green ground) and .btn's grass-deep on oats
+   is already the paper pairing.
+   UNSCOPED ON PURPOSE, AND SAFE BECAUSE THE CLASS IS NEW. The house rule that scopes
+   `.loopwrap > .loop-cta` exists because five archived index-*.html carry .loop-cta and would
+   catch a bare rule. Nothing in this repo carries .proof-cta but the live page, so there is
+   nothing to reach. Grep before you widen any OTHER cta rule to match this one.
+   MARGIN-TOP IS THE SECTION'S FOOT, not the line's: .gifts-foot above already carries its own
+   clamp, and stacking two of them put the button 96px off the scrawl at 1440. */
+.proof-cta{text-align:center;margin:clamp(1.5rem,3.4vw,2.2rem) 0 0}
 @media(prefers-reduced-motion:reduce){.gift-pile li{transition:none}}
 
 /* ---------- the CRAFTBOARD: the range as instant photos pinned to cork. Chip colour -> label ink
@@ -9655,6 +9667,7 @@ html[data-tier="lite"] .sw-arrow svg{filter:none}
 .lands-grid .pw-kind::before{background:var(--lands-ink)}
 .lands-grid .pw-col.is-lib .pw-kind{transform:rotate(-1.6deg)}
 
+
 /* ---- ~~THE ARTIFACT BESIDE THE DOOR~~ DORMANT SINCE 2026-09-01 --------------
    Nothing on the page carries .sw-pair / .sw-real / .sw-shot any more: Sue reduced
    #seewhat to the clip and one label. The block is left whole, and so is
@@ -11146,7 +11159,13 @@ html .hero .envelope .card-clip.fold-v2{
    #zcCraft was deleted, 2026-09-03. Nothing on the plate names a craft now; the rack is the
    only place a craft word appears, which is one more reason it keeps its words.) */
 
-/* ---- THE THREE SUBTITLES ARE SCRAPS NOW (2026-09-02) -------------------------------------
+/* ---- ~~THE THREE SUBTITLES~~ TWO OF THEM ARE SCRAPS (2026-09-02, amended 2026-09-07) ------
+   CARD ONE LEFT THIS BLOCK. The library's subtitle is a green .pw-go button now (the block at
+   the foot of this file, and the argument in the markup). Everything below still rules the two
+   WALL scraps and is unchanged - but read it as two, not three: the fit-content argument, the
+   #torn3 padding, the compounding lean and the paper-on-paper clearance all still apply to
+   .is-club and .is-mine, and .pw-go opts out of each one deliberately and says so.
+   ------------------------------------------------------------------------------------------
    Founder: "fix up the labels like 'the work you've put up' so they have a similar torn paper
    bg." They were the only labels left in #seewhat standing as bare text on the page — the
    sticker above them (.pw-sticker), the source tape (.lands-src) and the plate's chips
@@ -11181,8 +11200,11 @@ html .hero .envelope .card-clip.fold-v2{
      the row would strand card one's caption in 74px of empty cream. */
   margin-top:var(--s-4);
   /* HORIZONTAL PADDING IS SET BY THE FILTER, NOT BY TASTE: #torn3 displaces at scale 12, so
-     the tear can bite ~6px in from each edge. Under ~.9em the bite reaches the B of "browse"
-     and the arrow's tail. */
+     the tear can bite ~6px in from each edge. Under ~.9em the bite reaches the first letter
+     and the arrow's tail. (It read "the B of 'browse'" until 2026-09-07 - card one's scrap is
+     a green .pw-go button now and is not filtered at all, so the measurement is quoted off
+     the two scraps that still are: "see what Photo Phloor keeps" and "the work you've put up".
+     The number did not change; only the example it was taken from.) */
   padding:.42em 1.05em .46em;
   transform:rotate(1.2deg); transform-origin:center top;
 }
@@ -11192,6 +11214,74 @@ html .hero .envelope .card-clip.fold-v2{
 html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
 .lands-grid .pw-col.is-club .pw-name{transform:rotate(-1.1deg)}
 .lands-grid .pw-col.is-mine .pw-name{transform:rotate(.9deg)}
+
+/* ---- THE LIBRARY CARD'S SUBTITLE IS A GREEN DOOR (2026-09-07) -----------------------------
+   Chielo, from watching people read: "I've seen a couple people scroll by that and not click
+   it... that's an important feature of the platform and our go-to-market strategy." The markup
+   carries the argument and the measurement (no library entry in the top 8 of 17.2 screens on a
+   phone; the one at 9.0 was an image-shaped link). This is how it is built.
+   WHERE THIS BLOCK SITS IS LOAD-BEARING, AND IT COST A REWRITE TO LEARN. `.pw-go` rides an
+   element that also carries `.pw-name`, and FOUR separate `.lands-grid .pw-name` blocks are
+   scattered down this file - :10801 (margin/size), :10968 (body face + lazuli arrow), :11228
+   (the torn scrap) and :11245 (its ::before). Written up beside the one-ink rule at ~:9665,
+   which is where it belongs by subject, every one of those four silently beat it: the button
+   rendered in Bitter, in --lands-ink on grass-deep, on top of an oats scrap. It must be the
+   LAST word on .pw-name in this file. If you add a fifth .lands-grid .pw-name rule, it goes
+   ABOVE this block or it takes the button with it.
+   IT IS .btn's LOOK, NOT .btn, AND IT STAYS INSIDE .pw-a. One link, one href, one thing for a
+   screen reader to announce - a second <a> to /show-and-tell beside the card would read the
+   same destination twice in a row. Declarations are copied from .btn (:346) rather than shared,
+   because .btn is a standalone pill and this one has to undo a scrap first; if .btn's palette or
+   border moves, move this with it.
+   WHAT IT KEEPS FROM THE SCRAP BLOCK ABOVE, ON PURPOSE: width:fit-content, max-width:100%,
+   margin-inline:auto and the rotate(1.2deg) counter-lean. That lean was already chosen against
+   .pw-a's --r:-1.4deg so the label sits nearly level under a tilted board, which is exactly what
+   a button needs and is the ONE thing a door in this row must not get wrong. Do not re-declare
+   .btn's own -1.4deg here: inside a -1.4deg parent the transforms compose to -2.8deg.
+   IT IS A PILL, NOT A CARD-WIDTH BAR. Tried at width:100% first. Every other door on this page
+   is a centred pill (.loop-cta, .bring-cta, .proof-cta, the coupon), and a full-column green
+   band under a 375px video reads as a section footer, not as a thing to press - the same
+   "a rule, not a scrap" failure the block above rejects for the paper labels.
+   WHAT IT UNDOES, EACH FOR ITS OWN REASON:
+     - ::before, the torn oats scrap. A filtered paper slab behind an opaque bordered button is
+       invisible everywhere except where #torn3 displaces it past the border, where it shows as
+       cream fringe on two edges. display:none, not background:none - the shadow goes too.
+     - the body face and 1.06rem from :10968. Doors on this page are mono, uppercase, tracked.
+     - .arr's --lazuli-deep from :10970. Lazuli on grass-deep is 1.7:1; currentColor keeps the
+       arrow on the label's own oats, which is the pairing .btn ships.
+     - align-items:baseline from .pw-name (:6574). On a bordered box, baseline hangs the arrow's
+       descender outside the button.
+   :active IS BORROWED FROM THE ANCESTOR. :active applies to the element being pressed and its
+   ANCESTORS, never its descendants, so the span can never receive it and the press-into-the-
+   shadow every other door has would simply be missing. Hover and active are scoped through
+   .pw-col.is-lib (0,5,0) so they outrank :11228's transform without depending on order twice.
+   CONTRAST: oats on grass-deep is 5.9:1, the pairing .btn's own comment records.
+   ------------------------------------------------------------------------------------------ */
+.lands-grid .pw-col.is-lib .pw-go{
+  --bg:var(--grass-deep);--fg:var(--oats);
+  display:flex;align-items:center;justify-content:center;gap:var(--s-1);
+  font-family:var(--f-mono);font-weight:500;font-size:var(--fs-label);
+  letter-spacing:.12em;text-transform:uppercase;text-align:center;line-height:1.15;
+  background:var(--bg);color:var(--fg);
+  border:2.6px solid var(--ink);border-radius:6px;
+  padding:.85em 1.15em;min-height:46px;
+  box-shadow:5px 5px 0 0 var(--ink);
+  transition:transform .09s ease, box-shadow .09s ease;
+  margin-top:clamp(1.1rem,2.8vw,1.5rem)}
+.lands-grid .pw-col.is-lib .pw-go::before{display:none}
+.lands-grid .pw-col.is-lib .pw-go .arr{color:currentColor}
+/* .nb IS SCOPED LIKE EVERY OTHER .nb ON THIS PAGE (there are four, all scoped, and the class is
+   inert wherever it is not - see the .ed-deck note). It keeps the arrow welded to "publish" so
+   the 320 break is READ WHAT CLUBS / PUBLISH -> instead of stranding the arrow on its own line.
+   inline-flex, not inline: .pw-go's own gap only separates ITS children, so the arrow needs the
+   same gap re-declared inside the weld or it butts against the T. */
+.lands-grid .pw-col.is-lib .pw-go .nb{white-space:nowrap;
+  display:inline-flex;align-items:center;gap:var(--s-1)}
+.lands-grid .pw-col.is-lib .pw-a:hover .pw-go,
+.lands-grid .pw-col.is-lib .pw-a:focus-visible .pw-go{transform:rotate(0)}
+.lands-grid .pw-col.is-lib .pw-a:active .pw-go{transform:translate(5px,5px) rotate(0);
+  box-shadow:0 0 0 0 var(--ink)}
+@media (prefers-reduced-motion:reduce){.lands-grid .pw-col.is-lib .pw-go{transition:none}}
 
 /* ============================================================================
    THE FOLD, ROUND TWO (2026-09-02) — the defects the review named in the
