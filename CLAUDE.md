@@ -101,9 +101,17 @@ HTML comments at the cited line.
 - **"creative" and "portfolio" are struck.** So is the corporate third-person register
   ("Drex is where…", "this platform exists to…"). Both rules held on 2026-09-05 when the
   Sep-5 variant was promoted: its deck read "Drex is where creative groups stay accountable
-  by making magazines together." and was rewritten to "Keep each other accountable by making
-  a magazine together." for the page. The third-person sentence survives as an elevator
-  pitch OFF this page; it is not served copy.
+  by making magazines together." and was rewritten for the page. The third-person sentence
+  survives as an elevator pitch OFF this page; it is not served copy.
+- **The fold, as of 2026-09-07 — two ranks, and they move together.** H1
+  "Don't waste your talents." (two `.sen` blocks, 11ch / 13ch), deck "Get accountable by
+  making a magazine together." The 09-05 pair it replaced was "Your gifts matter." /
+  "Keep each other accountable by making a magazine together." The third rank is gone: the
+  old `<p class="ed-sub">` sentence "Each issue is a new challenge." is the h2 of section 3
+  (`#zines`) now. All three are quoted in the six head strings, so a fold rewrite is a head
+  rewrite. Both current lines are UNFIELDED, and the H1 comment in `index.html` records two
+  things overruled on purpose: "Get accountable" is not an English collocation, and
+  "talents" is a word the rest of the page never uses.
 - **Never the name "Sue"** in visible text, alt or aria. `grep -inE '\bsue'`.
 - **No em dashes in head strings** (`<title>`, meta description, OG/Twitter strings).
 - The six head strings move together or they rot: `<title>`, meta description,

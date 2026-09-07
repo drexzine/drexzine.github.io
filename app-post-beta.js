@@ -168,7 +168,7 @@ function boot() {
   initFirecrackerCta(audio);        // ported from the wall: "Join a Circle" click → firecracker → green door
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
   initHeroRotate();                 // no-ops since 2026-08-11: the H1 has no #rot-word any more
-  initZineCarousel();               // the fold's picture: nine real issues, one at a time
+  initZineCarousel();               // section 3's plate: eight real issues, one at a time
   initDomainSlot();                 // the yellow blank in the CTA, on its own clock
   alignDeckToHeadline();            // deck top meets headline top — must run BEFORE the arrow measures
   initBeatPointer();                // the sub's marker arrow, drawn from "magazine." onto the front zine
@@ -353,13 +353,17 @@ function fillGutters() {
    file degrades to the placeholder instead of a broken-image icon. */
 /* IT PROBES BY HANDLE, so every card whose <b> is NOT a handle costs a 404 per load. That was
    already true of #proof's four named cards (the probe is the fallback path - the photo is set
-   in the markup and this only upgrades it), and #tools made it worse on 2026-09-02: its three
-   <b class="tp-name"> elements are TOOL NAMES, so it went looking for
+   in the markup and this only upgrades it), and the tool cards made it worse on 2026-09-02: their
+   three <b class="tp-name"> elements are TOOL NAMES, so it went looking for
    assets/makers/Accountability for a community.jpg and two more like it. Eight 404s a load.
    TWO GUARDS, both cheap: skip any card that already carries .has-photo (its photo is resolved,
    there is nothing to upgrade), and skip anything that is not a handle-shaped string. The
-   .has-photo guard alone fixes #tools AND removes #proof's four, because every card on this page
-   now ships its photograph in the markup. The probe survives for a card that does not. */
+   .has-photo guard alone fixes the tool cards AND removes #proof's four, because every card on
+   this page now ships its photograph in the markup. The probe survives for a card that does not.
+   ~~#tools~~ 2026-09-07: that section was deleted and the three .tpol cards moved into the slate
+   sheet at #what-you-get. NOTHING HERE CHANGES - this function selects .mpol, not a section, so
+   it still finds the same three cards and both guards still fire on them. The names are updated
+   only so the next reader can find the cards. */
 function initMakerPhotos() {
   document.querySelectorAll('.mpol').forEach((pol) => {
     const handle = (pol.querySelector('.mv-strip b')?.textContent || '').replace('@', '').trim();
@@ -573,8 +577,16 @@ function alignDeckToHeadline() {
   document.addEventListener('transitionend', (e) => {
     if (e.target instanceof Element && e.target.closest('.hero-card')) requestAnimationFrame(apply);
   }, { passive: true });
-  // the sub is the other end of the fold that reflows (the tape wraps at some widths), and the
-  // deck's own art loads late. Both change size, so these two are genuinely ResizeObserver work.
+  // ~~the sub is the other end of the fold that reflows (the tape wraps at some widths), and the
+  // deck's own art loads late. Both change size, so these two are genuinely ResizeObserver work.~~
+  // FALSE SINCE 2026-09-07 and there is NO CODE CHANGE TO MAKE, which is why this note exists.
+  // <p class="ed-sub"> is not in index.html any more - it is the h2 of section 3 (#zines). The
+  // querySelector returns null and the `if (sub)` guard means the second observe silently does
+  // not happen; the deck's observe is the whole of the behaviour now, and it is the half that
+  // was always doing the work (the deck's own art loads late). DO NOT DELETE THE GUARDED PAIR:
+  // all seven archived index-*.html read this file and every one of them still serves a
+  // .ed-sub, so on those pages both ends are still observed. Delete it and you break seven
+  // pages to tidy one.
   if (window.ResizeObserver) {
     const ro = new ResizeObserver(() => requestAnimationFrame(apply));
     ro.observe(deck);
@@ -2761,7 +2773,10 @@ function initZineCarousel() {
   var D = [
 // ~~ROWS 0 AND 1 - Zine Machine's "make a paper zine" and Drexzine's "make a doodle at the
   // cafe"~~ REMOVED 2026-09-02 WITH THEIR LAYERS. Both were videos, not page-strips, and both
-  // moved to the #tools band (founder's call). THIS ARRAY IS INDEXED BY LAYER: D[i] belongs to
+  // moved to the ~~#tools band~~ three What-you-get polaroids (founder's call), which on
+  // 2026-09-07 moved again, into the slate sheet at #what-you-get. Same two clips, same cards,
+  // one less section wrapper; the array is unaffected either way.
+  // THIS ARRAY IS INDEXED BY LAYER: D[i] belongs to
   // the i-th .zl in the markup, so a row and a layer are added or removed TOGETHER or every
   // issue past the gap wears the next one's challenge, club and link. Ten became eight.
 {d:18, craft:'modeling',          club:'XChange Models',     tape:'come as your heritage',        lead:'Eleven models reflect on their performance.',
@@ -2792,12 +2807,23 @@ function initZineCarousel() {
 
   var i = 0, timer = null, manual = false, dwellMs = 9000, holdOnce = 0;
 
-  /* THE CLIP WAITS FOR THE READER, AND NOTHING ELSE STARTS IT.
-     whenRevealed() gives up after 9 seconds and fires anyway. That is right for a
-     layout settle, which must never be stranded behind a cut that failed — and
-     wrong for a video, because a reader who spends fifteen seconds playing with
-     the burger would then meet a 77-second take already a third of the way in,
-     past the card that names the club and the challenge.
+  /* THE PLATE CANNOT BE MEASURED UNTIL THE CUT, AND THAT IS WHY THIS GATE EXISTS.
+     ~~THE CLIP WAITS FOR THE READER~~ — the original 2026-09-02 argument was about a
+     77-second video at the fold: "a reader who spends fifteen seconds playing with the
+     burger would then meet a 77-second take already a third of the way in, past the card
+     that names the club and the challenge." NO LAYER HAS BEEN A VIDEO SINCE 2026-09-02
+     (both clips moved to the tool cards), so that reason is gone and the gate is not.
+     THE REASON IT STAYS, and it is a stronger one: app-post-beta.css:573 hides
+     `main > section:not(.hero)` while the page is sealed. The plate is in section 3 as of
+     2026-09-07, so until the cut its frame measures 0x0 — and everything the carousel
+     computes is a measurement. fitTape() sizes the Dymo off `frame.clientWidth - 76`,
+     which is -76 while hidden, so the tape boots at its 9.5px floor and never corrects
+     until a resize (measured, both ways). show()'s pan is measured too, and survives only
+     because of an attribute fallback — the note at the call site has the numbers. So the
+     queue is what makes the FIRST view of the section correct, not just the first play.
+     (The plate was display:none while sealed at the fold too, so this is a pre-existing
+     bug, not one the move created. It only becomes visible in a section whose entire job
+     is "watch the pages scroll".)
      So this gate has no clock on it. It does not need one: the envelope carries
      its own failsafe in the served HTML (un-seal after 6s if app.js never armed
      it), and that un-seal satisfies the same predicate, so a broken cut still
@@ -3123,10 +3149,24 @@ function initZineCarousel() {
   show(0);
   bleed();
   whenRevealed(bleed);   // the card settles when the envelope lifts
-  // The clock starts with the reader, not with the parser. show(0) above defers
-  // layer 0's video to the same gate, so arming here would run a timer against a
-  // clip that has not begun — and on a long clip the timer would win.
-  whenOpen(start);
+  // The clock starts with the reader, not with the parser.
+  // AND SO DOES THE FIRST MEASUREMENT (2026-09-07). show(0) above runs at boot, while
+  // css:573 still has this whole section display:none, so every box it measures is 0.
+  // A/B'd at 375x667 against this same file with `whenOpen(start)` restored, rather than
+  // reasoned about, because the two halves do NOT fail the same way:
+  //   fitTape() IS BROKEN WITHOUT THIS. `frame.clientWidth - 76` is -76 while hidden, so
+  //   the Dymo boots at its 9.5px floor and stays there until something resizes the
+  //   window. Measured: .zc-chal renders 9.5px without the re-run and 15.5px with it.
+  //   show() SURVIVES BY ACCIDENT, and the accident is worth knowing. `full` is
+  //   `img.getBoundingClientRect().height || (img.height || 0)` and the second term is the
+  //   HTML height ATTRIBUTE, which is right even at display:none - so --travel comes out
+  //   2970px either way. What is wrong is `room`: box is 0, so room is overstated by a
+  //   frame's height. It does not bite TODAY only because every strip is long enough that
+  //   the dwell cap binds first (the tightest is interactive.jpg, 1719 tall on d:7: room
+  //   1159 against a 1155 cap). Add a short strip or a long dwell and it would.
+  // So: re-run BOTH in the gate. show(i), not show(0) - a click on the rack before the cut
+  // has to survive the reveal.
+  whenOpen(function(){ show(i); fitTape(); start(); });
 }
 
 /* THE DOMAIN SLOT (2026-08-13) — the yellow blank in the call to action.
@@ -3219,9 +3259,15 @@ function fitSheet() {
   if (!card) return;
   var sheet = card.querySelector(':scope > .sheet');
   // the last thing written on the note. querySelector took the FIRST .ed-sub,
-  // which was fine while there was one; the 2026-08-24 fold has two plus the
-  // coupon, and measuring an earlier element left the rest hanging off the
+  // which was fine while there was one; ~~the 2026-08-24 fold has two plus the
+  // coupon~~ - it has ZERO plus the coupon as of 2026-09-07, the sub having moved
+  // to section 3 - and measuring an earlier element left the rest hanging off the
   // paper onto the collage. The coupon is the note's last object now.
+  // NO CODE EDIT WAS NEEDED FOR THAT and the selector is deliberately left alone:
+  // querySelectorAll returns document order, so the LAST match is now .ed-cta,
+  // which is exactly what the sentence above already calls the note's last object,
+  // and the Math.max(pad,44) branch below still fires for it. The .ed-sub term
+  // also still matches on the seven archived index-*.html that read this file.
   var subs  = card.querySelectorAll('.ed-sub, .ed-cta');
   var last  = subs[subs.length - 1];
   var inner = card.querySelector('.inner');
@@ -3265,9 +3311,17 @@ addEventListener('resize', fitSheet);
    picture at 1094 or falls short at 1680. Scale the drawing uniformly to the
    measured gap (+14px so the tip touches the border), clamped so the arrowhead
    stays hand-sized. Under 900px the CSS hides it — one column, the plate is
-   directly below and adjacency does the pointing. */
+   directly below and adjacency does the pointing.
+   THE PLATE LOOKUP IS SCOPED TO #zineCarousel (2026-09-07) AND THAT IS DEFENSIVE ONLY.
+   Nothing changes today: .ed-point exists nowhere in index.html's markup - the sole hit,
+   index.html:1698, is inside a comment recording its deletion - so the guard below already
+   returns on its first term and this whole function is inert. But as of 2026-09-07
+   document.querySelectorAll('.zc-plate').length is 2: the carousel's, and the id-less one
+   inside the show & tell spine's beat-04 figure (.dd-zine). An unscoped first-in-document
+   lookup would still find the carousel's today, and would silently find the wrong one the
+   day anything reorders them - a trap laid for whoever restores .ed-point. */
 function aimArrow(){
-  var svg = document.querySelector('.ed-point'), plate = document.querySelector('.zc-plate');
+  var svg = document.querySelector('.ed-point'), plate = document.querySelector('#zineCarousel .zc-plate');
   if (!svg || !plate) return;
   var p = svg.parentElement.getBoundingClientRect(), z = plate.getBoundingClientRect();
   if (z.left <= p.right) return;
