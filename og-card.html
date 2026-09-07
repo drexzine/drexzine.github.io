@@ -63,11 +63,22 @@ body{background:#C9BEA4;font-family:"Pitch Sans",monospace;-webkit-font-smoothin
 .sheet{position:absolute;left:-26px;top:-30px;width:742px;height:690px;
   background:var(--oats);transform:rotate(-1.15deg);
   box-shadow:16px 18px 0 0 rgba(48,38,22,.30);filter:url(#torn)}
-.inner{position:absolute;left:74px;top:96px;width:566px}
-.eyebrow{font-family:"Birdie",cursive;font-size:30px;color:var(--coral-ink);
-  transform:rotate(-1deg);display:block;margin-bottom:16px}
+/* WIDTH IS MEASURED, NOT GUESSED. At 80px the two headline lines set 504px and 587px of
+   actual glyph, so 600 holds them with 13px to spare and leaves a 48px gutter before the
+   rack at x=728. Widen this and the headline touches the zines; narrow it and "your
+   talents." breaks to a third line with "your" alone, which is what 86px did. */
+.inner{position:absolute;left:80px;top:116px;width:600px}
+/* ~~.eyebrow~~ DELETED 2026-09-07. Founder: "we can get rid of the red text. the text
+   can be larger and more legible. the whitespace can be better."
+   It was the only coral on the card and the smallest thing on it, and a share card is
+   read at thumbnail size in a feed - a 30px cursive line at that scale is a red smudge,
+   not a rank. Deleting it buys ~46px of vertical room, which is what pays for the
+   headline going 70 -> 86 and the deck 30 -> 34. Rank count goes three to two, matching
+   the six head strings, which are H1 then deck and nothing else. The rule it carried
+   ("a club, a challenge, a deadline") is not lost - the three zines pinned beside it
+   say club and issue, and the deck says the rest. */
 h1{font-family:"Pitch",Georgia,serif;font-weight:700;font-style:italic;
-  font-size:70px;line-height:1.03;letter-spacing:-.022em;color:var(--ink);
+  font-size:80px;line-height:1.04;letter-spacing:-.028em;color:var(--ink);
   word-spacing:-.30em}   /* Pitch is MONOSPACED: without this the words set as isolated tokens */
 h1 .g{color:var(--grass-deep)}
 h1 .stop{color:var(--grass)}
@@ -76,16 +87,35 @@ h1 .stop{color:var(--grass)}
    so it sets the same two ranks in the same order. Pitch Sans, not Pitch: the headline
    owns the italic slab and a second slab under it reads as a two-line headline that lost
    its size. 30px against the h1's 70 is the same ~2.3x drop the fold uses. */
-.sub{font-family:"Pitch Sans",monospace;font-weight:500;font-size:30px;line-height:1.32;
-  color:var(--ink);opacity:.86;margin-top:22px;display:block;max-width:520px}
+/* 34px and FULLY OPAQUE. It was 30px at opacity .86, which is the move that makes a deck
+   look secondary on a screen you are sitting in front of and makes it disappear in a feed.
+   Weight 600 not 500 for the same reason: Pitch Sans at this size on cream needs the extra
+   stem to hold up next to an 86px slab. Contrast is now full ink on oats. */
+.sub{font-family:"Pitch Sans",monospace;font-weight:600;font-size:34px;line-height:1.34;
+  color:var(--ink);margin-top:30px;display:block;max-width:576px}
 .sub .g{color:var(--grass-deep);font-weight:700}
-.mark{position:absolute;left:74px;bottom:66px;display:flex;align-items:center;gap:18px}
+/* line-height:1 on the wordmark so the mark's box IS the glyph. Without it a 64px italic
+   Pitch carries ~59px of leading, the mark's box starts 30px above what you can see, and
+   every vertical number below is measured against air. */
+.mark{position:absolute;left:80px;bottom:104px;display:flex;align-items:center;gap:18px;
+  line-height:1}
 .wordmark{font-family:"Pitch",Georgia,serif;font-weight:700;font-style:italic;
-  font-size:52px;color:var(--grass-deep);letter-spacing:-.03em}
-.rule{width:3px;height:34px;background:var(--ink);opacity:.28;border-radius:2px}
-.dom{font-family:"Pitch Sans",monospace;font-weight:600;font-size:26px;
-  letter-spacing:.10em;color:var(--ink);opacity:.72}
+  font-size:64px;line-height:1;color:var(--grass-deep);letter-spacing:-.03em;display:block}
+/* ~~.rule + .dom ("| DREX.STYLE")~~ DELETED 2026-09-07. Founder: "the 'drex.style' seems
+   aloof and hard to read." Both were true and the second caused the first: 26px monospace
+   at .10em letter-spacing and .72 opacity is a caption set as a specimen label, and set
+   like that a domain reads as fine print rather than as an address.
+   IT IS ALSO REDUNDANT. Every surface that renders this card - Slack, iMessage, X,
+   Facebook, LinkedIn - prints the hostname under the image itself, so the card was
+   spending its most valuable corner repeating the one thing the chrome already says.
+   The wordmark goes 52 -> 64 and stands alone, which is the brand lockup this repo
+   actually specifies: the mark, in brand green, with nothing set beside it. */
 /* THE RACK. Four real covers, fanned, each on its own angle and its own pin. */
+/* 520 AND NOT LESS. The three .zine are anchored by `right:`, so narrowing this window
+   does not move them - it crops them. At 472 the Silk Road cover lost its left edge and
+   read "K ROAD / 001". The text column is held off the rack by measuring the glyphs
+   instead (see .inner): the longest headline line is 587px, so it stops at x=667 while
+   the leftmost zine starts at x=710. */
 .rack{position:absolute;right:0;top:0;width:520px;height:630px;overflow:hidden}
 .zine{position:absolute;width:252px;aspect-ratio:4/5;background:var(--oats);
   border:3px solid var(--ink);box-shadow:8px 10px 0 0 rgba(48,38,22,.34);overflow:hidden}
@@ -126,14 +156,11 @@ h1 .stop{color:var(--grass)}
          GREEN GOES ON "talents", where the fold puts its emphasis. The deck keeps
          "magazine" green so the card still names the object in one glance - a reader who
          only sees the picture should still learn what is being made. -->
-    <span class="eyebrow">a club, a challenge, a deadline</span>
     <h1>Don&rsquo;t waste your <span class="g">talents</span><span class="stop">.</span></h1>
     <span class="sub">Get accountable by making a <span class="g">magazine</span> together.</span>
   </div>
   <div class="mark">
     <span class="wordmark">drex.</span>
-    <span class="rule"></span>
-    <span class="dom">DREX.STYLE</span>
   </div>
 </div>
 </body></html>
