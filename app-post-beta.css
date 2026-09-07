@@ -11271,8 +11271,10 @@ html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
 .lands-grid .pw-col.is-lib .pw-go::before{display:none}
 .lands-grid .pw-col.is-lib .pw-go .arr{color:currentColor}
 /* .nb IS SCOPED LIKE EVERY OTHER .nb ON THIS PAGE (there are four, all scoped, and the class is
-   inert wherever it is not - see the .ed-deck note). It keeps the arrow welded to "publish" so
-   the 320 break is READ WHAT CLUBS / PUBLISH -> instead of stranding the arrow on its own line.
+   inert wherever it is not - see the .ed-deck note). It keeps the arrow welded to the last word
+   so the 320 break is READ WHAT CLUBS / PUBLISHED -> instead of stranding the arrow on its own
+   line. Quoted off the label as served; if the label changes, re-measure at 320 before assuming
+   the weld still lands in the same place.
    inline-flex, not inline: .pw-go's own gap only separates ITS children, so the arrow needs the
    same gap re-declared inside the weld or it butts against the T. */
 .lands-grid .pw-col.is-lib .pw-go .nb{white-space:nowrap;
