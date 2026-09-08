@@ -10789,7 +10789,13 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    type, an 8-character middle line reads as broken.
    THE SPAN STAYS INERT AND THAT IS NOW DELIBERATE, not the trap the note above
    describes — this comment is the disclosure. Do not re-rule it without looking at
-   the rendered block at 320 and 375; the rag, not the widow, is what decides. */
+   the rendered block at 320 and 375; the rag, not the widow, is what decides.
+   2026-09-08: the deck is "Get better by running a magazine together." now (43
+   characters, index.html's deck note has the argument). Rendered at 320 and 375 it
+   is TWO lines, "Get better by running a / magazine together.", so the widow the
+   two paragraphs above argue over does not occur on this line at all. The span
+   stays, still inert, still disclosed here; the 09-07 render rule stands for the
+   next line that runs to three. */
 /* ~~the sub drops a rank so three ranks descend instead of the lower two tying~~
    THERE IS NO THIRD RANK IN THIS FOLD as of 2026-09-07 - .ed-sub is not in
    index.html any more. THE RULE STAYS AND MUST: all seven archived index-*.html
