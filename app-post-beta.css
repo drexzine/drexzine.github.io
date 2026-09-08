@@ -2416,23 +2416,37 @@ html[data-tier="lite"] .lg-real::before{filter:none}
    same scoping trick .hero.ed:has(.card-clip.fold-v2) uses at :11096.
    =================================================================== */
 .note-crew:has(.snap.quad){width:min(336px,100%)}
-/* ONE ROUTE UNDER THE BLOCK, replacing four per-person addresses (2026-09-07; the argument is
-   in index.html directly above this element). It takes the crew block's own width so it reads
-   as that block's caption and not the letter's, and it is mono at .cm-mail's size because
-   that is the rank an address had here an hour ago - the type did not change, the count did. */
-/* THE BOTTOM MARGIN IS CLEARANCE FOR AN ELEMENT THAT IS NOT IN THIS FILE. app-post-beta.js
-   (:1664) appends a `.crumple-hint.is-fold` button into .crumple-host, which is inset:0 over
-   this same paper, and the hint pins itself to right:12px / bottom:12px. Without the margin
-   this line runs straight under "tap to crumple" at 375 - measured, the address was half
-   covered. 2.6rem puts the hint's band below the text with ~12px to spare at every width the
-   note is served at. The hint is created inside a try/catch (no WebGL, no hint), so on a
-   machine without it this margin is dead space - which is the cheaper of the two failures. */
-.crew-reach{width:min(336px,100%);margin:.55rem auto 2.6rem;text-align:center;
-  font-family:var(--f-mono);font-size:clamp(.56rem,2.45vw,.68rem);letter-spacing:.04em;
-  line-height:1.2;color:var(--sambas)}
-.crew-reach a{color:var(--grass-deep);text-decoration:none;border-bottom:1px solid rgba(12,110,57,.4)}
-.crew-reach a:hover{border-bottom-color:var(--grass-deep)}
-.crew-reach a:focus-visible{outline:3px solid var(--lazuli);outline-offset:2px}
+/* THE CREW'S ROUTE IS A POSTSCRIPT (2026-09-07, second attempt; the argument and the autopsy
+   of the first are in index.html above this element).
+   ~~.crew-reach~~ was 11px centred grey mono under the 2x2 block. It shipped for one commit and
+   the founder killed it: "that just looks SHIT." The rank was right - a line, not a button -
+   and the TYPE was wrong. A letter does not end in a centred microcopy line with a colon in it;
+   it ends in a signature, and anything after the signature is a p.s.
+   SO IT IS HAND, CORAL, AND LEFT-ALIGNED WITH THE LETTER. .note-body is left-aligned Bitter and
+   .sign / .sign-role sit under it on the same edge; a centred line below the photographs was
+   the only thing in this whole section not on that edge, which is most of why it read as bolted
+   on. Left-aligning it also walks it out from under the crumple hint (bottom-right), so the
+   2.6rem of clearance the old rule needed drops to a normal 1.4rem of breathing room.
+   --coral-ink at 4.83:1 on the note's paper: the page's handwriting colour, and this is the one
+   line in the section that is literally an afterthought in somebody's hand.
+   "p.s." IS ITS OWN SPAN so it can hold the ink weight without the sentence shouting - the same
+   split .sign / .sign-role uses one rank up. The em dash is fine here; the no-em-dash rule is
+   a HEAD-STRINGS rule (<title>, the metas, the OG pair) and this is body copy. */
+/* THE BOTTOM MARGIN IS CLEARANCE FOR AN ELEMENT THAT IS NOT IN THIS FILE, and it survived the
+   rewrite from .crew-reach for the same reason it existed there: app-post-beta.js:1664 appends
+   a `.crumple-hint.is-fold` button into .crumple-host (inset:0 over this paper) and pins it to
+   right:12px / bottom:12px. Left-aligning the p.s. moved it out from under the hint
+   horizontally, but the address wraps to its own line at 375 and lands beside it, which is
+   proximity rather than collision and is one narrower viewport away from being both. 2.4rem
+   drops the hint clear below the whole postscript instead of beside it. */
+.crew-ps{width:min(336px,100%);margin:1.4rem auto 2.4rem;text-align:left;
+  font-family:var(--f-hand);font-size:1.02rem;line-height:1.25;
+  color:var(--coral-ink);transform:rotate(-.7deg);transform-origin:left center}
+.crew-ps-k{font-weight:700;margin-right:.15em}
+.crew-ps a{color:var(--coral-ink);text-decoration:none;
+  border-bottom:1.5px solid rgba(201,52,58,.45)}
+.crew-ps a:hover{border-bottom-color:var(--coral-ink)}
+.crew-ps a:focus-visible{outline:3px solid var(--lazuli);outline-offset:2px;border-radius:2px}
 /* PERCENT, NOT vw, AND THE -5px IS PAID BACK IN THE WIDTH. The row must hold
    EXACTLY two at every width, and vw is the wrong ruler: this block sits in a
    grid column inside a padded sheet, so its width is nothing like the viewport's
