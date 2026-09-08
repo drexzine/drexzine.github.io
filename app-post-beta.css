@@ -751,7 +751,12 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
   line-height:1;margin:var(--s-03) 0 0;color:var(--ink)}
 .card.big h3{font-size:clamp(2.1rem,3.2vw,2.9rem)}
 .card .cap{font-family:var(--f-hand);font-size:var(--fs-body);color:var(--sambas);transform:rotate(-1deg);display:inline-block}
-.card p{margin:.9rem 0 1.4rem;font-size:1rem;line-height:1.5;color:rgba(65,77,87,.85)}
+/* BODY RANK, NOT A FOURTH SIZE (2026-09-07 typography pass). This was `font-size:1rem;line-height:1.5`
+   = 16px/24px, the only running text on the page not on the scale: the same h3+p relationship in
+   #showtell sets 18.8px/28.9px. Same rank, same size (Bringhurst: differences should mean something).
+   line-height is --lead (a LENGTH, 26->29px) so these lines sit on the same pitch as the ruled ground
+   and every other body paragraph; text-wrap:pretty is a no-cost rag/orphan guard where supported. */
+.card p{margin:.9rem 0 1.4rem;font-size:var(--fs-body);line-height:var(--lead);text-wrap:pretty;color:rgba(65,77,87,.85)}
 .card .foot{margin-top:auto;display:flex;flex-direction:column;gap:var(--s-08)}
 .card .url{font-family:var(--f-mono);font-size:var(--fs-label);letter-spacing:.06em;color:var(--sambas);text-transform:lowercase}
 /* resting tilts — littered on the table; straighten + lift on hover */
@@ -1671,7 +1676,7 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 .lg-real-q{margin:0 0 var(--s-1);font-family:var(--f-slab);font-style:italic;font-weight:700;
   letter-spacing:-.02em;line-height:1.08;text-wrap:balance;
   font-size:var(--fs-2);color:var(--oats)}
-.lg-real-a{margin:0;font-family:var(--f-body);font-size:var(--fs-body);line-height:1.55;
+.lg-real-a{margin:0;font-family:var(--f-body);font-size:var(--fs-body);line-height:var(--lead);text-wrap:pretty;  /* --lead not 1.55: one body leading page-wide, see .sht-sub (2026-09-07) */
   color:rgba(254,246,228,.90);max-width:34ch}
 @media(max-width:720px){
   .lg-real{grid-template-columns:1fr;justify-items:center;text-align:center;max-width:24rem}
@@ -2265,7 +2270,8 @@ html[data-tier="lite"] .lg-real::before{filter:none}
    off the lines it was drawn on — 10.4px further down the page every line. One token, used twice. */
 .note{--note-fs:var(--fs-lede)}
 .note .paper>.sheet.ruled{--rule:calc(var(--note-fs) * 1.5)}
-.note-body{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:var(--note-fs);line-height:1.5;color:var(--ink);max-width:min(36ch,100%);margin:var(--s-08) 0 0}
+.note-body{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:var(--note-fs);line-height:1.5;color:var(--ink);max-width:min(36ch,100%);margin:var(--s-08) 0 0;
+  text-wrap:pretty}  /* 2026-09-07: the column is ~25ch at 1280 (the 1fr/auto grid gives the polaroids their width first), so the rag was choppy; pretty is the cheapest fix and costs nothing where unsupported */
 .note-body b{font-weight:700;color:var(--grass-deep)}
 .sign{font-family:var(--f-hand);font-size:clamp(2.2rem,4.5vw,3.2rem);color:var(--grass-deep);margin:1.1rem 0 0;line-height:1}
 .sign-role{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.14em;font-size:var(--fs-micro);color:var(--sambas);margin:.35rem 0 0}
@@ -5687,7 +5693,8 @@ html,body{overflow-x:clip}   /* on <html> too: the burger's string is fixed-posi
    It only looked clean at 430 because line two is short and centred out from under it. */
 @media(max-width:560px){ .dk-head h2{line-height:1.22} }
 .dk-head h2{font-family:var(--f-head);font-weight:700;font-size:var(--fs-2);line-height:1.03;
-  letter-spacing:-.01em;color:var(--ink);margin:.1rem 0 var(--s-1)}
+  letter-spacing:-.01em;color:var(--ink);margin:.1rem 0 var(--s-1);
+  text-wrap:balance}  /* 2026-09-07: its peers (.pw .head h2, .seewhat .head h2, .lg-real-q) all balance; this one set "letterers." as a one-word last line at 1280 */
 .dk-head h2 .stop{color:var(--grass-deep)}
 .dk-sub{font-family:var(--f-body);font-style:italic;font-size:var(--fs-lede);line-height:1.45;
   color:var(--ink-soft);max-width:54ch;margin:0 auto}
@@ -6110,7 +6117,11 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    textual is solid --ink (which is the same #414D57 as --sambas), so the
    hierarchy is carried by size, weight and the accent colours instead of by
    fading things out. Side benefit: 4.77-5.42:1 becomes ~9:1. */
-.sht-sub{font-family:var(--f-body);font-size:var(--fs-body);line-height:1.5;color:var(--ink);
+/* line-height is --lead, not 1.5 (2026-09-07): 1.5 x --fs-body = 28.1px against a 28.93px rule pitch,
+   so an 8-line paragraph drifted a quarter-line off the printed rules. --lead is a LENGTH and inherits
+   as fixed px; that is what we want on a <p> whose only children are inline <b>. Same change on
+   .dd-text p, .lg-real-a and .card p, so the page has ONE body leading. */
+.sht-sub{font-family:var(--f-body);font-size:var(--fs-body);line-height:var(--lead);text-wrap:pretty;color:var(--ink);
   max-width:46ch;margin:.7rem auto 0}
 .sht-sub b{color:var(--ink);font-weight:600}
 
@@ -6269,7 +6280,7 @@ html[data-tier="lite"] .board .bd-glyph svg>*{filter:none!important}
    mapping and is simply unnecessary under the new one.
    FLAGGED, NOT SOLVED: grass-as-people, and grass-as-link, are used page-wide. This is local. */
 .dd-together{color:var(--beat-ink)}
-.dd-text p{margin:0;font-family:var(--f-body);font-size:var(--fs-body);line-height:1.5;
+.dd-text p{margin:0;font-family:var(--f-body);font-size:var(--fs-body);line-height:var(--lead);text-wrap:pretty;  /* --lead not 1.5: see .sht-sub (2026-09-07) */
   color:var(--ink);max-width:32ch}          /* solid ink, not --ink-soft: ~9:1 instead of 5.4:1 */
 .dd-text p b{font-weight:600}
 
@@ -9477,7 +9488,12 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
   max-width:var(--mw,74rem); margin-inline:auto;
   padding:clamp(var(--s-3),4vw,var(--s-5)) clamp(1.2rem,5vw,2.4rem) clamp(var(--s-4),5vw,var(--s-6));
 }
-.seewhat .head{max-width:44rem; margin:0 auto; text-align:center}
+/* THE HOUSE HEAD GAP, RESTORED (2026-09-07). This head had margin-bottom 0 and the gap to the boards
+   was carried by .lands-head's top margin below - which is now an EMPTY div (its heading moved into the
+   grid on 09-03), so the section's h2-to-content gap measured 106px at 1280 / 67px at 375 against
+   42px / 29px in every centred sibling (#what-you-get, #proof, #zines, #why-not-chat). One relationship,
+   one value: --head-gap here, and the empty container's margin goes to 0. */
+.seewhat .head{max-width:44rem; margin:0 auto var(--head-gap); text-align:center}
 /* the heading system (its block sits upfile), applied here because this rule is below it — see
    the note on .showtell .head h2. TIER B. The .nb nowrap rules below still own the line breaks. */
 .seewhat .head h2{
@@ -9609,7 +9625,7 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
    text in LATER sibling sections too. THE NUMBER IS 5, NOT 1, AND THAT IS MEASURED:
    .cg-collage.cg-fore is z-index 3 and is the layer carrying PHOTOGRAPHS. 5 clears both layers
    and every pinned label on this page (.pw-kind is 3, .rd-dymo is 3). */
-.lands-head{position:relative;z-index:5;max-width:44rem;margin:clamp(2rem,5vw,3.2rem) auto 0;
+.lands-head{position:relative;z-index:5;max-width:44rem;margin:0 auto;  /* was clamp(2rem,5vw,3.2rem) auto 0 - the div is empty since 09-03 and .seewhat .head now owns the gap (2026-09-07) */
   text-align:center;display:flex;flex-direction:column;align-items:center}
 .lands-src{display:block;position:relative;isolation:isolate;width:max-content;
   margin-right:clamp(0rem,26vw,15rem);
@@ -9640,7 +9656,14 @@ html[data-tier="lite"] .sw-arrow svg{filter:none}
    align-items:start is inherited from .pw-pair and is load-bearing here: the three cards are
    1:1, 4:5 and 4:5, so they end at different heights and the row must not stretch them. */
 .lands-grid{grid-template-columns:repeat(3,1fr);max-width:1080px;
-  gap:clamp(2.2rem,4vw,3rem);margin-top:clamp(2.2rem,5vw,3.4rem)}
+  gap:clamp(2.2rem,4vw,3rem);
+  /* margin-top was clamp(2.2rem,5vw,3.4rem) = 35->54px, stacked on the (now empty) .lands-head's
+     32->51px, so the h2 sat 106px above its first board while every centred sibling sits 42px above
+     its first content. .seewhat .head now carries --head-gap (2026-09-07); what stays here is only the
+     corner sticker's overhang above the board (~13px), so the gap is measured to the FIRST INK - the
+     sticker - and the boards themselves land one sub-rung below it. Measured after: h2 -> sticker
+     42px / 29px at 1280 / 375, the same numbers #proof and #what-you-get render. */
+  margin-top:var(--s-08)}
 @media (max-width:820px){
   .lands-grid{grid-template-columns:1fr;max-width:400px;gap:clamp(2.4rem,8vw,3rem)}
   /* the pair's mobile rule squashes 4:5 to 4:3; the library card is square either way */
