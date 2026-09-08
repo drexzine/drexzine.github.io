@@ -98,7 +98,11 @@ HTML comments at the cited line.
 - **No named cadence** — "regular", never "monthly". The date belongs to the club, and
   the page says so twice in visible copy. A number is allowed only in a worked example
   about one named club.
-- **"creative" and "portfolio" are struck.** So is the corporate third-person register
+- **"creative" is struck.** ~~So is "portfolio".~~ **"portfolio" was un-struck on 2026-09-07**
+  by the founder, who asked for the two `#seewhat` wall cards to be relabelled "The Club's
+  Portfolio" and "Your Portfolio" on red Dymo tape. The 2026-08-29 sweep that struck it is
+  still described at the top of `index.html`; that history stands, the prohibition does not.
+  "Circle" and "Editor" are still dead names. So is the corporate third-person register
   ("Drex is where…", "this platform exists to…"). Both rules held on 2026-09-05 when the
   Sep-5 variant was promoted: its deck read "Drex is where creative groups stay accountable
   by making magazines together." and was rewritten for the page. The third-person sentence

@@ -10972,6 +10972,34 @@ html[data-tier="lite"] .pw-sticker::before{filter:none}
 /* each one leans its own way, so three stickers read as three things somebody stuck on */
 .lands-grid .pw-col.is-club .pw-sticker{transform:rotate(1.8deg)}
 .lands-grid .pw-col.is-mine .pw-sticker{transform:rotate(-1.3deg)}
+
+/* ---- THE TWO WALL CARDS TAKE RED DYMO TAPE (2026-09-07) ----------------------------------
+   Founder: "make 'the club's wall' and 'your wall' red dymo tape that reads 'The Club's
+   Portfolio' and 'Your Portfolio'". Card one keeps the lazuli sticker, which is also the card
+   that carries the lazuli .pw-go button - one card, one colour, and blue stays the read door.
+   --coral-ink AND NOT --colorado, for the fourth time in this file and the same reason every
+   time: this is a colour carrying text. The note at the numeral tape says it outright - "RED,
+   because Dymo tape is red. --coral-ink, not --colorado... oats numerals on bright Colorado
+   measure 3.05:1, which fails AA outright... real label tape is a deep red, not a coral."
+   Oats on --colorado here measures the same 3.07:1 this file already recorded for Colorado; the
+   #FFF8EC letters the rest of the Dymo idiom uses sit on --coral-ink at 4.98:1.
+   IT IS THE PAGE'S EXISTING DYMO SPEC, NOT A NEW OBJECT. .zc-chal on the plate and .sub-chal in
+   the archived folds are both --coral-ink fill / #FFF8EC letters / one tinted 1px text-shadow /
+   #roughsm on the ::before that carries the background and never on the element holding the
+   text. These two now match that spec exactly, so the page has ONE red tape, used three times.
+   #roughsm REPLACES #torn ON THESE TWO. #torn displaces at scale 12 - a torn paper edge, right
+   for a sticker - and Dymo tape is embossed plastic with a clean-ish cut. scale 3 is the edge
+   every other tape on this page carries. Card one keeps #torn, because it is still a sticker.
+   THE LEANS ABOVE ARE UNTOUCHED and still do their job: three labels, three angles.
+   ------------------------------------------------------------------------------------------ */
+.lands-grid .pw-col.is-club .pw-sticker,
+.lands-grid .pw-col.is-mine .pw-sticker{
+  color:#FFF8EC; text-shadow:0 1px 0 rgba(93,18,22,.55)}
+.lands-grid .pw-col.is-club .pw-sticker::before,
+.lands-grid .pw-col.is-mine .pw-sticker::before{
+  background:var(--coral-ink); filter:url(#roughsm)}
+html[data-tier="lite"] .lands-grid .pw-col.is-club .pw-sticker::before,
+html[data-tier="lite"] .lands-grid .pw-col.is-mine .pw-sticker::before{filter:none}
 /* THE LINE UNDER THE CARD IS A SUBTITLE NOW, not a repeat of the name, so it drops the tape's
    old clearance (.pw-name carried margin-top:2.1rem to clear .pw-kind, which is gone). */
 .lands-grid .pw-name{margin-top:1.15rem;font-size:1.08rem}
