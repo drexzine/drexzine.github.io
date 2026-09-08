@@ -1263,30 +1263,32 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
    MARGIN-TOP IS THE SECTION'S FOOT, not the line's: .gifts-foot above already carries its own
    clamp, and stacking two of them put the button 96px off the scrawl at 1440. */
 .proof-cta{text-align:center;margin:clamp(1.5rem,3.4vw,2.2rem) 0 0}
-/* THE SECOND RANK UNDER THE JOIN DOOR (2026-09-07). The shape is the fold coupon's "or log in";
-   the differences are both deliberate. (1) IT IS AN ANCHOR. The coupon's line sits inside a link
-   that already opens the screen it names, so a second anchor there would be a duplicate target;
-   this one goes to /show-and-tell and the button goes to /welcome, so it has to be its own link.
-   (2) IT IS LAZULI. The coupon's line is coral because it is the same join offer one rank down;
-   this is a read door, and read is --lazuli-deep everywhere on this page as of today. 5.20:1 on
-   the cream #proof actually ships on (that section has no .gnd - every #proof.gnd rule in this
-   file is dormant, which is also why the .btn above it is grass-deep on oats and not on green).
-   THE HAND, NOT THE MONO. It is a spoken aside under a stamped button, exactly like the coupon's
-   - and .gifts-foot two lines up is already hand at 1.25rem, so a mono line between them would
-   be a third voice in a three-line stack. One rank under the scrawl it follows.
-   THE ARROW STAYS .arr (mono) inside a hand line, which is the pairing .pw-name uses. */
-/* BLOCK + fit-content + auto MARGINS, AND NOT inline-block. .btn is inline-flex and this <p>
-   is text-align:center, so as an inline-block the two sat on ONE centred line at every width
-   the line fit - measured at 375, "or browse the library" ran alongside the stamped button and
-   the button's rotation put it over the first two words. It has to be its own rank, so it has
-   to be block; width:fit-content + margin-inline:auto is what keeps a block anchor centred
-   without giving it a full-column underline. */
+/* TWO RANKS, LIBRARY OVER JOIN (2026-09-07, fourth arrangement of this slot in one day; the
+   argument is in index.html and the strikethroughs there are the history).
+   ~~A SIDE-BY-SIDE PAIR~~ was built and measured first: two full .btn abreast, and at equal
+   weight the LABEL sets the hierarchy - "BROWSE THE LIBRARY" renders 188px against "SIGN UP"
+   at 101px, so the secondary door was nearly twice the object. Swapping which one is the
+   button agrees with that measurement instead of fighting it, and costs nothing.
+   THE COLOURS DID NOT SWAP WITH THE RANKS. .btn.read stays lazuli because it is a read door
+   and .proof-cta-alt goes grass-deep because it is a join door; the read/join system is about
+   VERBS, and a reader who learned "blue opens somebody's work" from the three cards one
+   screenful above should not have to re-learn it because two elements changed size.
+   --grass-deep IS 5.90:1 ON OATS, the number .btn's own comment records for oats-on-grass-deep
+   read the other way round - the pair is symmetric, so one measurement serves both. #proof
+   ships without .gnd (every #proof.gnd rule in this file is dormant), so the ground here is
+   cream and that number is the one that applies.
+   BLOCK + fit-content + auto MARGINS, NOT inline-block: .btn is inline-flex and this <p> is
+   centred, so as an inline-block the line sat on the button's own row and the button's
+   rotation covered its first two words. Measured at 375 when this shape first shipped. */
 .proof-cta-alt{display:block;width:fit-content;margin:.6rem auto 0;
   font-family:var(--f-hand);font-size:1.05rem;line-height:1.15;
-  color:var(--lazuli-deep);text-decoration:none;
-  border-bottom:1.5px solid rgba(28,111,148,.42)}
-.proof-cta-alt:hover{border-bottom-color:var(--lazuli-deep)}
+  color:var(--grass-deep);text-decoration:none;
+  border-bottom:1.5px solid rgba(12,110,57,.42)}
+.proof-cta-alt:hover{border-bottom-color:var(--grass-deep)}
 .proof-cta-alt:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px;border-radius:2px}
+@media(max-width:400px){
+  .proof-cta .btn{padding:.8em 1em;letter-spacing:.07em}
+}
 @media(prefers-reduced-motion:reduce){.gift-pile li{transition:none}}
 
 /* ---------- the CRAFTBOARD: the range as instant photos pinned to cork. Chip colour -> label ink
