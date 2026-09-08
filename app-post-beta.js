@@ -260,13 +260,49 @@ function balanceMarginalia() {
   fillGutters();
 }
 
+/* 2026-09-08, founder: "the whole page needs to be littered with marginalia". Three
+   changes to the top-up, all measured at 320/375/1280 before landing:
+   1. DENSITY 5.2 -> 7.5 per 1000px. The hand-tuned sections were the floor, not the aim.
+   2. NARROW SECTIONS ARE NO LONGER SKIPPED. #proof (960px), #zines, .summary-band and
+      #seewhat (1184px) had ZERO gutter marks - a third of the page. The rails are
+      viewport-anchored, so in a narrow section the scrap's left/right is written inline
+      with the section's own inset subtracted (left: calc(max(10px,50vw-601px) - 160px)).
+      The rejected "frozen pixels" objection below is answered by RE-RUNNING on resize:
+      injected layers carry data-cg-injected and are thrown away and rebuilt.
+   3. PHONES GET SCRAPS TOO. Below 1200px there was nothing (the KNOWN COST note below).
+      Small pieces (22-34px, .cg-mob-inj, foreground layer) are placed by TRYING positions
+      against the section's text and buttons - every text node's Range rects, 8px padding -
+      and a piece that cannot find a clear spot is not placed. Over photos and paper edges
+      is house style; over words is the one thing the module promises never to do. */
 function fillGutters() {
-  const SCRAPS_PER_1000PX = 5.2;      // matches the density of the hand-tuned sections
+  const mobile = document.documentElement.clientWidth < 1200;
+  const SCRAPS_PER_1000PX = mobile ? 6.5 : 7.5;
   const RAILS = ['cg-gl', 'cg-gr', 'cg-gl2', 'cg-gr2'];
   const sections = document.querySelectorAll('main > section');
   const rnd = (a, b) => a + Math.random() * (b - a);
   const pick = (arr) => arr[(Math.random() * arr.length) | 0];
   const fresh = [];
+  document.querySelectorAll('.cg-collage[data-cg-injected]').forEach((l) => l.remove());
+
+  // everything a phone scrap must stay off: words and buttons, in section coordinates
+  function keepOut(sec) {
+    const base = sec.getBoundingClientRect();
+    const rects = [];
+    const walker = document.createTreeWalker(sec, NodeFilter.SHOW_TEXT, {
+      acceptNode: (n) => /\S/.test(n.nodeValue) && !n.parentElement.closest('.cg-collage, .ki, .si, script, style, [hidden]')
+        ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT,
+    });
+    let n;
+    while ((n = walker.nextNode())) {
+      const r = document.createRange(); r.selectNodeContents(n);
+      for (const q of r.getClientRects()) if (q.width && q.height) rects.push([q.left - base.left, q.top - base.top, q.right - base.left, q.bottom - base.top]);
+    }
+    sec.querySelectorAll('.btn, button, .ki, .si').forEach((el) => {
+      const q = el.getBoundingClientRect(); if (q.width) rects.push([q.left - base.left, q.top - base.top, q.right - base.left, q.bottom - base.top]);
+    });
+    return rects;
+  }
+  const clear = (rects, x, y, w, h, pad) => !rects.some(([l, t, r, b]) => x < r + pad && x + w > l - pad && y < b + pad && y + h > t - pad);
 
   sections.forEach((sec) => {
     // the hero is choreographed with the envelope cut — never touch it
@@ -290,11 +326,17 @@ function fillGutters() {
     // out in the page gutter (left:-rect.left, right:-(clientWidth-rect.right)). Correct on load,
     // wrong after a resize: every other offset in this function is %- or vw-based and re-solves
     // itself, those two would be frozen pixels, so a rotation walks the layer sideways.
-    if (Math.round(sec.getBoundingClientRect().width) < document.documentElement.clientWidth) return;
+    // (the width guard above is HISTORY as of 2026-09-08 - narrow sections get their
+    // inset subtracted instead, see the head note)
+    const rect = sec.getBoundingClientRect();
+    const insetL = Math.max(0, Math.round(rect.left));
+    const insetR = Math.max(0, Math.round(document.documentElement.clientWidth - rect.right));
 
     const h = sec.offsetHeight;
     if (!h) return;
-    const have = sec.querySelectorAll('.cg-scrap').length;
+    // count what is VISIBLE at this width: a phone must not be told it has six scraps because
+    // six desktop-only ones are display:none (that left .doors with one piece at 375)
+    const have = [...sec.querySelectorAll('.cg-scrap')].filter((e) => getComputedStyle(e).display !== 'none').length;
     const want = Math.round((h / 1000) * SCRAPS_PER_1000PX);
     const need = want - have;
     if (need <= 0) return;
@@ -304,14 +346,46 @@ function fillGutters() {
     if (getComputedStyle(sec).position === 'static') sec.style.position = 'relative';
 
     const layer = document.createElement('div');
-    layer.className = 'cg-collage';
+    layer.className = 'cg-collage' + (mobile ? ' cg-fore' : '');
     layer.setAttribute('aria-hidden', 'true');
+    layer.dataset.cgInjected = '1';
+
+    if (mobile) {
+      const W = Math.round(rect.width), out = keepOut(sec), placed = [];
+      for (let i = 0; i < need; i++) {
+        const w = Math.round(rnd(20, 32)), sh = w;           // pool art is ~square at this size
+        const band = ((i + 0.5) / need) * h;
+        let spot = null;
+        for (let t = 0; t < 28 && !spot; t++) {
+          // edges first: the side margins beside the cards are the phone's gutters. A card's
+          // text starts ~40px in, so a 20-32px piece parked at 0-4% clears it with the pad.
+          const x = t < 16 ? (t % 2 ? rnd(3, W * 0.04) : rnd(W * 0.96 - w, W - w - 3)) : rnd(3, W - w - 3);
+          const y = Math.max(2, Math.min(h - sh - 2, band + rnd(-h / need * 0.48, h / need * 0.48)));
+          if (clear(out, x, y, w, sh, 6) && clear(placed, x, y, w, sh, 28)) spot = [x, y];
+        }
+        if (!spot) continue;
+        placed.push([spot[0], spot[1], spot[0] + w, spot[1] + sh]);
+        const s = document.createElement('span');
+        s.className = `cg-scrap cg-mob-inj cg-s${1 + (i % 5)}`;
+        s.style.setProperty('--cg-rot', `${rnd(-14, 14).toFixed(1)}deg`);
+        s.style.setProperty('--cg-w', `${w}px`);
+        s.style.left = `${spot[0].toFixed(0)}px`;
+        s.style.top = `${(spot[1] / h * 100).toFixed(2)}%`;
+        s.innerHTML = pick(CG_POOL)(pick(CG_INKS));
+        layer.appendChild(s);
+        fresh.push(s);
+      }
+      sec.appendChild(layer);
+      return;
+    }
 
     for (let i = 0; i < need; i++) {
       // one per band, alternating sides, so they never clump
       const band = ((i + 0.5) / need) * 100;
       const top = Math.max(2, Math.min(94, band + rnd(-5, 5)));
-      const rail = RAILS[i % 2] + (Math.random() < 0.3 ? '2' : '');
+      // no inboard rail in a narrow section: 'tucked under the paper edge' is where that
+      // section's cards and their labels are (measured: a piece on "the club's portfolio")
+      const rail = RAILS[i % 2] + (Math.random() < 0.3 && !(insetL > 0 || insetR > 0) ? '2' : '');
       // cg-drop-lg — below 1200px the rails clamp to max(10px, ...), there is no gutter left to
       // sit in, and an injected scrap parks on top of the content. Measured at 390px before
       // this, across four loads: 44 visible scraps, 37 of them injected, 10–13 overlapping live
@@ -326,10 +400,19 @@ function fillGutters() {
       // .cg-gl2/.cg-gr2 at 1134px. The 1200–1221px band is therefore still uncovered — measured
       // at 1210px, 33 injected scraps, the nearest 4px from the viewport edge.
       const s = document.createElement('span');
-      s.className = `cg-scrap cg-drop-lg cg-s${1 + (i % 5)} ${RAILS.includes(rail) ? rail : RAILS[i % 2]}`;
+      const railClass = RAILS.includes(rail) ? rail : RAILS[i % 2];
+      s.className = `cg-scrap cg-drop-lg cg-s${1 + (i % 5)} ${railClass}`;
+      // a narrow section: write the rail inline with this section's inset taken off, so the
+      // scrap lands in the PAGE gutter and not in the reading column
+      if (insetL > 0 || insetR > 0) {
+        const inboard = railClass.endsWith('2');
+        const off = inboard ? '561px' : '601px', min = inboard ? '6px' : '10px';
+        if (railClass.startsWith('cg-gl')) s.style.left = `calc(max(${min}, 50vw - ${off}) - ${insetL}px)`;
+        else s.style.right = `calc(max(${min}, 50vw - ${off}) - ${insetR}px)`;
+      }
       s.dataset.cgParallax = String(Math.round(rnd(4, 7)));
       s.style.setProperty('--cg-rot', `${rnd(-12, 12).toFixed(1)}deg`);
-      s.style.setProperty('--cg-w', `${Math.round(rnd(38, 84))}px`);
+      s.style.setProperty('--cg-w', `${Math.round(rnd(38, insetL > 0 || insetR > 0 ? 66 : 84))}px`);
       s.style.top = `${top.toFixed(1)}%`;
       s.innerHTML = pick(CG_POOL)(pick(CG_INKS));
       layer.appendChild(s);
@@ -343,6 +426,21 @@ function fillGutters() {
   // They keep the CSS wobble; they forgo parallax, which is a nicety nobody will miss.
   if (fresh.length) requestAnimationFrame(() => fresh.forEach((s) => s.classList.add('cg-in')));
 }
+// rebuilt on resize (debounced): the narrow-section insets and the phone placements are
+// solved against the layout that exists, so a rotation or a window drag re-solves them.
+(function () {
+  let t = null, last = document.documentElement.clientWidth;
+  addEventListener('resize', () => {
+    clearTimeout(t);
+    t = setTimeout(() => {
+      const w = document.documentElement.clientWidth;
+      if (Math.abs(w - last) < 40) return;
+      last = w;
+      const root = document.documentElement;
+      if (!root.classList.contains('sealed') || root.classList.contains('revealed')) fillGutters();
+    }, 300);
+  }, { passive: true });
+})();
 
 /* Cycle the reflection quotes. They share one grid cell, so three cost the height of one.
    Pauses on hover/focus so nobody loses a sentence mid-read; under reduced-motion it just
