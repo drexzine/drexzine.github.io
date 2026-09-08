@@ -1912,32 +1912,38 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 @media(max-width:460px){#proof .mb-grid{--mb-cw:min(92%,320px);--mb-gap:0px}}
 #proof .mpol{padding:9px 9px 28px}
 
-/* THE READ BUTTON INSIDE A POLAROID (2026-09-07). Chielo: "for each of these, I'd like to
-   include a 'Read Zine' CTA button ... the same style of the green sign up button." It IS the
-   same button, one size down, and the size-down is arithmetic and not taste: at the 2-column
-   breakpoint the card is calc(50% - 4px), which leaves ~182px of usable strip at 460px, and
-   .btn at its full .85em/1.35em padding measures ~173px for this label. Four pixels of slack
-   is not a margin, it is luck. At .7em/1em and .09em tracking it measures ~159px.
-   IT DOES NOT TOUCH THE TUCK, and that is the one thing worth checking before moving it. The
-   lip arithmetic at "THE LIP IS LOAD-BEARING" measures from the deepest HANDLE to the card
-   tucking under it. This sits BELOW the handle, so it pushes the handle further from the
-   bottom edge and the clearance can only grow. Move it above .pk-meta and that stops being
-   true - re-measure at 760 and 460 if anyone ever does.
-   THE HOVER AND ACTIVE ARE RE-DECLARED ON PURPOSE, NOT COPY-PASTE SLOP. `.btn:hover` is one
-   class plus one pseudo-class and `.mv-cta .btn` is two classes - identical specificity - so
-   the later rule wins, and this block is 1500 lines later. Without these two lines the button
-   keeps its rotation on hover and never presses into its shadow. */
-.mv-cta{margin-top:.5rem}
-/* 44px AND NOT 40: it shipped at 40 earlier today and measured 41px tall, under the 44px
-   pointer-target floor (WCAG 2.2 Target Size (Minimum), and the same number iOS has asked
-   for since forever). It is the only button on the page that was under it - every other one
-   inherits .btn's min-height:46. The width was never the problem; 151px in a 240px strip. */
-.mv-cta .btn{padding:.7em 1em;min-height:44px;letter-spacing:.09em;
-  transform:rotate(-1.2deg)}
-.mv-cta .btn::before{box-shadow:4px 4px 0 0 var(--ink)}
-.mv-cta .btn:hover{transform:rotate(0)}
-.mv-cta .btn:active{transform:translate(4px,4px) rotate(0)}
-.mv-cta .btn:active::before{box-shadow:0 0 0 0 var(--ink)}
+/* THE CARD DOOR (2026-09-07). ~~THE READ BUTTON INSIDE A POLAROID~~ - it was a .btn for about
+   six hours and the whole block that sized it is gone with it. What that block established and
+   is worth keeping: the card is calc(50% - 4px) at the 2-column breakpoint, which leaves ~182px
+   of usable strip at 460, so anything dropped in here has a real width budget; and it DOES NOT
+   TOUCH THE TUCK, because the lip arithmetic at "THE LIP IS LOAD-BEARING" measures from the
+   deepest HANDLE to the card tucking under it and this sits BELOW the handle, where extra
+   height only grows the clearance. Move it above .pk-meta and re-measure at 760 and 460.
+   ~~.mv-cta .btn~~ AND ITS FOUR OVERRIDE RULES ARE DELETED - nothing else in the repo carries
+   .mv-cta, checked before removing them.
+   ~~44px AND NOT 40~~ THE 44 SURVIVES THE DEMOTION, and it is the whole reason this is not a
+   bare text link. These doors were raised from 40 to 44 this morning to clear the pointer-target
+   floor (WCAG 2.2 Target Size (Minimum), and the number iOS has asked for since forever); the
+   text itself sets ~18px, so min-height carries the rest. Weakening the signifier is the trade
+   the founder chose. Erasing the target is not on the table - if this rule ever loses its
+   min-height, the demotion becomes an accessibility regression rather than a visual one.
+   BOLD UPPERCASE MONO AT --fs-label, which is .btn's own type ramp: it reads as an ACTION and
+   not as prose, which is the difference between this and the invisible whole-photo anchor that
+   caused the problem in the first place. The failure Chielo watched was a link with no visible
+   verb, not a link that was not a button.
+   THE UNDERLINE IS ON AN INNER SPAN so it does not run under the arrow. text-decoration on the
+   anchor would draw straight through .arr and cannot be switched off by a descendant - a
+   decoration is painted by the ancestor that declares it. A border on the words is the same
+   idiom .proof-cta-alt and .crew-ps already use. */
+.mv-cta{margin-top:.35rem}
+.mv-go{display:inline-flex;align-items:center;justify-content:center;gap:var(--s-1);
+  min-height:44px;padding:0 .3em;
+  font-family:var(--f-mono);font-weight:700;font-size:var(--fs-label);
+  letter-spacing:.09em;text-transform:uppercase;
+  color:var(--lazuli-deep);text-decoration:none}
+.mv-go-w{border-bottom:2px solid rgba(28,111,148,.5)}
+.mv-go:hover .mv-go-w{border-bottom-color:var(--lazuli-deep)}
+.mv-go:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px;border-radius:3px}
 /* A SOLID INK OFFSET, not the board's translucent brown. That brown was mixed
    to sit on cork; on grass-deep it reads as a smear of the ground rather than
    a shadow. Every other sheet in this section carries a hard ink offset
@@ -10973,10 +10979,18 @@ html[data-tier="lite"] .pw-sticker::before{filter:none}
 .lands-grid .pw-col.is-club .pw-sticker{transform:rotate(1.8deg)}
 .lands-grid .pw-col.is-mine .pw-sticker{transform:rotate(-1.3deg)}
 
-/* ---- THE TWO WALL CARDS TAKE RED DYMO TAPE (2026-09-07) ----------------------------------
-   Founder: "make 'the club's wall' and 'your wall' red dymo tape that reads 'The Club's
-   Portfolio' and 'Your Portfolio'". Card one keeps the lazuli sticker, which is also the card
-   that carries the lazuli .pw-go button - one card, one colour, and blue stays the read door.
+/* ---- ALL THREE CARD LABELS ARE RED DYMO TAPE (2026-09-07) --------------------------------
+   ~~THE TWO WALL CARDS~~ ALL THREE. The first pass did the two wall cards on the founder's ask
+   and argued card one should keep its lazuli sticker "because it is the card that carries the
+   lazuli .pw-go button - one card, one colour". Overruled an hour later: "you should've made
+   'the library' also dymo tape".
+   AND THE OVERRULE IS THE BETTER READING OF THE PAGE'S OWN COLOUR SYSTEM, which is why this
+   comment does not hedge. The three labels are ONE object used three times; splitting them by
+   fill made the set read as two things. And the argument for keeping card one blue was exactly
+   backwards: a lazuli LABEL 450px above a lazuli BUTTON on the same card is the dilution the
+   read/join system exists to prevent - a button is conspicuous by owning its colour. Red tape
+   over a blue button is a label and an action; blue over blue was the same colour doing two
+   jobs. Blue is now only ever a door on this page.
    --coral-ink AND NOT --colorado, for the fourth time in this file and the same reason every
    time: this is a colour carrying text. The note at the numeral tape says it outright - "RED,
    because Dymo tape is red. --coral-ink, not --colorado... oats numerals on bright Colorado
@@ -10991,15 +11005,12 @@ html[data-tier="lite"] .pw-sticker::before{filter:none}
    for a sticker - and Dymo tape is embossed plastic with a clean-ish cut. scale 3 is the edge
    every other tape on this page carries. Card one keeps #torn, because it is still a sticker.
    THE LEANS ABOVE ARE UNTOUCHED and still do their job: three labels, three angles.
+   SCOPED .lands-grid AND NOT BARE .pw-sticker: the base rule at the top of this block is
+   unscoped and seven archived index-*.html read this sheet. Only the live grid goes red.
    ------------------------------------------------------------------------------------------ */
-.lands-grid .pw-col.is-club .pw-sticker,
-.lands-grid .pw-col.is-mine .pw-sticker{
-  color:#FFF8EC; text-shadow:0 1px 0 rgba(93,18,22,.55)}
-.lands-grid .pw-col.is-club .pw-sticker::before,
-.lands-grid .pw-col.is-mine .pw-sticker::before{
-  background:var(--coral-ink); filter:url(#roughsm)}
-html[data-tier="lite"] .lands-grid .pw-col.is-club .pw-sticker::before,
-html[data-tier="lite"] .lands-grid .pw-col.is-mine .pw-sticker::before{filter:none}
+.lands-grid .pw-sticker{color:#FFF8EC; text-shadow:0 1px 0 rgba(93,18,22,.55)}
+.lands-grid .pw-sticker::before{background:var(--coral-ink); filter:url(#roughsm)}
+html[data-tier="lite"] .lands-grid .pw-sticker::before{filter:none}
 /* THE LINE UNDER THE CARD IS A SUBTITLE NOW, not a repeat of the name, so it drops the tape's
    old clearance (.pw-name carried margin-top:2.1rem to clear .pw-kind, which is gone). */
 .lands-grid .pw-name{margin-top:1.15rem;font-size:1.08rem}
