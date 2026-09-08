@@ -326,7 +326,7 @@
           "name": "What kinds of clubs are on Drex?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Baristas, models, photographers, zinemakers, letterers. Real clubs on Drex include Beans, a cafe crew in San Francisco; XChange Models; Photo Phloor; Zine Machine; and Penmanship, a lettering club. Any craft you can show and tell."
+            "text": "Baristas, models, letterers. Real clubs on Drex include Beans, a cafe crew in San Francisco; XChange Models; Photo Phloor; Zine Machine; and Penmanship, a lettering club. Any craft you can show and tell."
           }
         },
         {
@@ -1028,7 +1028,7 @@
                    app-post-beta.css:9163 for whenever a kicker returns; nothing in
                    app-post-beta.js reads the class. -->
               <a class="ed-cta" href="https://app.drex.style/welcome">
-                <b class="ed-cta-line">Sign up or log in <svg class="ed-cta-arr" viewBox="0 0 26 11" aria-hidden="true"><path d="M1.5 6 C9 4.5 16 4.5 23 5.4 M19 1.8 C20.6 3.2 22.2 4.4 24.4 5.5 C22.1 6.4 20.3 7.6 18.7 9.2" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg></b>
+                <b class="ed-cta-line">Sign up <svg class="ed-cta-arr" viewBox="0 0 26 11" aria-hidden="true"><path d="M1.5 6 C9 4.5 16 4.5 23 5.4 M19 1.8 C20.6 3.2 22.2 4.4 24.4 5.5 C22.1 6.4 20.3 7.6 18.7 9.2" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg></b>
               </a>
               
               </div>
@@ -1547,6 +1547,20 @@
          did not check out. If a card ever leaves this pile, its noun leaves this line in the same
          edit. AND TOUCH THE OTHER ONE: the FAQPage JSON-LD near the top of this file quotes this
          heading verbatim and lists the clubs by name. It breaks SILENTLY.
+         THE RULE FIRED, 2026-09-07, AND THIS IS WHAT IT COST. Chielo cut the pile to three
+         cards - Beans, XChange Models, Penmanship - to "immediately capture the momentum of
+         the page to get people to view / use the product". So "photographers" and "zinemakers"
+         left this line with their cards, and the FAQPage answer was rewritten in the same edit.
+         THE FAQ STILL NAMES ALL FIVE CLUBS AND THAT IS NOT AN OVERSIGHT: that answer lists
+         clubs that are real, this heading lists the crafts standing under it in this pile.
+         Neither club left the page - Photo Phloor opens from #seewhat, Zine Machine runs the
+         video in #what-you-get - so the FAQ sentence is still true and the heading is now the
+         only thing the pile has to cash.
+         THE UNDERLINE DID NOT MOVE, AND THE ORDER DID NOT EITHER. Chielo's message listed her
+         three Penmanship-first; the pile keeps Beans first, because the ul sits on "Baristas"
+         and the reason is two paragraphs up. Reordering is not a one-line change: it drags the
+         underline, the noun order in this heading, the JSON-LD answer and the "it leads
+         because" comment on card 1 with it. Do all five or none.
          .dk-head / .dk-sub were authored for this section and sat dead in the stylesheet
          (app-post-beta.css:4725-4732). Do NOT swap in the .wrap/.head/.slab pattern the other
          sections use: .dk is absent from the head-unification block at app-post-beta.css:2779-2788,
@@ -1554,13 +1568,15 @@
          mono h2 on the page, ~40% smaller than its neighbours — and .stop loses its green. -->
     <div class="dk-head">
       <span class="eyebrow">who&rsquo;s using Drex</span>
-      <h2><span class="ul">Baristas</span>, models, photographers, zinemakers, letterers<span class="stop">.</span></h2>
+      <h2><span class="ul">Baristas</span>, models, letterers<span class="stop">.</span></h2>
     </div>
 
     <!-- ============ THE PILE, 2026-09-01 ============
          The four-card cycling deck is gone, and so is the .zines maker board that used to follow
-         this section. Both are replaced by ONE object: four polaroids, one per club, each with a
-         face, a craft, a real sentence and a door.
+         this section. Both are replaced by ONE object: a row of polaroids, one per club, each with a
+         face, a craft, a real sentence and a door. THE COUNT HAS NEVER BEEN THE POINT and has
+         never been stable - four at first, five from 2026-09-01, three from 2026-09-07. Do not
+         write a number into this section's prose or its aria-label without checking the pile.
          WHY ONE OBJECT AND NOT TWO. #proof said WHO is using Drex with photographs that had almost
          no people in them - three of its four cards were an empty chair, a dropcap and a runway
          spread, and Michaela was the only human face in the whole section. .zines then said what the
@@ -1571,8 +1587,11 @@
          WHAT A CAPTION MAY SAY, and this is a correctness rule and not a style one:
            <q>        = SOMEBODY'S OWN WORDS, checked against a public ledger or burnt into an
                         asset in this repo. It renders with quotation marks.
-           .pk-line   = THE PAGE'S OWN HAND, and it renders with NO quotation marks. Photo Phloor's
-                        line is their own masthead; Zine Machine's is their own challenge card.
+           .pk-line   = THE PAGE'S OWN HAND, and it renders with NO quotation marks. It had two
+                        instances - Photo Phloor's own masthead and Zine Machine's own challenge
+                        card - and 2026-09-07 deleted both cards, so the idiom is currently
+                        UNUSED IN THIS PILE. The rule is not dead, it is unexercised: every card
+                        left carries a person's own words. Its CSS stays; so does this rule.
          Never move a string from one to the other. Quotation marks are an attribution.
          WHAT WAS CUT, so nobody restores it by accident:
            - "- Wei-Sean, and ten others". Eleven makers answered the Silk Road reflection question
@@ -1586,13 +1605,25 @@
              recombined or reordered against the ledger. @shanara's unedited words are burnt into
              silk-road-cover.jpg, so the page was disagreeing with its own asset. @tergel's is the
              one that survives because it is the one that needed no editing.
+           - PHOTO PHLOOR AND ZINE MACHINE, cut 2026-09-07 on Chielo's list, and the reason is
+             worth writing down because it is not "these two were the weakest". Both cards
+             opened a CLUB WALL (/clubs/photo-phloor, /clubs/zine-machine); the other three open
+             an ISSUE (/z/...). The same pass gave every card a "Read the zine" button, and that
+             button can only be honest over a door that opens a zine. Her three picks are exactly
+             the three that had one. Restoring either card means either finding it an issue to
+             link or giving it a differently-worded button, and a second button label in one row
+             is worse than a shorter row.
+             WHAT WENT WITH THEM: the lion/rabbit argument (two passes, filed in git), Photo
+             Phloor's maker quote "Culture is a bridge to distant hearts." - which is NOT lost,
+             the same answer is legible in the #showtell beat 03 submission photograph and its
+             alt - and the only two .pk-line instances on the page.
            - AN SF PENMANS CARD, and this one was built, looked at and then deleted. It read
              "No face yet - just the hand." over penmans-drill.jpg, which is THE SAME PHOTOGRAPH
              as the Kurtis card one section up - same hands, same phone, same page of cursive. A
              cold reader spotted it in two seconds and said it made them wonder how much else was
              padded. The club has not left the page: Kurtis IS SF Penmans, and his card tells it
              better. Do not re-add this card until there is a photograph of a member's face.
-         THE FOUR PINS ARE ALL SAMBAS AND THE FOUR MARKERS ARE ALL INK, and that is a cost this
+         EVERY PIN IS SAMBAS AND EVERY MARKER IS INK, and that is a cost this
          pass chose to pay. The first cut gave every card its own pin colour AND its own marker
          ink - ten colour decisions, eight of them one of the four beat hues, none of them meaning
          a beat. Under the four-colour system that is the largest "colour means nothing" surface
@@ -1604,7 +1635,7 @@
          width. The cards are bigger here and the lip is deeper, because the strip now carries
          four ranks where the board carried two.
          ============ -->
-    <div class="mb-grid" id="proofPile" aria-label="Four real clubs, and somebody from each.">
+    <div class="mb-grid" id="proofPile" aria-label="Three real clubs, and somebody from each.">
 
       <!-- 1 - BEANS. It leads because the h2's underlined word is "Baristas" and this is the card
            that earns it; the old deck opened on Beans by id for the same reason.
@@ -1627,6 +1658,27 @@
 
             <b><span class="pk-craft">barista</span> &middot; Michaela &middot; Beans</b>
           </div>
+          <!-- THE DOOR IS NOW ALSO A BUTTON, 2026-09-07. Chielo, having watched people read the
+               page: "for each of these, I'd like to include a 'Read Zine' CTA button ... the same
+               style of the green sign up button", and separately, of the library door lower down,
+               "I've seen a couple people scroll by that and not click it while watching them
+               browse the webpage."
+               THE LINK WAS NEVER MISSING. .mv-door has wrapped this photograph since 2026-09-01
+               and its aria-label already said "read it - opens on Drex". What was missing was a
+               SIGNIFIER: a whole-photo anchor with no border, no fill and no verb in view reads as
+               a picture, which is the flat-affordance failure and not a routing one. So this adds a
+               drawn button, and does NOT touch the photo link.
+               THE COST, STATED SO A LATER PASS DOES NOT REDISCOVER IT: the card now has two links
+               to one URL. That is the standard thumbnail-plus-caption pattern and it is allowed. If
+               a screen-reader pass ever calls the repeat, the fix is to drop .mv-door's aria-label
+               so the anchor names itself from the photo's own role="img" label - NOT to delete
+               either link, because deleting the photo link makes the picture dead and deleting the
+               button undoes this pass.
+               "Read the zine", not Chielo's literal "Read Zine": .btn uppercases its label in CSS,
+               so the casing in this source is invisible and the article is free. "zine" stays
+               lowercase per the noun rule. It is the same verb as .zpola-cap's "read it ->" two
+               screens down, which is the idiom this page already uses for a door onto an issue. -->
+          <p class="mv-cta"><a class="btn read" href="https://app.drex.style/z/f362cc90-3b98-4c9e-80af-494105edb9e5" target="_blank" rel="noopener">Read the zine <span class="arr">&rarr;</span></a></p>
         </figcaption>
       </figure>
 
@@ -1649,99 +1701,11 @@
 
             <b><span class="pk-craft">model</span> &middot; @tergel &middot; XChange Models</b>
           </div>
+                  <!-- Same button, same argument as card 1; read it there. -->
+          <p class="mv-cta"><a class="btn read" href="https://app.drex.style/z/2020eaf7-fc6f-47c1-a264-c30d8ea3fc23" target="_blank" rel="noopener">Read the zine <span class="arr">&rarr;</span></a></p>
         </figcaption>
       </figure>
 
-      <!-- 3 - PHOTO PHLOOR. ~~The line is the club's OWN masthead - burnt into their zine cover
-           and their own wall description - which is why it takes .pk-line and no quotation marks.~~
-           SUPERSEDED 2026-09-07 - the line is a maker's quote now; the argument is in the comment
-           directly above the figcaption. "Nobody is named" still holds, but for a different
-           reason: the repo does not record who wrote it, not because the line was the club's.
-           THE PHOTOGRAPH IS ONE OF THEIRS AND IS NO LONGER A PHOTOGRAPH OF A PHOTOGRAPHER. The
-           shot that sat here until 2026-09-01 was pulled on a direct instruction from the founder
-           before it ever shipped: uncommitted, never reached origin/main. DO NOT restore it under
-           any crop, and do not go looking for it. It is deliberately not named here, because this
-           comment ships publicly.
-           WHY THE LION AND NOT assets/clubs/phloor-portrait.jpg, the only other candidate with a
-           face: the <b> under this card is the CLUB's name, so a reader takes the face for a
-           member, and nothing records that he is one. The old defence ("defensible as the
-           PHOTOGRAPHER, never the subject") only worked because the pulled shot had a camera in
-           frame. ~~phloor-rabbit.jpg rejected separately: a gag beside three sincere portraits.~~
-           ~~THE COST: this is the one card in the pile with no person in it. Replacing it takes a
-           shoot, not a search.~~
-
-           THE RABBIT WINS ON 2026-09-07, and the paragraph above is why it took two passes.
-           Founder, offering the source file: "this for photo phloor photo in whos using?" — it is
-           the same frame as the already-cropped assets/clubs/phloor-rabbit.jpg, so this was a
-           reversal of a recorded call, not a new candidate.
-           WHAT CHANGED, AND IT IS THE TWO SENTENCES STRUCK ABOVE, NOT THE TASTE. (1) The "gag"
-           objection was written against a card whose COST was stated one line later: no person in
-           it, and no fix short of a shoot. The rabbit is the fix. It is the only frame the repo
-           holds that puts a body in this card, and it needs no shoot. (2) The face objection that
-           killed phloor-portrait.jpg — "a reader takes the face for a member, and nothing records
-           that he is one" — cannot bite here. There is no identifiable face. A mask is the one
-           portrait that can carry a club's name under it without naming anybody, which is the
-           constraint the whole pile is built on.
-           WHAT IT STILL COSTS, STATED SO THE NEXT PASS DOES NOT HAVE TO REDISCOVER IT: it is
-           funnier than the four cards around it, and the pile's argument is sincerity. If it ever
-           reads as a joke at the section's expense, the lion is one line away and its file is
-           still in assets/clubs/. Do not go back to phloor-portrait.jpg — that rejection stands
-           on its own reason and nothing here touches it.
-           IT ALSO FITS THE LINE BETTER, which is a bonus and was not the argument. "Documenting
-           the overlooked." over a lion-dance head is a spectacle, i.e. the most looked-at thing on
-           the street; over a masked stranger in a shop it is what the line actually says. -->
-      <figure class="mpol" style="--r:-2.2deg">
-        <span class="mv-pin" aria-hidden="true"></span>
-        <a class="mv-door" href="https://app.drex.style/clubs/photo-phloor" target="_blank" rel="noopener" aria-label="their wall &mdash; opens on Drex"><span class="mv-ph has-photo" role="img" aria-label="Someone in a white rabbit mask, curly hair loose around it, in a shop hung with painted canvases." style="background-image:url(assets/clubs/phloor-rabbit.jpg);background-position:center 34%"></span></a>
-        <!-- IT CARRIES A MAKER'S QUOTE NOW, 2026-09-07, and that moves it from the minority
-             pattern to the majority one. Founder: "photo phloor has way more interesting
-             quotes than what you chose", with the source - a written answer from the
-             Chinatown issue: 'I often tell people "Culture is a bridge to distant hearts."
-             Learning Chinese has allowed me to make friends with those who don't speak
-             English. The story is about the master and the apprentice of Dragonseed Bridal
-             Shop--making qipaos for 40~ years.'
-             ~~"Documenting the overlooked." - the club's OWN masthead, burnt into their zine
-             cover and their wall description, which is why it took .pk-line and no quotation
-             marks.~~ It was true and it was inert: a masthead describes the club to itself,
-             and the three cards that land hardest in this pile (Michaela, @tergel, Kurtis)
-             are people saying what happened to them. Photo Phloor was one of only two cards
-             not doing that.
-             WHY THIS SENTENCE AND NOT THE PARAGRAPH. The aphorism is the part that travels;
-             everything after it is the worked example, and the pile gives each card about
-             two lines. The rest of the answer is not lost - it is legible in the submission
-             photograph at #showtell beat 03, whose alt already carries it.
-             MARKUP FOLLOWS THE PATTERN, NOT THE EXCEPTION: <q> (which supplies the quotation
-             marks the .pk-line idiom refuses) and a SINGULAR craft, because the meta line now
-             names a person's role rather than the club's roster - "barista", "model" and
-             "letterer" on the other three, so "photographer" here.
-             NO NAME, AND THAT IS A GAP IN THE REPO, NOT A CHOICE. The other three quotes name
-             their maker; nothing in this repo records who wrote this answer. The club carries
-             the attribution until it does. If a name turns up, it goes between the craft and
-             the club like the others. -->
-        <figcaption class="mv-strip">          <q>Culture is a bridge to distant hearts.</q>
-          <div class="pk-meta">
-
-            <b><span class="pk-craft">photographer</span> &middot; Photo Phloor</b>
-          </div>
-        </figcaption>
-      </figure>
-
-      <!-- 4 - ZINE MACHINE, new to this section. The line is the club's own challenge, lifted off
-           the drawn title card that opens assets/zines/hero/zinemachine.mp4 in the collage above
-           ("a club called Zine Machine / The challenge: MAKE A PAPER ZINE"), so the hero and the
-           proof are quoting the same source. She is holding the zine she drew: a coloured map of
-           San Francisco reading THE BLUE GREENWAY and AVOID THE TWIN PEAKS. No name - the repo does
-           not carry one for this photograph and the club page does not attribute it. -->
-      <figure class="mpol" style="--r:3.2deg">
-        <span class="mv-pin" aria-hidden="true"></span>
-        <a class="mv-door" href="https://app.drex.style/clubs/zine-machine" target="_blank" rel="noopener" aria-label="their wall &mdash; opens on Drex"><span class="mv-ph has-photo" role="img" aria-label="A Zine Machine maker holding up the hand-drawn San Francisco map zine she made, grinning at the camera." style="background-image:url(assets/clubs/zm-holding-zine.jpg);background-position:center 26%"></span></a>
-        <figcaption class="mv-strip">          <span class="pk-line">The challenge: make a paper zine.</span>
-          <div class="pk-meta">
-
-            <b><span class="pk-craft">zinemakers</span> &middot; Zine Machine</b>
-          </div>
-        </figcaption>
-      </figure>
 
       <!-- 5 - PENMANSHIP, added 2026-09-01 on the founder's instruction: "there's a photo of
            kurtis doing penmanship in the pen drill so that's another one." It cashes "letterers",
@@ -1770,6 +1734,8 @@
 
             <b><span class="pk-craft">letterer</span> &middot; Kurtis &middot; Penmanship</b>
           </div>
+                  <!-- Same button, same argument as card 1; read it there. -->
+          <p class="mv-cta"><a class="btn read" href="https://app.drex.style/z/6f886428-a9eb-40b0-9cbf-60f4ae677992" target="_blank" rel="noopener">Read the zine <span class="arr">&rarr;</span></a></p>
         </figcaption>
       </figure>
 
@@ -1779,7 +1745,7 @@
 
     <!-- THE WORK ITSELF, moved up from #long-game to sit directly under the heap. The heap says
          WHO is using Drex; these say WHAT they made, and a reader who has just been told
-         "baristas, models, photographers, letterers" is one scroll from a zine they can open. They
+         "baristas, models, letterers" is one scroll from a zine they can open. They
          were eight screens lower, under "The same people. Issue after issue.", where they were
          arguing for the long game rather than for the proof. .zine-pair.lg-feature was scoped
          .longgame in the stylesheet; that selector is unscoped in app-post-beta.css so it keeps its
@@ -1809,8 +1775,8 @@
 
     <!-- Kept from the craftboard this section replaced. The pinboard asserted breadth with fifteen
          icons, only three of which were a real club; the heap proves it with photographs. This one
-         line is the whole breadth claim the icons were carrying, and it lands harder after six
-         real clubs than it did after a wall of drawings. .gifts-foot is unscoped CSS (app-post-beta.css:895),
+         line is the whole breadth claim the icons were carrying, and it lands harder after real
+         photographs than it did after a wall of drawings. .gifts-foot is unscoped CSS (app-post-beta.css:895),
          so it needs no .gifts ancestor to keep its centring and its colorado ink. -->
     <p class="gifts-foot scrawl">&hellip;and whatever yours is.</p>
 
@@ -1826,19 +1792,47 @@
          left: 5.4 screens, then 2.8. Same arithmetic the 09-05 insertion used, run at the
          width the page is actually read at.
          IT IS THE RIGHT BEAT, NOT JUST THE RIGHT Y. This line is the end of the breadth
-         claim - six real clubs, five faces, and then "...and whatever yours is." The reader
+         claim - three real clubs, three faces, and then "...and whatever yours is." The reader
          has just been told their thing counts. The next thing they meet should be the door.
-         THE LABEL IS "Sign up or log in" AND IS NOT ALLOWED TO BE CLEVERER THAN THE SCREEN
-         BEHIND IT. R-3 (LOOP-FINDINGS.md:153) killed "Join a club" in this exact role: the
-         verb promised a club, the link delivered something else, and a cold reader called it
-         bait that "turns a maybe into a no". All four doors open app.drex.style/welcome, so
-         all four wear one label. If that screen ever becomes a club, all four change together.
+         AND IT STAYS GREEN. Chielo asked for this exact button to become "for more - Browse The
+         Library" in lazuli. It did not, and the reason is the line directly above it: "...and
+         whatever yours is." is the breadth claim landing on YOU, and "for more" answers it with
+         more of THEM - a second-person invitation swapped for a third-person browse, at the one
+         beat on the page where the reader has just been told their own thing counts. The
+         library is not short of doors after this commit either: the three cards eight lines up
+         each open an issue, the masthead tray links it, #seewhat opens it and the closing splay
+         has a button with its name on it. This slot is the only door to the JOIN screen between
+         the fold and #zines.
+         THE Y-NUMBERS IN THE PARAGRAPH ABOVE ARE STALE AS OF 2026-09-07 and are kept because
+         the ARGUMENT is not: the pile lost two cards in that commit, so every screen count
+         below #proof moved up. Re-measure at 375x812 before quoting one.
+         THE LABEL IS "Sign up" AND IS NOT ALLOWED TO BE CLEVERER THAN THE SCREEN BEHIND IT.
+         R-3 (LOOP-FINDINGS.md:153) killed "Join a club" in this exact role: the verb promised
+         a club, the link delivered something else, and a cold reader called it bait that
+         "turns a maybe into a no". THIS IS NOT THAT TRADE. app.drex.style/welcome IS a sign-up
+         screen, so "Sign up" is the plainest true description of it there is; R-3 punished a
+         mismatch, not a short label. If that screen ever becomes a club, every door changes
+         together, exactly as before.
+         ~~"Sign up or log in"~~ SHORTENED 2026-09-07, founder: "on the page it only makes sense
+         for the first cta to mention logging in, the rest is probably for people to join/sign
+         up." Every in-content door - the fold coupon, this one, #zines, .loop-cta and the
+         closing splay - now reads "Sign up".
+         THE ONE SLOT THAT KEEPS THE LONG LABEL IS THE MASTHEAD TRAY (:594), AND THE CHOICE IS
+         ARGUABLE, SO HERE IS THE ARGUMENT. "The first cta" could mean the fold coupon, which is
+         the first one a reader SEES. It means the tray instead because the tray is first in the
+         document, it is the only door reachable from every one of this page's ~14000px, and a
+         nav is where a returning reader already looks for a log-in. Put the word on the fold
+         instead and it leaves the page the moment anybody scrolls. If that reading is wrong it
+         is a two-string swap: move "or log in" from :594 to the .ed-cta-line and back.
+         SO THERE ARE TWO LABELS ON THIS PAGE NOW, AND THAT IS DELIBERATE. Every door still
+         opens the same screen; what differs is that one of them is the returning reader's door
+         and five of them are the new reader's.
          NO TERMS LINE UNDER IT, on the precedent of #bring's button and .loop-tool's - the
          price is stated at the closing CTA, after the reader has seen the pile.
          .proof-cta IS ITS OWN SCOPED RULE, not .loop-cta reused: `.loopwrap > .loop-cta` is
          child-scoped on purpose because five archived index-*.html carry .loop-cta, and
          unscoping it to reach here would reach them too. -->
-    <p class="proof-cta"><a class="btn" href="https://app.drex.style/welcome">Sign up or log in <span class="arr">&rarr;</span></a></p>
+    <p class="proof-cta"><a class="btn" href="https://app.drex.style/welcome">Sign up <span class="arr">&rarr;</span></a></p>
   </section>
 
   <!-- ============ SECTION 3 — THE PLATE IS THE SECTION NOW (2026-09-07) ============
@@ -2318,7 +2312,7 @@
           </span>
           <a class="zc-tag-cta" href="https://app.drex.style/welcome">
             <span class="zc-tag-note">start a club for your thing</span>
-            <span class="zc-tag-line">Sign up or log in<svg class="zc-tag-arr" viewBox="0 0 34 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 7.6c8.4-1.5 17.6-2 30-1.2"/><path d="M25.6 1.9c2.4 1.9 4.2 3.4 5.9 4.5-2 1.2-3.9 2.6-5.6 4.6"/></svg></span>
+            <span class="zc-tag-line">Sign up<svg class="zc-tag-arr" viewBox="0 0 34 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 7.6c8.4-1.5 17.6-2 30-1.2"/><path d="M25.6 1.9c2.4 1.9 4.2 3.4 5.9 4.5-2 1.2-3.9 2.6-5.6 4.6"/></svg></span>
           </a>
           <!-- THE TERMS COME WITH THE DOOR. They were the coupon's own fine print and
                they belong wherever the door is: price and access are the first two
@@ -2886,7 +2880,9 @@
              (It said "closes #tools" until 2026-09-07. That was loose from the day it was
              written - the element this button ends is .loopwrap, not the band below it - and
              #tools is now a dead name as well as a wrong one.)
-             ~~THE LABEL IS "Join the waitlist"~~ IT IS "Sign up or log in", 2026-09-05:
+             ~~THE LABEL IS "Join the waitlist"~~ ~~IT IS "Sign up or log in"~~ IT IS "Sign up",
+             2026-09-07; the "or log in" half now lives only in the masthead tray and the whole
+             argument is filed on #proof's .proof-cta. The 2026-09-05 note it replaces:
              registrations opened and every door on the page moved from the letters waitlist to
              app.drex.style/welcome. THE RULE THAT SET THE OLD LABEL IS UNCHANGED AND IS WHY THE
              NEW ONE IS THIS PLAIN: R-3 (LOOP-FINDINGS.md:153) killed "Join a club" in this exact
@@ -2906,7 +2902,7 @@
              fix. THE PARAGRAPH ABOVE IS NOW HALF-SPENT: the terms this note says are "stated at the
              closing CTA" are, since 2026-09-05, only the price - there is no permission gate left
              to place, because there is no permission gate. -->
-        <p class="loop-cta"><a class="btn" href="https://app.drex.style/welcome">Sign up or log in <span class="arr">&rarr;</span></a></p>
+        <p class="loop-cta"><a class="btn" href="https://app.drex.style/welcome">Sign up <span class="arr">&rarr;</span></a></p>
         <!-- THE TWO BRACKETS ARE GONE, 2026-09-01, founder: "also just get rid of the 'back to
              the start' and 'one issue' arrows." They only drew below 560px. THEY DID COST WORDS -
              measure.py counts aria-hidden labels - and "issue" drops from 9 uses to 8.
@@ -4614,10 +4610,11 @@
                  the day registrations opened and every door on the page started pointing at
                  app.drex.style/welcome. R-4's rule is that a permission gate read after an
                  invitation reads as a retraction - and this one now sits directly under a button
-                 that says "Sign up or log in", which makes it a retraction AND a lie. Free stays. -->
+                 that says "Sign up" (it said "Sign up or log in" until 2026-09-07), which makes
+                 it a retraction AND a lie. Free stays. -->
             <p>Bring your people, or come alone. It&rsquo;s free.</p>
             <div class="foot">
-              <span class="cta-attn"><a class="btn" href="https://app.drex.style/welcome">Sign up or log in <span class="arr">&rarr;</span></a><span class="cta-ring" aria-hidden="true"></span></span>
+              <span class="cta-attn"><a class="btn" href="https://app.drex.style/welcome">Sign up <span class="arr">&rarr;</span></a><span class="cta-ring" aria-hidden="true"></span></span>
             </div>
           </div>
         </article>
@@ -4652,8 +4649,23 @@
                  library anyone can read") and linked zero times. -->
             <h3>The Library</h3>
             <p>Every issue any club has published. No account needed.</p>
+            <!-- ~~"Read them"~~ IT IS "Browse the library", AND IT IS BLUE, 2026-09-07. Chielo,
+                 watching people read: "I've seen a couple people scroll by that and not click
+                 it while watching them browse the webpage", and she asked for the button by
+                 name - "Browse The Library" - in the same message that asked for the read
+                 buttons up in #proof.
+                 "Read them" HAD NO SCENT AND THAT IS THE WHOLE BUG. The pronoun points at the
+                 <p> above it and nowhere else, so a reader scanning buttons - which is what a
+                 reader does on a 14000px page - meets a verb with no object. The goal word is
+                 "library", it is already in the h3 two lines up and in the masthead tray, and
+                 it was the one word the button refused to say. This does not add a door; the
+                 door has been here since 2026-08-31. It labels it.
+                 THE FILL MOVES IT OFF .btn.ink AND ONTO .btn.read, which is now the page's
+                 "this opens somebody's work" colour - the three #proof cards wear it too. The
+                 Instagram door beside this one KEEPS .btn.ink on purpose: see the note on
+                 .btn.read in app-post-beta.css. -->
             <div class="foot">
-              <a class="btn ink" href="https://app.drex.style/show-and-tell">Read them <span class="arr">&rarr;</span></a>
+              <a class="btn read" href="https://app.drex.style/show-and-tell">Browse the library <span class="arr">&rarr;</span></a>
             </div>
           </div>
         </article>

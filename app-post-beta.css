@@ -355,6 +355,21 @@ a{color:inherit}
 .btn:active{transform:translate(5px,5px) rotate(0);box-shadow:0 0 0 0 var(--ink)}  /* press INTO the shadow */
 .btn:focus-visible{outline:3px solid var(--lazuli);outline-offset:3px}
 .btn.ink{--bg:var(--paper);--fg:var(--ink)}
+/* READ IS BLUE, JOIN IS GREEN (2026-09-07). Founder: "we can use lazuli for read/see and green
+   for join/login." Two verbs, two fills, and the page does not get a third: .btn.ink stays
+   paper-and-ink for the one door that is neither (Instagram - "Follow along" is not a read and
+   not a join, and painting it either colour would make the system a lie on its second use).
+   --lazuli-deep AND NOT --lazuli, on exactly the arithmetic that put --grass-deep in .btn above.
+   #2496C9 on oats measures 3.11:1 and fails AA at label size - that is the same number
+   .mv-strip's own 2026-08-29 contrast note already records for Lazuli as text, so this file has
+   made this mistake once. #1C6F94 on oats measures 5.20:1.
+   THE COLOUR IS NOT THE LEVER AND NOBODY SHOULD EXPECT IT TO BE. A button is conspicuous by
+   isolation, and lazuli is spent freely all over this sheet (it is the second most-used accent
+   in the file), so a lazuli fill buys LESS pop than the reserved green, not more. What it buys
+   is a legible pair: every blue button opens somebody's work, every green button opens the
+   join screen. If a later pass wants the library clicked more, the levers are the label and
+   the y-position, both of which moved in this same commit. */
+.btn.read{--bg:var(--lazuli-deep);--fg:var(--oats)}
 .btn .arr{font-family:var(--f-mono)}
 
 /* ---------- masthead = printed broadsheet w/ torn bottom ---------- */
@@ -1840,6 +1855,27 @@ html[data-tier="lite"] .lg-real::before{filter:none}
 @media(max-width:760px){#proof .mb-grid{--mb-cw:calc(50% - 4px);--mb-gap:-10px;--mb-off:0px}}
 @media(max-width:460px){#proof .mb-grid{--mb-cw:min(92%,320px);--mb-gap:0px}}
 #proof .mpol{padding:9px 9px 28px}
+
+/* THE READ BUTTON INSIDE A POLAROID (2026-09-07). Chielo: "for each of these, I'd like to
+   include a 'Read Zine' CTA button ... the same style of the green sign up button." It IS the
+   same button, one size down, and the size-down is arithmetic and not taste: at the 2-column
+   breakpoint the card is calc(50% - 4px), which leaves ~182px of usable strip at 460px, and
+   .btn at its full .85em/1.35em padding measures ~173px for this label. Four pixels of slack
+   is not a margin, it is luck. At .7em/1em and .09em tracking it measures ~159px.
+   IT DOES NOT TOUCH THE TUCK, and that is the one thing worth checking before moving it. The
+   lip arithmetic at "THE LIP IS LOAD-BEARING" measures from the deepest HANDLE to the card
+   tucking under it. This sits BELOW the handle, so it pushes the handle further from the
+   bottom edge and the clearance can only grow. Move it above .pk-meta and that stops being
+   true - re-measure at 760 and 460 if anyone ever does.
+   THE HOVER AND ACTIVE ARE RE-DECLARED ON PURPOSE, NOT COPY-PASTE SLOP. `.btn:hover` is one
+   class plus one pseudo-class and `.mv-cta .btn` is two classes - identical specificity - so
+   the later rule wins, and this block is 1500 lines later. Without these two lines the button
+   keeps its rotation on hover and never presses into its shadow. */
+.mv-cta{margin-top:.5rem}
+.mv-cta .btn{padding:.7em 1em;min-height:40px;letter-spacing:.09em;
+  transform:rotate(-1.2deg);box-shadow:4px 4px 0 0 var(--ink)}
+.mv-cta .btn:hover{transform:rotate(0)}
+.mv-cta .btn:active{transform:translate(4px,4px) rotate(0);box-shadow:0 0 0 0 var(--ink)}
 /* A SOLID INK OFFSET, not the board's translucent brown. That brown was mixed
    to sit on cork; on grass-deep it reads as a smear of the ground rather than
    a shadow. Every other sheet in this section carries a hard ink offset
@@ -10135,6 +10171,23 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    It is also the only one of the section's five scraps without cg-drop-sm - the other four
    already vanish here, so the section keeps exactly one mark and that one collides. */
 @media(max-width:560px){ .doors .cg-collage .cg-scrap.cg-s3{display:none} }
+
+/* THE DOOR LABELS GOT LONGER, SO THEY GET A NARROW-WIDTH SIZE (2026-09-07). "Browse the
+   library" is 18 characters where "Read them" was 9, and at 320 the door card gives .foot
+   205px: at .btn's full 1.35em padding the label wrapped to two lines AND STRANDED THE
+   ARROW - .btn is inline-flex with align-items:center, so the arrow is a flex sibling of
+   the label and centres itself against a two-line block, floating at the card's right edge
+   with nothing in front of it. Measured 65px tall against the 46px the other two doors
+   keep, which is also three unequal buttons in one splay.
+   ALL THREE DOORS TAKE THE SAME SHRINK, not just the long one. The splay reads as a set of
+   three cards; one button a size down from its neighbours is a worse fault than the wrap
+   it fixes. Tracking carries most of the saving (.12em -> .07em on an 18-character
+   uppercase mono label is ~14px), padding the rest.
+   400px AND NOT 460: measured, "Browse the library" clears one line down to 320 with this
+   rule and needs it from ~390 down. 460 is the pile's breakpoint and means nothing here. */
+@media(max-width:400px){
+  .doors .btn{padding:.8em 1em;letter-spacing:.07em}
+}
 
 /* ============================================================================
    THE LOOP (2026-09-01) — the library square, the two arrows, and the tool
