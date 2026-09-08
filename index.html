@@ -402,7 +402,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=158" />
+<link rel="stylesheet" href="app-post-beta.css?v=159" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -1693,6 +1693,18 @@
            first. The face and the words are one person's, which is this deck's rule; until now the
            only record of that lived in a deleted card's comment in an archive file. -->
       <figure class="mpol" style="--r:-3.4deg">
+          <!-- KEY ILLUSTRATION - THEIR WORDS, 2026-09-07. Three cards of makers speaking, and the
+               only drawn mark in the section was the underline in the head. A hand-drawn "66"
+               on the first card's corner says what the row is before a word is read: people
+               talking, not stock photos. The founder card already uses the same glyph as a
+               gutter scrap on desktop, so it is the page's own vocabulary; here it is in the
+               column, so a phone sees it too. --coral-ink like the founder's. First card only -
+               one mark per claim, not one per card. -->
+          <span class="ki ki-quote" aria-hidden="true">
+              <svg viewBox="0 0 72 52" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path data-si-draw pathLength="1" d="M18 8 C8 12 4 26 10 38 C14 46 24 46 27 38 C29 32 22 27 15 29 M52 8 C42 12 38 26 44 38 C48 46 58 46 61 38 C63 32 56 27 49 29" stroke="var(--coral-ink)" stroke-width="4"/>
+              </svg>
+          </span>
         <span class="mv-pin" aria-hidden="true"></span>
         <a class="mv-door" href="https://app.drex.style/z/f362cc90-3b98-4c9e-80af-494105edb9e5" target="_blank" rel="noopener" aria-label="Read it &mdash; opens on Drex"><span class="mv-ph has-photo" role="img" aria-label="Michaela, a barista at a San Francisco cafe, grinning over the counter with the mocha she poured." style="background-image:url(assets/zines/beans-michaela.jpg);background-position:center 14%"></span></a>
         <figcaption class="mv-strip">          <q>I&rsquo;m addicted to chocolate.</q>
@@ -3019,7 +3031,25 @@
              fix. THE PARAGRAPH ABOVE IS NOW HALF-SPENT: the terms this note says are "stated at the
              closing CTA" are, since 2026-09-05, only the price - there is no permission gate left
              to place, because there is no permission gate. -->
-        <p class="loop-cta"><a class="btn" href="https://app.drex.style/welcome">Sign up <span class="arr">&rarr;</span></a></p>
+        <!-- KEY ILLUSTRATION - THE NAG, 2026-09-07. "We nag for you. In everyone's calendar and
+             text messages." is the page's one mechanism claim and it had no picture; the section
+             carried a highlighter swipe and nothing drawn. So: a phone, going off - the thing
+             that does the nagging - with a "!!" bubble, beside the button that gets you nagged.
+             Placed in the CTA row, not the margin, so it exists at 320 and 375 (the .si margin
+             marks only exist above 1340px). Ink strokes for the phone, --coral-ink for the buzz
+             and the bubble: red is CHALLENGE on this page, and a nag is the challenge calling.
+             Boils, because it is ink (.ki svg). Rules the .ki system obeys are at the top of its
+             block in app-post-beta.css. -->
+        <p class="loop-cta"><a class="btn" href="https://app.drex.style/welcome">Sign up <span class="arr">&rarr;</span></a><span class="ki ki-nag" aria-hidden="true">
+              <svg viewBox="0 0 100 112" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path data-si-draw pathLength="1" d="M31 26 C31 20 35 17 41 17 L62 18 C68 18 71 22 70 28 L66 98 C66 104 62 107 56 107 L36 106 C30 106 27 102 28 96 Z" stroke="var(--ink)" stroke-width="3.2"/>
+                <path data-si-draw pathLength="1" d="M42 100 L52 100 M36 40 L60 41 M35 52 L55 53" stroke="var(--ink)" stroke-width="2.2"/>
+                <path data-si-draw pathLength="1" d="M18 34 C12 44 12 56 18 66 M9 28 C1 42 1 58 9 72 M82 44 C88 54 88 66 82 76 M91 38 C99 52 99 68 91 82" stroke="var(--coral-ink)" stroke-width="2.6"/>
+                <path data-si-draw pathLength="1" d="M60 4 L88 2 C94 2 97 5 96 11 L95 22 C95 27 92 29 86 29 L76 29 L68 36 L70 29 L64 29 C59 29 57 26 58 21 Z" stroke="var(--coral-ink)" stroke-width="2.6"/>
+                <path data-si-draw pathLength="1" d="M73 8 L72 18 M80 8 L79 18" stroke="var(--coral-ink)" stroke-width="3"/>
+                <circle cx="72.5" cy="23" r="1.7" fill="var(--coral-ink)"/><circle cx="79.5" cy="23" r="1.7" fill="var(--coral-ink)"/>
+              </svg>
+            </span></p>
         <!-- THE TWO BRACKETS ARE GONE, 2026-09-01, founder: "also just get rid of the 'back to
              the start' and 'one issue' arrows." They only drew below 560px. THEY DID COST WORDS -
              measure.py counts aria-hidden labels - and "issue" drops from 9 uses to 8.
@@ -3394,7 +3424,21 @@
              them it makes them two ideas.
              It is a grid ITEM now, spanning every column, not a block above the grid. -->
 
-        <p class="lands-h"><span class="nb">Automatic&nbsp;portfolio<span class="stop">.</span></span></p>
+        <!-- KEY ILLUSTRATION - THE AUTOMATIC PART, 2026-09-07. "Automatic portfolio." is the
+             second big claim and, measured before this, #seewhat had zero drawn marks across
+             three screens at 375. So: three issues sliding down an arrow onto the wall below -
+             the arrow starts at the heading and lands on the wall card's paper, which is the
+             rule the deleted tick arrows broke (they started 938px above their target and
+             landed on app chrome). Lives INSIDE .nb so it hangs off the last word at every
+             width; --lazuli-deep because Show & tell is Lazuli and the wall is where it lands. -->
+        <p class="lands-h"><span class="nb">Automatic&nbsp;portfolio<span class="stop">.</span><span class="ki ki-auto" aria-hidden="true">
+              <svg viewBox="0 0 100 112" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path data-si-draw pathLength="1" d="M90 6 C98 36 90 68 60 92 L44 102" stroke="var(--lazuli-deep)" stroke-width="3"/>
+                <path data-si-draw pathLength="1" d="M58 96 L44 102 L48 88" stroke="var(--lazuli-deep)" stroke-width="3"/>
+                <path data-si-draw pathLength="1" d="M24 10 L44 8 L46 32 L26 34 Z M32 40 L52 38 L54 62 L34 64 Z M40 68 L60 66 L62 90 L42 92 Z" stroke="var(--ink)" stroke-width="2.6"/>
+                <path data-si-draw pathLength="1" d="M30 16 L40 15 M30 22 L39 21 M38 46 L48 45 M38 52 L47 51 M46 74 L56 73 M46 80 L55 79" stroke="var(--lazuli-deep)" stroke-width="1.9"/>
+              </svg>
+            </span></span></p>
         <div class="pw-col is-club">
           <a class="pw-a" style="--r:1.2deg" href="https://app.drex.style/clubs/photo-phloor" target="_blank" rel="noopener" aria-label="Open Photo Phloor's wall on Drex — a real club">
             <span class="pw-media">
@@ -4520,6 +4564,19 @@
         <span class="lg-shot"><img src="assets/zines/penmans-drill.jpg" width="600" height="731" loading="lazy" decoding="async"
              alt="A hand resting on a notebook page filled with rows of pointed-pen drill strokes in blue ink, a phone in the other hand." /></span>
         <figcaption>
+          <!-- KEY ILLUSTRATION - THE FIRST TIME, 2026-09-07. This card is the page's turn:
+               someone who had never done it, did it, and runs the club now. A burst - the pop
+               of a first finished thing - at the headline's corner, School Bus because it is
+               the one bright ink the slate card can carry and Club Hour is the beat that made
+               it happen. #bring, one viewport up, stays bare on purpose (its NO DRAWN MARK note);
+               this is the one mark that viewport gets. -->
+          <span class="ki ki-first" aria-hidden="true">
+              <svg viewBox="0 0 84 84" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path data-si-draw pathLength="1" d="M42 6 L42 20 M64 15 L55 25 M74 40 L60 40 M18 15 L27 25 M8 40 L22 40 M22 62 L29 53 M62 62 L55 53" stroke="var(--schoolbus)" stroke-width="3.4"/>
+                <path data-si-draw pathLength="1" d="M66 58 L68 68 L78 70 L68 72 L66 82 L64 72 L54 70 L64 68 Z" stroke="var(--schoolbus)" stroke-width="2.4"/>
+                <circle cx="42" cy="40" r="4" fill="var(--schoolbus)"/>
+              </svg>
+          </span>
           <h2 class="slab lg-real-q">Kurtis had never done this before.</h2>
           <p class="lg-real-a">He turned up to Penmanship, filled a page, and put it in
           the issue. He runs that club now.</p>
@@ -5016,7 +5073,7 @@
    #mbDeck's id stays on the div. Nothing reads it now, but it is the section's only
    stable hook and removing it buys nothing. */
 </script>
-<script type="module" src="app-post-beta.js?v=102"></script>
+<script type="module" src="app-post-beta.js?v=103"></script>
 
 <!-- GoatCounter — privacy-friendly analytics, no cookies/consent banner. QR
      attribution rides on the ?ref= query param (GoatCounter's built-in campaign

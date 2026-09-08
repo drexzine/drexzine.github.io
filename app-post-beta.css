@@ -9979,6 +9979,60 @@ html[data-tier="lite"] .sw-shot::after{filter:none}
   .si,.si [data-si-draw]{transition:none}
 }
 
+/* ===================================================================
+   KEY ILLUSTRATIONS (ki-*) — 2026-09-07. Founder: "key moments should even get key
+   illustrations with squigglevision", after a screenshot count showed the marks stop
+   where the claims start: hero 14 drawn marks, founder 15, and ZERO across #seewhat,
+   #bring and #long-game (about eight screens at 375). The desktop gutter scraps do not
+   fix that - they are decoration with no target, and they do not exist on a phone.
+
+   SAME MECHANISM AS .si, DIFFERENT PLACE. Inks itself in on arrival (data-si-draw on
+   pathLength=1, the .si-in class from the same observer in app-post-beta.js), but it
+   sits INSIDE the thing it is about - a heading, a card corner, the CTA row - not in
+   the outer margin. .si is display:none below 1340px because there is no margin to
+   write in; a .ki has no such problem, so it is the first drawn mark below the hero
+   that a 375 reader ever sees.
+
+   FOUR, ONE PER CLAIM: the nag (.loop-cta), the automatic portfolio (.lands-h), the
+   makers' own words (#proof, first card), the first-timer (#long-game). #bring stays
+   bare - its markup says why. Each mark starts on the grid and lands on paper.
+
+   INK BOILS, PAPER DOES NOT. The svg runs #rough through boil-rough, the same idiom as
+   the underlines and the CTA casing. lite keeps the rough edge and drops only the
+   animation (the answer the Firefox lite-latch thread was waiting on, applied here at
+   least). Reduced motion: no boil, no draw-on, the mark is simply there. */
+.ki{position:absolute;z-index:6;pointer-events:none;opacity:0;
+  transform:translateY(10px) rotate(var(--ki-rot,0deg));
+  transition:opacity .4s ease, transform .7s cubic-bezier(.26,1.36,.44,1)}
+.ki svg{display:block;width:var(--ki-w,56px);height:auto;overflow:visible;
+  filter:url(#rough);animation:boil-rough var(--boil-ink) step-end infinite}
+.ki.si-in{opacity:1;transform:translateY(0) rotate(var(--ki-rot,0deg))}
+.ki [data-si-draw]{stroke-dasharray:1;stroke-dashoffset:1;
+  transition:stroke-dashoffset 1.05s cubic-bezier(.62,.02,.34,1) .12s}
+.ki.si-in [data-si-draw]{stroke-dashoffset:0}
+html[data-tier="lite"] .ki svg{animation:none}
+@media(prefers-reduced-motion:reduce){
+  .ki,.ki [data-si-draw]{transition:none}
+  .ki svg{animation:none}
+}
+/* placements. The button row and the heading's last word become the positioning box;
+   the proof card and the long-game caption already are one. */
+.loop-cta{position:relative}
+.ki-nag{right:max(4px, calc(50% - 168px));top:-22px;--ki-w:62px;--ki-rot:9deg}
+.lands-h .nb{position:relative;display:inline-block}
+.ki-auto{left:calc(100% + 6px);top:-.55em;--ki-w:66px;--ki-rot:-4deg}
+@media(max-width:400px){
+  /* 320: the heading ends ~42px from the edge, so the mark tucks under the last word
+     instead of hanging off it - measured clipping 7px past the viewport at 54px wide. */
+  .ki-auto{left:calc(100% - 22px);top:.55em;--ki-w:44px}
+}
+.ki-quote{left:-12px;top:-20px;--ki-w:46px;--ki-rot:-8deg}
+.ki-first{right:-10px;top:-30px;--ki-w:58px;--ki-rot:6deg}
+@media(max-width:560px){
+  .ki-nag{--ki-w:52px;top:-16px;right:max(10px, calc(50% - 160px))}  /* 320: the 9deg tilt put its box 0.4px past the edge at 4px */
+  .ki-first{--ki-w:48px;top:-24px;right:-4px}
+}
+
 /* =================================================================================
    CONSTRUCTION PAPER — grounded sections (2026-08-30)
    ---------------------------------------------------------------------------------

@@ -3395,7 +3395,9 @@ function whenRevealed(fn) {
    separate layer, so they get a separate five lines.
    =================================================================== */
 function initSectionIllos(){
-  var els = Array.prototype.slice.call(document.querySelectorAll('.si'));
+  // .ki (key illustrations, 2026-09-07) ride the same observer: same draw-on, same
+  // .si-in class, placed in the column instead of the margin. See the ki block in the CSS.
+  var els = Array.prototype.slice.call(document.querySelectorAll('.si, .ki'));
   if (!els.length) return;
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce || !('IntersectionObserver' in window)) {
