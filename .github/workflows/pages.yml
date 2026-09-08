@@ -1,0 +1,46 @@
+# Serve drex.style from a comment-stripped build instead of the raw branch.
+#
+# INERT UNTIL A SETTING IS FLIPPED. GitHub Pages for this repo is set to "Deploy from a
+# branch" (main, /). While that is so, the branch is what the world sees and this
+# workflow's deploy step fails with "Pages has not been enabled with source GitHub
+# Actions" - harmless, but a red X on every push. To switch: repo Settings -> Pages ->
+# Build and deployment -> Source: "GitHub Actions". From then on a push to main builds
+# dist/ with tools/build-dist.py and publishes that; the source stays in the repo with
+# every comment intact, and nothing about the editing workflow changes.
+#
+# What it saves (2026-09-07): index.html 141KB -> 33KB and app-post-beta.css 279KB -> 53KB
+# gzipped, i.e. ~330KB off the render-blocking path of every first visit.
+name: pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: python3 tools/build-dist.py --out dist
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

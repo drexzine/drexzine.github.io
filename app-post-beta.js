@@ -172,7 +172,7 @@ function boot() {
   initDomainSlot();                 // the yellow blank in the CTA, on its own clock
   alignDeckToHeadline();            // deck top meets headline top — must run BEFORE the arrow measures
   initBeatPointer();                // the sub's marker arrow, drawn from "magazine." onto the front zine
-  initMakerPhotos();                // polaroids adopt assets/makers/<handle>.jpg if present
+  initMakerPhotos();                // polaroids adopt assets/makers/<handle>.webp if present
   // Hovering a card/polaroid grows its hard shadow under a live SVG filter —
   // a burst of quick re-rasters of a big sheet. That's a known, brief,
   // self-inflicted stall (same idea as the crumple capture at pauseFps(2500)):
@@ -348,7 +348,7 @@ function fillGutters() {
    Pauses on hover/focus so nobody loses a sentence mid-read; under reduced-motion it just
    shows the first and stops. */
 /* Maker photos. The polaroids ship with an initial + "photo soon" stamp, and quietly upgrade
-   themselves the moment a real photo exists at assets/makers/<handle>.jpg — no markup change, no
+   themselves the moment a real photo exists at assets/makers/<handle>.webp — no markup change, no
    redeploy of anything but the image. Probe, and only swap on a successful decode, so a missing
    file degrades to the placeholder instead of a broken-image icon. */
 /* IT PROBES BY HANDLE, so every card whose <b> is NOT a handle costs a 404 per load. That was
@@ -374,10 +374,10 @@ function initMakerPhotos() {
     if (ph.classList.contains('has-photo')) return;  // already resolved in the markup
     const img = new Image();
     img.onload = () => {
-      ph.style.backgroundImage = `url("assets/makers/${handle}.jpg")`;
+      ph.style.backgroundImage = `url("assets/makers/${handle}.webp")`;
       ph.classList.add('has-photo');            // hides the initial + the "photo soon" stamp
     };
-    img.src = `assets/makers/${handle}.jpg`;
+    img.src = `assets/makers/${handle}.webp`;
   });
 }
 
@@ -2850,7 +2850,23 @@ function initZineCarousel() {
   // Warm the next strip while the current one plays: the others are lazy and sit
   // at opacity 0, so the browser is entitled to defer them — and does. Without
   // this the crossfade lands on an image with no bytes and the frame flashes.
+  // ...BUT ONLY ONCE THE CAROUSEL IS NEAR. Measured 2026-09-07 on the live page at 375: the
+  // page sealed, nobody scrolling, and warm() had fetched a 295KB strip by 0.8s, then another
+  // every dwell - 2.5MB of page-strips for a section five screens down, on a phone, at boot.
+  // `near` flips when #zines is within one viewport (the IntersectionObserver below); until
+  // then warm() is a no-op and the strips stay lazy. The next show() after the flip warms
+  // again, so nothing is lost - the crossfade still lands on bytes.
+  var near = !('IntersectionObserver' in window);
+  if (!near) {
+    var nearIO = new IntersectionObserver(function (entries) {
+      if (!entries.some(function (e) { return e.isIntersecting; })) return;
+      near = true; nearIO.disconnect();
+      warm(i); warm(i + 1);
+    }, { rootMargin: '100% 0px 100% 0px' });
+    nearIO.observe(root);
+  }
   function warm(n) {
+    if (!near) return;
     var img = layers[(n + layers.length) % layers.length].querySelector('img');
     if (!img || img.dataset.warm) return;   // video layers warm themselves on their turn
     img.dataset.warm = '1';

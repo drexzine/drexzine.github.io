@@ -17,3 +17,6 @@ notes/
 /m-new.html
 /m-old.html
 /__m_*.html
+
+# tools/build-dist.py output; the Pages workflow builds it in CI. Never commit it.
+/dist/
