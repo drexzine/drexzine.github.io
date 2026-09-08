@@ -359,7 +359,11 @@ function fillGutters() {
         for (let t = 0; t < 28 && !spot; t++) {
           // edges first: the side margins beside the cards are the phone's gutters. A card's
           // text starts ~40px in, so a 20-32px piece parked at 0-4% clears it with the pad.
-          const x = t < 16 ? (t % 2 ? rnd(3, W * 0.04) : rnd(W * 0.96 - w, W - w - 3)) : rnd(3, W - w - 3);
+          // alternate the FIRST side per piece: with the right edge always tried first, the
+          // first try usually lands and 84% of a phone's scraps ended up on the right (measured
+          // 2026-09-08, L12 R64 at 375). Even pieces start left, odd start right.
+          const left = (t + i) % 2 === 0;
+          const x = t < 16 ? (left ? rnd(3, W * 0.04) : rnd(W * 0.96 - w, W - w - 3)) : rnd(3, W - w - 3);
           const y = Math.max(2, Math.min(h - sh - 2, band + rnd(-h / need * 0.48, h / need * 0.48)));
           if (clear(out, x, y, w, sh, 6) && clear(placed, x, y, w, sh, 28)) spot = [x, y];
         }
