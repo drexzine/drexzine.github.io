@@ -10932,7 +10932,8 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    and for the position is in index.html above the markup. What is decided HERE:
      - 34ch in Pitch Sans (0.614em advance) is 34 characters at every width, the same
        arithmetic the hero deck runs on at 24ch. It is wider than the deck because this is a
-       paragraph, not a rank. Line counts are recorded under the rules, with the width fix.
+       paragraph, not a rank. (Now 42ch of box; see the rule.) Line counts are recorded under
+       the rules, with the width fix.
      - The face is --f-head at --fs-lede, weight 600: the deck's own setting, so the card
        reads as the deck continued, not as body copy. Body (Bitter) here would make it the
        first serif on the page, three lines after the fold.
@@ -10942,8 +10943,8 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
      - -1.1deg, like every pinned thing on this ground; a square card on a board of tilted
        polaroids is the one that looks pasted on.
      - The tape is the base Happy washi, centred on the top edge; not .b or .c, because the
-       two coloured words on the card already point at the red and blue strips below it and a
-       third colour on the tape would make the card the ransom note :7233 argues against.
+       card already carries three colours as a KEY to the three polaroids (highlight, red,
+       blue - the index.html note has the mapping) and a coloured tape would be a fourth.
    The coloured spans are re-declared, not re-used: .hd-out is scoped to the hero deck and
    .tp-chal to the polaroid labels, and neither is a class this card should inherit rules from. */
 /* THE ch IS PITCH'S, NOT BITTER'S. The first cut set width:34ch on the card with the face set
@@ -10951,20 +10952,25 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    card came out ~330px at 1280 - eight lines of 22 characters under a 1,280px heading. The
    face and size are on the card now, so the unit and the text agree; 40ch of box less the
    inner padding is ~34 characters of line. */
-.wyg-card{font-family:var(--f-head);font-size:var(--fs-lede);width:min(100%,40ch);margin:0 auto var(--head-gap);transform:rotate(-1.1deg)}
+.wyg-card{font-family:var(--f-head);font-size:var(--fs-lede);width:min(100%,42ch);margin:0 auto var(--head-gap);transform:rotate(-1.1deg)}   /* 42ch, not 40: at 40 the 24-word cut ran to five lines at 1280 with "proof." alone on the fifth; 42 gives four, "work in a magazine: the proof." whole on the last */
 .wyg-card>.sheet.ruled{--rule:calc(var(--fs-lede) * 1.35)}
 .wyg-card>.inner{padding:clamp(1.1rem,3vw,1.6rem) clamp(1.2rem,3.5vw,1.9rem)}
 .wyg-say{margin:0;font-family:var(--f-head);font-weight:600;font-style:normal;font-size:var(--fs-lede);
   line-height:1.35;letter-spacing:-.005em;color:var(--ink);text-wrap:pretty;text-align:left}
 .wyg-say em{font-style:italic}
+.wyg-say .wc-hold{color:var(--ink);white-space:nowrap}   /* the swipe is .hl's own Happy; the words stay ink. nowrap because at 1280 the phrase broke "holds / you to" and the swipe became two boxes, which reads as two highlights */
 .wyg-say .wc-chal{color:var(--coral-ink)}
-.wyg-say .wc-out{color:#159C53}
+.wyg-say .wc-out{color:var(--lazuli-deep)}          /* was #159C53 (the deck's green) for a few hours on 2026-09-08; now card three's blue, see index.html */
+.tpol .tp-name .hl{white-space:nowrap}              /* "Accountability" under its swipe cannot break mid-word anyway; nowrap keeps the swipe one box */
 .wyg-tape{top:-15px;left:50%;margin-left:-59px;transform:rotate(-3deg)}
 /* MEASURED 2026-09-08 in headless Chromium, after the width fix above, with the copy
-   "A club for your thing that holds you to a challenge, so you get better. Everyone finishes.
-   Everyone shows off their work in a magazine: the proof." (27 words):
-     320: eight lines, card 293px wide      375: seven lines, card 345px
-     1280: five lines, card 564px
+   "A club for your thing that holds you to a challenge, so you get better. Everyone shows off
+   their work in a magazine: the proof." (24 words; the 27-word cut with "Everyone finishes."
+   measured 8 / 7 / 5 at 40ch; this one at 42ch):
+     320: eight lines, card 293px wide      375: six lines, card 345px
+     1280: four lines, card 591px
+   "the&nbsp;proof" is welded in the markup so the blue phrase cannot leave "proof." alone on
+   the last line, which it did at 320 before the entity.
    The balancer's keep-out walks every text node in the section (app-post-beta.js keepOut), so
    generated scraps stay off the card without a rule here; the section's five hand-placed
    scraps sit at 1-9% from the edges and clear a 564px card centred in 1280 by design. */
