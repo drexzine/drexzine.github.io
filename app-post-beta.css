@@ -7733,6 +7733,28 @@ html[data-tier="lite"] .sl-box path{animation:none}
 .zc-count{display:none}
 .zc-chal{max-width:calc(100% - 4.2rem); text-overflow:clip}
 
+/* THE MARKED WORD IN THIS SECTION'S H2 IS DYMO RED (2026-09-07). Founder: "let's make the word
+   'challenge' red in 'each issue is a new challenge' so people know it's related to the dymo
+   tape challenge." It is the .zc-chal tape directly below - "COME AS YOUR HERITAGE" - and the
+   word in the heading naming the same thing, in the same red.
+   IT IS INK AND NOT A TAPE, AND THAT DISTINCTION IS THE WHOLE REASON THIS IS ALLOWED. The
+   markup note above this h2 rules out restoring .sub-chal, the coral Dymo strip the word wore
+   in the fold: "inside a 34px slab h2 it would be a second coral Dymo about 200px from the real
+   .zc-chal on the cover below - which is the rhyme it was FOR, not a repeat of it. Do not put
+   the tape back without moving .zc-chal off the plate first." That condition is untouched. One
+   object stays one object; only the ink rhymes with it.
+   --coral-ink AND NOT --colorado, for the third time in this file and the same reason each
+   time: this is a colour carrying text. Colorado on cream is 3.07:1 and fails; --coral-ink is
+   4.83:1 and clears AA outright, before the slab's 29-48px even gets counted. It is also the
+   colour .zc-chal's own fill uses, so the rhyme is exact rather than approximate.
+   THE SQUIGGLE STAYS INK. .ul::after is background:var(--ink) and is not inherited, so colouring
+   the span moves the word and leaves the mark - which is right: every h2 on this page carries
+   the drawn underline (:2255, :2492, :3207, :3665, :3709) and dropping it here to make room for
+   a colour would make this the one head without the house mark. Red word, ink mark, green stop.
+   SCOPED TO .zshelf, like everything else this section owns: seven archived index-*.html read
+   this sheet and several carry a .ul in a head. */
+.zshelf .head h2 .ul{color:var(--coral-ink)}
+
 /* ---- PHONE: THE PICTURE HAS TO STAY A PICTURE ----------------------------
    Two faults compounded here. The coverline plank stacked below 400px, so two
    48px rows ate half a 234px frame and what was left of the zine was a letterbox
@@ -9448,7 +9470,19 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
   color:var(--coral-ink,#C9343A);margin-top:.28rem}
 .ed-cta-line{display:block;font-family:var(--f-head);font-weight:700;font-size:1.42rem;
   color:var(--grass-deep);letter-spacing:.01em}
-.ed-cta-arr{width:26px;height:11px;color:var(--happy);vertical-align:.02em}
+/* ~~color:var(--happy)~~ LAZULI-DEEP, 2026-09-07. Founder: "the yellow arrow in the first cta
+   on the page is hard to see because it's yellow on white. you can make it blue so it's one
+   hell of a colorful button." Measured, and it was worse than hard: --happy on the coupon's
+   paper is 1.29:1. It was not a faint arrow, it was an invisible one, and DESIGN.md's own line
+   on the yellows ("5% accents, dark-ink text only") says a yellow stroke on cream was never a
+   thing this palette offered. --lazuli-deep is 5.20:1 on the same ground.
+   IT IS BLUE ON A JOIN DOOR, WHICH READS AGAINST THE READ/JOIN SYSTEM, AND THAT IS ALLOWED
+   HERE FOR ONE REASON: the system paints FILLS and LABELS, which is where a reader looks for
+   "what does this button do". This arrow is neither - it is an aria-hidden ornament drawn
+   inside a paper coupon whose words already say "Sign up". If the arrow ever grows into a
+   label or the coupon ever takes a coloured fill, this decision has to be re-made, not
+   inherited. */
+.ed-cta-arr{width:26px;height:11px;color:var(--lazuli-deep);vertical-align:.02em}
 /* a muted-autoplay hero video with no affordance reads as a still when autoplay
    is refused (research). Ink play chip, video slides only (:has guard). */
 .zc-frame:has(.zl.is-on video)::after{content:"";position:absolute;left:10px;bottom:10px;z-index:6;
