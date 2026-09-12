@@ -107,15 +107,20 @@ HTML comments at the cited line.
   Sep-5 variant was promoted: its deck read "Drex is where creative groups stay accountable
   by making magazines together." and was rewritten for the page. The third-person sentence
   survives as an elevator pitch OFF this page; it is not served copy.
-- **The fold, as of 2026-09-07 — two ranks, and they move together.** H1
-  "Don't waste your talents." (two `.sen` blocks, 11ch / 13ch), deck "Get accountable by
-  making a magazine together." The 09-05 pair it replaced was "Your gifts matter." /
-  "Keep each other accountable by making a magazine together." The third rank is gone: the
-  old `<p class="ed-sub">` sentence "Each issue is a new challenge." is the h2 of section 3
-  (`#zines`) now. All three are quoted in the six head strings, so a fold rewrite is a head
-  rewrite. Both current lines are UNFIELDED, and the H1 comment in `index.html` records two
-  things overruled on purpose: "Get accountable" is not an English collocation, and
-  "talents" is a word the rest of the page never uses.
+- **The fold, as of 2026-09-12 — two ranks, and they move together.** H1
+  "Don't waste your talents." (two `.sen` blocks, 11ch / 13ch), deck "Keep taking on
+  challenges in a small group." (three lines at 320 and 375, 14 / 15 / 12). The decks it
+  replaced, newest first: "Get better by running a magazine together." (09-08),
+  "Get accountable by making a magazine together." (09-07), "Keep each other accountable by
+  making a magazine together." (09-05, under the H1 "Your gifts matter."). The third rank is
+  gone: the old `<p class="ed-sub">` sentence "Each issue is a new challenge." is the h2 of
+  section 3 (`#zines`) now. A fold rewrite is a head rewrite — the deck is sentence 2 of the
+  three descriptions verbatim. Both current lines are UNFIELDED, and the H1 comment in
+  `index.html` records "talents" as a word the rest of the page never uses.
+  **The magazine is not named on the fold any more** (it left with the 09-12 deck). The
+  nearest visible copy that names it is the `#seewhat` card, "Clubs run workshops and put
+  the results in their magazine." — rewritten in the same edit. If that card loses the word,
+  the fold has to buy it back.
 - **Never the name "Sue"** in visible text, alt or aria. `grep -inE '\bsue'`.
 - **No em dashes in head strings** (`<title>`, meta description, OG/Twitter strings).
 - The six head strings move together or they rot: `<title>`, meta description,

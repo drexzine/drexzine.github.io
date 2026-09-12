@@ -10760,7 +10760,8 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
   font-size:var(--fs-lede);line-height:1.3;letter-spacing:-.005em;
   color:var(--ink);text-wrap:pretty;max-width:24ch}
 .hero-card .ed-deck .hd-who{color:#2190C2}   /* UNATTACHED since 2026-09-07 - see above */
-.hero-card .ed-deck .hd-out{color:#159C53}
+.hero-card .ed-deck .hd-out{color:#159C53}   /* UNATTACHED since 2026-09-12 - the deck no longer names the magazine; kept on the .hd-who terms */
+.hero-card .ed-deck .hd-chal{color:var(--coral-ink)}   /* ATTACHED 2026-09-12: a challenge word came back to the deck, which is what :8527's note kept the H1 copy of this rule for */
 @supports (text-box-trim:trim-both){
   .hero-card .ed-deck{text-box-trim:trim-both;text-box-edge:cap alphabetic}
 }
@@ -10795,7 +10796,25 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    is TWO lines, "Get better by running a / magazine together.", so the widow the
    two paragraphs above argue over does not occur on this line at all. The span
    stays, still inert, still disclosed here; the 09-07 render rule stands for the
-   next line that runs to three. */
+   next line that runs to three.
+   2026-09-12: THE .nb AND THE SPAN IT WRAPPED ARE GONE FROM THE MARKUP. The deck is
+   "Keep taking on challenges in a small group." and neither "magazine" nor
+   "together" is in it, so there was nothing left for the span to hold. Everything
+   above is kept as the record of why it was left inert rather than ruled - if a .nb
+   ever comes back to this line, that argument is the one to re-run, and the rule it
+   decided against was never written, so a new span would be inert AGAIN by default.
+   THE LINE THAT RUNS TO THREE HAS ARRIVED, and the 09-07 render rule is satisfied,
+   not waived. Measured at 320 and 375: three lines, "Keep taking on / challenges in
+   a / small group." (14 / 15 / 12), deck box 60px at both - the same height as the
+   09-07 three-liner, 24px more than the 09-08 two-liner, and the hero card grows
+   25px with it. The rag has NO short middle line and NO widow, which is the pair of
+   failures the two paragraphs above weigh against each other; this line dodges both,
+   so it needs neither the .nb nor the concession.
+   text-wrap:pretty IS LOAD-BEARING ON THIS LINE, for the first time. Greedy wrap
+   alone gives 14 / 21 / 6 and widows "group."; pretty rebalances to 14 / 15 / 12.
+   The property has been on .ed-deck since the rank was drawn and has never mattered
+   before - every earlier deck wrapped the same either way. Do not remove it without
+   re-rendering this line at 320. */
 /* ~~the sub drops a rank so three ranks descend instead of the lower two tying~~
    THERE IS NO THIRD RANK IN THIS FOLD as of 2026-09-07 - .ed-sub is not in
    index.html any more. THE RULE STAYS AND MUST: all seven archived index-*.html
@@ -10943,34 +10962,45 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
      - -1.1deg, like every pinned thing on this ground; a square card on a board of tilted
        polaroids is the one that looks pasted on.
      - The tape is the base Happy washi, centred on the top edge; not .b or .c, because the
-       card already carries three colours as a KEY to the three polaroids (highlight, red,
-       blue - the index.html note has the mapping) and a coloured tape would be a fourth.
+       card already carries ~~three~~ TWO colours as a KEY to the three polaroids (highlight
+       and blue since 2026-09-12; the red moved up to the fold deck - the index.html note has
+       the mapping) and a coloured tape would be a third colour doing no keying at all.
    The coloured spans are re-declared, not re-used: .hd-out is scoped to the hero deck and
-   .tp-chal to the polaroid labels, and neither is a class this card should inherit rules from. */
+   .tp-chal to the polaroid labels, and neither is a class this card should inherit rules from.
+   (The hero deck gained its own .hd-chal on 2026-09-12 by the same principle - re-declared
+   beside .hd-who/.hd-out, not rescoped off the H1.) */
 /* THE ch IS PITCH'S, NOT BITTER'S. The first cut set width:34ch on the card with the face set
    on the paragraph inside it, so the unit resolved against the inherited body font and the
    card came out ~330px at 1280 - eight lines of 22 characters under a 1,280px heading. The
    face and size are on the card now, so the unit and the text agree; 40ch of box less the
    inner padding is ~34 characters of line. */
-.wyg-card{font-family:var(--f-head);font-size:var(--fs-lede);width:min(100%,42ch);margin:0 auto var(--head-gap);transform:rotate(-1.1deg)}   /* 42ch, not 40: at 40 the 24-word cut ran to five lines at 1280 with "proof." alone on the fifth; 42 gives four, "work in a magazine: the proof." whole on the last */
+.wyg-card{font-family:var(--f-head);font-size:var(--fs-lede);width:min(100%,42ch);margin:0 auto var(--head-gap);transform:rotate(-1.1deg)}   /* 42ch, not 40: at 40 the 24-word cut ran to five lines at 1280 with "proof." alone on the fifth; 42 gives four, "work in a magazine: the proof." whole on the last. THE 24-WORD CUT IS GONE (2026-09-12) and 42ch is now wider than the 10-word line needs - kept deliberately, see index.html */
 .wyg-card>.sheet.ruled{--rule:calc(var(--fs-lede) * 1.35)}
 .wyg-card>.inner{padding:clamp(1.1rem,3vw,1.6rem) clamp(1.2rem,3.5vw,1.9rem)}
 .wyg-say{margin:0;font-family:var(--f-head);font-weight:600;font-style:normal;font-size:var(--fs-lede);
   line-height:1.35;letter-spacing:-.005em;color:var(--ink);text-wrap:pretty;text-align:left}
-.wyg-say em{font-style:italic}
+.wyg-say em{font-style:italic}              /* UNATTACHED since 2026-09-12 - "your thing" left with the rewrite; kept on the .hd-who terms */
 .wyg-say .wc-hold{color:var(--ink);white-space:nowrap}   /* the swipe is .hl's own Happy; the words stay ink. nowrap because at 1280 the phrase broke "holds / you to" and the swipe became two boxes, which reads as two highlights */
-.wyg-say .wc-chal{color:var(--coral-ink)}
+.wyg-say .wc-chal{color:var(--coral-ink)}   /* UNATTACHED since 2026-09-12 - the challenge moved up to the fold deck (.hero-card .ed-deck .hd-chal); kept on the .hd-who terms, and index.html says why it must not be moved onto "results" */
 .wyg-say .wc-out{color:var(--lazuli-deep)}          /* was #159C53 (the deck's green) for a few hours on 2026-09-08; now card three's blue, see index.html */
 .tpol .tp-name .hl{white-space:nowrap}              /* "Accountability" under its swipe cannot break mid-word anyway; nowrap keeps the swipe one box */
 .wyg-tape{top:-15px;left:50%;margin-left:-59px;transform:rotate(-3deg)}
-/* MEASURED 2026-09-08 in headless Chromium, after the width fix above, with the copy
+/* MEASURED 2026-09-12, with the copy "Clubs run workshops and put the results in their
+   magazine." (10 words, at the same 42ch):
+     320: three lines, card 290px wide      375: three lines, card 343px
+     1280: two lines, card 602px
+   "their&nbsp;magazine" is welded in the markup for the reason "the&nbsp;proof" was: unwelded,
+   375 breaks "...put the results in their / magazine." and widows the blue payoff word.
+   ~~MEASURED 2026-09-08, after the width fix above, with the copy
    "A club for your thing that holds you to a challenge, so you get better. Everyone shows off
    their work in a magazine: the proof." (24 words; the 27-word cut with "Everyone finishes."
    measured 8 / 7 / 5 at 40ch; this one at 42ch):
      320: eight lines, card 293px wide      375: six lines, card 345px
      1280: four lines, card 591px
-   "the&nbsp;proof" is welded in the markup so the blue phrase cannot leave "proof." alone on
-   the last line, which it did at 320 before the entity.
+   "the&nbsp;proof" was welded in the markup so the blue phrase could not leave "proof." alone
+   on the last line, which it did at 320 before the entity.~~ That copy is gone; the numbers
+   are kept because they are what 42ch was chosen against, and index.html's card note explains
+   why the width was NOT narrowed to the new sentence.
    The balancer's keep-out walks every text node in the section (app-post-beta.js keepOut), so
    generated scraps stay off the card without a rule here; the section's five hand-placed
    scraps sit at 1-9% from the edges and clear a 564px card centred in 1280 by design. */

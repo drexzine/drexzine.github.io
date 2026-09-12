@@ -87,15 +87,38 @@
      (The number has a home, and it is the worked example, not the claim: #showtell's sub says
      "Four weeks." about ONE named club. That is the split to keep — abstraction in the
      tagline, a real number in the example that can be checked.)
-     REWRITTEN 2026-09-07 with the new fold, THEN AGAIN THE SAME DAY WITH THE TITLE. All
-     three copies are byte-identical:
+     REWRITTEN AGAIN 2026-09-12 WITH THE DECK AND THE #seewhat CARD. All three copies are
+     byte-identical:
 
-         Honor your talents. Get better by running a magazine together.
-         Each issue is a new challenge. We make sure people show up, know what's
-         up, and put their work up.
+         Honor your talents. Keep taking on challenges in a small group.
+         Clubs run workshops and put the results in their magazine.
 
-     161 rendered characters (2026-09-08; it was 165, 171 and 176 before that).
-     SENTENCE 2 MOVED WITH THE DECK ON 2026-09-08 - see the deck note in #hero.
+     122 rendered characters (it was 161, 165, 171 and 176 before that). Count it before you
+     quote it: the entities render as one character each, which is how every earlier number
+     in this note drifted.
+     THE CONSTRUCTION LOST A SENTENCE AND SWAPPED ANOTHER, and both are forced, not taste:
+       - SENTENCE 2 is the deck verbatim, as ever. The new deck is "Keep taking on challenges
+         in a small group."
+       - SENTENCE 3 WAS "Each issue is a new challenge." (the #zines h2, quoted from there).
+         It is OUT: the new sentence 2 says "challenges", and two consecutive sentences of a
+         161-character string spending their object on the same word is the one thing a
+         description cannot afford. The h2 itself is untouched and still visible copy - this
+         slot simply no longer quotes it.
+       - SENTENCE 3 IS NOW THE #seewhat CARD verbatim, rewritten the same day: "Clubs run
+         workshops and put the results in their magazine." It is here because IT NAMES THE
+         MAGAZINE AND NOTHING ELSE IN THE STRING DOES ANY MORE - the deck stopped naming it
+         today (see the deck note in #hero), and a description that never says what the club
+         makes is a description of a meetup. The &nbsp; in the card's markup is a space here;
+         the string is the card's words, not its bytes.
+       - SENTENCE 4 IS GONE. It was the .sum-say band verbatim ("We make sure people show up,
+         know what's up, and put their work up."). Keeping it with the two new sentences ran
+         to 190 characters, ~30 past the SERP cut, so it would have been served as an ellipsis
+         and nothing else. It is still visible copy at index.html's summary band; it is not
+         quoted here any more. If this string ever shortens again, that sentence is the first
+         thing to bring back - it is the only "we" the page has.
+     SENTENCE 1 STILL TRACKS THE TITLE, not the fold (2026-09-07 rule, unchanged below).
+     SENTENCE 2 MOVED WITH THE DECK ON 2026-09-08 AND AGAIN ON 2026-09-12 - see the deck
+     note in #hero.
      SENTENCE 1 MOVED WITH THE TITLE, NOT WITH THE FOLD, and it had to: the six head strings
      move together or they rot, and leaving these three opening on "Don't waste your talents."
      while the three title strings said "Honor your talents." IS the rot condition the rule
@@ -181,9 +204,9 @@
      three names, and the instrument's klaxon at >2 cannot be satisfied. That is a
      limit of the tool, not a defect in the copy — the third name is a container the
      hero defines in its own second line, and the fourth name is gone. -->
-<meta name="description" content="Honor your talents. Get better by running a magazine together. Each issue is a new challenge. We make sure people show up, know what&rsquo;s up, and put their work up." />
+<meta name="description" content="Honor your talents. Keep taking on challenges in a small group. Clubs run workshops and put the results in their magazine." />
 <meta property="og:title" content="drex. Honor your talents." />
-<meta property="og:description" content="Honor your talents. Get better by running a magazine together. Each issue is a new challenge. We make sure people show up, know what&rsquo;s up, and put their work up." />
+<meta property="og:description" content="Honor your talents. Keep taking on challenges in a small group. Clubs run workshops and put the results in their magazine." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://drex.style" />
 <meta property="og:image" content="https://drex.style/assets/og-v6.png" />
@@ -224,7 +247,7 @@
 <meta property="og:image:alt" content="A torn cream sheet on a desk. It reads &ldquo;Don&rsquo;t waste your talents.&rdquo; in a bold italic typewriter face, over the line &ldquo;Get accountable by making a magazine together.&rdquo;, with the drex wordmark beneath. Pinned to the right are three real published issues &mdash; Silk Road 001, Office Attitude, and Interactive Zine." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="drex. Honor your talents." />
-<meta name="twitter:description" content="Honor your talents. Get better by running a magazine together. Each issue is a new challenge. We make sure people show up, know what&rsquo;s up, and put their work up." />
+<meta name="twitter:description" content="Honor your talents. Keep taking on challenges in a small group. Clubs run workshops and put the results in their magazine." />
 <meta name="twitter:image" content="https://drex.style/assets/og-v6.png" />
 <meta name="theme-color" content="#FEF6E4" />
 
@@ -915,7 +938,10 @@
                    TWO coloured nouns now, not three: "challenge" left the H1 for line two, and
                    its red went with it (the sub's tape carries that beat — same word, same red,
                    40px from the real tape on the cover). hd-chal is unused until a challenge
-                   word returns.
+                   word returns. IT RETURNED 2026-09-12, but to the DECK, not the H1: the
+                   `.hero-card h1.ed-cat .hd-chal` rule this sentence keeps alive is still
+                   unattached, and a second copy scoped to `.hero-card .ed-deck` now carries
+                   "challenges". Both rules stay. See the deck note downfile.
                    ~~.nb welds "own magazine." so the payoff word cannot widow; the type ramp was
                    re-derived for the new binding line "Clubs run their " at
                    app-post-beta.css:3715, :6263 (4.45cqw) and :6954 (no floor at <=380).~~
@@ -987,6 +1013,64 @@
                    blank, the three swipes, the loop, the division of labour, and the 09-05
                    "features" -> "is". It was not deleted. Read it there before touching the line.
                    The fold is the h1, the deck and the coupon. -->
+              <!-- THE DECK, REWRITTEN AGAIN 2026-09-12, founder's call. It was
+                   "Get better by running a magazine together." and it is
+                   "Keep taking on challenges in a small group." now. Nothing survives of the
+                   line it replaces: the verb, the object and the qualifier all moved, so read
+                   the 09-08 note below as history, not as a description of what is served.
+                   WHAT IT TRADES, and the trade is the whole change. The 09-08 deck named the
+                   MAGAZINE and the improvement ("get better by running a magazine"); this one
+                   names the CHALLENGE and the group, and says neither the artifact nor the
+                   payoff. "Keep" is the recurrence the page has never put in the fold before -
+                   every earlier deck described one turn of the loop and left "again" to the
+                   body. "in a small group" is the first size claim on the fold in any version:
+                   it is doing what "together" did (founder, 2026-09-08: "i feel like
+                   'together' is key") and doing it with a number-free noun, so it stays inside
+                   the no-named-cadence habit - a small group is a description, not a cap, and
+                   no other line on the page contradicts it.
+                   THE MAGAZINE LEAVES THE FOLD, KNOWINGLY. It was named here from 2026-08-24
+                   until today and the .hd-out green was its mark. The nearest visible copy
+                   that names it is now the #seewhat card one screen down ("...put the results
+                   in their magazine.", rewritten in the same edit) and the frozen H1 of
+                   section 3. If that card ever loses the word too, this line has to buy it
+                   back - that is the same debt the 2026-09-07 tagline note records for the
+                   footer.
+                   A CHALLENGE WORD CAME BACK, so the coral does too. The H1 note below kept
+                   .hd-chal alive "unused until a challenge word returns" and this is that
+                   return: "challenges" is --coral-ink, the page-wide challenge colour (the
+                   #zines h2's .sub-chal, the polaroid label .tp-chal, the #seewhat card's
+                   .wc-chal). The rule had to be RE-DECLARED for the deck - :8527 scopes the
+                   H1 copy to `.hero-card h1.ed-cat` - and it is filed beside .hd-who/.hd-out
+                   in app-post-beta.css. .hd-out is now the unattached one, kept on exactly the
+                   terms .hd-who is kept on since 09-07. The deck still carries EXACTLY ONE
+                   coloured noun, which is the count it has held since 2026-09-07; green left
+                   the fold with the magazine, and the only green left above the cut is the
+                   coupon, which is what green means here ("the way in").
+                   THE .nb AND ITS <span> ARE GONE FROM THE MARKUP. They wrapped "magazine
+                   together." and both words left with the rewrite. The span was INERT and
+                   deliberately so (app-post-beta.css beside .hero-card .ed-deck discloses it
+                   at length) - it was welding nothing, so there is nothing to re-weld here.
+                   Do not reintroduce it to control this line's rag: measured, the rag is
+                   already even without it.
+                   MEASURED 2026-09-12 in headless Chromium at 320 and 375: THREE lines at
+                   both, "Keep taking on / challenges in a / small group." (14 / 15 / 12
+                   characters), deck box 60px at both - identical to the 09-07 three-line deck
+                   and one line more than the 09-08 two-liner. THE HERO CARD GROWS 25px at
+                   BOTH WIDTHS (285 -> 310 at 320, 293 -> 318 at 375): the line the 09-08
+                   rewrite bought back is spent again. The coupon still sits inside the card
+                   and above the cut at both widths - screenshotted, not inferred. 43
+                   characters, eight words, against 43 and seven.
+                   THE RAG IS THE REASON A THIRD LINE IS ACCEPTABLE HERE. The 09-07 note
+                   downfile refuses an 8-character middle line ("a centred deck with a short
+                   middle line reads as a mistake at every width") and accepts a widow as the
+                   cheaper ugly thing. This line has NEITHER: 14/15/12 has no short middle and
+                   no one-word last line. text-wrap:pretty is doing that work - greedy wrap
+                   alone gives 14 / 21 / 6 and widows "group." - so do not remove it from
+                   .hero-card .ed-deck without re-rendering this line at 320.
+                   THE THREE HEAD DESCRIPTIONS MOVED WITH IT in the same edit, and sentence 3
+                   moved too - see the construction note above <title>, which this rewrite
+                   amended. og:image:alt did NOT move: it is pinned to the pixels of
+                   assets/og-v6.png, which now print a deck two rewrites old. -->
               <!-- THE DECK, REWRITTEN AGAIN 2026-09-08, founder's call. It was
                    "Get accountable by making a magazine together." and it is
                    "Get better by running a magazine together." now. Two words moved and
@@ -1061,7 +1145,7 @@
                    line it replaced. .hero-card .ed-deck is max-width:24ch and Pitch Sans is
                    monospace at 0.614em advance, so 24ch is 24 characters at EVERY width — the
                    line lengths here are arithmetic, not taste. -->
-              <p class="ed-deck">Get better by running a <span class="nb"><span class="hd-out">magazine</span> together.</span></p>
+              <p class="ed-deck">Keep taking on <span class="hd-chal">challenges</span> in a small group.</p>
 
               <!-- THE DOOR IS A COUPON UNDER THE COPY, NOT A TAG ON THE ZINE (2026-08-24).
                    The zc-tag covered the demo video's mid-frame at phone widths and read as a
@@ -1469,7 +1553,64 @@
            the group chat did not change the ruling. Do not "discover" it again.
            WHAT DID CHANGE: there IS an h2 now — "What you get." — see the head above.
            ==================================================================================== -->
-      <!-- THE CARD UNDER THE HEAD, 2026-09-08 (founder's call). THIS IS THE PAGE'S "WHAT IS
+      <!-- THE CARD REWRITTEN 2026-09-12, founder's call. It was
+           "A club for your thing that holds you to a challenge, so you get better. Everyone
+           shows off their work in a magazine: the proof." (24 words) and it is
+           "Clubs run workshops and put the results in their magazine." (10 words) now.
+           The 09-08 note below is the argument for the LINE IT REPLACES - read it for what
+           the card is FOR (it is still the page's "what is it" in one breath, still the first
+           prose after the cut, still a key to the three polaroids) and not for what it says.
+           WHAT THE REWRITE DOES. The old line was assembled from two founder drafts and it
+           described the MECHANISM in the reader's second person: a club, a challenge, being
+           held to it, getting better, everyone showing off, the proof. Six ideas, 24 words.
+           The new line is one sentence about what a club DOES, in the third person plural,
+           and it spends itself on two nouns: workshops and the magazine. "Workshops" is a
+           word no version of this page has used - it is the club hour named as the thing a
+           stranger already knows how to picture, and it is concrete where "holds you to a
+           challenge" was a claim. "the results" is deliberately flat: whatever your thing is,
+           what comes out of the workshop goes in the book.
+           WHAT IT DROPS, KNOWINGLY, so nobody restores half of it:
+             - "your thing" AND ITS ITALIC. It was the founder's own emphasis and the place
+               "whatever it is" lived. Nothing in the new sentence carries it; the section's
+               three polaroids and the club names further down do. THE .wyg-say em RULE STAYS
+               on the sheet, unused, on the .hd-who terms.
+             - "so you get better". The improvement claim moved to nowhere on this card - the
+               fold's deck stopped saying it the same day too, so as of 2026-09-12 "get
+               better" is not in the fold OR in this card. It survives in the body. That is
+               the single biggest thing this pass gave up and it is worth stating plainly.
+             - "the proof". The close was the strongest word in the old line. "their magazine"
+               is the plain version; #proof is still a whole section named after the idea.
+           THE KEY REDISTRIBUTES, it does not break. The card is a colour key to the three
+           polaroids under it (founder, 2026-09-08: "so it all lines up with the colors chosen
+           for the polaroids") and it now carries TWO of the three, because the third moved UP
+           to the fold in the same edit:
+             - card one, Accountability / the standing hour -> "run workshops" on the Happy
+               .hl swipe. A workshop IS the standing hour, named as an event.
+             - card two, the challenge, --coral-ink -> NOT ON THIS CARD ANY MORE. "challenges"
+               in the fold deck is coral now (see the deck note in #hero), so the reader meets
+               the challenge colour one screen earlier instead of twice.
+             - card three, the magazine, --lazuli-deep -> "magazine", unchanged.
+           .wc-chal is therefore UNATTACHED, kept on the sheet on the .hd-who terms. Do not
+           delete it and do not move it onto "results": "the results" is the output of the
+           challenge, not the challenge, and a coral there would make the card claim a colour
+           the deck is already spending.
+           "their&nbsp;magazine" IS WELDED, exactly as "the&nbsp;proof" was and for the same
+           measured reason: unwelded, 375 breaks "Clubs run workshops and / put the results in
+           their / magazine." and widows the blue payoff word. Welded it goes 24 / 18 / 15.
+           MEASURED 2026-09-12 in headless Chromium, and the card is a third of its old size:
+             320: three lines, card 290px wide (was eight lines)
+             375: three lines, card 343px    (was six)
+             1280: two lines, card 602px     (was four)
+           THE 42ch WIDTH IS NOW OVER-WIDE FOR THE COPY and was left alone on purpose: at
+           1280 ten words in a 602px card set in two lines reads as a card, and narrowing it
+           to fit the sentence would make the tape, the torn edge and the rotation a frame
+           around one line. Revisit only if the copy shortens again.
+           NO "creative", NO "Circle", NO named cadence, "club" lowercase - all still true of
+           the new line, and "clubs" plural is the noun rule. -->
+      <!-- ~~THE CARD UNDER THE HEAD~~ THE 09-08 LINE'S OWN NOTE. Superseded 2026-09-12 by the
+           block above; what it says about the card's JOB and its GEOMETRY still stands, what
+           it says about the WORDS is history. Original follows.
+           THE CARD UNDER THE HEAD, 2026-09-08 (founder's call). THIS IS THE PAGE'S "WHAT IS
            IT" IN ONE BREATH. Founder, 2026-09-08: "people keep seeing this and having no idea
            wtf it is" ... "we should have a summary section about what it is somewhere" ...
            "What you get -> 'A way for you and your club to get better at *your thing* by
@@ -1531,7 +1672,7 @@
       <div class="paper wyg-card">
         <span class="sheet ruled" aria-hidden="true"></span>
         <span class="tape wyg-tape" aria-hidden="true"></span>
-        <p class="inner wyg-say">A club for <em>your thing</em> that <span class="hl wc-hold">holds you to</span> a <span class="wc-chal">challenge</span>, so you get better. Everyone shows off their work in a <span class="wc-out">magazine: the&nbsp;proof</span>.</p>
+        <p class="inner wyg-say">Clubs <span class="hl wc-hold">run workshops</span> and put the results in their&nbsp;<span class="wc-out">magazine</span>.</p>
       </div>
       <div class="mb-grid tool-grid">
 
