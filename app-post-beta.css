@@ -10035,6 +10035,7 @@ html[data-tier="lite"] .ki svg{animation:none}
 .ki-sprout{left:calc(100% + 10px);top:-.9em;--ki-w:70px;--ki-rot:-3deg}
 .dd-forever .ki-anchor{display:inline-block}   /* covers both lines when the sentence wraps, so "below" means below */
 .ki-flagup{left:calc(100% + 6px);top:-1.4em;--ki-w:78px;--ki-rot:3deg}
+.ki-place{left:calc(100% + 10px);top:-.8em;--ki-w:64px;--ki-rot:4deg}   /* #wheremeet. 64, not the 70-74 the gift and the flag take: this mark is a pin with two arcs off its shoulder, so its drawn width is most of the box where those two are mostly air. Hangs off "both." on the last line at every width the head does not wrap. */
 .dd-forever{position:relative}
 .chatmock{position:relative}
 .ki-spider{right:12px;top:10px;--ki-w:74px;--ki-rot:6deg}
@@ -10052,6 +10053,25 @@ html[data-tier="lite"] .ki svg{animation:none}
   .ki-cal{--ki-w:54px;left:auto;right:-4px;top:-2.3em}
   .ki-sprout{--ki-w:52px;left:auto;right:-2px;top:-2.2em}
   .ki-flagup{--ki-w:58px;left:auto;right:-4px;top:calc(100% + 4px)}
+  .ki-place{--ki-w:36px;left:auto;right:-2px;top:calc(100% - .9em)}
+  /* MEASURED, because every other placement in this block collided with something.
+     .ki-anchor is display:inline-block inside an h2 that is max-width:24ch and wraps to it, so
+     the anchor is the FULL 24ch box at these widths - "left:calc(100% + Npx)" is off the
+     column, not off the last word, and "right:-4px" with a negative top lands on the END OF
+     LINE ONE, which at 375 is "...in person," reaching to x=337 in a 358-wide box.
+     What is reliably empty at both widths is the RIGHT OF THE LAST LINE: the head is centred,
+     so its short last line ("or both.") ends 78px short of the box at 320 and 104px short at
+     375. calc(100% - 1.25em) puts the mark's top on that line at both. 46px, not 50: at 50 its
+     foot reached y=138 at 320 and .wm-say's first line starts at 129.
+     ALSO REFUSED: top:-2.2em (above the head). It put the mark's crown 18px above the
+     section's own top edge, where the slate sheet clips it.
+     36px, AND THE SIZE IS THE FIT. This is the smallest .ki on the page (the rest run 42-58
+     at this breakpoint) because the band it has to live in is the smallest: 375 is the tight
+     width, not 320 - the head sets in TWO lines there and line one ("Online, in person,")
+     runs to x=337 of a 358-wide box, so the only clear air is the 104px right of the SHORT
+     last line, between line one's baseline and .wm-say's first. That band is 34px tall.
+     At 46px the mark clipped line one's tail at 375 and .wm-say's first line at 320; at 36
+     it clears both by 2px and 1px. Re-measure both widths if the head copy changes length. */
   .ki-spider{--ki-w:52px;right:4px;top:26px}   /* clear of the centred "the group chat" tab, above "JAN 4" */
 }
 @media(max-width:360px){   /* AFTER the 560 block on purpose: same specificity, later wins */
@@ -11288,6 +11308,38 @@ html[data-tier="lite"] .lands-grid .pw-sticker::before{filter:none}
    8.05:1. And .stop in grass-deep is 1.6:1 on this sheet; .versus.gnd .head h2 .stop makes it
    happy at 6.22:1. Both replacements were already in the ground block. NEVER carry the two
    deleted values back onto a coloured ground. */
+/* ---- #wheremeet: ONLINE, IN PERSON, OR BOTH (2026-09-12) ---------------------------------
+   THIS SECTION ADDS FOUR RULES AND NOTHING ELSE, which is the point of building it on
+   .versus.gnd.gnd--slate + .mb-grid.tool-grid + .mpol.tpol: the ground, the head colours, the
+   three-up grid, the one-column fold at 760, the pin, the paper, the boil, the hover lift and
+   the 4:5 photo box are all rules that already exist and are already measured. A new section
+   that needs a new grid is a new section that needs a new set of bugs.
+   THE SUB LIVES INSIDE .head so .versus .head's own margin-bottom:var(--head-gap) carries the
+   gap to the grid. Put it after .head and the section pays the gap twice - 41.6px at 1280
+   twice over, which is a whole card's worth of slate between a nine-word line and the row it
+   introduces. */
+.wm-say{margin:var(--s-08) auto 0;max-width:34ch;
+  font-family:var(--f-head);font-weight:600;font-style:normal;font-size:var(--fs-lede);
+  line-height:1.3;letter-spacing:-.005em;color:var(--oats);text-wrap:balance}
+/* 34ch, and it is arithmetic not taste: Pitch Sans is monospace, so 34ch is 34 characters at
+   every width. The line is 45 characters, which sets in two - "Every club sets an hour." whole
+   on the first, which is the half every club owns. At 40ch it sets in one long line at 1280
+   and the two facts stop being two. */
+/* THE PICTURE IN THE TWO CAPTURE CARDS IS AN <img>, NOT .mv-ph's background-image, because
+   these are 600x750 clippings that must carry alt text - a background cannot. Same absolute
+   fill as video.tp-vid/img.tp-still beside it; element-qualified for the same specificity
+   reason that block records. object-fit:cover is a no-op here (the files ARE 4:5) and is kept
+   so a re-capture at a different clip degrades to a crop instead of a squash. */
+.tpol .mv-ph img.wm-shot{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center}
+/* THE THREE NAMES REUSE THE THREE MEASURED COLOURS, not three new ones: these cards are the
+   same cream paper as #what-you-get's, so the contrast note at .tp-name governs unchanged
+   (--lazuli-deep 4.58:1, --coral-ink 4.26:1 and over WCAG's 18.66px large-bold floor at
+   1.2rem/700, #4A3410 9.61:1). New classes rather than .tp-tell/.tp-chal/.tp-hour because
+   those are named for what they mean in the other section and these mean settings. */
+.wmg .tp-name.wm-on{color:var(--lazuli-deep)}
+.wmg .tp-name.wm-ip{color:var(--coral-ink)}
+.wmg .tp-name.wm-both{color:#4A3410}
 .tpol .tp-name.tp-hour{color:#4A3410}
 .tpol .tp-name.tp-chal{color:var(--coral-ink)}
 .tpol .tp-name.tp-tell{color:var(--lazuli-deep)}
