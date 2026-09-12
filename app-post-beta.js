@@ -167,7 +167,7 @@ function boot() {
   initAttentionCta();               // ported: hero CTA idle "look at me" loop
   initFirecrackerCta(audio);        // ported from the wall: "Join a Circle" click → firecracker → green door
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
-  initHeroRotate();                 // no-ops since 2026-08-11: the H1 has no #rot-word any more
+  initHeroRotate();                 // live again 2026-09-12: the fold DECK's "Run a ___ jam" (no-op 2026-08-11 .. 09-12)
   initZineCarousel();               // section 3's plate: eight real issues, one at a time
   initDomainSlot();                 // the yellow blank in the CTA, on its own clock
   alignDeckToHeadline();            // deck top meets headline top — must run BEFORE the arrow measures
@@ -529,9 +529,20 @@ function initQuotes() {
    Only .mark's text ever changes. The full stop lives after it inside the same run so it
    slides along with the typing, and hidden ghosts — one per word, each carrying its own stop —
    hold the slot open so the line can't reflow while the word is short. */
+/* BACK ON THE FOLD, 2026-09-12, in the DECK: "Run a ___ jam / with your club." The word list
+   is in the markup now (data-words on #rot-word), so a copy change is an index.html edit and
+   never a JS one; the first entry must match the served word in .mark and .rot-a11y.
+   NO SIZERS IN THIS PLACEMENT, and the reason is the opposite of the one below. The slot is
+   the last thing on its own forced line (.rot-dl is display:block), with nothing after it but
+   " jam" - and " jam" SHOULD ride the word the way the full stop did in the sub. A ghost track
+   would hold "photography" open and leave a three-letter hole before "jam" under "creative".
+   The line cannot reflow: the longest case, "Run a photography jam", is 21 characters in a
+   24ch deck, and the face is monospace, so that is arithmetic. The &#8203; inside .rw is still
+   load-bearing (the empty-run baseline, see the stop note below). */
 function initHeroRotate() {
   const w = document.getElementById('rot-word');
   if (!w) return;
+  const fromMarkup = w.dataset.words ? w.dataset.words.trim().split(/\s+/) : null;
   // THEY ARE NOUN ADJUNCTS NOW (2026-08-10), because the blank moved into the headline and reads
   // straight into it: "photography show-and-tell". That is a different grammar from the sub's
   // "regularly doing ___", which took plurals — "tattoos show-and-tell" is not English, so the
@@ -542,8 +553,10 @@ function initHeroRotate() {
   // and the capital belongs there. It read as a lowercase fragment followed by a second, separately
   // capitalised sentence before. Keep every entry capitalised or the headline loses its capital
   // once per cycle.
-  const WORDS = ['Photography', 'Carpentry', 'Tattooing', 'Portraiture',
-                 'Sourdough', 'Painting', 'Floristry'];
+  // (That list is the 2026-08-10 H1's and is kept only as the fallback for a #rot-word with no
+  // data-words. The 2026-09-12 deck carries its own lowercase list: the word sits mid-sentence.)
+  const WORDS = fromMarkup || ['Photography', 'Carpentry', 'Tattooing', 'Portraiture',
+                               'Sourdough', 'Painting', 'Floristry'];
   // no motion or sound crafts here (animation, dance, drumming, DJing): the payoff of the
   // loop is a PRINTED zine, and a craft that can't sit still on a page can't land in one.
   // Width is cheap again now that the blank sets at --fs-lede in the sub instead of at display
@@ -567,7 +580,7 @@ function initHeroRotate() {
   // "photography" are the same 11 characters and nothing like the same width, and hidden words
   // in a paragraph cost nothing. Guessing the widest glyph run by eye is how the line starts
   // twitching once per cycle; let the grid do it.
-  WORDS.forEach((word) => {
+  if (!fromMarkup) WORDS.forEach((word) => {   // the deck placement takes no sizers - see the note above this function
     const g = document.createElement('b');
     g.className = 'rw ghost';
     g.setAttribute('aria-hidden', 'true');
@@ -577,7 +590,7 @@ function initHeroRotate() {
 
   let i = 0, t = 0, started = false;
   const HOLD = 2000;          // how long a finished word sits there before the marker lifts
-  const FIRST_HOLD = 3400;    // "creator" gets longer — it's the one that has to be read
+  const FIRST_HOLD = 3400;    // the served word gets longer ("creative" on the 09-12 deck) — it's the one that has to be read
   const LIFT = 260;           // marker off the word before the first letter goes (matches the CSS)
   const SWIPE = 460;          // …and back across the new one (ditto) before the hold starts
   /* The stop is a sibling text node, never touched — it just gets pushed along as .mark's text

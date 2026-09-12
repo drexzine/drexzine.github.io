@@ -10781,7 +10781,12 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
   color:var(--ink);text-wrap:pretty;max-width:24ch}
 .hero-card .ed-deck .hd-who{color:#2190C2}   /* UNATTACHED since 2026-09-07 - see above */
 .hero-card .ed-deck .hd-out{color:#159C53}   /* UNATTACHED since 2026-09-12 - the deck no longer names the magazine; kept on the .hd-who terms */
-.hero-card .ed-deck .hd-chal{color:var(--coral-ink)}   /* ATTACHED 2026-09-12: a challenge word came back to the deck, which is what :8527's note kept the H1 copy of this rule for */
+.hero-card .ed-deck .hd-chal{color:var(--coral-ink)}   /* UNATTACHED again, later on 2026-09-12 - "challenges" moved down to the #seewhat card (.wyg-say .wc-chal) when the deck became the jam line; kept on the .hd-who terms */
+/* 2026-09-12, the jam deck: "Run a ___ jam" / "with your club." as two forced lines. The typing
+   slot ends line 1, so its width can only push " jam", never re-wrap the deck. The .hl-rot rules
+   (the 08-08 rotator, :3567) work here untouched: .rw's upright/600/ink is already the deck's own
+   setting. The JS skips the ghost sizers for this placement; index.html's deck note says why. */
+.hero-card .ed-deck .rot-dl{display:block}
 @supports (text-box-trim:trim-both){
   .hero-card .ed-deck{text-box-trim:trim-both;text-box-edge:cap alphabetic}
 }
@@ -10834,7 +10839,12 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    alone gives 14 / 21 / 6 and widows "group."; pretty rebalances to 14 / 15 / 12.
    The property has been on .ed-deck since the rank was drawn and has never mattered
    before - every earlier deck wrapped the same either way. Do not remove it without
-   re-rendering this line at 320. */
+   re-rendering this line at 320.
+   LATER ON 2026-09-12: the deck is "Run a ___ jam / with your club." with a typing rotator in
+   the blank, set as two FORCED lines (.rot-dl). Measured at 320 and 375: two lines, deck box
+   36px at both, unchanged across all four words; the hero card is 25px shorter than under the
+   three-line deck above. text-wrap:pretty is inert again (each forced line is shorter than the
+   measure), and the three-line argument above waits for the next line that runs to three. */
 /* ~~the sub drops a rank so three ranks descend instead of the lower two tying~~
    THERE IS NO THIRD RANK IN THIS FOLD as of 2026-09-07 - .ed-sub is not in
    index.html any more. THE RULE STAYS AND MUST: all seven archived index-*.html
@@ -10982,9 +10992,9 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
      - -1.1deg, like every pinned thing on this ground; a square card on a board of tilted
        polaroids is the one that looks pasted on.
      - The tape is the base Happy washi, centred on the top edge; not .b or .c, because the
-       card already carries ~~three~~ TWO colours as a KEY to the three polaroids (highlight
-       and blue since 2026-09-12; the red moved up to the fold deck - the index.html note has
-       the mapping) and a coloured tape would be a third colour doing no keying at all.
+       card already carries ~~three~~ ~~TWO~~ THREE colours as a KEY to the three polaroids
+       (highlight, red and blue; the red went up to the fold deck on the morning of 2026-09-12
+       and came back down the same day - the index.html note has the mapping) and a coloured tape would be a third colour doing no keying at all.
    The coloured spans are re-declared, not re-used: .hd-out is scoped to the hero deck and
    .tp-chal to the polaroid labels, and neither is a class this card should inherit rules from.
    (The hero deck gained its own .hd-chal on 2026-09-12 by the same principle - re-declared
@@ -11001,11 +11011,13 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
   line-height:1.35;letter-spacing:-.005em;color:var(--ink);text-wrap:pretty;text-align:left}
 .wyg-say em{font-style:italic}              /* UNATTACHED since 2026-09-12 - "your thing" left with the rewrite; kept on the .hd-who terms */
 .wyg-say .wc-hold{color:var(--ink);white-space:nowrap}   /* the swipe is .hl's own Happy; the words stay ink. nowrap because at 1280 the phrase broke "holds / you to" and the swipe became two boxes, which reads as two highlights */
-.wyg-say .wc-chal{color:var(--coral-ink)}   /* UNATTACHED since 2026-09-12 - the challenge moved up to the fold deck (.hero-card .ed-deck .hd-chal); kept on the .hd-who terms, and index.html says why it must not be moved onto "results" */
+.wyg-say .wc-chal{color:var(--coral-ink)}   /* RE-ATTACHED later on 2026-09-12, on "challenges" - the fold deck stopped saying it (it is the jam line now), so the challenge colour came back down to card two's key. Still never onto "results"; index.html says why */
 .wyg-say .wc-out{color:var(--lazuli-deep)}          /* was #159C53 (the deck's green) for a few hours on 2026-09-08; now card three's blue, see index.html */
 .tpol .tp-name .hl{white-space:nowrap}              /* "Accountability" under its swipe cannot break mid-word anyway; nowrap keeps the swipe one box */
 .wyg-tape{top:-15px;left:50%;margin-left:-59px;transform:rotate(-3deg)}
-/* MEASURED 2026-09-12, with the copy "Clubs run workshops and put the results in their
+/* MEASURED LATER ON 2026-09-12, with "Clubs run challenges and put the results in their
+   magazine." (tilt removed to count): 320 three lines, card 288px; 375 three lines, card 341px.
+   MEASURED 2026-09-12, with the copy "Clubs run workshops and put the results in their
    magazine." (10 words, at the same 42ch):
      320: three lines, card 290px wide      375: three lines, card 343px
      1280: two lines, card 602px

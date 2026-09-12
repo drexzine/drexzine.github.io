@@ -98,7 +98,10 @@ HTML comments at the cited line.
 - **No named cadence** — "regular", never "monthly". The date belongs to the club, and
   the page says so twice in visible copy. A number is allowed only in a worked example
   about one named club.
-- **"creative" is struck.** ~~So is "portfolio".~~ **"portfolio" was un-struck on 2026-09-07**
+- **"creative" is struck, with ONE exception:** since 2026-09-12 it is the served first word
+  of the fold deck's rotator ("Run a creative jam"), and so of the three meta descriptions.
+  Founder's call for that slot only, over a flagged objection; it is not free anywhere else.
+  ~~So is "portfolio".~~ **"portfolio" was un-struck on 2026-09-07**
   by the founder, who asked for the two `#seewhat` wall cards to be relabelled "The Club's
   Portfolio" and "Your Portfolio" on red Dymo tape. The 2026-08-29 sweep that struck it is
   still described at the top of `index.html`; that history stands, the prohibition does not.
@@ -107,10 +110,16 @@ HTML comments at the cited line.
   Sep-5 variant was promoted: its deck read "Drex is where creative groups stay accountable
   by making magazines together." and was rewritten for the page. The third-person sentence
   survives as an elevator pitch OFF this page; it is not served copy.
-- **The fold, as of 2026-09-12 — two ranks, and they move together.** H1
-  "Don't waste your talents." (two `.sen` blocks, 11ch / 13ch), deck "Keep taking on
-  challenges in a small group." (three lines at 320 and 375, 14 / 15 / 12). The decks it
-  replaced, newest first: "Get better by running a magazine together." (09-08),
+- **The fold, as of 2026-09-12 (second rewrite that day) — two ranks, and they move
+  together.** H1 "Don't waste your talents." (two `.sen` blocks, 11ch / 13ch), deck
+  "Run a ___ jam / with your club." (two forced `.rot-dl` lines at every width), where the
+  blank is the 08-08 typing highlighter brought back (`initHeroRotate`, `.hl-rot`), cycling
+  `data-words="creative photography cursive fashion"`. The served word is "creative". No
+  ghost sizers in this placement: " jam" rides the word. The three `<title>`-type strings
+  track the H1 again ("drex. Don't waste your talents."); the footer signature and the
+  pre-cut hook still say "Honor your talents." and are unreconciled. The decks it
+  replaced, newest first: "Keep taking on challenges in a small group." (09-12 morning),
+  "Get better by running a magazine together." (09-08),
   "Get accountable by making a magazine together." (09-07), "Keep each other accountable by
   making a magazine together." (09-05, under the H1 "Your gifts matter."). The third rank is
   gone: the old `<p class="ed-sub">` sentence "Each issue is a new challenge." is the h2 of
@@ -118,8 +127,9 @@ HTML comments at the cited line.
   three descriptions verbatim. Both current lines are UNFIELDED, and the H1 comment in
   `index.html` records "talents" as a word the rest of the page never uses.
   **The magazine is not named on the fold any more** (it left with the 09-12 deck). The
-  nearest visible copy that names it is the `#seewhat` card, "Clubs run workshops and put
-  the results in their magazine." — rewritten in the same edit. If that card loses the word,
+  nearest visible copy that names it is the `#seewhat` card, "Clubs run challenges and put
+  the results in their magazine." ("workshops" until the jam deck took "challenges" off the
+  fold; the card's coral key came back with the word). If that card loses the word,
   the fold has to buy it back.
 - **Never the name "Sue"** in visible text, alt or aria. `grep -inE '\bsue'`.
 - **No em dashes in head strings** (`<title>`, meta description, OG/Twitter strings).
