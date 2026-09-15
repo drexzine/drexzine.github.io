@@ -167,7 +167,7 @@ function boot() {
   initAttentionCta();               // ported: hero CTA idle "look at me" loop
   initFirecrackerCta(audio);        // ported from the wall: "Join a Circle" click → firecracker → green door
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
-  initHeroRotate();                 // live again 2026-09-12: the fold DECK's "Run a ___ jam" (no-op 2026-08-11 .. 09-12)
+  initHeroRotate();                 // live again 2026-09-12: the fold DECK's rotator, "clubs to do ___" since 09-15 ("Run a ___ jam" 09-12..09-15; no-op 2026-08-11 .. 09-12)
   initZineCarousel();               // section 3's plate: eight real issues, one at a time
   initDomainSlot();                 // the yellow blank in the CTA, on its own clock
   alignDeckToHeadline();            // deck top meets headline top — must run BEFORE the arrow measures
@@ -529,16 +529,20 @@ function initQuotes() {
    Only .mark's text ever changes. The full stop lives after it inside the same run so it
    slides along with the typing, and hidden ghosts — one per word, each carrying its own stop —
    hold the slot open so the line can't reflow while the word is short. */
-/* BACK ON THE FOLD, 2026-09-12, in the DECK: "Run a ___ jam / with your club." The word list
-   is in the markup now (data-words on #rot-word), so a copy change is an index.html edit and
+/* BACK ON THE FOLD, 2026-09-12, in the DECK. It was "Run a ___ jam / with your club." and since
+   2026-09-15 it is "Online and in-person / clubs to do ___ / challenges with." The word list
+   is in the markup (data-words on #rot-word), so a copy change is an index.html edit and
    never a JS one; the first entry must match the served word in .mark and .rot-a11y.
    NO SIZERS IN THIS PLACEMENT, and the reason is the opposite of the one below. The slot is
-   the last thing on its own forced line (.rot-dl is display:block), with nothing after it but
-   " jam" - and " jam" SHOULD ride the word the way the full stop did in the sub. A ghost track
-   would hold "photography" open and leave a three-letter hole before "jam" under "creative".
-   The line cannot reflow: the longest case, "Run a photography jam", is 21 characters in a
-   24ch deck, and the face is monospace, so that is arithmetic. The &#8203; inside .rw is still
-   load-bearing (the empty-run baseline, see the stop note below). */
+   the last thing on its own forced line (.rot-dl is display:block). Under the jam deck " jam"
+   rode the word the way the full stop did in the sub, and a ghost track held open to
+   "photography" would have left a three-letter hole before it under "creative". Under the
+   09-15 deck nothing follows the slot on its line at all, so a sizer would buy nothing.
+   The line cannot reflow: the longest case, "clubs to do photography", is 23 characters and the
+   face is monospace, so that is arithmetic - with one catch the jam deck (21) never hit: 23
+   characters do not fit the 320-359 column at --fs-lede, so app-post-beta.css derives the deck's
+   size from the column there (the rule after .hero-card .ed-deck .rot-dl). The &#8203; inside
+   .rw is still load-bearing (the empty-run baseline, see the stop note below). */
 function initHeroRotate() {
   const w = document.getElementById('rot-word');
   if (!w) return;

@@ -99,8 +99,10 @@ HTML comments at the cited line.
   the page says so twice in visible copy. A number is allowed only in a worked example
   about one named club.
 - **"creative" is struck, with ONE exception:** since 2026-09-12 it is the served first word
-  of the fold deck's rotator ("Run a creative jam"), and so of the three meta descriptions.
-  Founder's call for that slot only, over a flagged objection; it is not free anywhere else.
+  of the fold deck's rotator (now "clubs to do creative / challenges with.", "Run a creative
+  jam" until 2026-09-15), and so of the three meta descriptions. Founder's call for that slot
+  only, over a flagged objection, re-confirmed 09-15 ("and [creative] can rotate."); it is not
+  free anywhere else.
   ~~So is "portfolio".~~ **"portfolio" was un-struck on 2026-09-07**
   by the founder, who asked for the two `#seewhat` wall cards to be relabelled "The Club's
   Portfolio" and "Your Portfolio" on red Dymo tape. The 2026-08-29 sweep that struck it is
@@ -110,15 +112,23 @@ HTML comments at the cited line.
   Sep-5 variant was promoted: its deck read "Drex is where creative groups stay accountable
   by making magazines together." and was rewritten for the page. The third-person sentence
   survives as an elevator pitch OFF this page; it is not served copy.
-- **The fold, as of 2026-09-12 (second rewrite that day) — two ranks, and they move
-  together.** H1 "Don't waste your talents." (two `.sen` blocks, 11ch / 13ch), deck
-  "Run a ___ jam / with your club." (two forced `.rot-dl` lines at every width), where the
-  blank is the 08-08 typing highlighter brought back (`initHeroRotate`, `.hl-rot`), cycling
+- **The fold, as of 2026-09-15 — two ranks, and they move together.** H1 "Show up for
+  your talents." (two `.sen` blocks, 11ch / 13ch, the same lengths as the "Don't waste your
+  talents." it replaced, so the H1 ramp did not move), deck "Online and in-person / clubs to
+  do ___ / challenges with." (three forced `.rot-dl` lines at every width), where the blank
+  is the 08-08 typing highlighter (`initHeroRotate`, `.hl-rot`), cycling
   `data-words="creative photography cursive fashion"`. The served word is "creative". No
-  ghost sizers in this placement: " jam" rides the word. The three `<title>`-type strings
-  track the H1 again ("drex. Don't waste your talents."); the footer signature and the
-  pre-cut hook still say "Honor your talents." and are unreconciled. The decks it
-  replaced, newest first: "Keep taking on challenges in a small group." (09-12 morning),
+  ghost sizers. The longest line, "clubs to do photography", is 23 characters and does NOT
+  fit the deck column at 320-359 at `--fs-lede`: `app-post-beta.css` derives the deck's size
+  from the column under 360 (rule after `.hero-card .ed-deck .rot-dl`). Re-check it if a
+  rotator word or line 2 ever grows. The product truth behind the fold, founder's words: "the
+  host sets a challenge… the rest of the site is built up around enforcing that end goal of
+  just showing up." The three `<title>`-type strings track the H1 ("drex. Show up for your
+  talents."); the footer signature and the pre-cut hook still say "Honor your talents." and
+  are unreconciled. "challenges" is said on the deck AND on the `#seewhat` card again, and
+  the descriptions say it twice back to back; recorded, not ruled on. The decks it replaced,
+  newest first: "Run a ___ jam / with your club." (09-12, under "Don't waste your talents."),
+  "Keep taking on challenges in a small group." (09-12 morning),
   "Get better by running a magazine together." (09-08),
   "Get accountable by making a magazine together." (09-07), "Keep each other accountable by
   making a magazine together." (09-05, under the H1 "Your gifts matter."). The third rank is
@@ -129,8 +139,10 @@ HTML comments at the cited line.
   **The magazine is not named on the fold any more** (it left with the 09-12 deck). The
   nearest visible copy that names it is the `#seewhat` card, "Clubs run challenges and put
   the results in their magazine." ("workshops" until the jam deck took "challenges" off the
-  fold; the card's coral key came back with the word). If that card loses the word,
-  the fold has to buy it back.
+  fold; the card's coral key came back with the word, and stays there: the 09-15 deck's
+  "challenges" is uncoloured). If that card loses the word, the fold has to buy it back.
+  **The due date is not on the fold either** as of 09-15; "Show up" implies it, `#seewhat`
+  is the first place that names one.
 - **Never the name "Sue"** in visible text, alt or aria. `grep -inE '\bsue'`.
 - **No em dashes in head strings** (`<title>`, meta description, OG/Twitter strings).
 - The six head strings move together or they rot: `<title>`, meta description,

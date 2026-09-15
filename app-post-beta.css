@@ -10733,11 +10733,15 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
         ~~deck "Keep each other accountable by
                making a magazine together."~~          the instruction, Pitch Sans
         ~~sub  "Each issue is a new challenge."~~      the mechanism, smallest
-   NOW (2026-09-07, founder's call, UNFIELDED - see the H1 note in index.html):
-        h1   "Don't waste                             the premise, display face
+   THEN (2026-09-07, founder's call; the deck moved three more times by 09-12):
+        ~~h1   "Don't waste your talents."~~
+        ~~deck "Get accountable by making a magazine together."~~
+   NOW (2026-09-15, founder's call, UNFIELDED - see the H1 and deck notes in index.html):
+        h1   "Show up for                             the premise, display face
               your talents."                          two .sen blocks, 11ch / 13ch
-        deck "Get accountable by making a             the instruction, Pitch Sans
-              magazine together."                     three lines, 60.2 / 60.4px
+        deck "Online and in-person /                  the instruction, Pitch Sans
+              clubs to do ___ /                       three forced lines, rotator
+              challenges with."                       in line 2
    THE VARIANT'S OWN DECK WAS NOT TAKEN. It read "Drex is where creative groups stay
    accountable by making magazines together." - both "creative" and the "Drex is where"
    third-person register are struck page-wide, and it MEASURED worse: FOUR deck lines
@@ -10781,12 +10785,33 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
   color:var(--ink);text-wrap:pretty;max-width:24ch}
 .hero-card .ed-deck .hd-who{color:#2190C2}   /* UNATTACHED since 2026-09-07 - see above */
 .hero-card .ed-deck .hd-out{color:#159C53}   /* UNATTACHED since 2026-09-12 - the deck no longer names the magazine; kept on the .hd-who terms */
-.hero-card .ed-deck .hd-chal{color:var(--coral-ink)}   /* UNATTACHED again, later on 2026-09-12 - "challenges" moved down to the #seewhat card (.wyg-say .wc-chal) when the deck became the jam line; kept on the .hd-who terms */
+.hero-card .ed-deck .hd-chal{color:var(--coral-ink)}   /* UNATTACHED again, later on 2026-09-12 - "challenges" moved down to the #seewhat card (.wyg-say .wc-chal) when the deck became the jam line; kept on the .hd-who terms. 2026-09-15: the deck says "challenges" again and it stays uncoloured - index.html's deck note says why */
 /* 2026-09-12, the jam deck: "Run a ___ jam" / "with your club." as two forced lines. The typing
    slot ends line 1, so its width can only push " jam", never re-wrap the deck. The .hl-rot rules
    (the 08-08 rotator, :3567) work here untouched: .rw's upright/600/ink is already the deck's own
-   setting. The JS skips the ghost sizers for this placement; index.html's deck note says why. */
+   setting. The JS skips the ghost sizers for this placement; index.html's deck note says why.
+   2026-09-15: the deck is "Online and in-person / clubs to do ___ / challenges with." - THREE
+   forced lines, and the slot ends LINE 2 with nothing after it, so the same arithmetic holds
+   everywhere except 320-359. The rule after this one is why. */
 .hero-card .ed-deck .rot-dl{display:block}
+/* 2026-09-15: UNDER 360 THE DECK'S SIZE IS DERIVED FROM ITS COLUMN, NOT ASSERTED.
+   The longest line is "clubs to do photography", 23 characters. At --fs-lede (19px here) that
+   is 273.8px, and the deck column is 250px at 320 and 270 at 340, so line 2 WRAPPED while
+   "photography" was up and the hero card jumped 310 -> 334px once per rotator cycle. MEASURED,
+   not inferred: 60px deck at 320 and 340 for "creative", 85px for "photography"; 60 for every
+   word from 360 up. nowrap cannot save it - the overrun is 24px and the card's right padding
+   is 20. The jam deck never hit this: its longest line was 21 characters.
+   THE COLUMN IS 100vw - 70px AT THESE WIDTHS (measured: 250 at 320, 270 at 340, 290 at 360).
+   Not cqw: .hero-card is only an inline-size container from 881 up (:4468), and making .ed-head
+   one would re-point the H1's own cqw ramp. 23 characters need 14.42 x the font size (273.8 /
+   19); 14.6 leaves ~1% for rounding. min() keeps --fs-lede as the ceiling, so from ~350 up this
+   computes to --fs-lede and changes nothing.
+   MEASURED WITH THE RULE: 17.1px at 320, 18.5 at 340, 19 from 360. Three lines for all four words
+   at 320 / 340 / 360 / 375 / 1280, deck 54.3px at 320, and the card no longer moves with the word.
+   index.html's ?v= on this sheet had to be bumped before a local render would show it. */
+@media (max-width:359px){
+  .hero-card .ed-deck{font-size:min(var(--fs-lede), calc((100vw - 70px) / 14.6))}
+}
 @supports (text-box-trim:trim-both){
   .hero-card .ed-deck{text-box-trim:trim-both;text-box-edge:cap alphabetic}
 }
@@ -10844,7 +10869,11 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    the blank, set as two FORCED lines (.rot-dl). Measured at 320 and 375: two lines, deck box
    36px at both, unchanged across all four words; the hero card is 25px shorter than under the
    three-line deck above. text-wrap:pretty is inert again (each forced line is shorter than the
-   measure), and the three-line argument above waits for the next line that runs to three. */
+   measure), and the three-line argument above waits for the next line that runs to three.
+   2026-09-15: THREE LINES AGAIN, but FORCED (.rot-dl), not wrapped: "Online and in-person /
+   clubs to do ___ / challenges with." text-wrap:pretty stays inert, because each forced line is
+   shorter than the measure (under 360 only because the size rule above makes it so). The
+   three-line rag argument above does not apply to forced lines. */
 /* ~~the sub drops a rank so three ranks descend instead of the lower two tying~~
    THERE IS NO THIRD RANK IN THIS FOLD as of 2026-09-07 - .ed-sub is not in
    index.html any more. THE RULE STAYS AND MUST: all seven archived index-*.html
@@ -10878,7 +10907,8 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    "SHORT AND CANNOT WRAP" IS A MEASUREMENT, so here it is, re-taken 2026-09-07 for
    "Don't waste" (11ch) / "your talents." (13ch); it was "Your gifts" (10ch) /
    "matter." (7ch) until then, so the second line grew by six characters and this
-   is the number that moved. Pitch is monospaced at .614em advance, so a line's
+   is the number that moved. (2026-09-15: "Show up for" / "your talents." is 11ch / 13ch
+   too, so nothing here moved.) Pitch is monospaced at .614em advance, so a line's
    width is characters x .614 x --fs-fold and nothing else.
    CANNOT-WRAP is guaranteed by the nowrap below, not by the arithmetic. What the
    arithmetic decides is whether the nowrap OVERRUNS, and it does not do it
@@ -11011,7 +11041,7 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
   line-height:1.35;letter-spacing:-.005em;color:var(--ink);text-wrap:pretty;text-align:left}
 .wyg-say em{font-style:italic}              /* UNATTACHED since 2026-09-12 - "your thing" left with the rewrite; kept on the .hd-who terms */
 .wyg-say .wc-hold{color:var(--ink);white-space:nowrap}   /* the swipe is .hl's own Happy; the words stay ink. nowrap because at 1280 the phrase broke "holds / you to" and the swipe became two boxes, which reads as two highlights */
-.wyg-say .wc-chal{color:var(--coral-ink)}   /* RE-ATTACHED later on 2026-09-12, on "challenges" - the fold deck stopped saying it (it is the jam line now), so the challenge colour came back down to card two's key. Still never onto "results"; index.html says why */
+.wyg-say .wc-chal{color:var(--coral-ink)}   /* RE-ATTACHED later on 2026-09-12, on "challenges" - the fold deck stopped saying it (it is the jam line now), so the challenge colour came back down to card two's key. Still never onto "results"; index.html says why. 2026-09-15: the deck says "challenges" again, uncoloured; the coral key stays here */
 .wyg-say .wc-out{color:var(--lazuli-deep)}          /* was #159C53 (the deck's green) for a few hours on 2026-09-08; now card three's blue, see index.html */
 .tpol .tp-name .hl{white-space:nowrap}              /* "Accountability" under its swipe cannot break mid-word anyway; nowrap keeps the swipe one box */
 .wyg-tape{top:-15px;left:50%;margin-left:-59px;transform:rotate(-3deg)}
@@ -11841,7 +11871,8 @@ html[data-tier="lite"] .lands-grid .pw-name::before{filter:none}
      ever grows past ~13 characters.
 
      RE-DERIVED 2026-09-07, and the line asked for above is exactly 13 characters now:
-     "Don't waste" (11ch) / "your talents." (13ch). 13 x .614em x 41.6px = 332px of glyphs
+     "Don't waste" (11ch) / "your talents." (13ch), and from 2026-09-15 "Show up for" /
+     "your talents.", the same 11ch / 13ch, so this sweep still holds. 13 x .614em x 41.6px = 332px of glyphs
      against a 363-368px inner across the flat band. THE FLOOR IS KEPT AT 2.6rem. Full sweep,
      measured on the post-change-C page, of the slack between the SECOND line's mark and the
      h1's content box — and, in brackets, the same slack measured to the ::before BAND's edge,
