@@ -789,3 +789,23 @@ screen at 390 and 1440:**
 - Scoring pass (synthetic, lint not verdict): clarity reaches 4/5 at the fold's three lines, do-first
   at the first button, time only at row 02 of the timeline. Cut candidates it named: "A finished
   thing." (restates the card), the Instagram door, the "then" line. Not cut; founder's call.
+
+**R-36 · 2026-09-16 night · SHIPPED · why -> how -> examples, read as a pamphlet.** The founder's
+brief: why above the fold, how immediately under, then examples; too much text; vertical pacing;
+grid and type consistency. Measured (screens per section, 390 / 1440) before -> after:
+hero .57/.63, why 1.25/.94 -> 1.34/1.06, band .61/.72 -> GONE, how 2.38/1.93 -> 2.58/2.17
+(it now ends on Sign up + Kurtis), proof 1.97/.96, shelf 1.03/1.04 -> .99/.98, doors 1.05/.99 ->
+.72/.59. Page 9.7 -> 9.0 screens on a phone, 8.0 -> 7.1 on a laptop. Visible words 415 -> 371.
+- The band's three-line h2 was the loop's THIRD statement before the how (fold deck, club card,
+  band). Retired; the nag line closes the why section; Sign up + Kurtis close the how.
+- Shelf head "Every zine is a new challenge." -> "The show-and-tells." (three heads on "challenge";
+  the shelf is the noun the fold link, nav and closing door use).
+- Cut: the shelf's hidden fourth Sign up tag; the Instagram door (two doors: join or read).
+- One h3 size for timeline rows and door cards (was 19/20/23/26px). Door cards one width.
+- Pamphlet read, what still repeats on purpose: "show-and-tells" ×5 (it is the noun); "Sign up" ×3
+  in content + the masthead; "It's free" once. "A finished thing." restates the club card's
+  caption in three words; kept as the parallel to "4,000 messages. Nothing made."
+- Research consulted (NN/g text-scanning + visual hierarchy; 2026 landing-page guides): layer-cake
+  of heading + one-line sub beats prose; ≤3 type sizes per view; the eye order is h2 -> button ->
+  picture; state the problem before the mechanism; proof beside the button. The page now runs
+  what (fold) -> why (chat vs club) -> how (five rows, then the ask) -> who -> what they made -> doors.

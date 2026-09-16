@@ -484,7 +484,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=172" />
+<link rel="stylesheet" href="app-post-beta.css?v=174" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -1833,427 +1833,27 @@
         </figure>
 
       </div>
+      <!-- The answer to "Nobody has a system", moved here 2026-09-16 from the retired band that
+           followed this section: the founder's 09-05 line, unchanged. Oats on slate. -->
+      <p class="vs-close"><b>We nag for you.</b> In everyone&rsquo;s calendar, inbox and texts.</p>
 
     </div>
   </section>
 
-  <section class="summary-band" aria-label="How a club runs, and what runs itself">
+  <!-- ~~<section class="summary-band">~~ RETIRED 2026-09-16 night. It held the three-line h2 "We
+       make sure people show up, / know what's up, / and put their work up." (founder, 09-01), the
+       lede "We nag for you. In everyone's calendar, inbox and texts." (founder, 09-05), the mid-page
+       Sign up and, since this afternoon, Kurtis's scrap. Read as a pamphlet, start to finish, the
+       loop was stated THREE times before "how it works": the fold's deck, the club card in
+       #why-not-chat, and this h2 (show up = the meetup, know what's up = the challenge, put their
+       work up = the show-and-tell). The founder's brief for the night: why above the fold, how
+       immediately under it, then examples; too much text everywhere. So: the h2 is gone (the
+       loop is the fold's job), the nag line closes #why-not-chat as the answer to "Nobody has a
+       system", and the Sign up + Kurtis close #showtell, where a reader who now knows how it works
+       is asked. The 400 lines of history this section carried are in git (a7290fb..bdc7f7d) and
+       LOOP-FINDINGS.md. The CSS (.summary-band, .sum-say, .loopwrap) stays for the archived pages.
+       REVERSIBLE: the h2 markup is three lines in bdc7f7d:index.html:1953. -->
 
-    <!-- ==== SUPERSEDED 2026-09-01, KEPT AS THE RECORD. Every line of copy this note argues
-         for is gone: the eyebrow, the h2 and the sub were replaced by the loop head below it.
-         What still binds, and why it is kept: (a) the heading TAKES NO POSSESSION — no "your
-         groups", no "little"; the new h2 addresses the reader as "you" and claims nothing of
-         theirs, which is the same test passed a different way. (b) "show-and-tell" is still
-         spent three times in one viewport if this head reaches for it, so it still does not.
-         (c) the nagging is still not shipped. READ IT AS HISTORY. Do not restore anything
-         from it. ====
-         ==== THE HEAD, ADDED 2026-08-26. This was the ONLY section on the page with
-         no head: two lists and their ledes, arriving with nothing naming what they
-         are about. Every other section runs eyebrow / h2 / sub, and the band read
-         as an orphaned pair of columns because of it.
-         It also closes the gap the fold's new line three opened. Sue's thesis is
-         three clauses — "accountability buddies with something to show", "turn your
-         groups into little zines", "it even organizes the time, place, notifications,
-         deadlines for you" — and only the middle one was on the page. Every
-         scheduling beat elsewhere is framed as something a PERSON does ("Someone
-         sets it", "your Host sets one, with a deadline"); nothing said drex keeps
-         any of it. This sub is the only place the page makes that claim.
-         THE HEADING TAKES NO POSSESSION. Sue's draft opened "Turn your little
-         accountability groups into a magazine." Two edits, both with precedent
-         directly above:
-           - "your ... groups" presupposes the reader HAS one, which is the exact
-             exclusion the H1 comment records fixing ("Arriving alone is the commoner
-             case and the one an opening like 'Your club' silently excluded"). The
-             subject is the activity instead, so both doors stay open.
-           - "little" is affectionate in Sue's voice and diminishing in second person
-             to a stranger. Same register test that struck "creatives" at the
-             summary band's own first item.
-         "SHOWING UP", NOT "show-and-tell", and that was a render finding: the first
-         cut of this head used the page's spine word and put it THREE times in one
-         viewport — here, in "Many show-and-tells." four inches below, and in
-         #showtell's "See a show-and-tell." immediately after. The last of those is
-         load-bearing and cannot move, so this one did. "Showing up" is the better
-         line anyway: it is the accountability claim in plain English with none of
-         the fold's productivity register, it names the only input the reader has to
-         supply, and it still rhymes with the fold's "something to show!". The head
-         ends on the artifact, which is what this section's payoff is.
-         THE SUB CLAIMS SCHEDULING AND NOTHING ELSE. Sue's draft listed "time, place,
-         notifications, deadlines, collaboration, etc." — five nouns, and the two
-         columns four inches below ARE the features list, so the sub would be
-         previewing itself. It keeps only what the columns never say: the time, the
-         place, the date. "collaboration" is the abstract form of "Make the zine
-         together" one rank down and is dropped rather than said twice.
-         "THE NAGGING" IS THE RELIEF, AND IT CARRIES THE HOST (2026-08-27). The sub
-         used to end "so the hour goes on making things instead of scheduling them",
-         which restated both halves of its own sentence — "the hour goes on making
-         things" IS "you bring the work", and "instead of scheduling them" IS the
-         list — so it was a summary of the sentence appended to the sentence. Cut.
-         "Nagging" is the announced thing instead: the one chore nobody wants, the
-         accountability claim in a single word, and it answers the HOST without a
-         second clause, since nagging is what a host would otherwise do themselves.
-         The colon makes it the headline word rather than item one of four; the list
-         is what you get nagged ABOUT. Three items, not four — "dates"/"deadlines"
-         are one idea and so are "time"/"dates"; "hour" is the page's own noun.
-         CLAIM CHECK — this DOES now assert reminders, which the previous sub
-         withheld on purpose because the claims audit struck "monthly" (2026-08-04)
-         for exactly that. backend-gstack wires armPlaceReminders + armDeadlineSweep
-         in instrumentation-node.ts, but place reminders sit behind their own switch
-         and fire only for clubs meeting at an address. VERIFY THE NAG IS REAL AND
-         GENERAL BEFORE THIS SHIPS. ==== -->
-    <div class="head sum-head">
-      <!-- THE HEAD, RE-CUT 2026-09-01. OUT: eyebrow "the whole idea" + h2 "Turn showing up
-           into a magazine." + the sub "You bring the work. We keep the time and the place. The
-           deadline closes itself."
-           THE H2 NAMED NO MECHANISM. It said what showing up ADDS UP TO, which is what the list
-           below it already says three times over, so the section's largest type carried its
-           smallest claim. Founder's word for it: a nothing burger.
-           THE SUB IS NOT LOST - IT IS PROMOTED AND THEN DRAWN. "You bring the work" is now the
-           h2's first clause, and the half it used to assert in prose ("We keep the time and the
-           place. The deadline closes itself.") is what the coral scrawls on the ring below SHOW,
-           each pinned to the transition it powers. Keeping both would have been the sub and the
-           drawing saying one thing twice, one rank apart - R-2's structural lesson, which is
-           about duplication and not about wording.
-           "THE REST IS ALREADY RUNNING", NOT "WE RUN THE REST OF IT". Same claim, no company as
-           the subject. K-1's shipped falsehood ("We do the nagging") was exactly that grammar -
-           a vendor promising work a human would do - and "already" is the whole infrastructure
-           claim in one word: the machine exists before you arrive, which is the one thing a
-           group chat is not. Every sentence in this section takes you, the rest, a note, the
-           date or the deadline as its subject. None takes us.
-           THE EYEBROW IS PLAIN SPEECH, LIKE ALL NINE OTHERS. Checked: ~~"why nothing gets made"~~
-           (cut 2026-09-07 with the group-chat section - eight now, and the test is unchanged),
-           "how you get good", "already run something?", "your club", "who's using Drex", "why
-           we built it", "three ways in" - noun phrases or questions, zero abstract nouns.
-           "the accountability infrastructure" and "the accountability, in parts" were both
-           written and both cut: the frozen H1 already says "Accountability buddies", which is
-           the tribe's form of the same root, and the deck's form arriving 20% later gives one
-           idea two registers. The drawing under this head is what the word would have claimed.
-           REJECTED: "Most groups never finish. Yours will." (founder's line, twice asked for).
-           index-alt.html:4893 killed it on a 72-document corpus study - the tribe's grammar for a
-           group ending is intransitive WITHOUT EXCEPTION (fizzled out, fell apart, lost steam),
-           so a line that assigns the failure indicts the reader. Its sanctioned replacement is
-           ~~already on this page two sections up, in #why-not-chat: "Everyone has a group chat.
-           Nobody has a deadline."~~ STALE TWICE, CORRECTED 2026-09-07. The line became "Nobody
-           has a system." on 2026-09-03, and on 2026-09-07 the whole group-chat argument was cut
-           - that container is now #what-you-get and holds the three What-you-get polaroids. SO
-           THE SANCTIONED REPLACEMENT IS NO LONGER ON THE PAGE, and that does NOT license the
-           founder's line back: index-alt.html:4893 killed it on grammar (the tribe's form for a
-           group ending is intransitive without exception), not on duplication, so the finding
-           stands on its own. DO NOT RESTORE IT. Also rejected, for the same duplication:
-           "Groups lose steam. Deadlines don't." - the correct intransitive form, and still the
-           group-chat line's twin, arriving second and testing worse.
-           REJECTED: a sub under this h2. Every draft restated the h2 at one rank down; the
-           drawing is the sub. -->
-      <!-- SET ON THREE LINES, ONE CLAUSE EACH (2026-09-01, Sue). The spans are not
-           decoration: .say-l is a LINE, .say-lead / .say-mark / .say-chal / .say-beat are
-           the runs that may never break, and each clause wears its own beat's ink. The
-           whole argument, every measured ratio and every rejected alternative is in
-           app-post-beta.css at .sum-say - read it before recolouring or reflowing this.
-           The yellow is a SWIPE and never letterforms because School Bus type on Oats
-           measures 1.82:1. The words are untouched: measure.py 630 -> 630, +0. -->
-      <h2 class="slab sum-say">
-        <span class="say-l say-hour"><span class="say-lead">We make sure people</span> <span class="say-mark hl">show up,</span></span>
-        <span class="say-l say-chal">know what&rsquo;s up,</span>
-        <span class="say-l say-tell">and put their work up<span class="stop">.</span></span>
-      </h2>
-      <!-- "WE DO THE NAGGING" IS GONE, 2026-08-29 (-1 word). It was K-1's known-false claim,
-           still highlighted in Happy as the promise of the paragraph headed "the whole idea":
-           sweepAllDueLadders' only caller is gated on DEADLINE_LADDER_ENABLED, which compose
-           passes empty. It was also SELF-CONTRADICTING in one breath, and a cold reader said so
-           unprompted - "do you nag me or don't you? 'We do the nagging' is highlighted, and then
-           the next clause says the thing does it by itself. Pick one."
-           "We keep the time and the place" is the same shape and IS kept by the product: a club
-           has a standing hour and a venue, and the door shuts on its own. K-1's own lesson,
-           applied - prefer the mechanism that needs no human, because it cannot rot.
-           WHERE THAT CLAIM LIVES NOW (2026-09-01): not in a sub, in the drawing. "a note goes
-           round the day before" and "the date's in your calendar" are the scheduling claim,
-           pinned to the two transitions they actually power, and each is a shipped mechanism
-           (src/db/club-hour-place-reminder.ts; src/app/calendar/[token]/route.ts).
-           DO NOT restore "nagging" without shipping reminders first. -->
-    </div>
-
-      <!-- ============ THE LOOP, 2026-09-01. Sue's ask, in her order: browse magazines to see
-           what clubs are doing -> join the club -> a challenge with a deadline -> show up -> make
-           it together -> it goes out -> back to the browser square.
-           THE RING IS THE SAME OBJECT SHE IS DESCRIBING, ONLY SHORTER AT BOTH ENDS, so it MOVED
-           here from #showtell rather than being drawn a second time. #showtell is now the dated
-           worked example only, and its own head line is the hinge. That line is "See it in
-           action." (2026-09-07); this sentence quoted "Now watch one club do it." until then,
-           which was TWO strings out of date - that was .sht-exhibit, deleted 2026-09-01, and the
-           head it was replaced by ("Now see Photo Phloor do it.") has itself now been replaced.
-           Recorded rather than silently corrected, because a comment that rots twice in a week is
-           evidence about how tightly this pair is coupled: touch #showtell's head, fix this line
-           in the same edit.
-           Two mechanical explanations of one loop is this page's oldest repeated failure; there is
-           exactly one ring on this page and this is it.
-           ~~THE LIBRARY IS OUTSIDE THE RING ON PURPOSE~~ SUPERSEDED 2026-09-01: the square is
-           deleted (founder's call) and the library is a real card in #seewhat. WHAT STILL BINDS:
-           the ring is what ONE CLUB does, over and over; the library is the world it publishes
-           into. It was never a fifth node and must not become one - R-1 measured that node text
-           at 24cqw collides at 60-degree spacing. THE EXIT NOW POINTS OUT OF THE SECTION: the
-           short inline glyph, at every width, in flow, down the page at the library card below.
-           "JOIN A CLUB, OR START ONE" IS AN ARROW LABEL, NOT A NODE, and not a button. R-3 killed
-           "Join a club" as a CTA because it pointed at a waitlist and read as bait (the doors point
-           at app.drex.style/welcome since 2026-09-05, but a sign-up screen is still not a club, so
-           the kill stands); here it names
-           a transition on a diagram with no button under it. The second clause is a cold-read fix:
-           a stranger read "join a club" as an institution you apply to and assumed he would have
-           to be accepted. Both doors, five words, and the fold already promises the second one.
-           THE THREE SCRAWLS ARE THE TOOLS, AND THIS IS WHY THEY ARE NOT A LIST. R-2 deleted "We
-           give you tools to:" twice; the diagnosis was that the items had no anchor - three
-           abstractions in a column. Each of these is pinned to the one transition it powers:
-           the day-before note on the arc that ARRIVES at the hour (src/db/club-hour-place-reminder.ts
-           - 09:00 club-local the calendar day before, on by default, an OFF switch nobody set,
-           and a called-off night sends nothing, so "the day before" is the honest qualifier and
-           NOT the word "reminders" on its own); the calendar on the arc that leaves it, because
-           the feed carries the DEADLINE over your own time (src/app/calendar/[token]/route.ts,
-           plus per-club club-hour.ics); the lock on the arc into publication
-           (src/db/issue-writers.ts submissionsClosed, opt-OUT, default enforced).
-           NOT "we do the nagging", AND DO NOT ADD IT. The reminder ladder is still opt-IN behind
-           DEADLINE_LADDER_ENABLED, which .env.example comments out and compose passes empty -
-           K-1, still true on 2026-09-01.
-           REJECTED HERE, ON A COLD READ: "who's coming, and who came" (RSVP + arrival stars, both
-           shipped and true). Next to a closing deadline it read as attendance being taken ON the
-           reader - school, not craft. The day-before note is the same hour, described as something
-           that helps you rather than something recorded about you. Do not swap it back. ==== -->
-      <div class="loopwrap">
-
-        <!-- ~~THE DRAWN LIBRARY SQUARE~~ DELETED 2026-09-01, founder: "boy, you need to get rid
-             of 'the library' graphic you made." It was a hand-drawn browser window linked to
-             /show-and-tell, captioned "The library ->".
-             THE CONCEPT IS NOT KILLED, THE DRAWING IS: the library is now card 1 of #seewhat's
-             grid, as the real reader clip, and that caption is the card's .pw-name. Nothing is
-             orphaned. Cost: the loop no longer closes inside this section - the exit arrow points
-             down and out at the real thing.
-             SIX BEAT-COLOUR USES LIVED IN IT and were swept hours before it died. The lesson
-             outlives the object: the first coloured thing in a section teaches a reader what the
-             colours mean, and this one taught them red/yellow/green/blue = "a browser".
-             DO NOT REDRAW IT. A picture of the library needs a capture of
-             app.drex.style/show-and-tell, which this repo does not have. A shoot, not a search. -->
-
-        <!-- ~~THE WAY IN~~ DELETED 2026-09-02, founder: "also remove 'join a club or start one'."
-             It was a small down-arrow and the label, sitting between the band's heading and
-             station 01. THE ARROW WENT WITH THE WORDS on purpose: a connector whose label is
-             deleted points at nothing, which is the exact fault this pass was called in to fix.
-             The way in is now the heading itself. .loop-in's CSS is kept (see app-post-beta.css
-             "THE LOOP'S PLUMBING IS INK") because five archived index-*.html still carry this
-             markup and load this sheet. -->
-
-      <!-- ============ ~~THE LOOP~~ THE RING IS GONE, 2026-09-03 ==========================
-           Founder: "i guess the timeline makes the loop redundant, right? specifically the
-           .how-stage? however i do like the text ... yes keep the line i like, get rid of the
-           rest of the loop."
-           IT WAS REDUNDANT, AND THE PROOF IS THE INK. The ring's four station headings and
-           #showtell's four dated rows resolve to the SAME four colours, measured:
-               rgb(201,52,58)  rgb(74,52,16)  rgb(12,110,57)  rgb(28,111,148)
-           Same four beats, same order, same inks — except the timeline also gives each one a
-           DATE, a photograph and a real published issue. The timeline is not a restatement of
-           the ring; it is the ring instantiated, with evidence. This page has killed
-           restatement repeatedly (R-2 / R-14 in LOOP-FINDINGS) and this was the last big one.
-           WHAT WENT: .how / .how-stage / .how-loop, the .how-ring svg, and the four .step
-           stations with their sub-lines ("your host sets it, with a deadline", "a standing
-           hour, online or in person", "one shared editor", "it lands in the library").
-           WHAT STAYED: the .loop-tool line below, on the founder's explicit call.
-           WHAT IT COSTS, STATED: the ring was the only object that said the loop REPEATS.
-           #showtell's spine ends "...and the next challenge goes up." and now carries that
-           alone. And the reader now meets the proof BEFORE any explanation of the beats —
-           which is a real change in reading order, not just a deletion.
-           The .how / .how-ring / .step CSS is untouched: five archived index-*.html render it.
-           ================================================================================ -->
-
-        <!-- 2026-09-03, founder's own words. The mark moves to "texted and nagged" - .lt-nag is a
-           School Bus highlighter and it belongs on the operative clause, which is no longer "We nag
-           for you". "Nobody has to chase" was dropped: it stated the absence that the rest of the
-           line already demonstrates.
-           TWO VERSIONS WERE OFFERED. Taken: "It's in everyone's calendar and text messages..."
-           Rejected: "It's in your calendar ... Everyone is texted and nagged for you." - it moves
-           the subject from "your" to "everyone" mid-line, and it spends the sentence's best clause
-           ("We nag for you") on a longer paraphrase. The mark stays on that clause.
-           WHAT THIS LINE NOW PROMISES, recorded because a public page should not outrun its code:
-           the calendar feed is live, the deadline lock is live, and AS OF 2026-09-05 THE SMS LEG
-           IS LIVE TOO (founder, directly). The previous note here said sendDeadlineSms had zero
-           live callers and told the next pass to revisit this clause if the text slipped - it did
-           not slip, and that warning is retired rather than left to trigger a false revert.
-           2026-09-05 - THE PUNCHLINE MOVED TO THE FRONT, founder: "We nag for you. In everyone's
-           calendar and text messages." The same logic that rejected the paraphrase above, taken
-           one step further: if "We nag for you" is the sentence's best clause, it goes first.
-           "The deadline closes itself." WAS CUT AS A RESTATEMENT, not as a retreat - .tp-what at
-           :1692 already says "Your host sets it. The deadline closes itself." verbatim, and
-           :1677 already says "A standing hour, in everyone's calendar.", so this line had been
-           repeating both of its own clauses from cards in the same section. R-2/R-14's rule.
-           MEASURED at 320 and 375: two lines at both, 50px, down from four lines/100px at 320
-           and three/75px at 375 - and it sits directly above the mid-page CTA added the same
-           day, so the claim now lands one beat from the door. The .lt-nag highlighter does not
-           wrap in this arrangement (checked; a wrapped .hl collapses its ::before to a sliver). -->
-        <p class="loop-tool"><b>We nag for you.</b> In everyone&rsquo;s calendar, inbox and texts.</p>
-
-        <!-- 2026-09-05, founder, on a friend's note that the page wants more call-to-action
-             buttons. THE PAGE'S ONLY REAL CTA DESERT ENDS HERE, and it was measured before it
-             was believed. At 440x956 on a 13304px page the three doors sit at y=576 (the fold's
-             coupon), y=7452 (#bring's "Bring the same people back") and y=11833 (the closing
-             card). Between the fold and #bring that is 6876px - 7.2 SCREENS with nothing to
-             press. The midpoint of the gap is y=4014 and this line ends at y=3800, so this is
-             the one insertion point that actually halves it: 3.5 screens, then 3.7.
-             IT IS ALSO THE RIGHT BEAT, not just the right y. This line is the payoff of the
-             whole mechanism argument - the reader who is worried they will not follow through
-             is answered by "We nag for you. In everyone's calendar and text messages." and the next thing
-             they meet should be the door. And .loop-tool is the LAST child of .loopwrap, so
-             the button closes .loopwrap rather than interrupting an argument mid-way.
-             (It said "closes #tools" until 2026-09-07. That was loose from the day it was
-             written - the element this button ends is .loopwrap, not the band below it - and
-             #tools is now a dead name as well as a wrong one.)
-             ~~THE LABEL IS "Join the waitlist"~~ ~~IT IS "Sign up or log in"~~ IT IS "Sign up",
-             2026-09-07; the "or log in" half now lives only in the masthead tray and the whole
-             argument is filed on #proof's .proof-cta. The 2026-09-05 note it replaces:
-             registrations opened and every door on the page moved from the letters waitlist to
-             app.drex.style/welcome. THE RULE THAT SET THE OLD LABEL IS UNCHANGED AND IS WHY THE
-             NEW ONE IS THIS PLAIN: R-3 (LOOP-FINDINGS.md:153) killed "Join a club" in this exact
-             role because the verb promised a club and the link delivered a waitlist, and a cold
-             reader called it bait that "turns a maybe into a no". Every door on this page names
-             the thing behind it, and what is behind it now is a sign-up screen. "Join a club" is
-             STILL not the label: the welcome screen is an account, not a club, and the club comes
-             after. It does not get to be cleverer than what it opens.
-             NO TERMS LINE UNDER IT, deliberately. #bring's button is the precedent and carries
-             none either. R-4's rule is that a permission gate read after an invitation reads as
-             a retraction, and "invite-only while we're small" at 29% of the page is that gate
-             arriving before one real club has been shown. The terms are stated at the closing
-             CTA, where the reader has already seen the pile.
-             KNOWN, NOT FIXED HERE: .zc-tag-fine - the fold's price line, "It's free - no way to
-             pay us yet." since the gate clause was cut on 2026-09-05 - measures ZERO HEIGHT at 440,
-             so on a phone the terms are invisible until y=11833. That is its own bug and its own
-             fix. THE PARAGRAPH ABOVE IS NOW HALF-SPENT: the terms this note says are "stated at the
-             closing CTA" are, since 2026-09-05, only the price - there is no permission gate left
-             to place, because there is no permission gate. -->
-        <!-- KEY ILLUSTRATION - THE NAG, 2026-09-07. "We nag for you. In everyone's calendar and
-             text messages." is the page's one mechanism claim and it had no picture; the section
-             carried a highlighter swipe and nothing drawn. So: a phone, going off - the thing
-             that does the nagging - with a "!!" bubble, beside the button that gets you nagged.
-             Placed in the CTA row, not the margin, so it exists at 320 and 375 (the .si margin
-             marks only exist above 1340px). Ink strokes for the phone, --coral-ink for the buzz
-             and the bubble: red is CHALLENGE on this page, and a nag is the challenge calling.
-             Boils, because it is ink (.ki svg). Rules the .ki system obeys are at the top of its
-             block in app-post-beta.css. -->
-        <p class="loop-cta"><a class="btn" href="https://app.drex.style/welcome">Sign up <span class="arr">&rarr;</span></a><span class="ki ki-nag" aria-hidden="true"><svg viewBox="-10 -8 120 124" fill="none" stroke-linecap="round" stroke-linejoin="round"><path data-si-draw pathLength="1" d="M31 26 C31 20 35 17 41 17 L62 18 C68 18 71 22 70 28 L66 98 C66 104 62 107 56 107 L36 106 C30 106 27 102 28 96 Z" stroke="var(--ki-ink,var(--ink))" stroke-width="3.4"/><path data-si-draw pathLength="1" d="M42 100 L52 100 M36 40 L60 41 M35 52 L55 53 M35 64 L52 65" stroke="var(--ki-ink,var(--ink))" stroke-width="2.2"/><path data-si-draw pathLength="1" d="M18 34 C12 44 12 56 18 66 M9 28 C1 42 1 58 9 72 M82 44 C88 54 88 66 82 76 M91 38 C99 52 99 68 91 82" stroke="var(--coral-ink)" stroke-width="2.8"/><path data-si-draw pathLength="1" d="M60 4 L88 2 C94 2 97 5 96 11 L95 22 C95 27 92 29 86 29 L76 29 L68 36 L70 29 L64 29 C59 29 57 26 58 21 Z" stroke="var(--coral-ink)" stroke-width="2.8"/><path data-si-draw pathLength="1" d="M73 8 L72 18 M80 8 L79 18" stroke="var(--coral-ink)" stroke-width="3.2"/><circle cx="72.5" cy="23" r="1.8" fill="var(--coral-ink)"/><circle cx="79.5" cy="23" r="1.8" fill="var(--coral-ink)"/><g class="ki-sat"><path data-si-draw pathLength="1" d="M-2 93 C-1 97 1 99 5 100 C1 101 -1 103 -2 107 C-3 103 -5 101 -9 100 C-5 99 -3 97 -2 93 Z" stroke="var(--schoolbus)" stroke-width="2"/><circle cx="86" cy="104" r="2.2" fill="var(--lazuli)"/><circle cx="94" cy="99" r="1.9" fill="var(--colorado)"/><circle cx="99" cy="108" r="2.1" fill="var(--schoolbus)"/></g></svg></span></p>
-        <!-- Kurtis, moved here from the fold card on 2026-09-16; the argument is at the fold. The
-             scrap sits under the button it is proof for. Styles: .loopwrap .ed-proof in the stylesheet. -->
-        <figure class="ed-proof">
-          <a class="ed-proof-link" href="https://app.drex.style/z/6f886428-a9eb-40b0-9cbf-60f4ae677992" target="_blank" rel="noopener" aria-label="Read the Penmanship zine Kurtis made a page for &mdash; opens on Drex">
-          <img src="assets/zines/penmans-drill.jpg" width="600" height="731" loading="lazy" decoding="async" alt="A hand resting on a notebook page filled with rows of pointed-pen drill strokes in blue ink." />
-          <figcaption>Kurtis had never done this. He made one page. Now he runs the club. <span class="ed-proof-go">read it &rarr;</span></figcaption>
-          </a>
-        </figure>
-        <!-- THE TWO BRACKETS ARE GONE, 2026-09-01, founder: "also just get rid of the 'back to
-             the start' and 'one issue' arrows." They only drew below 560px. THEY DID COST WORDS -
-             measure.py counts aria-hidden labels - and "issue" drops from 9 uses to 8.
-             .how-flowdown was on no other page in this repo, so its markup and every rule that
-             served it are deleted outright; .how-loopback's unscoped CSS still serves five
-             archived index-*.html.
-             WHAT CARRIES SEQUENCE NOW, since the badges went in the same pass: the arrowed arc
-             and four compass positions on the ring; vertical order and the <ol> in the stack. Do
-             NOT re-add per-station down-arrows - measured and rejected in the stylesheet. -->
-
-        <!-- Practice used to be its own step, which double-counted it: it's already one of the four
-             things the hour is FOR. Demoting it to a footnote was the fix at the time, and that
-             footnote is gone too — its markup was cut long ago and the last of its CSS (.how-fn,
-             .fn-star, .fn-body, .fn-link, .fn-tie) is deleted 2026-08-29. What survives is the
-             point: the ring is four clean nodes, and most of the making happens unwatched. -->
-        <!-- CARRIED WITH THE RING 2026-09-01 — REMOVED 2026-08-29 — the YARN (.fn-tie), a drawn string tying the clock's mechanism
-             line to the footnote note. Both ends were deleted before this comment was; the CSS
-             for the string itself goes 2026-08-29. Kept as a record, not as a description: if a
-             corkboard aside ever comes back, a string beats an arrow — an arrow says "go here
-             next", a string says "these two are pinned together" — and both ends must anchor to
-             the STAGE, never to the note, whose height breathes with the vw font clamps. -->
-
-
-
-        <!-- ~~THE EXIT ARROW AND "it lands in the library"~~ DELETED 2026-09-02, founder's call.
-             The words moved into station 04's sub-line above; the arrow went with them, because a
-             connector whose label has left points at nothing - the same fault that took out
-             .loop-in and #seewhat's three ticks in this pass.
-             FOR THE RECORD, since it is the second bug of its kind here: .loop-arrow svg sets
-             display:block and no width, and only .loop-in svg ever carried a width clamp, so this
-             one filled its container - 560x728 at 1440, LARGER THAN THE 560px RING, and 366x477
-             at 390 where the station icons are 128px. It was the biggest object in the section by
-             a factor of three. If any .loop-arrow ever comes back it needs an explicit width.
-             .loop-out's CSS stays in app-post-beta.css for the five archived index-*.html. -->
-
-      </div>
-
-<div class="sum-stack">
-    <!-- ONE LIST NOW (2026-08-29). This was two columns. The second one, "We give you
-         tools to:", was the section said twice: "Help each other make the deadline" is
-         the sub's own nagging, "Make the zine together" is the h2 three inches above,
-         and "Show the world" promised a planet to a club of six. Rewriting those three
-         lines would have left two lists still restating each other, so the column and
-         its three marks are gone and nothing replaced them.
-         ALL THREE FRAGMENTS ARE QUOTED VERBATIM in the meta, og and twitter descriptions.
-         Touch one here and you must touch all three there, in the same edit, or they drift
-         silently. They are in sync as of 2026-08-29 (the "many show-and-tells" staleness
-         recorded here before is fixed; so is item 3).
-         ITEM 3 WAS "One beautiful wall." UNTIL 2026-08-29, and two separate cold readers
-         failed on it in the same words: they did not know what a wall was. The section that
-         teaches the noun is three screens down, and the mark beside the line is three
-         coloured covers, so the picture said "issues" while the words said "wall". It also
-         promised ONE wall where #portfolio says there are two ("Yours, and the club's").
-         "Issues with your name in them." is ordinary English, matches the mark, uses the
-         page's one object name, and leaves #portfolio to introduce "wall" as its own reveal.
-         REJECTED: "Your beautiful wall." It fixes the count and not the comprehension, and
-         comprehension is the thing that was measured.
-         Do not reorder: it is the loop in miniature and the last item is the only one
-         that pays off. -->
-    <!-- THE "What a club adds up to:" LIST IS GONE, 2026-09-01, on the founder's call, and
-         with it the three drawn marks. It was the third statement of the loop inside one
-         section - the drawn card in #why-not-chat above, then the ring, then this in prose -
-         (#why-not-chat was renamed #what-you-get on 2026-09-07 and the drawn card was cut with
-         it; this note is kept as the record of why the list went, and the R-2 reasoning does
-         not depend on the card still being there) -
-         which is R-2/R-14's structural duplication arriving a third time on the same band.
-         WHAT IS LOST, STATED PLAINLY: "A few real friends." was the page's own evidence said
-         back, and the quantifier spine A few / Work / Issues went with it. Nothing replaces
-         it; the h2 is the section's only claim now.
-         IT ALSO CARRIED SIX BEAT-COLOUR USES THAT MEANT NOTHING: three heads in Colorado /
-         Grass / Lazuli for "friends", and three book covers in School Bus / Grass / Colorado
-         for "issues" - the four-colour system contradicted six times in one paragraph.
-         THE META BLOCK MOVED WITH IT. All three fragments were quoted VERBATIM in
-         meta[name=description], og:description and twitter:description; those three are
-         re-cut to the new h2 in the same edit, which is what the comment deleted here
-         demanded of anyone who touched this list. -->
-
-    <!-- THE SECOND COLUMN IS GONE AGAIN, 2026-08-31, and this time the reason is
-         structural rather than editorial - it is R-2 arriving by a new road.
-         It was restored on 2026-08-29 with a WHY clause on each regular, which did
-         answer the objection those three lines died of the first time. What changed
-         is what sits above the band. #why-not-chat moved here from 55% depth, so the
-         reader now meets a DRAWN CARD carrying "the challenge", "Shoot a roll you'd
-         normally be scared to.", "due friday", "one issue, everyone's name in it" and
-         "A finished thing." - and then, four inches later, this column said challenge,
-         hour, deadline and finished again in prose.
-         ~~"the reader now meets a DRAWN CARD"~~ FALSE SINCE 2026-09-07: that card and all four
-         of those strings were cut with the group-chat argument, and the container above the
-         band (renamed #what-you-get) now holds the three What-you-get polaroids. THE COLUMN
-         STILL DOES NOT COME BACK. The duplication it died of has simply changed partner - the
-         polaroids say accountability, challenge and portfolio 300px above a band that says
-         show up, know what's up and put their work up, which is the collision the founder was
-         shown and ruled on. A prose column repeating it a third time is worse, not better. Four of the band's six fragments
-         restated the picture the reader had just looked at. Before the move those two
-         sat 47% of the page apart with the WORDS first; the move put the picture first
-         and turned the words into a caption for it.
-         Three cold reads converged on it independently: one called the band a prose
-         restatement of the picture above; one recognised it as the "three regulars"
-         R-2 deleted for reading as a chant; one measured its half-screen as two matched
-         three-item lists at 13% depth, the flattest band on the desktop page.
-         WHAT IS LOST, STATED PLAINLY: the deck's slide-9 triad, and the reasons attached
-         to it, which were better copy than the mechanics #showtell's ring carries.
-         REJECTED: folding those reasons into the ring's step subs. That is R-1 - the ring
-         is the one object on this page whose whole job is to be scanned in two seconds,
-         and the last time it took extra words it grew 57% and overflowed at 1280px.
-         The three ideas each keep a whole section of their own (#showtell 01, #showtell
-         02, #portfolio); what has gone is the compressed restatement of them.
-         O-3 COMES BACK: the band is one narrow column again. That is a layout debt to pay
-         in CSS, not with restated copy - paying it with copy is what produced this. The
-         stylesheet already handles it: .sum-stack:not(:has(.sum-col + .sum-col)) exists. -->
-    </div>
-    </div>
-  </section>
 
   <!-- scroll cue — just the hand-drawn arrow; appears after the reveal, fades on first scroll -->
   <div class="scroll-cue" aria-hidden="true">
@@ -2766,7 +2366,17 @@
 <span class="ki ki-flagup" aria-hidden="true"><svg viewBox="-8 -8 128 124" fill="none" stroke-linecap="round" stroke-linejoin="round"><path data-si-draw pathLength="1" d="M22 108 L28 10" stroke="var(--ki-ink,var(--ink))" stroke-width="3.4"/><path data-si-draw pathLength="1" d="M28 10 L90 22 L34 46 Z" stroke="var(--coral-ink)" stroke-width="3"/><path data-si-draw pathLength="1" d="M38 20 C48 24 56 20 66 24 M36 32 C46 36 54 32 64 36" stroke="var(--coral-ink)" stroke-width="2.2"/><path data-si-draw pathLength="1" d="M12 108 L40 108" stroke="var(--ki-ink,var(--ink))" stroke-width="3"/><path data-si-draw pathLength="1" d="M106 90 L108 30 M96 42 L108 30 L118 42" stroke="var(--coral-ink)" stroke-width="3.2"/><g class="ki-sat"><path data-si-draw pathLength="1" d="M6 53 C7 57 9 59 13 60 C9 61 7 63 6 67 C5 63 3 61 -1 60 C3 59 5 57 6 53 Z" stroke="var(--schoolbus)" stroke-width="2"/><circle cx="80" cy="100" r="2.2" fill="var(--lazuli)"/><circle cx="88" cy="95" r="1.9" fill="var(--lazuli)"/><circle cx="93" cy="104" r="2.1" fill="var(--schoolbus)"/></g></svg></span></span></p>
         </li>
       </ol>
-      
+      <!-- The mid-page door, moved here 2026-09-16 from the retired band: a reader who has just
+           read the five rows knows what they are signing up for. Kurtis is the proof under it. -->
+      <div class="sht-cta">
+        <p class="loop-cta"><a class="btn" href="https://app.drex.style/welcome">Sign up <span class="arr">&rarr;</span></a><span class="ki ki-nag" aria-hidden="true"><svg viewBox="-10 -8 120 124" fill="none" stroke-linecap="round" stroke-linejoin="round"><path data-si-draw pathLength="1" d="M31 26 C31 20 35 17 41 17 L62 18 C68 18 71 22 70 28 L66 98 C66 104 62 107 56 107 L36 106 C30 106 27 102 28 96 Z" stroke="var(--ki-ink,var(--ink))" stroke-width="3.4"/><path data-si-draw pathLength="1" d="M42 100 L52 100 M36 40 L60 41 M35 52 L55 53 M35 64 L52 65" stroke="var(--ki-ink,var(--ink))" stroke-width="2.2"/><path data-si-draw pathLength="1" d="M18 34 C12 44 12 56 18 66 M9 28 C1 42 1 58 9 72 M82 44 C88 54 88 66 82 76 M91 38 C99 52 99 68 91 82" stroke="var(--coral-ink)" stroke-width="2.8"/><path data-si-draw pathLength="1" d="M60 4 L88 2 C94 2 97 5 96 11 L95 22 C95 27 92 29 86 29 L76 29 L68 36 L70 29 L64 29 C59 29 57 26 58 21 Z" stroke="var(--coral-ink)" stroke-width="2.8"/><path data-si-draw pathLength="1" d="M73 8 L72 18 M80 8 L79 18" stroke="var(--coral-ink)" stroke-width="3.2"/><circle cx="72.5" cy="23" r="1.8" fill="var(--coral-ink)"/><circle cx="79.5" cy="23" r="1.8" fill="var(--coral-ink)"/><g class="ki-sat"><path data-si-draw pathLength="1" d="M-2 93 C-1 97 1 99 5 100 C1 101 -1 103 -2 107 C-3 103 -5 101 -9 100 C-5 99 -3 97 -2 93 Z" stroke="var(--schoolbus)" stroke-width="2"/><circle cx="86" cy="104" r="2.2" fill="var(--lazuli)"/><circle cx="94" cy="99" r="1.9" fill="var(--colorado)"/><circle cx="99" cy="108" r="2.1" fill="var(--schoolbus)"/></g></svg></span></p>
+        <figure class="ed-proof">
+          <a class="ed-proof-link" href="https://app.drex.style/z/6f886428-a9eb-40b0-9cbf-60f4ae677992" target="_blank" rel="noopener" aria-label="Read the Penmanship zine Kurtis made a page for &mdash; opens on Drex">
+          <img src="assets/zines/penmans-drill.jpg" width="600" height="731" loading="lazy" decoding="async" alt="A hand resting on a notebook page filled with rows of pointed-pen drill strokes in blue ink." />
+          <figcaption>Kurtis had never done this. He made one page. Now he runs the club. <span class="ed-proof-go">read it &rarr;</span></figcaption>
+          </a>
+        </figure>
+      </div>
     </div>
   </section>
 
@@ -3384,8 +2994,11 @@
            an earlier cut left an empty <p class="ed-sub"> behind and .ed-sub-3::before kept
            drawing a tick with nothing after it. The element was deleted outright this time -
            the only "ed-sub" left in this document is comment prose. -->
-      <h2 class="slab"><span class="ki-anchor">Every zine is a new <span class="ul">challenge</span><span class="stop">.</span><!-- KEY ILLUSTRATION - THE FLAG, 2026-09-08. A challenge is a flag somebody plants; this one is planted at the heading, and the same flag goes UP at the end of #showtell's spine ("...and the next challenge goes up") so the two beats share a glyph. Colorado = CHALLENGE. -->
-<span class="ki ki-flag" aria-hidden="true"><svg viewBox="-8 -8 116 124" fill="none" stroke-linecap="round" stroke-linejoin="round"><path data-si-draw pathLength="1" d="M22 108 L28 10" stroke="var(--ki-ink,var(--ink))" stroke-width="3.4"/><path data-si-draw pathLength="1" d="M28 10 L96 22 L34 46 Z" stroke="var(--coral-ink)" stroke-width="3"/><path data-si-draw pathLength="1" d="M38 20 C48 24 56 20 66 24 M36 32 C46 36 54 32 64 36" stroke="var(--coral-ink)" stroke-width="2.2"/><path data-si-draw pathLength="1" d="M12 108 L40 108" stroke="var(--ki-ink,var(--ink))" stroke-width="3"/><g class="ki-sat"><path data-si-draw pathLength="1" d="M92 53 C93 57 95 59 99 60 C95 61 93 63 92 67 C91 63 89 61 85 60 C89 59 91 57 92 53 Z" stroke="var(--schoolbus)" stroke-width="2"/><circle cx="70" cy="96" r="2.2" fill="var(--lazuli)"/><circle cx="78" cy="91" r="1.9" fill="var(--lazuli)"/><circle cx="83" cy="100" r="2.1" fill="var(--schoolbus)"/></g></svg></span></span></h2>
+      <!-- ~~Every zine is a new challenge.~~ 2026-09-16 night: the page had three heads on "challenge"
+           (the H1, "One challenge at a time.", this). The shelf IS the show-and-tells, which is the
+           fold link's noun, the nav's and the closing door's; now it says so. The flag key
+           illustration went with the old word (a flag meant "challenge"). -->
+      <h2 class="slab">The <span class="ul">show-and-tells</span><span class="stop">.</span></h2>
     </div>
 
     <!-- ============ THE ISSUE PLATE — eight real published issues ============
@@ -3601,40 +3214,10 @@
              The small line is doing the work the retired rotator did: it is the only
              place left that says you can START one, and that it can be anything. It
              is static — the rotator was caught mid-word 23% of the time. -->
-        <div class="zc-tag">
-          <!-- A GLITTER MARK, DRAWN TWICE. Two four-point stars in the same place, one
-               hidden at a time on a step animation — the two-frame trick the rest of the
-               page's boil uses, applied to a doodle instead of an edge. It is the only
-               thing in the fold that moves once the cut is over, which is the point:
-               motion is reserved for the call to action (see the note at :7040). -->
-          <span class="zc-tag-spark" aria-hidden="true">
-            <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-              <g class="sp-a"><path d="M13 2.6c.9 5.4 4.1 8.5 9.6 9.4-5.5.9-8.7 4-9.6 9.4-.9-5.4-4.1-8.5-9.6-9.4 5.5-.9 8.7-4 9.6-9.4Z"/><path d="M21.4 18.4c.4 2.2 1.6 3.4 3.8 3.8-2.2.4-3.4 1.6-3.8 3.8-.4-2.2-1.6-3.4-3.8-3.8 2.2-.4 3.4-1.6 3.8-3.8Z"/></g>
-              <g class="sp-b"><path d="M13.4 3.4c.7 5.6 3.8 8.8 9.2 9.8-5.4 1.1-8.4 4.3-9.2 9.6-1.1-5.3-4.3-8.4-9.8-9.2 5.4-1.1 8.6-4.4 9.8-10.2Z"/><path d="M4.6 17.6c.3 2.3 1.5 3.6 3.7 4.1-2.2.3-3.4 1.5-3.9 3.7-.3-2.2-1.4-3.4-3.6-3.9 2.2-.4 3.4-1.6 3.8-3.9Z"/></g>
-            </svg>
-          </span>
-          <a class="zc-tag-cta" href="https://app.drex.style/welcome">
-            <span class="zc-tag-note">start a club for what you make</span>
-            <span class="zc-tag-line">Sign up<svg class="zc-tag-arr" viewBox="0 0 34 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 7.6c8.4-1.5 17.6-2 30-1.2"/><path d="M25.6 1.9c2.4 1.9 4.2 3.4 5.9 4.5-2 1.2-3.9 2.6-5.6 4.6"/></svg></span>
-          </a>
-          <!-- THE TERMS COME WITH THE DOOR. They were the coupon's own fine print and
-               they belong wherever the door is: price and access are the first two
-               things a wary reader looks for, and they are useless a column away from
-               the thing they qualify. Keeping them in the card was ALSO what killed
-               the layering — the copy column ended within 5px of the plate's foot, so
-               the paper had nothing to stop above. Out of the card, the note ends
-               under the sub and the magazine lies across its bottom edge, which was
-               the whole point.
-               A <div>, not an <a>: "Already invited?" is a second destination, and a
-               link inside a link is not a thing. The action is its own anchor. -->
-          <!-- ~~"Invite-only while we're small."~~ CUT 2026-09-05, the day registrations opened.
-               The doors moved from the letters waitlist to app.drex.style/welcome, so a gate
-               sentence under a sign-up button is a retraction of the button. The price line
-               stays: free is still true and it is still the first thing a wary reader looks for.
-               "Already invited?" STAYS - the invited/ page is still live and the old invite
-               links still land on it. -->
-          <p class="zc-tag-fine">It&rsquo;s free. No way to pay us yet. <a href="invited/">Already&nbsp;invited?</a></p>
-        </div>
+        <!-- ~~.zc-tag (start a club for what you make / Sign up / It's free. No way to pay us yet. /
+             Already invited?)~~ CUT 2026-09-16 night: a fourth Sign up, inside a shelf, and
+             .zc-tag{display:none} at :9470 had already hidden it at every width. The price line
+             lives on the closing door. -->
       </div>
     </div>
 
@@ -4315,18 +3898,9 @@
         </article>
 
         <!-- Instagram -->
-        <article class="paper card" id="instagram">
-          <span class="sheet"></span>
-          <span class="tape c" style="left:14px;top:-14px;transform:rotate(-7deg)"></span>
-          <div class="inner">
-            <h3>Instagram</h3>
-            <p>The people, the zines in progress.</p>
-            <div class="foot">
-              <a class="btn ink" href="https://instagram.com/drexclubs">Follow along <span class="arr">&rarr;</span></a>
-              <span class="url">@drexclubs</span>
-            </div>
-          </div>
-        </article>
+        <!-- ~~#instagram door (Follow along -> @drexclubs)~~ CUT 2026-09-16 night. Two doors: join, or
+             read. A stranger at the foot of the page is deciding between those; a follow is the
+             weakest ask on the page and it split the row. Instagram stays in the nav and footer. -->
 
         <!-- Demo -->
         <article class="paper card" id="demo">
