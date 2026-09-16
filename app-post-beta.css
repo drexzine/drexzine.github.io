@@ -811,8 +811,11 @@ html.sealed .envelope.lit-tape .hero-reel .hero-clip{opacity:1;transform:transla
 .splay .card:nth-child(3){transform:rotate(-2.2deg)}
 @media(max-width:480px){.splay{padding-inline:var(--s-2)} .splay .card,.crew .polaroid{transform:rotate(0)} .tape{width:92px;height:26px}}
 .splay .card{transition:transform .18s ease}
-.splay .card:hover{transform:rotate(0) translateY(-7px);z-index:6}
-.splay .card:hover>.sheet{box-shadow:13px 14px 0 0 var(--ink)}
+/* ~~.splay .card:hover{transform:rotate(0) translateY(-7px);z-index:6}~~
+   ~~.splay .card:hover>.sheet{box-shadow:13px 14px 0 0 var(--ink)}~~ CUT 2026-09-16. A door card
+   is not a link; its BUTTON is. The 09-08 review: an item moving on hover tells people it is
+   clickable, and when it is not "they get frustrated, and when people are frustrated they leave".
+   The button still straightens on hover (.btn:hover), which is the clickable thing moving. */
 .card>.sheet{transition:box-shadow .18s ease}
 
 /* ---------- how a Circle works = the 5-beat loop, named + sequenced ---------- */
@@ -1387,7 +1390,8 @@ html[data-tier="lite"] .craftboard::before{filter:none;animation:none}
 .vs-card{position:relative;width:min(380px,100%);transition:transform .18s ease}
 .vs-card.vs-chat{transform:rotate(-1.6deg)}
 .vs-card.vs-circle{transform:rotate(1.6deg)}
-.vs-card:hover{transform:rotate(0) translateY(-6px);z-index:5}
+/* ~~.vs-card:hover{transform:rotate(0) translateY(-6px);z-index:5}~~ CUT 2026-09-16: neither
+   figure is a link. Same rule as .splay .card above. */
 .vs-card .paper{height:100%}
 /* the chat column reads greyed-out — the life has gone out of it */
 .vs-card.vs-chat .inner{color:rgba(65,77,87,.62)}
@@ -9575,14 +9579,20 @@ html[data-tier="lite"] .zc-tag-spark svg{animation:none}
    THE FULL STOP IS STILL GRASS AND IS NOT DECIDED HERE - page-wide decorative-green, flagged. */
 .summary-band .sum-head h2/* The clause ends in its own beat: the stop was grass-deep against a lazuli-deep run,
    the only place on the page where two beat hues touch with no gap. 4.58:1 measured, large. */
-.sum-say .say-tell .stop{color:var(--lazuli-deep)}
+/* 2026-09-16: ONE HIGHLIGHT PER BLOCK. The 09-08 review (the brand designer, on the old
+   #what-you-get card): "pick one thing, highlight that, leave the rest... if everything's
+   highlighted, nothing's highlighted". This head wore three: the School Bus swipe, a coral
+   clause and a lazuli full stop. The swipe stays (it is the Club hour beat and the founder's
+   09-01 ask was that line), the other two are ink. The three-beat colour argument above is
+   kept as history; do not bring the coral or the lazuli back without a new render finding. */
+.sum-say .say-tell .stop{color:var(--ink)}
 .sum-say{max-width:36ch;line-height:1.04}
 .sum-say .say-l{display:block;width:fit-content;margin-inline:auto;
   transform:translateX(var(--sx,0)) rotate(var(--sr,0deg))}
 .sum-say .say-l+.say-l{margin-top:.13em}
 .sum-say .say-lead,.sum-say .say-mark,.sum-say .say-chal,.sum-say .say-beat{white-space:nowrap}
 .sum-say .say-hour{--sr:-1.2deg;--sx:-.3rem}
-.sum-say .say-chal{--sr:.9deg;--sx:1.15rem;color:var(--coral-ink)}
+.sum-say .say-chal{--sr:.9deg;--sx:1.15rem}   /* was --coral-ink; ink since 2026-09-16, see below */
 .sum-say .say-tell{--sr:-.5deg;--sx:-.15rem}
 .sum-say .say-mark{color:#4A3410}                        /* never --ink on a School Bus fill */
 .sum-say .say-mark::before{background:var(--schoolbus)}  /* NOT --happy - see above */
@@ -12641,3 +12651,17 @@ h2.slab{letter-spacing:-.01em}
 .showtell .ask-l:first-child{transform:rotate(-.8deg)} .showtell .ask-l:last-child{transform:rotate(.7deg)}
 .showtell .ask-who{display:block;font-family:var(--f-mono);font-weight:700;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;margin-bottom:.25rem;color:var(--grass-deep)}
 @media (max-width:640px){ .showtell .ask{grid-template-columns:1fr} }
+
+/* ==== 2026-09-16, the pass over the 09-08 feedback (see LOOP-FINDINGS.md) ================ */
+/* The You card in #showtell is four lines, one idea each (the markup has the argument). */
+.showtell .ask-line{display:block}
+/* Pile captions are hidden on phones, ALL of them. "MOBILE, take 6" above re-shows the side
+   captions with :nth-child(n+6) figcaption{display:block}, which outranks the plain
+   max-width:600 hide near the .ed-proof rules, so "streetwear" and "menswear" were peeking in
+   at the fold's edges as cut-off half-words at 360-600. Same specificity, later in the file. */
+@media (max-width:600px){ .hero-pile .hp:nth-child(n) figcaption{display:none} }
+/* The closing doors' widest label ("See the show-and-tells ->") broke onto two lines inside
+   the 318px card at every laptop width. Tracking .12em -> .08em brings it to 253px, inside
+   the card's 285px content box; below 420 the card is narrower than that and it may wrap. */
+.doors .btn{letter-spacing:.08em}
+@media (min-width:420px){ .doors .btn{white-space:nowrap} }

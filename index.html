@@ -285,6 +285,10 @@
      in _shotgun-og/r6-A.html, which does not exist here (checked 2026-09-07 - no such
      directory). Whoever re-renders v7 must change the card, this alt and the file name in
      og:image / twitter:image in ONE commit, exactly as the rule below says.
+     RE-CUT AGAIN 2026-09-16: the string below described the v5/v6 pixels ("Don't waste your
+     talents." / "Get accountable by making a magazine together.") for a day after v7 was
+     rendered with the new head. It now describes v7. No em dash in it either, even though the
+     head-string rule does not cover alt: the founder's rule is no em dashes anywhere.
      RE-CUT 2026-09-07 WITH THE PIXELS. This string is pinned to assets/og-v7.png, not
      to the fold - it changes when and only when that image is re-rendered, which happened
      twice today (v5, then v6 after a design pass: no coral kicker, bigger type, no domain
@@ -294,7 +298,7 @@
      phrase this page may never print. A rule that greps index.html does not grep a PNG.
      Em dashes are FINE here and nowhere else in the head: this is alt text, not a head
      string; the no-em-dash rule covers title/description/OG-title/twitter strings. -->
-<meta property="og:image:alt" content="A torn cream sheet on a desk. It reads &ldquo;Don&rsquo;t waste your talents.&rdquo; in a bold italic typewriter face, over the line &ldquo;Get accountable by making a magazine together.&rdquo;, with the drex wordmark beneath. Pinned to the right are three real published issues &mdash; Silk Road 001, Office Attitude, and Interactive Zine." />
+<meta property="og:image:alt" content="A torn cream sheet on a desk. It reads &ldquo;Challenge your talents.&rdquo; in a bold italic typewriter face, the word talents in green, over the line &ldquo;Do creative challenges with a club.&rdquo;, with the drex wordmark beneath. Pinned to the right are three real published zines: Silk Road 001, Office Attitude, and Interactive Zine." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="drex. Challenge your talents." />
 <meta name="twitter:description" content="Challenge your talents. A club sets a challenge. You meet until it's done. Then it's show-and-tell: everyone's work in one zine, online or in person." />
@@ -480,7 +484,7 @@
      (Not spelled out as a literal tag anywhere in this file, even inside a comment,
      so that no crawler or regex-based tool can mistake the note for the directive.)
      ============================================================================ -->
-<link rel="stylesheet" href="app-post-beta.css?v=166" />
+<link rel="stylesheet" href="app-post-beta.css?v=167" />
 <script>
   // Mark JS, and SEAL the hero envelope before first paint (no FOUC) — but only
   // when motion is allowed. reduced-motion shows the hero normally. A failsafe
@@ -2372,8 +2376,17 @@
              caption, which really is a zine title - the exact failure that comment records and
              rejects. The founder's brief writes it "Snap a Chinatown story."; do not restore the
              capital S or the quote marks from it. "club" stays lowercase. -->
+        <!-- 2026-09-16, the readability pass over the 09-08 feedback. The You card is the page's
+             answer to "how much of my time?" (the illustrator's blocker, the DJ's yes), so it has
+             to be read by someone who reads 20% of the words. It was one paragraph of four ideas
+             with a comma and a hyphen compound in it ("A short meet-up every week or so, online or
+             in person."); the skimmer lint tldr'd it as "too many ideas at once". Now four lines,
+             one idea each, no commas. "meetup" is one word so the page keeps its one hyphen
+             compound (show-and-tell). "Online or in person." is the founder's line and stays.
+             NO NUMBER: the code has no default challenge length or meeting length (product-facts
+             §4), and the DJ's "4 weeks / 5 people / 7 days" is a pitch, not the product. -->
         <div class="ask">
-          <p class="ask-l"><b class="ask-who">You</b> One challenge at a time. A short meet-up every week or so, online or in person. Add your page any day.</p>
+          <p class="ask-l"><b class="ask-who">You</b> <span class="ask-line">One challenge at a time.</span> <span class="ask-line">A short meetup every week or so.</span> <span class="ask-line">Online or in person.</span> <span class="ask-line">Add your page any day.</span></p>
           <p class="ask-l"><b class="ask-who">Your host</b> Sets the challenge and when you meet. Drex handles the rest.</p>
         </div>
         <p class="sht-sub">Here&rsquo;s <b>Photo Phloor</b> doing one. The challenge: snap a Chinatown story.</p>
@@ -2382,7 +2395,7 @@
         ~~THE DECK~~ DELETED 2026-09-01 (Sue), with the eyebrow and the h2 above it. Two of
              its three jobs are done elsewhere now - the head names the club, and the spine below
              IS the worked example - and its last two words were false: "Their first." contradicts
-             row 04's own caption, which calls [ 3 A M, 2 0 0 1 ] "their last issue". That is the
+             row 04's own caption, which calls [ 3 A M, 2 0 0 1 ] "their last issue" (since 2026-09-16 "their latest zine"). That is the
              tail of the expired worked example (LOOP-FINDINGS K-3) leaving the page.
         TWO BECOMINGS, and that is the whole shape: the people became friends, the blank page
              became a zine. It is the eyebrow's "friends+work" split said again one rank down, so the
@@ -2702,7 +2715,9 @@
                   <a class="zc-open" href="https://app.drex.style/z/30412d80-3a34-46f8-82ad-ef17877a2856" target="_blank" rel="noopener" aria-label="Read [ 3 A M, 2 0 0 1 ], the published issue from Photo Phloor &mdash; opens the zine"></a>
                 </div>
               </div>
-              <figcaption>&ldquo;[ 3 A M, 2 0 0 1 ]&rdquo; &mdash; their last issue</figcaption>
+              <!-- 2026-09-16: was "“[ 3 A M, 2 0 0 1 ]” — their last issue". The em dash goes (none anywhere,
+                   founder) and the noun follows the page: every other line here says "zine". -->
+              <figcaption>their latest zine: &ldquo;[ 3 A M, 2 0 0 1 ]&rdquo;</figcaption>
             </figure>
           </div>
         </li>
@@ -2999,29 +3014,16 @@
 
     
 
-    <!-- THE WORK ITSELF, moved up from #long-game to sit directly under the heap. The heap says
-         WHO is using Drex; these say WHAT they made, and a reader who has just been told
-         "baristas, models, letterers" is one scroll from a zine they can open. They
-         were eight screens lower, under "The same people. Issue after issue.", where they were
-         arguing for the long game rather than for the proof. .zine-pair.lg-feature was scoped
-         .longgame in the stylesheet; that selector is unscoped in app-post-beta.css so it keeps its
-         centring here. .lg-books and .zine-pair were already unscoped. -->
-      <!-- featured zine proof: the made-by-hand pair (moved from the old #zine section) -->
-      <div class="zine-pair lg-feature">
-        <figure class="zine-card hand">
-          <div class="zine-duo">
-            <a class="zpola is-zine zbook" href="https://app.drex.style/z/b33a8293-454c-4a29-9717-d39a16a58c41" target="_blank" rel="noopener" aria-label="Flip through a real club issue, &ldquo;Drawing at the Cafe&rdquo;">
-              <span class="ph"><img src="assets/zine-handmade.webp" alt="A real Drex club issue, &ldquo;Drawing at the Cafe&rdquo; &mdash; a taped photo of a maker holding her sketch, with the creative challenge highlighted." loading="lazy" width="700" height="955" /></span>
-              <!-- -3: the title is BURNT INTO THE PHOTOGRAPH directly above this caption in 20px
-                   typewriter caps, and the <a>'s aria-label still carries it in full. The picture
-                   says what, the caption says the verb, and "read it ->" is the same door idiom the
-                   postcards above it use. -->
-              <span class="zpola-cap">read it <span class="arr">&rarr;</span></span>
-            </a>
-          </div>
-        </figure>
-      </div>
-
+    <!-- ~~"Drawing at the Cafe", the hand-made zine card (.zine-pair.lg-feature / .zbook)~~ CUT
+         2026-09-16. It was the FOURTH example under a head that names three, and the 09-08 review
+         (the brand designer) set the ceiling at three real-life examples, then stop. What it
+         bought is now bought elsewhere: it was the one example card that was both animated and
+         clickable, which she liked, and since 09-16 all three maker cards above are doors too
+         ("Read the zine ->"), so its advantage is gone. The cut-outs craft it stood for is on
+         the shelf below ("Interactive Zine"). The markup is in git (a7290fb and earlier) and
+         .zbook's CSS stays in app-post-beta.css: the archived index-*.html pages carry it.
+         REJECTED: swapping it for one of the three maker cards. Those are named people with a
+         craft and a quote, which is the proof that converts; this was a cover. -->
       <!-- more issues off the shelf, same book style, small -->
       
 
@@ -3133,7 +3135,10 @@
          .proof-cta IS ITS OWN SCOPED RULE, not .loop-cta reused: `.loopwrap > .loop-cta` is
          child-scoped on purpose because five archived index-*.html carry .loop-cta, and
          unscoping it to reach here would reach them too. -->
-    <p class="proof-cta"><a class="btn read" href="https://app.drex.style/show-and-tell">See the show-and-tells <span class="arr">&rarr;</span></a></p>
+    <!-- ~~.proof-cta "See the show-and-tells ->"~~ CUT 2026-09-16 with the cafe card. The shelf
+         (#zines) starts one scroll below this line and IS the show-and-tells, and the closing
+         door (#demo) carries the same button; two identical buttons a screen apart was the L8
+         complaint (two links for one thing) in a new place. -->
   </section>
 
   <section class="zshelf" id="zines" aria-label="Eight published issues, and the pages inside them">
@@ -3608,7 +3613,7 @@
                stays: free is still true and it is still the first thing a wary reader looks for.
                "Already invited?" STAYS - the invited/ page is still live and the old invite
                links still land on it. -->
-          <p class="zc-tag-fine">It&rsquo;s free &mdash; no way to pay us yet. <a href="invited/">Already&nbsp;invited?</a></p>
+          <p class="zc-tag-fine">It&rsquo;s free. No way to pay us yet. <a href="invited/">Already&nbsp;invited?</a></p>
         </div>
       </div>
     </div>

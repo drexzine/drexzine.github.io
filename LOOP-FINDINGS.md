@@ -701,3 +701,63 @@ which needs a CUT ASSET and carries burnt-in browser chrome. Needs a screen reco
 `innerWidth=500` while writing a 390px PNG. Use a 390px `<iframe>` in a 500px host page.
 **P-9 · the shared machine served another session's page on this pass's port.** `curl | grep` for
 a string only YOUR build contains before every screenshot run.
+
+---
+
+## 2026-09-16 · pass 2 over the 09-08 feedback (branch `landing/communicate-the-product`)
+
+Source: `~/Projects/Drex/feedback/` (six reviewers, two cultivator calls, one host candidate's
+questions, `analysis/*.md`). Measured with `textstat` over every visible string (extractor: strip
+comments/script/style/svg, split on block tags) and a headless render at 360/390/1280/1366×650/1440×790.
+
+**M-3 · 2026-09-16 · baseline vs end of pass, same extractor.** Visible words 456 → 454. Page height
+at 390: 8850 → 8445 (old `index-2026-09-15.html`: 11716). First screen: 43 words, every line grade ≤ 5.
+Zero console errors. Head strings ×3 identical, no em dash.
+
+**R-30 · SHIPPED · the summary band wears ONE highlight.** "We make sure people show up, know what's
+up, and put their work up." had a School Bus swipe, a coral clause and a lazuli stop (the founder's
+09-01 three-colour ask). The 09-08 review: "pick one thing, highlight that, leave the rest". The swipe
+stays (Club hour beat); the rest is ink. Words untouched. The skimmer lint still calls the line
+"trying too hard"; it is the founder's line and was not re-litigated.
+
+**R-31 · SHIPPED · the fourth example is gone.** The "Drawing at the Cafe" card (`.zine-pair.lg-feature`)
+sat under a head that names three, and the review set the ceiling at three. Its edge (animated AND
+clickable) is now true of all three maker cards. The `.proof-cta` "See the show-and-tells" button went
+with it: the shelf one scroll down IS the show-and-tells and the closing door has the same button.
+REJECTED: swapping it for a maker card (named person + craft + quote is the proof that converts).
+REJECTED: cutting the shelf instead (it is the only picture answer to "what do I end up with?").
+
+**R-32 · SHIPPED · no lift on hover for things that are not links.** `.splay .card:hover` (the three
+doors) and `.vs-card:hover` (group chat vs club). Buttons still straighten. `.mpol:hover` stays: the
+whole maker card is a door.
+
+**R-33 · SHIPPED · the You card is four lines, one idea each.** Was one paragraph with a comma and
+"meet-up". Now: One challenge at a time. / A short meetup every week or so. / Online or in person. /
+Add your page any day. No number (none exists in the code; product-facts §4).
+
+**K-6 · FIXED · `og:image:alt` described v5, not v7.** It said "Don't waste your talents." over "Get
+accountable by making a magazine together." while the PNG says "Challenge your talents." over "Do
+creative challenges with a club." Re-pinned to the pixels.
+
+**K-7 · FIXED · pile captions leaked at 360-600.** "MOBILE, take 6" re-shows the side captions with
+`:nth-child(n+6) figcaption{display:block}`, outranking the plain hide; "streetwear"/"menswear"
+peeked in as cut-off half-words at the fold's edges. Hidden at equal specificity, later in the file.
+
+**K-8 · FIXED · two em dashes in visible copy** (row-04 caption, shelf tag fine print) and the
+closing-door button wrapping inside its card at every laptop width.
+
+### §O — still open after this pass
+**O-12 · "Honor your talents." (pre-cut hook, footer) vs "Challenge your talents." (H1, titles).**
+Founder's 09-07 tagline call; not moved. A sealed reader meets "Honor" one drag before "Challenge".
+**O-13 · "creative" on the OG card** ("Do creative challenges with a club.") while the word is struck
+everywhere else and the fold rotator that licensed it is gone. Founder's slot; flagged, not changed.
+**O-14 · marginalia density.** Every section carries 6–10 doodles; the 09-08 review's "too busy,
+especially on mobile" is 4 of 6 reviewers. Founder call (09-08, "littered"); left as is.
+**O-15 · no number for time.** The skimmer's blocker is unchanged: "every week or so" is not a
+number. A number needs the product defaults and the pitch to agree first (plan §6).
+**O-16 · `/host` page.** Needed (four host questions, one line on the page); blocked on paid stance,
+ownership terms and distribution. Draft at `~/Projects/Drex/feedback/analysis/host-page.md`.
+**O-17 · real app screenshots for the system section** (needs a logged-in dogfood session) and a
+"Find a challenge" door (drexzine/backend#131). Unchanged from the 09-16 morning pass.
+**O-18 · "inbox and texts"** promises SMS; live per the founder on 09-05, gated by prod config in
+code. Left; verify on prod before pushing a fresh sign-up cohort at it.
