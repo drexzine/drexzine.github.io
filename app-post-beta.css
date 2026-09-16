@@ -12665,3 +12665,31 @@ h2.slab{letter-spacing:-.01em}
    the card's 285px content box; below 420 the card is narrower than that and it may wrap. */
 .doors .btn{letter-spacing:.08em}
 @media (min-width:420px){ .doors .btn{white-space:nowrap} }
+
+/* ==== 2026-09-16, evening: the founder read the branch ========================================
+   "too much text and bad typography and not enough adherence to the brand guidelines". Three
+   type moves, all straight out of DESIGN.md's six roles. */
+/* THE DECK IS THE INTRO LINE UNDER A HERO, SO IT IS BITTER ITALIC ("Intro body (.lede): Bitter
+   Italic, the large italic opening line under a hero"). It was Pitch Sans mono at 22px, a label
+   face carrying three sentences; the founder: "are we really supposed to use that monospaced as
+   font?" No. The three lines still never wrap (.rot-dl nowrap); Bitter is narrower than the mono,
+   so the 320 column is safer, not tighter. */
+.hero-card .ed-deck.ed-loop{font-family:var(--f-body);font-style:italic;font-weight:400;
+  font-size:clamp(1.22rem,1.9vw,1.5rem);line-height:1.42;letter-spacing:0}
+@media (max-width:430px){ .hero-card .ed-deck.ed-loop{font-size:1.12rem} }
+/* "We nag for you..." is the band's intro line, not a caption: Bitter italic, not Birdie.
+   Birdie is eyebrows, captions and data labels, "never body". */
+.loop-tool{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.08rem,1.55vw,1.32rem);line-height:1.45}
+.loop-tool b{font-weight:600}
+/* Kurtis's scrap, now under the band's Sign up. Same paper scrap as it was in the fold. */
+.loopwrap .ed-proof{display:flex;gap:.7rem;align-items:center;max-width:34ch;margin:1.1rem auto 0;
+  padding:.5rem .7rem;background:var(--paper);border:2px solid var(--ink);box-shadow:4px 5px 0 0 var(--ink);
+  transform:rotate(-1.2deg);text-align:left}
+.loopwrap .ed-proof img{width:56px;height:56px;object-fit:cover;border:2px solid var(--ink);border-radius:2px;flex:none;background:#fff}
+.loopwrap .ed-proof figcaption{margin:0;font-family:var(--f-hand);font-size:1rem;line-height:1.25;color:var(--ink)}
+.loopwrap .ed-proof-link{display:flex;gap:.7rem;align-items:center;color:inherit;text-decoration:none}
+.loopwrap .ed-proof-go{white-space:nowrap;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--lazuli-deep)}
+.loopwrap .ed-proof-link:hover .ed-proof-go{text-decoration-color:var(--grass-deep)}
+/* .loopwrap > .loop-tool (the static layout, two classes) outranks the plain selector above and
+   still said Birdie; this is the same intro rank at the winning specificity. */
+.loopwrap > .loop-tool{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.08rem,1.55vw,1.32rem);line-height:1.45}

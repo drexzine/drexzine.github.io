@@ -761,3 +761,15 @@ ownership terms and distribution. Draft at `~/Projects/Drex/feedback/analysis/ho
 "Find a challenge" door (drexzine/backend#131). Unchanged from the 09-16 morning pass.
 **O-18 · "inbox and texts"** promises SMS; live per the founder on 09-05, gated by prod config in
 code. Left; verify on prod before pushing a fresh sign-up cohort at it.
+
+**R-34 · 2026-09-16 evening · SHIPPED on the founder's read of the branch** ("too much text and bad
+typography and not enough adherence to the brand guidelines and cartoon skeuomorphism"):
+- The fold deck is Bitter italic (DESIGN.md: the intro line under a hero), not Pitch Sans mono.
+- The fold has ONE link ("How it works ↓"); the two-link mono line overflowed the card at 390 and in
+  Firefox. Kurtis's scrap moved under the band's Sign up. First screen: 24 words.
+- "We nag for you…" is Bitter italic, not Birdie (Birdie is never body).
+- Cut: the second sentence of "Here's Photo Phloor doing one." and row 02's sub (its caption said it).
+- Cut: every `.cg-collage` prop (pencil, torn cards, yellow card, monitor, stamp, paperclip, smiley) in
+  the hero, the doors and the footer. Visible words 454 → 440.
+- NOT touched, awaiting the founder: the five `.ki` line icons (calendar, nag phone, flags, quote
+  marks), the burger rig with the face, and the JS marginalia (hearts, stars, plus signs, arrows).
