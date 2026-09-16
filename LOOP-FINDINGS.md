@@ -773,3 +773,19 @@ typography and not enough adherence to the brand guidelines and cartoon skeuomor
   the hero, the doors and the footer. Visible words 454 → 440.
 - NOT touched, awaiting the founder: the five `.ki` line icons (calendar, nag phone, flags, quote
   marks), the burger rig with the face, and the JS marginalia (hearts, stars, plus signs, arrows).
+
+**R-35 · 2026-09-16 night · SHIPPED on the founder's second read, with a vision pass over every
+screen at 390 and 1440:**
+- The fold's one link is "See some show-and-tells →" (founder's words), to the app's reading table.
+- The how head is "One challenge at a time." over "Here's Photo Phloor doing one." The two ask cards
+  ("You" / "Your host") are gone; the cadence, mode and host line live on row 02 where they belong.
+- The H1 highlighter was 110px tall on a 49px line (an inline span's box is the font's content area,
+  not the line box): it painted above the card's torn edge and into the deck. `.hl-mark` is
+  inline-block on the line-height now. Measured: band 4px under the cap, 2px under the baseline.
+- `.dd-stack` sheets fan the print's way (+2.9°, +4.4°); before, three sheets turned three ways.
+- The how h2's `.ul` is inline-block so the underline follows "challenge" when the head wraps.
+- Captions: "the zine, so far" and "their latest zine" (titles wrapped/orphaned; the pictures print
+  them). "…and the next one goes up." (the word was two lines up, and "up." orphaned at 390).
+- Scoring pass (synthetic, lint not verdict): clarity reaches 4/5 at the fold's three lines, do-first
+  at the first button, time only at row 02 of the timeline. Cut candidates it named: "A finished
+  thing." (restates the card), the Instagram door, the "then" line. Not cut; founder's call.

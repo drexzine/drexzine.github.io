@@ -12693,3 +12693,22 @@ h2.slab{letter-spacing:-.01em}
 /* .loopwrap > .loop-tool (the static layout, two classes) outranks the plain selector above and
    still said Birdie; this is the same intro rank at the winning specificity. */
 .loopwrap > .loop-tool{font-family:var(--f-body);font-style:italic;font-weight:400;font-size:clamp(1.08rem,1.55vw,1.32rem);line-height:1.45}
+/* THE STACK FANS THE SAME WAY AS THE PRINT (2026-09-16, founder: ".dd-stack is broken"). The
+   print is rotated +1.7deg and the two sheets behind it were rotated .3 and -1.9: three sheets
+   turning in opposite directions, so the back corners stuck out on every side and the pile read
+   as misregistered paper. The sheets now turn the print's way, a little more each, and peek
+   up-left only. There is one .dd-stack on the page; the numbers are its print's. */
+.dd-sheet:nth-of-type(1){transform:rotate(2.9deg) translate(-3px,-6px)}
+.dd-sheet:nth-of-type(2){transform:rotate(4.4deg) translate(-6px,-12px)}
+/* THE H1 BAND WAS 110px TALL ON A 49px LINE (2026-09-16, founder: "the h1 highlighter is going off
+   the card"). .hl-mark is display:inline, so its box is Pitch's content area (ascent+descent ≈
+   2.26em), not the line box, and the band's ::before insets hang off THAT: the band started 7px
+   above the card's torn edge at 1440 and swallowed the deck's first line. inline-block makes the
+   span's box the line box (line-height 1.02 → 49.7px), which is what the .08em/-.04em insets were
+   drawn for. nowrap is already on it, so inline-block changes no line breaks. Re-measured 390 and
+   1440: band top 4px under the cap height, band bottom 2px under the baseline. */
+.hero-card h1.ed-cat .hl.hl-mark{display:inline-block;line-height:1.02;vertical-align:top}
+/* The how head's underline lost its word at 390 (2026-09-16): "One challenge / at a time." wraps
+   inside .ki-anchor, and .ul is display:inline, so its absolute ::after resolved against the
+   anchor's box and painted a 6px tick under "at". inline-block gives "challenge" its own box. */
+.showtell .head h2 .ul{display:inline-block}
