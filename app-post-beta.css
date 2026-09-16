@@ -12582,3 +12582,62 @@ figure.dd-print.dd-zine > figcaption{margin-top:.55rem}
    the dd-anno-url scrap keep the same relationship to the rail they had before. */
 .dd-print.dd-zine{width:78%; margin-left:auto}
 @media(max-width:720px){.dd-print.dd-zine{width:88%}}
+
+/* ---- 2026-09-16: the first screen says what you DO (see docs/feedback in backend: landing-plan.md) ---- */
+.hero-card .ed-deck.ed-loop{font-size:clamp(1.05rem,1.6vw,1.3rem)}
+.hero-card .ed-gloss{margin:.55rem 0 0;font-family:var(--f-body);font-size:var(--fs-body);line-height:var(--lead);color:var(--ink);text-wrap:pretty}
+.hero-card .ed-fact{margin:.25rem 0 0;font-family:var(--f-mono);font-size:.8rem;letter-spacing:.03em;line-height:1.45;color:var(--ink);opacity:.86;text-wrap:pretty}
+.hero-card .ed-fact + .ed-fact{margin-top:.1rem}
+.hero-card .ed-doors{margin:.7rem 0 0;font-family:var(--f-mono);font-size:.82rem;letter-spacing:.06em}
+.hero-card .ed-doors a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--lazuli-deep);text-underline-offset:3px}
+.hero-card .ed-doors a:hover{text-decoration-color:var(--grass-deep)}
+.hero-card .ed-proof{display:flex;gap:.7rem;align-items:center;margin:.9rem 0 0;padding-top:.7rem;border-top:1px dashed rgba(0,0,0,.25)}
+.hero-card .ed-proof img{width:56px;height:56px;object-fit:cover;border:2px solid var(--ink);border-radius:2px;flex:none;background:#fff}
+.hero-card .ed-proof figcaption{margin:0;font-family:var(--f-hand);font-size:1rem;line-height:1.25;color:var(--ink)}
+.showtell .dd-host{max-width:52ch;margin:1.4rem auto 0;font-family:var(--f-body);font-size:var(--fs-body);line-height:var(--lead);text-align:center;text-wrap:pretty}
+@media (max-width:600px){ .hero-pile .hp figcaption{display:none} }
+/* the three loop lines never wrap mid-sentence: size them to the card, not the viewport */
+.hero-card .ed-deck.ed-loop{font-size:clamp(.92rem,1.35vw,1.22rem);letter-spacing:.01em}
+@media (max-width:430px){ .hero-card .ed-deck.ed-loop{font-size:.9rem} .hero-card .ed-fact{font-size:.76rem} }
+/* the loop lines own their column: the old 24ch cap was for the rotator deck */
+.hero-card .ed-deck.ed-loop{max-width:none;font-size:clamp(1rem,1.5vw,1.25rem)}
+.hero-card .ed-deck.ed-loop .rot-dl{white-space:nowrap}
+@media (max-width:430px){ .hero-card .ed-deck.ed-loop{font-size:.95rem} }
+/* the proof line is its own paper scrap, so it reads wherever the card's torn edge lands */
+.hero-card .ed-proof{border-top:0;padding:.5rem .7rem;margin:1rem -2px 0;background:var(--paper);border:2px solid var(--ink);box-shadow:4px 5px 0 0 var(--ink);transform:rotate(-1.2deg)}
+/* with the fact lines gone the deck is the hero's whole sentence: give it room */
+.hero-card .ed-deck.ed-loop{font-size:clamp(1.12rem,1.75vw,1.42rem);line-height:1.38;margin-top:clamp(.8rem,1.6vw,1.1rem)}
+@media (max-width:430px){ .hero-card .ed-deck.ed-loop{font-size:1.02rem} }
+.hero-card .ed-doors{margin-top:.9rem}
+.hero-card .ed-doors a{font-weight:700;text-decoration-thickness:2px;text-decoration-color:var(--ink)}
+/* ---- 2026-09-16 typography + motion pass, from docs/feedback/2026-09-08-landing-thread/README.md ---- */
+/* L9: the "read it" caption was paper-on-paper (measured #FEF6E4 on the card) */
+.zpola-cap{color:var(--ink);font-weight:400}
+/* L4: body copy at weight 300 on textured paper reads grey; 400 is the floor */
+.dd-text p,.sht-sub,.splay .card p,.dd-host,.vs-card .cap,.loop-tool{font-weight:400}
+/* L4: titles read as titles — a touch more size contrast between h2 and body, tighter tracking */
+h2.slab{letter-spacing:-.01em}
+.dd-text h3{font-size:clamp(1.2rem,1.9vw,1.42rem)}
+/* L2: nothing lifts on hover unless it is a link (cards that only CONTAIN a link stay still) */
+.vs-card:hover,.splay .card:hover{transform:none;z-index:auto}
+/* L2: decorative loops off — sparkles and the shuffling sheets behind the zine plate */
+.zc-tag-spark .sp-a,.zc-tag-spark .sp-b,.zc-sheet-2,.zc-sheet-3,.zc-sheet-4,.zc-frame,.zc-tag::before{animation:none!important}
+/* hero links row + the tappable example */
+.hero-card .ed-doors-sep{opacity:.5;margin:0 .25rem}
+.hero-card .ed-proof-link{display:flex;gap:.7rem;align-items:center;color:inherit;text-decoration:none}
+.hero-card .ed-proof-go{white-space:nowrap;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-decoration:underline;text-decoration-color:var(--lazuli-deep);text-underline-offset:3px;margin-left:.3rem}
+.hero-card .ed-proof-link:hover .ed-proof-go{text-decoration-color:var(--grass-deep)}
+/* the two hero text links wrap on phones instead of running off the card */
+.hero-card .ed-doors{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .55rem}
+@media (max-width:430px){ .hero-card .ed-doors-sep{display:none} .hero-card .ed-doors a{display:block} }
+/* L9 for real: #proof painted this caption oats-on-paper; ink wins */
+#proof .zpola.is-zine .zpola-cap{color:var(--ink)}
+/* on phones both hero links share one line above the card's torn edge */
+@media (max-width:430px){ .hero-card .ed-doors{font-size:.7rem;letter-spacing:.03em;flex-wrap:nowrap;white-space:nowrap} .hero-card .ed-doors a{display:inline} .hero-card .ed-doors-sep{display:inline} }
+@media (max-width:370px){ .hero-card .ed-doors{font-size:.64rem;letter-spacing:.02em} }
+/* what it asks of you: two short notes, member and host, before the timeline */
+.showtell .ask{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:64ch;margin:.2rem auto 1.1rem}
+.showtell .ask-l{margin:0;padding:.7rem .85rem;background:var(--paper);border:2px solid var(--ink);box-shadow:4px 5px 0 0 var(--ink);font-family:var(--f-body);font-weight:400;font-size:calc(var(--fs-body) * .95);line-height:1.4;text-wrap:pretty}
+.showtell .ask-l:first-child{transform:rotate(-.8deg)} .showtell .ask-l:last-child{transform:rotate(.7deg)}
+.showtell .ask-who{display:block;font-family:var(--f-mono);font-weight:700;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;margin-bottom:.25rem;color:var(--grass-deep)}
+@media (max-width:640px){ .showtell .ask{grid-template-columns:1fr} }
