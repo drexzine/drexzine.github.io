@@ -167,7 +167,7 @@ function boot() {
   initAttentionCta();               // ported: hero CTA idle "look at me" loop
   initFirecrackerCta(audio);        // ported from the wall: "Join a Circle" click → firecracker → green door
   initFinale();                     // M5: tear off EVERY piece → the site crumples → "we love people like you"
-  initHeroRotate();                 // live again 2026-09-12: the fold DECK's rotator, "clubs to do ___" since 09-15 ("Run a ___ jam" 09-12..09-15; no-op 2026-08-11 .. 09-12)
+  initHeroRotate();                 // live: the fold H1's rotator again since 2026-10-01 ("___ meetup clubs"; it was the DECK's "clubs to do ___" 09-15..10-01, "Run a ___ jam" 09-12..09-15, no-op 2026-08-11 .. 09-12, the H1's 08-10..08-11)
   initZineCarousel();               // section 3's plate: eight real issues, one at a time
   initDomainSlot();                 // the yellow blank in the CTA, on its own clock
   alignDeckToHeadline();            // deck top meets headline top — must run BEFORE the arrow measures

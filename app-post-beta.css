@@ -10873,7 +10873,11 @@ html[data-tier="lite"] #proof.gnd::before{filter:none;background-image:none}
    2026-09-15: THREE LINES AGAIN, but FORCED (.rot-dl), not wrapped: "Online and in-person /
    clubs to do ___ / challenges with." text-wrap:pretty stays inert, because each forced line is
    shorter than the measure (under 360 only because the size rule above makes it so). The
-   three-line rag argument above does not apply to forced lines. */
+   three-line rag argument above does not apply to forced lines.
+   2026-10-01: STILL THREE FORCED LINES, "with homework and / show-and-tell. / Online or in
+   person." (17 / 14 / 20). The rotator moved up into the H1 (index.html, note above the H1),
+   so nothing in the deck changes width any more; the size rule above is kept for the archived
+   folds, not for fit. */
 /* ~~the sub drops a rank so three ranks descend instead of the lower two tying~~
    THERE IS NO THIRD RANK IN THIS FOLD as of 2026-09-07 - .ed-sub is not in
    index.html any more. THE RULE STAYS AND MUST: all seven archived index-*.html
